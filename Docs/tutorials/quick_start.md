@@ -5,10 +5,9 @@
 
 <span class="warnings">These instructions use the developer workflow and developer certificates. Do not use this workflow for production devices.</span>
 
-## Tutorial: Firmware update for an MBL device
-<!--I would rather have these as two, because they give the user quicker wins. I will not fight too hard for this if you feel it's wrong.-->
 
-## Introduction
+
+### Introduction
 
 <!--Well, yes. One needs an introduction.-->
 
@@ -20,7 +19,7 @@ This document contains instructions for building the `master` branch of Mbed Lin
 
 
 
-## Workflow for building Mbed Linux and updating the firmware
+### Workflow for building Mbed Linux and updating the firmware
 
 To build Mbed Linux and do a firmware update over the air, follow these steps:
 
@@ -40,16 +39,16 @@ To build Mbed Linux and do a firmware update over the air, follow these steps:
 1. [Perform a firmware update](#do-update).
 
 
-## <a name="create-working-directory"></a> 2. Create a working directory for the Mbed Linux build
+### 2. Create a working directory for the Mbed Linux build
 The examples in the document use a working directory (`~/mbl`) for the Mbed Linux build.  Create this working directory using the following command:
 ```
 mkdir ~/mbl
 ```
 
-## <a name="get-cloud-credentials"></a> 3. Download Mbed Cloud dev credentials file
+### 3. Download Mbed Cloud dev credentials file
 During the build process, you will need a file that contains the credentials to connect your device to with Mbed Cloud. First create the directory `~/mbl/cloud-credentials`. To create a **credentials C file** (`mbed_cloud_dev_credentials.c`) and download it to your working directory `~/mbl/cloud-credentials`, follow the instructions for [creating and downloading a developer certificate](https://cloud.mbed.com/docs/v1.2/provisioning-process/provisioning-development.html#creating-and-downloading-a-developer-certificate).
 
-## <a name="create-update-resources"></a> 4. Create an Update resources file
+### 4. Create an Update resources file
 Initialize `manifest-tool` settings and generate Update resources by running the following commands:
 ```
 mkdir ~/mbl/manifests && cd ~/mbl/manifests
@@ -57,7 +56,7 @@ manifest-tool init -q -d arm.com -m dev-device
 ```
 This generates a file `update_default_resources.c` that is required during the build process.
 
-## <a name="get-meta-layers"></a> 5. Download the Yocto/OpenEmbedded "meta" layers
+### 5. Download the Yocto/OpenEmbedded "meta" layers
 This data contains the rules for downloading and building code for Mbed Linux.  To download this data, use the following commands:
 
 ```
@@ -67,7 +66,7 @@ repo init -u ssh://git@github.com/armmbed/mbl-manifest.git -b master -m default.
 repo sync
 ```
 
-## <a name="set-up-build-env"></a> 6. Set up the build environment
+### 6. Set up the build environment
 
 You need to configure your build environment for your device, including setting your working directory to the build directory (in this case `~/mbl/mbl-master/build-mbl`). To set up your build environment, use the following command:
 
@@ -96,7 +95,7 @@ cp ~/mbl/cloud-credentials/mbed_cloud_dev_credentials.c ~/mbl/mbl-master/build-m
 cp ~/mbl/manifests/update_default_resources.c ~/mbl/mbl-master/build-mbl
 ```
 
-## <a name="build-mbl"></a> 7. Build Mbed Linux
+### 7. Build Mbed Linux
 
 The build process will create the following files which you will need to use later:
 
@@ -120,7 +119,7 @@ The paths of these files are given in the table below, where `<MACHINE>` should 
 | Full disk image block map | `~/mbl/mbl-master/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-<MACHINE>.wic.bmap` |
 | Root file system archive  | `~/mbl/mbl-master/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-<MACHINE>.tar.xz`   |
 
-## <a name="write-image-and-boot"></a> 8. Write the disk image to your device and boot Mbed Linux
+### 8. Write the disk image to your device and boot Mbed Linux
 
 To enable firmware update, the full disk image contains a partition table and all the partitions required by Mbed Linux, including two root partitions. Only one of the root filesystem partitions is **active** at any one time, and the other is available to receive a new version of firmware during an update. At the end of the update process, the root partition with the new firmware becomes **active** and the other root partition becomes available to receive the next firmware update.  
 
@@ -140,7 +139,7 @@ groups
 ```
 The users might need to log out and log in again before the group membership will take effect for their shell process.
 
-### 8.1. Write the full disk image to a Warp 7 device
+#### 8.1. Write the full disk image to a Warp 7 device
 
 To transfer your disk image to the Warp7's flash device, you must first access the Warp7's serial console. To do this:
 
@@ -230,7 +229,7 @@ To transfer your disk image to the Warp7's flash device, you must first access t
     ```
     The device should now boot into Mbed Linux.
 
-### 8.2. Write the full disk image to a Raspberry Pi 3 device
+#### 8.2. Write the full disk image to a Raspberry Pi 3 device
 
 1. Connect a micro SD card to your PC. You should see the SD card device file in `/dev`, probably as `/dev/sdX` for some letter `X` (e.g. `/dev/sdd`) as well as device files for its partitions `/dev/sdXN` for the same letter `X` and some numbers `N` (e.g. `/dev/sdd1`, `/dev/sdd2`, etc.). In the commands below, `/dev/sdX` should be replaced with the device file name for the SD card _without_ a number at the end. The output of `lsblk` can be useful to identify the name of the SD card device.
 1. Ensure that none of the micro SD card's partitions are mounted by running:
@@ -272,15 +271,15 @@ Use the following instructions to connect the C232HD-DDHSP-0 cable to your Raspb
     * No hardware flow control.
 1. Connect the Raspberry Pi 3's micro USB socket to a USB power supply. It should now boot into Mbed Linux.
 
-## <a name="log-in"></a> 9. Log in to Mbed Linux
+### 9. Log in to Mbed Linux
 
 To log in to Mbed Linux, enter the username `root` with no password.
 
-## <a name="set-up-network"></a> 10. Set up a network connection
+### 10. Set up a network connection
 
 If your device is connected to a network with a DHCP server using Ethernet, then it automatically connects to that network. Otherwise, follow [the instructions](https://github.com/ARMmbed/meta-mbl/blob/master/docs/wifi.md) for setting up wifi in Mbed Linux.
 
-## <a name="check-mbl-cc"></a> 11. Check if the device has connected to Mbed Cloud
+### 11. Check if the device has connected to Mbed Cloud
 
 While the device boots into Mbed Linux, `mbl-cloud-client` should automatically start and connect to Mbed Cloud. You can check whether it has connected by:
 
@@ -292,7 +291,9 @@ If your device hasn't automatically connected to Mbed Cloud, this may occur if n
 /etc/init.d/mbl-cloud-client restart
 ```
 
-## <a name="do-update"></a> 12. Perform a firmware update using the Mbed Cloud Portal
+## Tutorial: Firmware update for an MBL device
+<!--I would rather have these as two, because they give the user quicker wins. I will not fight too hard for this if you feel it's wrong.-->
+### 12. Perform a firmware update using the Mbed Cloud Portal
 
 To perform a firmware update using the Mbed Cloud Portal, follow these steps:
 
@@ -318,7 +319,7 @@ During a firmware update, the update software:
 - Sets the non-running bank to be the running bank next time the device boots.
 - Reboots the device.
 
-### <a name="update2-1"></a> 12.1. Update Step 1: Prerequisites
+#### 12.1. Update Step 1: Prerequisites
 
 Before you upgrade the firmware on the device, make sure you:
 
@@ -327,7 +328,7 @@ Before you upgrade the firmware on the device, make sure you:
 * Know which device partition is active (the running bank),so that you can check the upgrade has been successful.
 * Have installed and initialized the `manifest-tool`.
 
-### <a name="update2-2"></a> 12.2. Update Step 2: Upload a firmware image to Mbed Cloud
+#### 12.2. Update Step 2: Upload a firmware image to Mbed Cloud
 
 To upload your firmware update image to the Cloud:
 
@@ -338,7 +339,7 @@ To upload your firmware update image to the Cloud:
 - Press the **Upload firmware image** button.
 - Copy the firmware image URL. You will need this URL to create the manifest (described in the next section).
 
-### <a name="update2-3"></a> 12.3. Update Step 3: Create a manifest
+#### 12.3. Update Step 3: Create a manifest
 
 To use the manifest-tool to create a manifest for the firmware image:
 
@@ -357,14 +358,14 @@ To use the manifest-tool to create a manifest for the firmware image:
     - The **URL** is the firmware image URL copied to the clipboard in the previous section.
     - The **test-manifest** is the name of the output manifest file.
 
-### <a name="update2-4"></a> 12.4. Update Step 4: Upload the manifest to the Mbed Cloud
+#### 12.4. Update Step 4: Upload the manifest to the Mbed Cloud
 
 To upload the test-manifest to the Mbed Cloud:
 
 - On the Mbed Cloud Portal, from the **Firmware Update** tab, select **Manifests>Upload new manifest**.
 - Give the manifest a name, a description (if required) and select the manifest to use.
 
-### <a name="update2-5"></a> 12.5. Update Step 5: Create a filter for your device
+#### 12.5. Update Step 5: Create a filter for your device
 
 <span class= "notes"> **Note:** the device ID changes each time you flash the device with a new full disk image. The normal firmware update mechanism does not change the device ID.</span>
 
@@ -380,7 +381,7 @@ Before you can configure an update campaign, you need to create a device filter,
 - Click **Add attribute** and select **Device ID**.
 - Paste the Device ID into the Device ID edit box and click **Save Filter**.
 
-### <a name="update2-6"></a> 12.6. Update Step 6: Run an update campaign
+#### 12.6. Update Step 6: Run an update campaign
 
 To create a campaign to update the firmware on a device:
 
@@ -405,7 +406,7 @@ To run your update campaign:
 - When the device comes up, login and verify that the running bank (partition) has changed from that noted in update step 1.
 
 
- #### 12.2.7. Figures
+#### 12.2.7. Figures
 
 <a name="fig1"></a>
 ![fig1](pics/01.png "Figure 1")
