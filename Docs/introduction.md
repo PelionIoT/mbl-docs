@@ -5,7 +5,7 @@
 
 Mbed Linux OS (MBL) is a Linux distribution for IoT devices based on the Cortex-A processor family. In addition to the the rich set of services, libraries and drivers provided by Linux, MBL includes a version of the Pelion Device Management Client, allowing a device to connect to and be managed by Pelion Device Management. The combination of MBL and Pelion Device Management Client provides a secure foundation layer for building IoT applications.
 
-### [something about "why mbl"]
+### blah why mbl blah
 
 <!--Why MBL, instead of just Mbed OS?-->
 <!--And instead of just Linux?-->
