@@ -25,6 +25,8 @@ This document contains instructions for building the `master` branch of Mbed Lin
 To build Mbed Linux and do a firmware update over the air, follow these steps:
 
 1. [Prepare your development environment](#prerequisites).
+<!--Moved this to its own thing-->
+
 1. [Create a working directory](#create-working-directory).
 1. [Download an Mbed Cloud dev credentials file](#get-cloud-credentials) that contains the credentials that the device can use to access your Mbed Cloud account.
 1. [Create an Update resources file](#create-update-resources) that contains a certificate used by the device to authenticate new firmware packages.

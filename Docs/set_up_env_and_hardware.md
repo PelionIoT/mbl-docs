@@ -4,15 +4,17 @@
 
 Supported boards:
 
-* [NXP Warp7](https://www.nxp.com/support/developer-resources/nxp-designs/warp7-next-generation-iot-and-wearable-development-platform:WARP7).
-* [Raspberry Pi 3]|(https://www.raspberrypi.org/products/).
+* [NXP Warp7](https://www.nxp.com/support/developer-resources/nxp-designs/warp7-next-generation-iot-and-wearable-development-platform:WARP7). You will also need two micro USB cables.
+* [Raspberry Pi 3]|(https://www.raspberrypi.org/products/) with a micro SD card and a C232HD-DDHSP-0 cable to connect it to a PC.
+
+    <span class="warning">Raspberry Pi 3 is suitable for development only; do not use it for production.</span>
 
 ## Device Management account
 
 <!--Do they still need to request an account?-->
 Request an account using the form at https://cloud.mbed.com/contact. You will need include the following information in the request:
 
-* That you are using Mbed Linux.
+* That you are using Mbed Linux OS.
 * That you need an account with a high firmware storage limit, as Mbed Linux firmware packages can be 40-50MiB.
 
 ### Preparing a development environment
@@ -20,10 +22,7 @@ Request an account using the form at https://cloud.mbed.com/contact. You will ne
 To build and run Mbed Linux, you will need:
 
 * A PC running Ubuntu 16.04.
-* A development board, such as:
-    * A **Warp7 board** with two micro USB cables.
-    * A **Raspberry Pi 3 board** with a micro SD card and a C232HD-DDHSP-0 cable to connect it to a PC.
-* An Mbed Cloud account (see [Getting an Mbed Cloud account](#get-cloud-account)).
+<!--That's really old. Why are we forcing them into this? And if we are, should we say "if you need a VN, see below"?-->
 * A Github account with access to private ARMmbed repositories.
 * An SSH agent (required for cloning repositories non-interactively during the build process).
 * To install:
@@ -77,3 +76,7 @@ pip install --user mbed-cloud-sdk
 ```
 
 See [the firmware manifest documentation](https://cloud.mbed.com/docs/current/updating-firmware/firmware-manifests.html) for more information about the manifest tool.
+
+### Using virtual machines
+
+<!--What do we want to say, other than "building will take you hours and hours?"-->
