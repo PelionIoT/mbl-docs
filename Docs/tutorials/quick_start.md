@@ -33,21 +33,31 @@ To build Mbed Linux and do a firmware update over the air, follow these steps:
 1. [Download the required Yocto/OpenEmbedded "meta" layers](#get-meta-layers). This data contains rules for downloading and building the code for Mbed Linux.
 1. [Set up the build environment](#set-up-build-env). This configures the build for the correct device and injects any user-specific data into the build.
 1. [Build Mbed Linux](#build-mbl). This builds Mbed Linux and generates (a) an image that can be written directly to the device and (b) an image that can be used as a firmware update payload.
-1. [Write the disk image to your device and boot Mbed Linux](#write-image-and-boot).
+1. [Write the disk image to your device and boot Mbed Linux](#write-image-and-boot).<!---->
 1. [Log in to Mbed Linux](#log-in).
 1. [Set up a network connection](#set-up-network)
 1. [Check if the device has connected to Mbed Cloud](#check-mbl-cc)
 1. [Perform a firmware update](#do-update).
 
 
-### 2. Create a working directory for the Mbed Linux build
-The examples in the document use a working directory (`~/mbl`) for the Mbed Linux build.  Create this working directory using the following command:
+### 1. Create a working directory for the Mbed Linux build
+
+The quick start uses the working directory `~/mbl` for the Mbed Linux OS build.
+
+To create the working directory
+
 ```
 mkdir ~/mbl
 ```
 
-### 3. Download Mbed Cloud dev credentials file
-During the build process, you will need a file that contains the credentials to connect your device to with Mbed Cloud. First create the directory `~/mbl/cloud-credentials`. To create a **credentials C file** (`mbed_cloud_dev_credentials.c`) and download it to your working directory `~/mbl/cloud-credentials`, follow the instructions for [creating and downloading a developer certificate](https://cloud.mbed.com/docs/v1.2/provisioning-process/provisioning-development.html#creating-and-downloading-a-developer-certificate).
+<!--Does it have to be called mbl? Will all the tutorials use the same working directory?-->
+
+### 2. Download Mbed Cloud dev credentials file
+
+To connect your device to your Pelion Device Management account, you need to add a credentials file to your application before you build it.
+
+1. Create the directory `~/mbl/cloud-credentials`.
+2. To create a **credentials C file** (`mbed_cloud_dev_credentials.c`) and download it to your working directory `~/mbl/cloud-credentials`, follow the instructions for [creating and downloading a developer certificate](https://cloud.mbed.com/docs/v1.2/provisioning-process/provisioning-development.html#creating-and-downloading-a-developer-certificate).
 
 ### 4. Create an Update resources file
 Initialize `manifest-tool` settings and generate Update resources by running the following commands:
