@@ -1,5 +1,7 @@
 ## Quick start: connecting an MBL device to Pelion Device Management
 
+Why is nothing building?
+
 <!--I would like, as much as possible, to follow the pattern of the current Pelion quick start. This will mean splitting it into a quick start that just connects a device to Pelion so you can control it from the portal, then creating a second tutorial for update.-->
 
 <span class="warnings">These instructions use the developer workflow and developer certificates. Do not use this workflow for production devices.</span>

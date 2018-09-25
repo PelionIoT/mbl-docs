@@ -1,5 +1,7 @@
 ## Requirements and development environment
 
+Does it need text here?
+
 ### Hardware
 
 Supported boards:
