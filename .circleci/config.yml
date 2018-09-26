@@ -1,0 +1,26 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: mbed/doc_builder:latest
+        auth:
+          username: $DOCKER_USER
+          password: $DOCKER_PASS
+
+    steps:
+      - checkout
+
+      - run:
+          name: Validate and build documentation
+          command: |
+            docbuilder build $CIRCLE_BRANCH /tmp/artifacts --path ~/project/docs.json --github_token "$GITHUB_TOKEN" --base_href /s3_docs
+      - run:
+          name: Zip files
+          command: |
+            apk add zip
+            cd /tmp/artifacts
+            zip -r /tmp/artifacts/cloud-docs.zip .
+      - store_artifacts:
+          path: /tmp/artifacts
+          destination: docs
