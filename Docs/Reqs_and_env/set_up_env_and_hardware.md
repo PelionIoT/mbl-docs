@@ -1,8 +1,4 @@
-## Requirements and development environment
-
-Does it need text here?
-
-### Hardware
+## Supported hardware
 
 Supported boards:
 
@@ -12,7 +8,7 @@ Supported boards:
     <span class="warning">Raspberry Pi 3 is suitable for development only; do not use it for production.</span>
 
 
-### Preparing a development environment
+## Preparing a development environment
 
 To build and run Mbed Linux, you will need:
 
@@ -26,7 +22,7 @@ To build and run Mbed Linux, you will need:
     * Mbed's `manifest-tool` with the Mbed Cloud SDK library (see [Installing the manifest tool](#install-manifest-tool)).
 
 
-#### Installing software dependencies
+### Installing software dependencies
 
 The following packages are required for the quick start and subsequent tutorials:
 
@@ -48,7 +44,7 @@ The command to install them will look something like this:
 sudo apt-get install bmap-tools chrpath curl diffstat gawk git python-dev python-pip texinfo wget whiptail
 ```
 
-#### Installing Google's repo tool
+### Installing Google's repo tool
 
 Download Google's [`repo` tool](https://gerrit.googlesource.com/git-repo) with the following command:
 ```
@@ -59,7 +55,7 @@ Then install it to your preferred location. To install `repo` to `/usr/local/bin
 sudo install -m 0755 /tmp/google-repo-tool /usr/local/bin/repo
 ```
 
-#### Installing the manifest tool
+### Installing the manifest tool
 
 Make sure your GitHub SSH key is valid. See [the GitHub documentation for more information about connecting to GitHub with SSH](https://help.github.com/articles/connecting-to-github-with-ssh/).
 

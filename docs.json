@@ -8,41 +8,47 @@
             "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/introduction.md"
         }]
     },
-    {  "title": "Requirements and development environment",
-      "description": "",
-      "slug": "reqs-and-dev",
-      "type": "markdown",
-      "sources": [{
-              "type": "markdown",
-              "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/set_up_env_and_hardware.md"
-          },
-          {
-              "type": "markdown",
-              "url": "https://github.com/ARMmbed/mbed_Cloud_Docs/blob/working/Docs/account_management/log_or_create_users.md"
-          },
-          {
-              "type": "markdown",
-              "url": "https://github.com/ARMmbed/mbed_Cloud_Docs/blob/R1.5/Docs/provisioning/fcc_for_development.md"
-
-          }
-      ]},
-
     {
-        "title": "Tutorials",
+        "title": "Getting started",
         "description": "",
-        "slug": "tutorials",
+        "slug": "getting-started",
         "type": "markdown",
-        "sources": [
-            {
-                "type": "markdown",
-                "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/quick_start.md"
+        "chapters": [{
+                "title": "Requirements and development environment",
+                "sources": [{
+                        "type": "markdown",
+                        "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/intro_reqs.md"
+                    },
+                    {
+                        "type": "markdown",
+                        "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/set_up_env_and_hardware.md"
+                    },
+                    {
+                        "type": "markdown",
+                        "url": "https://github.com/ARMmbed/mbed_Cloud_Docs/blob/working/Docs/account_management/log_or_create_users.md"
+                    },
+                    {
+                        "type": "markdown",
+                        "url": "https://github.com/ARMmbed/mbed_Cloud_Docs/blob/R1.5/Docs/provisioning/fcc_for_development.md"
+
+                    }
+                ]
             },
             {
-                "type": "markdown",
-                "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/qr_code.md"
+                "title": "Connecting an MBL device and using an applications",
+                "sources": [{
+                        "type": "markdown",
+                        "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/create_connecting_image.md"
+                    },
+                    {
+                        "type": "markdown",
+                        "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/qr_code.md"
+                    }
+                ]
             }
         ]
     },
+
     {
         "title": "API references",
         "description": "",
