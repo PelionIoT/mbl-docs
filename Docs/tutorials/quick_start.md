@@ -1,22 +1,18 @@
-## Quick start: connecting an MBL device to Pelion Device Management
-
-Why is nothing building?
-
-<!--I would like, as much as possible, to follow the pattern of the current Pelion quick start. This will mean splitting it into a quick start that just connects a device to Pelion so you can control it from the portal, then creating a second tutorial for update.-->
+## Tutorial: Building an MBL image that connects to Pelion Device Management
 
 <span class="warnings">These instructions use the developer workflow and developer certificates. Do not use this workflow for production devices.</span>
 
+MBL handles Pelion Device Management connectivity on behalf of the device, rather than relying on the application to do it.
+<!--What are the advantages, by the way?-->
+
+This means that before you build the MBL image that runs on your device, you need to add your Pelion credentials to the working directory MBL builds from.
 
 
-### Introduction
+<!--### Build versions
 
-<!--Well, yes. One needs an introduction.-->
+This document contains instructions for building the `master` branch of Mbed Linux OS. Instructions for building other branches are on those branches themselves. To build the latest stable branch of Mbed Linux OS, see the [the `alpha` branch walkthrough][mbl-alpha-walkthrough].-->
 
-
-
-### Build versions
-
-This document contains instructions for building the `master` branch of Mbed Linux OS. Instructions for building other branches are on those branches themselves. To build the latest stable branch of Mbed Linux OS, see the [the `alpha` branch walkthrough][mbl-alpha-walkthrough].
+<!--Will we still need this comment in November?-->
 
 
 

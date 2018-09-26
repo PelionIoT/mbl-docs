@@ -11,13 +11,6 @@ Supported boards:
 
     <span class="warning">Raspberry Pi 3 is suitable for development only; do not use it for production.</span>
 
-## Device Management account
-
-<!--Do they still need to request an account?-->
-Request an account using the form at https://cloud.mbed.com/contact. You will need include the following information in the request:
-
-* That you are using Mbed Linux OS.
-* That you need an account with a high firmware storage limit, as Mbed Linux firmware packages can be 40-50MiB.
 
 ### Preparing a development environment
 
