@@ -17,7 +17,7 @@
                 "title": "Getting started with MBL",
                 "sources": [{
                     "type": "markdown",
-                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/intro_tut.md"
+                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/intro_tut.md"
                 }]
             },
             {
