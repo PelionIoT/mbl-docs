@@ -46,7 +46,12 @@
                 "sources": [{
                     "type": "markdown",
                     "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/create_connecting_image.md"
-                }]
+                },
+                {
+                    "type": "markdown",
+                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/wifi_setup.md"
+                }
+              ]
             },
             {
                 "title": "Tutorial: an MBL application",

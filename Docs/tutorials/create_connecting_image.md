@@ -119,6 +119,8 @@ bitbake mbl-console-image
 
 You will see several "WARNING" messages in the `bitbake` output - these are safe to ignore.
 
+<span class="notes">**Note**: If you are using a virtual machine, the build may take several hours.</span>.
+
 ### Build outputs
 
 The build process creates the following files (which you will need to use later):
@@ -171,19 +173,25 @@ The user might need to log out and log in again before the group membership will
 
 ### Warp7 devices
 
-To transfer your disk image to the Warp7's flash device, you must first access the Warp7's serial console. To do this:
+To write your disk image to the Warp7's flash device, you must first access the Warp7's serial console. To do this:
 
-1. Connect both the Warp7's I/O USB socket (on the I/O board) and the Warp7's mass storage USB socket (on the CPU board) to your PC. From your PC you should then be able to see a USB TTY device, such as, `/dev/ttyUSB0`.
+1. Connect both the Warp7's I/O USB socket (on the I/O board) and the Warp7's mass storage USB socket (on the CPU board) to your PC.
+
+  You should now be able to see a USB TTY device, such as, `/dev/ttyUSB0`, on your PC.
 1. Connect to the Warp7's console using a command such as:
+
     ```
     minicom -D /dev/ttyUSB0
     ```
+
     Use the following settings:
-    * A baud rate of 115200.
+
+    * Baud rate 115200.
     * [8N1](https://en.wikipedia.org/wiki/8-N-1) encoding.
     * No hardware flow control.
-1. Depending on the previous contents of the device's storage, you may get a U-boot prompt or you may see an operating system (e.g. Android) boot. If an operating system boots, reboot the device and then press a key when U-Boot starts, to prevent it booting the operating system.
-1. First take note of the current storage devices on your PC:
+
+1. Check the current storage devices on your PC:
+
     ```
     ls -l /dev/disk/by-id/
     ```
@@ -205,18 +213,26 @@ To transfer your disk image to the Warp7's flash device, you must first access t
     lrwxrwxrwx 1 root root 10 Mar 19 10:38 ata-ST1000DM003-1CH162_W1D2QL7A-part5 -> ../../sdb5
     ```
 
-    We'll need to compare this output in the next step, so save it for reference.
+    You'll need to compare this output in the following steps, so save it for reference.
 
-1. To expose the Warp7's flash device to Linux as USB mass storage, when you get a U-Boot prompt, type:
+1. If you got a U-boot prompt <!--on the device or the terminal?-->, continue to the next step.
+
+    If you got an operating system boot (for example, Android), reboot the device until you get a U-boot prompt, then press any key to prevent the operating system from booting again. Continue to the next step.
+
+
+1. To expose the Warp7's flash device to Linux as USB mass storage, in the U-boot prompt type:
+
     ```
     ums 0 mmc 0
     ```
-    On the Warp7 you should now see an ASCII-art "spinner" and on your PC you should see some new storage devices appear:
+
+    On the Warp7 you should now see an ASCII-art "spinner", and on your PC you should see new storage devices:
+
     ```
     ls -l /dev/disk/by-id/
     ```
 
-    In this case, the Warp7 appeared as "usb-Linux_UMS_disk_0" (the partitions on the device are also shown):
+    In our example, the Warp7 appeared as `usb-Linux_UMS_disk_0` (the partitions on the device are also shown):
 
     ```
     total 0
@@ -237,86 +253,123 @@ To transfer your disk image to the Warp7's flash device, you must first access t
     lrwxrwxrwx 1 root root 10 Mar 26 14:00 usb-Linux_UMS_disk_0-0:0-part3 -> ../../sdc3
     ```
 
-    `mbl-console-image-imx7s-warp-mbl.wic.gz` is a full disk image so should be written to the whole flash device, not a partition. The device file for the whole flash device is the one without `-part` in the name (`/dev/disk/by-id/usb-Linux_UMS_disk_0-0:0` in this example).
+    `mbl-console-image-imx7s-warp-mbl.wic.gz` is a full disk image so should be written to the whole flash device, not a partition.
+
+    The device file for the whole flash device is the one without `-part` in the name (`/dev/disk/by-id/usb-Linux_UMS_disk_0-0:0` in this example).
+
 1. Ensure that none of the Warp7's flash partitions are mounted by running the following command (you may have to adjust the path depending on the name of the storage device):
+
     ```
     sudo umount /dev/disk/by-id/usb-Linux_UMS_disk_0-0:0-part*
     ```
+
 1. From a Linux prompt, write the disk image to the Warp7's flash device using the following command:
+
     ```
     sudo bmaptool copy --bmap ~/mbl/mbl-master/build-mbl/tmp-mbl-glibc/deploy/images/imx7s-warp-mbl/mbl-console-image-imx7s-warp-mbl.wic.bmap ~/mbl/mbl-master/build-mbl/tmp-mbl-glibc/deploy/images/imx7s-warp-mbl/mbl-console-image-imx7s-warp-mbl.wic.gz /dev/disk/by-id/<device-file-name>
     ```
-    replacing `<device-file-name>` with the correct device file for the Warp7's flash device. This may take some time.
-1. When `bmaptool` has finished eject the device:
+
+    replacing `<device-file-name>` with the correct device file for the Warp7's flash device.
+
+    This action may take some time.
+
+1. When `bmaptool` has finished, eject the device:
+
     ```
     sudo eject /dev/disk/by-id/<device-file-name>
     ```
-    replacing `<device-file-name>` with the correct device file for the Warp7's flash device.
-1. On the Warp7's U-Boot prompt, press Ctrl-C to exit USB mass storage mode.
-1. Reboot the Warp7 using the following command:
+
+    Replace `<device-file-name>` with the correct device file for the Warp7's flash device.
+
+1. On the Warp7's U-boot prompt, press Ctrl-C to exit USB mass storage mode.
+
+1. Reboot the Warp7:
+
     ```
     reset
     ```
+
     The device should now boot into Mbed Linux.
 
 ### Raspberry Pi 3 devices
 
-1. Connect a micro SD card to your PC. You should see the SD card device file in `/dev`, probably as `/dev/sdX` for some letter `X` (e.g. `/dev/sdd`) as well as device files for its partitions `/dev/sdXN` for the same letter `X` and some numbers `N` (e.g. `/dev/sdd1`, `/dev/sdd2`, etc.). In the commands below, `/dev/sdX` should be replaced with the device file name for the SD card _without_ a number at the end. The output of `lsblk` can be useful to identify the name of the SD card device.
+1. Connect a micro SD card to your PC. You should see:
+
+    * The SD card device file in `/dev`, probably as `/dev/sdX` for some letter `X` (for example, `/dev/sdd`).
+    * Device files for its partitions `/dev/sdXN` for the same letter `X` and some numbers `N` (for example, `/dev/sdd1` and `/dev/sdd2`).
+
+    In the commands below, replace `/dev/sdX` with the device file name for the SD card _without_ a number at the end. You can use `lsblk` to identify the name of the SD card device.
+
 1. Ensure that none of the micro SD card's partitions are mounted by running:
+
     ```
     sudo umount /dev/sdX*
     ```
-    replacing `/dev/sdX` as mentioned above.
-1. Write the disk image to the SD card device (not a partition on it) using the following command:
+
+    Replace `/dev/sdX` as mentioned above.
+1. Write the disk image to the SD card device (not a partition on it):
+
     ```
     bmaptool copy --bmap ~/mbl/mbl-master/build-mbl/tmp-mbl-glibc/deploy/images/raspberrypi3-mbl/mbl-console-image-raspberrypi3-mbl.wic.bmap ~/mbl/mbl-master/build-mbl/tmp-mbl-glibc/deploy/images/raspberrypi3-mbl/mbl-console-image-raspberrypi3-mbl.wic.gz /dev/sdX
     ```
-    replacing `/dev/sdX` as mentioned above. This may take some time.
+
+    Replace `/dev/sdX` as mentioned above.
+
+    This action may take some time.
 1. When `bmaptool` has finished, eject the device:
+
     ```
     sudo eject /dev/sdX
     ```
 1. Detach the micro SD card from your PC and plug it into the Raspberry Pi 3.
 
-1. Before powering on the Raspberry Pi 3, you'll need to either connect it to a monitor and keyboard (using its HDMI and USB sockets) or connect it to your PC so that you can access its console. To access the console from your PC you can, for example, use a [C232HD-DDHSP-0](http://www.ftdichip.com/Support/Documents/DataSheets/Cables/DS_C232HD_UART_CABLE.pdf) cable.
-Use the following instructions to connect the C232HD-DDHSP-0 cable to your Raspberry Pi 3:
+1. You need access to the device's console, so before powering it on the, you'll need to either:
 
-    * Using [this](https://www.element14.com/community/servlet/JiveServlet/previewBody/73950-102-10-339300/pi3_gpio.png) pin numbering as a reference connect USB-UART colored wires as follows:
+    * Connect it to a monitor and keyboard (using its HDMI and USB sockets).
+    * Connect it to your PC. For example, if you're using a [C232HD-DDHSP-0](http://www.ftdichip.com/Support/Documents/DataSheets/Cables/DS_C232HD_UART_CABLE.pdf) cable, use [this pin numbering reference](https://www.element14.com/community/servlet/JiveServlet/previewBody/73950-102-10-339300/pi3_gpio.png) and connect USB-UART colored wires as follows:
+
         * **Black** wire to pin **06**
         * **Yellow** wire to pin **08**
         * **Orange** wire to pin **10**
 
         ![](./pics/rpi3_uart-connection.JPG)
 
-    * The cable's TX and RX are used to communicate with the board.
-    * Connect the other end of the C232HD-DDHSP-0 cable to the USB port on your PC.
+    The cable's TX and RX are used to communicate with the board.
 
-    After connecting the Raspberry Pi 3, from your PC run a command like:
+    Connect the other end of the C232HD-DDHSP-0 cable to the USB port on your PC.
+
+1. After connecting the Raspberry Pi 3, from your PC run a command <!--why? what does it do?-->:
+
     ```
     minicom -D /dev/ttyUSB0
     ```
+
     Use the following settings:
-    * A baud rate of 115200.
+    * Baud rate 115200.
     * [8N1](https://en.wikipedia.org/wiki/8-N-1) encoding.
     * No hardware flow control.
 1. Connect the Raspberry Pi 3's micro USB socket to a USB power supply. It should now boot into Mbed Linux.
 
-### 9. Log in to Mbed Linux
+### Logging in to Mbed Linux
 
 To log in to Mbed Linux, enter the username `root` with no password.
 
-### 10. Set up a network connection
+### Setting up a network connection
 
-If your device is connected to a network with a DHCP server using Ethernet, then it automatically connects to that network. Otherwise, follow [the instructions](https://github.com/ARMmbed/meta-mbl/blob/master/docs/wifi.md) for setting up wifi in Mbed Linux.
+If your device is connected to a network with a DHCP server using Ethernet, then it automatically connects to that network. Otherwise, follow [the instructions](setting-up-wifi-in-mbed-linux-os.html) for setting up WiFi in Mbed Linux.
 
-### 11. Check if the device has connected to Mbed Cloud
+### Check whether the device has connected to Pelion Device Management
 
-While the device boots into Mbed Linux, `mbl-cloud-client` should automatically start and connect to Mbed Cloud. You can check whether it has connected by:
+While the device boots into Mbed Linux, `mbl-cloud-client` should automatically start and connect to Pelion. You can check whether it has connected by:
 
-* Checking the device status on the [Mbed Cloud Portal](https://portal.mbedcloud.com/) ([Checking device status](#fig8)).
+* Checking the device status on the [Device Managmenent Portal](https://portal.mbedcloud.com/).<!--I will need to add the images in our publishing format-->
 * Reviewing the log file for `mbl-cloud-client` at `/var/log/mbl-cloud-client.log`.
 
-If your device hasn't automatically connected to Mbed Cloud, this may occur if networking wasn't configured before the device was rebooted or if there are issues with the network.  The device retries periodically, but you may need to restart `mbl-cloud-client`, as follows:
-```
-/etc/init.d/mbl-cloud-client restart
-```
+If your device hasn't automatically connected to Pelion, it could be that:
+
+* Networking wasn't configured before the device was rebooted. Check your configurations and reboot the device.<!--Easy enough to direct them to the WiFi bit, but is there anything that may have gone wrong with DHCP?-->
+* There are issues with the network. The device retries periodically, but you may need to restart `mbl-cloud-client`:
+
+    ```
+    /etc/init.d/mbl-cloud-client restart
+    ```

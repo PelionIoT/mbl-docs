@@ -11,7 +11,7 @@ You can only update an MBL device if you have:
 1. A device running an MBL image that can connect to your Pelion Device Management account, and contains all the needed certificates. If you do not have one, please [follow the first tutorial in this series](connecting-an-mbl-device-and-using-an-applications.html).
 1. An instance of the manifest tool, [as reviewed in our development environment setup](preparing-a-development-environment.html).
 
-<!--This content stolen from the other tutorial, and not yet edited-->
+<!--This content stolen from the other tutorial, and not yet edited
 
 ### 12. Perform a firmware update using the Mbed Cloud Portal
 
@@ -188,4 +188,4 @@ Figure 14: Firmware update/Campaign status screen.
 ![fig15](pics/16.png "Figure 15")
 Figure 15: Test campaign details screen.
 
-[mbl-alpha-walkthrough]: https://github.com/ARMmbed/meta-mbl/blob/alpha/docs/walkthrough.md
+[mbl-alpha-walkthrough]: https://github.com/ARMmbed/meta-mbl/blob/alpha/docs/walkthrough.md-->

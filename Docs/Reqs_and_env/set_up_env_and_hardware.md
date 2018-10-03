@@ -26,7 +26,7 @@ To build and run Mbed Linux, you will need:
 
 #### Installing software dependencies
 
-The following packages are required for the quick start and subsequent tutorials:
+The following packages are required for the quick start and subsequent tutorials:<!--are these all Python packages?-->
 
 * bmap-tools
 * chrpath.
@@ -48,11 +48,14 @@ sudo apt-get install bmap-tools chrpath curl diffstat gawk git python-dev python
 
 #### Installing Google's repo tool
 
-Download Google's [`repo` tool](https://gerrit.googlesource.com/git-repo) with the following command:
+Download Google's [`repo` tool](https://gerrit.googlesource.com/git-repo):
+
 ```
 curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > /tmp/google-repo-tool
 ```
-Then install it to your preferred location. To install `repo` to `/usr/local/bin` for example, run the following command:
+
+Then install it to your preferred location. For example, to install to `/usr/local/bin`:
+
 ```
 sudo install -m 0755 /tmp/google-repo-tool /usr/local/bin/repo
 ```
@@ -61,14 +64,14 @@ sudo install -m 0755 /tmp/google-repo-tool /usr/local/bin/repo
 
 Make sure your GitHub SSH key is valid. See [the GitHub documentation for more information about connecting to GitHub with SSH](https://help.github.com/articles/connecting-to-github-with-ssh/).
 
-Install the Mbed Cloud manifest tool and Cloud SDK with the following commands:
+Install the Mbed Cloud manifest tool and Pelion SDK:
 
 ```
 pip install --user -U git+ssh://git@github.com/ARMmbed/manifest-tool-restricted.git#egg=manifest-tool
 pip install --user mbed-cloud-sdk
 ```
 
-See [the firmware manifest documentation](https://cloud.mbed.com/docs/current/updating-firmware/firmware-manifests.html) for more information about the manifest tool.
+See [the firmware manifest documentation](https://cloud.mbed.com/docs/latest/updating-firmware/firmware-manifests.html) for more information about the manifest tool.
 
 #### Using virtual machines
 
