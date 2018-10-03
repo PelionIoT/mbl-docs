@@ -14,6 +14,13 @@
         "slug": "getting-started",
         "type": "markdown",
         "chapters": [{
+                "title": "Getting started with MBL",
+                "sources": [{
+                    "type": "markdown",
+                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/intro_tut.md"
+                }]
+            },
+            {
                 "title": "Requirements and development environment",
                 "sources": [{
                         "type": "markdown",
@@ -35,16 +42,25 @@
                 ]
             },
             {
-                "title": "Connecting an MBL device and using an applications",
+                "title": "Tutorial: Connecting an MBL device",
                 "sources": [{
-                        "type": "markdown",
-                        "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/create_connecting_image.md"
-                    },
-                    {
-                        "type": "markdown",
-                        "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/qr_code.md"
-                    }
-                ]
+                    "type": "markdown",
+                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/create_connecting_image.md"
+                }]
+            },
+            {
+                "title": "Tutorial: an MBL application",
+                "sources": [{
+                    "type": "markdown",
+                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/qr_code.md"
+                }]
+            },
+            {
+                "title": "Tutorial: updating MBL devices and applications",
+                "sources": [{
+                    "type": "markdown",
+                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/update_mbl.md"
+                }]
             }
         ]
     },
