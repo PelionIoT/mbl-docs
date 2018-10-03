@@ -1,6 +1,5 @@
 ## Introduction to Mbed Linux OS
 
-Is it possible that it's the comment right after H2 that's breaking it?
 
 <!--Case for picking Mbed Linux and matching hardware over Mbed OS or any other hardware-->
 <!---->
@@ -55,5 +54,4 @@ MBL uses the Pelion Device Management Update service to support updates of both 
 
 ### Design
 
-Design
 The following diagram illustrates the components and services provided by MBL.  When used in conjunction with Mbed Cloud, MBL provides a secure platform for developing, operating and managing IoT applications.

@@ -10,6 +10,8 @@ Supported boards:
 
 ## Preparing a development environment
 
+### For MBL builds
+
 To build and run Mbed Linux, you will need:
 
 * A PC running Ubuntu 16.04.
@@ -22,7 +24,7 @@ To build and run Mbed Linux, you will need:
     * Mbed's `manifest-tool` with the Mbed Cloud SDK library (see [Installing the manifest tool](#install-manifest-tool)).
 
 
-### Installing software dependencies
+#### Installing software dependencies
 
 The following packages are required for the quick start and subsequent tutorials:
 
@@ -44,7 +46,7 @@ The command to install them will look something like this:
 sudo apt-get install bmap-tools chrpath curl diffstat gawk git python-dev python-pip texinfo wget whiptail
 ```
 
-### Installing Google's repo tool
+#### Installing Google's repo tool
 
 Download Google's [`repo` tool](https://gerrit.googlesource.com/git-repo) with the following command:
 ```
@@ -55,7 +57,7 @@ Then install it to your preferred location. To install `repo` to `/usr/local/bin
 sudo install -m 0755 /tmp/google-repo-tool /usr/local/bin/repo
 ```
 
-### Installing the manifest tool
+#### Installing the manifest tool
 
 Make sure your GitHub SSH key is valid. See [the GitHub documentation for more information about connecting to GitHub with SSH](https://help.github.com/articles/connecting-to-github-with-ssh/).
 
@@ -68,6 +70,10 @@ pip install --user mbed-cloud-sdk
 
 See [the firmware manifest documentation](https://cloud.mbed.com/docs/current/updating-firmware/firmware-manifests.html) for more information about the manifest tool.
 
-### Using virtual machines
+#### Using virtual machines
 
 <!--What do we want to say, other than "building will take you hours and hours?"-->
+
+### For application development
+
+<!--There's loads of stuff in the QR thing, but it might change before the release, so I'm not sure about adding it here-->
