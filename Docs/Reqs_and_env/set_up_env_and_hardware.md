@@ -73,6 +73,8 @@ pip install --user mbed-cloud-sdk
 
 See [the firmware manifest documentation](https://cloud.mbed.com/docs/latest/updating-firmware/firmware-manifests.html) for more information about the manifest tool.
 
+<!--Can we add initalization instructions here, so that I don't have to send people to the first tutorial every time I remind them this needs initializing?-->
+
 #### Using virtual machines
 
 <!--What do we want to say, other than "building will take you hours and hours?"-->

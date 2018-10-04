@@ -131,8 +131,8 @@ The build process creates the following files (which you will need to use later)
 
 * **A block map of the full disk image**: This is a file containing information about which blocks of the uncompressed full disk image actually need to be written to the IoT device. Some blocks of the image represent unused storage space that does not actually need to be written.
 
-* **A root filesystem archive**: This is a compressed `.tar` archive, which you will need when you update the device firmware (this topic is covered [in the next tutorial]()). To enable firmware update, the full disk image contains a partition table and all the partitions required by Mbed Linux, including two root partitions. Only one of the root filesystem partitions is **active** at any one time, and the other is available to receive a new version of firmware during an update. At the end of the update process, the root partition with the new firmware becomes **active** and the other root partition becomes available to receive the next firmware update.  
-<!--So this is all the info, but I'm not sure whether it's in the right place; is anything in the explanation actually listing the root filesystem archive? If so, under what name - partition?-->
+* **A root filesystem archive**: This is a compressed `.tar` archive, which you will need when you update the device firmware (this topic is covered [in the next tutorial]()). 
+<!--Looking at the update bit makes me wonder whether this is empty the first time you build an image.-->
 
 **File locations**
 

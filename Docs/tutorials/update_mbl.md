@@ -2,20 +2,34 @@
 
 There are two main components to an MBL device: Mbed Linux OS, and the application working on top of it. MBL supports over-the-air updates for both components independently of each other. This tutorial focuses on updating Mbed Linux OS; we also have a tutorial [for updating the application]()<!--not yet we don't-->.
 
+**How firmware gets updated**
+
+The device has two banks of software:
+
+- The running bank: a device partition storing the rootfs for the running system.
+- The non-running bank: a device partition that will receive the firmware update.<!--Called this partition in the previous tutorial-->
+
+<!--There's a question of how much of the theory should be explained here (and in the previous tutorial).-->
+
+To enable firmware update, the full disk image contains a partition table and all the partitions required by Mbed Linux, including two root partitions. Only one of the root filesystem partitions is **active** at any one time, and the other is available to receive a new version of firmware during an update. At the end of the update process, the root partition with the new firmware becomes **active** and the other root partition becomes available to receive the next firmware update.  
+
+You can run `lsblk` on the device to check which partition is mounted at `/`.<!--I assume that's the running one, right?-->
+
+During a firmware update, the update software:<!--You mean update client? What, by the way, manages the updates on an MBL device?-->
+
+- Writes the new software rootfs to the non-running bank.
+- Sets the non-running bank to be the running bank next time the device boots.
+- Reboots the device.
+
+<!--The explicit explanation that the previous running bank is now the non-running bank and is therefore available for updates is missing (it's in the previous tutorial). But without it, updates sort of look like a one-time thing.
+-->
+
 <span class="tips">Updates rely on Pelion Device Management capabilities. A full review of Pelion Device Management Update is [available on the Pelion documentation site](https://cloud.mbed.com/docs/latest/updating-firmware/index.html).</span>
 
-### Assumptions
+### Workflow
 
-You can only update an MBL device if you have:
+Here be workflow.
 
-1. A device running an MBL image that can connect to your Pelion Device Management account, and contains all the needed certificates. If you do not have one, please [follow the first tutorial in this series](connecting-an-mbl-device-and-using-an-applications.html).
-1. An instance of the manifest tool, [as reviewed in our development environment setup](preparing-a-development-environment.html).
-
-<!--This content stolen from the other tutorial, and not yet edited
-
-### 12. Perform a firmware update using the Mbed Cloud Portal
-
-To perform a firmware update using the Mbed Cloud Portal, follow these steps:
 
 - 12.1. [Update Step 1](#update2-1): Prerequisites.
 - 12.2. [Update Step 2](#update2-2): Upload a firmware image to the cloud.
@@ -24,29 +38,24 @@ To perform a firmware update using the Mbed Cloud Portal, follow these steps:
 - 12.5. [Update Step 5](#update2-5): Create a filter for your device.
 - 12.6. [Update Step 6](#update2-6): Run a campaign to update the device firmware.
 
-**How firmware gets updated**
 
-The device has two banks of software:
+### Assumptions
 
-- The running bank. A device partition storing the rootfs for the running system.
-- The non-running bank. A device partition that will receive the firmware update.
+You can only update an MBL device if you have:
 
-You can run `lsblk` on the device to check which partition is mounted at `/`.
+1. A device running an MBL image that can connect to your Pelion Device Management account, and contains all the needed certificates. If you do not have one, please [follow the first tutorial in this series](connecting-an-mbl-device-and-using-an-applications.html).
+1. An instance of the manifest tool, [as reviewed in our development environment setup](preparing-a-development-environment.html), and initialized (if you have not initialized it yet, please [review the previous tutorial])().<!--This isn't great. Is there a way to add the initalization instructions to the manifest tool installations, or is it too context specific?-->
 
-During a firmware update, the update software:
+<!--This content stolen from the other tutorial, and not yet edited-->
 
-- Writes the new software rootfs to the non-running bank.
-- Sets the non-running bank to be the running bank next time the device boots.
-- Reboots the device.
 
-#### 12.1. Update Step 1: Prerequisites
 
-Before you upgrade the firmware on the device, make sure you:
-
-* Have a root file system archive that contains the firmware upgrade.
+* Have a root file system archive that contains the firmware upgrade.<!--How? This is about building a new image, right? And then they need just a bit of it? But how do they get it?-->
 * Have an Mbed Cloud account.
 * Know which device partition is active (the running bank),so that you can check the upgrade has been successful.
-* Have installed and initialized the `manifest-tool`.
+* Have installed and initialized the `manifest-tool`.<!--That was in the previous tutorial; do they need to do it again? Probably not. -->
+
+<!--Mbed CLI now allows uploading the image, generating the manifest and then uploading the manifest in one giant go. It even starts the campaign. The problem is that it also tries to build the image, which it probably can't do for MBL. Is there a way to use half of it? https://os.mbed.com/docs/v5.10/tools/cli-update.html-->
 
 #### 12.2. Update Step 2: Upload a firmware image to Mbed Cloud
 
@@ -63,7 +72,7 @@ To upload your firmware update image to the Cloud:
 
 To use the manifest-tool to create a manifest for the firmware image:
 
-- Make sure the current working directory is where `manifest-tool init` was performed (`~/mbl/manifests`).
+- Make sure the current working directory is where `manifest-tool init` was performed (`~/mbl/manifests`).<!---->
 - Create a symbolic link to the firmware image that was uploaded in [Update Step 2](#update2-2):
   ```
   ln -s ~/mbl/mbl-master/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-<MACHINE>.tar.xz test-image
@@ -77,6 +86,8 @@ To use the manifest-tool to create a manifest for the firmware image:
     - The **test-image** is the symlink to the firmware image uploaded in [Update Step 2](#update2-2).
     - The **URL** is the firmware image URL copied to the clipboard in the previous section.
     - The **test-manifest** is the name of the output manifest file.
+
+
 
 #### 12.4. Update Step 4: Upload the manifest to the Mbed Cloud
 
@@ -188,4 +199,4 @@ Figure 14: Firmware update/Campaign status screen.
 ![fig15](pics/16.png "Figure 15")
 Figure 15: Test campaign details screen.
 
-[mbl-alpha-walkthrough]: https://github.com/ARMmbed/meta-mbl/blob/alpha/docs/walkthrough.md-->
+[mbl-alpha-walkthrough]: https://github.com/ARMmbed/meta-mbl/blob/alpha/docs/walkthrough.md
