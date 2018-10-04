@@ -51,6 +51,7 @@ Before you begin updating your device, you should check which partition is activ
 
 Run `lsblk` on the device to check which partition is mounted at `/`. That is the active partition. <!--What does the output look like?-->
 
+<!--The rest of the content has not been edited yet-->
 
 #### 12.2. Update Step 2: Upload a firmware image to Mbed Cloud
 
