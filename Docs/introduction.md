@@ -1,52 +1,55 @@
 ## Introduction to Mbed Linux OS
 
+Arm Mbed Linux OS (MBL) is a Linux distribution for IoT devices based on the Cortex-A processor family. Mbed Linux OS supports all of the essential layers needed to build amazing IoT products, so you can focus exclusively on adding your unique value. We want you to build products quickly, and minimise the ongoing support and maintenance burden for products you’ve already shipped.
 
-<!--Case for picking Mbed Linux and matching hardware over Mbed OS or any other hardware-->
-<!---->
+MBL combines the benefits of Arm Mbed OS with the tools and recipes from the embedded-focused Yocto Project. It is designed to take advantage of the processing power of Crotex-A devices, which can handle complex workloads (reducing connectivity demands). It includes support for common IoT functions such as network management, secure storage and container management, as well as a standard Linux inter process communication (IPC) framework for both MBL and application processes. MBL also integrates with Pelion Device Management, including the firmware update services, by using the Device Management Client.
 
-Mbed Linux OS (MBL) is a Linux distribution for IoT devices based on the Cortex-A processor family. In addition to the the rich set of services, libraries and drivers provided by Linux, MBL includes a version of the Pelion Device Management Client, allowing a device to connect to and be managed by Pelion Device Management. The combination of MBL and Pelion Device Management Client provides a secure(JJ:?) foundation layer for building IoT applications (JJ: as they can be easily updated??).
+MBL provides a uniform, open and verifiable approach to platform security. Each supported platform has:
+
+* Secure, signed boot of Trusted Firmware, used for initializing trusted world firmware, including the trusted execution environment.
+* Arm's Platform Security Architecture, which takes advantage of the security features of the newest hardware.
+* Verified boot of normal world firmware.
+* Signed updates to protect against unauthorised changes.
+* Independent verification of application packages.
+* Integrity checking of read-only file systems.
+* Applications can be deployed in OCI-compliant containers, helping to protect against compromised applications and facilitating a modern development workflow.
+
+MBL also offers:
+
+* The option of full commercial support for customers who need a firm SLA and platform longevity.
+* Tools to help you get prototyping and demoing quickly, including support for popular development boards and production ready modules.
+* Support for the Device Management Client, to simplify in-field provisioning and eradicate the need for legacy serial connections for initial device configuration.
+* Integration with the Pelion service for device provisioning, connectivity and updates. To allow different development teams to deliver updates more efficiency, the OS firmware and individual applications can be updated independently.
 
 ### Get started
 
 There are two paths to working with MBL:
 
 1. If you are a Linux developer, and interested in contributing to MBL or porting it to a new device:
-    1. Please build MBL locally.<!--Why, actually? Can't they just grab the source code and start hacking? JJ: Well they could, but they still have to build it to test it - there is an intersting note about the build environment here which is to do with OpenEmbedded but it doesn't really change the get it and build it to start with--> 
-    1. Use our porting or contributing guides. <!--Planned for March, sadly-->
+    1. Please build MBL locally so you can test.
+    1. Use our porting or contributing guides. <!--Planned for March, sadly. Do we want to promise it?-->
 1. If you are an application developer, and interested in building applications for devices that run MBL:
     1. Please build MBL locally and flash it to your device.
-    1. Try our example application, <!--or start writing your own application using our API references - JJ: The API references I gave you are really internal only, and so APIs are really whatever they want to use from Linux - we will have some interfaces eventually...-->.
+    1. Try our example application, or start writing your own application using the Linux APIs.
 
-### blah why mbl blah
+### Licensing
 
-<!--Why MBL, instead of just Mbed OS?-->
-<!--And instead of just Linux?-->
-<!--What specific engineering problems does MBL solve?-->
-<!--Basically, this is our chance to convince engineers to give MBL a go. It can't sound like marketing - they won't read that - but it needs to intrigue them, if not outright convince them.-->
-<!--JJ: So we need a brief summary/bullet list of features - Trusted Firmware secure boot, integrity checking, etc... (which I note you already have below!) whatever we manage to get done or even future direction - depends on if Mark is happy giving away things on the docs website.-->
+<!--That's one of the first thing people ask about Mbed OS, so I assume it'll be one of the first things they ask about MBL-->
 
-MBL includes services for common functions such as network management, secure storage and container management, in addition to the foundation layer provided by Pelion (see below). Platform service APIs are available to application processes using <!--who's using that - the app or MBL? JJ: Well both as MBL will use things like the bluetooth DBus API to provide functionality for Scout, and the application can also use it for talking to sensors--> a standard Linux IPC framework.
-
-
-MBL provides a uniform, open and verifiable approach to platform security. Each supported platform has:
-
-* Secure boot of Trusted Firmware, used for initializing trusted world firmware, including the trusted execution environment.
-* Verified boot of normal world firmware.
-* Independent verification of application packages.
-* Integrity checking of read-only file systems.
+Both Mbed Linux OS and our test suites will be open source, helping you automate product testing in a modern continuous integration pipeline.
 
 ### Containers
 
-To simplify application development and deployment, device application processes run in a <!--JJ: best to limit this to one at the moment, though the main release may have more--> container. The process isolation provided by containers also enhances security and device reliability.
+To simplify application development and deployment, each device application process runs in its own container. The process isolation provided by containers also enhances security and device reliability. It is based on OCI containers, which you can make using Docker on the host (creating a cross-compiled build of the application) and export.
 
-<!--What does the user have to do or know to use them? Not in detail, obviously, this is just the intro. But some overview. JJ: We haven't completely decided on this yet. We could mention we are supporting OCI containers which can be made by using docker on the host to create a cross-compiled build of the application and then export them as cimple OCI containers. But we may simplify/change this flow.  -->
+<!--What does the user have to do or know to use them? Not in detail, obviously, this is just the intro. But some overview.-->
 
 ### Pelion Device Management through MBL
 
 For application developers, the Pelion layer provides the following services:
 
 * Device discovery and secure identity in the Device Management device directory, to protect against impersonation or cloning.
-* Membership of a group of managed devices (Pelion Device Management).<!--Why does the reader care? JJ: I don't know - presumably it provides device grouping for easier management?-->
+* Membership of a group of managed devices (Pelion Device Management) to simplify large-scale management.<!--Why does the reader care?-->
 * Access control at the account level.
 * Device status monitoring, including notifications of connection status.
 * Device firmware update and application management
