@@ -17,8 +17,7 @@
             "type": "markdown",
             "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/intro_tut.md"
         },
-        "chapters": [
-            {
+        "chapters": [{
                 "title": "Requirements and development environment",
                 "intro": {
                     "type": "markdown",
@@ -43,15 +42,16 @@
 
                             }
                         ]
-                    },
-                    {
-                        "title": "Mbed Linux CLI",
-                        "sources": [{
-                            "type": "markdown",
-                            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/mbl_cli.md"
-                        }]
                     }
                 ]
+            },
+            {
+                "title": "Mbed Linux CLI",
+                "sources": [{
+                    "type": "markdown",
+                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/mbl_cli.md"
+                }]
+
             },
             {
                 "title": "Tutorial: Connecting an MBL device",
