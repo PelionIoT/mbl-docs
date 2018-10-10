@@ -100,7 +100,7 @@ $ mbl-cli device <command> [address]
 ```
 
 **Commands:**<!--Why is this a bold line, when it was a header for the other group of commands? Anyway, it was a bit of an eye-sore so I put it in a table; I hope it's better this way.-->
-
+<!--except now it's not markdown... so how do I make the command font look good?-->
 <table>
 <tbody>
 <tr>
@@ -108,23 +108,27 @@ $ mbl-cli device <command> [address]
 Scan for devices connected to the system
 </td>
 <td>
-`$ mbl-cli device scan`
+<font face="console">
+$ mbl-cli device scan
+</font>
 </td>
 </tr>
 <tr>
 <td>
 SSH onto a device, optionally specifying the device address to use
 </td>
-<td>
-`$ mbl-cli device ssh [address]`
+<td><font face="console">
+$ mbl-cli device ssh [address]
+</font>
 </td>
 </tr>
 <tr>
 <td>
 Get output logs from a device, optionally attaching to the device output
 </td>
-<td>
-`$ mbl-cli device logs [address] [--attach]`
+<td><font face="console">
+$ mbl-cli device logs [address] [--attach]
+</font>
 </td>
 </tr>
 <tr>
@@ -132,7 +136,9 @@ Get output logs from a device, optionally attaching to the device output
 Start the application on a device
 </td>
 <td>
-`$ mbl-cli device start [address]`
+<font face="console">
+$ mbl-cli device start [address]
+</font>
 </td>
 </tr>
 <tr>
@@ -140,7 +146,9 @@ Start the application on a device
 Stop the application on a device
 </td>
 <td>
-`$ mbl-cli device stop [address]`
+<font face="console">
+$ mbl-cli device stop [address]
+</font>
 </td>
 </tr>
 <tr>
@@ -148,7 +156,9 @@ Stop the application on a device
 Restart the application on a device:
 </td>
 <td>
-`$ mbl-cli device restart [address]`
+<font face="console">
+$ mbl-cli device restart [address]
+</font>
 </td>
 </tr>
 </tbody>
