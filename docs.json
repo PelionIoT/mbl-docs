@@ -50,7 +50,7 @@
                         "title": "Mbed Linux CLI",
                         "sources": [{
                             "type": "markdown",
-                            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/update_mbl.md"
+                            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/mbl_cli.md"
                         }]
                     }
                 ]
