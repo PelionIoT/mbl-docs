@@ -22,36 +22,50 @@
             },
             {
                 "title": "Requirements and development environment",
-                "sources": [{
-                        "type": "markdown",
-                        "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/intro_reqs.md"
+                "intro": {
+                    "type": "markdown",
+                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/intro_reqs.md"
+                },
+                "sub_chapters": [{
+                        "title": "Enviornment and hardware setup",
+                        "sources": [{
+                            "type": "markdown",
+                            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/set_up_env_and_hardware.md"
+                        }]
                     },
                     {
-                        "type": "markdown",
-                        "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/set_up_env_and_hardware.md"
-                    },
-                    {
-                        "type": "markdown",
-                        "url": "https://github.com/ARMmbed/mbed_Cloud_Docs/blob/working/Docs/account_management/log_or_create_users.md"
-                    },
-                    {
-                        "type": "markdown",
-                        "url": "https://github.com/ARMmbed/mbed_Cloud_Docs/blob/R1.5/Docs/provisioning/fcc_for_development.md"
+                        "title": "Accounts and certificates",
+                        "sources": [{
+                                "type": "markdown",
+                                "url": "https://github.com/ARMmbed/mbed_Cloud_Docs/blob/working/Docs/account_management/log_or_create_users.md"
+                            },
+                            {
+                                "type": "markdown",
+                                "url": "https://github.com/ARMmbed/mbed_Cloud_Docs/blob/R1.5/Docs/provisioning/fcc_for_development.md"
 
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Mbed Linux CLI",
+                        "sources": [{
+                            "type": "markdown",
+                            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/update_mbl.md"
+                        }]
                     }
                 ]
             },
             {
                 "title": "Tutorial: Connecting an MBL device",
                 "sources": [{
-                    "type": "markdown",
-                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/create_connecting_image.md"
-                },
-                {
-                    "type": "markdown",
-                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/wifi_setup.md"
-                }
-              ]
+                        "type": "markdown",
+                        "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/create_connecting_image.md"
+                    },
+                    {
+                        "type": "markdown",
+                        "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/wifi_setup.md"
+                    }
+                ]
             },
             {
                 "title": "Tutorial: an MBL application",

@@ -10,6 +10,8 @@ Supported boards:
 
 ## Preparing a development environment
 
+<!--Mbed Linux CLI isn't listed here. Is that weird?-->
+
 ### For MBL builds
 
 To build and run Mbed Linux, you will need:

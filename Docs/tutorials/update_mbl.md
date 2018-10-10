@@ -1,4 +1,4 @@
-## Tutorial: updating an Mbed Linux OS device over the air
+## Tutorial: updating an Mbed Linux OS image
 
 There are two main components to an MBL device: Mbed Linux OS, and the application working on top of it. MBL supports over-the-air updates for both components independently of each other. This tutorial focuses on updating Mbed Linux OS; we also have a tutorial [for updating the application]()<!--not yet we don't-->.
 
@@ -20,22 +20,9 @@ During a firmware update, the update software:<!--You mean update client? What, 
 - Sets the non-running bank to be the running bank next time the device boots. <!--Can I say "this automatically frees the other running bank, which can accept the next update"?-->
 - Reboots the device.
 
-<span class="tips">Updates rely on Pelion Device Management capabilities. A full review of Pelion Device Management Update is [available on the Pelion documentation site](https://cloud.mbed.com/docs/latest/updating-firmware/index.html).</span>
+<span class="tips">Remote updates rely on Pelion Device Management capabilities. A full review of Pelion Device Management Update is [available on the Pelion documentation site](https://cloud.mbed.com/docs/latest/updating-firmware/index.html).</span>
 
-### Workflow
-
-Here be workflow.
-
-
-- 12.1. [Update Step 1](#update2-1): Prerequisites.
-- 12.2. [Update Step 2](#update2-2): Upload a firmware image to the cloud.
-- 12.3. [Update Step 3](#update2-3): Create a manifest.
-- 12.4. [Update Step 4](#update2-4): Upload the manifest to the cloud.
-- 12.5. [Update Step 5](#update2-5): Create a filter for your device.
-- 12.6. [Update Step 6](#update2-6): Run a campaign to update the device firmware.
-
-
-### Assumptions
+### Prerequisites
 
 You can only update an MBL device if you have:
 
@@ -45,6 +32,22 @@ You can only update an MBL device if you have:
 
 <!--Mbed CLI now allows uploading the image, generating the manifest and then uploading the manifest in one giant go. It even starts the campaign. The problem is that it also tries to build the image, which it probably can't do for MBL. Is there a way to use half of it? https://os.mbed.com/docs/v5.10/tools/cli-update.html-->
 
+### Workflow
+
+Here be workflow.
+
+
+- 12.2. [Update Step 2](#update2-2): Upload a firmware image to the cloud.
+- 12.3. [Update Step 3](#update2-3): Create a manifest.
+- 12.4. [Update Step 4](#update2-4): Upload the manifest to the cloud.
+- 12.5. [Update Step 5](#update2-5): Create a filter for your device.
+- 12.6. [Update Step 6](#update2-6): Run a campaign to update the device firmware.
+
+
+
+
+## Updating the firmware
+
 ### Identify the active partition
 
 Before you begin updating your device, you should check which partition is active (the running bank)<!--Why do we keep using two names?-->. This will allow you to make sure your update succeeded, because a successful update changes the active partition.
@@ -53,7 +56,7 @@ Run `lsblk` on the device to check which partition is mounted at `/`. That is th
 
 <!--The rest of the content has not been edited yet-->
 
-#### 12.2. Update Step 2: Upload a firmware image to Mbed Cloud
+#### Upload a firmware image to Mbed Cloud
 
 To upload your firmware update image to the Cloud:
 
