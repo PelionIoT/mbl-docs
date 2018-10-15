@@ -1,11 +1,11 @@
 ## Tutorial: Building an MBL image that connects to Pelion Device Management
 
-<span class="warnings">These instructions use the developer workflow and developer certificates. Do not use this workflow for production devices.</span><!--My first question as a reader: where can I find the development flow.-->
+<span class="warnings">These instructions use the developer workflow and developer certificates. Do not use this workflow for production devices.</span><!--My first question as a reader: where can I find the development flow. JJ: You presumably mean the production flow, and that would have to be a 1.0 thing. -->
 
 ### Workflow for building Mbed Linux
 
 MBL handles Pelion Device Management connectivity on behalf of the device, rather than relying on the application to do it.
-<!--What are the advantages, by the way?-->
+<!--What are the advantages, by the way? JJ: Multiple applications can all share the same connection to Pelion, and won't have to sahre credentials between each other to do so, though there is still a question of authorization for apps to do this -->
 
 This means that before you build the MBL image that runs on your device, you need to add your Pelion credentials to the working directory MBL builds from.
 
@@ -14,14 +14,16 @@ This means that before you build the MBL image that runs on your device, you nee
 
 This document contains instructions for building the `master` branch of Mbed Linux OS. Instructions for building other branches are on those branches themselves. To build the latest stable branch of Mbed Linux OS, see the [the `alpha` branch walkthrough][mbl-alpha-walkthrough].-->
 
-<!--Will we still need this comment in November?-->
+<!--Will we still need this comment in November? JJ: Definitely not as its not maintained, in November we should really be promoting usage of the 0.5 branch - mbl-os-0.5.0 -->
 
 
 
 
 To build Mbed Linux and do a firmware update over the air, follow these steps:
 
-<!--I will recreate the list when everything's done-->
+<!--I will recreate the list when everything's done -->
+
+<!-- JJ: BIG WARNING! We want to remove the overhead of installing all these tools and stuff and have support issues with different platforms and instead direct them to install docker and use: https://github.com/ARMmbed/mbl-tools/ to perform the build, but we haven't updated the walkthrough to show this! I will point out bits that are likely to change below with "MBL_TOOLS - TO UPDATE" -->
 
 ## Preparing resources for the build
 
@@ -39,6 +41,8 @@ mkdir ~/mbl
 
 ### Download Mbed Cloud dev credentials file
 
+MBL_TOOLS - TO UPDATE - will still need this file though, but injected
+
 To connect your device to your Pelion Device Management account, you need to add a credentials file to your application before you build it. For development environments, Pelion offers a *developer certificate* for quick connections:
 
 1. Create the directory `~/mbl/cloud-credentials`.
@@ -47,6 +51,8 @@ To connect your device to your Pelion Device Management account, you need to add
 1. Add the developer certificate to the `~/mbl/cloud-credentials` directory.
 
 ### Create an Update resources file
+
+MBL_TOOLS - TO UPDATE - will still need this file though, but injected
 
 Initialize `manifest-tool` settings and generate Update resources:<!--What are they and what do they do? Why should I bother?-->
 
@@ -62,6 +68,8 @@ This generates a file `update_default_resources.c` that is required during the b
 
 ### Download the Yocto/OpenEmbedded manifest
 
+MBL_TOOLS - TO UPDATE - not needed, apart from optional input to tools
+
 The manifest contains the rules for downloading GitHub resources and building code for Mbed Linux. You need to add it to your working directory:
 
 ```
@@ -72,6 +80,8 @@ repo sync
 ```
 
 ### Set up the build environment
+
+MBL_TOOLS - TO UPDATE - not needed - though decision on MACHINE is still required as option to tools
 
 You need to configure your build environment for your device, including setting your working directory to the build directory<!--what does "setting your working directory to the build directory" mean? I feel almost like we're missing a word.--> (in this case `~/mbl/mbl-master/build-mbl`). To set up your build environment, use the following command:
 <!--I think setup-environment relies on the manifest from the previous step and the machine-specific file from the config folder (https://github.com/ARMmbed/meta-mbl/tree/master/conf/machine). Is that correct? Worth stating that explicitly.-->
@@ -100,6 +110,8 @@ Once you run the setup-environment script, please:
 
 ### Add sources to your build environment
 
+MBL_TOOLS - TO UPDATE - not needed as its an option to the tool
+
 Copy your Pelion developer certificate and Update resources file to the build directory:
 
 ```
@@ -110,6 +122,8 @@ cp ~/mbl/manifests/update_default_resources.c ~/mbl/mbl-master/build-mbl
 ## Building the image
 
 ### Running the build
+
+MBL_TOOLS - TO UPDATE - different build command using the tools
 
 To generate these files, run the following `bitbake` command from the build directory (`~/mbl/mbl-master/build-mbl`):
 
@@ -132,9 +146,11 @@ The build process creates the following files (which you will need to use later)
 * **A block map of the full disk image**: This is a file containing information about which blocks of the uncompressed full disk image actually need to be written to the IoT device. Some blocks of the image represent unused storage space that does not actually need to be written.
 
 * **A root filesystem archive**: This is a compressed `.tar` archive, which you will need when you update the device firmware (this topic is covered [in the next tutorial]()). 
-<!--Looking at the update bit makes me wonder whether this is empty the first time you build an image.-->
+<!--Looking at the update bit makes me wonder whether this is empty the first time you build an image. JJ: No, this is always produced, just it may not be used if you are blowing the disk image to the platform -->
 
 **File locations**
+
+MBL_TOOLS - TO UPDATE
 
 The paths of these files are given in the table below, where `<MACHINE>` should be replaced with the MACHINE value for your device from the table in [Section 6](#set-up-build-env).
 
@@ -155,7 +171,7 @@ This section contains instructions for writing the full disk image to a:
 
 For both Warp7 and Raspberry Pi 3 devices, add the current user to the dialout group to allow access to ``/dev/ttyUSBn`` devices without using sudo:
 
-<!--Is this mandatory, or just nicer?-->
+<!--Is this mandatory, or just nicer? JJ: Mandatory - If you don't do it you have to use sudo minicom and saving the config gets a bit messy -->
 
 ```
 sudo usermod -a -G dialout $USER
@@ -169,7 +185,7 @@ groups
 ```
 
 The user might need to log out and log in again before the group membership will take effect for their shell process.
-<!--And this is okay because we've done the build, so we're not limited to the original shell instance anymore, right?-->
+<!--And this is okay because we've done the build, so we're not limited to the original shell instance anymore, right? JJ: Yes, even more so when we move to the docker build (MBL_TOOLS), though we could do this as prep before the build but its only really needed for comms after the build -->
 
 ### Warp7 devices
 
@@ -215,7 +231,7 @@ To write your disk image to the Warp7's flash device, you must first access the 
 
     You'll need to compare this output in the following steps, so save it for reference.
 
-1. If you got a U-boot prompt <!--on the device or the terminal?-->, continue to the next step.
+1. If you got a U-boot prompt <!--on the device or the terminal? JJ: Both - the terminal showing the devices output (the device has no display) -->, continue to the next step.
 
     If you got an operating system boot (for example, Android), reboot the device until you get a U-boot prompt, then press any key to prevent the operating system from booting again. Continue to the next step.
 
@@ -338,7 +354,7 @@ To write your disk image to the Warp7's flash device, you must first access the 
 
     Connect the other end of the C232HD-DDHSP-0 cable to the USB port on your PC.
 
-1. After connecting the Raspberry Pi 3, from your PC run a command <!--why? what does it do?-->:
+1. After connecting the Raspberry Pi 3, from your PC run a command <!--why? what does it do? JJ: This starts a program that monitors the serial output from the device and shows it in your terminal - maybe a link to the minicom instructions? (https://salsa.debian.org/minicom-team/minicom) -->:
 
     ```
     minicom -D /dev/ttyUSB0
@@ -367,7 +383,7 @@ While the device boots into Mbed Linux, `mbl-cloud-client` should automatically 
 
 If your device hasn't automatically connected to Pelion, it could be that:
 
-* Networking wasn't configured before the device was rebooted. Check your configurations and reboot the device.<!--Easy enough to direct them to the WiFi bit, but is there anything that may have gone wrong with DHCP?-->
+* Networking wasn't configured before the device was rebooted. Check your configurations and reboot the device.<!--Easy enough to direct them to the WiFi bit, but is there anything that may have gone wrong with DHCP? JJ: Most probably, I would have thought we will have to improve the troubleshooting based on support -->
 * There are issues with the network. The device retries periodically, but you may need to restart `mbl-cloud-client`:
 
     ```
