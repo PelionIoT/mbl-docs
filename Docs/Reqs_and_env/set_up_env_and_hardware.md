@@ -10,19 +10,25 @@ Supported boards:
 
 ## Preparing a development environment
 
+<!--Mbed Linux CLI isn't listed here. Is that weird? JJ: Well it wasn't as this was a development env for a Linux developer and not an App developer, for 0.5, this is still probably the case, but may change in 1.0 -->
+
 ### For MBL builds
+
+MBL_TOOLS - NEEDS UPDATE!
 
 To build and run Mbed Linux, you will need:
 
 * A PC running Ubuntu 16.04.
-<!--That's really old. Why are we forcing them into this? And if we are, should we say "if you need a VN, see below"?-->
+<!--That's really old. Why are we forcing them into this? And if we are, should we say "if you need a VN, see below"? JJ: This is way we want to move the flow to docker build environments and then we don't have to! -->
 * A Github account with access to private ARMmbed repositories.
 * An SSH agent (required for cloning repositories non-interactively during the build process).
 * To install:
-    * Some software packages which are required to support Mbed Linux (see [Installing software dependencies](#installing-software-dependencies)).
-    * Google's `repo` tool (see [Installing Google's repo tool](#install-google-repo)).
+    * <!-- JJ: Probably change this for docker only --> Some software packages which are required to support Mbed Linux (see [Installing software dependencies](#installing-software-dependencies)).
+    * <!-- JJ: Probably still needed --> Google's `repo` tool (see [Installing Google's repo tool](#install-google-repo)).
     * Mbed's `manifest-tool` with the Mbed Cloud SDK library (see [Installing the manifest tool](#install-manifest-tool)).
 
+
+<!-- JJ: Got to here - still to reivew the rest -->
 
 #### Installing software dependencies
 
