@@ -88,13 +88,15 @@ sudo apt-get install docker
 
 ##### Manage Docker as a non-root user
 You will need to add yourself to the docker group to run docker commands without sudo. First, ensure the docker group is present:
-
+```
 sudo groupadd docker
+```
 This may return with a warning saying the group is already present. This warning is safe to ignore.
 
 Now add yourself to the group:
-
+```
 sudo usermod -aG docker $USER
+```
 Finally, logout and login for this to take affect.
 
 #### Using virtual machines
