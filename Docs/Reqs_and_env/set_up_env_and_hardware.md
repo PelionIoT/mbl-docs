@@ -24,6 +24,7 @@ To build and run Mbed Linux, you will need:
     * Some software packages which are required to support Mbed Linux (see [Installing software dependencies](#installing-software-dependencies)).
     * Google's `repo` tool (see [Installing Google's repo tool](#install-google-repo)).
     * Mbed's `manifest-tool` with the Mbed Cloud SDK library (see [Installing the manifest tool](#install-manifest-tool)).
+    * Docker (see [Installing Docker](#install-docker)).
 
 
 #### Installing software dependencies
@@ -76,6 +77,21 @@ pip install --user mbed-cloud-sdk
 See [the firmware manifest documentation](https://cloud.mbed.com/docs/latest/updating-firmware/firmware-manifests.html) for more information about the manifest tool.
 
 <!--Can we add initalization instructions here, so that I don't have to send people to the first tutorial every time I remind them this needs initializing?-->
+
+#### Installing Docker
+Docker is needed in order to be able to use mbl-tools build-mbl script (and to be able to develop and build apps on your x86 PC).
+Download and install Docker from: https://docs.docker.com/install/ (or you could use the following command: sudo apt-get install docker).
+
+##### Manage Docker as a non-root user
+You will need to add yourself to the docker group to run docker commands without sudo. First, ensure the docker group is present:
+
+sudo groupadd docker
+This may return with a warning saying the group is already present. This warning is safe to ignore.
+
+Now add yourself to the group:
+
+sudo usermod -aG docker $USER
+Finally, logout and login for this to take affect.
 
 #### Using virtual machines
 
