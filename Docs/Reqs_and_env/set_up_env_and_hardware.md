@@ -80,7 +80,11 @@ See [the firmware manifest documentation](https://cloud.mbed.com/docs/latest/upd
 
 #### Installing Docker
 Docker is needed in order to be able to use mbl-tools build-mbl script (and to be able to develop and build apps on your x86 PC).
-Download and install Docker from: https://docs.docker.com/install/ (or you could use the following command: sudo apt-get install docker).
+Download and install Docker from: https://docs.docker.com/install/
+Alternatively you could use the following command:
+```
+sudo apt-get install docker
+```
 
 ##### Manage Docker as a non-root user
 You will need to add yourself to the docker group to run docker commands without sudo. First, ensure the docker group is present:
