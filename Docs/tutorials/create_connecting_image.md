@@ -28,6 +28,7 @@ Building Mbed Linux OS is done using mbl build tool.
 
 ### Quick Start
 mbl-tool repository provides a collection of tools and recipes related to the build and test of Mbed Linux OS.
+
 Checkout the mbl-tools git repository from: https://github.com/ARMmbed/mbl-tools.
 
 Build MBL for Raspberry PI 3 (RPi3):
