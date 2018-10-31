@@ -27,7 +27,7 @@ To build Mbed Linux and do a firmware update over the air, follow these steps:
 Building Mbed Linux OS is done using mbl build tool.
 
 ### Quick Start
-mbl-tool repository provides a collection of tools and recipes related to the build and test of Mbed Linux OS.
+mbl-tools repository provides a collection of tools and recipes related to the build and test of Mbed Linux OS.
 
 Checkout the [mbl-tools git repository](https://github.com/ARMmbed/mbl-tools) using the following command
 
@@ -87,7 +87,6 @@ Select the <MACHINE> value for your Mbed Linux device from the table below:
 | Warp7 | `imx7s-warp-mbl` |
 | Raspberry Pi 3 | `raspberrypi3-mbl` |
 
-Use different build directories for every build in case several target device compilation is needed.
 
 ### Build Artifacts
 
