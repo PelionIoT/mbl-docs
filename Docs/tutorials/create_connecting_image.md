@@ -29,7 +29,11 @@ Building Mbed Linux OS is done using mbl build tool.
 ### Quick Start
 mbl-tool repository provides a collection of tools and recipes related to the build and test of Mbed Linux OS.
 
-Checkout the mbl-tools git repository from: https://github.com/ARMmbed/mbl-tools.
+Checkout the [mbl-tools git repository](https://github.com/ARMmbed/mbl-tools) using the following command
+
+```
+$ git clone https://github.com/ARMmbed/mbl-tools
+```
 
 Build MBL for Raspberry PI 3 (RPi3):
 Checkout and build the tip of the master branch for Mbed linux:
@@ -37,32 +41,44 @@ Checkout and build the tip of the master branch for Mbed linux:
 ./mbl-tools/build-mbl/run-me.sh
 ```
 
-The run-me.sh script will create and launch a docker container to encapsulate the Mbed Linux build environment then launch a build script, build.sh, inside the container to do the heavy lifting.
-There are a variety of options controlling what is built and how. The general form of a run-me.sh invocation is:
+The `run-me.sh` script will create and launch a docker container to encapsulate the Mbed Linux build environment then launch a build script, `build.sh`, inside the container to do the heavy lifting.
+There are a variety of options controlling what is built and how. The general form of a `run-me.sh` invocation is:
 ```
 ./mbl-tools/build-mbl/run-me.sh [RUN-ME.SH OPTIONS]... -- [BUILD.SH OPTIONS]...
 ```
-Note the use of -- to separate options to run-me.sh from options that are passed through to build.sh
-Different branches of Mbed Linux can be checkout and built by passing the --branch option through to build.sh.  The bleeding edge of mainline development takes place on the 'master' branch.  Release branches include: 'rocko', 'pyro' etc. For example, to build the tip of the rocko release branch:
+Note the use of -- to separate options to `run-me.sh` from options that are passed through to `build.sh`
+
+To invoke the `run-me.sh` help menu use:
+```
+./mbl-tools/build-mbl/run-me.sh -h
+```
+
+To invoke the `build.sh` help menu use:
+```
+./mbl-tools/build-mbl/run-me.sh -- -h
+```
+
+Different branches of Mbed Linux can be checkout and built by passing the --branch option through to `build.sh`.  The bleeding edge of mainline development takes place on the 'master' branch.  Release branches include: 'rocko', 'pyro' etc. For example, to build the tip of the rocko release branch:
 ```
 ./mbl-tools/build-mbl/run-me.sh -- --branch=rocko
 ```
 The build process involves the download of many source artifacts.  It is possible to cache downloaded source artifacts between successive builds.  In practice the cache mechanism is considered to be robust for successive builds.  It should not be used for parallel builds.
-For example, to designate a directory to hold cached downloads between successive builds, pass the --downloaddir option to run-me.sh:
+For example, to designate a directory to hold cached downloads between successive builds, pass the --downloaddir option to `run-me.sh`:
 ```
 mkdir downloads
 ./mbl-tools/build-mbl/run-me.sh --downloaddir=$(pwd)/downloads -- --branch=rocko
 ```
-The build scripts will by default create and use a build directory under the current working directory.  An alternative build directory can be specified using the --builddir option to run-me.sh:
+The build scripts will by default create and use a build directory under the current working directory.  An alternative build directory can be specified using the --builddir option to `run-me.sh`:
 ```
-./mbl-tools/build-mbl/run-me.sh --builddir=my-build-dir --branch=master
+./mbl-tools/build-mbl/run-me.sh --builddir=my-build-dir -- --branch=master
 ```
-Use the --help option to the run-me.sh script to get brief usage information.
+
+It is a good practice to use different build directories for every build.
 
 ### Select target device
-In order to select the target device use -x option as follows:
+In order to select the target device use --machine option as follows:
 ```
-./mbl-tools/build-mbl/run-me.sh --builddir=my-build-dir --branch=master --machine <MACHINE>
+./mbl-tools/build-mbl/run-me.sh --builddir=my-build-dir -- --branch=master --machine <MACHINE>
 ```
 Select the <MACHINE> value for your Mbed Linux device from the table below:
 
@@ -71,7 +87,7 @@ Select the <MACHINE> value for your Mbed Linux device from the table below:
 | Warp7 | `imx7s-warp-mbl` |
 | Raspberry Pi 3 | `raspberrypi3-mbl` |
 
-Note: In case several target device compilation is needed, use a different output directory.
+Use different build directories for every build in case several target device compilation is needed.
 
 ### Build Artifacts
 
@@ -79,7 +95,7 @@ Each build will produce a variety of build artifacts including a pinned manifest
 To get build artifacts out of a build, pass the --outputdir option to specify which directory the build artifacts should be placed in:
 ```
 mkdir artifacts
-./mbl-tools/build-mbl/run-me.sh --outputdir=artifacts --branch=master
+./mbl-tools/build-mbl/run-me.sh --outputdir=artifacts -- --branch=master
 ```
 
 #### Build outputs
@@ -104,12 +120,21 @@ The paths of these files are given in the table below, where `<MACHINE>` should 
 | Full disk image block map | `<artifacts directory>/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-<MACHINE>.wic.bmap` |
 | Root file system archive  | `<artifacts directory>/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-<MACHINE>.tar.xz`   |
 
+
+Test image is also being build, and contains more packages for testing and debuging (such as optee test suite, dropbear to support ssh during development and test, strace utility, and more).
+
+| File | Path |
+| --- | --- |
+| Full test disk image           | `<artifacts directory>/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-test-<MACHINE>.wic.gz`   |
+| Full test disk image block map | `<artifacts directory>/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-test-<MACHINE>.wic.bmap` |
+| Root file system archive  | `<artifacts directory>/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-test-<MACHINE>.tar.xz`   |
+
 ### Pinned Manifests and Rebuilds
 
 Each build produces a pinned manifest as a build artifact.  A pinned manifest is a file that encapsulates sufficient version information to allow an exact rebuild. To get the pinned manifest for a build, use the --outputdir option to get the build artifacts:
 ```
 mkdir artifacts
-./mbl-tools/build-mbl/run-me.sh --outputdir=artifacts --branch=master
+./mbl-tools/build-mbl/run-me.sh --outputdir=artifacts -- --branch=master
 ```
 
 This will produce the file: pinned-manifest.xml in the directory specified with --outputdir.

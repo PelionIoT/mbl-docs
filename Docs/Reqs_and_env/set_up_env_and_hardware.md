@@ -20,11 +20,12 @@ To build and run Mbed Linux, you will need:
 <!--That's really old. Why are we forcing them into this? And if we are, should we say "if you need a VN, see below"?-->
 * A Github account with access to private ARMmbed repositories.
 * An SSH agent (required for cloning repositories non-interactively during the build process).
+* Full internet access is required as the build process downloads packages from the internet.
 * To install:
     * Some software packages which are required to support Mbed Linux (see [Installing software dependencies](#installing-software-dependencies)).
     * Google's `repo` tool (see [Installing Google's repo tool](#install-google-repo)).
     * Mbed's `manifest-tool` with the Mbed Cloud SDK library (see [Installing the manifest tool](#install-manifest-tool)).
-    * Docker (see [Installing Docker](#install-docker)).
+    * Docker CE (see [Installing Docker CE](#install-docker-ce)).
 
 
 #### Installing software dependencies
@@ -78,26 +79,12 @@ See [the firmware manifest documentation](https://cloud.mbed.com/docs/latest/upd
 
 <!--Can we add initalization instructions here, so that I don't have to send people to the first tutorial every time I remind them this needs initializing?-->
 
-#### Installing Docker
+#### Installing Docker CE
 Docker is needed in order to be able to use mbl-tools build-mbl script (and to be able to develop and build apps on your x86 PC).
-Download and install Docker from: https://docs.docker.com/install/
-Alternatively you could use the following command:
-```
-sudo apt-get install docker
-```
+Download and install [Docker CE](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
 
 ##### Manage Docker as a non-root user
-You will need to add yourself to the docker group to run docker commands without sudo. First, ensure the docker group is present:
-```
-sudo groupadd docker
-```
-This may return with a warning saying the group is already present. This warning is safe to ignore.
-
-Now add yourself to the group:
-```
-sudo usermod -aG docker $USER
-```
-Finally, logout and login for this to take affect.
+You will need to add yourself to the docker group to run docker commands without sudo. See the following [instructions](https://docs.docker.com/install/linux/linux-postinstall/).
 
 #### Using virtual machines
 
