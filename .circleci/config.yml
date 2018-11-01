@@ -113,13 +113,7 @@ workflows:
           requires:
             - build
             - zip_documentation
-#       - await_approval:
-#           type: approval
-#           requires:
-#             - build
-#             - publish_to_s3
       - make_live:
           requires:
-#             - await_approval
             - build
             - publish_to_s3
