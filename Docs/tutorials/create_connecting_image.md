@@ -32,7 +32,7 @@ mbl-tools repository provides a collection of tools and recipes related to the b
 Checkout the [mbl-tools git repository](https://github.com/ARMmbed/mbl-tools) using the following command
 
 ```
-$ git clone https://github.com/ARMmbed/mbl-tools
+$ git clone git@github.com:ARMmbed/mbl-tools.git
 ```
 
 Build MBL for Raspberry PI 3 (RPi3):
@@ -139,17 +139,10 @@ mkdir artifacts
 This will produce the file: pinned-manifest.xml in the directory specified with --outputdir.
 To re-build using a previously pinned manifest use the --external-manifest option:
 ```
-./mbl-tools/build-mbl/run-me.sh --external-manifest pinned-manifest.xml
+./mbl-tools/build-mbl/run-me.sh --external-manifest /path/to/pinned-manifest.xml
 ```
 
-### Mbed Cloud Client Credentials
-
-The current Mbed Cloud Client requries key material to be statically built into the cloud client binary.  This is a temporary measure that will be replaced with a dynamic key injection mechanism shortly.  In the meantime, the build scripts provide a work around:
-```
-./mbl-tools/build-mbl/run-me.sh --inject-mcc mbed_cloud_dev_credentials.c --inject-mcc update_default_resources.c --
-```
-
-#### Download Mbed Cloud dev credentials file
+### Download Mbed Cloud dev credentials file
 
 To connect your device to your Pelion Device Management account, you need to add a credentials file to your application before you build it. For development environments, Pelion offers a *developer certificate* for quick connections:
 
@@ -158,7 +151,14 @@ To connect your device to your Pelion Device Management account, you need to add
 <!--This is where being able to splice the content would be great; I would rather transclude it here than send them to another page. I'll see what the Web Team has.-->
 3. Add the developer certificate to the cloud credentials directory you've created.
 
-## Writing the disk image to your device and booting it
+### Use Mbed Cloud Client Credentials
+
+The current Mbed Cloud Client requries key material to be statically built into the cloud client binary. This is a temporary measure that will be replaced with a dynamic key injection mechanism shortly.  In the meantime, the build scripts provide a work around:
+```
+./mbl-tools/build-mbl/run-me.sh --inject-mcc /path/to/mbed_cloud_dev_credentials.c --inject-mcc /path/to/update_default_resources.c
+```
+
+## Write the disk image to your device and booting it
 
 This section contains instructions for writing the full disk image to a:
 
