@@ -58,15 +58,15 @@ To invoke the `build.sh` help menu use:
 ./mbl-tools/build-mbl/run-me.sh -- -h
 ```
 
-Different branches of Mbed Linux can be checkout and built by passing the --branch option through to `build.sh`.  The bleeding edge of mainline development takes place on the 'master' branch.  Release branches include: 'rocko', 'pyro' etc. For example, to build the tip of the rocko release branch:
+Different branches of Mbed Linux can be checkout and built by passing the --branch option through to `build.sh`.  The bleeding edge of mainline development takes place on the 'master' branch. To build a  release branch:
 ```
-./mbl-tools/build-mbl/run-me.sh -- --branch rocko
+./mbl-tools/build-mbl/run-me.sh -- --branch <branch name>
 ```
 The build process involves the download of many source artifacts.  It is possible to cache downloaded source artifacts between successive builds.  In practice the cache mechanism is considered to be robust for successive builds.  It should not be used for parallel builds.
 For example, to designate a directory to hold cached downloads between successive builds, pass the --downloaddir option to `run-me.sh`:
 ```
 mkdir downloads
-./mbl-tools/build-mbl/run-me.sh --downloaddir $(pwd)/downloads -- --branch rocko
+./mbl-tools/build-mbl/run-me.sh --downloaddir $(pwd)/downloads -- --branch <branch name>
 ```
 The build scripts will by default create and use a build directory under the current working directory.  An alternative build directory can be specified using the --builddir option to `run-me.sh`:
 ```
@@ -115,22 +115,22 @@ The paths of these files are given in the table below, where `<MACHINE>` should 
 
 | File | Path |
 | --- | --- |
-| Full disk image           | `<artifacts directory>/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-<MACHINE>.wic.gz`   |
-| Full disk image block map | `<artifacts directory>/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-<MACHINE>.wic.bmap` |
-| Root file system archive  | `<artifacts directory>/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-<MACHINE>.tar.xz`   |
+| Full disk image           | `/path/to/artifacts/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-<MACHINE>.wic.gz`   |
+| Full disk image block map | `/path/to/artifacts/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-<MACHINE>.wic.bmap` |
+| Root file system archive  | `/path/to/artifacts/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-<MACHINE>.tar.xz`   |
 
 
 Test image is also being build, and contains more packages for testing and debuging (such as optee test suite, dropbear to support ssh during development and test, strace utility, and more).
 
 | File | Path |
 | --- | --- |
-| Full test disk image           | `<artifacts directory>/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-test-<MACHINE>.wic.gz`   |
-| Full test disk image block map | `<artifacts directory>/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-test-<MACHINE>.wic.bmap` |
-| Root file system archive  | `<artifacts directory>/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-test-<MACHINE>.tar.xz`   |
+| Full test disk image           | `/path/to/artifacts/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-test-<MACHINE>.wic.gz`   |
+| Full test disk image block map | `/path/to/artifacts/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-test-<MACHINE>.wic.bmap` |
+| Root file system archive  | `/path/to/artifacts/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-test-<MACHINE>.tar.xz`   |
 
 ### Pinned Manifests and Rebuilds
 
-Each build produces a pinned manifest as a build artifact.  A pinned manifest is a file that encapsulates sufficient version information to allow an exact rebuild. To get the pinned manifest for a build, use the --outputdir option to get the build artifacts:
+Each build produces a pinned manifest as a build artifact. A pinned manifest is a file that encapsulates sufficient version information to allow an exact rebuild. To get the pinned manifest for a build, use the --outputdir option to get the build artifacts:
 ```
 mkdir artifacts
 ./mbl-tools/build-mbl/run-me.sh --outputdir /path/to/artifacts -- --branch master
