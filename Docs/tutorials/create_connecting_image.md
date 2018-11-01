@@ -70,7 +70,7 @@ mkdir downloads
 ```
 The build scripts will by default create and use a build directory under the current working directory.  An alternative build directory can be specified using the --builddir option to `run-me.sh`:
 ```
-./mbl-tools/build-mbl/run-me.sh --builddir my-build-dir -- --branch master
+./mbl-tools/build-mbl/run-me.sh --builddir /path/to/my-build-dir -- --branch master
 ```
 
 It is a good practice to use different build directories for every build.
@@ -78,7 +78,7 @@ It is a good practice to use different build directories for every build.
 ### Select target device
 In order to select the target device use --machine option as follows:
 ```
-./mbl-tools/build-mbl/run-me.sh --builddir my-build-dir -- --branch master --machine <MACHINE>
+./mbl-tools/build-mbl/run-me.sh --builddir /path/to/my-build-dir -- --branch master --machine <MACHINE>
 ```
 Select the <MACHINE> value for your Mbed Linux device from the table below:
 
@@ -94,7 +94,7 @@ Each build will produce a variety of build artifacts including a pinned manifest
 To get build artifacts out of a build, pass the --outputdir option to specify which directory the build artifacts should be placed in:
 ```
 mkdir artifacts
-./mbl-tools/build-mbl/run-me.sh --outputdir artifacts -- --branch master
+./mbl-tools/build-mbl/run-me.sh --outputdir /path/to/artifacts -- --branch master
 ```
 
 #### Build outputs
@@ -133,7 +133,7 @@ Test image is also being build, and contains more packages for testing and debug
 Each build produces a pinned manifest as a build artifact.  A pinned manifest is a file that encapsulates sufficient version information to allow an exact rebuild. To get the pinned manifest for a build, use the --outputdir option to get the build artifacts:
 ```
 mkdir artifacts
-./mbl-tools/build-mbl/run-me.sh --outputdir artifacts -- --branch master
+./mbl-tools/build-mbl/run-me.sh --outputdir /path/to/artifacts -- --branch master
 ```
 
 This will produce the file: pinned-manifest.xml in the directory specified with --outputdir.
