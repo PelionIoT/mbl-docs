@@ -111,9 +111,12 @@ workflows:
             - build
       - store_artifacts:
           requires:
-            - build
             - zip_documentation
+      # - await_approval:
+      #     type: approval
+      #     requires:
+      #       - publish_to_s3
       - make_live:
           requires:
-            - build
+            # - await_approval
             - publish_to_s3
