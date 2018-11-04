@@ -66,10 +66,10 @@ An example of using all mandatory options:
 ```
 
 All mandatory build options are described in the following sections below:
-* For more information about `--branch` option (see [Select release branch](#Select-release-branch)).
-* For more information about `--machine` option (see [Select target device](#Select-target-device)).
-* For more information about `--outputdir` option (see [Build Artifacts](#Build-Artifacts)).
-* For more information about `--inject-mcc` option (see [Use Mbed Cloud Client Credentials](#Use-Mbed-Cloud-Client-Credentials)).
+* For more information about `--branch` option see [Select release branch](#Select-release-branch).
+* For more information about `--machine` option see [Select target device](#Select-target-device).
+* For more information about `--outputdir` option see [Build Artifacts](#Build-Artifacts).
+* For more information about `--inject-mcc` option see [Use Mbed Cloud Client Credentials](#Use-Mbed-Cloud-Client-Credentials).
 
 ##### Select release branch
 Different branches of Mbed Linux can be checkout and built by passing the --branch option through to `build.sh`.  The bleeding edge of mainline development takes place on the 'master' branch.
