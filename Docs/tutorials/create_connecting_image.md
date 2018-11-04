@@ -57,6 +57,20 @@ To invoke the `build.sh` help menu use:
 
 #### Mandatory build script options
 
+In order to successfuly build mbl release one need to supply the several mandatory build options.
+
+An example of using all mandatory options:
+
+```
+./mbl-tools/build-mbl/run-me.sh --inject-mcc /path/to/mbed_cloud_dev_credentials.c --inject-mcc /path/to/update_default_resources.c --outputdir /path/to/artifacts --branch mbl-XXX --machine <MACHINE>
+```
+
+All mandatory build options are described in the following sections below:
+* For more information about `--branch` option (see [Select release branch](#Select-release-branch)).
+* For more information about `--machine` option (see [Select target device](#Select-target-device)).
+* For more information about `--outputdir` option (see [Build Artifacts](#Build-Artifacts)).
+* For more information about `--inject-mcc` option (see [Use Mbed Cloud Client Credentials](#Use-Mbed-Cloud-Client-Credentials)).
+
 ##### Select release branch
 Different branches of Mbed Linux can be checkout and built by passing the --branch option through to `build.sh`.  The bleeding edge of mainline development takes place on the 'master' branch.
 
@@ -124,20 +138,6 @@ Test image is also being build, and contains more packages for testing and debug
 | Full test disk image block map | `/path/to/artifacts/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-test-<MACHINE>.wic.bmap` |
 | Root file system archive  | `/path/to/artifacts/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-test-<MACHINE>.tar.xz`   |
 
-##### Pinned Manifests and Rebuilds
-
-Each build produces a pinned manifest as a build artifact. A pinned manifest is a file that encapsulates sufficient version information to allow an exact rebuild. To get the pinned manifest for a build, use the --outputdir option to get the build artifacts:
-```
-mkdir artifacts
-./mbl-tools/build-mbl/run-me.sh --outputdir /path/to/artifacts -- --branch mbl-XXX
-```
-
-This will produce the file: pinned-manifest.xml in the directory specified with --outputdir.
-To re-build using a previously pinned manifest use the --external-manifest option:
-```
-./mbl-tools/build-mbl/run-me.sh --external-manifest /path/to/pinned-manifest.xml
-```
-
 ##### Download Mbed Cloud dev credentials file
 
 To connect your device to your Pelion Device Management account, you need to add a credentials file to your application before you build it. For development environments, Pelion offers a *developer certificate* for quick connections:
@@ -156,6 +156,10 @@ The current Mbed Cloud Client requries key material to be statically built into 
 
 #### Optional build script options
 
+Optional build script options can be used to improve the development process.
+
+##### Cache downloaded source artifacts
+
 The build process involves the download of many source artifacts.  It is possible to cache downloaded source artifacts between successive builds.  In practice the cache mechanism is considered to be robust for successive builds.  It should not be used for parallel builds.
 For example, to designate a directory to hold cached downloads between successive builds, pass the --downloaddir option to `run-me.sh`:
 ```
@@ -168,6 +172,21 @@ The build scripts will by default create and use a build directory under the cur
 ```
 
 It is a good practice to use different build directories for every build.
+
+##### Pinned Manifests and Rebuilds
+
+Each build produces a pinned manifest as a build artifact. A pinned manifest is a file that encapsulates sufficient version information to allow an exact rebuild. To get the pinned manifest for a build, use the --outputdir option to get the build artifacts:
+```
+mkdir artifacts
+./mbl-tools/build-mbl/run-me.sh --outputdir /path/to/artifacts -- --branch mbl-XXX
+```
+
+This will produce the file: pinned-manifest.xml in the directory specified with --outputdir.
+To re-build using a previously pinned manifest use the --external-manifest option:
+```
+./mbl-tools/build-mbl/run-me.sh --external-manifest /path/to/pinned-manifest.xml
+```
+
 
 ## Write the disk image to your device and booting it
 
