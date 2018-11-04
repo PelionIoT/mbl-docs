@@ -26,20 +26,17 @@ To build Mbed Linux and do a firmware update over the air, follow these steps:
 ## Building Mbed Linux OS (MBL)
 Building Mbed Linux OS is done using mbl build tool.
 
-### Quick Start
 mbl-tools repository provides a collection of tools and recipes related to the build and test of Mbed Linux OS.
+Each release will have its own branch, so throughout this guide the release branch will be reffered as `mbl-XXX`.
+An example for `mbl-XXX` release branch name: `mbl-os-0.5`.
 
-Checkout the [mbl-tools git repository](https://github.com/ARMmbed/mbl-tools) using the following command
+Checkout the `mbl-XXX` branch of [mbl-tools git repository](https://github.com/ARMmbed/mbl-tools) using the following command
 
 ```
-$ git clone git@github.com:ARMmbed/mbl-tools.git
+$ git clone git@github.com:ARMmbed/mbl-tools.git --branch mbl-XXX
 ```
 
-Build MBL for Raspberry PI 3 (RPi3):
-Checkout and build the tip of the master branch for Mbed linux:
-```
-./mbl-tools/build-mbl/run-me.sh
-```
+### Build script
 
 The `run-me.sh` script will create and launch a docker container to encapsulate the Mbed Linux build environment then launch a build script, `build.sh`, inside the container to do the heavy lifting.
 There are a variety of options controlling what is built and how. The general form of a `run-me.sh` invocation is:
@@ -58,27 +55,26 @@ To invoke the `build.sh` help menu use:
 ./mbl-tools/build-mbl/run-me.sh -- -h
 ```
 
-Different branches of Mbed Linux can be checkout and built by passing the --branch option through to `build.sh`.  The bleeding edge of mainline development takes place on the 'master' branch. To build a  release branch:
+#### Mandatory build script options
+
+##### Select release branch
+Different branches of Mbed Linux can be checkout and built by passing the --branch option through to `build.sh`.  The bleeding edge of mainline development takes place on the 'master' branch.
+
+To build a release `mbl-XXX` branch:
 ```
-./mbl-tools/build-mbl/run-me.sh -- --branch <branch name>
-```
-The build process involves the download of many source artifacts.  It is possible to cache downloaded source artifacts between successive builds.  In practice the cache mechanism is considered to be robust for successive builds.  It should not be used for parallel builds.
-For example, to designate a directory to hold cached downloads between successive builds, pass the --downloaddir option to `run-me.sh`:
-```
-mkdir downloads
-./mbl-tools/build-mbl/run-me.sh --downloaddir $(pwd)/downloads -- --branch <branch name>
-```
-The build scripts will by default create and use a build directory under the current working directory.  An alternative build directory can be specified using the --builddir option to `run-me.sh`:
-```
-./mbl-tools/build-mbl/run-me.sh --builddir /path/to/my-build-dir -- --branch master
+./mbl-tools/build-mbl/run-me.sh -- --branch mbl-XXX
 ```
 
-It is a good practice to use different build directories for every build.
+Build MBL for Raspberry PI 3 (RPi3):
+Checkout and build the release branch `mbl-XXX` for Mbed linux:
+```
+./mbl-tools/build-mbl/run-me.sh --branch mbl-XXX
+```
 
-### Select target device
+##### Select target device
 In order to select the target device use --machine option as follows:
 ```
-./mbl-tools/build-mbl/run-me.sh --builddir /path/to/my-build-dir -- --branch master --machine <MACHINE>
+./mbl-tools/build-mbl/run-me.sh --builddir /path/to/my-build-dir -- --branch mbl-XXX --machine <MACHINE>
 ```
 Select the <MACHINE> value for your Mbed Linux device from the table below:
 
@@ -88,16 +84,16 @@ Select the <MACHINE> value for your Mbed Linux device from the table below:
 | Raspberry Pi 3 | `raspberrypi3-mbl` |
 
 
-### Build Artifacts
+##### Build Artifacts
 
 Each build will produce a variety of build artifacts including a pinned manifest, target specific images and license information.
 To get build artifacts out of a build, pass the --outputdir option to specify which directory the build artifacts should be placed in:
 ```
 mkdir artifacts
-./mbl-tools/build-mbl/run-me.sh --outputdir /path/to/artifacts -- --branch master
+./mbl-tools/build-mbl/run-me.sh --outputdir /path/to/artifacts -- --branch  mbl-XXX
 ```
 
-#### Build outputs
+##### Build outputs
 The build process creates the following files (which you will need to use later):
 
 * **A full disk image**: This is a compressed image of the entire flash. Once decompressed, this image can be directly written to storage media, and initializes the device's storage with a full set of disk partitions and an initial version of firmware.
@@ -128,12 +124,12 @@ Test image is also being build, and contains more packages for testing and debug
 | Full test disk image block map | `/path/to/artifacts/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-test-<MACHINE>.wic.bmap` |
 | Root file system archive  | `/path/to/artifacts/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-test-<MACHINE>.tar.xz`   |
 
-### Pinned Manifests and Rebuilds
+##### Pinned Manifests and Rebuilds
 
 Each build produces a pinned manifest as a build artifact. A pinned manifest is a file that encapsulates sufficient version information to allow an exact rebuild. To get the pinned manifest for a build, use the --outputdir option to get the build artifacts:
 ```
 mkdir artifacts
-./mbl-tools/build-mbl/run-me.sh --outputdir /path/to/artifacts -- --branch master
+./mbl-tools/build-mbl/run-me.sh --outputdir /path/to/artifacts -- --branch mbl-XXX
 ```
 
 This will produce the file: pinned-manifest.xml in the directory specified with --outputdir.
@@ -142,7 +138,7 @@ To re-build using a previously pinned manifest use the --external-manifest optio
 ./mbl-tools/build-mbl/run-me.sh --external-manifest /path/to/pinned-manifest.xml
 ```
 
-### Download Mbed Cloud dev credentials file
+##### Download Mbed Cloud dev credentials file
 
 To connect your device to your Pelion Device Management account, you need to add a credentials file to your application before you build it. For development environments, Pelion offers a *developer certificate* for quick connections:
 
@@ -151,12 +147,27 @@ To connect your device to your Pelion Device Management account, you need to add
 <!--This is where being able to splice the content would be great; I would rather transclude it here than send them to another page. I'll see what the Web Team has.-->
 3. Add the developer certificate to the cloud credentials directory you've created.
 
-### Use Mbed Cloud Client Credentials
+##### Use Mbed Cloud Client Credentials
 
 The current Mbed Cloud Client requries key material to be statically built into the cloud client binary. This is a temporary measure that will be replaced with a dynamic key injection mechanism shortly.  In the meantime, the build scripts provide a work around:
 ```
 ./mbl-tools/build-mbl/run-me.sh --inject-mcc /path/to/mbed_cloud_dev_credentials.c --inject-mcc /path/to/update_default_resources.c
 ```
+
+#### Optional build script options
+
+The build process involves the download of many source artifacts.  It is possible to cache downloaded source artifacts between successive builds.  In practice the cache mechanism is considered to be robust for successive builds.  It should not be used for parallel builds.
+For example, to designate a directory to hold cached downloads between successive builds, pass the --downloaddir option to `run-me.sh`:
+```
+mkdir downloads
+./mbl-tools/build-mbl/run-me.sh --downloaddir $(pwd)/downloads -- --branch mbl-XXX
+```
+The build scripts will by default create and use a build directory under the current working directory.  An alternative build directory can be specified using the --builddir option to `run-me.sh`:
+```
+./mbl-tools/build-mbl/run-me.sh --builddir /path/to/my-build-dir -- --branch mbl-XXX
+```
+
+It is a good practice to use different build directories for every build.
 
 ## Write the disk image to your device and booting it
 

@@ -34,19 +34,14 @@ The following packages are required for the quick start and subsequent tutorials
 * bmap-tools
 * chrpath.
 * curl.
-* diffstat.
-* gawk.
 * git.
 * python-dev.
 * python-pip.
-* texinfo.
-* wget.
-* whiptail.
 
 The command to install them will look something like this:
 
 ```
-sudo apt-get install bmap-tools chrpath curl diffstat gawk git python-dev python-pip texinfo wget whiptail
+sudo apt-get install bmap-tools chrpath curl git python-dev python-pip
 ```
 
 #### Installing the manifest tool
