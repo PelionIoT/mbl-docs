@@ -184,6 +184,22 @@ To re-build using a previously pinned manifest use the `--external-manifest` opt
 ./mbl-tools/build-mbl/run-me.sh --external-manifest /path/to/pinned-manifest.xml
 ```
 
+### Example quick start build lines
+
+Following examples assumes that the user already downloaded Mbed Cloud dev credentials into `/mbed_credentials` directory.
+In case you want to test both examples one after the other, please also use `--outputdir` to distinguish between build outputs.
+
+#### Warp7 device
+
+```
+./mbl-tools/build-mbl/run-me.sh --inject-mcc /mbed_credential/mbed_cloud_dev_credentials.c --inject-mcc /mbed_credential/update_default_resources.c -- --branch mbl-XXX --machine imx7s-warp-mbl
+```
+
+#### Raspberry Pi 3 device
+
+```
+./mbl-tools/build-mbl/run-me.sh --inject-mcc /mbed_credential/mbed_cloud_dev_credentials.c --inject-mcc /mbed_credential/update_default_resources.c -- --branch mbl-XXX --machine raspberrypi3-mbl
+```
 
 ## Write the disk image to your device and booting it
 
