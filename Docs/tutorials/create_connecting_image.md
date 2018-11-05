@@ -62,33 +62,28 @@ In order to successfuly build mbl release one need to supply the several mandato
 An example of using all mandatory options:
 
 ```
-./mbl-tools/build-mbl/run-me.sh --inject-mcc /path/to/mbed_cloud_dev_credentials.c --inject-mcc /path/to/update_default_resources.c --outputdir /path/to/artifacts --branch mbl-XXX --machine <MACHINE>
+./mbl-tools/build-mbl/run-me.sh --inject-mcc /path/to/mbed_cloud_dev_credentials.c --inject-mcc /path/to/update_default_resources.c --outputdir /path/to/artifacts -- --branch mbl-XXX --machine <MACHINE>
 ```
 
 All mandatory build options are described in the following sections below:
 * For more information about `--branch` option see [Select release branch](#Select-release-branch).
 * For more information about `--machine` option see [Select target device](#Select-target-device).
 * For more information about `--outputdir` option see [Build Artifacts](#Build-Artifacts).
-* For more information about `--inject-mcc` option see [Use Mbed Cloud Client Credentials](#Use-Mbed-Cloud-Client-Credentials).
+* For more information about `--inject-mcc` option see [Use Mbed Cloud Client Credentials](#Use-Mbed-Cloud-Client-Credentials) and [Download Mbed Cloud dev credentials file](#Download-Mbed-Cloud-dev-credentials-file).
 
 ##### Select release branch
 Different branches of Mbed Linux can be checkout and built by passing the --branch option through to `build.sh`.  The bleeding edge of mainline development takes place on the 'master' branch.
 
-To build a release `mbl-XXX` branch:
-```
-./mbl-tools/build-mbl/run-me.sh -- --branch mbl-XXX
-```
-
-Build MBL for Raspberry PI 3 (RPi3):
+To build MBL for Raspberry PI 3 (RPi3):
 Checkout and build the release branch `mbl-XXX` for Mbed linux:
 ```
-./mbl-tools/build-mbl/run-me.sh --branch mbl-XXX
+./mbl-tools/build-mbl/run-me.sh -- --branch mbl-XXX --machine raspberrypi3-mbl
 ```
 
 ##### Select target device
 In order to select the target device use --machine option as follows:
 ```
-./mbl-tools/build-mbl/run-me.sh --builddir /path/to/my-build-dir -- --branch mbl-XXX --machine <MACHINE>
+./mbl-tools/build-mbl/run-me.sh -- --branch mbl-XXX --machine <MACHINE>
 ```
 Select the <MACHINE> value for your Mbed Linux device from the table below:
 
