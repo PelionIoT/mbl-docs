@@ -161,6 +161,8 @@ For example, to designate a directory to hold cached downloads between successiv
 mkdir downloads
 ./mbl-tools/build-mbl/run-me.sh --downloaddir $(pwd)/downloads -- --branch mbl-XXX
 ```
+
+##### Create multiple build directories
 The build scripts will by default create and use a build directory under the current working directory.  An alternative build directory can be specified using the --builddir option to `run-me.sh`:
 ```
 ./mbl-tools/build-mbl/run-me.sh --builddir /path/to/my-build-dir -- --branch mbl-XXX
