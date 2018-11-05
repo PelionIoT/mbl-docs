@@ -43,7 +43,7 @@ There are a variety of options controlling what is built and how. The general fo
 ```
 ./mbl-tools/build-mbl/run-me.sh [RUN-ME.SH OPTIONS]... -- [BUILD.SH OPTIONS]...
 ```
-Note the use of -- to separate options to `run-me.sh` from options that are passed through to `build.sh`
+Note the use of `--` to separate options to `run-me.sh` from options that are passed through to `build.sh`
 
 To invoke the `run-me.sh` help menu use:
 ```
@@ -72,7 +72,7 @@ All mandatory build options are described in the following sections below:
 * For more information about `--inject-mcc` option see [Use Mbed Cloud Client Credentials](#Use-Mbed-Cloud-Client-Credentials) and [Download Mbed Cloud dev credentials file](#Download-Mbed-Cloud-dev-credentials-file).
 
 ##### Select release branch
-Different branches of Mbed Linux can be checkout and built by passing the --branch option through to `build.sh`.  The bleeding edge of mainline development takes place on the 'master' branch.
+Different branches of Mbed Linux can be checkout and built by passing the `--branch` option through to `build.sh`.  The bleeding edge of mainline development takes place on the 'master' branch.
 
 To build MBL for Raspberry PI 3 (RPi3):
 Checkout and build the release branch `mbl-XXX` for Mbed linux:
@@ -81,9 +81,9 @@ Checkout and build the release branch `mbl-XXX` for Mbed linux:
 ```
 
 ##### Select target device
-In order to select the target device use --machine option as follows:
+In order to select the target device use `--machine` option as follows:
 ```
-./mbl-tools/build-mbl/run-me.sh -- --branch mbl-XXX --machine <MACHINE>
+./mbl-tools/build-mbl/run-me.sh -- --machine <MACHINE>
 ```
 Select the <MACHINE> value for your Mbed Linux device from the table below:
 
@@ -96,10 +96,10 @@ Select the <MACHINE> value for your Mbed Linux device from the table below:
 ##### Build Artifacts
 
 Each build will produce a variety of build artifacts including a pinned manifest, target specific images and license information.
-To get build artifacts out of a build, pass the --outputdir option to specify which directory the build artifacts should be placed in:
+To get build artifacts out of a build, pass the `--outputdir` option to specify which directory the build artifacts should be placed in:
 ```
 mkdir artifacts
-./mbl-tools/build-mbl/run-me.sh --outputdir /path/to/artifacts -- --branch  mbl-XXX
+./mbl-tools/build-mbl/run-me.sh --outputdir /path/to/artifacts
 ```
 
 ##### Build outputs
@@ -144,7 +144,7 @@ To connect your device to your Pelion Device Management account, you need to add
 
 ##### Use Mbed Cloud Client Credentials
 
-The current Mbed Cloud Client requries key material to be statically built into the cloud client binary. This is a temporary measure that will be replaced with a dynamic key injection mechanism shortly.  In the meantime, the build scripts provide a work around:
+The current Mbed Cloud Client requries key material to be statically built into the cloud client binary. This is a temporary measure that will be replaced with a dynamic key injection mechanism shortly.  In the meantime, the build scripts provide a work around using the `--inject-mcc` option:
 ```
 ./mbl-tools/build-mbl/run-me.sh --inject-mcc /path/to/mbed_cloud_dev_credentials.c --inject-mcc /path/to/update_default_resources.c
 ```
@@ -156,30 +156,30 @@ Optional build script options can be used to improve the development process.
 ##### Cache downloaded source artifacts
 
 The build process involves the download of many source artifacts.  It is possible to cache downloaded source artifacts between successive builds.  In practice the cache mechanism is considered to be robust for successive builds.  It should not be used for parallel builds.
-For example, to designate a directory to hold cached downloads between successive builds, pass the --downloaddir option to `run-me.sh`:
+For example, to designate a directory to hold cached downloads between successive builds, pass the `--downloaddir` option to `run-me.sh`:
 ```
 mkdir downloads
-./mbl-tools/build-mbl/run-me.sh --downloaddir $(pwd)/downloads -- --branch mbl-XXX
+./mbl-tools/build-mbl/run-me.sh --downloaddir $(pwd)/downloads
 ```
 
 ##### Create multiple build directories
-The build scripts will by default create and use a build directory under the current working directory.  An alternative build directory can be specified using the --builddir option to `run-me.sh`:
+The build scripts will by default create and use a build directory under the current working directory.  An alternative build directory can be specified using the `--builddir` option to `run-me.sh`:
 ```
-./mbl-tools/build-mbl/run-me.sh --builddir /path/to/my-build-dir -- --branch mbl-XXX
+./mbl-tools/build-mbl/run-me.sh --builddir /path/to/my-build-dir
 ```
 
 It is a good practice to use different build directories for every build.
 
 ##### Pinned Manifests and Rebuilds
 
-Each build produces a pinned manifest as a build artifact. A pinned manifest is a file that encapsulates sufficient version information to allow an exact rebuild. To get the pinned manifest for a build, use the --outputdir option to get the build artifacts:
+Each build produces a pinned manifest as a build artifact. A pinned manifest is a file that encapsulates sufficient version information to allow an exact rebuild. To get the pinned manifest for a build, use the `--outputdir` option to get the build artifacts:
 ```
 mkdir artifacts
-./mbl-tools/build-mbl/run-me.sh --outputdir /path/to/artifacts -- --branch mbl-XXX
+./mbl-tools/build-mbl/run-me.sh --outputdir /path/to/artifacts
 ```
 
-This will produce the file: pinned-manifest.xml in the directory specified with --outputdir.
-To re-build using a previously pinned manifest use the --external-manifest option:
+This will produce the file: pinned-manifest.xml in the directory specified with `--outputdir`.
+To re-build using a previously pinned manifest use the `--external-manifest` option:
 ```
 ./mbl-tools/build-mbl/run-me.sh --external-manifest /path/to/pinned-manifest.xml
 ```
