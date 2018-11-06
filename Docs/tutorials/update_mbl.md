@@ -1,201 +1,105 @@
-## Tutorial: updating an Mbed Linux OS image
+## Tutorial: updating Mbed Linux OS
 
-There are two main components to an MBL device: Mbed Linux OS, and the application working on top of it. MBL supports over-the-air updates for both components independently of each other. This tutorial focuses on updating Mbed Linux OS; we also have a tutorial [for updating the application]()<!--not yet we don't-->.
+Mbed Linux OS is composed of multiple components, including:
+- bootloaders;
+- a root file system;
+- applications.
 
-**How firmware gets updated**
+Mbed Linux OS currently supports over-the-air updates of the root file system and applications.
+
+### How firmware gets updated
+
+Firmware updates can be sent over the air to Mbed Linux OS devices using Pelion Device Management capabilities.
+
+<span class="tips">A full review of Pelion Device Management Update is [available on the Pelion documentation site](https://cloud.mbed.com/docs/latest/updating-firmware/index.html).</span>
+
+Once an Mbed Linux OS device accepts a firmware update request from the Pelion cloud, the device downloads an update **payload** file that contains updates for one of the MBL components. The payload file is a tar file and can contain either application updates (one or more ".ipk" files) or a root file system update (a file called rootfs.tar.xz).
+
+#### Application Updates
+After recieving a payload file containing application updates (".ipk" files), MBL will:
+- Stop all applications from running.
+- Remove any existing versions of applications that are provided in the payload file.
+- Install the applications from the payload file.
+- Start all applications.
+
+#### Root File System Updates
+To support root file system updates, MBL devices have two root file system partitions called **banks**:
+
+- An **active** bank: a partition containing the root file system for the running system.
+- An **inactive** bank: a partition that is available to receive firmware updates.
+
+Only one of the root filesystem partitions is active at any one time, and the other is available to receive a new version of the root file system during an update.
+
+<a name="check-rootfs-bank"></a>You can find out which root file system bank is currently active on an MBL device by running the following command:
+```
+lsblk --noheadings --output "MOUNTPOINT,LABEL" | awk '$1=="/" {print $2}'
+```
+This command prints the label of the block device currently mounted at `/`, which will be `rootfs1` if the first root file system bank is active or `rootfs2` if the second root file system bank is active.
+
+After recieving a firmware update request and a payload file containing a root file system update (a "rootfs.tar.xz" file), MBL will:
+- Write the contents of rootfs.tar.xz to the inactive root file system bank.
+- Flip a flag indicating which root file system bank is active (the previously inactive bank becomes the active bank and the previously active bank becomes the inactive bank).
+- Reboot the device.
+
+After the reboot MBL will mount the root file system from the update payload and the previously active (now inactive) root file system partition will become available to recieve the next root file system update.
 
 <!--There's a question of how much of the theory should be explained here (and in the previous tutorial).-->
-
-
-To enable firmware update, the full disk image contains a partition table and all the partitions required by Mbed Linux, including two root partitions:
-
-- The running bank: a device partition storing the rootfs for the running system.
-- The non-running bank: a device partition that will receive the firmware update.<!--Called this partition in the previous tutorial-->
-
-Only one of the root filesystem partitions is **active** at any one time, and the other is available to receive a new version of firmware during an update. At the end of the update process, the root partition with the new firmware becomes **active** and the other root partition becomes available to receive the next firmware update.  
-
-During a firmware update, the update software:<!--You mean update client? What, by the way, manages the updates on an MBL device?-->
-
-- Writes the new software rootfs to the non-running bank.
-- Sets the non-running bank to be the running bank next time the device boots. <!--Can I say "this automatically frees the other running bank, which can accept the next update"?-->
-- Reboots the device.
-
-<span class="tips">Remote updates rely on Pelion Device Management capabilities. A full review of Pelion Device Management Update is [available on the Pelion documentation site](https://cloud.mbed.com/docs/latest/updating-firmware/index.html).</span>
 
 ### Prerequisites
 
 You can only update an MBL device if you have:
 
-* A device running an MBL image that can connect to your Pelion Device Management account, and contains all the needed certificates. If you do not have one, please [follow the first tutorial in this series](connecting-an-mbl-device-and-using-an-applications.html).
-* An instance of the manifest tool, [as reviewed in our development environment setup](preparing-a-development-environment.html), and initialized (if you have not initialized it yet, please [review the previous tutorial])().<!--This isn't great. Is there a way to add the initalization instructions to the manifest tool installations, or is it too context specific?-->
-* A root file system archive that contains the firmware upgrade.<!--How? This is about building a new image, right? And then they need just a bit of it? But how do they get it?-->
-
-<!--Mbed CLI now allows uploading the image, generating the manifest and then uploading the manifest in one giant go. It even starts the campaign. The problem is that it also tries to build the image, which it probably can't do for MBL. Is there a way to use half of it? https://os.mbed.com/docs/v5.10/tools/cli-update.html-->
+- A successfully completed build of Mbed Linux OS for your device. <!-- TODO: Link to build instructions -->
+- A device running the MBL image that you built that can connect to your Pelion Device Management account. If you do not have one, please [follow the first tutorial in this series](connecting-an-mbl-device-and-using-an-applications.html).
+- A directory in which the manifest tool was initialized, [as reviewed in our development environment setup](preparing-a-development-environment.html). This *must* be the directory from which the `update_default_resources.c` file used in the build of MBL was obtained.
+- Additionally, in order to use the manifest tool to easily send updates to your device via the Pelion Device Management Cloud (rather than using the Pelion Device Management web interface), you will need a Pelion Device Management API key. If you don't already have an API Key, follow the instructions in the [Pelion Device Management docs](https://cloud.mbed.com/docs/current/integrate-web-app/api-keys.html#generating-an-api-key) to generate one. When prompted to select a group to set the API key access level, the default "Developers" group is suitable for performing firmware updates. You will need to make a note of the API key in order to use it later.
 
 ### Workflow
 
-Here be workflow.
+#### Create an update payload file
 
+To create an application update payload file, make a tar file containing the ".ipk" files for the applications to install/update. Note that the ".ipk" files must not be in any subdirectories inside the tar file. For example, to create an update payload file at `/tmp/payload.tar` containing an ".ipk" file with path `/home/user01/my_app.ipk`, run the following command:
+```
+tar -cf /tmp/payload.tar -C /home/user01 my_app.ipk
+```
 
-- 12.2. [Update Step 2](#update2-2): Upload a firmware image to the cloud.
-- 12.3. [Update Step 3](#update2-3): Create a manifest.
-- 12.4. [Update Step 4](#update2-4): Upload the manifest to the cloud.
-- 12.5. [Update Step 5](#update2-5): Create a filter for your device.
-- 12.6. [Update Step 6](#update2-6): Run a campaign to update the device firmware.
+To create a root file system update payload file, make a tar file containing the root file system archive from your MBL build. A symlink to the root file system archive can be found at `<your_workarea>/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-<MACHINE>.tar.xz` where:
+- `<your_workarea>` is the directory in which the `repo init` command was run to create the MBL workarea.
+- `<MACHINE>` is the value of `MACHINE` used when sourcing the `setup-environment` script. If you are using a Raspberry Pi 3, `<MACHINE>` will be `raspberrypi3-mbl` and if you are using a WaRP7 it will be `imx7s-warp-mbl`.
 
+Note that the file inside the update payload must be called `rootfs.tar.xz`.
 
+For example, if your workarea is `/home/user01/mbl/mbl-os-0.5` and you are using a WaRP7, run the following command to create a payload file at `/tmp/payload.tar`:
+```
+tar -cf /tmp/payload.tar -C /home/user01/mbl/mbl-os-0.5/build-mbl/tmp-mbl-glibc/deploy/images/imx7s-warp-mbl '--transform=s/.*/rootfs.tar.xz/' --dereference mbl-console-image-imx7s-warp-mbl.tar.xz
+```
+The `--transform` option is used to rename all files added to the payload to `rootfs.tar.xz` and the `--dereference` option is used so that `tar` adds the actual root file system archive file rather than the symlink to it.
 
+#### Update your device
 
-## Updating the firmware
-
-### Identify the active partition
-
-Before you begin updating your device, you should check which partition is active (the running bank)<!--Why do we keep using two names?-->. This will allow you to make sure your update succeeded, because a successful update changes the active partition.
-
-Run `lsblk` on the device to check which partition is mounted at `/`. That is the active partition. <!--What does the output look like?-->
-
-<!--The rest of the content has not been edited yet-->
-
-#### Upload a firmware image to Mbed Cloud
-
-To upload your firmware update image to the Cloud:
-
-- Log into the [Mbed Cloud Portal](https://portal.mbedcloud.com/login).
-- On the **Firmware Update** tab, select **Images>Upload new images**.
-- Select the update image on your local hard disk that contains the root file system image for upgrading. For a Warp7 device, for example, the update image will have a filename like this: `mbl-console-image-imx7s-warp-mbl.tar.xz`.
-- Provide a name for the firmware image, such as, "test\_image\_20180125\_1", and if required, a description.
-- Press the **Upload firmware image** button.
-- Copy the firmware image URL. You will need this URL to create the manifest (described in the next section).
-
-#### 12.3. Update Step 3: Create a manifest
-
-To use the manifest-tool to create a manifest for the firmware image:
-
-- Make sure the current working directory is where `manifest-tool init` was performed (`~/mbl/manifests`).<!---->
-- Create a symbolic link to the firmware image that was uploaded in [Update Step 2](#update2-2):
-  ```
-  ln -s ~/mbl/mbl-master/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-<MACHINE>.tar.xz test-image
-  ```
-  where `<MACHINE>` should be replaced with the MACHINE value for your device from the table in [Section 6](#set-up-build-env). This step is required because sometimes `manifest-tool` doesn't cope well with long file names.
-- Create a manifest called "test-manifest" by using the following command:
-    ```
-    manifest-tool create -p test-image -u URL -o test-manifest
-    ```
-    Where:
-    - The **test-image** is the symlink to the firmware image uploaded in [Update Step 2](#update2-2).
-    - The **URL** is the firmware image URL copied to the clipboard in the previous section.
-    - The **test-manifest** is the name of the output manifest file.
-
-
-
-#### 12.4. Update Step 4: Upload the manifest to the Mbed Cloud
-
-To upload the test-manifest to the Mbed Cloud:
-
-- On the Mbed Cloud Portal, from the **Firmware Update** tab, select **Manifests>Upload new manifest**.
-- Give the manifest a name, a description (if required) and select the manifest to use.
-
-#### 12.5. Update Step 5: Create a filter for your device
-
-<span class= "notes"> **Note:** the device ID changes each time you flash the device with a new full disk image. The normal firmware update mechanism does not change the device ID.</span>
-
-Before you can configure an update campaign, you need to create a device filter, as follows:
-
-- To get the device ID, you can either:
-    - Copy the device ID to the clipboard from the **Device Directory** tab, on Mbed Cloud Portal.
-	  - Search for the device ID in the `mbl-cloud-client` log file `/var/log/mbl-cloud-client.log`, using the following command:
-    ```
-    grep -i 'device id' /var/log/mbl-cloud-client.log
-    ```
-- On Mbed Cloud Portal, from the **Device Directory** tab, select **Saved filters** and click **Create New Filter**.
-- Click **Add attribute** and select **Device ID**.
-- Paste the Device ID into the Device ID edit box and click **Save Filter**.
-
-#### 12.6. Update Step 6: Run an update campaign
-
-To create a campaign to update the firmware on a device:
-
-- On the Mbed Cloud Portal, from the **Firmware Update** tab, select **Update campaigns>Create campaign**.
-- Provide:
-    * A name for the campaign.
-    * A description (optional).
-- Select the:
-    * Manifest file (in this example, `test-manifest`).
-    * Device filter created in update step 5.
-- Click **Save** to create the new update campaign.
-
-To run your update campaign:
-
-- On the **Firmware update** tab, select **Update campaigns** and find your update campaign from the list.
-- Press **Start** to run your test campaign.
-    - The firmware update process may take a while to complete.
-    - On the device, you can monitor the device console to see the update occurring using `tail -f /var/log/mbl-cloud-client.log` .
-    - On the Mbed Cloud Portal, as the campaign progresses, it reports the **Publishing** state.
-    - When the firmware update has completed, the Mbed Cloud Portal will report that the campaign is in the **Deployed** state.
-- Once the firmware update is complete, the device reboots.
-- When the device comes up, login and verify that the running bank (partition) has changed from that noted in update step 1.
-
-
-#### 12.2.7. Figures
-
-<a name="fig1"></a>
-![fig1](pics/01.png "Figure 1")
-Figure 1: The mbed cloud portal login.
-
-<a name="fig2"></a>
-![fig2](pics/02.png "Figure 2")
-Figure 2: Select the team you want to use e.g. arm-mbed-linux.
-
-<a name="fig3"></a>
-![fig3](pics/03.png "Figure 3")
-Figure 3: Dashboard after you login.
-
-<a name="fig4"></a>
-![fig4](pics/04.png "Figure 4")
-Figure 4: Firmware update/Images screen.
-
-<a name="fig5"></a>
-![fig5](pics/05.png "Figure 5")
-Figure 5: Firmware update/Images screen showing how to copy URL.
-
-<a name="fig6"></a>
-![fig6](pics/06.png "Figure 6")
-Figure 6: Upload firmware image screen.
-
-<a name="fig7"></a>
-![fig7](pics/07.png "Figure 7")
-Figure 7: Device details screen.
-
-<a name="fig8"></a>
-![fig8](pics/08.png "Figure 8")
-Figure 8: Device directory screen for viewing device registration status and adding device filters.
-
-<a name="fig9"></a>
-![fig9](pics/09.png "Figure 9")
-Figure 9: Device directory for adding a filter device id attribute.
-
-<a name="fig10"></a>
-![fig10](pics/10.png "Figure 10")
-Figure 10: Device directory for adding a filter.
-
-<a name="fig11"></a>
-![fig11](pics/11.png "Figure 11")
-Figure 11: Saved filters screen.
-
-<a name="fig12"></a>
-![fig12](pics/12.png "Figure 12")
-Figure 12: Update campaigns screen.
-
-<a name="fig13"></a>
-![fig13](pics/13.png "Figure 13")
-Figure 13: New update campaign screen.
-
-<a name="fig14"></a>
-![fig14](pics/15.png "Figure 14")
-Figure 14: Firmware update/Campaign status screen.
-
-<a name="fig15"></a>
-![fig15](pics/16.png "Figure 15")
-Figure 15: Test campaign details screen.
-
-[mbl-alpha-walkthrough]: https://github.com/ARMmbed/meta-mbl/blob/alpha/docs/walkthrough.md
+To send a firmware update to your device, follow these steps:
+1. Discover your device's device ID. To do this you can either:
+   - Copy the device ID to the clipboard from the **Device Directory** tab on the Pelion Device Management web interface.
+   - Search for the device ID in the `mbl-cloud-client`'s log file `/var/log/mbl-cloud-client.log`, using the following command on the device's console:
+     ```
+     grep -i 'device id' /var/log/mbl-cloud-client.log
+     ```
+1. At this point, if you are doing a root file system update, you may wish to check which root file system bank is currently active so that you can compare it to the active bank after the update. You can use the [`lsblk` command mentioned above](#check-rootfs-bank) to do this.
+1. Change directory to the directory in which the manifest tool was initialized.
+1. Run the following command:
+   ```
+   manifest-tool update device --device-id <device-id> --payload <payload-file> --api-key <api-key>
+   ```
+   Where:
+   - `<device-id>` is the device ID discovered in #1.
+   - `<payload-file>` is the update payload file that you created from the instructions in the previous section.
+   - `<api-key>` is your Pelion Device Management API key. 
+1. Once your device has recieved the update request, you can follow its download progress by looking in the `mbl-cloud-client`'s log file:
+   ```
+   tail -f /var/log/mbl-cloud-client.log
+   ```
+1. Once the download has completed and installation has begun, installation progress can be followed in the following log files:
+   - `/var/log/arm_update_activate.log` - this log file contains messages about the overall progress of the installation and messages specific to root file system updates.
+   - `/var/log/mbl-app-update-manager.log` - this log file contains messages specific to application updates.
+1. Once installation of the update is complete, Mbed Linux OS will start running the new firmware. For root file system updates, a reboot will be automatically initiated to boot into the new firmware. For application updates, a reboot is not required and the new applications will start running automatically after the update.
+1. If you are doing a root file system update, you may wish to check which root file system bank is currently active. You can use the [`lsblk` command mentioned above](#check-rootfs-bank) to do this.
