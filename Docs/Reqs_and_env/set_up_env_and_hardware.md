@@ -18,6 +18,7 @@ To build and run Mbed Linux, you will need:
 
 * A PC running Ubuntu 16.04.
 <!--That's really old. Why are we forcing them into this? And if we are, should we say "if you need a VN, see below"?-->
+* A [Pelion](https://portal.mbedcloud.com/) portal account
 * A Github account with access to private ARMmbed repositories.
 * An SSH agent (required for cloning repositories non-interactively during the build process). Adding SSH key to the ssh-agent is describe in the [following link](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/#adding-your-ssh-key-to-the-ssh-agent).
 * Full internet access is required as the build process downloads packages from the internet.

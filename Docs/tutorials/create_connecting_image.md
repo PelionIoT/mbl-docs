@@ -36,6 +36,28 @@ Checkout the `mbl-XXX` branch of [mbl-tools git repository](https://github.com/A
 $ git clone git@github.com:ARMmbed/mbl-tools.git --branch mbl-XXX
 ```
 
+### Download Mbed Cloud dev credentials file
+
+To connect your device to your Pelion Device Management account, you need to add a credentials file to your application before you build it. For development environments, Pelion offers a *developer certificate* for quick connections:
+
+1. Create cloud credentials directory, e.g. `./cloud-credentials`
+2. To create a Pelion developer certificate (`mbed_cloud_dev_credentials.c`), follow the instructions for [creating and downloading a developer certificate](https://cloud.mbed.com/docs/v1.2/provisioning-process/provisioning-development.html#creating-and-downloading-a-developer-certificate).
+<!--This is where being able to splice the content would be great; I would rather transclude it here than send them to another page. I'll see what the Web Team has.-->
+3. Add the developer certificate to the cloud credentials directory you've created.
+
+### Create an Update resources file
+
+1. Create update resources directory, e.g. `./update-resources`
+```
+mkdir ./update-resources && cd ./update-resources
+```
+
+2. Initialize manifest-tool settings and generate Update resources by running the following commands:
+```
+manifest-tool init -q -d arm.com -m dev-device
+```
+This generates a file `update_default_resources.c` that is required during the build process.
+
 ### Build script
 
 The `run-me.sh` script will create and launch a docker container to encapsulate the Mbed Linux build environment then launch a build script, `build.sh`, inside the container to do the heavy lifting.
@@ -69,7 +91,7 @@ All mandatory build options are described in the following sections below:
 * For more information about `--branch` option see [Select release branch](#Select-release-branch).
 * For more information about `--machine` option see [Select target device](#Select-target-device).
 * For more information about `--outputdir` option see [Build Artifacts](#Build-Artifacts).
-* For more information about `--inject-mcc` option see [Use Mbed Cloud Client Credentials](#Use-Mbed-Cloud-Client-Credentials) and [Download Mbed Cloud dev credentials file](#Download-Mbed-Cloud-dev-credentials-file).
+* For more information about `--inject-mcc` option see [Use Mbed Cloud Client Credentials](#Use-Mbed-Cloud-Client-Credentials)
 
 ##### Select release branch
 Different branches of Mbed Linux can be checkout and built by passing the `--branch` option through to `build.sh`.  The bleeding edge of mainline development takes place on the 'master' branch.
@@ -133,18 +155,12 @@ Test image is also being build, and contains more packages for testing and debug
 | Full test disk image block map | `/path/to/artifacts/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-test-<MACHINE>.wic.bmap` |
 | Root file system archive  | `/path/to/artifacts/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-test-<MACHINE>.tar.xz`   |
 
-##### Download Mbed Cloud dev credentials file
-
-To connect your device to your Pelion Device Management account, you need to add a credentials file to your application before you build it. For development environments, Pelion offers a *developer certificate* for quick connections:
-
-1. Create cloud credentials directory, e.g. `cloud-credentials`.
-2. To create a Pelion developer certificate (`mbed_cloud_dev_credentials.c`), follow the instructions for [creating and downloading a developer certificate](https://cloud.mbed.com/docs/v1.2/provisioning-process/provisioning-development.html#creating-and-downloading-a-developer-certificate).
-<!--This is where being able to splice the content would be great; I would rather transclude it here than send them to another page. I'll see what the Web Team has.-->
-3. Add the developer certificate to the cloud credentials directory you've created.
-
 ##### Use Mbed Cloud Client Credentials
 
-The current Mbed Cloud Client requries key material to be statically built into the cloud client binary. This is a temporary measure that will be replaced with a dynamic key injection mechanism shortly.  In the meantime, the build scripts provide a work around using the `--inject-mcc` option:
+The current Mbed Cloud Client requries key material to be statically built into the cloud client binary. 
+This is a temporary measure that will be replaced with a dynamic key injection mechanism shortly, see [Download Mbed Cloud dev credentials file](#Download-Mbed-Cloud-dev-credentials-file) and [Create an Update resources file](#Create-an-Update-resources-file) sections.
+
+In the meantime, the build scripts provide a work around using the `--inject-mcc` option:
 ```
 ./mbl-tools/build-mbl/run-me.sh --inject-mcc /path/to/mbed_cloud_dev_credentials.c --inject-mcc /path/to/update_default_resources.c
 ```
@@ -186,19 +202,18 @@ To re-build using a previously pinned manifest use the `--external-manifest` opt
 
 ### Example quick start build lines
 
-Following examples assumes that the user already downloaded Mbed Cloud dev credentials into `/mbed_credentials` directory.
-In case you want to test both examples one after the other, please also use `--outputdir` to distinguish between build outputs.
+Following examples assumes that the user already downloaded Mbed Cloud dev credentials and created an update resources file, see [Download Mbed Cloud dev credentials file](#Download-Mbed-Cloud-dev-credentials-file) and [Create an Update resources file](#Create-an-Update-resources-file) sections.
 
 #### Warp7 device
 
 ```
-./mbl-tools/build-mbl/run-me.sh --inject-mcc /mbed_credential/mbed_cloud_dev_credentials.c --inject-mcc /mbed_credential/update_default_resources.c -- --branch mbl-XXX --machine imx7s-warp-mbl
+./mbl-tools/build-mbl/run-me.sh --inject-mcc /mbed_credential/mbed_cloud_dev_credentials.c --inject-mcc /mbed_credential/update_default_resources.c --outputdir /path/to/artifacts_warp7 -- --machine imx7s-warp-mbl --branch mbl-XXX
 ```
 
 #### Raspberry Pi 3 device
 
 ```
-./mbl-tools/build-mbl/run-me.sh --inject-mcc /mbed_credential/mbed_cloud_dev_credentials.c --inject-mcc /mbed_credential/update_default_resources.c -- --branch mbl-XXX --machine raspberrypi3-mbl
+./mbl-tools/build-mbl/run-me.sh --inject-mcc /mbed_credential/mbed_cloud_dev_credentials.c --inject-mcc /mbed_credential/update_default_resources.c --outputdir /path/to/artifacts_rpi3 -- --machine raspberrypi3-mbl --branch mbl-XXX
 ```
 
 ## Write the disk image to your device and booting it
