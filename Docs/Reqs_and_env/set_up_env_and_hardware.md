@@ -40,7 +40,7 @@ The following packages are required for the quick start and subsequent tutorials
 The command to install them will look something like this:
 
 ```
-sudo apt-get install bmap-tools chrpath curl git python-dev python-pip
+sudo apt-get install curl git python-pip
 ```
 
 #### Installing the manifest tool
