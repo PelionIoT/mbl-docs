@@ -203,16 +203,16 @@ To re-build using a previously pinned manifest use the `--external-manifest` opt
 ### Example quick start build lines
 
 Following examples assumes that the user already downloaded Mbed Cloud dev credentials and created an update resources file, see [Download Mbed Cloud dev credentials file](#Download-Mbed-Cloud-dev-credentials-file) and [Create an Update resources file](#Create-an-Update-resources-file) sections.
-Also, assuming that the user created an output directory for both Warp7 and RPi3 (e.g. `./artifacts_warp7` and `./artifacts_rpi3`).
+Also, assuming that the user created an output directory for both Warp7 and RPi3 (e.g. `./artifacts-warp7` and `./artifacts-rpi3`).
 
 #### Warp7 device
 ```
-./mbl-tools/build-mbl/run-me.sh --inject-mcc ./mbed_credential/mbed_cloud_dev_credentials.c --inject-mcc ./update-resources/update_default_resources.c --outputdir ./artifacts_warp7 -- --machine imx7s-warp-mbl --branch mbl-XXX
+./mbl-tools/build-mbl/run-me.sh --inject-mcc ./cloud-credentials/mbed_cloud_dev_credentials.c --inject-mcc ./update-resources/update_default_resources.c --outputdir ./artifacts-warp7 -- --machine imx7s-warp-mbl --branch mbl-XXX
 ```
 
 #### Raspberry Pi 3 device
 ```
-./mbl-tools/build-mbl/run-me.sh --inject-mcc ./mbed_credential/mbed_cloud_dev_credentials.c --inject-mcc ./update-resources/update_default_resources.c --outputdir ./artifacts_rpi3 -- --machine raspberrypi3-mbl --branch mbl-XXX
+./mbl-tools/build-mbl/run-me.sh --inject-mcc ./cloud-credentials/mbed_cloud_dev_credentials.c --inject-mcc ./update-resources/update_default_resources.c --outputdir ./artifacts-rpi3 -- --machine raspberrypi3-mbl --branch mbl-XXX
 ```
 
 ## Write the disk image to your device and booting it
