@@ -33,6 +33,7 @@ To build and run Mbed Linux, you will need:
 
 The following packages are required for the quick start and subsequent tutorials:<!--are these all Python packages?-->
 
+* bmap-tools.
 * curl.
 * git.
 * python-pip.
@@ -40,7 +41,7 @@ The following packages are required for the quick start and subsequent tutorials
 The command to install them will look something like this:
 
 ```
-sudo apt-get install curl git python-pip
+sudo apt-get install bmap-tools curl git python-pip
 ```
 
 #### Installing the manifest tool

@@ -239,7 +239,7 @@ groups
 <your_user> dialout
 ```
 
-The user might need to log out and log in again before the group membership will take effect for their shell process.
+The user might need to reboot PC before the group membership will take effect for their shell process.
 <!--And this is okay because we've done the build, so we're not limited to the original shell instance anymore, right?-->
 
 ### Warp7 devices
