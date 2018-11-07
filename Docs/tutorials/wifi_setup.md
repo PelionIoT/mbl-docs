@@ -33,7 +33,7 @@ ConnMan automates many of the network operations and configurations by interacti
 ```
 # cat /config/user/connman/*/settings
 ```
-* For advanced connections, user may place service files under this folder (see section [Connecting to a network using service conflagration files](#connecting-to-a-network-using-service-conflagration-files)). These are also known as provisioning files and end with `.config` prefix.
+* For advanced connections, user may place service files under this folder (see section [Connecting to a network using service configuration files](#connecting-to-a-network-using-service-conflagration-files)). These are also known as provisioning files and end with `.config` prefix.
 
 ### Enabling WiFi
 Network interfaces are referred by ConnMan as `Technologies`.WiFi is a type of technology. Each technology supply different types of `services`. For example: WiFi is a technology (named 'wifi') and an Access Point (AP) called 'MyNetwork' supplies a service called wifi_dc85de828967_68756773616d_managed_psk.
