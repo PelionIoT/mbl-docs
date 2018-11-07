@@ -23,7 +23,7 @@ Agent registered
 
 For help use 'connmanctl --help' or just 'help' in interactive mode.
 The connmanctl man page can be found here:  
-https://jlk.fjfi.cvut.cz/arch/manpages/man/connmanctl.1
+https://www.systutorials.com/docs/linux/man/8-connman/
 
 ### Configuration and state
 ConnMan automates many of the network operations and configurations by interacting with other daemons (DNS, DHCP  and others) and by keeping a Settings file, service files and other auto-generated data under /config/user/connman/ folder. Under this folder we have :
@@ -35,7 +35,7 @@ ConnMan automates many of the network operations and configurations by interacti
 ```
 * For advanced connections, user may place service files under this folder (see section [Connecting to a network using service conflagration files](#connecting-to-a-network-using-service-conflagration-files)). These are also known as provisioning files and end with `.config` prefix.
 
-### How to enable WiFi
+### Enabling WiFi
 Network interfaces are referred by ConnMan as `Technologies`.WiFi is a type of technology. Each technology supply different types of `services`. For example: WiFi is a technology (named 'wifi') and an Access Point (AP) called 'MyNetwork' supplies a service called wifi_dc85de828967_68756773616d_managed_psk.
 By default, all technologies are disabled at the very first startup in order to prevent unwanted wireless or wired communication from happening. Type 'connmanctl state' and then 'ifconfig' to see the initial state(you should get something similar to the next printout, depends how you connect to your device):
 ```
@@ -87,7 +87,7 @@ wlan0     Link encap:Ethernet  HWaddr A0:CC:2B:2C:CB:9B
   SessionMode = False
 ```
 
-### How to scan for WiFi availableand inspect results
+### Scanning for WiFi available networks and inspecting results
 To scan for nearby Wi-Fi networks:
 ```
 # connmanctl scan wifi
@@ -223,7 +223,7 @@ Comment : Password encryption is not supported by ConnMan.
 
 ### Connecting to a network using service conflagration (provisioning) files
 A provision file (must end with .config) is used for advanced configurations, such as secured wireless access points which need complex authentication (e.g WPA2 Enterprise), static IPs and so on. Each provisioning file can be used for multiple services at once.
-For complete help refer to : https://jlk.fjfi.cvut.cz/arch/manpages/man/connman-service.config.5
+For complete help refer to : https://www.systutorials.com/docs/linux/man/5-connman.conf/
 
 ### Connecting to a WiFi WPA/WPA2 Enterprise Network
 
