@@ -120,7 +120,7 @@ Select the <MACHINE> value for your Mbed Linux device from the table below:
 Each build will produce a variety of build artifacts including a pinned manifest, target specific images and license information.
 To get build artifacts out of a build, pass the `--outputdir` option to specify which directory the build artifacts should be placed in:
 ```
-mkdir artifacts
+mkdir /path/to/artifacts
 ./mbl-tools/build-mbl/run-me.sh --outputdir /path/to/artifacts
 ```
 
@@ -174,8 +174,8 @@ Optional build script options can be used to improve the development process.
 The build process involves the download of many source artifacts.  It is possible to cache downloaded source artifacts between successive builds.  In practice the cache mechanism is considered to be robust for successive builds.  It should not be used for parallel builds.
 For example, to designate a directory to hold cached downloads between successive builds, pass the `--downloaddir` option to `run-me.sh`:
 ```
-mkdir downloads
-./mbl-tools/build-mbl/run-me.sh --downloaddir $(pwd)/downloads
+mkdir /path/to/downloads
+./mbl-tools/build-mbl/run-me.sh --downloaddir /path/to/downloads
 ```
 
 ##### Create multiple build directories
@@ -190,7 +190,7 @@ It is a good practice to use different build directories for every build.
 
 Each build produces a pinned manifest as a build artifact. A pinned manifest is a file that encapsulates sufficient version information to allow an exact rebuild. To get the pinned manifest for a build, use the `--outputdir` option to get the build artifacts:
 ```
-mkdir artifacts
+mkdir /path/to/artifacts
 ./mbl-tools/build-mbl/run-me.sh --outputdir /path/to/artifacts
 ```
 
@@ -203,17 +203,16 @@ To re-build using a previously pinned manifest use the `--external-manifest` opt
 ### Example quick start build lines
 
 Following examples assumes that the user already downloaded Mbed Cloud dev credentials and created an update resources file, see [Download Mbed Cloud dev credentials file](#Download-Mbed-Cloud-dev-credentials-file) and [Create an Update resources file](#Create-an-Update-resources-file) sections.
+Also, assuming that the user created an output directory for both Warp7 and RPi3 (e.g. `./artifacts_warp7` and `./artifacts_rpi3`).
 
 #### Warp7 device
-
 ```
-./mbl-tools/build-mbl/run-me.sh --inject-mcc /mbed_credential/mbed_cloud_dev_credentials.c --inject-mcc /mbed_credential/update_default_resources.c --outputdir /path/to/artifacts_warp7 -- --machine imx7s-warp-mbl --branch mbl-XXX
+./mbl-tools/build-mbl/run-me.sh --inject-mcc ./mbed_credential/mbed_cloud_dev_credentials.c --inject-mcc ./mbed_credential/update_default_resources.c --outputdir ./artifacts_warp7 -- --machine imx7s-warp-mbl --branch mbl-XXX
 ```
 
 #### Raspberry Pi 3 device
-
 ```
-./mbl-tools/build-mbl/run-me.sh --inject-mcc /mbed_credential/mbed_cloud_dev_credentials.c --inject-mcc /mbed_credential/update_default_resources.c --outputdir /path/to/artifacts_rpi3 -- --machine raspberrypi3-mbl --branch mbl-XXX
+./mbl-tools/build-mbl/run-me.sh --inject-mcc ./mbed_credential/mbed_cloud_dev_credentials.c --inject-mcc ./mbed_credential/update_default_resources.c --outputdir ./artifacts_rpi3 -- --machine raspberrypi3-mbl --branch mbl-XXX
 ```
 
 ## Write the disk image to your device and booting it
