@@ -6,15 +6,15 @@ Mbed Linux uses `ConnMan` (see https://01.org/connman/documentation) to manage W
 
 ### connmanctl
 
-`connmanctl` is a command-line interface (CLI). It can operates in 2 modes :
-* A plain synchronous command input - in that case you may use connmanctl straight from the shell. For example :
+`connmanctl` is a command-line interface (CLI). It can operates in 2 modes:
+* A plain synchronous command input - in that case you may use connmanctl straight from the shell. For example:
 ```
 # connmanctl state
   State = ready
   OfflineMode = False
   SessionMode = False
 ```
-* An asynchronous interactive shell - to enter the interactive shell, just enter 'connmanctl'. Some operations are permitted only in asynchronous shell mode :
+* An asynchronous interactive shell - to enter the interactive shell, just enter 'connmanctl'. Some operations are permitted only in asynchronous shell mode:
 ```
 # connmanctl
 connmanctl> agent on
@@ -26,10 +26,10 @@ The connmanctl man page can be found here:
 https://www.systutorials.com/docs/linux/man/8-connman/
 
 ### Configuration and state
-ConnMan automates many of the network operations and configurations by interacting with other daemons (DNS, DHCP  and others) and by keeping a Settings file, service files and other auto-generated data under /config/user/connman/ folder. Under this folder we have :
+ConnMan automates many of the network operations and configurations by interacting with other daemons (DNS, DHCP  and others) and by keeping a Settings file, service files and other auto-generated data under /config/user/connman/ folder. Under this folder we have:
 * `/config/user/connman/settings` file - current global and per-technology settings.
 * `/config/user/connman/main.conf` file - this is the main ConnMan's configuration file. Currently, all parameters are set to default (commented) and only one is set to prioritize Ethernet interface default routes over WiFi interface when both are connected.
-* Automatically generated `service profile` - each folder holds the name of a specific service profile often/recently used, with current configuration and state to support auto-connect on boot and other definitions.They contain fields for the passphrase, essid and other information. On an initial state, there are no service profiles defined. In order to see all service profiles :
+* Automatically generated `service profile` - each folder holds the name of a specific service profile often/recently used, with current configuration and state to support auto-connect on boot and other definitions.They contain fields for the passphrase, essid and other information. On an initial state, there are no service profiles defined. In order to see all service profiles:
 ```
 # cat /config/user/connman/*/settings
 ```
@@ -147,7 +147,7 @@ root@imx7s-warp-mbl:~#
 
 ### Connecting to an open WiFi Network (public WiFi)
 
-Currently,  ConnMan doesn't support connections to public networks with captive portal since ***WISPr*** (Wireless Internet Service Provider roaming ) is disabled.To connect to a public open network (AndroidAP5 in the example) you have to use the service name. Type :
+Currently,  ConnMan doesn't support connections to public networks with captive portal since ***WISPr*** (Wireless Internet Service Provider roaming ) is disabled.To connect to a public open network (AndroidAP5 in the example) you have to use the service name. Type:
 ```
 # connmanctl connect wifi_a0cc2b2ccb9b_416e64726f6964415035_managed_none
 [ 1321.787201] IPv6: ADDRCONF(NETDEV_CHANGE): wlan0: link becomes ready
@@ -219,15 +219,15 @@ connmanctl> [  146.007791] IPv6: ADDRCONF(NETDEV_CHANGE): wlan0: link becomes re
 Connected wifi_a0cc2b2ccb9b_4564696d6178_managed_wep
 ```
 As you may have noticed, when in connmanctl interacive mode, commands are typed exactly the same without the 'connmanctl' prefix.
-Comment : Password encryption is not supported by ConnMan.
+Comment: Password encryption is not supported by ConnMan.
 
 ### Connecting to a network using service conflagration (provisioning) files
 A provision file (must end with .config) is used for advanced configurations, such as secured wireless access points which need complex authentication (e.g WPA2 Enterprise), static IPs and so on. Each provisioning file can be used for multiple services at once.
-For complete help refer to : https://www.systutorials.com/docs/linux/man/5-connman.conf/
+For complete help refer to: https://www.systutorials.com/docs/linux/man/5-connman.conf/
 
 ### Connecting to a WiFi WPA/WPA2 Enterprise Network
 
-As a first stage, disable WiFi :
+As a first stage, disable WiFi:
 ```
 # connmanctl disable wifi
 ```
