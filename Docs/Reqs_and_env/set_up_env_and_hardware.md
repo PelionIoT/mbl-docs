@@ -3,7 +3,7 @@
 Supported boards:
 
 * [NXP Warp7](https://www.nxp.com/support/developer-resources/nxp-designs/warp7-next-generation-iot-and-wearable-development-platform:WARP7). You will also need two micro USB cables.
-* [Raspberry Pi 3](https://www.raspberrypi.org/products/) with a micro SD card and a C232HD-DDHSP-0 cable to connect it to a PC.
+* [Raspberry Pi3 B and B+](https://www.raspberrypi.org/products/) with a micro SD card and a C232HD-DDHSP-0 cable to connect it to a PC.
 
     <span class="warning">Raspberry Pi 3 is suitable for development only; do not use it for production.</span>
 
@@ -26,17 +26,15 @@ To build and run Mbed Linux, you will need:
     * Some software packages which are required to support Mbed Linux (see [Installing software dependencies](#installing-software-dependencies)).
     * Mbed's `manifest-tool` with the Mbed Cloud SDK library (see [Installing the manifest tool](#install-manifest-tool)).
     * Docker CE (see [Installing Docker CE](#install-docker-ce)).
+* Reboot PC after you finish all installation is recommended.
 
 
 #### Installing software dependencies
 
 The following packages are required for the quick start and subsequent tutorials:<!--are these all Python packages?-->
 
-* bmap-tools
-* chrpath.
 * curl.
 * git.
-* python-dev.
 * python-pip.
 
 The command to install them will look something like this:
@@ -62,7 +60,7 @@ See [the firmware manifest documentation](https://cloud.mbed.com/docs/latest/upd
 
 #### Installing Docker CE
 Docker is needed in order to be able to use mbl-tools build-mbl script (and to be able to develop and build apps on your x86 PC).
-Download and install [Docker CE](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
+Download and install latest version of [Docker CE](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
 
 ##### Manage Docker as a non-root user
 You will need to add yourself to the docker group to run docker commands without sudo. See the following [instructions](https://docs.docker.com/install/linux/linux-postinstall/).

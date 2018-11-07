@@ -207,12 +207,12 @@ Also, assuming that the user created an output directory for both Warp7 and RPi3
 
 #### Warp7 device
 ```
-./mbl-tools/build-mbl/run-me.sh --inject-mcc ./mbed_credential/mbed_cloud_dev_credentials.c --inject-mcc ./mbed_credential/update_default_resources.c --outputdir ./artifacts_warp7 -- --machine imx7s-warp-mbl --branch mbl-XXX
+./mbl-tools/build-mbl/run-me.sh --inject-mcc ./mbed_credential/mbed_cloud_dev_credentials.c --inject-mcc ./update-resources/update_default_resources.c --outputdir ./artifacts_warp7 -- --machine imx7s-warp-mbl --branch mbl-XXX
 ```
 
 #### Raspberry Pi 3 device
 ```
-./mbl-tools/build-mbl/run-me.sh --inject-mcc ./mbed_credential/mbed_cloud_dev_credentials.c --inject-mcc ./mbed_credential/update_default_resources.c --outputdir ./artifacts_rpi3 -- --machine raspberrypi3-mbl --branch mbl-XXX
+./mbl-tools/build-mbl/run-me.sh --inject-mcc ./mbed_credential/mbed_cloud_dev_credentials.c --inject-mcc ./update-resources/update_default_resources.c --outputdir ./artifacts_rpi3 -- --machine raspberrypi3-mbl --branch mbl-XXX
 ```
 
 ## Write the disk image to your device and booting it
