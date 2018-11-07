@@ -3,7 +3,7 @@
 Supported boards:
 
 * [NXP Warp7](https://www.nxp.com/support/developer-resources/nxp-designs/warp7-next-generation-iot-and-wearable-development-platform:WARP7). You will also need two micro USB cables.
-* [Raspberry Pi 3]|(https://www.raspberrypi.org/products/) with a micro SD card and a C232HD-DDHSP-0 cable to connect it to a PC.
+* [Raspberry Pi3 model B and B+](https://www.raspberrypi.org/products/) with a micro SD card and a C232HD-DDHSP-0 cable to connect it to a PC.
 
     <span class="warning">Raspberry Pi 3 is suitable for development only; do not use it for production.</span>
 
@@ -18,48 +18,30 @@ To build and run Mbed Linux, you will need:
 
 * A PC running Ubuntu 16.04.
 <!--That's really old. Why are we forcing them into this? And if we are, should we say "if you need a VN, see below"?-->
+* A [Pelion](https://portal.mbedcloud.com/) portal account
 * A Github account with access to private ARMmbed repositories.
-* An SSH agent (required for cloning repositories non-interactively during the build process).
+* An SSH agent (required for cloning repositories non-interactively during the build process). Adding SSH key to the ssh-agent is describe in the [following link](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/#adding-your-ssh-key-to-the-ssh-agent).
+* Full internet access is required as the build process downloads packages from the internet.
 * To install:
     * Some software packages which are required to support Mbed Linux (see [Installing software dependencies](#installing-software-dependencies)).
-    * Google's `repo` tool (see [Installing Google's repo tool](#install-google-repo)).
     * Mbed's `manifest-tool` with the Mbed Cloud SDK library (see [Installing the manifest tool](#install-manifest-tool)).
+    * Docker CE (see [Installing Docker CE](#install-docker-ce)).
+* Reboot PC after you finish all installation is recommended.
 
 
 #### Installing software dependencies
 
 The following packages are required for the quick start and subsequent tutorials:<!--are these all Python packages?-->
 
-* bmap-tools
-* chrpath.
+* bmap-tools.
 * curl.
-* diffstat.
-* gawk.
 * git.
-* python-dev.
 * python-pip.
-* texinfo.
-* wget.
-* whiptail.
 
 The command to install them will look something like this:
 
 ```
-sudo apt-get install bmap-tools chrpath curl diffstat gawk git python-dev python-pip texinfo wget whiptail
-```
-
-#### Installing Google's repo tool
-
-Download Google's [`repo` tool](https://gerrit.googlesource.com/git-repo):
-
-```
-curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > /tmp/google-repo-tool
-```
-
-Then install it to your preferred location. For example, to install to `/usr/local/bin`:
-
-```
-sudo install -m 0755 /tmp/google-repo-tool /usr/local/bin/repo
+sudo apt-get install bmap-tools curl git python-pip
 ```
 
 #### Installing the manifest tool
@@ -76,6 +58,13 @@ pip install --user mbed-cloud-sdk
 See [the firmware manifest documentation](https://cloud.mbed.com/docs/latest/updating-firmware/firmware-manifests.html) for more information about the manifest tool.
 
 <!--Can we add initalization instructions here, so that I don't have to send people to the first tutorial every time I remind them this needs initializing?-->
+
+#### Installing Docker CE
+Docker is needed in order to be able to use mbl-tools build-mbl script (and to be able to develop and build apps on your x86 PC).
+Download and install latest version of [Docker CE](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
+
+##### Manage Docker as a non-root user
+You will need to add yourself to the docker group to run docker commands without sudo. See the following [instructions](https://docs.docker.com/install/linux/linux-postinstall/).
 
 #### Using virtual machines
 
