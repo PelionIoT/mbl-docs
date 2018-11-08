@@ -2,296 +2,255 @@
 
 <!--Not edited yet-->
 
-Mbed Linux uses `ifupdown` and [`wpa_supplicant`][ws_home_page] to manage wifi interfaces and connections. To configure wifi settings you can either:
+Mbed Linux uses `ConnMan` (see https://01.org/connman/documentation) to manage WiFi interfaces and connections. In the common case, user should not interact directly with the wpa_supplicant daemon, nor try to modify the wpa_supplicant.conf file. All basic network operations should be done using ConnMan.
 
-* Edit the file `/etc/wpa_supplicant.conf` (which is actually a symlink to `/config/wpa_supplicant.conf` on Mbed Linux).
-* Use the `wpa_cli` utility.
+### connmanctl
 
-This document provides some basic information about how to configure wifi using the `wpa_supplicant.conf` file and the `wpa_cli` utility. Refer to the `wpa_supplicant` [man page][ws_man_page] and [reference configuration file][ws_reference_config] for further information.
-
-### Using the `wpa_supplicant.conf` file
-
-By default, the `wpa_supplicant.conf` file contains, among other settings:
-
-* **Global settings** to enable `wpa_cli`, when run by a member of the group `root`, to configure `wpa_supplicant` and write to the configuration file.  Do **not** remove or change these lines.
-    ```
-    ctrl_interface=/var/run/wpa_supplicant
-    ctrl_interface_group=0
-    update_config=1
-    ```
-* Zero or more **network blocks** that each specify the configuration for a particular network. The default network block tells `wpa_supplicant` to connect to any open network.
-    ```
-    network={
-        key_mgmt=NONE
-    }
-    ```
-    <span class="notes">**Note** This policy may change in the future.</span>
-
-#### The network block structure
-
-A network block has the following structure:
+`connmanctl` is a command-line interface (CLI). It can operates in 2 modes:
+* A plain synchronous command input - in that case you may use connmanctl straight from the shell. For example:
 ```
-network={
-    <network settings>
-}
+# connmanctl state
+  State = ready
+  OfflineMode = False
+  SessionMode = False
 ```
-Where `<network settings>` contains the configuration details of the network. For example, the following network block specifies a WPA-PSK network, where the:
-
-* SSID is `my-ssid`.
-* passphrase is `my-password`.
-
+* An asynchronous interactive shell - to enter the interactive shell, just enter 'connmanctl'. Some operations are permitted only in asynchronous shell mode:
 ```
-network={
-    ssid="my-ssid"
-    psk="my-password"
-}
+# connmanctl
+connmanctl> agent on
+Agent registered
 ```
 
-The parameters that need to be included for the network settings depend upon the type of network connection.  For more examples of the parameters that you should include, refer to the [network block examples](#network-block-examples) at the end of this document.
+For help use 'connmanctl --help' or just 'help' in interactive mode.
+The connmanctl man page can be found here:  
+https://www.systutorials.com/docs/linux/man/8-connman/
 
-### Applying network configuration changes
+### Configuration and state
+ConnMan automates many of the network operations and configurations by interacting with other daemons (DNS, DHCP  and others) and by keeping a Settings file, service files and other auto-generated data under /config/user/connman/ folder. Under this folder we have:
+* `/config/user/connman/settings` file - current global and per-technology settings.
+* `/config/user/connman/main.conf` file - this is the main ConnMan's configuration file. Currently, all parameters are set to default (commented) and only one is set to prioritize Ethernet interface default routes over WiFi interface when both are connected.
+* Automatically generated `service profile` - each folder holds the name of a specific service profile often/recently used, with current configuration and state to support auto-connect on boot and other definitions.They contain fields for the passphrase, essid and other information. On an initial state, there are no service profiles defined. In order to see all service profiles:
+```
+# cat /config/user/connman/*/settings
+```
+* For advanced connections, user may place service files under this folder (see section [Connecting to a network using service configuration files](#connecting-to-a-network-using-service-conflagration-files)). These are also known as provisioning files and end with `.config` prefix.
 
-After editing `wpa_supplicant.conf`, run the following commands to make the network configuration changes take effect:
+### Enabling WiFi
+Network interfaces are referred by ConnMan as `Technologies`.WiFi is a type of technology. Each technology supply different types of `services`. For example: WiFi is a technology (named 'wifi') and an Access Point (AP) called 'MyNetwork' supplies a service called wifi_dc85de828967_68756773616d_managed_psk.
+By default, all technologies are disabled at the very first startup in order to prevent unwanted wireless or wired communication from happening. Type 'connmanctl state' and then 'ifconfig' to see the initial state(you should get something similar to the next printout, depends how you connect to your device):
+```
+# connmanctl state
+  State = idle
+  OfflineMode = False
+  SessionMode = False
+# ifconfig
+lo        Link encap:Local Loopback  
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:20 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:20 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:2088 (2.0 KiB)  TX bytes:2088 (2.0 KiB)
+
+usb0      Link encap:Ethernet  HWaddr 32:0E:BF:08:80:24  
+          inet6 addr: fe80::300e:bfff:fe08:8024/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:25590 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:43 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:4544764 (4.3 MiB)  TX bytes:4010 (3.9 KiB)
 
 ```
-ifdown wlan0
-ifup wlan0
+To enable WiFi type the next lines. You can see that after enabling WiFi, state moves to ready and wlan0 interface is up (Whenever you see 3 lines of dots '...', the purpose is to jump over insignificant printout section):
+```
+# connmanctl enable wifi
+[83043.692440] IPv6: ADDRCONF(NETDEV_UP): wlan0: link is not ready
+Enabled wifi
+# [83044.504290] IPv6: ADDRCONF(NETDEV_CHANGE): wlan0: link becomes ready
+
+# ifconfig
+...
+...
+...
+wlan0     Link encap:Ethernet  HWaddr A0:CC:2B:2C:CB:9B  
+          inet addr:172.27.104.37  Bcast:172.27.105.255  Mask:255.255.254.0
+          inet6 addr: fe80::a2cc:2bff:fe2c:cb9b/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:171 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:431 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:15360 (15.0 KiB)  TX bytes:57775 (56.4 KiB)
+# connmanctl state
+  State = ready
+  OfflineMode = False
+  SessionMode = False
 ```
 
-### Configuring network priority
-
-By default, the order in which `wpa_supplicant` attempts to connect to the networks in `wpa_supplicant.conf` is affected by several factors, including:
-
-* The security policies.
-* The signal strengths of the networks.
-
-For information about the factors that influence connection attempts, refer to the [reference configuration file][ws_reference_config].
-
-You can influence the network priorities for `wpa_supplicant` by using the `priority` field (an integer) in a network block. Network blocks with higher `priority` values are preferred by `wpa_supplicant`. By default, A network's `priority` is `0`.
-
-**Example**
-
-The following configuration specifies two WPA-PSK networks, with SSIDs `ssid1` and `ssid2`. The `ssid2` network is preferred by `wpa_supplicant` because of the higher `priority` value (`2` is greater than `1`).
-
+### Scanning for WiFi available networks and inspecting results
+To scan for nearby Wi-Fi networks:
 ```
-network={
-    ssid="ssid1"
-    psk="my-password1"
-    priority=1
-}
-
-network={
-    ssid="ssid2"
-    psk="my-password2"
-    priority=2
-}
+# connmanctl scan wifi
+Scan completed for wifi
 ```
-
-### Disabling networks
-
-To prevent `wpa_supplicant` from using a specified network, you can mark the network block as `disabled`. In the following example, `wpa_supplicant` will not use the network with SSID `ssid1`:
-
+To list the available networks found (among other services):
 ```
-network={
-    ssid="ssid1"
-    psk="my-password1"
-    disabled=1
-}
-
-network={
-    ssid="ssid2"
-    psk="my-password2"
-}
+# connmanctl services
+    AndroidAP5           wifi_a0cc2b2ccb9b_416e64726f6964415035_managed_none
+    Edimax               wifi_a0cc2b2ccb9b_4564696d6178_managed_wep
+    mbed                 wifi_a0cc2b2ccb9b_6d626564_managed_psk
+    AccessNG             wifi_a0cc2b2ccb9b_4163636573734e47_managed_ieee8021x
+    Guest-AccessNG       wifi_a0cc2b2ccb9b_47756573742d4163636573734e47_managed_none
+    HOTBOX-2211          wifi_a0cc2b2ccb9b_484f54424f582d32323131_managed_psk
+                         wifi_a0cc2b2ccb9b_hidden_managed_none
+    Nicita-Box4          wifi_a0cc2b2ccb9b_4e69636974612d426f7834_managed_psk
+    Carambola            wifi_a0cc2b2ccb9b_436172616d626f6c61_managed_psk
+    NoBscell2            wifi_a0cc2b2ccb9b_4e6f427363656c6c32_managed_psk
+    DIRECT-XJC48x Series wifi_a0cc2b2ccb9b_4449524543542d584a4334387820536572696573_managed_psk
+    Metropoline WIFI1    wifi_a0cc2b2ccb9b_4d6574726f706f6c696e65205749464931_managed_none
+    Wired                gadget_000000000000_usb
 ```
+The last command will list __all__ available services - you can see in the example output, there is also a Wired service in the last line. The avaiavle WiFi AP services are prefixed with 'wifi_' and postfixed with the security protocol. For example:
+* Public (open network) - _managed_none prefix.
+* WEP protected network - _managed_wep prefix.
+* WPA/WPA2 Enterprise 802.1X - managed_ieee8021x prefix.
+* WPA/WPA2 Personal (also known as WPA-PSK) - _managed_psk prefix.
 
-### Checking the wifi connection status
-
-You can use `wpa_cli` to get the status of the current wifi interface; run the following command:
-
+To more closely inspect a service after scanning, use the ''`connmanctl services --properties <service_id>`' option. In the next example we inspect the AccessNG network:
 ```
-wpa_cli status
-```
-
-### Discovering wifi networks
-
-You can use `wpa_cli` to discover available networks.
-
-1. Use `wpa_cli` to request a new scan from `wpa_supplicant`, by running the following command:
-
-    ```
-    # wpa_cli scan
-
-    ```
-1. View the results of this scan using the following command:
-
-    ```
-    # wpa_cli scan_results
-    Selected interface 'wlan0'
-    bssid / frequency / signal level / flags / ssid
-    00:53:0a:64:35:01       2462    -62     [ESS]   ExampleOpenNetwork
-    00:53:f8:98:e8:18       2422    -33     [WPA2-PSK-CCMP][ESS]    ExampleWPAPersonalNetwork
-    00:53:00:64:3a:81       2462    -56     [WPA2-EAP-CCMP][ESS]    ExampleWPAEnterpriseNetwork
-    00:53:03:64:8d:01       2437    -61     [WPA2-EAP-CCMP][ESS]    ExampleWPAEnterpriseNetwork
-    00:53:e0:64:35:22       2462    -62     [WPA2-EAP-CCMP][ESS]    ExampleWPAEnterpriseNetwork
-    00:53:90:64:51:0d       2412    -71     [WPA2-EAP-CCMP][ESS]    ExampleWPAEnterpriseNetwork
-    00:53:02:64:95:cc       2437    -82     [WPA2-EAP-CCMP][ESS]    ExampleWPAEnterpriseNetwork
-    00:53:b0:5d:63:80       2437    -89     [WPA2-EAP-CCMP][ESS]    ExampleWPAEnterpriseNetwork
-    00:53:06:64:3a:84       2462    -54     [ESS]   ExampleOpenNetwork
-    00:53:45:64:8d:09       2437    -63     [ESS]   ExampleOpenNetwork
-    00:53:76:64:51:07       2412    -71     [ESS]   ExampleOpenNetwork
-    00:53:a7:64:95:a1       2437    -81     [ESS]   ExampleOpenNetwork
-    00:53:b0:5d:63:91       2437    -87     [ESS]   ExampleOpenNetwork
-    #
-    ```
-This output shows three SSIDs:
-
-* `ExampleOpenNetwork` - an open network with six known BSSIDs.
-* `ExampleWPAPersonalNetwork` - a WPA-PSK network with a single known BSSID.
-* `ExampleWPAEnterpriseNetwork` - a WPA-Enterprise network with six known BSSIDs.
-
-There are example configurations for networks of these types [below](#network-block-examples).
-
-### Network block examples
-
-The following sections provide example network blocks for connection to:
-
-* Named open networks.
-* WPA-PSK networks.
-* WPA2-Enterprise networks.
-* WEP networks.
-
-For more examples, refer to the `wpa_supplicant` [man page][ws_man_page].
-
-#### Connecting to a named open network
-
-To specify an open network with the SSID `my-ssid`, add the following network block to `wpa_supplicant.conf`:
-
-```
-network={
-    ssid="my-ssid"
-    key_mgmt=NONE
-}
+root@imx7s-warp-mbl:~# connmanctl services --properties wifi_a0cc2b2ccb9b_4163636573734e47_managed_ieee8021x
+/net/connman/service/wifi_a0cc2b2ccb9b_4163636573734e47_managed_ieee8021x
+  Type = wifi
+  Security = [ ieee8021x ]
+  State = idle
+  Strength = 59
+  Favorite = False
+  Immutable = False
+  AutoConnect = False
+  Name = AccessNG
+  Ethernet = [ Method=auto, Interface=wlan0, Address=A0:CC:2B:2C:CB:9B, MTU=1500 ]
+  IPv4 = [  ]
+  IPv4.Configuration = [ Method=dhcp ]
+  IPv6 = [  ]
+  IPv6.Configuration = [ Method=auto, Privacy=disabled ]
+  Nameservers = [  ]
+  Nameservers.Configuration = [  ]
+  Timeservers = [  ]
+  Timeservers.Configuration = [  ]
+  Domains = [  ]
+  Domains.Configuration = [  ]
+  Proxy = [  ]
+  Proxy.Configuration = [  ]
+  Provider = [  ]
+root@imx7s-warp-mbl:~#
 ```
 
-#### Connecting to a WPA-PSK network
+### Connecting to an open WiFi Network (public WiFi)
 
-To specify a WPA-PSK (WPA-Personal) network with SSID `my-ssid` and passphrase `my-passphrase`, add the following block to `wpa_supplicant.conf`:
+Currently,  ConnMan doesn't support connections to public networks with captive portal since ***WISPr*** (Wireless Internet Service Provider roaming ) is disabled.To connect to a public open network (AndroidAP5 in the example) you have to use the service name. Type:
+```
+# connmanctl connect wifi_a0cc2b2ccb9b_416e64726f6964415035_managed_none
+[ 1321.787201] IPv6: ADDRCONF(NETDEV_CHANGE): wlan0: link becomes ready
+Connected wifi_a0cc2b2ccb9b_416e64726f6964415035_managed_none
+# ifconfig
+...
+...
+...
+wlan0     Link encap:Ethernet  HWaddr A0:CC:2B:2C:CB:9B  
+          inet addr:192.168.43.146  Bcast:192.168.43.255  Mask:255.255.255.0
+          inet6 addr: fe80::a2cc:2bff:fe2c:cb9b/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:18 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:40 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:1922 (1.8 KiB)  TX bytes:7189 (7.0 KiB)
 
 ```
-network={
-    ssid="my-ssid"
-    key_mgmt=WPA-PSK
-    psk="my-passphrase"
-}
+As you can see, wlan0 is assigned an IP address (by an DHCP server) after connecting to AndroidAP5.
+If we check the state folder, we can see the service profile for this connection:
 ```
-Alternatively, you can use a hash of the passphrase rather than using it in plain text in the configuration file.
-
-**Generating a hash of a passphrase**
-
-To generate a network block containing the hash, use the `wpa_passphrase` utility, as follows:
-
-```
-# wpa_passphrase my-ssid my-passphrase
-
-network={
-        ssid="my-ssid"
-        #psk="my-passphrase"
-        psk=85892d35689549be10f89580f60dd53dd3e65696fe61f4a8e99ac75e110d94c7
-}
-#
-```
-Remove the line containing `my-passphrase` before adding the network block to `wpa_supplicant.conf`:
-
-```
-network={
-        ssid="my-ssid"
-        psk=85892d35689549be10f89580f60dd53dd3e65696fe61f4a8e99ac75e110d94c7
-}
-```
-<span class="notes">**Note** Although this network block does not contain the original passphrase in plain text, knowing the hash of the passphrase is enough to gain access to the network.</span>
-
-#### Connecting to a WPA2-Enterprise network
-
-There are many different configurations for WPA2-Enterprise networks. The following network block is an example for connecting to a PEAP/EAP-MSCHAPv2 authenticated WPA2-Enterprise network called `my-ssid`, as the user `my-username` with password `my-password`. See the `wpa_supplicant` [man page][ws_man_page] for more examples.
-
-```
-network={
-    ssid="my-ssid"
-    proto=RSN
-    key_mgmt=WPA-EAP
-    auth_alg=OPEN
-    eap=PEAP
-    phase2="MSCHAPV2"
-    identity="my-username"
-    password="my-password"
-}
+# ls -la /config/user/connman/
+total 10
+drwxr-xr-x    3 root     root          1024 Nov  6 14:12 .
+drwxr-xr-x    7 root     root          1024 Oct 23 16:04 ..
+-rw-r--r--    1 root     root          5731 Oct 22 16:03 main.conf
+-rw-------    1 root     root           138 Nov  6 14:12 settings
+drwx------    2 root     root          1024 Nov  6 14:12 wifi_a0cc2b2ccb9b_416e64726f6964415035_managed_none
 ```
 
-Mbed Linux does not currently support saving the username or password in secure storage, so if you need to persistently store these settings, you must store them in the configuration file in plain text.
-
-If you do not need to persistently store these settings, and want to avoid adding them to configuration file, you can use `wpa_cli` to provide them. To do this:
-
-1. Add the network block to `wpa_supplicant.conf` but without the sensitive information:
-    ```
-    network={
-        ssid="my-ssid"
-        proto=RSN
-        key_mgmt=WPA-EAP
-        auth_alg=OPEN
-        eap=PEAP
-       phase2="MSCHAPV2"
-    }
-    ```
-1. Bring the wireless interface down and back up:
-    ```
-    ifdown wlan0
-    ifup wlan0
-    ```
-1. Determine the network ID that `wpa_supplicant` uses for the network using the following     `wpa_cli` command:
-    ```
-    # wpa_cli list_networks
-    Selected interface 'wlan0'
-    network id / ssid / bssid / flags
-    0       some-ssid  any
-    1       my-ssid    any
-    #
-    ```
-   Make a note of the network ID for the SSID of your network (in this example `my-ssid`).
-1. Use `wpa_cli` to provide the required credentials for this network, as follows:
-    ```
-    # wpa_cli set_network 1 identity "my-username"
-    # wpa_cli set_network 1 password "my-password"
-    ```
-   Where `1` is the network ID.
-
-   These credentials will be used until `wpa_supplicant` dies, but will not be written to `wpa_supplicant.conf` (unless you run `wpa_cli save`).
-
-To avoid leaving passwords in terminal logs, you could use a shell function, for example:
-
+The folder wifi_a0cc2b2ccb9b_416e64726f6964415035_managed_none has been automatically created by ConnMan. Inside, there is a data (binary) file and a settings text file:
 ```
-set_wifi_password() {
-network_id="$1"
-    printf "identity: "
-    read identity
-    printf "password: "
-    read -s password
-    wpa_cli set_network "$network_id" identity "\"$identity\""
-    wpa_cli set_network "$network_id" password "\"$password\""
-}
+# ls -la /config/user/connman/wifi_a0cc2b2ccb9b_416e64726f6964415035_managed_none/
+total 7
+drwx------    2 root     root          1024 Nov  6 14:12 .
+drwxr-xr-x    3 root     root          1024 Nov  6 14:12 ..
+-rw-------    1 root     root          4096 Nov  6 14:12 data
+-rw-------    1 root     root           272 Nov  6 14:12 settings
+# cat /config/user/connman/wifi_a0cc2b2ccb9b_416e64726f6964415035_managed_none/settings
+[wifi_a0cc2b2ccb9b_416e64726f6964415035_managed_none]
+Name=AndroidAP5
+SSID=416e64726f6964415035
+Frequency=2412
+Favorite=true
+AutoConnect=true
+Modified=2018-11-06T14:12:25.981677Z
+IPv4.method=dhcp
+IPv4.DHCP.LastAddress=192.168.43.146
+IPv6.method=auto
+IPv6.privacy=disabled
 ```
-#### Connecting to a WEP network
+As you may have noticed, this file is used when inspecting a services using the services --properties option.Inside this file you can see all current settings. Pay attention to the AutoConnect=true parameter. On reboot, or in some other cases (when AP is nearby and other configurations applied), if this is the only existing service profile, ConnMan will auto-connect to this network.
+You may change this file using 'connmanctl config <config data>' or by editing it manually.
 
-To specify a WEP network with SSID `my-ssid` and hex key `123456789a`, add the following block to `wpa_supplicant.conf`:
-
+### Connecting to a protected network interactively
+This requires us to use connmanctl interactive asynchronous mode. Lets disconnect from AndroidAP5 and try connecting to Edimax AP(which is WEP protected):
 ```
-network={
-    ssid="my-ssid"
-    key_mgmt=NONE
-    wep_key0=123456789a
-    wep_tx_keyidx=0
-}
+### connmanctl
+connmanctl> disconnect wifi_a0cc2b2ccb9b_416e64726f6964415035_managed_none
+[  131.769887] IPv6: ADDRCONF(NETDEV_UP): wlan0: link is not ready
+Disconnected wifi_a0cc2b2ccb9b_416e64726f6964415035_managed_none
+connmanctl> agent on
+Agent registered
+connmanctl> connect wifi_a0cc2b2ccb9b_4564696d6178_managed_wep
+Agent RequestInput wifi_a0cc2b2ccb9b_4564696d6178_managed_wep
+  Passphrase = [ Type=wep, Requirement=mandatory ]
+Passphrase? XXXXXXXXXX
+connmanctl> [  146.007791] IPv6: ADDRCONF(NETDEV_CHANGE): wlan0: link becomes ready
+Connected wifi_a0cc2b2ccb9b_4564696d6178_managed_wep
+```
+As you may have noticed, when in connmanctl interacive mode, commands are typed exactly the same without the 'connmanctl' prefix.
+Comment: Password encryption is not supported by ConnMan.
+
+### Connecting to a network using service conflagration (provisioning) files
+A provision file (must end with .config) is used for advanced configurations, such as secured wireless access points which need complex authentication (e.g WPA2 Enterprise), static IPs and so on. Each provisioning file can be used for multiple services at once.
+For complete help refer to: https://www.systutorials.com/docs/linux/man/5-connman.conf/
+
+### Connecting to a WiFi WPA/WPA2 Enterprise Network
+
+As a first stage, disable WiFi:
+```
+# connmanctl disable wifi
 ```
 
-[ws_home_page]: https://w1.fi/wpa_supplicant/
-[ws_man_page]: https://linux.die.net/man/5/wpa_supplicant.conf
-[ws_reference_config]: https://w1.fi/cgit/hostap/plain/wpa_supplicant/wpa_supplicant.conf
+Create a configuration provisioning file at /config/user/connman/<name>-service.config. The ''-service' prefix on the file name is just a convention.
+Add the following content to the configuration file:
+ ```
+[global]
+Name = my-ssid
+Description = Provide a short description
+
+[service_wifi_accessng]
+Type = wifi
+Name = my-ssid
+EAP = peap
+Phase2 = MSCHAPV2
+Identity = my-username
+Passphrase = my-password
+```
+
+Replace "my-ssid", "my-username", and "my-password" with appropriate information. Also, amend the description.
+Now enable WiFi:
+```
+# connmanctl enable wifi
+```
+ ConnMan should connect to the desired network. In case of any issues, restart both ConnMan and wpa_supplicant daemons.

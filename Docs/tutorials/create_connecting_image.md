@@ -23,106 +23,108 @@ To build Mbed Linux and do a firmware update over the air, follow these steps:
 
 <!--I will recreate the list when everything's done-->
 
-## Preparing resources for the build
+## Building Mbed Linux OS (MBL)
+Building Mbed Linux OS is done using mbl build tool.
 
-### Create a working directory for the Mbed Linux build
+mbl-tools repository provides a collection of tools and recipes related to the build and test of Mbed Linux OS.
+Each release will have its own branch, so throughout this guide the release branch will be reffered as `mbl-XXX`.
+An example for `mbl-XXX` release branch name: `mbl-os-0.5`.
 
-The quick start uses the working directory `~/mbl` for the Mbed Linux OS build.
-
-To create the working directory
+Checkout the `mbl-XXX` branch of [mbl-tools git repository](https://github.com/ARMmbed/mbl-tools) using the following command
 
 ```
-mkdir ~/mbl
+$ git clone git@github.com:ARMmbed/mbl-tools.git --branch mbl-XXX
 ```
-
-<!--Does it have to be called mbl? Will all the tutorials use the same working directory?-->
 
 ### Download Mbed Cloud dev credentials file
 
 To connect your device to your Pelion Device Management account, you need to add a credentials file to your application before you build it. For development environments, Pelion offers a *developer certificate* for quick connections:
 
-1. Create the directory `~/mbl/cloud-credentials`.
-2. To create a Pelion developer certificate (`mbed_cloud_dev_credentials.c`), follow the instructions for [creating and downloading a developer certificate](provisioning-development.html).
+1. Create cloud credentials directory, e.g. `./cloud-credentials`
+2. To create a Pelion developer certificate (`mbed_cloud_dev_credentials.c`), follow the instructions for [creating and downloading a developer certificate](https://cloud.mbed.com/docs/v1.2/provisioning-process/provisioning-development.html#creating-and-downloading-a-developer-certificate).
 <!--This is where being able to splice the content would be great; I would rather transclude it here than send them to another page. I'll see what the Web Team has.-->
-1. Add the developer certificate to the `~/mbl/cloud-credentials` directory.
+3. Add the developer certificate to the cloud credentials directory you've created.
 
 ### Create an Update resources file
 
-Initialize `manifest-tool` settings and generate Update resources:<!--What are they and what do they do? Why should I bother?-->
-
+1. Create update resources directory, e.g. `./update-resources`
 ```
-mkdir ~/mbl/manifests && cd ~/mbl/manifests
+mkdir ./update-resources && cd ./update-resources
+```
+
+2. Initialize manifest-tool settings and generate Update resources by running the following commands:
+```
 manifest-tool init -q -d arm.com -m dev-device
 ```
-
 This generates a file `update_default_resources.c` that is required during the build process.
-<!--Don't we need an update certificate as well? Or is this it?-->
 
-## Preparing the build rules and environment
+### Build script
 
-### Download the Yocto/OpenEmbedded manifest
-
-The manifest contains the rules for downloading GitHub resources and building code for Mbed Linux. You need to add it to your working directory:
-
+The `run-me.sh` script will create and launch a docker container to encapsulate the Mbed Linux build environment then launch a build script, `build.sh`, inside the container to do the heavy lifting.
+There are a variety of options controlling what is built and how. The general form of a `run-me.sh` invocation is:
 ```
-cd ~/mbl
-mkdir mbl-master && cd mbl-master
-repo init -u ssh://git@github.com/armmbed/mbl-manifest.git -b master -m default.xml
-repo sync
+./mbl-tools/build-mbl/run-me.sh [RUN-ME.SH OPTIONS]... -- [BUILD.SH OPTIONS]...
 ```
+Note the use of `--` to separate options to `run-me.sh` from options that are passed through to `build.sh`
 
-### Set up the build environment
-
-You need to configure your build environment for your device, including setting your working directory to the build directory<!--what does "setting your working directory to the build directory" mean? I feel almost like we're missing a word.--> (in this case `~/mbl/mbl-master/build-mbl`). To set up your build environment, use the following command:
-<!--I think setup-environment relies on the manifest from the previous step and the machine-specific file from the config folder (https://github.com/ARMmbed/meta-mbl/tree/master/conf/machine). Is that correct? Worth stating that explicitly.-->
-
+To invoke the `run-me.sh` help menu use:
 ```
-MACHINE=<machine> . setup-environment
+./mbl-tools/build-mbl/run-me.sh -h
 ```
 
-Select the {MACHINE} value for your Mbed Linux device from the table below:
+To invoke the `build.sh` help menu use:
+```
+./mbl-tools/build-mbl/run-me.sh -- -h
+```
+
+#### Mandatory build script options
+
+In order to successfuly build mbl release one need to supply the several mandatory build options.
+
+An example of using all mandatory options:
+
+```
+./mbl-tools/build-mbl/run-me.sh --inject-mcc /path/to/mbed_cloud_dev_credentials.c --inject-mcc /path/to/update_default_resources.c --outputdir /path/to/artifacts -- --branch mbl-XXX --machine <MACHINE>
+```
+
+All mandatory build options are described in the following sections below:
+* For more information about `--branch` option see [Select release branch](#Select-release-branch).
+* For more information about `--machine` option see [Select target device](#Select-target-device).
+* For more information about `--outputdir` option see [Build Artifacts](#Build-Artifacts).
+* For more information about `--inject-mcc` option see [Use Mbed Cloud Client Credentials](#Use-Mbed-Cloud-Client-Credentials)
+
+##### Select release branch
+Different branches of Mbed Linux can be checkout and built by passing the `--branch` option through to `build.sh`.  The bleeding edge of mainline development takes place on the 'master' branch.
+
+To build MBL for Raspberry PI 3 (RPi3):
+Checkout and build the release branch `mbl-XXX` for Mbed linux:
+```
+./mbl-tools/build-mbl/run-me.sh -- --branch mbl-XXX --machine raspberrypi3-mbl
+```
+
+##### Select target device
+In order to select the target device use `--machine` option as follows:
+```
+./mbl-tools/build-mbl/run-me.sh -- --machine <MACHINE>
+```
+Select the <MACHINE> value for your Mbed Linux device from the table below:
 
 | Device | MACHINE |
 | ---  | --- |
 | Warp7 | `imx7s-warp-mbl` |
 | Raspberry Pi 3 | `raspberrypi3-mbl` |
 
-For example, to set up the build environment for a Warp7 board, run:
 
+##### Build Artifacts
+
+Each build will produce a variety of build artifacts including a pinned manifest, target specific images and license information.
+To get build artifacts out of a build, pass the `--outputdir` option to specify which directory the build artifacts should be placed in:
 ```
-MACHINE=imx7s-warp-mbl . setup-environment
-```
-
-Once you run the setup-environment script, please:
-
-* Remain in the same shell instance for the rest of the build process; only this shell instance is correctly configured to build MBL properly.
-* Do not run setup-environment again. Invoking the script a second time can corrupt environment variables and cause `bitbake` commands to fail in unexpected places.
-
-### Add sources to your build environment
-
-Copy your Pelion developer certificate and Update resources file to the build directory:
-
-```
-cp ~/mbl/cloud-credentials/mbed_cloud_dev_credentials.c ~/mbl/mbl-master/build-mbl
-cp ~/mbl/manifests/update_default_resources.c ~/mbl/mbl-master/build-mbl
+mkdir /path/to/artifacts
+./mbl-tools/build-mbl/run-me.sh --outputdir /path/to/artifacts
 ```
 
-## Building the image
-
-### Running the build
-
-To generate these files, run the following `bitbake` command from the build directory (`~/mbl/mbl-master/build-mbl`):
-
-```
-bitbake mbl-console-image
-```
-
-You will see several "WARNING" messages in the `bitbake` output - these are safe to ignore.
-
-<span class="notes">**Note**: If you are using a virtual machine, the build may take several hours.</span>.
-
-### Build outputs
-
+##### Build outputs
 The build process creates the following files (which you will need to use later):
 
 * **A full disk image**: This is a compressed image of the entire flash. Once decompressed, this image can be directly written to storage media, and initializes the device's storage with a full set of disk partitions and an initial version of firmware.
@@ -140,11 +142,80 @@ The paths of these files are given in the table below, where `<MACHINE>` should 
 
 | File | Path |
 | --- | --- |
-| Full disk image           | `~/mbl/mbl-master/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-<MACHINE>.wic.gz`   |
-| Full disk image block map | `~/mbl/mbl-master/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-<MACHINE>.wic.bmap` |
-| Root file system archive  | `~/mbl/mbl-master/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-<MACHINE>.tar.xz`   |
+| Full disk image           | `/path/to/artifacts/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-<MACHINE>.wic.gz`   |
+| Full disk image block map | `/path/to/artifacts/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-<MACHINE>.wic.bmap` |
+| Root file system archive  | `/path/to/artifacts/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-<MACHINE>.tar.xz`   |
 
-## Writing the disk image to your device and booting it
+
+Test image is also being build, and contains more packages for testing and debuging (such as optee test suite, dropbear to support ssh during development and test, strace utility, and more).
+
+| File | Path |
+| --- | --- |
+| Full test disk image           | `/path/to/artifacts/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-test-<MACHINE>.wic.gz`   |
+| Full test disk image block map | `/path/to/artifacts/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-test-<MACHINE>.wic.bmap` |
+| Root file system archive  | `/path/to/artifacts/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-test-<MACHINE>.tar.xz`   |
+
+##### Use Mbed Cloud Client Credentials
+
+The current Mbed Cloud Client requries key material to be statically built into the cloud client binary. 
+This is a temporary measure that will be replaced with a dynamic key injection mechanism shortly, see [Download Mbed Cloud dev credentials file](#Download-Mbed-Cloud-dev-credentials-file) and [Create an Update resources file](#Create-an-Update-resources-file) sections.
+
+In the meantime, the build scripts provide a work around using the `--inject-mcc` option:
+```
+./mbl-tools/build-mbl/run-me.sh --inject-mcc /path/to/mbed_cloud_dev_credentials.c --inject-mcc /path/to/update_default_resources.c
+```
+
+#### Optional build script options
+
+Optional build script options can be used to improve the development process.
+
+##### Cache downloaded source artifacts
+
+The build process involves the download of many source artifacts.  It is possible to cache downloaded source artifacts between successive builds.  In practice the cache mechanism is considered to be robust for successive builds.  It should not be used for parallel builds.
+For example, to designate a directory to hold cached downloads between successive builds, pass the `--downloaddir` option to `run-me.sh`:
+```
+mkdir /path/to/downloads
+./mbl-tools/build-mbl/run-me.sh --downloaddir /path/to/downloads
+```
+
+##### Create multiple build directories
+The build scripts will by default create and use a build directory under the current working directory.  An alternative build directory can be specified using the `--builddir` option to `run-me.sh`:
+```
+./mbl-tools/build-mbl/run-me.sh --builddir /path/to/my-build-dir
+```
+
+It is a good practice to use different build directories for every build.
+
+##### Pinned Manifests and Rebuilds
+
+Each build produces a pinned manifest as a build artifact. A pinned manifest is a file that encapsulates sufficient version information to allow an exact rebuild. To get the pinned manifest for a build, use the `--outputdir` option to get the build artifacts:
+```
+mkdir /path/to/artifacts
+./mbl-tools/build-mbl/run-me.sh --outputdir /path/to/artifacts
+```
+
+This will produce the file: pinned-manifest.xml in the directory specified with `--outputdir`.
+To re-build using a previously pinned manifest use the `--external-manifest` option:
+```
+./mbl-tools/build-mbl/run-me.sh --external-manifest /path/to/pinned-manifest.xml
+```
+
+### Example quick start build lines
+
+Following examples assumes that the user already downloaded Mbed Cloud dev credentials and created an update resources file, see [Download Mbed Cloud dev credentials file](#Download-Mbed-Cloud-dev-credentials-file) and [Create an Update resources file](#Create-an-Update-resources-file) sections.
+Also, assuming that the user created an output directory for both Warp7 and RPi3 (e.g. `./artifacts-warp7` and `./artifacts-rpi3`).
+
+#### Warp7 device
+```
+./mbl-tools/build-mbl/run-me.sh --inject-mcc ./cloud-credentials/mbed_cloud_dev_credentials.c --inject-mcc ./update-resources/update_default_resources.c --outputdir ./artifacts-warp7 -- --machine imx7s-warp-mbl --branch mbl-XXX
+```
+
+#### Raspberry Pi 3 device
+```
+./mbl-tools/build-mbl/run-me.sh --inject-mcc ./cloud-credentials/mbed_cloud_dev_credentials.c --inject-mcc ./update-resources/update_default_resources.c --outputdir ./artifacts-rpi3 -- --machine raspberrypi3-mbl --branch mbl-XXX
+```
+
+## Write the disk image to your device and booting it
 
 This section contains instructions for writing the full disk image to a:
 
@@ -168,7 +239,7 @@ groups
 <your_user> dialout
 ```
 
-The user might need to log out and log in again before the group membership will take effect for their shell process.
+The user might need to reboot PC before the group membership will take effect for their shell process.
 <!--And this is okay because we've done the build, so we're not limited to the original shell instance anymore, right?-->
 
 ### Warp7 devices
@@ -266,7 +337,7 @@ To write your disk image to the Warp7's flash device, you must first access the 
 1. From a Linux prompt, write the disk image to the Warp7's flash device using the following command:
 
     ```
-    sudo bmaptool copy --bmap ~/mbl/mbl-master/build-mbl/tmp-mbl-glibc/deploy/images/imx7s-warp-mbl/mbl-console-image-imx7s-warp-mbl.wic.bmap ~/mbl/mbl-master/build-mbl/tmp-mbl-glibc/deploy/images/imx7s-warp-mbl/mbl-console-image-imx7s-warp-mbl.wic.gz /dev/disk/by-id/<device-file-name>
+    sudo bmaptool copy --bmap <artifacts directory>/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/imx7s-warp-mbl/mbl-console-image-imx7s-warp-mbl.wic.bmap <artifacts directory>/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/imx7s-warp-mbl/mbl-console-image-imx7s-warp-mbl.wic.gz /dev/disk/by-id/<device-file-name>
     ```
 
     replacing `<device-file-name>` with the correct device file for the Warp7's flash device.
@@ -310,7 +381,7 @@ To write your disk image to the Warp7's flash device, you must first access the 
 1. Write the disk image to the SD card device (not a partition on it):
 
     ```
-    bmaptool copy --bmap ~/mbl/mbl-master/build-mbl/tmp-mbl-glibc/deploy/images/raspberrypi3-mbl/mbl-console-image-raspberrypi3-mbl.wic.bmap ~/mbl/mbl-master/build-mbl/tmp-mbl-glibc/deploy/images/raspberrypi3-mbl/mbl-console-image-raspberrypi3-mbl.wic.gz /dev/sdX
+    bmaptool copy --bmap <artifacts directory>/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/raspberrypi3-mbl/mbl-console-image-raspberrypi3-mbl.wic.bmap <artifacts directory>/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/raspberrypi3-mbl/mbl-console-image-raspberrypi3-mbl.wic.gz /dev/sdX
     ```
 
     Replace `/dev/sdX` as mentioned above.
