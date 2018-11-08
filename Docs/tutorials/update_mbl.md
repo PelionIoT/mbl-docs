@@ -16,6 +16,7 @@ Firmware updates can be sent over the air to Mbed Linux OS devices using Pelion 
 Once an Mbed Linux OS device accepts a firmware update request from the Pelion cloud, the device downloads an update **payload** file that contains updates for one of the MBL components. The payload file is a tar file and can contain either:
 - application updates - one or more OPKG packages (`.ipk` files); or
 - a root file system update - a compressed tar file called `rootfs.tar.xz` that contains root file system contents.
+Currently, MBL does **not** support updating both applications and the root file system in a single over-the-air update operation.
 
 #### Application Updates
 After recieving a payload file containing application updates (`.ipk` files), for each application update, MBL will:
