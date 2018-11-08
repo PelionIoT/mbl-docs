@@ -58,7 +58,3 @@ You will also need to install:
 #### Using virtual machines
 
 <!--What do we want to say, other than "building will take you hours and hours?"-->
-
-### For application development
-
-<!--There's loads of stuff in the QR thing, but it might change before the release, so I'm not sure about adding it here-->
