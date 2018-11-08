@@ -1,8 +1,13 @@
-## Setting up Wifi in Mbed Linux OS
+# Setting up Wifi in Mbed Linux OS
 
 <!--Not edited yet-->
 
-Mbed Linux uses `ConnMan` (see https://01.org/connman/documentation) to manage WiFi interfaces and connections. In the common case, user should not interact directly with the wpa_supplicant daemon, nor try to modify the wpa_supplicant.conf file. All basic network operations should be done using ConnMan.
+## ConnMan
+
+Connection Manager (ConnMan) is a connection management daemon (connmand) for managing Internet connections within devices running the Linux operating system. It offers low memory consumption with a fast, coherent, synchronized reaction to changing network conditions.
+ConnMan has various plug-ins and is a fully modular system that can be extended to support all kinds of wired or wireless technologies. The plug-in approach allows for easy adaption and modification for various use cases. Configuration methods like [DHCP](https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol) and domain name resolving are implemented using plug-ins. Additional information about `ConnMan` can be found in the following [link](https://01.org/connman/documentation).
+
+Mbed Linux uses `ConnMan` to manage WiFi interfaces and connections. In the common case, user should not interact directly with the wpa_supplicant daemon, nor try to modify the wpa_supplicant.conf file. All basic network operations should be done using ConnMan.
 
 ### connmanctl
 
