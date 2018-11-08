@@ -8,11 +8,10 @@ The application consists of hello_world.c C file located under the source ./src 
 The application will run on target inside runc container defined by the Runtime Specification of  
 OCI (Open Container Initiative).  
 
-The OCI Runtime Specification specifies the configuration, execution  
-environment and lifecycle of a container. A container's configuration is specified in the ./src_bundle/config.json  
+The OCI Runtime Specification specifies the configuration, execution environment and lifecycle   
+of a container. A container's configuration is specified in the ./src_bundle/config.json  
 for the supported platforms and details the fields that enable the creation of a container.  
-
-The execution environment is specified to ensure that applications running inside a container
+The execution environment is specified to ensure that application running inside a container
 have a consistent environment between runtimes along with common actions defined for the container's lifecycle.  
   
 The Runtime Specification defines format for encoding a container as a "filesystem bundle" - a set of files organized  
@@ -26,8 +25,7 @@ run a container. This includes the following artifacts:
 The OCI Runtime Specification outlines how to run a filesystem bundle that is unpacked on disk.
 For further reading about runc container see [GitHub Open Container Initiative Runtime Specification](https://github.com/opencontainers/runtime-spec).
 
-Application installation, update and removal is done using opkg-utils helper scripts utilizing opkg (Open PacKaGe management).  
-opkg-utils build ipk package which will be installed on device.  
+Application installation, update and removal is done using opkg-utils helper scripts utilizing opkg (Open PacKaGe management). opkg-utils build ipk package which will be installed on device.  
 For further reading about opkg-utils refer [GitHub Yocto project opkg-utils](http://git.yoctoproject.org/cgit/cgit.cgi/opkg-utils).
 
 Cross compiling toolchains in Docker image is built using the parent image defined in ./cc-env/Dockerfile.  
@@ -35,7 +33,7 @@ For further reading about dockcross see [GitHub cross compiling toolchains in Do
 
 The application is cross-compiled using dockcross image (cross compiling toolchains in Docker image).
 
-Then, build commands defined in Makefile could be run. Makefile consists of three sections:
+Build commands defined in Makefile which consists of three sections:
 
  * Cross-compilation build
  * Create OCI bundle
