@@ -3,12 +3,12 @@ Introduction
 ============
 
 Hello world application is a sample C application printing "Hello, word" to the STDOUT.
-The application consists of hello_world.c C file located under the source ./src directory.  
+The application consists of hello_world.c file located under the ./src directory.  
 
-The application will run on target inside runc container defined by the Runtime Specification of  
+The application runs on target inside runc container defined by the Runtime Specification of  
 OCI (Open Container Initiative).  
 
-The OCI Runtime Specification specifies the configuration, execution environment and lifecycle   
+The OCI Runtime Specification defines the configuration, execution environment and lifecycle   
 of a container. A container's configuration is specified in the ./src_bundle/config.json  
 for the supported platforms and details the fields that enable the creation of a container.  
 The execution environment is specified to ensure that application running inside a container
