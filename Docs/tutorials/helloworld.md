@@ -11,8 +11,10 @@ runs on target inside OCI container. For more information about OCI containers p
 Hello world application packaging is done using ```opkg-utils``` helper scripts for use with opkg (Open PacKaGe management).  
 ```opkg-utils``` build ipk package which will be installed on device. For more information about IPK please refer "IPK format" section below. 
 
-For armv7 architecture compilation we use dockcross cross compiler which runs inside Docker container.
-Cross compiling toolchains in Docker image is built using the parent image defined in ```./mbl-core/tutorials/helloworld/cc-env/Dockerfile```. 
+Cross compiling toolchains in Docker image are built using an existing dockcross Docker image for armv7 architecture.  
+The opkg-utils helper scripts are included to the toolchain Docker container. The toolchain Docker file can be found at:  
+```./mbl-core/tutorials/helloworld/cc-env/Dockerfile```. 
+
 In order to build IPK, the opkg-utils are installed into the Docker container. 
 For further reading about dockcross see [GitHub cross compiling toolchains in Docker images ](https://github.com/dockcross/dockcross).
 
