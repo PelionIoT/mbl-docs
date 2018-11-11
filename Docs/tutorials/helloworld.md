@@ -6,16 +6,15 @@ Hello world application is a sample C application printing "Hello, world" to the
 The application consists of ```hello_world.c``` file located under the ```./mbl-core/tutorials/helloworld/src``` directory.  
 
 The application is cross-compiled using dockcross image (cross compiling toolchains in Docker image) and  
-runs on target inside OCI container. For more information about OCI containers please refer "OCI containers" section below.
+runs on target inside OCI container. For more information about OCI containers please refer [OCI containers](#oci-containers) section below.
 
 Hello world application packaging is done using ```opkg-utils``` helper scripts for use with opkg (Open PacKaGe management).  
-```opkg-utils``` build ipk package which will be installed on device. For more information about IPK please refer "IPK format" section below. 
+```opkg-utils``` build ipk package which will be installed on device. For more information about IPK please refer [IPK format](#ipk-format) section below. 
 
 Cross compiling toolchains in Docker image are built using an existing dockcross Docker image for armv7 architecture.  
 The opkg-utils helper scripts are included to the toolchain Docker container. The toolchain Docker file can be found at:  
 ```./mbl-core/tutorials/helloworld/cc-env/Dockerfile```. 
 
-In order to build IPK, the opkg-utils are installed into the Docker container. 
 For further reading about dockcross see [GitHub cross compiling toolchains in Docker images ](https://github.com/dockcross/dockcross).
 
 Build commands are defined in Makefile which consists of three sections:
@@ -110,7 +109,7 @@ standard operations against it. A Standard Container bundle contains all the inf
 run a container. This includes the following artifacts:
 
  * ```config.json```: contains configuration data.
- * container's root filesystem (rootfs): the directory referenced by root.path, if that property is set in ```config.json```.
+ * container's root filesystem (rootfs): the directory referenced by root.path, if that property is set in ```config.json``` (path is nested JSON object of root).
 
 The OCI Runtime Specification outlines how to run a filesystem bundle that is unpacked on disk.
 For further reading about runc container see [GitHub Open Container Initiative Runtime Specification](https://github.com/opencontainers/runtime-spec).
