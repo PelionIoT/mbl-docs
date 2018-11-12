@@ -9,14 +9,13 @@ Supported boards:
 
 ### Preparing a development environment
 
-<!--Mbed Linux CLI isn't listed here. Is that weird?-->
+To build and run Mbed Linux OS (MBL), you will need:
 
-To build and run Mbed Linux, you will need:
+* A PC running Ubuntu.
 
-* A PC running Ubuntu 16.04.
-<!--That's really old. Why are we forcing them into this? And if we are, should we say "if you need a VN, see below"?-->
+    We tested on Ubunutu 16.04. You can work on any linux-based OS that supports Docker, but you may have to install other packages (such as minicom or an equivalent for your OS).
 * A [Pelion](https://portal.mbedcloud.com/) portal account
-* A GitHub account with access to private ARMmbed repositories.<!--how do they get that?-->
+* A GitHub account with access to private ARMmbed repositories (supplied by Arm to users enrolled in the preview).
 * An SSH agent (for cloning repositories non-interactively during the build process). See the GitHub documentation for [information about adding an SSH key to the agent](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/#adding-your-ssh-key-to-the-ssh-agent).
 * Full internet access (for the build process, which downloads packages from the internet).
 
@@ -24,7 +23,7 @@ To build and run Mbed Linux, you will need:
 
 You will also need to install:
 
-* A few software packages that support Mbed Linux:
+* A few software packages that support building and developing on MBL:
 
     * bmap-tools.
     * curl.
@@ -37,7 +36,7 @@ You will also need to install:
     sudo apt-get install bmap-tools curl git python-pip
     ````
 
-* The Pelion manifest tool, with the Mbed Cloud SDK library (see [Installing the manifest tool](#install-manifest-tool) below):<!--what do you mean "with"?-->
+* The Pelion manifest tool, which is part of the Mbed Cloud SDK library (see [Installing the manifest tool](#install-manifest-tool) below):
 
     ```
     pip install --user -U git+ssh://git@github.com/ARMmbed/manifest-tool-restricted.git#egg=manifest-tool
@@ -57,4 +56,12 @@ You will also need to install:
 
 #### Using virtual machines
 
-<!--What do we want to say, other than "building will take you hours and hours?"-->
+Building open embedded distributions requires a lot of compilation of hundreds of different packages, so you need a powerful machine to be able to build in under an hour.
+
+For our own builds, we use:
+
+- Intel Xeon W2145 Processor 8 Core (11MB Cache, 3.70GHz)
+- 32GB RAM
+- 2TB hard drive, 7200RPM,3.5",SATA
+- 2.5" 256GB SATA Solid State Drive
+- 256GB SSD PCIe
