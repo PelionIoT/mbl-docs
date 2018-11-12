@@ -1,115 +1,156 @@
 ## Tutorial: updating Mbed Linux OS
 
-Mbed Linux OS is composed of multiple components, including:
-- bootloaders;
-- a root file system;
-- applications.
+Mbed Linux OS (MBL) includes three components:
 
-Mbed Linux OS currently supports over-the-air updates of the root file system and applications.
+- Bootloaders.
+- A root file system.
+- Applications.
+
+MBL currently supports over-the-air updates of the root file system and applications.<!--currently - so we'll support updating the bootloader? I thought you don't update bootloaders because you can recover from an error in that update-->
 
 ### How firmware gets updated
 
-Firmware updates can be sent over the air to Mbed Linux OS devices using Pelion Device Management capabilities.
+We use Pelion Device Management to send firmware updates to MBL devices. The update process beings with Device Management sending the device a request with a manifest. If the device accepts the request, Device Management then sends a payload file containing an update for one or more MBL component.
+
+The payload is a tar file that can contain either:
+
+- Aa application update: one or more OPKG packages (`.ipk` files).
+- A root file system update: a compressed tar file called `rootfs.tar.xz` <!--compressed tar within a tar?-->that contains root file system content.
+
+Currently, MBL does **not** support updating both applications and the root file system in a single over-the-air update operation.
 
 <span class="tips">A full review of Pelion Device Management Update is [available on the Pelion documentation site](https://cloud.mbed.com/docs/latest/updating-firmware/index.html).</span>
 
-Once an Mbed Linux OS device accepts a firmware update request from the Pelion cloud, the device downloads an update **payload** file that contains updates for one of the MBL components. The payload file is a tar file and can contain either:
-- application updates - one or more OPKG packages (`.ipk` files); or
-- a root file system update - a compressed tar file called `rootfs.tar.xz` that contains root file system contents.
-Currently, MBL does **not** support updating both applications and the root file system in a single over-the-air update operation.
+#### Application updates
 
-#### Application Updates
-After recieving a payload file containing application updates (`.ipk` files), for each application update, MBL will:
-- Stop any existing version of the application from running.
-- Remove any existing version of the application.
-- Install the application update from the payload file.
-- Start the updated application.
+After receiving a payload file containing application updates, for each application update, MBL:
 
-#### Root File System Updates
+1. Stops any existing version of the application from running.
+1. Removes any existing version of the application.
+1. Installs the application update from the payload file.
+1. Starts the updated application.
+
+#### Root file system updates
+
 To support root file system updates, MBL devices have two root file system partitions called **banks**:
 
 - An **active** bank: a partition containing the root file system for the running system.
-- An **inactive** bank: a partition that is available to receive firmware updates.
+- An **inactive** bank: a partition available to receive firmware updates.
 
-Only one of the root filesystem partitions is active at any one time, and the other is available to receive a new version of the root file system during an update.
+After receiving a payload file containing a root file system update, MBL:
 
-<a name="check-rootfs-bank"></a>You can find out which root file system bank is currently active on an MBL device by running the following command:
-```
-lsblk --noheadings --output "MOUNTPOINT,LABEL" | awk '$1=="/" {print $2}'
-```
-This command prints the label of the block device currently mounted at `/`, which will be `rootfs1` if the first root file system bank is active or `rootfs2` if the second root file system bank is active. For example, when the first root file system bank is active you should see output like the following:
-```
-root@mbed-linux-os-1234:~# lsblk --noheadings --output "MOUNTPOINT,LABEL" | awk '$1=="/" {print $2}'
-rootfs1
-root@mbed-linux-os-1234:~#
-```
+1. Writes the contents of `rootfs.tar.xz` to the inactive root file system bank.
+1. Flips a flag indicating which root file system bank is active, so that after a reboot the previously inactive bank will become the active bank, and the previously active bank will become the inactive bank.
+1. Reboots the device.
+1. Mounts the root file system from the update payload.
 
-After recieving a firmware update request and a payload file containing a root file system update (a `rootfs.tar.xz` file), MBL will:
-- Write the contents of `rootfs.tar.xz` to the inactive root file system bank.
-- Flip a flag indicating which root file system bank is active (so that after a reboot the previously inactive bank will become the active bank and the previously active bank will become the inactive bank).
-- Reboot the device.
-
-After the reboot MBL will mount the root file system from the update payload and the previously active (now inactive) root file system partition will become available to recieve the next root file system update.
+The previously active (now inactive) root file system partition is now available to receive the next root file system update.
 
 <!--There's a question of how much of the theory should be explained here (and in the previous tutorial).-->
 
 ### Prerequisites
 
 You can only update an MBL device if you have:
+<!--Leave the links empty; that will make them surface in our final checks and we'll know to fix them-->
 
-- A successfully completed build of Mbed Linux OS for your device. See the [build tutorial][build-tutorial] for instructions.
-- A device running the MBL image that you built that can connect to your Pelion Device Management account. If you do not have one, please [follow the first tutorial in this series](connecting-an-mbl-device-and-using-an-applications.html).
-- A directory in which the manifest tool was initialized, [as reviewed in our development environment setup](preparing-a-development-environment.html). This *must* be the directory from which the `update_default_resources.c` file used in the build of MBL was obtained. <!-- TODO: fix this link -->
-- Additionally, in order to use the manifest tool to easily send updates to your device via the Pelion Device Management Cloud (rather than using the Pelion Device Management web interface), you will need a Pelion Device Management API key. If you don't already have an API Key, follow the instructions in the [Pelion Device Management docs](https://cloud.mbed.com/docs/current/integrate-web-app/api-keys.html#generating-an-api-key) to generate one. When prompted to select a group to set the API key access level, the default "Developers" group is suitable for performing firmware updates. You will need to make a note of the API key in order to use it later.
+- A successful build of Mbed Linux OS on your device. See the [build tutorial]() for instructions.
+- A device running an MBL image that can connect to your Pelion Device Management account. If you do not have one, please [follow the first tutorial in this series]().
+- The directory in which you initialized the manifest tool, [as reviewed in our development environment setup]().
+
+    <span class="notes>This *must* be the directory from which you obtained the `update_default_resources.c` file for your MBL build.</span>
+- A Pelion Device Management API key, to use the manifest tool from the command line. If you don't already have an API Key, follow the instructions in the [Pelion Device Management docs](https://cloud.mbed.com/docs/current/integrate-web-app/api-keys.html#generating-an-api-key) (when prompted to select a group to set the API key access level, select **Developers**). You must make a note of the API key to use it later; the portal will not display it again, for security reasons.
 
 ### Workflow
 
-#### Create an update payload file
+1. Create an update payload file:
 
-To create an application update payload file, make a tar file containing the `.ipk` files for the applications to install/update. Note that the `.ipk` files must not be in any subdirectories inside the tar file. For example, to create an update payload file at `/tmp/payload.tar` containing an `.ipk` file with path `/home/user01/my_app.ipk`, run the following command:
-```
-tar -cf /tmp/payload.tar -C /home/user01 my_app.ipk
-```
+    - **For an application**: Make a tar file containing the `.ipk` files for the applications to update.
 
-To create a root file system update payload file, make a tar file containing the root file system archive from your MBL build. A symlink to the root file system archive can be found at `<your_workarea>/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-<MACHINE>.tar.xz` where:
-- `<your_workarea>` is the directory in which the `repo init` command was run to create the MBL workarea.
-- `<MACHINE>` is the value that was given for the `--machine` option to the build script. See the [build tutorial][build-tutorial] to find out which value of `<MACHINE>` is suitable for your device.
+        Note that the `.ipk` files must be in the tar's root directory, not a subdirectory.
 
-Note that the file inside the update payload must be called `rootfs.tar.xz` and must not be in any subdirectory inside the tar file.
+        For example, to create an update payload file at `/tmp/payload.tar` containing an `.ipk` file with the path `/home/user01/my_app.ipk`, run:
 
-For example, if your workarea is `/home/user01/mbl/mbl-os-0.5` and you are using a WaRP7, run the following command to create a payload file at `/tmp/payload.tar`:
-```
-tar -cf /tmp/payload.tar -C /home/user01/mbl/mbl-os-0.5/build-mbl/tmp-mbl-glibc/deploy/images/imx7s-warp-mbl '--transform=s/.*/rootfs.tar.xz/' --dereference mbl-console-image-imx7s-warp-mbl.tar.xz
-```
-The `--transform` option is used to rename all files added to the payload to `rootfs.tar.xz` and the `--dereference` option is used so that `tar` adds the actual root file system archive file rather than the symlink to it.
+        ```
+        tar -cf /tmp/payload.tar -C /home/user01 my_app.ipk
+        ```
 
-#### Update your device
+    - **For a root file system**: Make a tar file containing the root file system archive from your MBL build.
 
-To send a firmware update to your device, follow these steps:
+        A symlink to the root file system archive can be found at `<your_workarea>/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-<MACHINE>.tar.xz`
+
+        Where:
+
+        - `<your_workarea>` is the directory in which the `repo init` command created the MBL work-area.
+        - `<MACHINE>` is the value that was give to the build script for given the `--machine` option. See the [build tutorial]() to find out which value of `<MACHINE>` is suitable for your device.
+
+        <span class="notes">The file inside the update payload must be called `rootfs.tar.xz` and must be in the tar's root directory, not a subdirectory..</span>
+
+        For example, if your work-area is `/home/user01/mbl/mbl-os-0.5` and you are using a WaRP7, run the following command to create a payload file at `/tmp/payload.tar`:
+
+        ```
+        tar -cf /tmp/payload.tar -C /home/user01/mbl/mbl-os-0.5/build-mbl/tmp-mbl-glibc/deploy/images/imx7s-warp-mbl '--transform=s/.*/rootfs.tar.xz/' --dereference mbl-console-image-imx7s-warp-mbl.tar.xz
+        ```
+
+        The `--transform` option is used to rename all files added to the payload to `rootfs.tar.xz` and the `--dereference` option is used so that `tar` adds the actual root file system archive file rather than the symlink to it.
+
 1. Discover your device's device ID. To do this you can either:
-   - Copy the device ID to the clipboard from the **Device Directory** tab on the Pelion Device Management web interface.
-   - Search for the device ID in the `mbl-cloud-client`'s log file `/var/log/mbl-cloud-client.log`, using the following command on the device's console:
-     ```
-     grep -i 'device id' /var/log/mbl-cloud-client.log
-     ```
-1. At this point, if you are doing a root file system update, you may wish to check which root file system bank is currently active so that you can compare it to the active bank after the update. You can use the [`lsblk` command mentioned above](#check-rootfs-bank) to do this.
-1. Change directory to the directory in which the manifest tool was initialized.
-1. Run the following command:
-   ```
-   manifest-tool update device --device-id <device-id> --payload <payload-file> --api-key <api-key>
-   ```
-   Where:
-   - `<device-id>` is the device ID discovered in #1.
-   - `<payload-file>` is the update payload (`.tar` file) that you created from the instructions in the previous section.
-   - `<api-key>` is your Pelion Device Management API key. 
-1. Once your device has recieved the update request, you can follow its download progress by looking in the `mbl-cloud-client`'s log file:
-   ```
-   tail -f /var/log/mbl-cloud-client.log
-   ```
-1. Once the download has completed and installation has begun, installation progress can be followed in the following log files:
-   - `/var/log/arm_update_activate.log` - this log file contains messages about the overall progress of the installation and messages specific to root file system updates.
-   - `/var/log/mbl-app-update-manager.log` - this log file contains messages specific to application updates.
-1. Once installation of the update is complete, Mbed Linux OS will start running the new firmware. For root file system updates, a reboot will be automatically initiated to boot into the new firmware. For application updates, a reboot is not required and the new applications will start running automatically after the update.
-1. If you are doing a root file system update, you may wish to check which root file system bank is currently active and compare it with the bank that was active before the update - it should have changed. You can use the [`lsblk` command mentioned above](#check-rootfs-bank) to do this.
 
-[build-tutorial]: create_connecting_image.md
+   - Go to the [Device Management Portal](https://portal.mbedcloud.com), find your device in the **Device Directory** tab, and copy the device ID.
+   - Search for the device ID in the `mbl-cloud-client` log file `/var/log/mbl-cloud-client.log`, using the following command on the device's console:
+
+       ```
+       grep -i 'device id' /var/log/mbl-cloud-client.log
+       ```
+1. If you are doing a root file system update, you may wish to check which root file system bank is currently active so that you can compare it to the active bank after the update. You can use the [`lsblk` command explained below](#checking-which-root-file-system-bank-is-active) to do this. This step is not mandatory.
+1. Change your work context to the directory in which the manifest tool was initialized.
+1. Run the following command:
+
+    ```
+    manifest-tool update device --device-id <device-id> --payload <payload-file> --api-key <api-key>
+    ```
+
+    Where:
+
+        - `<device-id>` is the device ID.
+        - `<payload-file>` is the update payload (`.tar` file).
+        - `<api-key>` is your Pelion Device Management API key.
+
+        You should have all three from previous steps in this process.
+
+1. When your device initiates the update download, you can follow its progress by looking in the `mbl-cloud-client` log file:
+
+    ```
+    tail -f /var/log/mbl-cloud-client.log
+    ```
+
+1. When the download completes and installation starts, you can follow its progress in the following log files:
+
+    - `/var/log/arm_update_activate.log`: for messages about the overall progress of the installation, and messages specific to root file system updates.
+   - `/var/log/mbl-app-update-manager.log`: for messages about application updates.
+
+1. When the installation completes, the device starts running the new firmware.
+
+    For root file system updates, a reboot will be automatically initiated to boot into the new firmware. For application updates, a reboot is not required.
+
+1. If you are doing a root file system update, you may wish to check which root file system bank is currently active and compare it with the bank that was active before the update (if you checked it then) - it should have changed. You can use the `lsblk` command below to do this.
+
+### Checking which root file system bank is active
+
+<!--I moved this; it didn't belong in the intro-->
+<!--when and why would I want to do this?-->
+
+To find out which root file system bank is currently active:
+
+```
+lsblk --noheadings --output "MOUNTPOINT,LABEL" | awk '$1=="/" {print $2}'
+```
+
+This command prints the label of the block device currently mounted at `/`, which will be `rootfs1` if the first root file system bank is active or `rootfs2` if the second root file system bank is active.
+
+For example, when the first root file system bank is active:
+
+```
+root@mbed-linux-os-1234:~# lsblk --noheadings --output "MOUNTPOINT,LABEL" | awk '$1=="/" {print $2}'
+rootfs1
+root@mbed-linux-os-1234:~#
+```
