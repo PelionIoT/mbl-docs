@@ -7,69 +7,61 @@ Supported boards:
 
     <span class="warning">Raspberry Pi 3 is suitable for development only; do not use it for production.</span>
 
+### Preparing a development environment
 
-## Preparing a development environment
+To build and run Mbed Linux OS (MBL), you will need:
 
-<!--Mbed Linux CLI isn't listed here. Is that weird?-->
+* A PC running Ubuntu.
 
-### For MBL builds
-
-To build and run Mbed Linux, you will need:
-
-* A PC running Ubuntu 16.04.
-<!--That's really old. Why are we forcing them into this? And if we are, should we say "if you need a VN, see below"?-->
+    We tested on Ubunutu 16.04. You can work on any linux-based OS that supports Docker, but you may have to install other packages (such as minicom or an equivalent for your OS).
 * A [Pelion](https://portal.mbedcloud.com/) portal account
-* A Github account with access to private ARMmbed repositories.
-* An SSH agent (required for cloning repositories non-interactively during the build process). Adding SSH key to the ssh-agent is describe in the [following link](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/#adding-your-ssh-key-to-the-ssh-agent).
-* Full internet access is required as the build process downloads packages from the internet.
-* To install:
-    * Some software packages which are required to support Mbed Linux (see [Installing software dependencies](#installing-software-dependencies)).
-    * Mbed's `manifest-tool` with the Mbed Cloud SDK library (see [Installing the manifest tool](#install-manifest-tool)).
-    * Docker CE (see [Installing Docker CE](#install-docker-ce)).
-* Reboot PC after you finish all installation is recommended.
+* A GitHub account with access to private ARMmbed repositories (supplied by Arm to users enrolled in the preview).
+* An SSH agent (for cloning repositories non-interactively during the build process). See the GitHub documentation for [information about adding an SSH key to the agent](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/#adding-your-ssh-key-to-the-ssh-agent).
+* Full internet access (for the build process, which downloads packages from the internet).
 
+### Software requirements
 
-#### Installing software dependencies
+You will also need to install:
 
-The following packages are required for the quick start and subsequent tutorials:<!--are these all Python packages?-->
+* A few software packages that support building and developing on MBL:
 
-* bmap-tools.
-* curl.
-* git.
-* python-pip.
+    * bmap-tools.
+    * curl.
+    * git.
+    * python-pip.
 
-The command to install them will look something like this:
+    The command to install them will look something like this:
 
-```
-sudo apt-get install bmap-tools curl git python-pip
-```
+    ```
+    sudo apt-get install bmap-tools curl git python-pip
+    ````
 
-#### Installing the manifest tool
+* The Pelion manifest tool, which is part of the Mbed Cloud SDK library (see [Installing the manifest tool](#install-manifest-tool) below):
 
-Make sure your GitHub SSH key is valid. See [the GitHub documentation for more information about connecting to GitHub with SSH](https://help.github.com/articles/connecting-to-github-with-ssh/).
+    ```
+    pip install --user -U git+ssh://git@github.com/ARMmbed/manifest-tool-restricted.git#egg=manifest-tool
+    pip install --user mbed-cloud-sdk
+    ```
 
-Install the Mbed Cloud manifest tool and Pelion SDK:
+    Make sure your GitHub SSH key is valid. See [the GitHub documentation for more information about connecting to GitHub with SSH](https://help.github.com/articles/connecting-to-github-with-ssh/).
 
-```
-pip install --user -U git+ssh://git@github.com/ARMmbed/manifest-tool-restricted.git#egg=manifest-tool
-pip install --user mbed-cloud-sdk
-```
+    See [the firmware manifest documentation](https://cloud.mbed.com/docs/latest/updating-firmware/firmware-manifests.html) for more information about the manifest tool.
 
-See [the firmware manifest documentation](https://cloud.mbed.com/docs/latest/updating-firmware/firmware-manifests.html) for more information about the manifest tool.
+* Docker CE, for the `mbl-tools` script `build-mbl`, and to be able to develop and builds apps on a PC. [Download and install from the Docker website](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
 
-<!--Can we add initalization instructions here, so that I don't have to send people to the first tutorial every time I remind them this needs initializing?-->
+    You will need to add yourself to the docker group to run docker commands without sudo. See [instructions in the Docker Linux documentation](https://docs.docker.com/install/linux/linux-postinstall/).
 
-#### Installing Docker CE
-Docker is needed in order to be able to use mbl-tools build-mbl script (and to be able to develop and build apps on your x86 PC).
-Download and install latest version of [Docker CE](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
+<span class="tips">We recommend rebooting your PC when you've finished installing everything.</span>
 
-##### Manage Docker as a non-root user
-You will need to add yourself to the docker group to run docker commands without sudo. See the following [instructions](https://docs.docker.com/install/linux/linux-postinstall/).
 
 #### Using virtual machines
 
-<!--What do we want to say, other than "building will take you hours and hours?"-->
+Building open embedded distributions requires a lot of compilation of hundreds of different packages, so you need a powerful machine to be able to build in under an hour.
 
-### For application development
+For our own builds, we use:
 
-<!--There's loads of stuff in the QR thing, but it might change before the release, so I'm not sure about adding it here-->
+- Intel Xeon W2145 Processor 8 Core (11MB Cache, 3.70GHz)
+- 32GB RAM
+- 2TB hard drive, 7200RPM,3.5",SATA
+- 2.5" 256GB SATA Solid State Drive
+- 256GB SSD PCIe
