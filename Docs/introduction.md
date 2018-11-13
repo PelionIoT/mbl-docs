@@ -27,29 +27,26 @@ There are two paths to working with MBL:
 
 1. If you are a Linux developer, and interested in contributing to MBL or porting it to a new device:
     1. Please build MBL locally so you can test.
-    1. Use our porting or contributing guides. <!--Planned for March, sadly. Do we want to promise it?-->
+    1. Use our porting or contributing guides (coming soon).
 1. If you are an application developer, and interested in building applications for devices that run MBL:
     1. Please build MBL locally and flash it to your device.
     1. Try our example application, or start writing your own application using the Linux APIs.
 
 ### Licensing
 
-<!--That's one of the first thing people ask about Mbed OS, so I assume it'll be one of the first things they ask about MBL-->
-
-Both Mbed Linux OS and our test suites will be open source, helping you automate product testing in a modern continuous integration pipeline.
+Both Mbed Linux OS and our test suites will be open source, helping you automate product testing in a modern continuous integration pipeline. For more information, [please see the Contributing section in the MBL source](https://github.com/ARMmbed/meta-mbl/blob/master/CONTRIBUTING.md).
 
 ### Containers
 
-To simplify application development and deployment, each device application process runs in its own container. The process isolation provided by containers also enhances security and device reliability. It is based on OCI containers, which you can make using Docker on the host (creating a cross-compiled build of the application) and export.
+To enchance application development and deployment, each device application process can run in its own container. The process isolation provided by containers also enhances security and device reliability. It is based on OCI containers, which you can make using Docker on the host (creating a cross-compiled build of the application) and export.
 
-<!--What does the user have to do or know to use them? Not in detail, obviously, this is just the intro. But some overview.-->
 
 ### Pelion Device Management through MBL
 
 For application developers, the Pelion layer provides the following services:
 
 * Device discovery and secure identity in the Device Management device directory, to protect against impersonation or cloning.
-* Membership of a group of managed devices (Pelion Device Management) to simplify large-scale management.<!--Why does the reader care?-->
+* Membership of a group of managed devices (Pelion Device Management) to simplify large-scale management
 * Access control at the account level.
 * Device status monitoring, including notifications of connection status.
 * Device firmware update and application management
