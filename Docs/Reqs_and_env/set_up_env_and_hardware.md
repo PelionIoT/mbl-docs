@@ -41,6 +41,12 @@ To build MBL, you will need:
 
 * The [`build-mbl` tool, whose installation instructions are in the mbl-tools repo](https://github.com/ARMmbed/mbl-tools).
 
+    Check out the repo (replace `mbl-XXX` with the latest branch name):<!--can they check out master, or some other way of always knowing they're checking out the latest version rather than them having to go count branches?-->
+
+    ```
+    $ git clone git@github.com:ARMmbed/mbl-tools.git --branch mbl-XXX
+    ```
+
     <span class="tips">The [mbl-tools repository](https://github.com/ARMmbed/mbl-tools) provides a collection of tools and recipes for building and testing MBL.</span>
 
 * The Pelion manifest tool, which is part of the Mbed Cloud SDK library (see [Installing the manifest tool](#install-manifest-tool) below):
