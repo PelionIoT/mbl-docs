@@ -27,7 +27,7 @@ In order to activate dm-verity for rootfs image, the following metadata is neede
 * root hash signature
 
 This metadata is included in a separate RO partition and will be available to initramfs init script for mounting and reading the metadata. 
-For each rootfs partition (currently there are two rootfs partitions) there will be a corresponding dm-verity metadata partition.
+There are two rootfs partitions, one partition per bank, and for each one of them there is a corresponding dm-verity metadata partition.
 
 #### dm-verity private keys
 dm-verity root hash is intended to be signed and verified during boot. We temporary store a private key in [meta-mbl repo](https://github.com/ARMmbed/meta-mbl) for development purposes only, and later on the private key will be removed and signing mechanism will be re-designed.
