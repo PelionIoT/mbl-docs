@@ -1,6 +1,6 @@
 ## Tutorial: updating Mbed Linux OS
 
-Mbed Linux OS (MBL) includes two over-the-air (OTA) updatable components:
+The following components of Mbed Linux OS (MBL) can be updated over-the-air:
 
 - root file system
 - applications
@@ -84,7 +84,7 @@ An MBL device can only be updated if the followings are available:
 
         <span class="notes">The file inside the update payload must be named `rootfs.tar.xz` and must be in the TAR's root directory, not a subdirectory.</span>
 
-        For example, to create an update payload file at `/tmp/payload.tar` containing a Warp7 root file system image in the workspace `/home/user01/mbl/mbl-os-0.5`, run:
+        For example, to create an update payload file at `/tmp/payload.tar` containing a Warp7 root file system image tar file with the path `build-mbl/tmp-mbl-glibc/deploy/images/imx7s-warp-mbl/mbl-console-image-imx7s-warp-mbl.tar.xz`, run:
 
         ```
         user01@dev-machine:~$ tar -cf /tmp/payload.tar -C /home/user01/mbl/mbl-os-0.5/build-mbl/tmp-mbl-glibc/deploy/images/imx7s-warp-mbl '--transform=s/.*/rootfs.tar.xz/' --dereference mbl-console-image-imx7s-warp-mbl.tar.xz
