@@ -11,10 +11,10 @@ The following components of Mbed Linux OS (MBL) can be updated over-the-air:
 
 Pelion Device Management portal is used to send software updates to MBL devices. The update process begins with Pelion sending the device a request with a manifest. If the device accepts the request, Pelion sends a payload file containing an update for one or more MBL component.
 
-The payload is a TAR file that can contain either:
+The payload is a tar file that can contain either:
 
 - An application update: one or more OPKG packages (`.ipk` files).
-- A rootfs update: a compressed TAR file called `rootfs.tar.xz` <!--compressed tar within a tar?-->that contains root file system content.
+- A rootfs update: a compressed tar file called `rootfs.tar.xz` <!--compressed tar within a tar?-->that contains root file system content.
 
 Currently, MBL does **not** support updating both applications and root file system in a single OTA update operation.
 
@@ -63,9 +63,9 @@ An MBL device can only be updated if the followings are available:
 
 1. Create an update payload file:
 
-    - **For an application**: Make a TAR file containing the `.ipk` files for the applications to update.
+    - **For an application**: Make a tar file containing the `.ipk` files for the applications to update.
 
-        Note that the `.ipk` files must be in the TAR 's root directory, not a subdirectory.
+        Note that the `.ipk` files must be in the tar 's root directory, not a subdirectory.
 
         For example, to create an update payload file at `/tmp/payload.tar` containing an `.ipk` file with the path `/home/user01/my_app.ipk`, run:
 
@@ -73,7 +73,7 @@ An MBL device can only be updated if the followings are available:
         user01@dev-machine:~$ tar -cf /tmp/payload.tar -C /home/user01 my_app.ipk
         ```
 
-    - **For a root file system**: Make a TAR file containing the root file system archive from the MBL build artefacts.
+    - **For a root file system**: Make a tar file containing the root file system archive from the MBL build artefacts.
 
         A symlink to the root file system archive can be found in the build environment at `<mbl_workspace>/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-<MACHINE>.tar.xz`
 
@@ -82,7 +82,7 @@ An MBL device can only be updated if the followings are available:
         - `<mbl_workspace>` is the directory in which the `repo init` command created the MBL workspace.
         - `<MACHINE>` is the value that was given to the build script for the `--machine` option. See the [build tutorial]() to determine which value is suitable for the device in use.
 
-        <span class="notes">The file inside the update payload must be named `rootfs.tar.xz` and must be in the TAR's root directory, not a subdirectory.</span>
+        <span class="notes">The file inside the update payload must be named `rootfs.tar.xz` and must be in the tar's root directory, not a subdirectory.</span>
 
         For example, to create an update payload file at `/tmp/payload.tar` containing a Warp7 root file system image tar file with the path `build-mbl/tmp-mbl-glibc/deploy/images/imx7s-warp-mbl/mbl-console-image-imx7s-warp-mbl.tar.xz`, run:
 
