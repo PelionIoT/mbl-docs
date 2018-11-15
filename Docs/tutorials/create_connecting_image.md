@@ -4,7 +4,7 @@
 
 ### Overview
 
-Mbed Linux OS (MBL) handles Pelion Device Management connectivity on behalf of the device, rather than relying on the user application to do it as Mbed OS does. This means that before you build the MBL image that runs on your device, you need to add your Pelion credentials to the working directory MBL builds from.
+Mbed Linux OS (MBL) handles Pelion Device Management connectivity on behalf of the device, rather than relying on the user application to do it as Mbed OS does. This means that before you build the MBL image that runs on your device, you need to add your Device Management credentials to the working directory MBL builds from.
 
 ### Prerequisites
 
@@ -17,10 +17,10 @@ Each release has its own branch, such as `mbl-os-0.5`. Throughout this guide, th
 
 ### Downloading Device Management developer credentials
 
-To connect your device to your Pelion Device Management account, you need to add a credentials file to your application before you build it. For development environments, Pelion offers a *developer certificate* for quick connection:
+To connect your device to your Device Management account, you need to add a credentials file to your application before you build it. For development environments, Device Management offers a *developer certificate* for quick connection:
 
 1. Create cloud credentials directory, e.g. `./cloud-credentials`
-1. To create a Pelion developer certificate (`mbed_cloud_dev_credentials.c`), follow the instructions for [creating and downloading a developer certificate](https://cloud.mbed.com/docs/v1.2/provisioning-process/provisioning-development.html#creating-and-downloading-a-developer-certificate).
+1. To create a developer certificate (`mbed_cloud_dev_credentials.c`), follow the instructions for [creating and downloading a developer certificate](https://cloud.mbed.com/docs/v1.2/provisioning-process/provisioning-development.html#creating-and-downloading-a-developer-certificate).
 <!--This is where being able to splice the content would be great; I would rather transclude it here than send them to another page. I'll see what the Web Team has.-->
 1. Add the developer certificate to the credentials directory you've created.
 
@@ -30,7 +30,7 @@ To connect your device to your Pelion Device Management account, you need to add
 ```
 mkdir ./update-resources && cd ./update-resources
 ```
-1. Initialize manifest tool settings and generate Update resources by running the following commands:
+1. Initialize manifest tool settings and generate Update resources:
 ```
 manifest-tool init -q -d arm.com -m dev-device
 ```
@@ -38,7 +38,7 @@ This generates a file `update_default_resources.c` that is required during the b
 
 ### Building scripts
 
-The `run-me.sh` script creates and launches a docker container to encapsulate the MBL build environment then launch a build script, `build.sh`, inside the container to do the heavy lifting. <!---too idiomatic--->
+The `run-me.sh` script creates and launches a docker container to encapsulate the MBL build environment then launch a build script, `build.sh`, inside the container.
 
 There are a variety of options controlling what is built and how. The general form of a `run-me.sh` invocation is:
 ```
@@ -70,7 +70,7 @@ An example using all mandatory options:
 
 ##### Selecting a release branch
 
-Different branches of MBL can be checkout and built by passing the `--branch` option through to `build.sh`.  The bleeding edge of mainline development takes place on the 'master' branch.
+Different branches of MBL can be checked out and built by passing the `--branch` option through to `build.sh`.  The most recent mainline development takes place on the 'master' branch.
 
 Checkout and build the release branch `mbl-XXX` for MBL:
 ```
@@ -91,10 +91,11 @@ Select the <MACHINE> value for your MBL device from the table below:
 | Raspberry Pi 3 | `raspberrypi3-mbl` |
 
 
-##### Building Artifacts
+##### Building artifacts
 
-Each build produces a variety of build artifacts including a pinned manifest, target specific images and license information.
-To get build artifacts out of a build, pass the `--outputdir` option to specify which directory the build artifacts should be placed in:
+Each build produces a variety of build artifacts including a pinned manifest, target-specific images, and license information.
+
+To get build artifacts, pass the `--outputdir` option to specify which directory the build artifacts should be placed in:
 ```
 mkdir /path/to/artifacts
 ./mbl-tools/build-mbl/run-me.sh --outputdir /path/to/artifacts
@@ -104,9 +105,9 @@ mkdir /path/to/artifacts
 
 The build process creates the following files (which you need later):
 
-* **A full disk image**: This is a compressed image of the entire flash. Once decompressed, this image can be directly written to storage media, and initializes the device's storage with a full set of disk partitions and an initial version of firmware.
+* **A full disk image**: This is a compressed image of the entire flash. Once decompressed, this image can be directly written to storage media, and initializes device storage with a full set of disk partitions and an initial version of firmware.
 
-<span class="tips">**Tip:** The image is created by the build process using the Wic tool from OpenEmbedded. For more information about Wic, see [the Yocto Mega Manual](https://www.yoctoproject.org/docs/latest/mega-manual/mega-manual.html#creating-partitioned-images-using-wic).</span>
+  <span class="tips">**Tip:** The image is created using the Wic tool from OpenEmbedded. For more information about Wic, see [the Yocto Mega Manual](https://www.yoctoproject.org/docs/latest/mega-manual/mega-manual.html#creating-partitioned-images-using-wic).</span>
 
 * **A block map of the full disk image**: This is a file containing information about which blocks of the uncompressed full disk image actually need to be written to the IoT device. Some blocks of the image represent unused storage space that does not actually need to be written.
 * **A root filesystem archive**: This is a compressed `.tar` archive, which you need when you update the device firmware (this topic is covered [in the next tutorial]()).
@@ -122,7 +123,7 @@ The paths of these files are given in the table below, where `<MACHINE>` should 
 | Full disk image block map | `/path/to/artifacts/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-<MACHINE>.wic.bmap` |
 | Root file system archive  | `/path/to/artifacts/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-<MACHINE>.tar.xz`   |
 
-Test image is also being built, and contains more packages for testing and debuging (such as optee test suite, dropbear to support ssh during development and test, strace utility, and more).
+The test image is also built, and contains more packages for testing and debugging (such as optee test suite, dropbear to support ssh during development and test, strace utility, and more).
 
 | File | Path |
 | --- | --- |
@@ -130,12 +131,13 @@ Test image is also being built, and contains more packages for testing and debug
 | Full test disk image block map | `/path/to/artifacts/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-test-<MACHINE>.wic.bmap` |
 | Root file system archive  | `/path/to/artifacts/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-test-<MACHINE>.tar.xz`   |
 
-##### Using Device Management Client Credentials
+##### Using Device Management Client credentials
 
-The current Device Management Client requries key material to be statically built into the cloud client binary.
-This is a temporary measure that is replaced with a dynamic key injection mechanism shortly, see [Download Mbed Cloud dev credentials file](#Download-Mbed-Cloud-dev-credentials-file) and [Create an Update resources file](#Create-an-Update-resources-file) sections.
+The current Device Management Client requires key material to be statically built into the cloud client binary.
 
-In the meantime, the build scripts provide a work around using the `--inject-mcc` option:
+This is a temporary measure that is replaced with a dynamic key injection mechanism shortly. See [Download Mbed Cloud dev credentials file](#Download-Mbed-Cloud-dev-credentials-file) and [Create an Update resources file](#Create-an-Update-resources-file) sections.
+
+In the meantime, the build scripts provide a workaround using the `--inject-mcc` option:
 ```
 ./mbl-tools/build-mbl/run-me.sh --inject-mcc /path/to/mbed_cloud_dev_credentials.c --inject-mcc /path/to/update_default_resources.c
 ```
@@ -146,9 +148,9 @@ Optional build script options can be used to improve the development process.
 
 ##### Caching downloaded source artifacts
 
-The build process involves the download of many source artifacts.  It is possible to cache downloaded source artifacts between successive builds. In practice, the cache mechanism is considered to be robust for successive builds.  It should not be used for parallel builds.
+The build process involves the download of many source artifacts. It is possible to cache downloaded source artifacts between successive builds. In practice, the cache mechanism is robust for successive builds. It should **not** be used for parallel builds.
 
-For example, to designate a directory to hold cached downloads between successive builds, pass the `--downloaddir` option to `run-me.sh`:
+To designate a directory to hold cached downloads between successive builds, pass the `--downloaddir` option to `run-me.sh`:
 ```
 mkdir /path/to/downloads
 ./mbl-tools/build-mbl/run-me.sh --downloaddir /path/to/downloads
@@ -161,11 +163,11 @@ The build scripts by default create and use a build directory under the current 
 ./mbl-tools/build-mbl/run-me.sh --builddir /path/to/my-build-dir
 ```
 
-It is a good practice to use different build directories for every build.
+It is good practice to use a different build directory for every build.
 
 ##### Pinned Manifests and Rebuilds
 
-Each build produces a pinned manifest as a build artifact. A pinned manifest is a file that encapsulates sufficient version information to allow an exact rebuild. To get the pinned manifest for a build, use the `--outputdir` option to get the build artifacts:
+Each build produces a **pinned manifest** as a build artifact. A pinned manifest is a file that encapsulates sufficient version information to allow an exact rebuild. To get the pinned manifest for a build, use the `--outputdir` option to get the build artifacts:
 ```
 mkdir /path/to/artifacts
 ./mbl-tools/build-mbl/run-me.sh --outputdir /path/to/artifacts
@@ -179,7 +181,7 @@ To rebuild using a previously pinned manifest, use the `--external-manifest` opt
 
 ### Example quick start build lines
 
-Following examples assumes that you already downloaded Device Management developer  credentials and created an update resources file, see [Download Mbed Cloud dev credentials file](#Download-Mbed-Cloud-dev-credentials-file) and [Create an Update resources file](#Create-an-Update-resources-file) sections.
+The following examples assumes that you already downloaded Device Management developer credentials and created an update resources file. Aee [Download Mbed Cloud dev credentials file](#Download-Mbed-Cloud-dev-credentials-file) and [Create an Update resources file](#Create-an-Update-resources-file) sections.
 
 Also, assuming that the user created an output directory for both Warp7 and RPi3 (e.g. `./artifacts-warp7` and `./artifacts-rpi3`).
 
@@ -195,13 +197,13 @@ Also, assuming that the user created an output directory for both Warp7 and RPi3
 ./mbl-tools/build-mbl/run-me.sh --inject-mcc ./cloud-credentials/mbed_cloud_dev_credentials.c --inject-mcc ./update-resources/update_default_resources.c --outputdir ./artifacts-rpi3 -- --machine raspberrypi3-mbl --branch mbl-XXX
 ```
 
-## Writing and booting the disk image 
+### Writing and booting the disk image
 
 This section contains instructions for writing the full disk image to a:
 * Warp7 device
 * Raspberry Pi 3 device
 
-### User in dialout group
+#### User in dialout group
 
 For both Warp7 and Raspberry Pi 3 devices, add the current user to the dialout group to allow access to ``/dev/ttyUSBn`` devices without using sudo:
 <!--Is this mandatory, or just nicer?-->
@@ -216,9 +218,9 @@ groups
 The user might need to reboot PC before the group membership takes effect for their shell process.
 <!--And this is okay because we've done the build, so we're not limited to the original shell instance anymore, right?-->
 
-### Warp7 devices
+#### Warp7 devices
 
-To write your disk image to the Warp7's flash device, you must first access the Warp7's serial console. To do this:
+To write your disk image to the Warp7's flash device, you must first access the Warp7's serial console:
 1. Connect both the Warp7's I/O USB socket (on the I/O board) and the Warp7's mass storage USB socket (on the CPU board) to your PC.
 
 You should now be able to see a USB TTY device, such as, `/dev/ttyUSB0`, on your PC.
@@ -249,18 +251,18 @@ You should now be able to see a USB TTY device, such as, `/dev/ttyUSB0`, on your
     lrwxrwxrwx 1 root root 10 Mar 19 10:38 ata-ST1000DM003-1CH162_W1D2QL7A-part4 -> ../../sdb4
     lrwxrwxrwx 1 root root 10 Mar 19 10:38 ata-ST1000DM003-1CH162_W1D2QL7A-part5 -> ../../sdb5
     ```
-    You'll need to compare this output in the following steps, so save it for reference.
-1. If you got a U-boot prompt <!--on the device or the terminal?-->, continue to the next step.
-   If you got an operating system boot (for example, Android), reboot the device until you get a U-boot prompt, then press any key to prevent the operating system from booting again. Continue to the next step.
+    Save this reference to compare this output <!---to what?---> in the following steps.
+1. If you get a U-boot prompt <!--on the device or the terminal?-->, continue to the next step.
+   If you get an operating system boot (for example, Android), reboot the device until you get a U-boot prompt, then press any key to prevent the operating system from booting again. Continue to the next step.
 1. To expose the Warp7's flash device to Linux as USB mass storage, in the U-boot prompt type:
     ```
     ums 0 mmc 0
     ```
-    On the Warp7 you should now see an ASCII-art "spinner", and on your PC you should see new storage devices:
+    On the Warp7, there is an ASCII-art "spinner", and your PC shows new storage devices:
     ```
     ls -l /dev/disk/by-id/
     ```
-    In our example, the Warp7 appeared as `usb-Linux_UMS_disk_0` (the partitions on the device are also shown):
+    In this example, the Warp7 appeared as `usb-Linux_UMS_disk_0` (the partitions on the device are also shown):
     ```
     total 0
     lrwxrwxrwx 1 root root  9 Mar 19 10:38 ata-Crucial_CT240M500SSD1_140709691C39 -> ../../sda
@@ -280,12 +282,13 @@ You should now be able to see a USB TTY device, such as, `/dev/ttyUSB0`, on your
     lrwxrwxrwx 1 root root 10 Mar 26 14:00 usb-Linux_UMS_disk_0-0:0-part3 -> ../../sdc3
     ```
     `mbl-console-image-imx7s-warp-mbl.wic.gz` is a full disk image so should be written to the whole flash device, not a partition.
+
     The device file for the whole flash device is the one without `-part` in the name (`/dev/disk/by-id/usb-Linux_UMS_disk_0-0:0` in this example).
-1. Ensure that none of the Warp7's flash partitions are mounted by running the following command (you may need to adjust the path depending on the name of the storage device):
+1. Ensure that none of the Warp7's flash partitions are mounted (you may need to adjust the path depending on the name of the storage device):
     ```
     sudo umount /dev/disk/by-id/usb-Linux_UMS_disk_0-0:0-part*
     ```
-1. From a Linux prompt, write the disk image to the Warp7's flash device using the following command:
+1. From a Linux prompt, write the disk image to the Warp7's flash device:
     ```
     sudo bmaptool copy --bmap <artifacts directory>/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/imx7s-warp-mbl/mbl-console-image-imx7s-warp-mbl.wic.bmap <artifacts directory>/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/imx7s-warp-mbl/mbl-console-image-imx7s-warp-mbl.wic.gz /dev/disk/by-id/<device-file-name>
     ```
@@ -310,7 +313,7 @@ You should now be able to see a USB TTY device, such as, `/dev/ttyUSB0`, on your
     * The SD card device file in `/dev`, probably as `/dev/sdX` for some letter `X` (for example, `/dev/sdd`).
     * Device files for its partitions `/dev/sdXN` for the same letter `X` and some numbers `N` (for example, `/dev/sdd1` and `/dev/sdd2`).
 
-    In the commands below, replace `/dev/sdX` with the device file name for the SD card _without_ a number at the end. You can use `lsblk` to identify the name of the SD card device.
+    Replace `/dev/sdX` in the commands below with the device file name for the SD card **without** a number at the end. You can use `lsblk` to identify the name of the SD card device.
 1. Ensure that none of the micro SD card's partitions are mounted by running:
     ```
     sudo umount /dev/sdX*
@@ -320,7 +323,6 @@ You should now be able to see a USB TTY device, such as, `/dev/ttyUSB0`, on your
     ```
     bmaptool copy --bmap <artifacts directory>/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/raspberrypi3-mbl/mbl-console-image-raspberrypi3-mbl.wic.bmap <artifacts directory>/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/raspberrypi3-mbl/mbl-console-image-raspberrypi3-mbl.wic.gz /dev/sdX
     ```
-    Replace `/dev/sdX` as mentioned above.
 
     This action may take some time.
 1. When `bmaptool` has finished, eject the device:
@@ -328,7 +330,7 @@ You should now be able to see a USB TTY device, such as, `/dev/ttyUSB0`, on your
     sudo eject /dev/sdX
     ```
 1. Detach the micro SD card from your PC and plug it into the Raspberry Pi 3.
-1. You need access to the device's console, so before powering it on the, either:
+1. You need access to the device's console, so before powering it on, either:
    * Connect it to a monitor and keyboard (using its HDMI and USB sockets).
    * Connect it to your PC. For example, if you're using a [C232HD-DDHSP-0](http://www.ftdichip.com/Support/Documents/DataSheets/Cables/DS_C232HD_UART_CABLE.pdf) cable, use [this pin numbering reference](https://www.element14.com/community/servlet/JiveServlet/previewBody/73950-102-10-339300/pi3_gpio.png) and connect USB-UART colored wires as follows:
        * **Black** wire to pin **06**
@@ -361,11 +363,11 @@ If your device is connected to a network with a DHCP server using Ethernet, then
 
 ### Verifying that the device is connected to Device Management
 
-While the device boots into MBL, `mbl-cloud-client` should automatically start and connect to Pelion. You can check whether it has connected by:
+While the device boots into MBL, `mbl-cloud-client` should automatically start and connect to Device Management. You can check whether it has connected by:
 * Checking the device status on the [Device Managmenent Portal](https://portal.mbedcloud.com/).<!--I will need to add the images in our publishing format-->
 * Reviewing the log file for `mbl-cloud-client` at `/var/log/mbl-cloud-client.log`.
 
-If your device hasn't automatically connected to Pelion, it could be that:
+If your device hasn't automatically connected to Device Management, it could be that:
 * Networking wasn't configured before the device was rebooted. Check your configurations and reboot the device.<!--Easy enough to direct them to the WiFi bit, but is there anything that may have gone wrong with DHCP?-->
 * There are issues with the network. The device retries periodically, but you may need to restart `mbl-cloud-client`:
     ```
