@@ -7,9 +7,9 @@ Mbed Linux OS (MBL) includes two over-the-air (OTA) updatable components:
 
 <!--currently - so we'll support updating the bootloader? I thought you don't update bootloaders because you can recover from an error in that update-->
 
-### How firmware gets updated
+### How software gets updated
 
-Pelion Device Management is used to send firmware updates to MBL devices. The update process begins with Device Management sending the device a request with a manifest. If the device accepts the request, Device Management sends a payload file containing an update for one or more MBL component.
+Pelion Device Management is used to send software updates to MBL devices. The update process begins with Device Management sending the device a request with a manifest. If the device accepts the request, Device Management sends a payload file containing an update for one or more MBL component.
 
 The payload is a TAR file that can contain either:
 
@@ -34,7 +34,7 @@ After receiving a payload file containing application updates, for each applicat
 To support rootfs updates, MBL devices have two root file system partitions called:
 
 - **active** bank: a partition containing the root file system for the running system.
-- **inactive** bank: a partition available to receive firmware updates.
+- **inactive** bank: a partition available to receive a rootfs update payload.
 
 After receiving a payload file containing a rootfs update, MBL:
 
