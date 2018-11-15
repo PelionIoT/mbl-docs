@@ -31,8 +31,8 @@ There are two paths to working with MBL:
 1. If you are an application developer, and interested in building applications for devices that run MBL:
     1. Please build MBL locally and flash it to your device.
     1. Try our example application, or start writing your own application using the Linux APIs.
-
-### Licensing
+    
+### Licensing
 
 Both Mbed Linux OS and our test suites will be open source, helping you automate product testing in a modern continuous integration pipeline. For more information, [please see the Contributing section in the MBL source](https://github.com/ARMmbed/meta-mbl/blob/master/CONTRIBUTING.md).
 
