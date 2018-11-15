@@ -7,7 +7,7 @@ Mbed Linux OS (MBL) includes two over-the-air (OTA) updatable components:
 
 <!--currently - so we'll support updating the bootloader? I thought you don't update bootloaders because you can recover from an error in that update-->
 
-### How software gets updated
+### How software is updated
 
 Pelion Device Management portal is used to send software updates to MBL devices. The update process begins with Pelion sending the device a request with a manifest. If the device accepts the request, Pelion sends a payload file containing an update for one or more MBL component.
 
@@ -70,12 +70,12 @@ An MBL device can only be updated if the followings are available:
         For example, to create an update payload file at `/tmp/payload.tar` containing an `.ipk` file with the path `/home/user01/my_app.ipk`, run:
 
         ```
-        user01@devmachine:~$ tar -cf /tmp/payload.tar -C /home/user01 my_app.ipk
+        user01@dev-machine:~$ tar -cf /tmp/payload.tar -C /home/user01 my_app.ipk
         ```
 
     - **For a root file system**: Make a TAR file containing the root file system archive from the MBL build artefacts.
 
-        A symlink of the root file system archive can be found in the build environment at `<mbl_workspace>/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-<MACHINE>.tar.xz`
+        A symlink to the root file system archive can be found in the build environment at `<mbl_workspace>/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-<MACHINE>.tar.xz`
 
         Where:
 
@@ -87,7 +87,7 @@ An MBL device can only be updated if the followings are available:
         For example, to create an update payload file at `/tmp/payload.tar` containing a Warp7 root file system image in the workspace `/home/user01/mbl/mbl-os-0.5`, run:
 
         ```
-        user01@devmachine:~$ tar -cf /tmp/payload.tar -C /home/user01/mbl/mbl-os-0.5/build-mbl/tmp-mbl-glibc/deploy/images/imx7s-warp-mbl '--transform=s/.*/rootfs.tar.xz/' --dereference mbl-console-image-imx7s-warp-mbl.tar.xz
+        user01@dev-machine:~$ tar -cf /tmp/payload.tar -C /home/user01/mbl/mbl-os-0.5/build-mbl/tmp-mbl-glibc/deploy/images/imx7s-warp-mbl '--transform=s/.*/rootfs.tar.xz/' --dereference mbl-console-image-imx7s-warp-mbl.tar.xz
         ```
 
         The `--transform` option is used to rename all files added to the payload to `rootfs.tar.xz` and the `--dereference` option is used so that `tar` adds the actual root file system archive file rather than the symlink to it.
@@ -101,12 +101,12 @@ An MBL device can only be updated if the followings are available:
        ```
    - Go to [Pelion](https://portal.mbedcloud.com) to find the device ID in the **Device Directory** tab. This is a valid option if only one device is registered or if each device has been assigned a descriptive name on Pelion.
    
-1. For a rootfs update, identify which root file system bank is currently active to compare it to the active bank after the update. The [`lsblk` command explained below](#identify-the-active-root-file-system-bank) can be used to that  effect. This step is not mandatory.
+1. For a rootfs update, identify which root file system bank is currently active to compare it to the active bank after the update. The `lsblk` command explained [here](#identify-the-active-root-file-system-bank) can be used to that  effect.
 1. Change the current working directory to the directory where the manifest tool was initialized.
 1. Run the following command:
 
     ```
-    user01@devmachine:manifests$ manifest-tool update device --device-id <device-id> --payload <payload-file> --api-key <api-key>
+    user01@dev-machine:manifests$ manifest-tool update device --device-id <device-id> --payload <payload-file> --api-key <api-key>
     ```
 
     Where:
@@ -122,14 +122,14 @@ An MBL device can only be updated if the followings are available:
     root@mbed-linux-os-1234:~# tail -f /var/log/mbl-cloud-client.log
     ```
 
-- The update payload installation progress can be monitor by tailing:
+- The update payload installation progress can be monitored by tailing:
 
     - `/var/log/arm_update_activate.log`: for messages about the overall progress of the installation, and messages specific to rootfs updates.
    - `/var/log/mbl-app-update-manager.log`: for messages about application updates.
 
-- For rootfs updates, a reboot will be automatically initiated to boot into the new firmware. For application updates, a reboot is not required.
+- For rootfs updates, a reboot will be automatically initiated to boot into the new firmware. Identify the currently active rootfile system and verify it was different pre-update. The `lsblk` command explained [here](#identify-the-active-root-file-system-bank) can be used to that  effect.
 
-- For rootfs updates, identify the currently active rootfile system. The active root file system pre-update should be different. The [`lsblk` command explained below](#identify-the-active-root-file-system-bank) can be used to that  effect.
+- The system does not reboot after an application update. 
 
 ### Identify the active root file system bank
 
