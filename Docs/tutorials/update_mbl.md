@@ -9,7 +9,7 @@ Mbed Linux OS (MBL) includes two over-the-air (OTA) updatable components:
 
 ### How software gets updated
 
-Pelion Device Management is used to send software updates to MBL devices. The update process begins with Device Management sending the device a request with a manifest. If the device accepts the request, Device Management sends a payload file containing an update for one or more MBL component.
+Pelion Device Management portal is used to send software updates to MBL devices. The update process begins with Pelion sending the device a request with a manifest. If the device accepts the request, Pelion sends a payload file containing an update for one or more MBL component.
 
 The payload is a TAR file that can contain either:
 
@@ -54,10 +54,10 @@ An MBL device can only be updated if the followings are available:
 
 - The build artefacts for the image to send as the update payload. See the [build tutorial]() for instructions.
 - An internet connection on the target. [Follow the tutorial to setup an internet connection]().
-- A device running an MBL image that can connect to a Pelion Device Management account. [Follow the first tutorial in this series]() to request an account.
+- A device running an MBL image that can connect to a Pelion account. [Follow the first tutorial in this series]() to request an account.
 - The directory in which the manifest tool was initialised, [as reviewed in the development environment setup]().
 <span class="notes">This *must* be the directory from which the `update_default_resources.c` file was obtained for building MBL.</span>
-- A Pelion Device Management API key, to use the manifest tool from the command line. Follow the instructions in the [Pelion Device Management docs](https://cloud.mbed.com/docs/current/integrate-web-app/api-keys.html#generating-an-api-key) to obtain an API key (when prompted to select a group to set the API key access level, select **Developers**). Make a note of the API key to use it later; for security reasons, the portal will not display it again.
+- A Pelion API key, to use the manifest tool from the command line. Follow the instructions in the [Pelion docs](https://cloud.mbed.com/docs/current/integrate-web-app/api-keys.html#generating-an-api-key) to obtain an API key (when prompted to select a group to set the API key access level, select **Developers**). Make a note of the API key to use it later; for security reasons, the portal will not display it again.
 
 ### Workflow
 
@@ -99,7 +99,7 @@ An MBL device can only be updated if the followings are available:
        ```
        root@mbed-linux-os-1234:~# grep -i 'device id' /var/log/mbl-cloud-client.log
        ```
-   - Go to the [Pelion Device management portal](https://portal.mbedcloud.com) to find the device ID in the **Device Directory** tab.
+   - Go to [Pelion](https://portal.mbedcloud.com) to find the device ID in the **Device Directory** tab.
    
 1. For a rootfs update, identify which root file system bank is currently active to compare it to the active bank after the update. The [`lsblk` command explained below](#identify-the-active-root-file-system-bank) can be used to that  effect. This step is not mandatory.
 1. Change the current working directory to the directory where the manifest tool was initialized.
@@ -113,7 +113,7 @@ An MBL device can only be updated if the followings are available:
 
         - `<device-id>` is the device ID.
         - `<payload-file>` is the update payload (`.tar` file).
-        - `<api-key>` is the Pelion Device Management API key.
+        - `<api-key>` is the Pelion API key.
 
 #### Additional notes
 - The update payload download progress can be monitored by tailing the `mbl-cloud-client` log file as follows:
