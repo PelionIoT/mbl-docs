@@ -36,6 +36,14 @@ manifest-tool init -q -d arm.com -m dev-device
 ```
 This generates a file `update_default_resources.c` that is required during the build process.
 
+### mbl-tools
+mbl-tools repository provides a collection of tools and recipes related to the build and test of Mbed Linux OS.
+Checkout the `mbl-tools-XXX` branch of [mbl-tools git repository](https://github.com/ARMmbed/mbl-tools) using the following command
+```
+mkdir /path/to/working-dir/; cd /path/to/working-dir/
+$ git clone git@github.com:ARMmbed/mbl-tools.git --branch mbl-tools-XXX
+```
+
 ### Building scripts
 
 The `run-me.sh` script creates and launches a docker container to encapsulate the MBL build environment then launch a build script, `build.sh`, inside the container to do the heavy lifting. <!---too idiomatic--->
