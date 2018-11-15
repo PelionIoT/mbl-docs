@@ -99,7 +99,7 @@ An MBL device can only be updated if the followings are available:
        ```
        root@mbed-linux-os-1234:~# grep -i 'device id' /var/log/mbl-cloud-client.log
        ```
-   - Go to [Pelion](https://portal.mbedcloud.com) to find the device ID in the **Device Directory** tab.
+   - Go to [Pelion](https://portal.mbedcloud.com) to find the device ID in the **Device Directory** tab. This is a valid option if only one device is registered or if each device has been assigned a descriptive name on Pelion.
    
 1. For a rootfs update, identify which root file system bank is currently active to compare it to the active bank after the update. The [`lsblk` command explained below](#identify-the-active-root-file-system-bank) can be used to that  effect. This step is not mandatory.
 1. Change the current working directory to the directory where the manifest tool was initialized.
