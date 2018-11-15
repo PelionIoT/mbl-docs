@@ -15,7 +15,7 @@ Please [make sure you have suitable hardware and all the required software]().
 Each release has its own branch, such as `mbl-os-0.5`. Throughout this guide, the release branch is referred to as `mbl-XXX`. Replace it with the name of the branch you're working with. If you don't know which branch to work with, [use the latest branch available]().<!--is there a release list or a tag list I can send them to? I don't want them to have to go to the repo to count branches-->
 <!--- Could we link to release notes? *Mel*--->
 
-### Download Device Management developer credentials
+### Downloading Device Management developer credentials
 
 To connect your device to your Pelion Device Management account, you need to add a credentials file to your application before you build it. For development environments, Pelion offers a *developer certificate* for quick connection:
 
@@ -24,7 +24,7 @@ To connect your device to your Pelion Device Management account, you need to add
 <!--This is where being able to splice the content would be great; I would rather transclude it here than send them to another page. I'll see what the Web Team has.-->
 1. Add the developer certificate to the credentials directory you've created.
 
-### Create an Update resources file
+### Creating an Update resources file
 
 1. Create an update resources directory, such as `./update-resources`:
 ```
@@ -36,7 +36,7 @@ manifest-tool init -q -d arm.com -m dev-device
 ```
 This generates a file `update_default_resources.c` that is required during the build process.
 
-### Build script
+### Building scripts
 
 The `run-me.sh` script creates and launches a docker container to encapsulate the MBL build environment then launch a build script, `build.sh`, inside the container to do the heavy lifting. <!---too idiomatic--->
 
@@ -68,7 +68,7 @@ An example using all mandatory options:
 * For more information about `--outputdir` option see [Build Artifacts](#Build-Artifacts).
 * For more information about `--inject-mcc` option see [Use Mbed Cloud Client Credentials](#Use-Mbed-Cloud-Client-Credentials)
 
-##### Select release branch
+##### Selecting a release branch
 
 Different branches of MBL can be checkout and built by passing the `--branch` option through to `build.sh`.  The bleeding edge of mainline development takes place on the 'master' branch.
 
@@ -77,7 +77,7 @@ Checkout and build the release branch `mbl-XXX` for MBL:
 ./mbl-tools/build-mbl/run-me.sh -- --branch mbl-XXX --machine raspberrypi3-mbl
 ```
 
-##### Select target device
+##### Selecting a target device
 
 In order to select the target device use `--machine` option as follows:
 ```
@@ -91,7 +91,7 @@ Select the <MACHINE> value for your MBL device from the table below:
 | Raspberry Pi 3 | `raspberrypi3-mbl` |
 
 
-##### Build Artifacts
+##### Building Artifacts
 
 Each build produces a variety of build artifacts including a pinned manifest, target specific images and license information.
 To get build artifacts out of a build, pass the `--outputdir` option to specify which directory the build artifacts should be placed in:
@@ -100,7 +100,7 @@ mkdir /path/to/artifacts
 ./mbl-tools/build-mbl/run-me.sh --outputdir /path/to/artifacts
 ```
 
-##### Build outputs
+##### Building outputs
 
 The build process creates the following files (which you need later):
 
@@ -130,9 +130,9 @@ Test image is also being built, and contains more packages for testing and debug
 | Full test disk image block map | `/path/to/artifacts/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-test-<MACHINE>.wic.bmap` |
 | Root file system archive  | `/path/to/artifacts/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-test-<MACHINE>.tar.xz`   |
 
-##### Use Mbed Cloud Client Credentials
+##### Using Device Management Client Credentials
 
-The current Mbed Cloud Client requries key material to be statically built into the cloud client binary.
+The current Device Management Client requries key material to be statically built into the cloud client binary.
 This is a temporary measure that is replaced with a dynamic key injection mechanism shortly, see [Download Mbed Cloud dev credentials file](#Download-Mbed-Cloud-dev-credentials-file) and [Create an Update resources file](#Create-an-Update-resources-file) sections.
 
 In the meantime, the build scripts provide a work around using the `--inject-mcc` option:
@@ -144,7 +144,7 @@ In the meantime, the build scripts provide a work around using the `--inject-mcc
 
 Optional build script options can be used to improve the development process.
 
-##### Cache downloaded source artifacts
+##### Caching downloaded source artifacts
 
 The build process involves the download of many source artifacts.  It is possible to cache downloaded source artifacts between successive builds. In practice, the cache mechanism is considered to be robust for successive builds.  It should not be used for parallel builds.
 
@@ -154,7 +154,7 @@ mkdir /path/to/downloads
 ./mbl-tools/build-mbl/run-me.sh --downloaddir /path/to/downloads
 ```
 
-##### Create multiple build directories
+##### Creating multiple build directories
 
 The build scripts by default create and use a build directory under the current working directory.  An alternative build directory can be specified using the `--builddir` option to `run-me.sh`:
 ```
@@ -195,7 +195,7 @@ Also, assuming that the user created an output directory for both Warp7 and RPi3
 ./mbl-tools/build-mbl/run-me.sh --inject-mcc ./cloud-credentials/mbed_cloud_dev_credentials.c --inject-mcc ./update-resources/update_default_resources.c --outputdir ./artifacts-rpi3 -- --machine raspberrypi3-mbl --branch mbl-XXX
 ```
 
-## Write the disk image to your device and booting it
+## Writing and booting the disk image 
 
 This section contains instructions for writing the full disk image to a:
 * Warp7 device
@@ -359,7 +359,7 @@ To log in to MBL, enter the username `root` with no password.
 
 If your device is connected to a network with a DHCP server using Ethernet, then it automatically connects to that network. Otherwise, follow [the instructions](setting-up-wifi-in-mbed-linux-os.html) for setting up Wi-Fi in MBL.
 
-### Check whether the device has connected to Pelion Device Management
+### Verifying that the device is connected to Device Management
 
 While the device boots into MBL, `mbl-cloud-client` should automatically start and connect to Pelion. You can check whether it has connected by:
 * Checking the device status on the [Device Managmenent Portal](https://portal.mbedcloud.com/).<!--I will need to add the images in our publishing format-->
