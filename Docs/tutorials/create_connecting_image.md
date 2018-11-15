@@ -1,42 +1,23 @@
-## Tutorial: Building an MBL image that connects to Pelion Device Management
+<h2 id="mbl-pelion-connect">Tutorial: Building an Mbed Linux OS image that connects to Pelion Device Management</h2>
 
-<span class="warnings">These instructions use the developer workflow and developer certificates. Do not use this workflow for production devices.</span><!--My first question as a reader: where can I find the development flow.-->
+<span class="warnings">These instructions use the developer workflow and developer certificates as connectivity credentials. Do not use these credentials for production devices.</span>
 
-### Workflow for building Mbed Linux
+### Overview
 
-MBL handles Pelion Device Management connectivity on behalf of the device, rather than relying on the application to do it.
-<!--What are the advantages, by the way?-->
+Mbed Linux OS (MBL) handles Pelion Device Management connectivity on behalf of the device, rather than relying on the user application to do it (as Mbed OS does). This means that before you build the MBL image that runs on your device, you need to add your Pelion credentials to the working directory MBL builds from.
 
-This means that before you build the MBL image that runs on your device, you need to add your Pelion credentials to the working directory MBL builds from.
+To build MBL and connect to Device Management:
 
+### Prerequisites
 
-<!--### Build versions
-
-This document contains instructions for building the `master` branch of Mbed Linux OS. Instructions for building other branches are on those branches themselves. To build the latest stable branch of Mbed Linux OS, see the [the `alpha` branch walkthrough][mbl-alpha-walkthrough].-->
-
-<!--Will we still need this comment in November?-->
+Please [make sure you have suitable hardware and all the required software]().
 
 
+### Release branches
 
+Each release has its own branch, for example `mbl-os-0.5`. Throughout this guide the release branch is referred to as `mbl-XXX`, and you need to replace it with the name of the branch you're working with. If you don't know which branch to work with, [use the latest branch available]().<!--is there a release list or a tag list I can send them to? I don't want them to have to go to the repo to count branches-->
 
-To build Mbed Linux and do a firmware update over the air, follow these steps:
-
-<!--I will recreate the list when everything's done-->
-
-## Building Mbed Linux OS (MBL)
-Building Mbed Linux OS is done using mbl build tool.
-
-mbl-tools repository provides a collection of tools and recipes related to the build and test of Mbed Linux OS.
-Each release will have its own branch, so throughout this guide the release branch will be reffered as `mbl-XXX`.
-An example for `mbl-XXX` release branch name: `mbl-os-0.5`.
-
-Checkout the `mbl-XXX` branch of [mbl-tools git repository](https://github.com/ARMmbed/mbl-tools) using the following command
-
-```
-$ git clone git@github.com:ARMmbed/mbl-tools.git --branch mbl-XXX
-```
-
-### Download Mbed Cloud dev credentials file
+### Download Device Management developer credentials
 
 To connect your device to your Pelion Device Management account, you need to add a credentials file to your application before you build it. For development environments, Pelion offers a *developer certificate* for quick connections:
 
@@ -60,7 +41,7 @@ This generates a file `update_default_resources.c` that is required during the b
 
 ### Build script
 
-The `run-me.sh` script will create and launch a docker container to encapsulate the Mbed Linux build environment then launch a build script, `build.sh`, inside the container to do the heavy lifting.
+The `run-me.sh` script will create and launch a docker container to encapsulate the MBL build environment then launch a build script, `build.sh`, inside the container to do the heavy lifting.
 There are a variety of options controlling what is built and how. The general form of a `run-me.sh` invocation is:
 ```
 ./mbl-tools/build-mbl/run-me.sh [RUN-ME.SH OPTIONS]... -- [BUILD.SH OPTIONS]...
@@ -94,10 +75,10 @@ All mandatory build options are described in the following sections below:
 * For more information about `--inject-mcc` option see [Use Mbed Cloud Client Credentials](#Use-Mbed-Cloud-Client-Credentials)
 
 ##### Select release branch
-Different branches of Mbed Linux can be checkout and built by passing the `--branch` option through to `build.sh`.  The bleeding edge of mainline development takes place on the 'master' branch.
+Different branches of MBL can be checkout and built by passing the `--branch` option through to `build.sh`.  The bleeding edge of mainline development takes place on the 'master' branch.
 
 To build MBL for Raspberry PI 3 (RPi3):
-Checkout and build the release branch `mbl-XXX` for Mbed linux:
+Checkout and build the release branch `mbl-XXX` for MBL:
 ```
 ./mbl-tools/build-mbl/run-me.sh -- --branch mbl-XXX --machine raspberrypi3-mbl
 ```
@@ -107,7 +88,7 @@ In order to select the target device use `--machine` option as follows:
 ```
 ./mbl-tools/build-mbl/run-me.sh -- --machine <MACHINE>
 ```
-Select the <MACHINE> value for your Mbed Linux device from the table below:
+Select the <MACHINE> value for your MBL device from the table below:
 
 | Device | MACHINE |
 | ---  | --- |
@@ -133,7 +114,7 @@ The build process creates the following files (which you will need to use later)
 
 * **A block map of the full disk image**: This is a file containing information about which blocks of the uncompressed full disk image actually need to be written to the IoT device. Some blocks of the image represent unused storage space that does not actually need to be written.
 
-* **A root filesystem archive**: This is a compressed `.tar` archive, which you will need when you update the device firmware (this topic is covered [in the next tutorial]()). 
+* **A root filesystem archive**: This is a compressed `.tar` archive, which you will need when you update the device firmware (this topic is covered [in the next tutorial]()).
 <!--Looking at the update bit makes me wonder whether this is empty the first time you build an image.-->
 
 **File locations**
@@ -157,7 +138,7 @@ Test image is also being build, and contains more packages for testing and debug
 
 ##### Use Mbed Cloud Client Credentials
 
-The current Mbed Cloud Client requries key material to be statically built into the cloud client binary. 
+The current Mbed Cloud Client requries key material to be statically built into the cloud client binary.
 This is a temporary measure that will be replaced with a dynamic key injection mechanism shortly, see [Download Mbed Cloud dev credentials file](#Download-Mbed-Cloud-dev-credentials-file) and [Create an Update resources file](#Create-an-Update-resources-file) sections.
 
 In the meantime, the build scripts provide a work around using the `--inject-mcc` option:
@@ -360,7 +341,7 @@ To write your disk image to the Warp7's flash device, you must first access the 
     reset
     ```
 
-    The device should now boot into Mbed Linux.
+    The device should now boot into MBL.
 
 ### Raspberry Pi 3 devices
 
@@ -419,19 +400,19 @@ To write your disk image to the Warp7's flash device, you must first access the 
     * Baud rate 115200.
     * [8N1](https://en.wikipedia.org/wiki/8-N-1) encoding.
     * No hardware flow control.
-1. Connect the Raspberry Pi 3's micro USB socket to a USB power supply. It should now boot into Mbed Linux.
+1. Connect the Raspberry Pi 3's micro USB socket to a USB power supply. It should now boot into MBL.
 
-### Logging in to Mbed Linux
+### Logging in to MBL
 
-To log in to Mbed Linux, enter the username `root` with no password.
+To log in to MBL, enter the username `root` with no password.
 
 ### Setting up a network connection
 
-If your device is connected to a network with a DHCP server using Ethernet, then it automatically connects to that network. Otherwise, follow [the instructions](setting-up-wifi-in-mbed-linux-os.html) for setting up WiFi in Mbed Linux.
+If your device is connected to a network with a DHCP server using Ethernet, then it automatically connects to that network. Otherwise, follow [the instructions](setting-up-wifi-in-mbed-linux-os.html) for setting up WiFi in MBL.
 
 ### Check whether the device has connected to Pelion Device Management
 
-While the device boots into Mbed Linux, `mbl-cloud-client` should automatically start and connect to Pelion. You can check whether it has connected by:
+While the device boots into MBL, `mbl-cloud-client` should automatically start and connect to Pelion. You can check whether it has connected by:
 
 * Checking the device status on the [Device Managmenent Portal](https://portal.mbedcloud.com/).<!--I will need to add the images in our publishing format-->
 * Reviewing the log file for `mbl-cloud-client` at `/var/log/mbl-cloud-client.log`.
