@@ -9,16 +9,16 @@ The Mbed Linux CLI is a toolbox for building your Mbed Linux applications and ma
 
 You can [view the code on GitHub](https://github.com/ARMmbed/mbl-docs/), or [install it using npm](setting-up.html)
 <!--Will anyone be able to install it? Right now the repo is private-->
-## Setting up
+### Setting up
 
-### Prerequisites
+#### Prerequisites
 
 * [Docker version 17.0.0 or higher](https://www.docker.com) - recommended for local application building.
 * [Node.js version 6.0.0 or higher](https://nodejs.org), which includes `npm v3`.
 
     We recommend installing Node.js using the [Node version manager](https://github.com/creationix/nvm), because the installation below requires usage of your GitHub SSH credentials.
 
-### Installation
+#### Installation
 
 MBL CLI is distributed using npm. To install the tool globally:
 
@@ -29,7 +29,7 @@ $ npm install -g ARMmbed/mbl-cli#build
 <!--Let's say I didn't use the Node version manager; will I run into problems here? How would I solve them?-->
 <!--Does that bring in any other dependencies?-->
 
-## Usage
+### Usage
 
 The general structure of an MBL CLI command is:
 
@@ -37,7 +37,7 @@ The general structure of an MBL CLI command is:
 $ mbl-cli <command> [arguments]
 ```
 
-### Options
+#### Options
 
 * -v, --version: Show version number.
 * -h, --help: Show help.
@@ -94,6 +94,7 @@ Where:
 #### Device Management
 
 <!--I thought you meant Pelion Device Management. Can I call this "Device operations" or some other horror designed purely to avoid confusion with our other product?-->
+<!-- *Mel*: *screams endlessly*-->
 
 The structure of a device management command:<!--So what was the other group of commands? I just referred to them as generic MBL CLI commands, but is there a logical group name?-->
 

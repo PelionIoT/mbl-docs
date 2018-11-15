@@ -26,10 +26,9 @@ Mbed Linux OS uses `ConnMan` to manage Wi-Fi interfaces and connections. In the 
 connmanctl> agent on
 Agent registered
 ```
+For help, use `connmanctl --help` or just `help` in interactive mode.
 
-For help use `connmanctl --help` or just `help` in interactive mode.
-
-The `connmanctl` man page can be found here:  
+The official `connmanctl` documentation pages can be found here:  
 https://www.systutorials.com/docs/linux/man/8-connman/
 
 ### Configuration and state
