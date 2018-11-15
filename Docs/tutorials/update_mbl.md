@@ -53,7 +53,7 @@ An MBL device can only be updated if the followings are available:
 <!--Leave the links empty; that will make them surface in our final checks and we'll know to fix them-->
 
 - The build artefacts for the image to send as the update payload. See the [build tutorial]() for instructions.
-- An internet connection on the target. [Follow the tutorial to setup an internet connection]().
+- An internet connection on the device. [Follow the tutorial to setup an internet connection]().
 - A device running an MBL image that can connect to a Pelion account. [Follow the first tutorial in this series]() to request an account.
 - The directory in which the manifest tool was initialised, [as reviewed in the development environment setup]().
 <span class="notes">This *must* be the directory from which the `update_default_resources.c` file was obtained for building MBL.</span>
@@ -80,7 +80,7 @@ An MBL device can only be updated if the followings are available:
         Where:
 
         - `<mbl_workspace>` is the directory in which the `repo init` command created the MBL workspace.
-        - `<MACHINE>` is the value that was given to the build script for the `--machine` option. See the [build tutorial]() to determine which value is suitable for the target in use.
+        - `<MACHINE>` is the value that was given to the build script for the `--machine` option. See the [build tutorial]() to determine which value is suitable for the device in use.
 
         <span class="notes">The file inside the update payload must be named `rootfs.tar.xz` and must be in the TAR's root directory, not a subdirectory.</span>
 
@@ -92,7 +92,7 @@ An MBL device can only be updated if the followings are available:
 
         The `--transform` option is used to rename all files added to the payload to `rootfs.tar.xz` and the `--dereference` option is used so that `tar` adds the actual root file system archive file rather than the symlink to it.
 
-1. Discover the target's Pelion device ID:
+1. Discover the device's Pelion device ID:
 
     - Search the device ID in the `mbl-cloud-client` log file at `/var/log/mbl-cloud-client.log`, using the following command on the device's console:
 
