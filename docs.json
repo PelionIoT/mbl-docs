@@ -24,12 +24,21 @@
                     "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/intro_reqs.md"
                 },
                 "sub_chapters": [{
-                        "title": "Enviornment and hardware setup",
+                        "title": "Hardware",
+                        "sources": [{
+                            "type": "markdown",
+                            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/Hardware.md"
+                        }]
+                    },
+                    {
+                        "title": "Enviornment and accounts",
                         "sources": [{
                             "type": "markdown",
                             "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/set_up_env_and_hardware.md"
                         }]
                     },
+
+
                     {
                         "title": "Accounts and certificates",
                         "sources": [{
