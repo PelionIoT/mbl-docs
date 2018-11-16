@@ -80,16 +80,5 @@
                 }]
             }
         ]
-    },
-
-    {
-        "title": "API references",
-        "description": "",
-        "slug": "apis",
-        "type": "markdown",
-        "sources": [{
-            "type": "markdown",
-            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/API/intro_api.md"
-        }]
     }
 ]
