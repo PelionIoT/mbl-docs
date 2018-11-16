@@ -66,13 +66,6 @@
                 ]
             },
             {
-                "title": "Tutorial: an MBL application",
-                "sources": [{
-                    "type": "markdown",
-                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/qr_code.md"
-                }]
-            },
-            {
                 "title": "Tutorial: updating MBL devices and applications",
                 "sources": [{
                     "type": "markdown",
