@@ -46,14 +46,6 @@
                 ]
             },
             {
-                "title": "Mbed Linux CLI",
-                "sources": [{
-                    "type": "markdown",
-                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/mbl_cli.md"
-                }]
-
-            },
-            {
                 "title": "Tutorial: Connecting an MBL device",
                 "sources": [{
                         "type": "markdown",
