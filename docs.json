@@ -18,7 +18,7 @@
             "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/intro_tut.md"
         },
         "chapters": [{
-                "title": "Requirements and development environment",
+                "title": "Requirements",
                 "intro": {
                     "type": "markdown",
                     "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/intro_reqs.md"
