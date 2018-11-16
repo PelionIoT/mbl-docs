@@ -57,4 +57,4 @@ MBL uses the Pelion Device Management Update service to support updates of both 
 
 The following diagram illustrates the components and services provided by MBL. When used in conjunction with Mbed Cloud, MBL provides a secure platform for developing, operating and managing IoT applications.
 
-<span class="images">![](Images/Application_containers.png)</span>
+<span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/Application_containers.png)</span>
