@@ -14,40 +14,42 @@
         "slug": "reqs-setup",
         "type": "markdown",
         "chapters": [{
-            "title": "Requirements",
-            "intro": {
-                "type": "markdown",
-                "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/intro_reqs.md"
-            },
-            "sub_chapters": [{
-                    "title": "Hardware",
-                    "sources": [{
-                        "type": "markdown",
-                        "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/Hardware.md"
-                    }]
+                "title": "Requirements",
+                "intro": {
+                    "type": "markdown",
+                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/intro_reqs.md"
                 },
-                {
-                    "title": "Enviornment and accounts",
-                    "sources": [{
-                        "type": "markdown",
-                        "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/set_up_env_and_hardware.md"
-                    }]
-                },
-                {
-                    "title": "Accounts and certificates",
-                    "sources": [{
-                            "type": "markdown",
-                            "url": "https://github.com/ARMmbed/mbed_Cloud_Docs/blob/working/Docs/account_management/log_or_create_users.md"
-                        },
-                        {
-                            "type": "markdown",
-                            "url": "https://github.com/ARMmbed/mbed_Cloud_Docs/blob/R1.5/Docs/provisioning/fcc_for_development.md"
+                "sources": []
 
-                        }
-                    ]
-                }
-            ]
-        }]
+            },
+            {
+                "title": "Hardware",
+                "sources": [{
+                    "type": "markdown",
+                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/Hardware.md"
+                }]
+            },
+            {
+                "title": "Enviornment",
+                "sources": [{
+                    "type": "markdown",
+                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/set_up_env_and_hardware.md"
+                }]
+            },
+            {
+                "title": "Accounts and certificates",
+                "sources": [{
+                        "type": "markdown",
+                        "url": "https://github.com/ARMmbed/mbed_Cloud_Docs/blob/working/Docs/account_management/log_or_create_users.md"
+                    },
+                    {
+                        "type": "markdown",
+                        "url": "https://github.com/ARMmbed/mbed_Cloud_Docs/blob/R1.5/Docs/provisioning/fcc_for_development.md"
+
+                    }
+                ]
+            }
+        ]
     },
     {
         "title": "Getting started",
