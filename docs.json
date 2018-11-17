@@ -20,7 +20,6 @@
                     "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/intro_reqs.md"
                 },
                 "sources": []
-
             },
             {
                 "title": "Hardware",
@@ -57,13 +56,13 @@
         "slug": "getting-started",
         "type": "markdown",
         "chapters": [{
+                "title": "Introduction",
                 "intro": {
                     "type": "markdown",
                     "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/intro_tut.md"
                 },
                 "sources": []
             },
-
             {
                 "title": "Tutorial: Connecting an MBL device",
                 "sources": [{
