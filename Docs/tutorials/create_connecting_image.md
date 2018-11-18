@@ -38,7 +38,7 @@ This generates a file `update_default_resources.c` that is required during the b
 
 ### mbl-tools
 mbl-tools repository provides a collection of tools and recipes related to the build and test of Mbed Linux OS.
-Checkout the `mbl-tools-XXX` branch of [mbl-tools git repository](https://github.com/ARMmbed/mbl-tools) using the following command
+Checkout the `mbl-tools-XXX` branch from [mbl-tools git repository](https://github.com/ARMmbed/mbl-tools) using the following command
 ```
 mkdir /path/to/working-dir/; cd /path/to/working-dir/
 $ git clone git@github.com:ARMmbed/mbl-tools.git --branch mbl-tools-XXX
@@ -74,7 +74,7 @@ An example using all mandatory options:
 * For more information about `--branch` option see [Select release branch](#Select-release-branch).
 * For more information about `--machine` option see [Select target device](#Select-target-device).
 * For more information about `--outputdir` option see [Build Artifacts](#Build-Artifacts).
-* For more information about `--inject-mcc` option see [Use Mbed Cloud Client Credentials](#Use-Mbed-Cloud-Client-Credentials)
+* For more information about `--inject-mcc` option see [Using Device Management Client Credentials](#Using-Device-Management-Client-Credentials)
 
 ##### Selecting a release branch
 
