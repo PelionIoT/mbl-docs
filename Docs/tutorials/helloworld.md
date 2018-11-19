@@ -1,13 +1,14 @@
 ## Hello world
 
-The hello world application prints "Hello, world" to the STDOUT.<!--what is the context for this? is it supposed to teach me how to use tools? check that my MBL image works?-->
-<!--what are the prerequisite? You already need a working MBL on the device, right?-->
+This tutorial creates a user application that will run on your MBL device. It is a simple "Hello, World" in C, which prints to STDOUT. MBL redirects the output to the log file `/var/log/app/user-sample-app-package.log`.
+
+<span class="notes">**Note:** Your device must already be running an MBL image. Please [follow the first tutorial in this series]() if you don't have an MBL image yet.</span>
 
 ### Source and build mechanisms overview
 
-The application source file, `hello_world.c`, is in [https://github.com/ARMmbed/mbl-core/tree/master/tutorials/helloworld/src](https://github.com/ARMmbed/mbl-core/tree/master/tutorials/helloworld/src). On the device, the application runs on a target inside an OCI container. To create the OCI container, we use `opkg-utils` helper scripts to package the application as an IPK, then use [dockcross](https://github.com/dockcross/dockcross) to cross-compile it.
+The application source file, `hello_world.c`, is in [https://github.com/ARMmbed/mbl-core/tree/master/tutorials/helloworld/src](https://github.com/ARMmbed/mbl-core/tree/master/tutorials/helloworld/src). On the device, the application runs on a target inside an OCI container. To create the OCI container, we use [dockcross](https://github.com/dockcross/dockcross) to cross-compile the application, then the `opkg-utils` helper scripts to package the compiled application as an IPK.
 
-Cross compiling toolchains in the Docker image are built using an existing dockcross Docker image for the ARMv7 architecture. The `opkg-utils` helper scripts are included in the toolchain Docker container, which you can find at [https://github.com/ARMmbed/mbl-core/blob/master/tutorials/helloworld/cc-env/Dockerfile](https://github.com/ARMmbed/mbl-core/blob/master/tutorials/helloworld/cc-env/Dockerfile).<!--I have to say I got really confused about how many docker images we have-->
+Cross compiling toolchains in the Docker image are built using an existing dockcross Docker image for the ARMv7 architecture. The `opkg-utils` helper scripts are included in the toolchain Docker container, which you can find at [https://github.com/ARMmbed/mbl-core/blob/master/tutorials/helloworld/cc-env/Dockerfile](https://github.com/ARMmbed/mbl-core/blob/master/tutorials/helloworld/cc-env/Dockerfile).
 
 The build commands are defined in a Makefile with three sections:
 
@@ -17,7 +18,8 @@ The build commands are defined in a Makefile with three sections:
 
 Each section is implemented for both release and debug variants.
 
-<span class="tips">For more information, please refer to the [IPK format](#ipk-format) and [OCI containers](#oci-containers) sections below, or the [dockcross documentation on GitHub](https://github.com/dockcross/dockcross).</span>
+<span class="tips">For more information, please refer to the [IPK format and OCI containers]() section, or the [dockcross documentation on GitHub](https://github.com/dockcross/dockcross).</span>
+<!--I will create a page with background information about IPK and OCI and link to it-->
 
 ### Setting up the cross-compilation tools
 
@@ -43,73 +45,15 @@ Each section is implemented for both release and debug variants.
 
 ### Building the application with the cross-compiler            
 
-The build produces an IPK file for either release or debug profiles:
+To build, invoke the Make toolchain command: `build-armv7 make release`.
 
-* For release: `./release/ipk/user-sample-app-package_1.0_armv7vet2hf-neon.ipk`          
-* For debug: `./debug/ipk/user-sample-app-package_1.0_armv7vet2hf-neon.ipk`    
+The build produces an IPK file at `./release/ipk/user-sample-app-package_1.0_armv7vet2hf-neon.ipk`          
 
-To build, invoke the Make toolchain command for one of the following options:
-
-* To build for both release and debug: `build-armv7 make all`
-* To build just for release: `build-armv7 make release`
-* To build just for debug: `build-armv7 make debug`
-
-To clean both release and debug artefacts: `build-armv7 make clean`
+To clean the build, run: `build-armv7 make clean`
 
 ### Installing and running the application on the device
 
-1. Create the .tar file of the application:
+To install the application on the device, follow one of our tutorials:
 
-    ```
-    tar -cvf user-sample-app-package_1.0_armv7vet2hf-neon.tar user-sample-app-package_1.0_armv7vet2hf-neon.ipk  
-    ```
-
-    You can do this separately for either the release or the debug profile.
-
-1. Copy `user-sample-app-package_1.0_armv7vet2hf-neon.tar` to the device under `/scratch`.  
-
-1. Extract, install the and run the IPK using the `app_update_manager.py` script:    
-
-    ```
-    mbl-app-update-manager -i /scratch/user-sample-app-package_1.0_armv7vet2hf-neon.tar  
-    ```
-
-1. The sample application is automatically set up to run on the device's next boot.
-
-### OCI containers and the IPK format
-
-<!--this is **copied** without clearly admitting it and without linking to individual sources. the main question is why - does it offer any value here, rather than as a couple of references? -->
-<!--if we need this content, we'll have to rewrite it.-->
-<!--OCI containers
-==============
-
-OCI containers are defined by the Runtime Specification of OCI (Open Container Initiative).    
-
-The OCI Runtime Specification defines the configuration, execution environment and lifecycle   
-of a container. A container's configuration is specified in the ```./mbl-core/tutorials/helloworld/src_bundle/config.json```  
-for the supported platforms and details the fields that enable the creation of a container.  
-The execution environment is specified to ensure that application running inside a container
-have a consistent environment between runtimes along with common actions defined for the container's lifecycle.  
-
-The Runtime Specification defines format for encoding a container as a "filesystem bundle" - a set of files organized  
-in a certain way, and containing all the necessary data and metadata for any compliant runtime to perform all  
-standard operations against it. A Standard Container bundle contains all the information needed to load and  
-run a container. This includes the following artifacts:
-
- * ```config.json```: contains configuration data.
- * container's root filesystem (rootfs): the directory referenced by root.path, if that property is set in ```config.json``` (path is nested JSON object of root).
-
-The OCI Runtime Specification outlines how to run a filesystem bundle that is unpacked on disk.
-For further reading about runc container see [GitHub Open Container Initiative Runtime Specification](https://github.com/opencontainers/runtime-spec).
-
-
-IPK format
-==========
-
-IPK is a format for software packages. An .ipk file is a specially constructed archive containing three parts:
-
- * ```data.tar.gz``` : contains data.tar which contains the actual files belonging to this package, organized as they should appear after installation.
- * ```control.tar.gz``` : contains control.tar which contains control file describing the package meta-data and any installation/removal scripts for the package.  
- * ```debian_binary``` : this file is for comparability with Debian's package system and currently is ignored by ipkg.  
-
-For further reading about opkg-utils refer [GitHub Yocto project opkg-utils](http://git.yoctoproject.org/cgit/cgit.cgi/opkg-utils).-->
+1. [Send the application as an over-the-air firmware update]().
+1. [Use MBL CLI to flash the application over USB]().
