@@ -1,7 +1,7 @@
 [{
-        "title": "Mbed Linux OS",
-        "description": "Staging MBL for a bit",
-        "slug": "introduction",
+        "title": "Welcome",
+        "description": "Mbed Linux OS introduction",
+        "slug": "welcome",
         "type": "markdown",
         "sources": [{
             "type": "markdown",
