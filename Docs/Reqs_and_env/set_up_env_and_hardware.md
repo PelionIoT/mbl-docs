@@ -1,27 +1,19 @@
-## Supported hardware
-
-Supported boards:
-
-* [NXP Warp7](https://www.nxp.com/support/developer-resources/nxp-designs/warp7-next-generation-iot-and-wearable-development-platform:WARP7). You will also need two micro USB cables.
-* [Raspberry Pi3 model B and B+](https://www.raspberrypi.org/products/) with a micro SD card and a C232HD-DDHSP-0 cable to connect it to a PC.
-
-    <span class="warning">Raspberry Pi 3 is suitable for development only; do not use it for production.</span>
-
-### Preparing a development environment
+## Preparing a development environment
 
 To build and run Mbed Linux OS (MBL), you will need:
 
 * A PC running Ubuntu.
 
     We tested on Ubunutu 16.04. You can work on any linux-based OS that supports Docker, but you may have to install other packages (such as minicom or an equivalent for your OS).
-* A [Pelion](https://portal.mbedcloud.com/) portal account
+* A [Pelion portal account](accounts-and-certificates.html).
 * A GitHub account with access to private ARMmbed repositories (supplied by Arm to users enrolled in the preview).
-* An SSH agent (for cloning repositories non-interactively during the build process). See the GitHub documentation for [information about adding an SSH key to the agent](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/#adding-your-ssh-key-to-the-ssh-agent).
 * Full internet access (for the build process, which downloads packages from the internet).
 
 ### Software requirements
 
 You will also need to install:
+
+* An SSH agent (for cloning repositories non-interactively during the build process). See the GitHub documentation for [information about adding an SSH key to the agent](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/#adding-your-ssh-key-to-the-ssh-agent).
 
 * A few software packages that support building and developing on MBL:
 
@@ -54,7 +46,7 @@ You will also need to install:
 <span class="tips">We recommend rebooting your PC when you've finished installing everything.</span>
 
 
-#### Using virtual machines
+### Using virtual machines
 
 Building open embedded distributions requires a lot of compilation of hundreds of different packages, so you need a powerful machine to be able to build in under an hour.
 
