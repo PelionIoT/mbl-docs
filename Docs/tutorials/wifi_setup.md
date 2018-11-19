@@ -244,7 +244,7 @@ Add the following content to the configuration file:
 Name = my-ssid
 Description = Provide a short description
 
-[service_wifi_accessng]
+[service_wifi_my-ssid]
 Type = wifi
 Name = my-ssid
 EAP = peap
