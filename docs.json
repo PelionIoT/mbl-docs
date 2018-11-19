@@ -5,13 +5,12 @@
         "type": "markdown",
         "chapters": [{
             "title": "Mbed Linux OS",
-            "inrto":{
+            "intro":{
             "type": "markdown",
             "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/introduction.md"
         },
         "sources":[]
-      }
-      ]
+      }]
     },
     {
         "title": "Requirements and setup",
