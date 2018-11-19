@@ -2,13 +2,7 @@
 
 Mbed Linux OS (MBL) uses **Connection Manager (ConnMan)** to manage Wi-Fi interfaces and connections. This page briefly reviews ConnMan, then explains how to use it to set up and manage Wi-Fi on MBL devices.
 
-### ConnMan
-
-ConnMan is a daemon (`connmand`) for managing internet connections within devices running the Linux operating system. It offers low memory consumption with a fast, coherent, synchronized reaction to changing network conditions.
-
-ConnMan is a fully modular system using [plug-ins to support a variety of wired or wireless technologies](http://www.embedded-computing.com/networking/the-connman) and allow easy modification for different use cases. For example, configuration methods like [DHCP](https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol) and domain name resolving are implemented using plug-ins.
-
-As an MBL developer, use ConnMan for all basic network operations, rather than interacting directly with the `wpa_supplicant` daemon or modifying the `wpa_supplicant.conf` file.
+As an MBL developer, use ConnMan for all basic Wi-Fi operations, rather than interacting directly with the `wpa_supplicant` daemon or modifying the `wpa_supplicant.conf` file.
 
 <span class="tips">This page reviews only some of the commonly used ConnMan options, within the context of MBL. You may be interested in [the full ConnMan documentation](https://01.org/connman/documentation).</span>
 
@@ -16,7 +10,7 @@ As an MBL developer, use ConnMan for all basic network operations, rather than i
 
 **connmanctl** is a command-line interface (CLI). It can operate in two modes:
 
-* A plain synchronous command input, when you want to run just one or two commands. Enter `connmanctl` followed by a command to initiate that command. For example, we can trigger an immediate run of the command `state`:
+* A plain command input, when you want to run just one or two commands. Enter `connmanctl` followed by a command to initiate that command. For example, we can trigger an immediate run of the command `state`:
 
     ```
     # connmanctl state
@@ -27,7 +21,7 @@ As an MBL developer, use ConnMan for all basic network operations, rather than i
 
     Use `connmanctl --help` for more information.
 
-* An asynchronous interactive shell for more extensive use. To enter the interactive shell, enter `connmanctl`, without entering a specific command. Some operations, such as a first connection to a protected wireless access point, are only possible through the asynchronous shell mode.
+* An interactive shell for more extensive use. To enter the interactive shell, enter `connmanctl`, without entering a specific command. Some operations, such as a first connection to a protected wireless access point, are only possible through the interactive shell mode.
 
     ```
     # connmanctl
@@ -38,30 +32,30 @@ As an MBL developer, use ConnMan for all basic network operations, rather than i
     Interactive mode supports the same commands as the plain mode, but you don't need to prefix the commands with `connmanctl`. Enter `help` for more information.
 
 
-<span class="tips">The official [connmanctl documentation is on the SysTuorials site](https://www.systutorials.com/docs/linux/man/8-connman/).</span>  <!--this isn't the same place as the full ConnMan documentation. Isn't that weird? And is it really official?-->
+<span class="tips">The official [connmanctl documentation is on the ConnMan site](https://01.org/connman/documentation).</span>
 
 ### Configuration and state
 
-ConnMan automates many of the network operations and configurations by interacting with other daemons (DNS, DHCP and others) and by keeping a settings file, service files and other auto-generated data in the `/config/user/connman/` folder.
+ConnMan automates many network operations and configurations by interacting with other daemons (DNS, DHCP and others) and by keeping a settings file, service files and other auto-generated data in the `/config/user/connman/` folder.
 
 The folder contains:
 
 * `/config/user/connman/settings` file: Current global and per-technology settings.
-* `/config/user/connman/main.conf` file: The main ConnMan's configuration file. Currently, most parameters are set to default (commented); the only set parameter prioritizes Ethernet interface default routes over the Wi-Fi interface when both are connected.<!--what's the name of that parameter?-->
-* An automatically generated **service profile**. Each folder <!--where is the folder? sub-folders of /connman/ with specific service names?-->holds<!--are you sure about 'holds the name'?--> the name of a specific service profile often or recently used, with its current configuration and state, to support auto-connect on boot and other definitions. They<!--who's "they"? the folders?--> contain fields for the passphrase, `essid` and other information. In the initial state, there are no service profiles defined.
+* `/config/user/connman/main.conf` file: The main ConnMan configuration file. Currently, most parameters are set to default (commented); the only set parameter is `PreferredTechnologies`, which prioritizes Ethernet interface default routes over the Wi-Fi interface when both are connected.
+* An automatically generated **service profile**. For each Wi-Fi network that ConnMan connects to, it creates a directory in `/config/user/connman` to hold connection-specific configuration, such as passphrases, to support auto-connect on boot. In the initial state, there are no service profiles defined.
 
     To see all service profiles:
 
     ```
     # cat /config/user/connman/*/settings
     ```
-* For advanced connections, you may manually generate service files and place them under this folder (see section [Connecting to a network using service configuration files](#connecting-to-a-network-using-service-conflagration-files)). These are also known as *provisioning files*, and their file type is `.config`.
+* For advanced connections, you may manually generate service files and place them under `/config/users/connman` (see section [Connecting to a network using service configuration files](#connecting-to-a-network-using-service-conflagration-files)). These are also known as *provisioning files*, and their file extension is `.config`.
 
 ### Enabling Wi-Fi
 
-ConnMan refers to network interfaces as "technologies"; each technology supplies different services. For example, Wi-Fi is a technology (named `wifi`) with an Access Point (AP) called `MyNetwork` that supplies a service called `wifi_dc85de828967_68756773616d_managed_psk`.
+ConnMan refers to network interface types as "technologies"; each technology supplies different services. For example, Wi-Fi is a technology (named `wifi`) that supplies a service called `wifi_dc85de828967_68756773616d_managed_psk`.
 
-By default, all technologies are disabled at the very first startup to prevent unwanted wireless or wired communication. To enable Wi-Fi for the first startup:
+By default, all technologies are disabled at the very first startup to prevent unwanted wireless or wired communication. To enable Wi-Fi:
 
 1. Enter `connmanctl state`.
 1. Enter `ifconfig` to see the initial state. You will get an output similar to this, but the exact details depend on how you connect to your device:
@@ -145,7 +139,7 @@ The last command lists **all** available services. As you can see in the example
 * WPA/WPA2 Enterprise 802.1X: (ourLocalNetwork) `managed_ieee8021x` suffix.
 * WPA/WPA2 Personal (also known as WPA-PSK): `_managed_psk` suffix.
 
-To more closely inspect a service after scanning, use the `connmanctl services --properties <service_id>` option. For example, when we look at a local Wi-Fi network:
+To more closely inspect a service after scanning, use `connmanctl services <service_id>`. For example, when we look at a local Wi-Fi network:
 
 ```
 root@imx7s-warp-mbl:~# connmanctl services --properties wifi_a0a0a0a0a0a0_41699999999e47_managed_ieee8021x
@@ -212,7 +206,7 @@ drwxr-xr-x    7 root     root          1024 Oct 23 16:04 ..
 drwx------    2 root     root          1024 Nov  6 14:12 wifi_a0cc2b2ccb9b_416e64726f6964415035_managed_none
 ```
 
-ConnMan automatically created the folder `wifi_a0b1a0b1a0b1a0b1_416416416416416_managed_none`. Inside, there is a data (binary) file and a settings text file. The text file is used when inspecting a services using the `services --properties` option we introduced above, and includes all current settings.
+ConnMan automatically created the folder `wifi_a0b1a0b1a0b1a0b1_416416416416416_managed_none`. Inside, there is a data (binary) file and a settings text file. The text file is used when inspecting a services using the `services <service_id>` option we introduced above, and includes all current settings.
 
 ```
 # ls -la /config/user/connman/wifi_a0b1a0b1a0b1a0b1_416416416416416_managed_none/
@@ -235,13 +229,13 @@ IPv6.method=auto
 IPv6.privacy=disabled
 ```
 
-Pay attention to the `AutoConnect=true` parameter. It means that ConnMnn will auto-connect to this network on reboot, if it is the only existing service profile, as well as ub a few other cases (when the AP is nearby, and a few other configurations are applied).
+Pay attention to the `AutoConnect=true` parameter. It means that ConnMnn will auto-connect to this network on reboot, if it is the only existing service profile, as well as in a few other cases (when the AP is nearby, and a few other configurations are applied).
 
 You can change this file by using `connmanctl config <config data>`, or by editing it manually.
 
 ### Connecting to a protected network interactively
 
-1. Use `connmanctl` interactive asynchronous mode.
+1. Use `connmanctl` in interactive mode.
 1. Disconnect from the network AndroidAP5. and
 1. Try connecting to the Edimax AP (which is WEP protected):
 
@@ -262,9 +256,9 @@ You can change this file by using `connmanctl config <config data>`, or by editi
 
 <span class="notes">**Note:** ConnMan does not support password encryption.</span>
 
-### Connecting to a network using service conflagration (provisioning) files
+### Connecting to a network using service configuration (provisioning) files
 
-For advanced configuration, use a provision file (of type `.config`). Configurations include secured wireless access points that need complex authentication (such as WPA2 Enterprise), static IPs and so on. Each provisioning file can be used for multiple services at once.
+For advanced configuration, use a provisioning file (with extension `.config`). Configurations include secured wireless access points that need complex authentication (such as WPA2 Enterprise), static IPs and so on. Each provisioning file can be used for multiple services at once.
 
 For more information, refer to the [SysTutorials site](https://www.systutorials.com/docs/linux/man/5-connman.conf/).
 
@@ -287,7 +281,7 @@ For more information, refer to the [SysTutorials site](https://www.systutorials.
   Name = my-ssid
   Description = Provide a short description
 
-  [service_wifi_accessng]
+  [service_wifi_ourLocalNetwork]
   Type = wifi
   Name = <my-ssid>
   EAP = peap
