@@ -80,6 +80,14 @@
                 ]
             },
             {
+                "title": "Tutorial: User application",
+                "sources": [{
+                        "type": "markdown",
+                        "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/helloworld.md"
+                    }
+                ]
+            },
+            {
                 "title": "Tutorial: updating MBL devices and applications",
                 "sources": [{
                     "type": "markdown",
