@@ -34,13 +34,13 @@ To build MBL, you need:
 * The `build-mbl` tool.
 
     Check out the relevant branch from the repository (replace `mbl-XXX` with the branch name):
-    
-    ``` 
+
+    ```
     $ git clone git@github.com:ARMmbed/mbl-tools.git --branch mbl-XXX
     ```
 
     <span class="tips">**Tip:** The [mbl-tools repository](https://github.com/ARMmbed/mbl-tools) provides a collection of tools and recipes for building and testing MBL.</span>
-  
+
 * Install the Device Management manifest tool. See [Installing the manifest tool](#install-manifest-tool) below:
 
     ```
@@ -54,7 +54,7 @@ To build MBL, you need:
 
 * Docker CE, to use `build-mbl` script from the mbl-tools repository, to build MBL. [Download and install from the Docker website](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
 
-    Add yourself to the Linux group "Docker" to run commands without `sudo`. See [instructions in the Docker Linux documentation](https://docs.docker.com/install/linux/linux-postinstall/). We recommend using exec sudo login to reset the terminal session when you've finished installing everything.
+    Add yourself to the Linux group "Docker" to run commands without `sudo`. See [instructions in the Docker Linux documentation](https://docs.docker.com/install/linux/linux-postinstall/). We recommend using `exec sudo login` to reset the terminal session when you've finished installing everything.
 
 ### Using virtual machines
 
