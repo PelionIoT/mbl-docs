@@ -1,4 +1,4 @@
-Management<h2 id="mbl-pelion-connect">Building an Mbed Linux OS image and connecting to Pelion Device Management</h2>
+<h2 id="mbl-pelion-connect">Building an Mbed Linux OS image and connecting to Pelion Device Management</h2>
 
 <span class="notes">**Note:** These instructions use the developer workflow and certificates as connectivity credentials. Do not use these credentials for production devices.</span>
 
