@@ -281,7 +281,7 @@ For more information, refer to the [SysTutorials site](https://www.systutorials.
   Name = my-ssid
   Description = Provide a short description
 
-  [service_wifi_ourLocalNetwork]
+  [service_wifi_local_network]
   Type = wifi
   Name = <my-ssid>
   EAP = peap
