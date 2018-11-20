@@ -73,6 +73,7 @@ An example using all mandatory options:
 
 * For more information about `--branch` option see [Select release branch](#Select-release-branch).
 * For more information about `--machine` option see [Select target device](#Select-target-device).
+* For more information about `--builddir` option see [Creating multiple build directories](#Creating-multiple-build-directories).
 * For more information about `--outputdir` option see [Build Artifacts](#Build-Artifacts).
 * For more information about `--inject-mcc` option see [Using Device Management Client Credentials](#Using-Device-Management-Client-Credentials)
 
@@ -97,6 +98,16 @@ Select the <MACHINE> value for your MBL device from the table below:
 | ---  | --- |
 | Warp7 | `imx7s-warp-mbl` |
 | Raspberry Pi 3 | `raspberrypi3-mbl` |
+
+
+##### Creating multiple build directories
+
+The build scripts by default create and use a build directory under the current working directory.  An alternative build directory can be specified using the `--builddir` option to `run-me.sh`:
+```
+./mbl-tools/build-mbl/run-me.sh --builddir /path/to/my-build-dir
+```
+
+It is mandatory to use different build directories for each target device build.
 
 
 ##### Building Artifacts
@@ -126,17 +137,17 @@ The paths of these files are given in the table below, where `<MACHINE>` should 
 
 | File | Path |
 | --- | --- |
-| Full disk image           | `/path/to/artifacts/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-<MACHINE>.wic.gz`   |
-| Full disk image block map | `/path/to/artifacts/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-<MACHINE>.wic.bmap` |
-| Root file system archive  | `/path/to/artifacts/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-<MACHINE>.tar.xz`   |
+| Full disk image           | `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image/images/mbl-console-image-<MACHINE>.wic.gz`   |
+| Full disk image block map | `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image/images/mbl-console-image-<MACHINE>.wic.bmap` |
+| Root file system archive  | `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image/images/mbl-console-image-<MACHINE>.tar.xz`   |
 
 Test image is also being built, and contains more packages for testing and debuging (such as optee test suite, dropbear to support ssh during development and test, strace utility, and more).
 
 | File | Path |
 | --- | --- |
-| Full test disk image           | `/path/to/artifacts/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-test-<MACHINE>.wic.gz`   |
-| Full test disk image block map | `/path/to/artifacts/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-test-<MACHINE>.wic.bmap` |
-| Root file system archive  | `/path/to/artifacts/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-test-<MACHINE>.tar.xz`   |
+| Full test disk image           | `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image-test/images/mbl-console-image-test-<MACHINE>.wic.gz`   |
+| Full test disk image block map | `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image-test/images/mbl-console-image-test-<MACHINE>.wic.bmap` |
+| Root file system archive  | `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image-test/images/mbl-console-image-test-<MACHINE>.tar.xz`   |
 
 ##### Using Device Management Client Credentials
 
@@ -161,15 +172,6 @@ For example, to designate a directory to hold cached downloads between successiv
 mkdir /path/to/downloads
 ./mbl-tools/build-mbl/run-me.sh --downloaddir /path/to/downloads
 ```
-
-##### Creating multiple build directories
-
-The build scripts by default create and use a build directory under the current working directory.  An alternative build directory can be specified using the `--builddir` option to `run-me.sh`:
-```
-./mbl-tools/build-mbl/run-me.sh --builddir /path/to/my-build-dir
-```
-
-It is a good practice to use different build directories for every build.
 
 ##### Pinned Manifests and Rebuilds
 
