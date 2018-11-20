@@ -297,7 +297,7 @@ You should now be able to see a USB TTY device, such as, `/dev/ttyUSB0`, on your
     ```
 1. From a Linux prompt, write the disk image to the Warp7's flash device using the following command:
     ```
-    sudo bmaptool copy --bmap <artifacts directory>/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/imx7s-warp-mbl/mbl-console-image-imx7s-warp-mbl.wic.bmap <artifacts directory>/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/imx7s-warp-mbl/mbl-console-image-imx7s-warp-mbl.wic.gz /dev/disk/by-id/<device-file-name>
+    sudo bmaptool copy --bmap /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-console-image/images/mbl-console-image-imx7s-warp-mbl.wic.bmap /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-console-image/images/mbl-console-image-imx7s-warp-mbl.wic.gz /dev/disk/by-id/<device-file-name>
     ```
     replacing `<device-file-name>` with the correct device file for the Warp7's flash device.
 
@@ -328,7 +328,7 @@ You should now be able to see a USB TTY device, such as, `/dev/ttyUSB0`, on your
     Replace `/dev/sdX` as mentioned above.
 1. Write the disk image to the SD card device (not a partition on it):
     ```
-    bmaptool copy --bmap <artifacts directory>/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/raspberrypi3-mbl/mbl-console-image-raspberrypi3-mbl.wic.bmap <artifacts directory>/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/raspberrypi3-mbl/mbl-console-image-raspberrypi3-mbl.wic.gz /dev/sdX
+    sudo bmaptool copy --bmap /path/to/artifacts/machine/raspberrypi3-mbl/images/mbl-console-image/images/mbl-console-image-raspberrypi3-mbl.wic.bmap /path/to/artifacts/machine/raspberrypi3-mbl/images/mbl-console-image/images/mbl-console-image-raspberrypi3-mbl.wic.gz /dev/sdX
     ```
     Replace `/dev/sdX` as mentioned above.
 
