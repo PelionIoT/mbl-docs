@@ -153,40 +153,53 @@ This section contains instructions for writing the full disk image to a:
 * Warp7 device
 * Raspberry Pi 3 device
 
-### User in dialout group
+### Adding your user to the dialout group
+<!--should we just put that in the prereqs bit?-->
 
-For both Warp7 and Raspberry Pi 3 devices, add the current user to the dialout group to allow access to ``/dev/ttyUSBn`` devices without using sudo:
+To access ``/dev/ttyUSBn`` devices without using sudo, add the current user to the dialout group:
+
 <!--Is this mandatory, or just nicer?-->
 ```
 sudo usermod -a -G dialout $USER
 ```
-Verify group memberships by typing "groups":
+
+Verify group memberships by entering `groups`:
+
 ```
 groups
 <your_user> dialout
 ```
-The user might need to reboot PC before the group membership takes effect for their shell process.
+
+You may need to reboot your computer before the group membership takes effect.
+
 <!--And this is okay because we've done the build, so we're not limited to the original shell instance anymore, right?-->
 
 ### Warp7 devices
 
 To write your disk image to the Warp7's flash device, you must first access the Warp7's serial console. To do this:
-1. Connect both the Warp7's I/O USB socket (on the I/O board) and the Warp7's mass storage USB socket (on the CPU board) to your PC.
 
-You should now be able to see a USB TTY device, such as, `/dev/ttyUSB0`, on your PC.
+1. Connect both the Warp7's USB socket (on the I/O board) and the Warp7's mass storage USB socket (on the CPU board) to your PC.
+
+    You should now be able to see a USB TTY device, such as, `/dev/ttyUSB0`, on your PC.
+
 1. Connect to the Warp7's console using a command such as:
+
     ```
     minicom -D /dev/ttyUSB0
     ```
     Use the following settings:
-    * Baud rate 115200.
-    * [8N1](https://en.wikipedia.org/wiki/8-N-1) encoding.
+
+    * Baud rate: 115200.
+    * Encdoing: [8N1](https://en.wikipedia.org/wiki/8-N-1).
     * No hardware flow control.
 1. Check the current storage devices on your PC:
+
     ```
     ls -l /dev/disk/by-id/
     ```
-    A list of devices displays, similar to the following:
+
+    A list of devices displays. For example:
+
     ```
     total 0
     lrwxrwxrwx 1 root root  9 Mar 19 10:38 ata-Crucial_CT240M500SSD1_140709691C39 -> ../../sda
@@ -202,6 +215,7 @@ You should now be able to see a USB TTY device, such as, `/dev/ttyUSB0`, on your
     lrwxrwxrwx 1 root root 10 Mar 19 10:38 ata-ST1000DM003-1CH162_W1D2QL7A-part5 -> ../../sdb5
     ```
     You'll need to compare this output in the following steps, so save it for reference.
+    
 1. If you got a U-boot prompt <!--on the device or the terminal?-->, continue to the next step.
    If you got an operating system boot (for example, Android), reboot the device until you get a U-boot prompt, then press any key to prevent the operating system from booting again. Continue to the next step.
 1. To expose the Warp7's flash device to Linux as USB mass storage, in the U-boot prompt type:
@@ -320,21 +334,21 @@ If your device uses Wi-Fi:
 
 1. Add service information to the configuration file:
 
-  ```
-  [global]
-  Name = my-ssid
-  Description = Provide a short description
+    ```
+    [global]
+    Name = my-ssid
+    Description = Provide a short description
 
-  [service_wifi_local_network]
-  Type = wifi
-  Name = <my-ssid>
-  EAP = peap
-  Phase2 = MSCHAPV2
-  Identity = <my-username>
-  Passphrase = <my-password>
-  ```
+    [service_wifi_local_network]
+    Type = wifi
+    Name = <my-ssid>
+    EAP = peap
+    Phase2 = MSCHAPV2
+    Identity = <my-username>
+    Passphrase = <my-password>
+    ```
 
-    Replace `<my-ssid>`, `<my-username>`, and `<my-password>` with appropriate information. Amend the description.
+     Replace `<my-ssid>`, `<my-username>`, and `<my-password>` with appropriate information. Amend the description.
 
 1. Enable Wi-Fi:
 
@@ -346,7 +360,7 @@ ConnMan is now connected to the specified network.
 
 If you experience any issues, restart both ConnMan and `wpa_supplicant` daemons.
 
-For more information about ConnMan, please [see the Wi-Fi on MBL reference](../references/using-connman-for-mbl-wi-fi.html).
+<span class="tips">For more information about ConnMan, please [see the Wi-Fi on MBL reference](../references/using-connman-for-mbl-wi-fi.html).</span>
 
 ## Verifying that the device is connected to Device Management
 
