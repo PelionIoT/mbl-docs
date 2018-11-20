@@ -146,10 +146,10 @@ The process also creates a test image, which contains packages for testing and d
 | Root file system archive | `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image-test/images/mbl-console-image-test-<MACHINE>.tar.xz` |
 
 
-
 ## Writing and booting the disk image
 
 This section contains instructions for writing the full disk image to a:
+
 * Warp7 device
 * Raspberry Pi 3 device
 
@@ -307,11 +307,48 @@ You should now be able to see a USB TTY device, such as, `/dev/ttyUSB0`, on your
 To log in to MBL, enter the username `root` with no password.
 <!--- Does it prompt me automatically? Do I need to just wait? Where do I enter the credentials? *Mel*--->
 
-### Setting up a network connection
+## Setting up a network connection
 
-If your device is connected to a network with a DHCP server using Ethernet, then it automatically connects to that network. Otherwise, follow [the instructions](setting-up-wifi-in-mbed-linux-os.html) for setting up Wi-Fi in MBL.
+If your device is connected to a network with a DHCP server using Ethernet, then it automatically connects to that network.
 
-### Verifying that the device is connected to Device Management
+If your device uses Wi-Fi:
+
+1. Install [ConnMan](https://01.org/connman/documentation).
+1. Create a configuration provisioning file at `/config/user/connman/<name>.config`.
+
+    <span class="tips">**Tip:** You can add the `-service` suffix to file names as a convention. For example, `name-service`.</span>
+
+1. Add service information to the configuration file:
+
+  ```
+  [global]
+  Name = my-ssid
+  Description = Provide a short description
+
+  [service_wifi_local_network]
+  Type = wifi
+  Name = <my-ssid>
+  EAP = peap
+  Phase2 = MSCHAPV2
+  Identity = <my-username>
+  Passphrase = <my-password>
+  ```
+
+    Replace `<my-ssid>`, `<my-username>`, and `<my-password>` with appropriate information. Amend the description.
+
+1. Enable Wi-Fi:
+
+  ```
+  # connmanctl enable wifi
+  ```
+
+ConnMan is now connected to the specified network.
+
+If you experience any issues, restart both ConnMan and `wpa_supplicant` daemons.
+
+For more information about ConnMan, please [see the Wi-Fi on MBL reference](../references/using-connman-for-mbl-wi-fi.html).
+
+## Verifying that the device is connected to Device Management
 
 While the device boots into MBL, `mbl-cloud-client` should automatically start and connect to Pelion. You can check whether it has connected by:
 * Checking the device status on the [Device Managmenent Portal](https://portal.mbedcloud.com/).<!--I will need to add the images in our publishing format-->
@@ -323,7 +360,3 @@ If your device hasn't automatically connected to Pelion, it could be that:
     ```
     /etc/init.d/mbl-cloud-client restart
     ```
-
-### What's next
-
-[Create a user application](../getting-started/tutorial-user-application.html) or [update your MBL image](../getting-started/tutorial-updating-mbl-devices-and-applications.html).

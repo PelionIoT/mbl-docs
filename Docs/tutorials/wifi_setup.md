@@ -1,4 +1,4 @@
-## Setting up Wi-Fi in Mbed Linux OS
+## Using ConnMan for MBL Wi-Fi
 
 Mbed Linux OS (MBL) uses **Connection Manager (ConnMan)** to manage Wi-Fi interfaces and connections. This page briefly reviews ConnMan, then explains how to use it to set up and manage Wi-Fi on MBL devices.
 
