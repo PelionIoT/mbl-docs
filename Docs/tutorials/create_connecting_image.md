@@ -20,9 +20,9 @@ Each release has its own branch, such as `mbl-os-0.5`. Throughout this guide, th
 To connect your device to your Pelion Device Management account, you need to add a credentials file to your application before you build it. For development environments, Pelion offers a *developer certificate* for quick connection:
 
 1. Create cloud credentials directory, e.g. `./cloud-credentials`
-1. To create a Pelion developer certificate (`mbed_cloud_dev_credentials.c`), follow the instructions for [creating and downloading a developer certificate](https://cloud.mbed.com/docs/v1.2/provisioning-process/provisioning-development.html#creating-and-downloading-a-developer-certificate).
+2. To create a Pelion developer certificate (`mbed_cloud_dev_credentials.c`), follow the instructions for [creating and downloading a developer certificate](https://cloud.mbed.com/docs/v1.2/provisioning-process/provisioning-development.html#creating-and-downloading-a-developer-certificate).
 <!--This is where being able to splice the content would be great; I would rather transclude it here than send them to another page. I'll see what the Web Team has.-->
-1. Add the developer certificate to the credentials directory you've created.
+3. Add the developer certificate to the credentials directory you've created.
 
 ### Creating an Update resources file
 
@@ -30,7 +30,7 @@ To connect your device to your Pelion Device Management account, you need to add
 ```
 mkdir ./update-resources && cd ./update-resources
 ```
-1. Initialize manifest tool settings and generate Update resources by running the following commands:
+2. Initialize manifest tool settings and generate Update resources by running the following commands:
 ```
 manifest-tool init -q -d arm.com -m dev-device
 ```
@@ -68,11 +68,12 @@ To invoke the `build.sh` help menu use:
 
 An example using all mandatory options:
 ```
-./mbl-tools/build-mbl/run-me.sh --inject-mcc /path/to/mbed_cloud_dev_credentials.c --inject-mcc /path/to/update_default_resources.c --outputdir /path/to/artifacts -- --branch mbl-XXX --machine <MACHINE>
+./mbl-tools/build-mbl/run-me.sh --builddir /path/to/builddir --inject-mcc /path/to/mbed_cloud_dev_credentials.c --inject-mcc /path/to/update_default_resources.c --outputdir /path/to/artifacts -- --branch mbl-XXX --machine <MACHINE>
 ```
 
 * For more information about `--branch` option see [Select release branch](#Select-release-branch).
 * For more information about `--machine` option see [Select target device](#Select-target-device).
+* For more information about `--builddir` option see [Creating build directory](#Creating-build-directory).
 * For more information about `--outputdir` option see [Build Artifacts](#Build-Artifacts).
 * For more information about `--inject-mcc` option see [Using Device Management Client Credentials](#Using-Device-Management-Client-Credentials)
 
@@ -97,6 +98,18 @@ Select the <MACHINE> value for your MBL device from the table below:
 | ---  | --- |
 | Warp7 | `imx7s-warp-mbl` |
 | Raspberry Pi 3 | `raspberrypi3-mbl` |
+
+
+##### Creating build directory
+
+Build directory must be specified using the `--builddir` option to `run-me.sh`:
+```
+mkdir /path/to/my-build-dir
+./mbl-tools/build-mbl/run-me.sh --builddir /path/to/my-build-dir
+```
+
+It is mandatory to use different build directory per <MACHINE>. It is recommended that the build directory will include the <MACHINE> name.
+All intermediate artifacts including build/error logs will be stored into this directory.
 
 
 ##### Building Artifacts
@@ -126,17 +139,17 @@ The paths of these files are given in the table below, where `<MACHINE>` should 
 
 | File | Path |
 | --- | --- |
-| Full disk image           | `/path/to/artifacts/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-<MACHINE>.wic.gz`   |
-| Full disk image block map | `/path/to/artifacts/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-<MACHINE>.wic.bmap` |
-| Root file system archive  | `/path/to/artifacts/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-<MACHINE>.tar.xz`   |
+| Full disk image           | `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image/images/mbl-console-image-<MACHINE>.wic.gz`   |
+| Full disk image block map | `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image/images/mbl-console-image-<MACHINE>.wic.bmap` |
+| Root file system archive  | `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image/images/mbl-console-image-<MACHINE>.tar.xz`   |
 
 Test image is also being built, and contains more packages for testing and debuging (such as optee test suite, dropbear to support ssh during development and test, strace utility, and more).
 
 | File | Path |
 | --- | --- |
-| Full test disk image           | `/path/to/artifacts/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-test-<MACHINE>.wic.gz`   |
-| Full test disk image block map | `/path/to/artifacts/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-test-<MACHINE>.wic.bmap` |
-| Root file system archive  | `/path/to/artifacts/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/<MACHINE>/mbl-console-image-test-<MACHINE>.tar.xz`   |
+| Full test disk image           | `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image-test/images/mbl-console-image-test-<MACHINE>.wic.gz`   |
+| Full test disk image block map | `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image-test/images/mbl-console-image-test-<MACHINE>.wic.bmap` |
+| Root file system archive  | `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image-test/images/mbl-console-image-test-<MACHINE>.tar.xz`   |
 
 ##### Using Device Management Client Credentials
 
@@ -161,15 +174,6 @@ For example, to designate a directory to hold cached downloads between successiv
 mkdir /path/to/downloads
 ./mbl-tools/build-mbl/run-me.sh --downloaddir /path/to/downloads
 ```
-
-##### Creating multiple build directories
-
-The build scripts by default create and use a build directory under the current working directory.  An alternative build directory can be specified using the `--builddir` option to `run-me.sh`:
-```
-./mbl-tools/build-mbl/run-me.sh --builddir /path/to/my-build-dir
-```
-
-It is a good practice to use different build directories for every build.
 
 ##### Pinned Manifests and Rebuilds
 
@@ -295,7 +299,7 @@ You should now be able to see a USB TTY device, such as, `/dev/ttyUSB0`, on your
     ```
 1. From a Linux prompt, write the disk image to the Warp7's flash device using the following command:
     ```
-    sudo bmaptool copy --bmap <artifacts directory>/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/imx7s-warp-mbl/mbl-console-image-imx7s-warp-mbl.wic.bmap <artifacts directory>/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/imx7s-warp-mbl/mbl-console-image-imx7s-warp-mbl.wic.gz /dev/disk/by-id/<device-file-name>
+    sudo bmaptool copy --bmap /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-console-image/images/mbl-console-image-imx7s-warp-mbl.wic.bmap /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-console-image/images/mbl-console-image-imx7s-warp-mbl.wic.gz /dev/disk/by-id/<device-file-name>
     ```
     replacing `<device-file-name>` with the correct device file for the Warp7's flash device.
 
@@ -326,7 +330,7 @@ You should now be able to see a USB TTY device, such as, `/dev/ttyUSB0`, on your
     Replace `/dev/sdX` as mentioned above.
 1. Write the disk image to the SD card device (not a partition on it):
     ```
-    bmaptool copy --bmap <artifacts directory>/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/raspberrypi3-mbl/mbl-console-image-raspberrypi3-mbl.wic.bmap <artifacts directory>/<MACHINE>/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/raspberrypi3-mbl/mbl-console-image-raspberrypi3-mbl.wic.gz /dev/sdX
+    sudo bmaptool copy --bmap /path/to/artifacts/machine/raspberrypi3-mbl/images/mbl-console-image/images/mbl-console-image-raspberrypi3-mbl.wic.bmap /path/to/artifacts/machine/raspberrypi3-mbl/images/mbl-console-image/images/mbl-console-image-raspberrypi3-mbl.wic.gz /dev/sdX
     ```
     Replace `/dev/sdX` as mentioned above.
 
