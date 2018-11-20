@@ -33,9 +33,11 @@ There are two paths to working with MBL:
     1. Try our [example application](../getting-started/tutorial-user-application.html), or start writing your own application using the Linux APIs.
     1. You can also [use our update example](../getting-started/tutorial-updating-mbl-devices-and-applications.html) to send firmware updates over the air.
 
-### Licensing
+### Design
 
-Both Mbed Linux OS and our test suites will be open source, helping you automate product testing in a modern continuous integration pipeline. For more information, [please see the Contributing section in the MBL source](https://github.com/ARMmbed/meta-mbl/blob/master/CONTRIBUTING.md).
+The following diagram illustrates the components and services provided by MBL. When used in conjunction with Mbed Cloud, MBL provides a secure platform for developing, operating and managing IoT applications.
+
+<span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/Application_containers.png)</span>
 
 ### Containers
 
@@ -54,8 +56,7 @@ For application developers, the Pelion layer provides the following services:
 
 MBL uses the Pelion Device Management Update service to support updates of both the device's base firmware and application packages.
 
-### Design
 
-The following diagram illustrates the components and services provided by MBL. When used in conjunction with Mbed Cloud, MBL provides a secure platform for developing, operating and managing IoT applications.
+### Licensing
 
-<span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/Application_containers.png)</span>
+Both Mbed Linux OS and our test suites will be open source, helping you automate product testing in a modern continuous integration pipeline. For more information, [please see the Contributing section in the MBL source](https://github.com/ARMmbed/meta-mbl/blob/master/CONTRIBUTING.md).
