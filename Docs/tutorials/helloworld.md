@@ -47,7 +47,7 @@ Each section is implemented for both release and debug variants.
 
 To build, invoke the Make toolchain command: `build-armv7 make release`.
 
-The build produces an IPK file at `./release/ipk/user-sample-app-package_1.0_armv7vet2hf-neon.ipk`          
+The build produces an IPK file at `./release/ipk/user-sample-app-package_1.0_armv7vet2hf-neon.ipk`.
 
 To clean the build, run: `build-armv7 make clean`
 
