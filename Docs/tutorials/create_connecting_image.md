@@ -20,9 +20,9 @@ Each release has its own branch, such as `mbl-os-0.5`. Throughout this guide, th
 To connect your device to your Pelion Device Management account, you need to add a credentials file to your application before you build it. For development environments, Pelion offers a *developer certificate* for quick connection:
 
 1. Create cloud credentials directory, e.g. `./cloud-credentials`
-1. To create a Pelion developer certificate (`mbed_cloud_dev_credentials.c`), follow the instructions for [creating and downloading a developer certificate](https://cloud.mbed.com/docs/v1.2/provisioning-process/provisioning-development.html#creating-and-downloading-a-developer-certificate).
+2. To create a Pelion developer certificate (`mbed_cloud_dev_credentials.c`), follow the instructions for [creating and downloading a developer certificate](https://cloud.mbed.com/docs/v1.2/provisioning-process/provisioning-development.html#creating-and-downloading-a-developer-certificate).
 <!--This is where being able to splice the content would be great; I would rather transclude it here than send them to another page. I'll see what the Web Team has.-->
-1. Add the developer certificate to the credentials directory you've created.
+3. Add the developer certificate to the credentials directory you've created.
 
 ### Creating an Update resources file
 
@@ -30,7 +30,7 @@ To connect your device to your Pelion Device Management account, you need to add
 ```
 mkdir ./update-resources && cd ./update-resources
 ```
-1. Initialize manifest tool settings and generate Update resources by running the following commands:
+2. Initialize manifest tool settings and generate Update resources by running the following commands:
 ```
 manifest-tool init -q -d arm.com -m dev-device
 ```
