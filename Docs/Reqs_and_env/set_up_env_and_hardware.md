@@ -49,8 +49,7 @@ To build MBL, you need:
 
     Make sure your GitHub SSH key is valid.
 
-    See [the firmware manifest documentation](https://cloud.mbed.com/docs/latest/updating-firmware/firmware-manifests.html) for more information about the manifest tool. 
-
+    See [the manifest tool documentation](https://cloud.mbed.com/docs/latest/updating-firmware/manifest-tool.html) for more information.
 
 * Docker CE, for the mbl-tools repo script `build-mbl`, to build MBL. [Download and install from the Docker website](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
 
