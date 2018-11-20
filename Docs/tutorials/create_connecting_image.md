@@ -2,17 +2,15 @@
 
 This tutorial builds and installs an Mbed Linux OS (MBL) image on a device. This image includes credentials to connect to your Pelion Device Management account, but does not include a user application (that is covered [in the Hello World tutorial](../getting-started/tutorial-user-application.html)).
 
+<span class="notes">Each release has its own branch, such as `mbl-os-0.5`. Throughout this guide, the release branch is referred to as `mbl-XXX`. Replace it with the name of the branch you're working with.</span>
+
 <!--I need to review the steps, but I'll do that after I understand them-->
 
 <span class="notes">**Note:** These instructions use the developer workflow and certificates as connectivity credentials. Do not use these credentials for production devices.</span>
 
-### Prerequisites
+## Prerequisites
 
 Please [make sure you have suitable hardware and all the required software](../reqs-setup/index.html).
-
-### Release branches
-
-Each release has its own branch, such as `mbl-os-0.5`. Throughout this guide, the release branch is referred to as `mbl-XXX`. Replace it with the name of the branch you're working with.
 
 ### Downloading Device Management developer credentials
 
@@ -54,6 +52,8 @@ $ git clone git@github.com:ARMmbed/mbl-tools.git --branch mbl-tools-XXX
 ```
 -->
 
+## Building an MBL image
+
 ### Building scripts
 
 The `run-me.sh` script:
@@ -89,12 +89,42 @@ The following build options are mandatory:
 | `--machine` | Select the target device. The options are [ Warp7, `imx7s-warp-mbl`] and [ Raspberry Pi 3, `raspberrypi3-mbl`]. Example: `./mbl-tools/build-mbl/run-me.sh -- --machine <MACHINE>` |
 | `--builddir` | Create a build directory. This option is for `run-me.sh`. You must use a different build directory for every device (machine), and we recommend including the device's name in the directory's name. Note that this directory includes all other artefacts, such as build and error logs. For example, if you've created `mkdir /path/to/my-build-dir`, the builddir will be `./mbl-tools/build-mbl/run-me.sh --builddir /path/to/my-build-dir` |
 | `--outputdir` | Specify the output directory for all build artefacts (pinned manifest, target specific images etc). For example, if you're created `mkdir /path/to/artifacts`, the outpudir will be `./mbl-tools/build-mbl/run-me.sh --outputdir /path/to/artifacts` |
-| `inject-mcc` | At the moment, you need to build your Device Management resources (that you obtained above) into the image. `./mbl-tools/build-mbl/run-me.sh --inject-mcc /path/to/mbed_cloud_dev_credentials.c --inject-mcc /path/to/update_default_resources.c` |
+| `--inject-mcc` | At the moment, you need to build your Device Management resources (that you obtained above) into the image. `./mbl-tools/build-mbl/run-me.sh --inject-mcc /path/to/mbed_cloud_dev_credentials.c --inject-mcc /path/to/update_default_resources.c` |
 
 
 An example using all mandatory options:
 ```
 ./mbl-tools/build-mbl/run-me.sh --builddir /path/to/builddir --inject-mcc /path/to/mbed_cloud_dev_credentials.c --inject-mcc /path/to/update_default_resources.c --outputdir /path/to/artifacts -- --branch mbl-XXX --machine <MACHINE>
+```
+
+The following build options are not mandatory, but you may find that they improve the development process:
+
+| Name | Information |
+| --- | --- |
+| `--downloaddir` | Cache downloaded artefacts between successive builds (do not use cacheing for parallel builds). For example, if you've created `mkdir /path/to/downloads`, the downloaddir will be `./mbl-tools/build-mbl/run-me.sh --downloaddir /path/to/downloads` |
+| `--external-manifest` | You can build using a pinned manifest, which is an encapsulation created by a build and containing enough information to allow an exact rebuild. The manifest is created in your output directory (`outputdir`). To use it to rebuild, run `./mbl-tools/build-mbl/run-me.sh --external-manifest /path/to/pinned-manifest.xml` |
+
+
+### Build examples
+
+The following examples assume:
+
+* You have your [Device Management developer credentials, as explained above](#downloading-device-management-developer-credentials).
+* You have your [update resources file, as explained above](#creating-an-update-resources-file).
+
+
+Also, assuming that the user created an output directory for both Warp7 and RPi3 (e.g. `./artifacts-warp7` and `./artifacts-rpi3`).
+
+#### Warp7 device
+
+```
+./mbl-tools/build-mbl/run-me.sh --inject-mcc ./cloud-credentials/mbed_cloud_dev_credentials.c --inject-mcc ./update-resources/update_default_resources.c --outputdir ./artifacts-warp7 -- --machine imx7s-warp-mbl --branch mbl-XXX
+```
+
+#### Raspberry Pi 3 device
+
+```
+./mbl-tools/build-mbl/run-me.sh --inject-mcc ./cloud-credentials/mbed_cloud_dev_credentials.c --inject-mcc ./update-resources/update_default_resources.c --outputdir ./artifacts-rpi3 -- --machine raspberrypi3-mbl --branch mbl-XXX
 ```
 
 
@@ -128,54 +158,7 @@ Test image is also being built, and contains more packages for testing and debug
 | Full test disk image block map | `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image-test/images/mbl-console-image-test-<MACHINE>.wic.bmap` |
 | Root file system archive  | `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image-test/images/mbl-console-image-test-<MACHINE>.tar.xz`   |
 
-##### Using Device Management Client Credentials
 
-
-#### Optional build script options
-
-Optional build script options can be used to improve the development process.
-
-##### Caching downloaded source artifacts
-
-The build process involves the download of many source artifacts.  It is possible to cache downloaded source artifacts between successive builds. In practice, the cache mechanism is considered to be robust for successive builds.  It should not be used for parallel builds.
-
-For example, to designate a directory to hold cached downloads between successive builds, pass the `--downloaddir` option to `run-me.sh`:
-```
-mkdir /path/to/downloads
-./mbl-tools/build-mbl/run-me.sh --downloaddir /path/to/downloads
-```
-
-##### Pinned Manifests and Rebuilds
-
-Each build produces a pinned manifest as a build artifact. A pinned manifest is a file that encapsulates sufficient version information to allow an exact rebuild. To get the pinned manifest for a build, use the `--outputdir` option to get the build artifacts:
-```
-mkdir /path/to/artifacts
-./mbl-tools/build-mbl/run-me.sh --outputdir /path/to/artifacts
-```
-This produces the file `pinned-manifest.xml` in the directory specified with `--outputdir`.
-
-To rebuild using a previously pinned manifest, use the `--external-manifest` option:
-```
-./mbl-tools/build-mbl/run-me.sh --external-manifest /path/to/pinned-manifest.xml
-```
-
-### Example quick start build lines
-
-Following examples assumes that you already downloaded Device Management developer  credentials and created an update resources file, see [Download Mbed Cloud dev credentials file](#Download-Mbed-Cloud-dev-credentials-file) and [Create an Update resources file](#Create-an-Update-resources-file) sections.
-
-Also, assuming that the user created an output directory for both Warp7 and RPi3 (e.g. `./artifacts-warp7` and `./artifacts-rpi3`).
-
-#### Warp7 device
-
-```
-./mbl-tools/build-mbl/run-me.sh --inject-mcc ./cloud-credentials/mbed_cloud_dev_credentials.c --inject-mcc ./update-resources/update_default_resources.c --outputdir ./artifacts-warp7 -- --machine imx7s-warp-mbl --branch mbl-XXX
-```
-
-#### Raspberry Pi 3 device
-
-```
-./mbl-tools/build-mbl/run-me.sh --inject-mcc ./cloud-credentials/mbed_cloud_dev_credentials.c --inject-mcc ./update-resources/update_default_resources.c --outputdir ./artifacts-rpi3 -- --machine raspberrypi3-mbl --branch mbl-XXX
-```
 
 ## Writing and booting the disk image
 
