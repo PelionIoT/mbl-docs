@@ -111,9 +111,8 @@ The following examples assume:
 
 * You have your [Device Management developer credentials, as explained above](#downloading-device-management-developer-credentials).
 * You have your [update resources file, as explained above](#creating-an-update-resources-file).
+* You have an output directory for your machine, for example `./artifacts-warp7` or `./artifacts-rpi3`.
 
-
-Also, assuming that the user created an output directory for both Warp7 and RPi3 (e.g. `./artifacts-warp7` and `./artifacts-rpi3`).
 
 #### Warp7 device
 
@@ -132,31 +131,19 @@ Also, assuming that the user created an output directory for both Warp7 and RPi3
 
 The build process creates the following files (which you need later):
 
-* **A full disk image**: This is a compressed image of the entire flash. Once decompressed, this image can be directly written to storage media, and initializes the device's storage with a full set of disk partitions and an initial version of firmware.
+| File | Path | Information |
+| --- | --- | --- |
+| Full disk image  | `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image/images/mbl-console-image-<MACHINE>.wic.gz` | This is a compressed image of the entire flash. Once decompressed, this image can be directly written to storage media, and initializes the device's storage with a full set of disk partitions and an initial version of firmware. |
+| Full disk image block map | `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image/images/mbl-console-image-<MACHINE>.wic.bmap` | This is a file containing information about which blocks of the uncompressed full disk image actually need to be written to the device. Some blocks of the image represent unused storage space, which does not actually need to be written. |
+| Root file system archive  | `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image/images/mbl-console-image-<MACHINE>.tar.xz` | This is a compressed `.tar` archive, which you need when you update the device firmware (this topic is covered [in the Updating MBL tutorial](../getting-started/tutorial-updating-mbl-devices-and-applications.html)). |
 
-<span class="tips">**Tip:** The image is created by the build process using the Wic tool from OpenEmbedded. For more information about Wic, see [the Yocto Mega Manual](https://www.yoctoproject.org/docs/latest/mega-manual/mega-manual.html#creating-partitioned-images-using-wic).</span>
-
-* **A block map of the full disk image**: This is a file containing information about which blocks of the uncompressed full disk image actually need to be written to the IoT device. Some blocks of the image represent unused storage space that does not actually need to be written.
-* **A root filesystem archive**: This is a compressed `.tar` archive, which you need when you update the device firmware (this topic is covered [in the next tutorial]()).
-<!--Looking at the update bit makes me wonder whether this is empty the first time you build an image.-->
-
-**File locations**
-
-The paths of these files are given in the table below, where `<MACHINE>` should be replaced with the MACHINE value for your device from the table in [Section 6](#set-up-build-env).
+The process also creates a test image, which contains packages for testing and debugging (such as OP-TEE test suite, Dropbear to support SSH during development and test, and the strace utility).
 
 | File | Path |
 | --- | --- |
-| Full disk image           | `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image/images/mbl-console-image-<MACHINE>.wic.gz`   |
-| Full disk image block map | `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image/images/mbl-console-image-<MACHINE>.wic.bmap` |
-| Root file system archive  | `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image/images/mbl-console-image-<MACHINE>.tar.xz`   |
-
-Test image is also being built, and contains more packages for testing and debuging (such as optee test suite, dropbear to support ssh during development and test, strace utility, and more).
-
-| File | Path |
-| --- | --- |
-| Full test disk image           | `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image-test/images/mbl-console-image-test-<MACHINE>.wic.gz`   |
+| Full test disk image | `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image-test/images/mbl-console-image-test-<MACHINE>.wic.gz` |
 | Full test disk image block map | `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image-test/images/mbl-console-image-test-<MACHINE>.wic.bmap` |
-| Root file system archive  | `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image-test/images/mbl-console-image-test-<MACHINE>.tar.xz`   |
+| Root file system archive | `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image-test/images/mbl-console-image-test-<MACHINE>.tar.xz` |
 
 
 
