@@ -1,4 +1,4 @@
-`## Preparing a development environment
+## Preparing a development environment
 
 ### Accounts and credentials
 
@@ -17,6 +17,8 @@ To build MBL, you need:
 
 * Full internet access (because the build process downloads packages from the internet).
 
+* An SSH agent (for cloning repositories non-interactively during the build process). See the GitHub documentation for [information about adding an SSH key to the agent](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/#adding-your-ssh-key-to-the-ssh-agent).
+
 * A few software packages that support building and developing on MBL:
 
     * `bmap-tools`.
@@ -25,7 +27,6 @@ To build MBL, you need:
     * `python-pip`.
 
     Install these packages with:
-
     ```
     sudo apt-get install bmap-tools curl git python-pip
     ````
@@ -33,7 +34,6 @@ To build MBL, you need:
 * The [`build-mbl` tool, the installation instructions for which are in the mbl-tools repository](https://github.com/ARMmbed/mbl-tools).
 
     Check out the repository (replace `mbl-XXX` with the latest branch name):<!--can they check out master, or some other way of always knowing they're checking out the latest version rather than them having to go count branches?-->
-
     ``` 
     $ git clone git@github.com:ARMmbed/mbl-tools.git --branch mbl-XXX
     ```

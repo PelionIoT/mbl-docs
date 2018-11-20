@@ -1,4 +1,4 @@
-## Introduction to Mbed Linux OS
+## Mbed Linux OS
 
 Arm Mbed Linux OS (MBL) is a Linux distribution for IoT devices based on the Cortex-A processor family. Mbed Linux OS supports all of the essential layers needed to build amazing IoT products, so you can focus exclusively on adding your unique value. We want you to build products quickly, and minimise the ongoing support and maintenance burden for products you’ve already shipped.
 
@@ -32,7 +32,7 @@ There are two paths to working with MBL:
     1. Please build MBL locally and flash it to your device.
     1. Try our example application, or start writing your own application using the Linux APIs.
 
-### Licensing
+### Licensing
 
 Both Mbed Linux OS and our test suites will be open source, helping you automate product testing in a modern continuous integration pipeline. For more information, [please see the Contributing section in the MBL source](https://github.com/ARMmbed/meta-mbl/blob/master/CONTRIBUTING.md).
 
@@ -55,4 +55,6 @@ MBL uses the Pelion Device Management Update service to support updates of both 
 
 ### Design
 
-The following diagram illustrates the components and services provided by MBL.  When used in conjunction with Mbed Cloud, MBL provides a secure platform for developing, operating and managing IoT applications.
+The following diagram illustrates the components and services provided by MBL. When used in conjunction with Mbed Cloud, MBL provides a secure platform for developing, operating and managing IoT applications.
+
+<span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/Application_containers.png)</span>

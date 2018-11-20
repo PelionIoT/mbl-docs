@@ -1,57 +1,71 @@
 [{
-        "title": "Mbed Linux OS",
-        "description": "Staging MBL for a bit",
-        "slug": "introduction",
+        "title": "Welcome",
+        "description": "Mbed Linux OS introduction",
+        "slug": "welcome",
         "type": "markdown",
-        "sources": [{
+        "chapters": [{
+            "title": "Mbed Linux OS",
+            "intro":{
             "type": "markdown",
             "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/introduction.md"
-        }]
+        },
+        "sources":[]
+      }]
+    },
+    {
+        "title": "Requirements and setup",
+        "description": "",
+        "slug": "reqs-setup",
+        "type": "markdown",
+        "chapters": [{
+                "title": "Requirements",
+                "intro": {
+                    "type": "markdown",
+                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/intro_reqs.md"
+                },
+                "sources": []
+            },
+            {
+                "title": "Hardware",
+                "sources": [{
+                    "type": "markdown",
+                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/Hardware.md"
+                }]
+            },
+            {
+                "title": "Enviornment",
+                "sources": [{
+                    "type": "markdown",
+                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/set_up_env_and_hardware.md"
+                }]
+            },
+            {
+                "title": "Accounts and certificates",
+                "sources": [{
+                        "type": "markdown",
+                        "url": "https://github.com/ARMmbed/mbed_Cloud_Docs/blob/R2.0/Docs/account_management/log_or_create_users.md"
+                    },
+                    {
+                        "type": "markdown",
+                        "url": "https://github.com/ARMmbed/mbed_Cloud_Docs/blob/R2.0/Docs/provisioning/fcc_for_development.md"
+
+                    }
+                ]
+            }
+        ]
     },
     {
         "title": "Getting started",
         "description": "",
         "slug": "getting-started",
         "type": "markdown",
-        "intro": {
-            "type": "markdown",
-            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/intro_tut.md"
-        },
         "chapters": [{
-                "title": "Requirements and development environment",
+                "title": "Introduction",
                 "intro": {
                     "type": "markdown",
-                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/intro_reqs.md"
+                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/intro_tut.md"
                 },
-                "sub_chapters": [{
-                        "title": "Enviornment and hardware setup",
-                        "sources": [{
-                            "type": "markdown",
-                            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/set_up_env_and_hardware.md"
-                        }]
-                    },
-                    {
-                        "title": "Accounts and certificates",
-                        "sources": [{
-                                "type": "markdown",
-                                "url": "https://github.com/ARMmbed/mbed_Cloud_Docs/blob/working/Docs/account_management/log_or_create_users.md"
-                            },
-                            {
-                                "type": "markdown",
-                                "url": "https://github.com/ARMmbed/mbed_Cloud_Docs/blob/R1.5/Docs/provisioning/fcc_for_development.md"
-
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "title": "Mbed Linux CLI",
-                "sources": [{
-                    "type": "markdown",
-                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/mbl_cli.md"
-                }]
-
+                "sources": []
             },
             {
                 "title": "Tutorial: Connecting an MBL device",
@@ -66,11 +80,12 @@
                 ]
             },
             {
-                "title": "Tutorial: an MBL application",
+                "title": "Tutorial: User application",
                 "sources": [{
-                    "type": "markdown",
-                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/qr_code.md"
-                }]
+                        "type": "markdown",
+                        "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/helloworld.md"
+                    }
+                ]
             },
             {
                 "title": "Tutorial: updating MBL devices and applications",
@@ -80,16 +95,5 @@
                 }]
             }
         ]
-    },
-
-    {
-        "title": "API references",
-        "description": "",
-        "slug": "apis",
-        "type": "markdown",
-        "sources": [{
-            "type": "markdown",
-            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/API/intro_api.md"
-        }]
     }
 ]
