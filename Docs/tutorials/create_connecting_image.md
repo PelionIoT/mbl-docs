@@ -1,127 +1,106 @@
-<h2 id="mbl-pelion-connect">Building an Mbed Linux OS image and connecting to Pelion Device Management</h2>
+Management<h2 id="mbl-pelion-connect">Building an Mbed Linux OS image and connecting to Pelion Device Management</h2>
 
-<span class="warnings">**Warning:** These instructions use the developer workflow and certificates as connectivity credentials. Do not use these credentials for production devices.</span>
+<span class="notes">**Note:** These instructions use the developer workflow and certificates as connectivity credentials. Do not use these credentials for production devices.</span>
 
 ### Overview
 
-Mbed Linux OS (MBL) handles Pelion Device Management connectivity on behalf of the device, rather than relying on the user application to do it as Mbed OS does. This means that before you build the MBL image that runs on your device, you need to add your Pelion credentials to the working directory MBL builds from.
+This tutorial builds and installs an Mbed Linux OS (MBL) image on a device. This image includes credentials to connect to your Pelion Device Management account, but does not include a user application (that is covered [in the Hello World tutorial](../getting-started/tutorial-user-application.html)).
+
+<!--I need to review the steps, but I'll do that after I understand them-->
 
 ### Prerequisites
 
-Please [make sure you have suitable hardware and all the required software]().
+Please [make sure you have suitable hardware and all the required software](../reqs-setup/index.html).
 
 ### Release branches
 
-Each release has its own branch, such as `mbl-os-0.5`. Throughout this guide, the release branch is referred to as `mbl-XXX`. Replace it with the name of the branch you're working with. If you don't know which branch to work with, [use the latest branch available]().<!--is there a release list or a tag list I can send them to? I don't want them to have to go to the repo to count branches-->
-<!--- Could we link to release notes? *Mel*--->
+Each release has its own branch, such as `mbl-os-0.5`. Throughout this guide, the release branch is referred to as `mbl-XXX`. Replace it with the name of the branch you're working with.
 
 ### Downloading Device Management developer credentials
 
-To connect your device to your Pelion Device Management account, you need to add a credentials file to your application before you build it. For development environments, Pelion offers a *developer certificate* for quick connection:
+MBL handles Device Management connectivity on behalf of the device, rather than relying on the user application to do it. This means you need to add your Device Management credentials to the working directory MBL builds from. For development environments, Pelion offers a *developer certificate* for quick connection:
 
 1. Create cloud credentials directory, e.g. `./cloud-credentials`
 2. To create a Pelion developer certificate (`mbed_cloud_dev_credentials.c`), follow the instructions for [creating and downloading a developer certificate](../reqs-setup/provisioning-development.html).
-<!--This is where being able to splice the content would be great; I would rather transclude it here than send them to another page. I'll see what the Web Team has.-->
 3. Add the developer certificate to the credentials directory you've created.
 
-### Creating an Update resources file
+### Creating an update resources file
+
+MBL and Device Management support over-the-air updates for devices, which you can do [in a later tutorial in this sequence](../getting-started/tutorial-updating-mbl-devices-and-applications.html). For a device to be updatable, it needs to include some update resources (such as credentials) in the original image.
 
 1. Create an update resources directory, such as `./update-resources`:
-```
-mkdir ./update-resources && cd ./update-resources
-```
-2. Initialize manifest tool settings and generate Update resources by running the following commands:
-```
-manifest-tool init -q -d arm.com -m dev-device
-```
-This generates a file `update_default_resources.c` that is required during the build process.
 
+    ```
+    mkdir ./update-resources && cd ./update-resources
+    ```
+
+2. Initialize the manifest tool and generate Update resources:
+
+    ```
+    manifest-tool init -q -d arm.com -m dev-device
+    ```
+
+    This generates the `update_default_resources.c` file. Place it in the directory you created in the previous step.
+
+    You will use this file in the build process later.
+
+<!--this was covered in the software prereqs section
 ### mbl-tools
+
 mbl-tools repository provides a collection of tools and recipes related to the build and test of Mbed Linux OS.
 Checkout the `mbl-tools-XXX` branch from [mbl-tools git repository](https://github.com/ARMmbed/mbl-tools) using the following command
 ```
 mkdir /path/to/working-dir/; cd /path/to/working-dir/
 $ git clone git@github.com:ARMmbed/mbl-tools.git --branch mbl-tools-XXX
+
 ```
+-->
 
 ### Building scripts
 
-The `run-me.sh` script creates and launches a docker container to encapsulate the MBL build environment then launch a build script, `build.sh`, inside the container to do the heavy lifting. <!---too idiomatic--->
+The `run-me.sh` script:
 
-There are a variety of options controlling what is built and how. The general form of a `run-me.sh` invocation is:
+1. Creates and launches a Docker container that encapsulates the MBL build environment.
+1. Launches a build script, `build.sh`, inside the container.
+
+The `run-me.sh` and `build.sh` scripts are called in a single command, with options that control what to build and how. The general form of a `run-me.sh` invocation is:
+
 ```
 ./mbl-tools/build-mbl/run-me.sh [RUN-ME.SH OPTIONS]... -- [BUILD.SH OPTIONS]...
 ```
-Note the use of `--` to separate options to `run-me.sh` from options that are passed through to `build.sh`
+
+<span class="tips">Note the use of `--`. It separates options for `run-me.sh` from options for `build.sh`.</span>
 
 To invoke the `run-me.sh` help menu use:
+
 ```
 ./mbl-tools/build-mbl/run-me.sh -h
 ```
 
 To invoke the `build.sh` help menu use:
+
 ```
 ./mbl-tools/build-mbl/run-me.sh -- -h
 ```
 
-#### Mandatory build script options
+The following build options are mandatory:
+
+| Name | Information |
+| --- | --- |
+| `--branch` | Select the MBL branch to build. For example, to build the branch `mbl-XXX`: `./mbl-tools/build-mbl/run-me.sh -- --branch mbl-XXX --machine raspberrypi3-mbl` |
+| `--machine` | Select the target device. The options are [ Warp7, `imx7s-warp-mbl`] and [ Raspberry Pi 3, `raspberrypi3-mbl`]. Example: `./mbl-tools/build-mbl/run-me.sh -- --machine <MACHINE>` |
+| `--builddir` | Create a build directory. This option is for `run-me.sh`. You must use a different build directory for every device (machine), and we recommend including the device's name in the directory's name. Note that this directory includes all other artefacts, such as build and error logs. For example, if you've created `mkdir /path/to/my-build-dir`, the builddir will be `./mbl-tools/build-mbl/run-me.sh --builddir /path/to/my-build-dir` |
+| `--outputdir` | Specify the output directory for all build artefacts (pinned manifest, target specific images etc). For example, if you're created `mkdir /path/to/artifacts`, the outpudir will be `./mbl-tools/build-mbl/run-me.sh --outputdir /path/to/artifacts` |
+| `inject-mcc` | At the moment, you need to build your Device Management resources (that you obtained above) into the image. `./mbl-tools/build-mbl/run-me.sh --inject-mcc /path/to/mbed_cloud_dev_credentials.c --inject-mcc /path/to/update_default_resources.c` |
+
 
 An example using all mandatory options:
 ```
 ./mbl-tools/build-mbl/run-me.sh --builddir /path/to/builddir --inject-mcc /path/to/mbed_cloud_dev_credentials.c --inject-mcc /path/to/update_default_resources.c --outputdir /path/to/artifacts -- --branch mbl-XXX --machine <MACHINE>
 ```
 
-* For more information about `--branch` option see [Select release branch](#Select-release-branch).
-* For more information about `--machine` option see [Select target device](#Select-target-device).
-* For more information about `--builddir` option see [Creating build directory](#Creating-build-directory).
-* For more information about `--outputdir` option see [Build Artifacts](#Build-Artifacts).
-* For more information about `--inject-mcc` option see [Using Device Management Client Credentials](#Using-Device-Management-Client-Credentials)
 
-##### Selecting a release branch
-
-Different branches of MBL can be checkout and built by passing the `--branch` option through to `build.sh`.  The bleeding edge of mainline development takes place on the 'master' branch.
-
-Checkout and build the release branch `mbl-XXX` for MBL:
-```
-./mbl-tools/build-mbl/run-me.sh -- --branch mbl-XXX --machine raspberrypi3-mbl
-```
-
-##### Selecting a target device
-
-In order to select the target device use `--machine` option as follows:
-```
-./mbl-tools/build-mbl/run-me.sh -- --machine <MACHINE>
-```
-Select the <MACHINE> value for your MBL device from the table below:
-
-| Device | MACHINE |
-| ---  | --- |
-| Warp7 | `imx7s-warp-mbl` |
-| Raspberry Pi 3 | `raspberrypi3-mbl` |
-
-
-##### Creating build directory
-
-Build directory must be specified using the `--builddir` option to `run-me.sh`:
-```
-mkdir /path/to/my-build-dir
-./mbl-tools/build-mbl/run-me.sh --builddir /path/to/my-build-dir
-```
-
-It is mandatory to use different build directory per <MACHINE>. It is recommended that the build directory will include the <MACHINE> name.
-All intermediate artifacts including build/error logs will be stored into this directory.
-
-
-##### Building Artifacts
-
-Each build produces a variety of build artifacts including a pinned manifest, target specific images and license information.
-To get build artifacts out of a build, pass the `--outputdir` option to specify which directory the build artifacts should be placed in:
-```
-mkdir /path/to/artifacts
-./mbl-tools/build-mbl/run-me.sh --outputdir /path/to/artifacts
-```
-
-##### Building outputs
+### Building outputs
 
 The build process creates the following files (which you need later):
 
@@ -153,13 +132,6 @@ Test image is also being built, and contains more packages for testing and debug
 
 ##### Using Device Management Client Credentials
 
-The current Device Management Client requries key material to be statically built into the cloud client binary.
-This is a temporary measure that is replaced with a dynamic key injection mechanism shortly, see [Download Mbed Cloud dev credentials file](#Download-Mbed-Cloud-dev-credentials-file) and [Create an Update resources file](#Create-an-Update-resources-file) sections.
-
-In the meantime, the build scripts provide a work around using the `--inject-mcc` option:
-```
-./mbl-tools/build-mbl/run-me.sh --inject-mcc /path/to/mbed_cloud_dev_credentials.c --inject-mcc /path/to/update_default_resources.c
-```
 
 #### Optional build script options
 
@@ -383,3 +355,7 @@ If your device hasn't automatically connected to Pelion, it could be that:
     ```
     /etc/init.d/mbl-cloud-client restart
     ```
+
+### What's next
+
+[Create a user application](../getting-started/tutorial-user-application.html) or [update your MBL image](../getting-started/tutorial-updating-mbl-devices-and-applications.html).
