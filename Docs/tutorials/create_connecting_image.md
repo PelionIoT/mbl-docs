@@ -68,12 +68,12 @@ To invoke the `build.sh` help menu use:
 
 An example using all mandatory options:
 ```
-./mbl-tools/build-mbl/run-me.sh --inject-mcc /path/to/mbed_cloud_dev_credentials.c --inject-mcc /path/to/update_default_resources.c --outputdir /path/to/artifacts -- --branch mbl-XXX --machine <MACHINE>
+./mbl-tools/build-mbl/run-me.sh --builddir /path/to/builddir --inject-mcc /path/to/mbed_cloud_dev_credentials.c --inject-mcc /path/to/update_default_resources.c --outputdir /path/to/artifacts -- --branch mbl-XXX --machine <MACHINE>
 ```
 
 * For more information about `--branch` option see [Select release branch](#Select-release-branch).
 * For more information about `--machine` option see [Select target device](#Select-target-device).
-* For more information about `--builddir` option see [Creating multiple build directories](#Creating-multiple-build-directories).
+* For more information about `--builddir` option see [Creating multiple build directories](#Creating-build-directories).
 * For more information about `--outputdir` option see [Build Artifacts](#Build-Artifacts).
 * For more information about `--inject-mcc` option see [Using Device Management Client Credentials](#Using-Device-Management-Client-Credentials)
 
@@ -100,14 +100,16 @@ Select the <MACHINE> value for your MBL device from the table below:
 | Raspberry Pi 3 | `raspberrypi3-mbl` |
 
 
-##### Creating multiple build directories
+##### Creating build directories
 
 The build scripts by default create and use a build directory under the current working directory.  An alternative build directory can be specified using the `--builddir` option to `run-me.sh`:
 ```
+mkdir /path/to/my-build-dir
 ./mbl-tools/build-mbl/run-me.sh --builddir /path/to/my-build-dir
 ```
 
-It is mandatory to use different build directories for each target device build.
+It is mandatory to use different build directories for each target device build. It is recommended that the build directory will include the platform name.
+All intermediate artifacts including build/error logs will be stored into this directory.
 
 
 ##### Building Artifacts
