@@ -73,7 +73,7 @@ An example using all mandatory options:
 
 * For more information about `--branch` option see [Select release branch](#Select-release-branch).
 * For more information about `--machine` option see [Select target device](#Select-target-device).
-* For more information about `--builddir` option see [Creating multiple build directories](#Creating-build-directories).
+* For more information about `--builddir` option see [Creating build directory](#Creating-build-directory).
 * For more information about `--outputdir` option see [Build Artifacts](#Build-Artifacts).
 * For more information about `--inject-mcc` option see [Using Device Management Client Credentials](#Using-Device-Management-Client-Credentials)
 
@@ -100,15 +100,15 @@ Select the <MACHINE> value for your MBL device from the table below:
 | Raspberry Pi 3 | `raspberrypi3-mbl` |
 
 
-##### Creating build directories
+##### Creating build directory
 
-The build scripts by default create and use a build directory under the current working directory.  An alternative build directory can be specified using the `--builddir` option to `run-me.sh`:
+Build directory must be specified using the `--builddir` option to `run-me.sh`:
 ```
 mkdir /path/to/my-build-dir
 ./mbl-tools/build-mbl/run-me.sh --builddir /path/to/my-build-dir
 ```
 
-It is mandatory to use different build directories for each target device build. It is recommended that the build directory will include the platform name.
+It is mandatory to use different build directory per <MACHINE>. It is recommended that the build directory will include the <MACHINE> name.
 All intermediate artifacts including build/error logs will be stored into this directory.
 
 
