@@ -31,9 +31,10 @@ To build MBL, you need:
     sudo apt-get install bmap-tools curl git python-pip
     ````
 
-* The [`build-mbl` tool, the installation instructions for which are in the mbl-tools repository](https://github.com/ARMmbed/mbl-tools).
+* The `build-mbl` tool.
 
-    Check out the repository (replace `mbl-XXX` with the latest branch name):<!--can they check out master, or some other way of always knowing they're checking out the latest version rather than them having to go count branches?-->
+    Check out the relevant branch from the repository (replace `mbl-XXX` with the branch name):
+    
     ``` 
     $ git clone git@github.com:ARMmbed/mbl-tools.git --branch mbl-XXX
     ```
@@ -51,11 +52,9 @@ To build MBL, you need:
 
     See [the manifest tool documentation](https://cloud.mbed.com/docs/latest/updating-firmware/manifest-tool.html) for more information.
 
-* Docker CE, for the mbl-tools repo script `build-mbl`, to build MBL. [Download and install from the Docker website](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
+* Docker CE, to use `build-mbl` script from the mbl-tools repository, to build MBL. [Download and install from the Docker website](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
 
-    Add yourself to the Linux group "Docker" to run commands without `sudo`. See [instructions in the Docker Linux documentation](https://docs.docker.com/install/linux/linux-postinstall/).
-
-<span class="tips">**Tip:** We recommend rebooting your PC when you've finished installing everything.</span>
+    Add yourself to the Linux group "Docker" to run commands without `sudo`. See [instructions in the Docker Linux documentation](https://docs.docker.com/install/linux/linux-postinstall/). We recommend using exec sudo login to reset the terminal session when you've finished installing everything.
 
 ### Using virtual machines
 
