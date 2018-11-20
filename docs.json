@@ -99,5 +99,18 @@
                 }]
             }
         ]
+    },
+    {
+      "title": "References",
+      "description": "",
+      "slug": "references",
+      "type": "markdown",
+      "sources":
+      [
+        {
+            "type": "markdown",
+            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/refs/containers_packages.md"
+        }
+      ]
     }
 ]
