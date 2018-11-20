@@ -17,7 +17,7 @@ To build MBL, you need:
 
 * Full internet access (because the build process downloads packages from the internet).
 
-* An SSH agent (for cloning repositories non-interactively during the build process). See the GitHub documentation for [information about adding an SSH key to the agent](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/#adding-your-ssh-key-to-the-ssh-agent).
+* Make sure you can connect to GitHub with SSH, so you can clone private repositories non-interactively during the build process. See [the GitHub documentation about connecting with SSH](https://help.github.com/articles/connecting-to-github-with-ssh/) for more information.
 
 * A few software packages that support building and developing on MBL:
 
@@ -39,22 +39,22 @@ To build MBL, you need:
     ```
 
     <span class="tips">**Tip:** The [mbl-tools repository](https://github.com/ARMmbed/mbl-tools) provides a collection of tools and recipes for building and testing MBL.</span>
-  * Install the Device Management manifest tool, which is part of the Device Management SDK library (see [Installing the manifest tool]  (#install-manifest-tool) below):
+  
+* Install the Device Management manifest tool. See [Installing the manifest tool](#install-manifest-tool) below:
 
     ```
-    pip install --user -U git+ssh://git@github.com/ARMmbed/manifest-tool-restricted.git#egg=manifest-tool
+    pip install --user -U git+ssh://git@github.com/ARMmbed/manifest-tool.git#egg=manifest-tool
     pip install --user mbed-cloud-sdk
     ```
 
-    Make sure your GitHub SSH key is valid. See [the GitHub documentation for more information about connecting to GitHub with SSH](https://help.github.com/articles/connecting-to-github-with-ssh/).
+    Make sure your GitHub SSH key is valid.
 
     See [the firmware manifest documentation](https://cloud.mbed.com/docs/latest/updating-firmware/firmware-manifests.html) for more information about the manifest tool. 
 
-* An SSH agent (for cloning repositories non-interactively during the build process). See the GitHub documentation for [information about adding an SSH key to the agent](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/#adding-your-ssh-key-to-the-ssh-agent).
 
-* Docker CE, for the `mbl-tools` script `build-mbl`, to develop and build applications on a PC. [Download and install from the Docker website](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
+* Docker CE, for the mbl-tools repo script `build-mbl`, to build MBL. [Download and install from the Docker website](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
 
-    Add yourself to the Docker group to run commands without `sudo`. See [instructions in the Docker Linux documentation](https://docs.docker.com/install/linux/linux-postinstall/).
+    Add yourself to the Linux group "Docker" to run commands without `sudo`. See [instructions in the Docker Linux documentation](https://docs.docker.com/install/linux/linux-postinstall/).
 
 <span class="tips">**Tip:** We recommend rebooting your PC when you've finished installing everything.</span>
 
@@ -63,6 +63,7 @@ To build MBL, you need:
 Building open embedded distributions requires the compilation of hundreds of different packages. You need a powerful machine to build in under an hour.
 
 For our own builds, we use:
+
 - Intel Xeon W2145 Processor 8 Core (11 MB Cache, 3.70 GHz)
 - 32 GB RAM
 - 2 TB hard drive, 7200RPM, 3.5", SATA
