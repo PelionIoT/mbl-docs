@@ -43,7 +43,7 @@ Each section is implemented for both release and debug variants.
     sudo mv build-armv7 /usr/local/bin  
     ```
 
-### Building the application with the cross-compiler            
+### Building the application with the cross-compiler
 
 To build, invoke the Make toolchain command: `build-armv7 make release`.
 
@@ -51,7 +51,7 @@ The build produces an IPK file at `./release/ipk/user-sample-app-package_1.0_arm
 
 To clean the build, run: `build-armv7 make clean`
 
-### Installing and running the application on the device
+### Installing and running the application on the device
 
 To install the application on the device, follow one of our tutorials:
 
