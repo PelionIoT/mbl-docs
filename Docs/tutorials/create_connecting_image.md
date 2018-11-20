@@ -20,7 +20,7 @@ Each release has its own branch, such as `mbl-os-0.5`. Throughout this guide, th
 To connect your device to your Pelion Device Management account, you need to add a credentials file to your application before you build it. For development environments, Pelion offers a *developer certificate* for quick connection:
 
 1. Create cloud credentials directory, e.g. `./cloud-credentials`
-2. To create a Pelion developer certificate (`mbed_cloud_dev_credentials.c`), follow the instructions for [creating and downloading a developer certificate](https://cloud.mbed.com/docs/v1.2/provisioning-process/provisioning-development.html#creating-and-downloading-a-developer-certificate).
+2. To create a Pelion developer certificate (`mbed_cloud_dev_credentials.c`), follow the instructions for [creating and downloading a developer certificate](../reqs-setup/provisioning-development.html).
 <!--This is where being able to splice the content would be great; I would rather transclude it here than send them to another page. I'll see what the Web Team has.-->
 3. Add the developer certificate to the credentials directory you've created.
 
@@ -207,7 +207,7 @@ Also, assuming that the user created an output directory for both Warp7 and RPi3
 ./mbl-tools/build-mbl/run-me.sh --inject-mcc ./cloud-credentials/mbed_cloud_dev_credentials.c --inject-mcc ./update-resources/update_default_resources.c --outputdir ./artifacts-rpi3 -- --machine raspberrypi3-mbl --branch mbl-XXX
 ```
 
-## Writing and booting the disk image 
+## Writing and booting the disk image
 
 This section contains instructions for writing the full disk image to a:
 * Warp7 device
