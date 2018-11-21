@@ -19,7 +19,7 @@ MBL provides a uniform, open and verifiable approach to platform security. Each 
 
 The following diagram illustrates the components and services provided by MBL. When used in conjunction with Mbed Cloud, MBL provides a secure platform for developing, operating and managing IoT applications.
 
-<img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/Application_containers.png" width="50%" align="middle">
+<img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/Application_containers.png" width="75%" align="middle">
 
 ### Arm integrations
 
