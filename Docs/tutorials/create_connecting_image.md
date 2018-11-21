@@ -129,7 +129,7 @@ The following examples assume:
 
 ### Building outputs
 
-The build process creates the following files (which you need later):
+The build process creates the following files:
 
 | File | Path | Information |
 | --- | --- | --- |
@@ -187,11 +187,13 @@ To write your disk image to the Warp7's flash device, you must first access the 
     ```
     minicom -D /dev/ttyUSB0
     ```
+
     Use the following settings:
 
     * Baud rate: 115200.
     * Encdoing: [8N1](https://en.wikipedia.org/wiki/8-N-1).
     * No hardware flow control.
+
 1. Check the current storage devices on your PC:
 
     ```
@@ -214,19 +216,27 @@ To write your disk image to the Warp7's flash device, you must first access the 
     lrwxrwxrwx 1 root root 10 Mar 19 10:38 ata-ST1000DM003-1CH162_W1D2QL7A-part4 -> ../../sdb4
     lrwxrwxrwx 1 root root 10 Mar 19 10:38 ata-ST1000DM003-1CH162_W1D2QL7A-part5 -> ../../sdb5
     ```
-    You'll need to compare this output in the following steps, so save it for reference.
-    
+
+    You'll need to refer to this output in the following steps, so save it for reference.
+
 1. If you got a U-boot prompt <!--on the device or the terminal?-->, continue to the next step.
+
    If you got an operating system boot (for example, Android), reboot the device until you get a U-boot prompt, then press any key to prevent the operating system from booting again. Continue to the next step.
-1. To expose the Warp7's flash device to Linux as USB mass storage, in the U-boot prompt type:
+
+1. To expose the Warp7's flash device to Linux as USB mass storage, in the U-boot prompt enter:
+
     ```
     ums 0 mmc 0
     ```
-    On the Warp7 you should now see an ASCII-art "spinner", and on your PC you should see new storage devices:
+
+    On the Warp7, you should now see an ASCII-art "spinner". On your PC, you should see new storage devices:
+
     ```
     ls -l /dev/disk/by-id/
     ```
-    In our example, the Warp7 appeared as `usb-Linux_UMS_disk_0` (the partitions on the device are also shown):
+
+    In our example, the Warp7 is listed as `usb-Linux_UMS_disk_0` (the partitions on the device are also shown):
+
     ```
     total 0
     lrwxrwxrwx 1 root root  9 Mar 19 10:38 ata-Crucial_CT240M500SSD1_140709691C39 -> ../../sda
@@ -245,39 +255,51 @@ To write your disk image to the Warp7's flash device, you must first access the 
     lrwxrwxrwx 1 root root 10 Mar 26 14:00 usb-Linux_UMS_disk_0-0:0-part2 -> ../../sdc2
     lrwxrwxrwx 1 root root 10 Mar 26 14:00 usb-Linux_UMS_disk_0-0:0-part3 -> ../../sdc3
     ```
-    `mbl-console-image-imx7s-warp-mbl.wic.gz` is a full disk image so should be written to the whole flash device, not a partition.
+
+    `mbl-console-image-imx7s-warp-mbl.wic.gz` is a full disk image, so should be written to the whole flash device, not a partition.<!--is this an FYI, or is this something they may need to fix?-->
+
     The device file for the whole flash device is the one without `-part` in the name (`/dev/disk/by-id/usb-Linux_UMS_disk_0-0:0` in this example).
-1. Ensure that none of the Warp7's flash partitions are mounted by running the following command (you may need to adjust the path depending on the name of the storage device):
+
+1. Ensure that none of the Warp7's flash partitions are mounted (you may need to adjust the path depending on the name of the storage device):
+
     ```
     sudo umount /dev/disk/by-id/usb-Linux_UMS_disk_0-0:0-part*
     ```
-1. From a Linux prompt, write the disk image to the Warp7's flash device using the following command:
+
+1. From a Linux prompt, write the disk image to the Warp7's flash device (replace `<device-file-name>` with the correct device file for the Warp7's flash device):
+
     ```
     sudo bmaptool copy --bmap /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-console-image/images/mbl-console-image-imx7s-warp-mbl.wic.bmap /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-console-image/images/mbl-console-image-imx7s-warp-mbl.wic.gz /dev/disk/by-id/<device-file-name>
     ```
-    replacing `<device-file-name>` with the correct device file for the Warp7's flash device.
 
     This action may take some time.
-1. When `bmaptool` has finished, eject the device:
+
+1. When `bmaptool` has finished, eject the device (replace `<device-file-name>` with the correct device file for the Warp7's flash device):
+
     ```
     sudo eject /dev/disk/by-id/<device-file-name>
     ```
-    Replace `<device-file-name>` with the correct device file for the Warp7's flash device.
-1. On the Warp7's U-boot prompt, press Ctrl-C to exit USB mass storage mode.
+
+1. On the Warp7's U-boot prompt, press <kbd>Ctrl</kbd>-<kbd>C</kbd> to exit USB mass storage mode.
 1. Reboot the Warp7:
+
     ```
     reset
     ```
+
     The device should now boot into MBL.
 
 ### Raspberry Pi 3 devices
 
 1. Connect a micro SD card to your PC. You should see:
-    * The SD card device file in `/dev`, probably as `/dev/sdX` for some letter `X` (for example, `/dev/sdd`).
-    * Device files for its partitions `/dev/sdXN` for the same letter `X` and some numbers `N` (for example, `/dev/sdd1` and `/dev/sdd2`).
 
-    In the commands below, replace `/dev/sdX` with the device file name for the SD card _without_ a number at the end. You can use `lsblk` to identify the name of the SD card device.
-1. Ensure that none of the micro SD card's partitions are mounted by running:
+    * The SD card device file in `/dev`, probably as `/dev/sdX` for some letter `X` (for example, `/dev/sdd`).
+    * Device files for its partitions. `/dev/sdXN` for the same letter `X` and some numbers `N` (for example, `/dev/sdd1` and `/dev/sdd2`).
+
+    <span class="notes">In the commands below, replace `/dev/sdX` with the device file name for the SD card _without_ a number at the end. You can use `lsblk` to identify the name of the SD card device.</span>
+
+1. Ensure that none of the micro SD card's partitions are mounted:
+
     ```
     sudo umount /dev/sdX*
     ```
@@ -352,9 +374,9 @@ If your device uses Wi-Fi:
 
 1. Enable Wi-Fi:
 
-  ```
-  # connmanctl enable wifi
-  ```
+    ```
+    # connmanctl enable wifi
+    ```
 
 ConnMan is now connected to the specified network.
 
@@ -364,13 +386,16 @@ If you experience any issues, restart both ConnMan and `wpa_supplicant` daemons.
 
 ## Verifying that the device is connected to Device Management
 
-While the device boots into MBL, `mbl-cloud-client` should automatically start and connect to Pelion. You can check whether it has connected by:
-* Checking the device status on the [Device Managmenent Portal](https://portal.mbedcloud.com/).<!--I will need to add the images in our publishing format-->
+When the device boots into MBL, `mbl-cloud-client` should automatically start and connect to Device Management. You can check whether it has connected by:
+
+* Checking the device status on the [Device Management Portal](https://portal.mbedcloud.com/).<!--I will need to add the images in our publishing format-->
 * Reviewing the log file for `mbl-cloud-client` at `/var/log/mbl-cloud-client.log`.
 
-If your device hasn't automatically connected to Pelion, it could be that:
+If your device hasn't automatically connected to Device Management, it could be that:
+
 * Networking wasn't configured before the device was rebooted. Check your configurations and reboot the device.<!--Easy enough to direct them to the WiFi bit, but is there anything that may have gone wrong with DHCP?-->
 * There are issues with the network. The device retries periodically, but you may need to restart `mbl-cloud-client`:
-    ```
-    /etc/init.d/mbl-cloud-client restart
-    ```
+
+     ```
+     /etc/init.d/mbl-cloud-client restart
+     ```
