@@ -2,23 +2,25 @@
 
 Arm Mbed Linux OS (MBL) is a Linux distribution for IoT devices based on the Cortex-A processor family. Mbed Linux OS supports all of the essential layers needed to build amazing IoT products, so you can focus exclusively on adding your unique value. We want you to build products quickly, and minimise the ongoing support and maintenance burden for products you’ve already shipped.
 
-MBL combines the benefits of Arm Mbed OS with the tools and recipes from the embedded-focused Yocto Project. It is designed to take advantage of the processing power of Crotex-A devices, which can handle complex workloads (reducing connectivity demands). It includes support for common IoT functions such as network management, secure storage and container management, as well as a standard Linux inter process communication (IPC) framework for both MBL and application processes. MBL also integrates with Pelion Device Management, including the firmware update services, by using the Device Management Client.
+MBL combines the benefits of Arm Mbed OS with the tools and recipes from the embedded-focused Yocto Project. It takes advantage of the processing power of Crotex-A devices to handle complex workloads (reducing connectivity demands). MBL includes support for common IoT functions such as network management, secure storage and container management, as well as a standard Linux inter-process communication (IPC) framework for both MBL and application processes. MBL also integrates with Pelion Device Management, including the firmware update services, by using the Device Management Client.
 
 ### Main features
 
 MBL provides a uniform, open and verifiable approach to platform security. Each supported platform has:
 
 * Secure, signed boot of Trusted Firmware, used for initializing trusted world firmware, including the trusted execution environment.
-* Arm's Platform Security Architecture, which takes advantage of the security features of the newest hardware.
 * Verified boot of normal world firmware.
 * Signed updates to protect against unauthorised changes.
 * Independent verification of application packages.
 * Integrity checking of read-only file systems.
 * Applications can be deployed in OCI-compliant containers, helping to protect against compromised applications and facilitating a modern development workflow.
 
-MBL also offers:
+### Arm integrations
 
-* The option of full commercial support for customers who need a firm SLA and platform longevity.
+MBL draws on other Arm resources to provide:
+
+* Arm's Platform Security Architecture, which takes advantage of the security features of the newest hardware.
+* Full commercial support for customers who need a firm SLA and platform longevity.
 * Tools to help you get prototyping and demoing quickly, including support for popular development boards and production ready modules.
 * Support for the Device Management Client, to simplify in-field provisioning and eradicate the need for legacy serial connections for initial device configuration.
 * Integration with the Pelion service for device provisioning, connectivity and updates. To allow different development teams to deliver updates more efficiency, the OS firmware and individual applications can be updated independently.
