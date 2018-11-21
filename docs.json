@@ -29,17 +29,10 @@
                 "title": "Requirements",
                 "intro": {
                     "type": "markdown",
-                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/connect_tutorial_intro.md"
+                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/intro_reqs.md"
                 },
                 "sub_chapters": [
-                    {
-                        "title": "Requirements",
-                        "intro": {
-                            "type": "markdown",
-                            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/intro_reqs.md"
-                        },
-                        "sources": []
-                    },
+
                     {
                         "title": "Hardware",
                         "sources": [{
@@ -75,6 +68,10 @@
             },
             {
                 "title": "Tutorial: Connecting an MBL device",
+                "intro": {
+                    "type": "markdown",
+                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/connect_tutorial_intro.md"
+                },
                 "sources": [{
                     "type": "markdown",
                     "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/create_connecting_image.md"
