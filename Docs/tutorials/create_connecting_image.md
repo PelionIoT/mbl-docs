@@ -129,21 +129,21 @@ The following examples assume:
 
 ### Building outputs
 
-The build process creates the following files (which you need later):
+The build process creates the following test image files (which you need later):
 
 | File | Path | Information |
 | --- | --- | --- |
-| Full disk image  | `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image/images/mbl-console-image-<MACHINE>.wic.gz` | This is a compressed image of the entire flash. Once decompressed, this image can be directly written to storage media, and initializes the device's storage with a full set of disk partitions and an initial version of firmware. |
-| Full disk image block map | `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image/images/mbl-console-image-<MACHINE>.wic.bmap` | This is a file containing information about which blocks of the uncompressed full disk image actually need to be written to the device. Some blocks of the image represent unused storage space, which does not actually need to be written. |
-| Root file system archive  | `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image/images/mbl-console-image-<MACHINE>.tar.xz` | This is a compressed `.tar` archive, which you need when you update the device firmware (this topic is covered [in the Updating MBL tutorial](../getting-started/tutorial-updating-mbl-devices-and-applications.html)). |
+| Full disk image  | `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image-test/images/mbl-console-image-test-<MACHINE>.wic.gz` | This is a compressed image of the entire flash. Once decompressed, this image can be directly written to storage media, and initializes the device's storage with a full set of disk partitions and an initial version of firmware. |
+| Full disk image block map | `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image-test/images/mbl-console-image-test-<MACHINE>.wic.bmap` | This is a file containing information about which blocks of the uncompressed full disk image actually need to be written to the device. Some blocks of the image represent unused storage space, which does not actually need to be written. |
+| Root file system archive  | `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image-test/images/mbl-console-image-test-<MACHINE>.tar.xz` | This is a compressed `.tar` archive, which you need when you update the device firmware (this topic is covered [in the Updating MBL tutorial](../getting-started/tutorial-updating-mbl-devices-and-applications.html)). |
 
-The process also creates a test image, which contains packages for testing and debugging (such as OP-TEE test suite, Dropbear to support SSH during development and test, and the strace utility).
+The process also creates a release images, which don't contain packages for testing and debugging (it removes packages such as OP-TEE test suite, Dropbear to support SSH during development and test, and the strace utility).
 
 | File | Path |
 | --- | --- |
-| Full test disk image | `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image-test/images/mbl-console-image-test-<MACHINE>.wic.gz` |
-| Full test disk image block map | `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image-test/images/mbl-console-image-test-<MACHINE>.wic.bmap` |
-| Root file system archive | `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image-test/images/mbl-console-image-test-<MACHINE>.tar.xz` |
+| Full test disk image | `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image/images/mbl-console-image-<MACHINE>.wic.gz` |
+| Full test disk image block map | `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image/images/mbl-console-image-<MACHINE>.wic.bmap` |
+| Root file system archive | `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image/images/mbl-console-image-<MACHINE>.tar.xz` |
 
 
 ## Writing and booting the disk image
@@ -245,7 +245,7 @@ To write your disk image to the Warp7's flash device, you must first access the 
     lrwxrwxrwx 1 root root 10 Mar 26 14:00 usb-Linux_UMS_disk_0-0:0-part2 -> ../../sdc2
     lrwxrwxrwx 1 root root 10 Mar 26 14:00 usb-Linux_UMS_disk_0-0:0-part3 -> ../../sdc3
     ```
-    `mbl-console-image-imx7s-warp-mbl.wic.gz` is a full disk image so should be written to the whole flash device, not a partition.
+    `mbl-console-image-test-imx7s-warp-mbl.wic.gz` is a full disk image so should be written to the whole flash device, not a partition.
     The device file for the whole flash device is the one without `-part` in the name (`/dev/disk/by-id/usb-Linux_UMS_disk_0-0:0` in this example).
 1. Ensure that none of the Warp7's flash partitions are mounted by running the following command (you may need to adjust the path depending on the name of the storage device):
     ```
@@ -253,7 +253,7 @@ To write your disk image to the Warp7's flash device, you must first access the 
     ```
 1. From a Linux prompt, write the disk image to the Warp7's flash device using the following command:
     ```
-    sudo bmaptool copy --bmap /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-console-image/images/mbl-console-image-imx7s-warp-mbl.wic.bmap /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-console-image/images/mbl-console-image-imx7s-warp-mbl.wic.gz /dev/disk/by-id/<device-file-name>
+    sudo bmaptool copy --bmap /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-console-image-test/images/mbl-console-image-test-imx7s-warp-mbl.wic.bmap /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-console-image-test/images/mbl-console-image-test-imx7s-warp-mbl.wic.gz /dev/disk/by-id/<device-file-name>
     ```
     replacing `<device-file-name>` with the correct device file for the Warp7's flash device.
 
@@ -284,7 +284,7 @@ To write your disk image to the Warp7's flash device, you must first access the 
     Replace `/dev/sdX` as mentioned above.
 1. Write the disk image to the SD card device (not a partition on it):
     ```
-    sudo bmaptool copy --bmap /path/to/artifacts/machine/raspberrypi3-mbl/images/mbl-console-image/images/mbl-console-image-raspberrypi3-mbl.wic.bmap /path/to/artifacts/machine/raspberrypi3-mbl/images/mbl-console-image/images/mbl-console-image-raspberrypi3-mbl.wic.gz /dev/sdX
+    sudo bmaptool copy --bmap /path/to/artifacts/machine/raspberrypi3-mbl/images/mbl-console-image-test/images/mbl-console-image-test-raspberrypi3-mbl.wic.bmap /path/to/artifacts/machine/raspberrypi3-mbl/images/mbl-console-image-test/images/mbl-console-image-test-raspberrypi3-mbl.wic.gz /dev/sdX
     ```
     Replace `/dev/sdX` as mentioned above.
 
