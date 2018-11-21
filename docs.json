@@ -26,7 +26,7 @@
                 "sources": []
             },
             {
-                "title": "Tutorial: Connecting an MBL device",
+                "title": "Requirements",
                 "sub_chapters": [{
                         "title": "Introduction",
                         "intro": {
@@ -77,27 +77,27 @@
                 ]
             },
             {
-                "title": "Creating an MBL image",
+                "title": "Tutorial: Connecting an MBL device",
                 "sources": [{
                     "type": "markdown",
                     "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/create_connecting_image.md"
                 }]
+            },
+            {
+                "title": "Tutorial: User application",
+                "sources": [{
+                    "type": "markdown",
+                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/helloworld.md"
+                }]
+            },
+            {
+                "title": "Tutorial: updating MBL devices and applications",
+                "sources": [{
+                    "type": "markdown",
+                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/update_mbl.md"
+                }]
             }
         ]
-    },
-    {
-        "title": "Tutorial: User application",
-        "sources": [{
-            "type": "markdown",
-            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/helloworld.md"
-        }]
-    },
-    {
-        "title": "Tutorial: updating MBL devices and applications",
-        "sources": [{
-            "type": "markdown",
-            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/update_mbl.md"
-        }]
     },
     {
         "title": "References",
