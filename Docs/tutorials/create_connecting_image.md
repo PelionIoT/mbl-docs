@@ -143,27 +143,6 @@ This section contains instructions for writing the full disk image to a:
 * Warp7 device
 * Raspberry Pi 3 device
 
-### Adding your user to the dialout group
-<!--should we just put that in the prereqs bit?-->
-
-To access ``/dev/ttyUSBn`` devices without using sudo, add the current user to the dialout group:
-
-<!--Is this mandatory, or just nicer?-->
-```
-sudo usermod -a -G dialout $USER
-```
-
-Verify group memberships by entering `groups`:
-
-```
-groups
-<your_user> dialout
-```
-
-You may need to reboot your computer before the group membership takes effect.
-
-<!--And this is okay because we've done the build, so we're not limited to the original shell instance anymore, right?-->
-
 ### Warp7 devices
 
 To write your disk image to the Warp7's flash device, you must first access the Warp7's serial console. To do this:
@@ -209,7 +188,7 @@ To write your disk image to the Warp7's flash device, you must first access the 
 
     You'll need to refer to this output in the following steps, so save it for reference.
 
-1. If you got a U-boot prompt <!--on the device or the terminal?-->, continue to the next step.
+1. If you got a U-boot prompt on the device, continue to the next step.
 
    If you got an operating system boot (for example, Android), reboot the device until you get a U-boot prompt, then press any key to prevent the operating system from booting again. Continue to the next step.
 
@@ -321,7 +300,7 @@ To write your disk image to the Warp7's flash device, you must first access the 
 
     The cable's TX and RX are used to communicate with the board.
 
-1. After connecting the Raspberry Pi 3, from your PC, run the command <!--why? what does it do?-->:
+1. After connecting the Raspberry Pi 3, from your PC, run the following command to connect to the device's serial console:
 
     ```
     minicom -D /dev/ttyUSB0
@@ -338,8 +317,7 @@ To write your disk image to the Warp7's flash device, you must first access the 
 
 ### Logging in to MBL
 
-To log in to MBL, enter the username `root` with no password.
-<!--- Does it prompt me automatically? Do I need to just wait? Where do I enter the credentials? *Mel*--->
+To log in to MBL, wait for a login prompt, then enter the username `root`. You will not be prompted for a password.
 
 ## Setting up a network connection
 
