@@ -26,7 +26,10 @@ Each section is implemented for both release and debug variants.
 1. On a Linux Ubuntu PC, install Docker CE as described in the [Docker CE for Ubuntu documentation](https://docs.docker.com/install/linux/docker-ce/ubuntu/)      
 1. Navigate to the `helloworld` folder in your clone:<!--do we know that they cloned it? shouldn't that be a step here?-->
 
-    `cd mbl-core/tutorials/helloworld`           
+    ```
+    cd mbl-core/tutorials/helloworld
+    ```
+    
 1. [dockcross](https://github.com/dockcross/dockcross) is a Docker-based cross compiling toolchain. We build a new Docker image with dockcross as our starting point, adding the opkg utilities. The image is defined in `cc-env/Dockerfile` and can be built with `docker build`:
     ```
     docker build -t linux-armv7:latest ./cc-env/
