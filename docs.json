@@ -80,17 +80,19 @@
             },
             {
                 "title": "Tutorial: User application",
-                "sources": [{
+                "intro": {
                     "type": "markdown",
                     "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/helloworld.md"
-                }]
+                },
+                "sources": []
             },
             {
                 "title": "Tutorial: updating MBL devices and applications",
-                "sources": [{
+                "intro": {
                     "type": "markdown",
                     "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/update_mbl.md"
-                }]
+                },
+                "sources": []
             }
         ]
     },
@@ -99,7 +101,12 @@
         "description": "",
         "slug": "references",
         "type": "markdown",
-        "sources": [{
+        "sources": [
+          {
+              "type": "markdown",
+              "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/refs/refs_intro.md"
+          },
+          {
                 "type": "markdown",
                 "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/refs/versioning.md"
             },
