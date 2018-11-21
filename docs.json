@@ -36,70 +36,68 @@
                         "sources": []
                     },
                     {
-                                "title": "Requirements",
-                                "intro": {
-                                    "type": "markdown",
-                                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/intro_reqs.md"
-                                },
-                                "sources": []
-                            },
-                            {
-                                "title": "Hardware",
-                                "sources": [{
-                                    "type": "markdown",
-                                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/Hardware.md"
-                                }]
-                            },
-                            {
-                                "title": "Enviornment",
-                                "sources": [{
-                                    "type": "markdown",
-                                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/env_and_software.md"
-                                }]
-                            },
-                            {
-                                "title": "Accounts and certificates",
-                                "sources": [{
-                                        "type": "markdown",
-                                        "url": "https://github.com/ARMmbed/mbed_Cloud_Docs/blob/R2.0/Docs/account_management/log_or_create_users.md"
-                                    },
-                                    {
-                                        "type": "markdown",
-                                        "url": "https://github.com/ARMmbed/mbed_Cloud_Docs/blob/R2.0/Docs/web_apps/api_keys.md"
-                                    },
-                                    {
-                                        "type": "markdown",
-                                        "url": "https://github.com/ARMmbed/mbed_Cloud_Docs/blob/R2.0/Docs/provisioning/fcc_for_development.md"
-
-                                    }
-                                ]
-                            }
-                        ]
+                        "title": "Requirements",
+                        "intro": {
+                            "type": "markdown",
+                            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/intro_reqs.md"
+                        },
+                        "sources": []
                     },
                     {
-                        "title": "Creating an MBL image",
-                        "sources": [
+                        "title": "Hardware",
+                        "sources": [{
+                            "type": "markdown",
+                            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/Hardware.md"
+                        }]
+                    },
+                    {
+                        "title": "Enviornment",
+                        "sources": [{
+                            "type": "markdown",
+                            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/env_and_software.md"
+                        }]
+                    },
+                    {
+                        "title": "Accounts and certificates",
+                        "sources": [{
+                                "type": "markdown",
+                                "url": "https://github.com/ARMmbed/mbed_Cloud_Docs/blob/R2.0/Docs/account_management/log_or_create_users.md"
+                            },
                             {
                                 "type": "markdown",
-                                "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/create_connecting_image.md"
+                                "url": "https://github.com/ARMmbed/mbed_Cloud_Docs/blob/R2.0/Docs/web_apps/api_keys.md"
+                            },
+                            {
+                                "type": "markdown",
+                                "url": "https://github.com/ARMmbed/mbed_Cloud_Docs/blob/R2.0/Docs/provisioning/fcc_for_development.md"
+
                             }
                         ]
                     }
                 ]
             },
             {
-                "title": "Tutorial: User application",
+                "title": "Creating an MBL image",
                 "sources": [{
                     "type": "markdown",
-                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/helloworld.md"
+                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/create_connecting_image.md"
                 }]
-            },
-            {
-                "title": "Tutorial: updating MBL devices and applications",
-                "sources": [{
-                    "type": "markdown",
-                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/update_mbl.md"
-                }]
+            }
+        ]
+    },
+    {
+        "title": "Tutorial: User application",
+        "sources": [{
+            "type": "markdown",
+            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/helloworld.md"
+        }]
+    },
+    {
+        "title": "Tutorial: updating MBL devices and applications",
+        "sources": [{
+            "type": "markdown",
+            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/update_mbl.md"
+        }]
     },
     {
         "title": "References",
