@@ -27,14 +27,11 @@
             },
             {
                 "title": "Requirements",
-                "sub_chapters": [{
-                        "title": "Introduction",
-                        "intro": {
-                            "type": "markdown",
-                            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/connect_tutorial_intro.md"
-                        },
-                        "sources": []
-                    },
+                "intro": {
+                    "type": "markdown",
+                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/connect_tutorial_intro.md"
+                },
+                "sub_chapters": [
                     {
                         "title": "Requirements",
                         "intro": {
