@@ -15,6 +15,12 @@ MBL provides a uniform, open and verifiable approach to platform security. Each 
 * Integrity checking of read-only file systems.
 * Applications can be deployed in OCI-compliant containers, helping to protect against compromised applications and facilitating a modern development workflow.
 
+### Design
+
+The following diagram illustrates the components and services provided by MBL. When used in conjunction with Mbed Cloud, MBL provides a secure platform for developing, operating and managing IoT applications.
+
+<span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/Application_containers.png)</span>
+
 ### Arm integrations
 
 MBL draws on other Arm resources to provide:
@@ -22,8 +28,16 @@ MBL draws on other Arm resources to provide:
 * Arm's Platform Security Architecture, which takes advantage of the security features of the newest hardware.
 * Full commercial support for customers who need a firm SLA and platform longevity.
 * Tools to help you get prototyping and demoing quickly, including support for popular development boards and production ready modules.
-* Support for the Device Management Client, to simplify in-field provisioning and eradicate the need for legacy serial connections for initial device configuration.
-* Integration with the Pelion service for device provisioning, connectivity and updates. To allow different development teams to deliver updates more efficiency, the OS firmware and individual applications can be updated independently.
+
+For application developers, the Device Management layer and the integration with Pelion Device Management services provides:
+
+* Device discovery and secure identity in the Device Management device directory, to protect against impersonation or cloning.
+* Large-scale management of device groups.
+* Device status monitoring, including notifications of connection status.
+* Device firmware update and application management.
+* Access control at the account level.
+* Support for the Device Management Client for simple in-field provisioning and over-the-air device configuration.
+* Integration with the Pelion service for device provisioning, connectivity and firmware updates. To allow different development teams to deliver updates more efficiency, the MBL root file system and individual applications can be updated independently.
 
 ### Get started
 
@@ -36,29 +50,6 @@ There are two paths to working with MBL:
     1. Please [build MBL locally and flash it to your device](../getting-started/tutorial-connecting-an-mbl-device.html).
     1. Try our [example application](../getting-started/tutorial-user-application.html), or start writing your own application using the Linux APIs.
     1. You can also [use our update example](../getting-started/tutorial-updating-mbl-devices-and-applications.html) to send firmware updates over the air.
-
-### Design
-
-The following diagram illustrates the components and services provided by MBL. When used in conjunction with Mbed Cloud, MBL provides a secure platform for developing, operating and managing IoT applications.
-
-<span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/Application_containers.png)</span>
-
-### Containers
-
-To enhance application development and deployment, each device application process can run in its own container. The process isolation provided by containers also increases security and device reliability. It is based on OCI containers, which you can make using Docker on the host (creating a cross-compiled build of the application) and export.
-
-
-### Pelion Device Management through MBL
-
-For application developers, the Device Management layer provides the following services:
-
-* Device discovery and secure identity in the Device Management device directory, to protect against impersonation or cloning.
-* Membership of a group of managed devices (Pelion Device Management) to simplify large-scale management
-* Access control at the account level.
-* Device status monitoring, including notifications of connection status.
-* Device firmware update and application management
-
-MBL uses the Pelion Device Management Update service to support updates of both the device's base firmware and application packages.
 
 ### Licensing
 
