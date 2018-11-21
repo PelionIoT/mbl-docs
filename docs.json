@@ -32,20 +32,21 @@
                     "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/intro_reqs.md"
                 },
                 "sub_chapters": [
-
                     {
                         "title": "Hardware",
-                        "sources": [{
+                        "intro": {
                             "type": "markdown",
                             "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/Hardware.md"
-                        }]
+                        },
+                        "sources": []
                     },
                     {
                         "title": "Enviornment",
-                        "sources": [{
+                        "intro": {
                             "type": "markdown",
                             "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/env_and_software.md"
-                        }]
+                        },
+                        "sources": []
                     },
                     {
                         "title": "Accounts and certificates",
