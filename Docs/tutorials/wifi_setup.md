@@ -4,7 +4,7 @@ Mbed Linux OS (MBL) uses **Connection Manager (ConnMan)** to manage Wi-Fi interf
 
 As an MBL developer, use ConnMan for all basic Wi-Fi operations, rather than interacting directly with the `wpa_supplicant` daemon or modifying the `wpa_supplicant.conf` file.
 
-<span class="tips">This page reviews only some of the commonly used ConnMan options, within the context of MBL. You may be interested in [the full ConnMan documentation](https://01.org/connman/documentation).</span>
+<span class="notes>**Note:** This page reviews only some of the commonly used ConnMan options, within the context of MBL. You may be interested in [the full ConnMan documentation](https://01.org/connman/documentation).</span>
 
 ### connmanctl
 
@@ -31,15 +31,13 @@ As an MBL developer, use ConnMan for all basic Wi-Fi operations, rather than int
 
     Interactive mode supports the same commands as the plain mode, but you don't need to prefix the commands with `connmanctl`. Enter `help` for more information.
 
-
-<span class="tips">The official [connmanctl documentation is on the ConnMan site](https://01.org/connman/documentation).</span>
+<span class="notes">**Note:** The official [connmanctl documentation is on the ConnMan site](https://01.org/connman/documentation).</span>
 
 ### Configuration and state
 
 ConnMan automates many network operations and configurations by interacting with other daemons (DNS, DHCP and others) and by keeping a settings file, service files and other auto-generated data in the `/config/user/connman/` folder.
 
 The folder contains:
-
 * `/config/user/connman/settings` file: Current global and per-technology settings.
 * `/config/user/connman/main.conf` file: The main ConnMan configuration file. Currently, most parameters are set to default (commented); the only set parameter is `PreferredTechnologies`, which prioritizes Ethernet interface default routes over the Wi-Fi interface when both are connected.
 * An automatically generated **service profile**. For each Wi-Fi network that ConnMan connects to, it creates a directory in `/config/user/connman` to hold connection-specific configuration, such as passphrases, to support auto-connect on boot. In the initial state, there are no service profiles defined.
@@ -53,13 +51,12 @@ The folder contains:
 
 ### Enabling Wi-Fi
 
-ConnMan refers to network interface types as "technologies"; each technology supplies different services. For example, Wi-Fi is a technology (named `wifi`) that supplies a service called `wifi_dc85de828967_68756773616d_managed_psk`.
+ConnMan refers to network interface types as **technologies**, each of which supplies different services. For example, Wi-Fi is a technology (named `wifi`) that supplies a service called `wifi_dc85de828967_68756773616d_managed_psk`.
 
 By default, all technologies are disabled at the very first startup to prevent unwanted wireless or wired communication. To enable Wi-Fi:
 
 1. Enter `connmanctl state`.
-1. Enter `ifconfig` to see the initial state. You will get an output similar to this, but the exact details depend on how you connect to your device:
-
+1. Enter `ifconfig` to see the initial state. The output is similar to this, but the exact details depend on how you connect to your device:
   ```
   # connmanctl state
     State = idle
@@ -84,10 +81,8 @@ By default, all technologies are disabled at the very first startup to prevent u
             RX bytes:4544764 (4.3 MiB)  TX bytes:4010 (3.9 KiB)
 
   ```
-
 1. Enter `connmanctl enable wifi`.
 1. The state changes to ready and the `wlan0` interface is active:
-
   ```
   # connmanctl enable wifi
   [83043.692440] IPv6: ADDRCONF(NETDEV_UP): wlan0: link is not ready
