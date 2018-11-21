@@ -143,27 +143,6 @@ This section contains instructions for writing the full disk image to a:
 * Warp7 device
 * Raspberry Pi 3 device
 
-### Adding your user to the dialout group
-<!--should we just put that in the prereqs bit?-->
-
-To access ``/dev/ttyUSBn`` devices without using sudo, add the current user to the dialout group:
-
-<!--Is this mandatory, or just nicer?-->
-```
-sudo usermod -a -G dialout $USER
-```
-
-Verify group memberships by entering `groups`:
-
-```
-groups
-<your_user> dialout
-```
-
-You may need to reboot your computer before the group membership takes effect.
-
-<!--And this is okay because we've done the build, so we're not limited to the original shell instance anymore, right?-->
-
 ### Warp7 devices
 
 To write your disk image to the Warp7's flash device, you must first access the Warp7's serial console. To do this:
