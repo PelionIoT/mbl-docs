@@ -4,13 +4,21 @@ This tutorial builds and installs an Mbed Linux OS (MBL) image on a device. This
 
 <span class="notes">Each release has its own branch, such as `mbl-os-0.5`. Throughout this guide, the release branch is referred to as `mbl-XXX`. Replace it with the name of the branch you're working with.</span>
 
-<!--I need to review the steps, but I'll do that after I understand them-->
+The full process is:
+
+* [Prepare Device Management sources](preparing-device-management-sources.html).
+* [Building the image](building-an-mbl-image.html) with a build script.
+* [Writing and booting the disk image](writing-and-booting-the-disk-image.html).
+* [Setting up a network connection](setting-up-a-network-connection.html) over Ethernet or Wi-Fi.
+* [Verifying that the device is connected to Device Management](verifying-that-the-device-is-connected-to-device-management.html).
 
 <span class="notes">**Note:** These instructions use the developer workflow and certificates as connectivity credentials. Do not use these credentials for production devices.</span>
 
-## Prerequisites
+### Prerequisites
 
 Please [make sure you have suitable hardware and all the required software](../reqs-setup/index.html).
+
+## Preparing Device Management sources
 
 ### Downloading Device Management developer credentials
 
@@ -19,6 +27,8 @@ MBL handles Device Management connectivity on behalf of the device, rather than 
 1. Create cloud credentials directory, e.g. `./cloud-credentials`
 2. To create a Pelion developer certificate (`mbed_cloud_dev_credentials.c`), follow the instructions for [creating and downloading a developer certificate](../reqs-setup/provisioning-development.html).
 3. Add the developer certificate to the credentials directory you've created.
+
+<span class="notes">**Note:** These instructions use the developer workflow and certificates as connectivity credentials. Do not use these credentials for production devices.</span>
 
 ### Creating an update resources file
 
