@@ -37,11 +37,11 @@ To support `rootfs` updates, MBL devices have two root partitions called:
 After receiving a payload file containing a `rootfs` update, MBL:
 
 * Writes the contents of `rootfs.tar.xz` to the inactive partition.
-* Flips a flag indicating which root file system partition is active, so that after a reboot the previously inactive partition will become the active partition, and vice versa.
+* Flips a flag indicating which root file system partition is active, so that after a reboot the previously inactive partition becomes the active one, and vice versa.
 * Reboots the device.
 * Mounts the root file system from the update payload.
 
-The previously active (now inactive) root file system partition is now available to receive the next `rootfs` update.
+The previously active (now inactive) root file system partition is now ready to receive the next `rootfs` update.
 
 ### Prerequisites
 
@@ -59,36 +59,29 @@ An MBL device can only be updated if the followings are available:
 ### Workflow
 
 1. Create an update payload file:
-
     * **For an application**: Make a `tar` file containing the `.ipk` files for the applications to update.
 
         Note that the `.ipk` files must be in the `.tar`'s root directory, not a subdirectory.
 
         For example, to create an update payload file at `/tmp/payload.tar` containing an `.ipk` file with the path `/home/user01/my_app.ipk`, run:
-
         ```
         user01@dev-machine:~$ tar -cf /tmp/payload.tar -C /home/user01 my_app.ipk
         ```
-
     * **For a root file system**: Make a `tar` file containing the root file system archive from the MBL build artefacts.
 
         A symlink to the root file system archive can be found in the build environment at `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image-test/images/mbl-console-image-test-<MACHINE>.tar.xz`
 
         Where:
-
         * `/path/to/artifacts` is the output directory specified for all build artifacts. See the [build tutorial]() for more information.
         * `<MACHINE>` is the value that was given to the build script for the `--machine` option. See the [build tutorial]() to determine which value is suitable for the device in use.
 
         <span class="notes">**Note:** The file inside the update payload must be named `rootfs.tar.xz` and must be in the tar's root directory, not a subdirectory.</span>
 
-        For example, to create an update payload file at `/tmp/payload.tar` containing a Warp7 root file system image `tar` file with the path `/path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-console-image-test/images/mbl-console-image-test-imx7s-warp-mbl.tar.xz`, run:
-
+        For example, to create an update payload file at `/tmp/payload.tar` containing a Warp7 root file system image `tar` file with the path `build-mbl/tmp-mbl-glibc/deploy/images/imx7s-warp-mbl/mbl-console-image-imx7s-warp-mbl.tar.xz`, run:
         ```
         user01@dev-machine:~$ tar -cf /tmp/payload.tar -C /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-console-image-test/images '--transform=s/.*/rootfs.tar.xz/' --dereference mbl-console-image-test-imx7s-warp-mbl.tar.xz
         ```
-
         The `--transform` option renames all files added to the payload to `rootfs.tar.xz` and the `--dereference` option is used so that `tar` adds the actual root file system archive file rather than the symlink to it.
-
 1. Find the device ID in the `mbl-cloud-client` log file at `/var/log/mbl-cloud-client.log`, using the following command on the device's console:
 
     ```
@@ -130,8 +123,7 @@ An MBL device can only be updated if the followings are available:
 
 ### Identifying the active root file system partition
 
-To verify that a root system update succeeded, you can check which root file system partition is active before and after the update. If the update succeeded, the active partition will change.
-
+To verify that a root system update succeeded, you can check which root file system partition is active before and after the update. If the update succeeded, the active partition changes.
 
 To identify the active root file system partition:
 
@@ -139,9 +131,9 @@ To identify the active root file system partition:
 root@mbed-linux-os-1234:~# lsblk --noheadings --output "MOUNTPOINT,LABEL" | awk '$1=="/" {print $2}'
 ```
 
-This command prints the label of the block device currently mounted at `/`, which will be `rootfs1` if the first root file system partition is active or `rootfs2` if the second root file system partition is active.
+This command prints the label of the block device currently mounted at `/`, which is `rootfs1` if the first root file system partition is active, or `rootfs2` if the second root file system partition is active.
 
-For example, when the first root file system partition is active, you wil see:
+For example, when the first root file system partition is active, you see:
 
 ```
 root@mbed-linux-os-1234:~# lsblk --noheadings --output "MOUNTPOINT,LABEL" | awk '$1=="/" {print $2}'
