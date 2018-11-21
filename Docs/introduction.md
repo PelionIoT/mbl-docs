@@ -29,15 +29,14 @@ MBL draws on other Arm resources to provide:
 * Full commercial support for customers who need a firm SLA and platform longevity.
 * Tools to help you get prototyping and demoing quickly, including support for popular development boards and production ready modules.
 
-For application developers, the Device Management layer and the integration with Pelion Device Management services provides:
+For application developers, the integration with Pelion Device Management services provides:
 
+* Support for the Device Management Client for simple in-field provisioning and over-the-air device configuration.
 * Device discovery and secure identity in the Device Management device directory, to protect against impersonation or cloning.
 * Large-scale management of device groups.
 * Device status monitoring, including notifications of connection status.
 * Device firmware update and application management.
 * Access control at the account level.
-* Support for the Device Management Client for simple in-field provisioning and over-the-air device configuration.
-* Integration with the Pelion service for device provisioning, connectivity and firmware updates. To allow different development teams to deliver updates more efficiency, the MBL root file system and individual applications can be updated independently.
 
 ### Get started
 
