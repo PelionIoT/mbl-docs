@@ -30,17 +30,6 @@ MBL and Device Management support over-the-air updates for devices, which you ca
 
     You will use this file in the build process later.
 
-<!--this was covered in the software prereqs section
-### mbl-tools
-
-mbl-tools repository provides a collection of tools and recipes related to the build and test of Mbed Linux OS.
-Checkout the `mbl-tools-XXX` branch from [mbl-tools git repository](https://github.com/ARMmbed/mbl-tools) using the following command
-```
-mkdir /path/to/working-dir/; cd /path/to/working-dir/
-$ git clone git@github.com:ARMmbed/mbl-tools.git --branch mbl-tools-XXX
-
-```
--->
 
 ## Building an MBL image
 
@@ -224,7 +213,7 @@ To write your disk image to the Warp7's flash device, you must first access the 
     lrwxrwxrwx 1 root root 10 Mar 26 14:00 usb-Linux_UMS_disk_0-0:0-part2 -> ../../sdc2
     lrwxrwxrwx 1 root root 10 Mar 26 14:00 usb-Linux_UMS_disk_0-0:0-part3 -> ../../sdc3
     ```
-    
+
     `mbl-console-image-test-imx7s-warp-mbl.wic.gz` is a full disk image so should be written to the whole flash device, not a partition.
 
     The device file for the whole flash device is the one without `-part` in the name (`/dev/disk/by-id/usb-Linux_UMS_disk_0-0:0` in this example).
@@ -364,12 +353,12 @@ If you experience any issues, restart both ConnMan and `wpa_supplicant` daemons.
 
 When the device boots into MBL, `mbl-cloud-client` should automatically start and connect to Device Management. You can check whether it has connected by:
 
-* Checking the device status on the [Device Management Portal](https://portal.mbedcloud.com/).<!--I will need to add the images in our publishing format-->
+* Checking the device status on the [Device Management Portal](https://portal.mbedcloud.com/).
 * Reviewing the log file for `mbl-cloud-client` at `/var/log/mbl-cloud-client.log`.
 
 If your device hasn't automatically connected to Device Management, it could be that:
 
-* Networking wasn't configured before the device was rebooted. Check your configurations and reboot the device.<!--Easy enough to direct them to the WiFi bit, but is there anything that may have gone wrong with DHCP?-->
+* Networking wasn't configured before the device was rebooted. Check your configurations and reboot the device.
 * There are issues with the network. The device retries periodically, but you may need to restart `mbl-cloud-client`:
 
      ```
