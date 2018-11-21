@@ -291,52 +291,60 @@ To write your disk image to the Warp7's flash device, you must first access the 
 
 ### Raspberry Pi 3 devices
 
-1. Connect a micro SD card to your PC. You should see:
+1. Connect a micro-SD card to your PC. You should see:
 
     * The SD card device file in `/dev`, probably as `/dev/sdX` for some letter `X` (for example, `/dev/sdd`).
     * Device files for its partitions. `/dev/sdXN` for the same letter `X` and some numbers `N` (for example, `/dev/sdd1` and `/dev/sdd2`).
 
     <span class="notes">In the commands below, replace `/dev/sdX` with the device file name for the SD card _without_ a number at the end. You can use `lsblk` to identify the name of the SD card device.</span>
 
-1. Ensure that none of the micro SD card's partitions are mounted:
+1. Ensure that none of the micro-SD card's partitions are mounted (replace `/dev/sdX` as explained above):
 
     ```
     sudo umount /dev/sdX*
     ```
-    Replace `/dev/sdX` as mentioned above.
-1. Write the disk image to the SD card device (not a partition on it):
+
+1. Write the disk image to the SD card device - not a partition on it (replace `/dev/sdX` as explained above):
+
     ```
     sudo bmaptool copy --bmap /path/to/artifacts/machine/raspberrypi3-mbl/images/mbl-console-image/images/mbl-console-image-raspberrypi3-mbl.wic.bmap /path/to/artifacts/machine/raspberrypi3-mbl/images/mbl-console-image/images/mbl-console-image-raspberrypi3-mbl.wic.gz /dev/sdX
     ```
-    Replace `/dev/sdX` as mentioned above.
 
     This action may take some time.
+
 1. When `bmaptool` has finished, eject the device:
+
     ```
     sudo eject /dev/sdX
     ```
-1. Detach the micro SD card from your PC and plug it into the Raspberry Pi 3.
-1. You need access to the device's console, so before powering it on the, either:
-   * Connect it to a monitor and keyboard (using its HDMI and USB sockets).
-   * Connect it to your PC. For example, if you're using a [C232HD-DDHSP-0](http://www.ftdichip.com/Support/Documents/DataSheets/Cables/DS_C232HD_UART_CABLE.pdf) cable, use [this pin numbering reference](https://www.element14.com/community/servlet/JiveServlet/previewBody/73950-102-10-339300/pi3_gpio.png) and connect USB-UART colored wires as follows:
-       * **Black** wire to pin **06**
-       * **Yellow** wire to pin **08**
-       * **Orange** wire to pin **10**
 
-   ![](./pics/rpi3_uart-connection.JPG)
+1. Detach the micro-SD card from your PC and plug it into the Raspberry Pi 3.
+1. You need access to the device's console, so before powering it on the, either:
+
+    * Connect it to a monitor and keyboard (using its HDMI and USB sockets).
+    * Connect it to your PC. For example, if you're using a [C232HD-DDHSP-0](http://www.ftdichip.com/Support/Documents/DataSheets/Cables/DS_C232HD_UART_CABLE.pdf) cable, use [this pin numbering reference](https://www.element14.com/community/servlet/JiveServlet/previewBody/73950-102-10-339300/pi3_gpio.png) and connect USB-UART colored wires:
+       * **Black** wire to pin **06**.
+       * **Yellow** wire to pin **08**.
+       * **Orange** wire to pin **10**.
+
+    Connect the other end of the C232HD-DDHSP-0 cable to the USB port on your PC.
 
     The cable's TX and RX are used to communicate with the board.
 
-    Connect the other end of the C232HD-DDHSP-0 cable to the USB port on your PC.
 1. After connecting the Raspberry Pi 3, from your PC, run the command <!--why? what does it do?-->:
+
     ```
     minicom -D /dev/ttyUSB0
     ```
+
     Use the following settings:
-    * Baud rate 115200.
-    * [8N1](https://en.wikipedia.org/wiki/8-N-1) encoding.
+
+    * Baud rate: 115200.
+    * Encoding: [8N1](https://en.wikipedia.org/wiki/8-N-1).
     * No hardware flow control.
-1. Connect the Raspberry Pi 3's micro USB socket to a USB power supply. It should now boot into MBL.
+1. Connect the Raspberry Pi 3's micro-USB socket to a USB power supply.
+
+    The device should now boot into MBL.
 
 ### Logging in to MBL
 
