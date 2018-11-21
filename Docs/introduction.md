@@ -41,12 +41,12 @@ The following diagram illustrates the components and services provided by MBL. W
 
 ### Containers
 
-To enchance application development and deployment, each device application process can run in its own container. The process isolation provided by containers also enhances security and device reliability. It is based on OCI containers, which you can make using Docker on the host (creating a cross-compiled build of the application) and export.
+To enhance application development and deployment, each device application process can run in its own container. The process isolation provided by containers also increases security and device reliability. It is based on OCI containers, which you can make using Docker on the host (creating a cross-compiled build of the application) and export.
 
 
 ### Pelion Device Management through MBL
 
-For application developers, the Pelion layer provides the following services:
+For application developers, the Device Management layer provides the following services:
 
 * Device discovery and secure identity in the Device Management device directory, to protect against impersonation or cloning.
 * Membership of a group of managed devices (Pelion Device Management) to simplify large-scale management
@@ -55,7 +55,6 @@ For application developers, the Pelion layer provides the following services:
 * Device firmware update and application management
 
 MBL uses the Pelion Device Management Update service to support updates of both the device's base firmware and application packages.
-
 
 ### Licensing
 
