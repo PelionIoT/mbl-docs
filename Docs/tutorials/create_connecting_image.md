@@ -6,6 +6,7 @@ This tutorial builds and installs an Mbed Linux OS (MBL) image on a device. This
 
 The full process is:
 
+* [Setting up your development environment]().
 * [Prepare Device Management sources](preparing-device-management-sources.html).
 * [Building the image](building-an-mbl-image.html) with a build script.
 * [Writing and booting the disk image](writing-and-booting-the-disk-image.html).
