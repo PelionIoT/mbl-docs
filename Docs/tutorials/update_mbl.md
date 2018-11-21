@@ -128,7 +128,7 @@ An MBL device can only be updated if the followings are available:
 
 * The system does not reboot after an application update.
 
-### Identify the active root file system partition
+### Identifying the active root file system partition
 
 To verify that a root system update succeeded, you can check which root file system partition is active before and after the update. If the update succeeded, the active partition will change.
 

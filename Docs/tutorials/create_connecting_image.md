@@ -1,16 +1,4 @@
-<h2 id="mbl-pelion-connect">Building an Mbed Linux OS image and connecting to Pelion Device Management</h2>
-
-This tutorial builds and installs an Mbed Linux OS (MBL) image on a device. This image includes credentials to connect to your Pelion Device Management account, but does not include a user application (that is covered [in the Hello World tutorial](../getting-started/tutorial-user-application.html)).
-
-<span class="notes">Each release has its own branch, such as `mbl-os-0.5`. Throughout this guide, the release branch is referred to as `mbl-XXX`. Replace it with the name of the branch you're working with.</span>
-
-<!--I need to review the steps, but I'll do that after I understand them-->
-
-<span class="notes">**Note:** These instructions use the developer workflow and certificates as connectivity credentials. Do not use these credentials for production devices.</span>
-
-## Prerequisites
-
-Please [make sure you have suitable hardware and all the required software](../reqs-setup/index.html).
+## Preparing Device Management sources
 
 ### Downloading Device Management developer credentials
 
@@ -19,6 +7,8 @@ MBL handles Device Management connectivity on behalf of the device, rather than 
 1. Create cloud credentials directory, e.g. `./cloud-credentials`
 2. To create a Pelion developer certificate (`mbed_cloud_dev_credentials.c`), follow the instructions for [creating and downloading a developer certificate](../reqs-setup/provisioning-development.html).
 3. Add the developer certificate to the credentials directory you've created.
+
+<span class="notes">**Note:** These instructions use the developer workflow and certificates as connectivity credentials. Do not use these credentials for production devices.</span>
 
 ### Creating an update resources file
 
@@ -129,7 +119,7 @@ The following examples assume:
 
 ### Building outputs
 
-The build process creates the following test image files (which you need later):
+The build process creates the following files:
 
 | File | Path | Information |
 | --- | --- | --- |
@@ -187,11 +177,13 @@ To write your disk image to the Warp7's flash device, you must first access the 
     ```
     minicom -D /dev/ttyUSB0
     ```
+
     Use the following settings:
 
     * Baud rate: 115200.
     * Encdoing: [8N1](https://en.wikipedia.org/wiki/8-N-1).
     * No hardware flow control.
+
 1. Check the current storage devices on your PC:
 
     ```
@@ -214,19 +206,27 @@ To write your disk image to the Warp7's flash device, you must first access the 
     lrwxrwxrwx 1 root root 10 Mar 19 10:38 ata-ST1000DM003-1CH162_W1D2QL7A-part4 -> ../../sdb4
     lrwxrwxrwx 1 root root 10 Mar 19 10:38 ata-ST1000DM003-1CH162_W1D2QL7A-part5 -> ../../sdb5
     ```
-    You'll need to compare this output in the following steps, so save it for reference.
-    
+
+    You'll need to refer to this output in the following steps, so save it for reference.
+
 1. If you got a U-boot prompt <!--on the device or the terminal?-->, continue to the next step.
+
    If you got an operating system boot (for example, Android), reboot the device until you get a U-boot prompt, then press any key to prevent the operating system from booting again. Continue to the next step.
-1. To expose the Warp7's flash device to Linux as USB mass storage, in the U-boot prompt type:
+
+1. To expose the Warp7's flash device to Linux as USB mass storage, in the U-boot prompt enter:
+
     ```
     ums 0 mmc 0
     ```
-    On the Warp7 you should now see an ASCII-art "spinner", and on your PC you should see new storage devices:
+
+    On the Warp7, you should now see an ASCII-art "spinner". On your PC, you should see new storage devices:
+
     ```
     ls -l /dev/disk/by-id/
     ```
-    In our example, the Warp7 appeared as `usb-Linux_UMS_disk_0` (the partitions on the device are also shown):
+
+    In our example, the Warp7 is listed as `usb-Linux_UMS_disk_0` (the partitions on the device are also shown):
+
     ```
     total 0
     lrwxrwxrwx 1 root root  9 Mar 19 10:38 ata-Crucial_CT240M500SSD1_140709691C39 -> ../../sda
@@ -245,76 +245,96 @@ To write your disk image to the Warp7's flash device, you must first access the 
     lrwxrwxrwx 1 root root 10 Mar 26 14:00 usb-Linux_UMS_disk_0-0:0-part2 -> ../../sdc2
     lrwxrwxrwx 1 root root 10 Mar 26 14:00 usb-Linux_UMS_disk_0-0:0-part3 -> ../../sdc3
     ```
+    
     `mbl-console-image-test-imx7s-warp-mbl.wic.gz` is a full disk image so should be written to the whole flash device, not a partition.
+
     The device file for the whole flash device is the one without `-part` in the name (`/dev/disk/by-id/usb-Linux_UMS_disk_0-0:0` in this example).
-1. Ensure that none of the Warp7's flash partitions are mounted by running the following command (you may need to adjust the path depending on the name of the storage device):
+
+1. Ensure that none of the Warp7's flash partitions are mounted (you may need to adjust the path depending on the name of the storage device):
+
     ```
     sudo umount /dev/disk/by-id/usb-Linux_UMS_disk_0-0:0-part*
     ```
-1. From a Linux prompt, write the disk image to the Warp7's flash device using the following command:
+
+1. From a Linux prompt, write the disk image to the Warp7's flash device (replace `<device-file-name>` with the correct device file for the Warp7's flash device):
+
     ```
     sudo bmaptool copy --bmap /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-console-image-test/images/mbl-console-image-test-imx7s-warp-mbl.wic.bmap /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-console-image-test/images/mbl-console-image-test-imx7s-warp-mbl.wic.gz /dev/disk/by-id/<device-file-name>
     ```
-    replacing `<device-file-name>` with the correct device file for the Warp7's flash device.
 
     This action may take some time.
-1. When `bmaptool` has finished, eject the device:
+
+1. When `bmaptool` has finished, eject the device (replace `<device-file-name>` with the correct device file for the Warp7's flash device):
+
     ```
     sudo eject /dev/disk/by-id/<device-file-name>
     ```
-    Replace `<device-file-name>` with the correct device file for the Warp7's flash device.
-1. On the Warp7's U-boot prompt, press Ctrl-C to exit USB mass storage mode.
+
+1. On the Warp7's U-boot prompt, press <kbd>Ctrl</kbd>-<kbd>C</kbd> to exit USB mass storage mode.
 1. Reboot the Warp7:
+
     ```
     reset
     ```
+
     The device should now boot into MBL.
 
 ### Raspberry Pi 3 devices
 
-1. Connect a micro SD card to your PC. You should see:
-    * The SD card device file in `/dev`, probably as `/dev/sdX` for some letter `X` (for example, `/dev/sdd`).
-    * Device files for its partitions `/dev/sdXN` for the same letter `X` and some numbers `N` (for example, `/dev/sdd1` and `/dev/sdd2`).
+1. Connect a micro-SD card to your PC. You should see:
 
-    In the commands below, replace `/dev/sdX` with the device file name for the SD card _without_ a number at the end. You can use `lsblk` to identify the name of the SD card device.
-1. Ensure that none of the micro SD card's partitions are mounted by running:
+    * The SD card device file in `/dev`, probably as `/dev/sdX` for some letter `X` (for example, `/dev/sdd`).
+    * Device files for its partitions. `/dev/sdXN` for the same letter `X` and some numbers `N` (for example, `/dev/sdd1` and `/dev/sdd2`).
+
+    <span class="notes">In the commands below, replace `/dev/sdX` with the device file name for the SD card _without_ a number at the end. You can use `lsblk` to identify the name of the SD card device.</span>
+
+1. Ensure that none of the micro-SD card's partitions are mounted (replace `/dev/sdX` as explained above):
+
     ```
     sudo umount /dev/sdX*
     ```
-    Replace `/dev/sdX` as mentioned above.
-1. Write the disk image to the SD card device (not a partition on it):
+
+1. Write the disk image to the SD card device - not a partition on it (replace `/dev/sdX` as explained above):
+
     ```
     sudo bmaptool copy --bmap /path/to/artifacts/machine/raspberrypi3-mbl/images/mbl-console-image-test/images/mbl-console-image-test-raspberrypi3-mbl.wic.bmap /path/to/artifacts/machine/raspberrypi3-mbl/images/mbl-console-image-test/images/mbl-console-image-test-raspberrypi3-mbl.wic.gz /dev/sdX
     ```
-    Replace `/dev/sdX` as mentioned above.
 
     This action may take some time.
+
 1. When `bmaptool` has finished, eject the device:
+
     ```
     sudo eject /dev/sdX
     ```
-1. Detach the micro SD card from your PC and plug it into the Raspberry Pi 3.
-1. You need access to the device's console, so before powering it on the, either:
-   * Connect it to a monitor and keyboard (using its HDMI and USB sockets).
-   * Connect it to your PC. For example, if you're using a [C232HD-DDHSP-0](http://www.ftdichip.com/Support/Documents/DataSheets/Cables/DS_C232HD_UART_CABLE.pdf) cable, use [this pin numbering reference](https://www.element14.com/community/servlet/JiveServlet/previewBody/73950-102-10-339300/pi3_gpio.png) and connect USB-UART colored wires as follows:
-       * **Black** wire to pin **06**
-       * **Yellow** wire to pin **08**
-       * **Orange** wire to pin **10**
 
-   ![](./pics/rpi3_uart-connection.JPG)
+1. Detach the micro-SD card from your PC and plug it into the Raspberry Pi 3.
+1. You need access to the device's console, so before powering it on the, either:
+
+    * Connect it to a monitor and keyboard (using its HDMI and USB sockets).
+    * Connect it to your PC. For example, if you're using a [C232HD-DDHSP-0](http://www.ftdichip.com/Support/Documents/DataSheets/Cables/DS_C232HD_UART_CABLE.pdf) cable, use [this pin numbering reference](https://www.element14.com/community/servlet/JiveServlet/previewBody/73950-102-10-339300/pi3_gpio.png) and connect USB-UART colored wires:
+       * **Black** wire to pin **06**.
+       * **Yellow** wire to pin **08**.
+       * **Orange** wire to pin **10**.
+
+    Connect the other end of the C232HD-DDHSP-0 cable to the USB port on your PC.
 
     The cable's TX and RX are used to communicate with the board.
 
-    Connect the other end of the C232HD-DDHSP-0 cable to the USB port on your PC.
 1. After connecting the Raspberry Pi 3, from your PC, run the command <!--why? what does it do?-->:
+
     ```
     minicom -D /dev/ttyUSB0
     ```
+
     Use the following settings:
-    * Baud rate 115200.
-    * [8N1](https://en.wikipedia.org/wiki/8-N-1) encoding.
+
+    * Baud rate: 115200.
+    * Encoding: [8N1](https://en.wikipedia.org/wiki/8-N-1).
     * No hardware flow control.
-1. Connect the Raspberry Pi 3's micro USB socket to a USB power supply. It should now boot into MBL.
+1. Connect the Raspberry Pi 3's micro-USB socket to a USB power supply.
+
+    The device should now boot into MBL.
 
 ### Logging in to MBL
 
@@ -352,9 +372,9 @@ If your device uses Wi-Fi:
 
 1. Enable Wi-Fi:
 
-  ```
-  # connmanctl enable wifi
-  ```
+    ```
+    # connmanctl enable wifi
+    ```
 
 ConnMan is now connected to the specified network.
 
@@ -364,13 +384,16 @@ If you experience any issues, restart both ConnMan and `wpa_supplicant` daemons.
 
 ## Verifying that the device is connected to Device Management
 
-While the device boots into MBL, `mbl-cloud-client` should automatically start and connect to Pelion. You can check whether it has connected by:
-* Checking the device status on the [Device Managmenent Portal](https://portal.mbedcloud.com/).<!--I will need to add the images in our publishing format-->
+When the device boots into MBL, `mbl-cloud-client` should automatically start and connect to Device Management. You can check whether it has connected by:
+
+* Checking the device status on the [Device Management Portal](https://portal.mbedcloud.com/).<!--I will need to add the images in our publishing format-->
 * Reviewing the log file for `mbl-cloud-client` at `/var/log/mbl-cloud-client.log`.
 
-If your device hasn't automatically connected to Pelion, it could be that:
+If your device hasn't automatically connected to Device Management, it could be that:
+
 * Networking wasn't configured before the device was rebooted. Check your configurations and reboot the device.<!--Easy enough to direct them to the WiFi bit, but is there anything that may have gone wrong with DHCP?-->
 * There are issues with the network. The device retries periodically, but you may need to restart `mbl-cloud-client`:
-    ```
-    /etc/init.d/mbl-cloud-client restart
-    ```
+
+     ```
+     /etc/init.d/mbl-cloud-client restart
+     ```
