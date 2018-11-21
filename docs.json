@@ -27,7 +27,7 @@
             },
             {
                 "title": "Tutorial: Connecting an MBL device",
-                "chapters": [{
+                "sub_chapters": [{
                         "title": "Introduction",
                         "intro": {
                             "type": "markdown",
@@ -36,8 +36,6 @@
                         "sources": []
                     },
                     {
-                        "title": "Requirements",
-                        "sub_chapters": [{
                                 "title": "Requirements",
                                 "intro": {
                                     "type": "markdown",
@@ -102,8 +100,6 @@
                     "type": "markdown",
                     "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/update_mbl.md"
                 }]
-            }
-        ]
     },
     {
         "title": "References",
