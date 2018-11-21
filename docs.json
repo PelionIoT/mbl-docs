@@ -28,6 +28,14 @@
             {
                 "title": "Tutorial: Connecting an MBL device",
                 "chapters": [{
+                        "title": "Introduction",
+                        "intro": {
+                            "type": "markdown",
+                            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/connect_tutorial_intro.md"
+                        },
+                        "sources": []
+                    },
+                    {
                         "title": "Requirements",
                         "sub_chapters": [{
                                 "title": "Requirements",
