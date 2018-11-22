@@ -1,6 +1,6 @@
 ## Hello world
 
-<span class="notes">**Note**: Mbed Linux OS is currently in limited preview, and you will not be able to access the code repositories unless you are enrolled in that preview. [Please fill in this form to enrol](https://os.mbed.com/linux-os/).</span>
+<span class="notes">**Note**: Mbed Linux OS is currently in limited preview. If you would like to access the code repositories, [please request access](https://os.mbed.com/linux-os/).</span>
 
 
 This tutorial creates a user application that runs on your MBL device. It is a simple "Hello, World" in C, which prints to standard output (STDOUT). MBL redirects the output to the log file `/var/log/app/user-sample-app-package.log`.
