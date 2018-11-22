@@ -1,4 +1,4 @@
-## Using ConnMan for MBL Wi-Fi
+### Using ConnMan for MBL Wi-Fi
 
 Mbed Linux OS (MBL) uses **Connection Manager (ConnMan)** to manage Wi-Fi interfaces and connections. This page briefly reviews ConnMan, then explains how to use it to set up and manage Wi-Fi on MBL devices.
 
@@ -6,7 +6,7 @@ As an MBL developer, use ConnMan for all basic Wi-Fi operations, rather than int
 
 <span class="notes>**Note:** This page reviews only some of the commonly used ConnMan options, within the context of MBL. You may be interested in [the full ConnMan documentation](https://01.org/connman/documentation).</span>
 
-### connmanctl
+#### connmanctl
 
 **connmanctl** is a command-line interface (CLI). It can operate in two modes:
 
@@ -33,7 +33,7 @@ As an MBL developer, use ConnMan for all basic Wi-Fi operations, rather than int
 
 <span class="notes">**Note:** The official [connmanctl documentation is on the ConnMan site](https://01.org/connman/documentation).</span>
 
-### Configuration and state
+#### Configuration and state
 
 ConnMan automates many network operations and configurations by interacting with other daemons (DNS, DHCP and others) and by keeping a settings file, service files and other auto-generated data in the `/config/user/connman/` folder.
 
@@ -49,7 +49,7 @@ The folder contains:
     ```
 * For advanced connections, you may manually generate service files and place them under `/config/users/connman` (see section [Connecting to a network using service configuration files](#connecting-to-a-network-using-service-conflagration-files)). These are also known as *provisioning files*, and their file extension is `.config`.
 
-### Enabling Wi-Fi
+#### Enabling Wi-Fi
 
 ConnMan refers to network interface types as **technologies**, each of which supplies different services. For example, Wi-Fi is a technology (named `wifi`) that supplies a service called `wifi_dc85de828967_68756773616d_managed_psk`.
 
@@ -107,7 +107,7 @@ By default, all technologies are disabled at the very first startup to prevent u
     SessionMode = False
   ```
 
-### Scanning for available Wi-Fi networks and inspecting results
+#### Scanning for available Wi-Fi networks and inspecting results
 
 To scan for nearby Wi-Fi networks:
 
@@ -164,7 +164,7 @@ root@imx7s-warp-mbl:~# connmanctl services --properties wifi_a0a0a0a0a0a0_416999
 root@imx7s-warp-mbl:~#
 ```
 
-### Connecting to an open (public) Wi-Fi network
+#### Connecting to an open (public) Wi-Fi network
 
 Currently, ConnMan doesn't connect to public networks<!--clearly it does, but you have to give the service name, so what is it that it can't do?-->, because **Wireless Internet Service Provider roaming** (WISPr) is disabled.
 
@@ -228,7 +228,7 @@ Pay attention to the `AutoConnect=true` parameter. It means that ConnMnn will au
 
 You can change this file by using `connmanctl config <config data>`, or by editing it manually.
 
-### Connecting to a protected network interactively
+#### Connecting to a protected network interactively
 
 1. Use `connmanctl` in interactive mode.
 1. Disconnect from the network AndroidAP5. and
@@ -251,13 +251,13 @@ You can change this file by using `connmanctl config <config data>`, or by editi
 
 <span class="notes">**Note:** ConnMan does not support password encryption.</span>
 
-### Connecting to a network using service configuration (provisioning) files
+#### Connecting to a network using service configuration (provisioning) files
 
 For advanced configuration, use a provisioning file (with extension `.config`). Configurations include secured wireless access points that need complex authentication (such as WPA2 Enterprise), static IPs and so on. Each provisioning file can be used for multiple services at once.
 
 For more information, refer to the [Debian site](https://manpages.debian.org/testing/connman/connman-service.config.5.en.html).
 
-### Connecting to a Wi-Fi WPA/WPA2 enterprise network
+#### Connecting to a Wi-Fi WPA/WPA2 enterprise network
 
 1. Disable Wi-Fi:
 
