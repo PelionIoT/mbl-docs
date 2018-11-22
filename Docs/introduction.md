@@ -1,23 +1,12 @@
 ## Arm Mbed Linux OS
 
-<!--managed operating system, built in security, ability to deploy and keep updating millions of devices, focus on just writing the app code rather than building their own os and maintanining and managing it-->
-
 ### Product vision
 
 Arm Mbed Linux OS starts with a vision of a world with billions of internet-connected devices, and works backwards to understand how to bring these devices into being. Mbed assumes that IoT product designers and makers do not want to invest time, money and expertise in creating and maintaining operating systems, or their own builds of existing Linux projects; they want to focus on commercial applications that can rely on an IoT operating system delivered by a specialised company. Arm Mbed OS has been supporting productisation of constrained Cortex-M devices for years, and Mbed Linux OS now offers the same for the powerful Cortex-A devices.
 
-The vision of billions of connected devices immediately led us to consider security. Devices must be secure from day one, and must receive security updates whenever those become available. So we drew on existing Arm products to provide device and connectivity security, and device management for millions of devices through the Pelion IoT Platform.
-
-
-
-<!--Arm Mbed Linux OS (MBL) is a Linux distribution for IoT devices based on the Cortex-A processor family. It provides all IoT essentials, so you can focus exclusively on adding your unique value and on building quickly, with minimal support and maintenance.-->
-
 <img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/OS_v_MBL.png" width="50%" align="right">
 
-<!--
-MBL combines the benefits of Arm Mbed OS with the tools and recipes from the embedded-focused Yocto Project. It takes advantage of the processing power of Cortex-A devices to handle complex workloads (reducing connectivity demands). MBL includes support for common IoT functions such as network management, secure storage and container management, as well as a standard Linux inter-process communication (IPC) framework for both MBL and application processes. MBL uses the Device Management Client to integrates with Pelion Device Management, including the firmware update services.
-
-### Product vision
+The vision of billions of connected devices immediately led us to consider security. Devices must be secure from day one, and must receive security updates whenever those become available. So we drew on existing Arm products to provide device and connectivity security, and device management for millions of devices through the Pelion IoT Platform.
 
 MBL will provide a uniform, open and verifiable approach to platform security. Each supported platform has:
 
@@ -31,7 +20,6 @@ It will also draw on other Arm resources to provide:
 * Arm's Platform Security Architecture, which takes advantage of the security features of the newest hardware.
 * Full commercial support for customers who need a firm SLA and platform longevity.
 * Tools to help you get prototyping and demoing quickly, including support for popular development boards and production ready modules.
--->
 
 ### Developer preview features
 
