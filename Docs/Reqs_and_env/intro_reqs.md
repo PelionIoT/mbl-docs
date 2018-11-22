@@ -1,4 +1,4 @@
-## Requirements and development environment
+## Hardware, software and account environment
 
 Working with Mbed Linux OS requires the following:
 

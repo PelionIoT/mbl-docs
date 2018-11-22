@@ -7,3 +7,5 @@ To get started with Mbed Linux OS, follow these tutorials in sequence:
 1. Update the device over Wi-Fi. You can update either the MBL image itself (from the first tutorial), or the Hello World application (from the second tutorial).
 
 Before starting the tutorials, please make sure [you have everything you need to build images and connect to Device Management]().
+
+<span class="notes">**Note**: Mbed Linux OS is currently in limited preview. You will not be able to access the code repositories if you are not enrolled in the preview. [Please fill in this form to enrol](https://os.mbed.com/linux-os/).</span>

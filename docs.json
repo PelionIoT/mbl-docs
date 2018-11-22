@@ -26,7 +26,7 @@
                 "sources": []
             },
             {
-                "title": "Requirements",
+                "title": "Setting up",
                 "intro": {
                     "type": "markdown",
                     "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/intro_reqs.md"
