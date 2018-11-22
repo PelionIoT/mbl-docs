@@ -14,12 +14,12 @@ MBL will provide a uniform, open and verifiable approach to platform security. E
 * Verified boot of normal world firmware.
 * Independent verification of application packages.
 * Integrity checking of read-only file systems.
-
-It will also draw on other Arm resources to provide:
-
 * Arm's Platform Security Architecture, which takes advantage of the security features of the newest hardware.
-* Full commercial support for customers who need a firm SLA and platform longevity.
+
+MBL also understands the desire to go to market quickly, and support a product for a decade or more. To those ends, it offers:
+
 * Tools to help you get prototyping and demoing quickly, including support for popular development boards and production ready modules.
+* Full commercial support for customers who need a firm SLA and platform longevity.
 
 ### Developer preview features
 
