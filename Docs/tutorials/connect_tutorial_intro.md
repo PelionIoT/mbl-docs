@@ -1,6 +1,6 @@
 <h2 id="mbl-pelion-connect">Building an Mbed Linux OS image and connecting to Pelion Device Management</h2>
 
-<span class="notes">**Note**: Mbed Linux OS is currently in limited preview. If you would like to access the code repositories, [please request access](https://os.mbed.com/linux-os/).</span>
+<span class="notes">**Note**: Mbed Linux OS is currently in limited preview. If you would like access to the code repositories, [please request to join the preview](https://os.mbed.com/linux-os/).</span>
 
 This tutorial builds and installs an Mbed Linux OS (MBL) image on a device. This image includes credentials to connect to your Pelion Device Management account, but does not include a user application (which is covered [in the Hello World tutorial](../getting-started/tutorial-user-application.html)).
 

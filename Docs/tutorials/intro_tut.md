@@ -8,4 +8,4 @@ To get started with Mbed Linux OS, follow these tutorials in sequence:
 
 Before starting the tutorials, please make sure [you have everything you need to build images and connect to Device Management]().
 
-<span class="notes">**Note**: Mbed Linux OS is currently in limited preview. If you would like to access the code repositories, [please request access](https://os.mbed.com/linux-os/).</span>
+<span class="notes">**Note**: Mbed Linux OS is currently in limited preview. If you would like access to the code repositories, [please request to join the preview](https://os.mbed.com/linux-os/).</span>
