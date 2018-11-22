@@ -255,7 +255,7 @@ You can change this file by using `connmanctl config <config data>`, or by editi
 
 For advanced configuration, use a provisioning file (with extension `.config`). Configurations include secured wireless access points that need complex authentication (such as WPA2 Enterprise), static IPs and so on. Each provisioning file can be used for multiple services at once.
 
-For more information, refer to the [SysTutorials site](https://www.systutorials.com/docs/linux/man/5-connman.conf/).
+For more information, refer to the [Debian site](https://manpages.debian.org/testing/connman/connman-service.config.5.en.html).
 
 ### Connecting to a Wi-Fi WPA/WPA2 enterprise network
 
