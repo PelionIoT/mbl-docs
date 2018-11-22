@@ -1,37 +1,19 @@
-## Mbed Linux OS
+## Arm Mbed Linux OS
 
-Arm Mbed Linux OS (MBL) is a Linux distribution for IoT devices based on the Cortex-A processor family. Mbed Linux OS supports all of the essential layers needed to build amazing IoT products, so you can focus exclusively on adding your unique value. We want you to build products quickly, and minimise the ongoing support and maintenance burden for products you’ve already shipped.
+Arm Mbed Linux OS (MBL) is a Linux distribution for IoT devices based on the Cortex-A processor family. It provides all IoT essentials, so you can focus exclusively on adding your unique value and on building quickly, with minimal support and maintenance.
 
 <img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/OS_v_MBL.png" width="50%" align="right">
 
 MBL combines the benefits of Arm Mbed OS with the tools and recipes from the embedded-focused Yocto Project. It takes advantage of the processing power of Cortex-A devices to handle complex workloads (reducing connectivity demands). MBL includes support for common IoT functions such as network management, secure storage and container management, as well as a standard Linux inter-process communication (IPC) framework for both MBL and application processes. MBL also integrates with Pelion Device Management, including the firmware update services, by using the Device Management Client.
 
-### Main features
+### Preview features
 
-MBL provides a uniform, open and verifiable approach to platform security. Each supported platform has:
+The preview release provides:
 
-* Secure, signed boot of Trusted Firmware, used for initializing trusted world firmware, including the trusted execution environment.
-* Verified boot of normal world firmware.
+* OCI-compliant containers for applications, helping to protect against compromised applications and facilitating a modern development workflow.
 * Signed updates to protect against unauthorised changes.
-* Independent verification of application packages.
-* Integrity checking of read-only file systems.
-* Applications can be deployed in OCI-compliant containers, helping to protect against compromised applications and facilitating a modern development workflow.
 
-### Design
-
-The following diagram illustrates the components and services provided by MBL. When used in conjunction with Mbed Cloud, MBL provides a secure platform for developing, operating and managing IoT applications.
-
-<img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/Application_containers.png" width="75%" align="middle">
-
-### Arm integrations
-
-MBL draws on other Arm resources to provide:
-
-* Arm's Platform Security Architecture, which takes advantage of the security features of the newest hardware.
-* Full commercial support for customers who need a firm SLA and platform longevity.
-* Tools to help you get prototyping and demoing quickly, including support for popular development boards and production ready modules.
-
-For application developers, the integration with Pelion Device Management services provides:
+And an integration with Pelion Device Management services:
 
 * Support for the Device Management Client for simple in-field provisioning and over-the-air device configuration.
 * Device discovery and secure identity in the Device Management device directory, to protect against impersonation or cloning.
@@ -39,6 +21,27 @@ For application developers, the integration with Pelion Device Management servic
 * Device status monitoring, including notifications of connection status.
 * Device firmware update and application management.
 * Access control at the account level.
+
+### Designed features
+
+MBL will provide a uniform, open and verifiable approach to platform security. Each supported platform has:
+
+* Secure, signed boot of Trusted Firmware, used for initializing trusted world firmware, including the trusted execution environment.
+* Verified boot of normal world firmware.
+* Independent verification of application packages.
+* Integrity checking of read-only file systems.
+
+It will also draw on other Arm resources to provide:
+
+* Arm's Platform Security Architecture, which takes advantage of the security features of the newest hardware.
+* Full commercial support for customers who need a firm SLA and platform longevity.
+* Tools to help you get prototyping and demoing quickly, including support for popular development boards and production ready modules.
+
+### Design
+
+The following diagram illustrates the components and services provided by MBL. When used in conjunction with Mbed Cloud, MBL provides a secure platform for developing, operating and managing IoT applications.
+
+<img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/Application_containers.png" width="75%" align="middle">
 
 ### Get started
 
