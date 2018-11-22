@@ -314,44 +314,74 @@ To log in to MBL, wait for a login prompt, then enter the username `root`. You w
 
 ## Setting up a network connection
 
-If your device is connected to a network with a DHCP server using Ethernet, then it automatically connects to that network.
+### Ethernet
 
-If your device uses Wi-Fi:
+If your device is connected to a network with a **DHCP server using Ethernet**, then it automatically connects to that network.
 
-1. Install [ConnMan](https://01.org/connman/documentation).
-1. Create a configuration provisioning file at `/config/user/connman/<name>.config`.
+### Wi-Fi
 
-    <span class="tips">**Tip:** You can add the `-service` suffix to file names as a convention. For example, `name-service`.</span>
+**If your device uses Wi-Fi**, we rely on:
 
-1. Add service information to the configuration file:
+* [ConnMan](https://01.org/connman/documentation) running on the device.
+* The [the NetworkManager CLI tool **nmcli**](http://manpages.ubuntu.com/manpages/cosmic/man1/nmcli.1.html) running on your PC.
+
+#### Preparing NetworkManager to manage your device's network connections
+
+To connect the device over Wi-Fi:
+
+1. In `/etc/wpa_supplicant.conf`:
+
+    1. Add:
+
+        ```
+        ctrl_interface=/var/run/wpa_supplicant
+
+        ctrl_interface_group=0
+
+        update_config=0
+        ```
+    1. Set `update_config` to `0`.
+    1. Remove the `network={...}` block.
+
+1. In `/etc/network/interfaces`, comment out the `Wireless interfaces` block.
+
+1. Create `/etc/NetworkManager/NetworkManager.conf` with the following content:
 
     ```
-    [global]
-    Name = my-ssid
-    Description = Provide a short description
+    [main]
 
-    [service_wifi_local_network]
-    Type = wifi
-    Name = <my-ssid>
-    EAP = peap
-    Phase2 = MSCHAPV2
-    Identity = <my-username>
-    Passphrase = <my-password>
-    ```
+    plugins=ifupdown,keyfile
 
-     Replace `<my-ssid>`, `<my-username>`, and `<my-password>` with appropriate information. Amend the description.
+    [ifupdown]
 
-1. Enable Wi-Fi:
+    managed=true
 
     ```
-    # connmanctl enable wifi
+
+1. Reboot the board. <!--how? it says `reboot` - is that through the terminal program?-->
+1. When the device has finished rebooting, run NetworkManager. <!--again, is it through the terminal?-->
+
+    NetworkManager can now managed your device's Wi-Fi connection.
+
+#### Setting up the device's Wi-Fi connection
+
+1. List available networks:
+
+    ```
+    nmcli d wifi
     ```
 
-ConnMan is now connected to the specified network.
+1. Connect to your network:
 
-If you experience any issues, restart both ConnMan and `wpa_supplicant` daemons.
+    ```
+    nmcli d wifi connect SSID password PASSWORD ifname IF_NAME
+    ```
 
-<span class="tips">For more information about ConnMan, please [see the Wi-Fi on MBL reference](../references/using-connman-for-mbl-wi-fi.html).</span>
+    Where `IF_NAME` is the name of the network interface you're trying to connect to.<!--I assume. But how do I know it? I can't map that to the output from `nmcli d wifi`-->
+
+1. If your device connected successfully, you will see "Device 'IF_NAME' successfully activated with <hexadecimal UUID>".
+
+<span class="tips">**Tip:** For more information about ConnMan, please [see the Wi-Fi on MBL reference](../references/using-connman-for-mbl-wi-fi.html).</span>
 
 ## Verifying that the device is connected to Device Management
 
