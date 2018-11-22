@@ -4,7 +4,7 @@ Mbed Linux OS (MBL) uses **Connection Manager (ConnMan)** to manage Wi-Fi interf
 
 As an MBL developer, use ConnMan for all basic Wi-Fi operations, rather than interacting directly with the `wpa_supplicant` daemon or modifying the `wpa_supplicant.conf` file.
 
-<span class="notes>**Note:** This page reviews only some of the commonly used ConnMan options, within the context of MBL. You may be interested in [the full ConnMan documentation](https://01.org/connman/documentation).</span>
+<span class="notes">**Note:** This page reviews only some of the commonly used ConnMan options, within the context of MBL. You may be interested in [the full ConnMan documentation](https://01.org/connman/documentation).</span>
 
 #### connmanctl
 
