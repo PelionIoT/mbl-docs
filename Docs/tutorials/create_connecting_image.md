@@ -316,72 +316,11 @@ To log in to MBL, wait for a login prompt, then enter the username `root`. You w
 
 ### Ethernet
 
-If your device is connected to a network with a **DHCP server using Ethernet**, then it automatically connects to that network.
+If your device is connected to an Ethernet network **with a DHCP server**, then it automatically connects to that network.
 
 ### Wi-Fi
 
-**If your device uses Wi-Fi**, we rely on:
-
-* [ConnMan](https://01.org/connman/documentation) running on the device.
-* The [the NetworkManager CLI tool **nmcli**](http://manpages.ubuntu.com/manpages/cosmic/man1/nmcli.1.html) running on your PC.
-
-#### Preparing NetworkManager to manage your device's network connections
-
-To connect the device over Wi-Fi:
-
-1. In `/etc/wpa_supplicant.conf`:
-
-    1. Add:
-
-        ```
-        ctrl_interface=/var/run/wpa_supplicant
-
-        ctrl_interface_group=0
-
-        update_config=0
-        ```
-    1. Set `update_config` to `0`.
-    1. Remove the `network={...}` block.
-
-1. In `/etc/network/interfaces`, comment out the `Wireless interfaces` block.
-
-1. Create `/etc/NetworkManager/NetworkManager.conf` with the following content:
-
-    ```
-    [main]
-
-    plugins=ifupdown,keyfile
-
-    [ifupdown]
-
-    managed=true
-
-    ```
-
-1. Reboot the board. <!--how? it says `reboot` - is that through the terminal program?-->
-1. When the device has finished rebooting, run NetworkManager. <!--again, is it through the terminal?-->
-
-    NetworkManager can now managed your device's Wi-Fi connection.
-
-#### Setting up the device's Wi-Fi connection
-
-1. List available networks:
-
-    ```
-    nmcli d wifi
-    ```
-
-1. Connect to your network:
-
-    ```
-    nmcli d wifi connect SSID password PASSWORD ifname IF_NAME
-    ```
-
-    Where `IF_NAME` is the name of the network interface you're trying to connect to.<!--I assume. But how do I know it? I can't map that to the output from `nmcli d wifi`-->
-
-1. If your device connected successfully, you will see "Device 'IF_NAME' successfully activated with <hexadecimal UUID>".
-
-<span class="tips">**Tip:** For more information about ConnMan, please [see the Wi-Fi on MBL reference](../references/using-connman-for-mbl-wi-fi.html).</span>
+Please follow the instructions [here](https://github.com/ARMmbed/mbl-docs/blob/dg_connection_fix/Docs/tutorials/wifi_setup.md) to set up a Wi-Fi connection on your device.
 
 ## Verifying that the device is connected to Device Management
 
