@@ -1,6 +1,6 @@
 ## Updating Mbed Linux OS
 
-<span class="notes">**Note**: Mbed Linux OS is currently in limited preview. You will not be able to access the code repositories if you are not enrolled in the preview. [Please fill in this form to enrol](https://os.mbed.com/linux-os/).</span>
+<span class="notes">**Note**: Mbed Linux OS is currently in limited preview, and you will not be able to access the code repositories unless you are enrolled in that preview. [Please fill in this form to enrol](https://os.mbed.com/linux-os/).</span>
 
 You can perform a firmware an over the air (FOTA) update for the following components of Mbed Linux OS (MBL):
 
