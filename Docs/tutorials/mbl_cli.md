@@ -50,15 +50,11 @@ address if a DHCP server can't be found.
 To connect a PC to an Mbed Linux OS IoT WaRP7 device using the USB networking facility,
 perform the following steps:
 
-1. Check which network interfaces are already available on the PC.
-2. Connect the IoT device to the PC using USB cabel.
-3. Check which network interfaces are available on the PC again, and compare
-   this with the information obtained in step #1 to determine which interface
-   is for the IoT device.
-4. Configure the PC to use link-local IPv4 addressing for the interface and
+1. Connect the IoT device to the PC using USB cabel.
+1. Configure the PC to use link-local IPv4 addressing for the interface and
    determine the address assigned to the interface.
 
-For example, on an Ubuntu 16.04 PC, do the following:
+For example, on an Ubuntu PC, do the following:
 
 Use `ifconfig -a` to list available network interfaces. Once the IoT device 
 has been connected to the development PC, the PC kernel will
@@ -87,12 +83,12 @@ perform the following steps:
 1. Connect an Ethernet-to-USB adapter's USB "male" connector into any of 
    the four type-A USB ports of the Raspberry Pi 3 board, and the Ethernet 
    cable of the adapter into an available Ethernet port on the development PC.
-2. Check which network interface belongs to the port that is connected to the 
+1. Check which network interface belongs to the port that is connected to the 
    Raspberry Pi 3 device.
-3. Configure the PC to use link-local IPv4 addressing for the interface and
+1. Configure the PC to use link-local IPv4 addressing for the interface and
    determine the address assigned to the interface.
 
-For example, on an Ubuntu 16.04 PC and a Raspberry Pi 3 device connected to an 
+For example, on an Ubuntu PC and a Raspberry Pi 3 device connected to an 
 RTL8153 Gigabit Ethernet-to-USB adapter, do the following:
 
 Connect the Raspberry Pi 3 device to the PC and use `ifconfig -a` to identify the network interface. 
@@ -116,7 +112,7 @@ Connect the Raspberry Pi 3 device to the PC and use `ifconfig -a` to identify th
 
 #### Assigning an IP address to the network interface on a PC
 
-On an Ubuntu 16.04 PC using NetworkManager:
+On an Ubuntu PC using NetworkManager:
 
 1. Create a NetworkManager connection profile called `mbl-ipv4ll` for the
 interface with the `link-local` IPv4 addressing method using the NetworkManager's command line interface:
@@ -209,26 +205,25 @@ See the [`nmcli` man page](https://linux.die.net/man/1/nmcli) for more informati
 
 ### Prerequisites
 
-[Node.js version v8.10.0 or higher](https://nodejs.org), which includes `npm v3`.
+[Node.js version v8.10.0 or higher](https://nodejs.org/en/), which includes `npm v3`.
 
 mdns -- Node.js Service Discovery adds multicast DNS service discovery, also known as zeroconf or bonjour to Node.js.  
 It provides an object based interface to announce and browse services on the local network.
-We recommend installing Node.js using the [Node version manager](https://github.com/creationix/nvm), because the installation below requires 
-usage of your GitHub SSH credentials.
+We recommend installing NodeSource-managed Node.js snap which contains the Node.js runtime, along the two most widely-used package managers, 
+npm and Yarn. This could be installed from [Node.js website](https://nodejs.org/en/) or from [GitHub Node.js distributions](https://github.com/nodesource/distributions).
+To install Node.js on the Ubuntu PC, do the following:
+
+```
+$ curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+$ sudo apt-get install -y nodejs
+```
 
 ### Installation
 
-On Linux and other systems using the avahi daemon the avahi `dns_sd` compat library and its header files are required. 
-On Debian-esque system (Debian itself, Ubuntu, etc.) the package name is `libavahi-compat-libdnssd-dev`should be installed:
+MBL CLI is distributed using npm. To install the MBL CLI tool run:
 
 ```
-$ sudo apt-get install libavahi-compat-libdnssd-dev
-```
-
-MBL CLI is distributed using npm. To install the tool globally run:
-
-```
-$ npm install -g ARMmbed/mbl-cli#build
+$ npm install -g mbl-cli
 ```
 
 ## MBL CLI command
@@ -254,10 +249,15 @@ Options:
 
 #### Device discovery and selection
 
-Discover all available devices and select one of them using `select` command:
+Select the device from the list of available devices using mbl-cli select command. For example, in order to select 
+mbed-linux-os-3006(mbed-linux-os-3006 is a device hostname), type 2:
 
 ```
 $ mbl-cli select
+Discovering devices...
+Select a device:
+1: mbed-linux-os-3006 (fe80::94f8:52ff:fe67:d5d8%enp0s20u1)
+2: None
 ```
 
 #### Get a shell access (SSH)
@@ -268,14 +268,27 @@ Use Mbed Linux CLI `shell` command to get a shell access (SSH) on a device:
 $ mbl-cli shell [address]
 ```
 
+Where `address` is the address of the debug interface on the device or the device hostname. If device already selected, `address` parameter could be ommited.
+For example, to get shell on the previously selected device, do the following:
+
+```
+$ mbl-cli shell
+Connecting to mbed-linux-os-3006...
+root@mbed-linux-os-3006:~# 
+```
+
 #### Set up the Wi-Fi connection
 
 Set up [Wi-Fi connection on the device using ConnMan](https://github.com/ARMmbed/mbl-docs/blob/yg_master/Docs/tutorials/wifi_setup.md).
 
+#### Device update
 
-#### Root-fs update
+Currently device update could be done for root-fs and applications. Update of boot loader, Linux Kernel and other components
+will be supported in next versions.
 
-In order to update root-fs prepare `tar` file containing `rootfs.tar.xz`. For the detailed explanation how to create a payload for root-fs update see [root file system update workflow ](https://github.com/ARMmbed/mbl-docs/blob/yg_master/Docs/tutorials/update_mbl.md).
+##### Root-fs update
+
+In order to update root-fs prepare `tar` file containing `rootfs.tar.xz`. For the detailed explanation how to create a payload for root-fs update see [root file system update workflow ](https://github.com/ARMmbed/mbl-docs/blob/yg_master/Docs/tutorials/update_mbl.md#workflow).
 
 To perform root-fs update follow next steps:
 
@@ -316,6 +329,8 @@ To perform root-fs update follow next steps:
    ```
 
    This will automatically reboot the device after the root-fs update.
+   It is recommended to delete old `tar` files from the `scratch` partition after update finish.
+   
    In order to see the help menu run
 
    ```
@@ -338,81 +353,114 @@ To perform root-fs update follow next steps:
      -v, --verbose         Increase output verbosity (default: False)
    ``` 
 
-#### Update an application
+##### Update an application
 
 In order to install/update an application prepare `tar` file containing an `ipk` (which is application inside a container). 
-For the detailed explanation how to create a payload for application install/update see  
-[workflow for an application apdate](https://github.com/ARMmbed/mbl-docs/blob/yg_master/Docs/tutorials/update_mbl.md).
+For the detailed explanation how to create a payload for application install/update see [workflow for an application apdate](https://github.com/ARMmbed/mbl-docs/blob/yg_master/Docs/tutorials/update_mbl.md#workflow).
 
 To perform application update follow next steps:
 
 1. Transfer application update `tar` file to the `/scratch` partition on device:
 
-```
-$ mbl-cli copy <payload for root-fs update *.tar file> <destination on devise under the /scratch partition> [address]
-```
+   ```
+   $ mbl-cli copy <payload for root-fs update *.tar file> <destination on devise under the /scratch partition> [address]
+   ```
 
-For example, if `payload.tar` is a payload name for root-fs update and 169.254.6.215 is a link-local IPv4 address on the device, do the following:
+   For example, if `payload.tar` is a payload name for root-fs update and 169.254.6.215 is a link-local IPv4 address on the device, do the following:
 
-```
-$ mbl-cli copy payload.tar /scratch 169.254.6.215
-```
+   ```
+   $ mbl-cli copy payload.tar /scratch 169.254.6.215
+   ```
 
 1. Get shell to the device and run `mbl-firmware-update-manager` similar as it is done for the [Root-fs update](#root-fs-update).
-   Application will be installed on device under `/home/app/`.
+   Application will be installed in [OCI container](https://www.opencontainers.org/) on device under `/home/app/`.  
+   It is recommended to delete old `tar` files from the `scratch` partition after application install.
 
-1. Run application in container using application lifecycle manager script:
+1. Each application run on device in a separate OCI container. To run application in OCI container use application lifecycle manager script:
 
-```
-$ mbl-app-lifecycle-manager -r <CONTAINER_ID> -a <APPLICATION_ID>
-```
+   ```
+   $ mbl-app-lifecycle-manager -r <CONTAINER_ID> -a <APPLICATION_ID>
+   ```
+   
+   Where CONTAINER_ID is a user defined ID wich will be assosiated with a container for a specific application, e.g. `ID1`. 
+   APPLICATION_ID is the directory name under /home/app/ that OCI container was installed to.
+   
+   For example, if `my_application` is an application installed on device under `/home/app/` and `ID1` is a CONTAINER_ID, do the following:
 
-For example, if `my_application` is an application installed on device under `/home/app/` and `id1` is a CONTAINER_ID, do the following:
+   ```
+   $ mbl-app-lifecycle-manager -r ID1 -a my_application
+   ```
 
-```
-$ mbl-app-lifecycle-manager -r id1 -a my_application
-```
+   After the device reboot application will run automatically.
+   
+   In order to see the `mbl-app-lifecycle-manager` help menu run:
 
-In order to see the `mbl-app-lifecycle-manager` help menu run:
+   ```
+   $ mbl-app-lifecycle-manager -h
+   usage: mbl-app-lifecycle-manager [-h]
+                                    (-r CONTAINER_ID | -s CONTAINER_ID | -k CONTAINER_ID)
+                                    [-a APPLICATION_ID] [-t SIGTERM_TIMEOUT]
+                                    [-j SIGKILL_TIMEOUT] [-v]
 
-```
-$ mbl-app-lifecycle-manager -h
-usage: mbl-app-lifecycle-manager [-h]
-                                 (-r CONTAINER_ID | -s CONTAINER_ID | -k CONTAINER_ID)
-                                 [-a APPLICATION_ID] [-t SIGTERM_TIMEOUT]
-                                 [-j SIGKILL_TIMEOUT] [-v]
+   App lifecycle manager
 
-App lifecycle manager
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -r CONTAINER_ID, --run-container CONTAINER_ID
-                        Run container, assigning the given container ID
-                        (default: None)
-  -s CONTAINER_ID, --stop-container CONTAINER_ID
-                        Stop container with the given container ID (default:
-                        None)
-  -k CONTAINER_ID, --kill-container CONTAINER_ID
-                        Kill container with the container ID (default: None)
-  -a APPLICATION_ID, --application-id APPLICATION_ID
-                        Application ID (default: None)
-  -t SIGTERM_TIMEOUT, --sigterm-timeout SIGTERM_TIMEOUT
-                        Maximum time (seconds) to wait for application
-                        container to exit after sending a SIGTERM. Default is
-                        3 (default: None)
-  -j SIGKILL_TIMEOUT, --sigkill-timeout SIGKILL_TIMEOUT
-                        Maximum time (seconds) to wait for application
-                        container to exit after sending a SIGKILL. Default is
-                        1 (default: None)
-  -v, --verbose         Increase output verbosity (default: False)
-
-``` 
+   optional arguments:
+     -h, --help            show this help message and exit
+     -r CONTAINER_ID, --run-container CONTAINER_ID
+                           Run container, assigning the given container ID
+                           (default: None)
+     -s CONTAINER_ID, --stop-container CONTAINER_ID
+                           Stop container with the given container ID (default:
+                           None)
+     -k CONTAINER_ID, --kill-container CONTAINER_ID
+                           Kill container with the container ID (default: None)
+     -a APPLICATION_ID, --application-id APPLICATION_ID
+                           Application ID (default: None)
+     -t SIGTERM_TIMEOUT, --sigterm-timeout SIGTERM_TIMEOUT
+                           Maximum time (seconds) to wait for application
+                           container to exit after sending a SIGTERM. Default is
+                           3 (default: None)
+     -j SIGKILL_TIMEOUT, --sigkill-timeout SIGKILL_TIMEOUT
+                           Maximum time (seconds) to wait for application
+                           container to exit after sending a SIGKILL. Default is
+                           1 (default: None)
+     -v, --verbose         Increase output verbosity (default: False)
+   ``` 
 
 ##### Remote script execution
 
-Run a command on a device
+Select the device from the list of available devices using `mbl-cli select` command. Run a command on a device:
 
 ```
 $ mbl-cli run <command> [address]
+```
+
+Where `address` is the address of the debug interface on the device or the device hostname. For example, address of usb0 interface on WaRP7 IoT device
+or eth1 interface on Raspberry Pi 3 device.
+
+For example, in order to list an avalable interfaces on device, do the following:
+
+```
+$ mbl-cli run /sbin/ifconfig 169.254.11.94
+lo        Link encap:Local Loopback  
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:144 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:144 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:9648 (9.4 KiB)  TX bytes:9648 (9.4 KiB)
+
+usb0      Link encap:Ethernet  HWaddr 96:F8:52:67:D5:D8  
+          inet6 addr: fe80::94f8:52ff:fe67:d5d8/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:273 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:357 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:30202 (29.4 KiB)  TX bytes:82367 (80.4 KiB)
+
+usb0:avahi Link encap:Ethernet  HWaddr 96:F8:52:67:D5:D8  
+          inet addr:169.254.11.94  Bcast:169.254.255.255  Mask:255.255.0.0
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
 ```
 
