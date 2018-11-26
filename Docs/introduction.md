@@ -1,8 +1,8 @@
 ## Arm Mbed Linux OS
 
-### Product vision
+Arm Mbed Linux OS is a free, open-source IoT operating system for Cortex-A devices. Like Mbed OS, it provides the connectivity protocols and security mechanisms essential for IoT products, so that you can focus on developing your application. Integration with the Pelion IoT Platform offers remote management for large groups of devices.
 
-<!--rewriting-->
+Mbed Linux OS is currently available as a beta to selected users. To request access, [please contact us](https://os.mbed.com/linux-os/).
 
 ### Developer preview features
 

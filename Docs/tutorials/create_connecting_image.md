@@ -35,7 +35,7 @@ MBL and Device Management support over-the-air updates for devices, which you ca
 
 <span class="notes">**Note**: Mbed Linux OS is currently in limited preview. If you would like access to the code repositories, [please request to join the preview](https://os.mbed.com/linux-os/).</span>
 
-Please note that each release has its own branch, such as `mbl-os-0.5`. Throughout this guide, the release branch is referred to as `mbl-XXX`. Replace it with the name of the branch you're working with.
+Please note that each release has its own branch. Throughout this guide, the release branch is assumed to be `mbl-os-0.5`. 
 
 ### Building scripts
 
@@ -68,7 +68,7 @@ The following build options are mandatory:
 
 | Name | Information |
 | --- | --- |
-| `--branch` | Select the MBL branch to build. For example, to build the branch `mbl-XXX`: `./mbl-tools/build-mbl/run-me.sh -- --branch mbl-XXX --machine raspberrypi3-mbl` |
+| `--branch` | Select the MBL branch to build. For example, to build the branch `mbl-os-0.5`: `./mbl-tools/build-mbl/run-me.sh -- --branch mbl-os-0.5 --machine raspberrypi3-mbl` |
 | `--machine` | Select the target device. The options are [ Warp7, `imx7s-warp-mbl`] and [ Raspberry Pi 3, `raspberrypi3-mbl`]. Example: `./mbl-tools/build-mbl/run-me.sh -- --machine <MACHINE>` |
 | `--builddir` | Create a build directory. This option is for `run-me.sh`. You must use a different build directory for every device (machine), and we recommend including the device's name in the directory's name. Note that this directory includes all other artefacts, such as build and error logs. For example, if you've created `mkdir /path/to/my-build-dir`, the builddir will be `./mbl-tools/build-mbl/run-me.sh --builddir /path/to/my-build-dir` |
 | `--outputdir` | Specify the output directory for all build artefacts (pinned manifest, target specific images etc). For example, if you're created `mkdir /path/to/artifacts`, the outpudir will be `./mbl-tools/build-mbl/run-me.sh --outputdir /path/to/artifacts` |
@@ -77,7 +77,7 @@ The following build options are mandatory:
 
 An example using all mandatory options:
 ```
-./mbl-tools/build-mbl/run-me.sh --builddir /path/to/builddir --inject-mcc /path/to/mbed_cloud_dev_credentials.c --inject-mcc /path/to/update_default_resources.c --outputdir /path/to/artifacts -- --branch mbl-XXX --machine <MACHINE>
+./mbl-tools/build-mbl/run-me.sh --builddir /path/to/builddir --inject-mcc /path/to/mbed_cloud_dev_credentials.c --inject-mcc /path/to/update_default_resources.c --outputdir /path/to/artifacts -- --branch mbl-os-0.5 --machine <MACHINE>
 ```
 
 The following build options are not mandatory, but you may find that they improve the development process:
@@ -100,13 +100,13 @@ The following examples assume:
 #### Warp7 device
 
 ```
-./mbl-tools/build-mbl/run-me.sh --inject-mcc ./cloud-credentials/mbed_cloud_dev_credentials.c --inject-mcc ./update-resources/update_default_resources.c --outputdir ./artifacts-warp7 -- --machine imx7s-warp-mbl --branch mbl-XXX
+./mbl-tools/build-mbl/run-me.sh --inject-mcc ./cloud-credentials/mbed_cloud_dev_credentials.c --inject-mcc ./update-resources/update_default_resources.c --outputdir ./artifacts-warp7 -- --machine imx7s-warp-mbl --branch mbl-os-0.5
 ```
 
 #### Raspberry Pi 3 device
 
 ```
-./mbl-tools/build-mbl/run-me.sh --inject-mcc ./cloud-credentials/mbed_cloud_dev_credentials.c --inject-mcc ./update-resources/update_default_resources.c --outputdir ./artifacts-rpi3 -- --machine raspberrypi3-mbl --branch mbl-XXX
+./mbl-tools/build-mbl/run-me.sh --inject-mcc ./cloud-credentials/mbed_cloud_dev_credentials.c --inject-mcc ./update-resources/update_default_resources.c --outputdir ./artifacts-rpi3 -- --machine raspberrypi3-mbl --branch mbl-os-0.5
 ```
 
 
