@@ -356,7 +356,7 @@ To perform root-fs update follow next steps:
 ##### Update an application
 
 In order to install/update an application prepare `tar` file containing an `ipk` (which is application inside a container). 
-For the detailed explanation how to create a payload for application install/update see [workflow for an application apdate](https://github.com/ARMmbed/mbl-docs/blob/yg_master/Docs/tutorials/update_mbl.md#workflow).
+For the detailed explanation how to create a payload for application install/update see [workflow for an application apdate](https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/update_mbl.md#workflow).
 
 To perform application update follow next steps:
 
