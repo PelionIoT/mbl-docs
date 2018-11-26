@@ -110,7 +110,7 @@ Connect the Raspberry Pi 3 device to the PC and use `ifconfig -a` to identify th
 
   Note, that an IP address was not assigned yet to the `eno0` network interface. 
 
-#### Assigning an IP address to the network interface on a PC
+#### Assigning an IPv4 address to the network interface on a PC
 
 On an Ubuntu PC using NetworkManager:
 
