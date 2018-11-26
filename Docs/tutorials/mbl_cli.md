@@ -288,7 +288,7 @@ will be supported in next versions.
 
 ##### Root-fs update
 
-In order to update root-fs prepare `tar` file containing `rootfs.tar.xz`. For the detailed explanation how to create a payload for root-fs update see [root file system update workflow ](https://github.com/ARMmbed/mbl-docs/blob/yg_master/Docs/tutorials/update_mbl.md#workflow).
+In order to update root-fs prepare `tar` file containing `rootfs.tar.xz`. For the detailed explanation how to create a payload for root-fs update see [root file system update workflow ](https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/update_mbl.md#workflow).
 
 To perform root-fs update follow next steps:
 
