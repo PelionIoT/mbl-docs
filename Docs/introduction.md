@@ -1,8 +1,12 @@
 ## Arm Mbed Linux OS
 
-Arm Mbed Linux OS is a free, open-source IoT operating system for Cortex-A devices. Like Mbed OS, it provides the connectivity protocols and security mechanisms essential for IoT products, so that you can focus on developing your application. Integration with the Pelion IoT Platform offers remote management for large groups of devices.
+<img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/OS_v_MBL.png" width="50%" align="right">
 
-Mbed Linux OS is currently available as a beta to selected users. To request access, [please contact us](https://os.mbed.com/linux-os/).
+Arm Mbed Linux OS (MBL) is a free, open-source IoT operating system for Cortex-A devices, based on the embedded Linux Yocto Project. Like Mbed OS, it provides the connectivity protocols and security mechanisms essential for IoT products, so that you can focus on developing your application. Integration with the Pelion IoT Platform offers remote management for large groups of devices.
+
+<!--something about how developers benefit from Cortex A, and why Cortex A benefits from MBL-->
+
+Mbed Linux OS is currently available as a developer preview to selected users. To request access, [please contact us](https://os.mbed.com/linux-os/).
 
 ### Developer preview features
 
@@ -10,19 +14,17 @@ The preview release provides:
 
 * OCI-compliant containers for applications, helping to protect against compromised applications and facilitating a modern development workflow.
 * Signed updates to protect against unauthorised changes.
-
-And an integration with Pelion Device Management services:
-
-* Support for the Device Management Client for simple in-field provisioning and over-the-air device configuration.
-* Device discovery and secure identity in the Device Management device directory, to protect against impersonation or cloning.
-* Large-scale management of device groups.
-* Device status monitoring, including notifications of connection status.
-* Device firmware update and application management.
-* Access control at the account level.
+* The integration with Pelion Device Management services offers:
+    * Support for the Device Management Client for simple in-field provisioning and over-the-air device configuration.
+    * Device discovery and secure identity in the Device Management device directory, to protect against impersonation or cloning.
+    * Large-scale management of device groups.
+    * Device status monitoring, including notifications of connection status.
+    * Device firmware update and application management.
+    * Access control at the account level.
 
 ### Design
 
-The following diagram illustrates the components and services provided by MBL. When used in conjunction with Mbed Cloud, MBL provides a secure platform for developing, operating and managing IoT applications.
+The following diagram illustrates the components and services provided by MBL. When used in conjunction with Device Management, MBL provides a secure platform for developing, operating and managing IoT applications.
 
 <img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/Application_containers.png" width="75%" align="middle">
 
