@@ -279,7 +279,7 @@ root@mbed-linux-os-3006:~#
 
 #### Set up the Wi-Fi connection
 
-Set up [Wi-Fi connection on the device using ConnMan](https://github.com/ARMmbed/mbl-docs/blob/yg_master/Docs/tutorials/wifi_setup.md).
+Set up [Wi-Fi connection on the device using ConnMan](https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/wifi_setup.md).
 
 #### Device update
 
