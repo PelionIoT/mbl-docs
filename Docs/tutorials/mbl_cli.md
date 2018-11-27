@@ -268,7 +268,7 @@ Use Mbed Linux CLI `shell` command to get a shell access (SSH) on a device:
 $ mbl-cli shell [address]
 ```
 
-Where `address` is the address of the debug interface on the device or the device hostname. If device already selected, `address` parameter could be ommited.
+Where `address` is the address of the debug interface on the device or the device's hostname. If the device is already selected, the `address` parameter can be omitted.
 For example, to get shell on the previously selected device, do the following:
 
 ```
