@@ -3,7 +3,7 @@
 The Mbed Linux OS CLI is a command-line interface for developing with Mbed Linux OS. Mbed Linux OS CLI supports  
 the following operations on Mbed Linux OS devices:
 
- * List all available devices on the network and select device from a list. This will allow to omit optional device address parameter when using other Mbed Linux OS CLI commands.
+ * List all available MBL devices on the network and select an MBL device to be used by default by subsequent MBL CLI commands.
  * Get a shell on a device.
  * Copy a file to/from a device.
  * Run a command on a device.
@@ -209,9 +209,8 @@ See the [`nmcli` man page](https://linux.die.net/man/1/nmcli) for more informati
 
 ### Prerequisites
 
-Node.js Service Discovery which adds multicast DNS service discovery, also known as zeroconf or bonjour to Node.js.  
-
-[Node.js version v8.10.0 or higher](https://nodejs.org/en/), which includes `npm v3`.
+Node.js Service Discovery which adds multicast DNS service discovery, also known as zeroconf or bonjour to Node.js.
+Node.js version should be v8.10.0 or higher.
 
 It is better to install NodeSource-managed Node.js snap which includes the Node.js runtime, along with package managers npm and Yarn. 
 This could be installed from [Node.js website](https://nodejs.org/en/) or from [GitHub Node.js distributions](https://github.com/nodesource/distributions).
