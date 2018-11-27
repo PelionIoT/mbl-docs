@@ -8,9 +8,9 @@ As an MBL developer, use ConnMan for all basic Wi-Fi operations, rather than int
 
 #### connmanctl
 
-**connmanctl** is a command-line interface (CLI). It can operate in two modes:
+`connmanctl` is ConnMan's command-line interface (CLI) tool. It can operate in two modes:
 
-* A plain command input, when you want to run just one or two commands. Enter `connmanctl` followed by a command to initiate that command. For example, we can trigger an immediate run of the command `state`:
+* A non-interactive mode, where it runs a single command passed as arguments to `connmanctl`. For example, we can trigger an immediate run of the command `state`:
 
     ```
     # connmanctl state
@@ -19,9 +19,7 @@ As an MBL developer, use ConnMan for all basic Wi-Fi operations, rather than int
       SessionMode = False
     ```
 
-    Use `connmanctl --help` for more information.
-
-* An interactive shell for more extensive use. To enter the interactive shell, enter `connmanctl`, without entering a specific command. Some operations, such as a first connection to a protected wireless access point, are only possible through the interactive shell mode.
+* An interactive shell for more extensive use. To enter the interactive shell, enter `connmanctl` without entering a specific command. For example, to start `connmanctl` in interactive mode and run the `agent on` command:
 
     ```
     # connmanctl
@@ -29,83 +27,41 @@ As an MBL developer, use ConnMan for all basic Wi-Fi operations, rather than int
     Agent registered
     ```
 
-    Interactive mode supports the same commands as the plain mode, but you don't need to prefix the commands with `connmanctl`. Enter `help` for more information.
+    Some operations, such as connecting to a protected wireless access point for the first time, may only be possible through the interactive mode. For example, any operation that requires entering passwords.
 
-<span class="notes">**Note:** The official [connmanctl documentation is on the ConnMan site](https://01.org/connman/documentation).</span>
+To see the available `connmanctl` commands, run `connmanctl help` (or just `help` in interactive mode).
+
+<span class="tips">**Tip:** See the [`connmanctl` man page](https://www.mankier.com/1/connmanctl) for more information.</span>
 
 #### Configuration and state
 
 ConnMan automates many network operations and configurations by interacting with other daemons (DNS, DHCP and others) and by keeping a settings file, service files and other auto-generated data in the `/config/user/connman/` folder.
 
 The folder contains:
-* `/config/user/connman/settings` file: Current global and per-technology settings.
-* `/config/user/connman/main.conf` file: The main ConnMan configuration file. Currently, most parameters are set to default (commented); the only set parameter is `PreferredTechnologies`, which prioritizes Ethernet interface default routes over the Wi-Fi interface when both are connected.
-* An automatically generated **service profile**. For each Wi-Fi network that ConnMan connects to, it creates a directory in `/config/user/connman` to hold connection-specific configuration, such as passphrases, to support auto-connect on boot. In the initial state, there are no service profiles defined.
+
+* `/config/user/connman/settings`: Current global and per-technology settings.
+* `/config/user/connman/main.conf`: The main ConnMan configuration file. Currently, most parameters are set to their default values (commented out); the only set parameter is `PreferredTechnologies`, which prioritizes Ethernet interface default routes over the Wi-Fi interface when both are connected.
+* Automatically generated **service profiles**. For each Wi-Fi network that ConnMan connects to, it creates a directory in `/config/user/connman` to hold connection-specific configuration, such as passphrases, to support auto-connect on boot. Initially (before ConnMan has connected to any networks), there are no service profiles defined.
 
     To see all service profiles:
 
     ```
     # cat /config/user/connman/*/settings
     ```
-* For advanced connections, you may manually generate service files and place them under `/config/users/connman` (see section [Connecting to a network using service configuration files](#connecting-to-a-network-using-service-conflagration-files)). These are also known as *provisioning files*, and their file extension is `.config`.
+* For advanced connection configurations, you may manually generate service files and place them under `/config/user/connman` (see section [Connecting to a network using service configuration files](#connecting-to-a-network-using-service-configuration-files)). These are also known as *provisioning files*, and their file extensions must be `.config`.
 
 #### Enabling Wi-Fi
 
-ConnMan refers to network interface types as **technologies**, each of which supplies different services. For example, Wi-Fi is a technology (named `wifi`) that supplies a service called `wifi_dc85de828967_68756773616d_managed_psk`.
+ConnMan classifies network interfaces by their **technology**, and configurations are generally applied to one or more technologies. Examples of ConnMan's technology classifications are `wifi` and `ethernet`.
 
-By default, all technologies are disabled at the very first startup to prevent unwanted wireless or wired communication. To enable Wi-Fi:
+By default, in MBL, all technologies managed by ConnMan are disabled to prevent unwanted wireless or wired communication. To enable Wi-Fi, run:
 
-1. Enter `connmanctl state`.
-1. Enter `ifconfig` to see the initial state. The output is similar to this, but the exact details depend on how you connect to your device:
-  ```
-  # connmanctl state
-    State = idle
-    OfflineMode = False
-    SessionMode = False
-  # ifconfig
-  lo        Link encap:Local Loopback  
-            inet addr:127.0.0.1  Mask:255.0.0.0
-            inet6 addr: ::1/128 Scope:Host
-            UP LOOPBACK RUNNING  MTU:65536  Metric:1
-            RX packets:20 errors:0 dropped:0 overruns:0 frame:0
-            TX packets:20 errors:0 dropped:0 overruns:0 carrier:0
-            collisions:0 txqueuelen:1000
-            RX bytes:2088 (2.0 KiB)  TX bytes:2088 (2.0 KiB)
+```
+# connmanctl enable wifi
+Enabled wifi
+```
 
-  usb0      Link encap:Ethernet  HWaddr 32:0E:BF:08:80:24  
-            inet6 addr: fe80::300e:bfff:fe08:8024/64 Scope:Link
-            UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
-            RX packets:25590 errors:0 dropped:0 overruns:0 frame:0
-            TX packets:43 errors:0 dropped:0 overruns:0 carrier:0
-            collisions:0 txqueuelen:1000
-            RX bytes:4544764 (4.3 MiB)  TX bytes:4010 (3.9 KiB)
-
-  ```
-1. Enter `connmanctl enable wifi`.
-1. The state changes to ready and the `wlan0` interface is active:
-  ```
-  # connmanctl enable wifi
-  [83043.692440] IPv6: ADDRCONF(NETDEV_UP): wlan0: link is not ready
-  Enabled wifi
-  # [83044.504290] IPv6: ADDRCONF(NETDEV_CHANGE): wlan0: link becomes ready
-
-  # ifconfig
-  ...
-  ...
-  ...
-  wlan0     Link encap:Ethernet  HWaddr A0:CC:2B:2C:CB:9B  
-            inet addr:172.27.104.37  Bcast:172.27.105.255  Mask:255.255.254.0
-            inet6 addr: fe80::a2cc:2bff:fe2c:cb9b/64 Scope:Link
-            UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
-            RX packets:171 errors:0 dropped:0 overruns:0 frame:0
-            TX packets:431 errors:0 dropped:0 overruns:0 carrier:0
-            collisions:0 txqueuelen:1000
-            RX bytes:15360 (15.0 KiB)  TX bytes:57775 (56.4 KiB)
-  # connmanctl state
-    State = ready
-    OfflineMode = False
-    SessionMode = False
-  ```
+This command will not actually cause the device to connect to any Wi-Fi networks; you must still configure the network connection, as explained below.
 
 #### Scanning for available Wi-Fi networks and inspecting results
 
@@ -127,7 +83,7 @@ To list the available networks found (among other services):
     Wired                gadget_000000000000_usb
 ```
 
-The last command lists **all** available services. As you can see in the example output, there is also a `Wired` service (last line). The available Wi-Fi AP services are prefixed with `wifi_` and suffixed with the security protocol. For example:
+The last command lists **all** available services. As you can see in the example output, there is also a `Wired` service (listed on the last line). The available Wi-Fi services are prefixed with `wifi_` and suffixed with the security protocol. For example:
 
 * Open network (AndroidAP5): `_managed_none` suffix.
 * WEP protected network (Edimax): `_managed_wep` suffix.
@@ -137,7 +93,7 @@ The last command lists **all** available services. As you can see in the example
 To more closely inspect a service after scanning, use `connmanctl services <service_id>`. For example, when we look at a local Wi-Fi network:
 
 ```
-root@imx7s-warp-mbl:~# connmanctl services --properties wifi_a0a0a0a0a0a0_41699999999e47_managed_ieee8021x
+root@imx7s-warp-mbl:~# connmanctl services wifi_a0a0a0a0a0a0_41699999999e47_managed_ieee8021x
 /net/connman/service/wifi_a0a0a0a0a0a0_41699999999e47_managed_ieee8021x
   Type = wifi
   Security = [ ieee8021x ]
@@ -166,9 +122,8 @@ root@imx7s-warp-mbl:~#
 
 #### Connecting to an open (public) Wi-Fi network
 
-Currently, ConnMan doesn't connect to public networks<!--clearly it does, but you have to give the service name, so what is it that it can't do?-->, because **Wireless Internet Service Provider roaming** (WISPr) is disabled.
+To connect to a public open network (AndroidAP5 in the example), run `connmanctl connect <service_id>` where `<service_id>` is a service ID obtained from the output of `connmanctl services`. For example:
 
-To connect to a public open network (AndroidAP5 in the example), you have to use the service name:
 ```
 # connmanctl connect wifi_a0b1a0b1a0b1a0b1_416416416416416_managed_none
 [ 1321.787201] IPv6: ADDRCONF(NETDEV_CHANGE): wlan0: link becomes ready
@@ -187,27 +142,23 @@ wlan0     Link encap:Ethernet  HWaddr A0:B1:A0:B1:A0:B1
           RX bytes:1922 (1.8 KiB)  TX bytes:7189 (7.0 KiB)
 ```
 
-After connecting to AndroidAP5, `wlan0` is assigned an IP address (by the DHCP server).
+After connecting to AndroidAP5, the DHCP server assigns `wlan0` an IP address.
 
-If we check the state folder, we can see the service profile for this connection:
+If we check the ConnMan configuration folder, we can see the service profile for this connection:
 
 ```
-# ls -la /config/user/connman/
+# ls -l /config/user/connman/
 total 10
-drwxr-xr-x    3 root     root          1024 Nov  6 14:12 .
-drwxr-xr-x    7 root     root          1024 Oct 23 16:04 ..
 -rw-r--r--    1 root     root          5731 Oct 22 16:03 main.conf
 -rw-------    1 root     root           138 Nov  6 14:12 settings
 drwx------    2 root     root          1024 Nov  6 14:12 wifi_a0cc2b2ccb9b_416e64726f6964415035_managed_none
 ```
 
-ConnMan automatically created the folder `wifi_a0b1a0b1a0b1a0b1_416416416416416_managed_none`. Inside, there is a data (binary) file and a settings text file. The text file is used when inspecting a services using the `services <service_id>` option we introduced above, and includes all current settings.
+ConnMan automatically created the folder `wifi_a0b1a0b1a0b1a0b1_416416416416416_managed_none`. Inside, there is a data (binary) file and a settings text file. The text file is used when inspecting a service using the `services <service_id>` option we introduced above, and includes all current settings.
 
 ```
-# ls -la /config/user/connman/wifi_a0b1a0b1a0b1a0b1_416416416416416_managed_none/
+# ls -l /config/user/connman/wifi_a0b1a0b1a0b1a0b1_416416416416416_managed_none/
 total 7
-drwx------    2 root     root          1024 Nov  6 14:12 .
-drwxr-xr-x    3 root     root          1024 Nov  6 14:12 ..
 -rw-------    1 root     root          4096 Nov  6 14:12 data
 -rw-------    1 root     root           272 Nov  6 14:12 settings
 # cat /config/user/connman/wifi_a0b1a0b1a0b1a0b1_416416416416416_managed_none/settings
@@ -224,38 +175,44 @@ IPv6.method=auto
 IPv6.privacy=disabled
 ```
 
-Pay attention to the `AutoConnect=true` parameter. It means that ConnMnn will auto-connect to this network on reboot, if it is the only existing service profile, as well as in a few other cases (when the AP is nearby, and a few other configurations are applied).
+Pay attention to the `AutoConnect=true` parameter. It means that ConnMan will auto-connect to this network on boot if it is the only existing service profile, as well as in a few other cases (when the access point is nearby, and a few other configurations are applied).
 
-You can change this file by using `connmanctl config <config data>`, or by editing it manually.
+You can change this file by using `connmanctl config <config_data>`, or by editing it manually.
 
 #### Connecting to a protected network interactively
 
-1. Use `connmanctl` in interactive mode.
-1. Disconnect from the network AndroidAP5. and
-1. Try connecting to the Edimax AP (which is WEP protected):
+1. Disconnect from any currently connected Wi-Fi networks. For example, if you were connected to the AndroidAP5 network from the example above:
 
-  ```
-  ### connmanctl
-  connmanctl> disconnect wifi_a0b1a0b1a0b1a0b1_416416416416416_managed_none
-  [  131.769887] IPv6: ADDRCONF(NETDEV_UP): wlan0: link is not ready
-  Disconnected wifi_a0b1a0b1a0b1a0b1_416416416416416_managed_none
-  connmanctl> agent on
-  Agent registered
-  connmanctl> connect wifi_a2b2a2b2a2b2_19999999_managed_wep
-  Agent RequestInput wifi_a2b2a2b2a2b2_19999999_managed_wep
-    Passphrase = [ Type=wep, Requirement=mandatory ]
-  Passphrase? XXXXXXXXXX
-  connmanctl> [  146.007791] IPv6: ADDRCONF(NETDEV_CHANGE): wlan0: link becomes ready
-  Connected wifi_a2b2a2b2a2b2_19999999_managed_wep
-  ```
+    ```
+    # connmanctl disconnect wifi_a0b1a0b1a0b1a0b1_416416416416416_managed_none
+    ```
+
+1. Start `connmanctl` in interactive mode, and:
+
+   1. Enable ConnMan's wireless **agent**, used for entering passphrases, by using the `agent on` command.
+   1. Connect to the protected Wi-Fi network using the `connect` command, entering the passphrase when prompted.
+
+   In this example we connect to the Edimax WEP network from the `connmanctl services` listing above:
+   
+   ```
+   # connmanctl
+   connmanctl> agent on
+   Agent registered
+   connmanctl> connect wifi_a2b2a2b2a2b2_19999999_managed_wep
+   Agent RequestInput wifi_a2b2a2b2a2b2_19999999_managed_wep
+     Passphrase = [ Type=wep, Requirement=mandatory ]
+   Passphrase? XXXXXXXXXX
+   connmanctl> [  146.007791] IPv6: ADDRCONF(NETDEV_CHANGE): wlan0: link becomes ready
+   Connected wifi_a2b2a2b2a2b2_19999999_managed_wep
+   ```
 
 <span class="notes">**Note:** ConnMan does not support password encryption.</span>
 
 #### Connecting to a network using service configuration (provisioning) files
 
-For advanced configuration, use a provisioning file (with extension `.config`). Configurations include secured wireless access points that need complex authentication (such as WPA2 Enterprise), static IPs and so on. Each provisioning file can be used for multiple services at once.
+For advanced configuration, use a provisioning file (with the extension `.config`). Configurations include secured wireless access points that need complex authentication (such as WPA2 Enterprise), static IPs and so on. Each provisioning file can be used for multiple services at once.
 
-For more information, refer to the [Debian site](https://manpages.debian.org/testing/connman/connman-service.config.5.en.html).
+For more information, refer to the [connman-service.config man page](https://manpages.debian.org/testing/connman/connman-service.config.5.en.html).
 
 #### Connecting to a Wi-Fi WPA/WPA2 enterprise network
 
@@ -285,7 +242,7 @@ For more information, refer to the [Debian site](https://manpages.debian.org/tes
   Passphrase = <my-password>
   ```
 
-    Replace `<my-ssid>`, `<my-username>`, and `<my-password>` with appropriate information. Amend the description.
+  Replace `<my-ssid>`, `<my-username>`, and `<my-password>` with appropriate information and amend the description.
 
 1. Re-enable Wi-Fi:
 
@@ -293,6 +250,6 @@ For more information, refer to the [Debian site](https://manpages.debian.org/tes
   # connmanctl enable wifi
   ```
 
-ConnMan is now connected to the specified network.
+ConnMan should now connect to the specified network.
 
 If you experience any issues, restart both ConnMan and `wpa_supplicant` daemons.
