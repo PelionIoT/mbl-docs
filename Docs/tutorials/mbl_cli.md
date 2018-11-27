@@ -367,7 +367,7 @@ For a detailed explanation of how to create a payload for an application install
 
 To perform an application update, follow these steps:
 
-1. Transfer application update `tar` file to the `/scratch` partition on device:
+1. Transfer an application update tar file to the `/scratch` partition on the device:
 
    ```
    $ mbl-cli copy <rootfs update payload> <destination on device under the /scratch partition> [address]
