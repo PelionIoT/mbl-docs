@@ -11,6 +11,8 @@ the following operations on Mbed Linux OS devices:
 In order to use Mbed Linux OS CLI, you need to [set up networking](#network-setup) on the target device and [set up Mbed Linux OS CLI](#setting-up-mbed-linux-os-cli) on your development PC.
 You can [view the code on GitHub](https://github.com/ARMmbed/mbl-cli).
 
+Please note, that Mbed Linux OS CLI applicable only for devices running test image.
+
 ## Network setup
 An Mbed Linux OS IoT device with suitable hardware supports networking over USB by using the  
 Mbed Linux OS kernel's appropriate driver mechanism.
@@ -265,7 +267,7 @@ Select a device:
 2: None
 ```
 
-After selecting the device, optional device `address` parameter commands could be omitted when using other Mbed Linux OS CLI commands.
+After selecting the device, optional device `address` parameter commands could be omited when using other Mbed Linux OS CLI commands.
 
 #### Get a shell access (SSH)
 
@@ -275,7 +277,8 @@ Use Mbed Linux OS CLI `shell` command to get a shell access (SSH) on a device:
 $ mbl-cli shell [address]
 ```
 
-Where `address` is the address of the debug interface on the device or the device's hostname. If the device is already selected, the `address` parameter can be omitted.
+Where `address` is the address of the debug interface on the device or the device's hostname. For example, the address of the usb0 interface on WaRP7 IoT devices
+or the address of the eth1 interface on Raspberry Pi 3 devices. If the device is already selected, the `address` parameter can be omitted.
 For example, to get a shell on a previously selected device, do the following:
 
 ```
@@ -284,26 +287,25 @@ Connecting to mbed-linux-os-3006...
 root@mbed-linux-os-3006:~# 
 ```
 
-After obtaining the shell access, [Wi-Fi connection on the device using ConnMan](https://github.com/ARMmbed/mbl-docs/blob/yg_master/Docs/tutorials/wifi_setup.md) could be set up.
+After obtaining the shell access, [Wi-Fi connection on the device using ConnMan](https://os.mbed.com/docs/linux-os/current/getting-started/setting-up-a-network-connection.html) could be set up.
 
 #### Device update
 
-Currently device update can be done for the rootfs and applications. Update of boot loaders, the Linux Kernel and other components
-will be supported in later versions.
+Currently device update can be done for the rootfs and applications. Update of boot loaders, the Linux Kernel and other components will be supported in later versions.
 
 ##### Rootfs update
 
-In order to update root-fs prepare `tar` file containing `rootfs.tar.xz`. For the detailed explanation how to create a payload for root-fs update see [root file system update workflow ](https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/update_mbl.md#workflow).
+In order to update the rootfs, prepare a tar file containing `rootfs.tar.xz`. For a detailed explanation of how to create a payload for rootfs updates see the [root file system update workflow](https://os.mbed.com/docs/linux-os/current/getting-started/tutorial-updating-mbl-devices-and-applications.html#workflow).
 
-To perform root-fs update follow next steps:
+To perform rootfs update follow next steps:
 
-1. Transfer root-fs update `tar` file to the `/scratch` partition on device:
+1. Transfer rootfs update `tar` file to the `/scratch` partition on device:
 
    ```
-   $ mbl-cli copy <payload for root-fs update *.tar file> <destination on devise under the /scratch partition> [address]
+   $ mbl-cli copy <payload for rootfs update *.tar file> <destination on devise under the /scratch partition> [address]
    ```
 
-   For example, if `payload.tar` is a payload name for root-fs update and 169.254.6.215 is a link-local IPv4 address on the device, do the following:
+   For example, if `payload.tar` is a payload name for rootfs update and 169.254.6.215 is a link-local IPv4 address on the device, do the following:
 
    ```
    $ mbl-cli copy payload.tar /scratch 169.254.6.215
@@ -315,25 +317,25 @@ To perform root-fs update follow next steps:
    $ mbl-cli shell [address]
    ```
 
-   For example, if 169.254.6.215 is a link-local IPv4 address on the device, do the following:
+   For example:
 
    ```
    $ mbl-cli shell 169.254.6.215
    ```
    
-1. Inside the shell run `mbl-firmware-update-manager` script which installs root-fs:
+1. Inside the shell run `mbl-firmware-update-manager` script which installs rootfs:
 
    ```
    $ mbl-firmware-update-manager -i <full path to TAR file under /scratch>
    ```
 
-   For example, if `payload.tar` is a payload name for root-fs update, do the following:
+   For example:
 
    ```
    $ mbl-firmware-update-manager -i /scratch/payload.tar
    ```
 
-   This will automatically reboot the device after the root-fs update.
+   This will automatically reboot the device after the rootfs update.
    It is recommended to delete old `tar` files from the `scratch` partition after update finish.
    
    In order to see the help menu run
@@ -368,16 +370,16 @@ To perform an application update, follow these steps:
 1. Transfer application update `tar` file to the `/scratch` partition on device:
 
    ```
-   $ mbl-cli copy <payload for root-fs update *.tar file> <destination on devise under the /scratch partition> [address]
+   $ mbl-cli copy <payload for rootfs update *.tar file> <destination on devise under the /scratch partition> [address]
    ```
 
-   For example, if `payload.tar` is a payload name for root-fs update and 169.254.6.215 is a link-local IPv4 address on the device, do the following:
+   For example, if `payload.tar` is a payload name for rootfs update and 169.254.6.215 is a link-local IPv4 address of the debug interface of the device, do the following:
 
    ```
    $ mbl-cli copy payload.tar /scratch 169.254.6.215
    ```
 
-1. Get shell to the device and run `mbl-firmware-update-manager` similar as it is done for the [Root-fs update](#root-fs-update).
+1. Get shell to the device and run `mbl-firmware-update-manager` similar as it is done for the [rootfs update](#rootfs-update).
    Application will be installed in [OCI container](https://www.opencontainers.org/) on device under `/home/app/`.  
    It is recommended to delete old `tar` files from the `scratch` partition after application install.
 
