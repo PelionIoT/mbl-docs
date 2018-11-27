@@ -269,7 +269,7 @@ $ mbl-cli shell [address]
 ```
 
 Where `address` is the address of the debug interface on the device or the device's hostname. If the device is already selected, the `address` parameter can be omitted.
-For example, to get shell on the previously selected device, do the following:
+For example, to get a shell on a previously selected device, do the following:
 
 ```
 $ mbl-cli shell
