@@ -363,7 +363,7 @@ Once you have a rootfs update payload, follow these steps to update the device:
 ##### Update an application
 
 In order to install/update an application, prepare a tar file containing an OPKG package (`.ipk` file) for an MBL application. 
-For the detailed explanation how to create a payload for application install/update see [workflow for an application apdate](https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/update_mbl.md#workflow).
+For a detailed explanation of how to create a payload for an application install/update see the [workflow for an application apdate](https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/update_mbl.md#workflow).
 
 To perform an application update, follow these steps:
 
