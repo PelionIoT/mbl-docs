@@ -11,7 +11,7 @@ the following operations on Mbed Linux OS devices:
 In order to use Mbed Linux OS CLI, you need to [set up networking](#network-setup) on the target device and [set up Mbed Linux OS CLI](#setting-up-mbed-linux-os-cli) on your development PC.
 You can [view the code on GitHub](https://github.com/ARMmbed/mbl-cli).
 
-Please note, that Mbed Linux OS CLI applicable only for devices running test image.
+Please note that Mbed Linux OS CLI can only be used with devices running the test image (`mbl-console-image-test`).
 
 ## Network setup
 An Mbed Linux OS IoT device with suitable hardware supports networking over USB by using the  
