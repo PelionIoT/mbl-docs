@@ -3,12 +3,12 @@
 The Mbed Linux OS CLI is a command-line interface for developing with Mbed Linux OS. Mbed Linux OS CLI supports  
 the following operations on Mbed Linux OS devices:
 
- * List all available devices on the network and select device from a list. This will allow to ommit optional device address parameter when using other Mbed Linux OS CLI commands.
+ * List all available devices on the network and select device from a list. This will allow to omit optional device address parameter when using other Mbed Linux OS CLI commands.
  * Get a shell on a device.
  * Copy a file to/from a device.
  * Run a command on a device.
  
-In order to use Mbed Linux CLI, you need to [set up networking](#network-setup) on the target device and [set up Mbed Linux CLI](#setting-up-mbed-linux-cli) on your development PC.
+In order to use Mbed Linux OS CLI, you need to [set up networking](#network-setup) on the target device and [set up Mbed Linux OS CLI](#setting-up-mbed-linux-os-cli) on your development PC.
 You can [view the code on GitHub](https://github.com/ARMmbed/mbl-cli).
 
 ## Network setup
@@ -265,7 +265,7 @@ Select a device:
 2: None
 ```
 
-After selecting the device, optional device `address` parameter commands could be ommitted when using other Mbed Linux OS CLI commands.
+After selecting the device, optional device `address` parameter commands could be omitted when using other Mbed Linux OS CLI commands.
 
 #### Get a shell access (SSH)
 
