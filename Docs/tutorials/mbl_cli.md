@@ -8,7 +8,7 @@ the following operations on Mbed Linux OS devices:
  * Copy a file to/from a device.
  * Run a command on a device.
  
-In order to use Mbed Linux CLI [setup network](#network-setup) to the target device and [set up the Mbed Linux CLI](#setting-up-mbed-linux-cli).
+In order to use Mbed Linux CLI, you need to [set up networking](#network-setup) on the target device and [set up Mbed Linux CLI](#setting-up-mbed-linux-cli) on your development PC.
 You can [view the code on GitHub](https://github.com/ARMmbed/mbl-cli).
 
 ## Network setup
