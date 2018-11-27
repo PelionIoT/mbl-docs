@@ -52,7 +52,7 @@ The folder contains:
 
 #### Enabling Wi-Fi
 
-ConnMan classifies network interfaces by their **technology**, and configurations are generally applied to one or more technology. Examples of ConnMan's technology classifications are `wifi` and `ethernet`.
+ConnMan classifies network interfaces by their **technology**, and configurations are generally applied to one or more technologies. Examples of ConnMan's technology classifications are `wifi` and `ethernet`.
 
 By default, in MBL, all technologies managed by ConnMan are disabled to prevent unwanted wireless or wired communication. To enable Wi-Fi, run:
 
