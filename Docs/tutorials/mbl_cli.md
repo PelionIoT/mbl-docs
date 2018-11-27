@@ -438,7 +438,7 @@ $ mbl-cli run <command> [address]
 Where `address` is the address of the debug interface on the device or the device hostname. For example, address of usb0 interface on WaRP7 IoT device
 or eth1 interface on Raspberry Pi 3 device.
 
-For example, in order to list an avalable interfaces on device, do the following:
+For example, in order to show the statuses of the active interfaces on a device, run the following:
 
 ```
 $ mbl-cli run /sbin/ifconfig 169.254.11.94
