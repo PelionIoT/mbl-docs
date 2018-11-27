@@ -284,7 +284,7 @@ Set up [Wi-Fi connection on the device using ConnMan](https://github.com/ARMmbed
 #### Device update
 
 Currently device update can be done for the rootfs and applications. Update of boot loaders, the Linux Kernel and other components
-will be supported in next versions.
+will be supported in later versions.
 
 ##### Root-fs update
 
