@@ -209,18 +209,8 @@ See the [`nmcli` man page](https://linux.die.net/man/1/nmcli) for more informati
 
 ### Prerequisites
 
-Node.js Service Discovery which adds multicast DNS service discovery, also known as zeroconf or bonjour to Node.js.
-Node.js version should be v8.10.0 or higher.
-
-It is better to install NodeSource-managed Node.js snap which includes the Node.js runtime, along with package managers npm and Yarn. 
-This could be installed from [Node.js website](https://nodejs.org/en/) or from [GitHub Node.js distributions](https://github.com/nodesource/distributions).
-
-To install Node.js on the Ubuntu PC, do the following:
-
-```
-$ curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-$ sudo apt-get install -y nodejs
-```
+The only dependency of MBL CLI that you need to install is Node.js (version v8.10.0 or higher). 
+We recommend installing Node.js from NodeSource's binary distribution using [these instructions](https://github.com/nodesource/distributions#installation-instructions).
 
 ### Installation
 
@@ -362,7 +352,7 @@ Once you have a rootfs update payload, follow these steps to update the device:
 ##### Update an application
 
 In order to install/update an application, prepare a tar file containing an OPKG package (`.ipk` file) for an MBL application. 
-For a detailed explanation of how to create a payload for an application install/update see the [workflow for an application apdate](https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/update_mbl.md#workflow).
+For a detailed explanation of how to create a payload for an application install/update see the [workflow for an application apdate](https://os.mbed.com/docs/linux-os/current/getting-started/tutorial-updating-mbl-devices-and-applications.html#workflow).
 
 To perform an application update, follow these steps:
 
