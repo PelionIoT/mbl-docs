@@ -5,6 +5,10 @@
 Arm Mbed Linux OS (MBL) is a free, open-source IoT operating system for Cortex-A devices, based on the embedded Linux Yocto Project. Like Mbed OS, it provides the connectivity protocols and security mechanisms essential for IoT products, so that you can focus on developing your application. Integration with the Pelion IoT Platform offers remote management for large groups of devices.
 
 <!--something about how developers benefit from Cortex A, and why Cortex A benefits from MBL-->
+<!--[27/11/2018, 09:09:47] Mark Knight: Cortex-M is suited to more constrained applications that required less compute performance. Cortex-M can be a better choice for battery powered devices where I long life is required.
+[27/11/2018, 09:11:01] Mark Knight: https://www.silabs.com/documents/public/white-papers/Which-ARM-Cortex-Core-Is-Right-for-Your-Application.pdf
+[27/11/2018, 09:11:40] Mark Knight: https://electronics.stackexchange.com/questions/174044/difference-between-arm-a-and-m-series-processors
+Another generalisation. Cortex-M better for processors that are dedicated to performing a single function. Cortex-A is better suited to more general purpose devices. So, for example, the trackpad in your laptop would use a Cortex-M to detect your finger and determine the position. Your browser and Word would run on a Cortex-A in the same laptop.-->
 
 Mbed Linux OS is currently available as a developer preview to selected users. To request access, [please contact us](https://os.mbed.com/linux-os/).
 
