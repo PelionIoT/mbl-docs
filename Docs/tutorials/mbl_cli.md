@@ -297,15 +297,15 @@ Currently device update can be done for the rootfs and applications. Update of b
 
 In order to update the rootfs, prepare a tar file containing `rootfs.tar.xz`. For a detailed explanation of how to create a payload for rootfs updates see the [root file system update workflow](https://os.mbed.com/docs/linux-os/current/getting-started/tutorial-updating-mbl-devices-and-applications.html#workflow).
 
-To perform rootfs update follow next steps:
+Once you have a rootfs update payload, follow these steps to update the device:
 
 1. Transfer rootfs update `tar` file to the `/scratch` partition on device:
 
    ```
-   $ mbl-cli copy <payload for rootfs update *.tar file> <destination on devise under the /scratch partition> [address]
+   $ mbl-cli copy <rootfs update payload> <destination on device under the /scratch partition> [address]
    ```
 
-   For example, if `payload.tar` is a payload name for rootfs update and 169.254.6.215 is a link-local IPv4 address on the device, do the following:
+   For example, if `payload.tar` is the name of the payload file for the rootfs update and 169.254.6.215 is a link-local IPv4 address on the device, do the following:
 
    ```
    $ mbl-cli copy payload.tar /scratch 169.254.6.215
@@ -323,7 +323,7 @@ To perform rootfs update follow next steps:
    $ mbl-cli shell 169.254.6.215
    ```
    
-1. Inside the shell run `mbl-firmware-update-manager` script which installs rootfs:
+1. Inside the shell run the `mbl-firmware-update-manager` script to install the rootfs:
 
    ```
    $ mbl-firmware-update-manager -i <full path to TAR file under /scratch>
@@ -335,10 +335,10 @@ To perform rootfs update follow next steps:
    $ mbl-firmware-update-manager -i /scratch/payload.tar
    ```
 
-   This will automatically reboot the device after the rootfs update.
-   It is recommended to delete old `tar` files from the `scratch` partition after update finish.
+   The device will automatically reboot after the rootfs update.
+   It is recommended to delete old tar files from the `scratch` partition after updates finish.
    
-   In order to see the help menu run
+   In order to see `mbl-firmware-update-manager`'s help menu run:
 
    ```
    $ mbl-firmware-update-manager -h
@@ -370,10 +370,10 @@ To perform an application update, follow these steps:
 1. Transfer application update `tar` file to the `/scratch` partition on device:
 
    ```
-   $ mbl-cli copy <payload for rootfs update *.tar file> <destination on devise under the /scratch partition> [address]
+   $ mbl-cli copy <rootfs update payload> <destination on device under the /scratch partition> [address]
    ```
 
-   For example, if `payload.tar` is a payload name for rootfs update and 169.254.6.215 is a link-local IPv4 address of the debug interface of the device, do the following:
+   For example, if `payload.tar` is the name of the payload file for the rootfs update and 169.254.6.215 is a link-local IPv4 address of the debug interface of the device, do the following:
 
    ```
    $ mbl-cli copy payload.tar /scratch 169.254.6.215
@@ -381,7 +381,7 @@ To perform an application update, follow these steps:
 
 1. Get shell to the device and run `mbl-firmware-update-manager` similar as it is done for the [rootfs update](#rootfs-update).
    Application will be installed in [OCI container](https://www.opencontainers.org/) on device under `/home/app/`.  
-   It is recommended to delete old `tar` files from the `scratch` partition after application install.
+   It is recommended to delete old tar files from the `scratch` partition after application install.
 
 1. Each application run on device in a separate OCI container. To run application in OCI container use application lifecycle manager script:
 
@@ -448,7 +448,7 @@ or the address of the eth1 interface on Raspberry Pi 3 devices.
 For example, in order to show the statuses of the active interfaces on a device, run the following:
 
 ```
-$ mbl-cli run /sbin/ifconfig 169.254.11.94
+$ mbl-cli run ifconfig 169.254.11.94
 lo        Link encap:Local Loopback  
           inet addr:127.0.0.1  Mask:255.0.0.0
           inet6 addr: ::1/128 Scope:Host
