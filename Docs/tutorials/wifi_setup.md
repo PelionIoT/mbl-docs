@@ -27,17 +27,18 @@ As an MBL developer, use ConnMan for all basic Wi-Fi operations, rather than int
     Agent registered
     ```
 
-Some operations, such as connecting to a protected wireless access point for the first time, may only be possible through the interactive mode because they require e.g. passwords to be entered interactively.
+    Some operations, such as connecting to a protected wireless access point for the first time, may only be possible through the interactive mode. For example, any operation that requires entering passwords.
 
 To see the available `connmanctl` commands, run `connmanctl help` (or just `help` in interactive mode).
 
-<span class="notes">**Note:** See the [`connmanctl` man page](https://www.mankier.com/1/connmanctl) for more information.</span>
+<span class="tips">**Tip:** See the [`connmanctl` man page](https://www.mankier.com/1/connmanctl) for more information.</span>
 
 #### Configuration and state
 
 ConnMan automates many network operations and configurations by interacting with other daemons (DNS, DHCP and others) and by keeping a settings file, service files and other auto-generated data in the `/config/user/connman/` folder.
 
 The folder contains:
+
 * `/config/user/connman/settings`: Current global and per-technology settings.
 * `/config/user/connman/main.conf`: The main ConnMan configuration file. Currently, most parameters are set to their default values (commented out); the only set parameter is `PreferredTechnologies`, which prioritizes Ethernet interface default routes over the Wi-Fi interface when both are connected.
 * Automatically generated **service profiles**. For each Wi-Fi network that ConnMan connects to, it creates a directory in `/config/user/connman` to hold connection-specific configuration, such as passphrases, to support auto-connect on boot. Initially (before ConnMan has connected to any networks), there are no service profiles defined.
@@ -47,18 +48,20 @@ The folder contains:
     ```
     # cat /config/user/connman/*/settings
     ```
-* For advanced connection configurations, you may manually generate service files and place them under `/config/user/connman` (see section [Connecting to a network using service configuration files](#connecting-to-a-network-using-service-conflagration-files)). These are also known as *provisioning files*, and their file extensions must be `.config`.
+* For advanced connection configurations, you may manually generate service files and place them under `/config/user/connman` (see section [Connecting to a network using service configuration files](#connecting-to-a-network-using-service-configuration-files)). These are also known as *provisioning files*, and their file extensions must be `.config`.
 
 #### Enabling Wi-Fi
 
-ConnMan classifies network interfaces by their **technology** and configurations are generally applied to one or more technology. Examples of ConnMan's technology classifications are `wifi` and `ethernet`.
+ConnMan classifies network interfaces by their **technology**, and configurations are generally applied to one or more technology. Examples of ConnMan's technology classifications are `wifi` and `ethernet`.
 
 By default, in MBL, all technologies managed by ConnMan are disabled to prevent unwanted wireless or wired communication. To enable Wi-Fi, run:
+
 ```
 # connmanctl enable wifi
 Enabled wifi
 ```
-This command will not actually cause the device to connect to any Wi-Fi networks.
+
+This command will not actually cause the device to connect to any Wi-Fi networks; you must still configure the network connection, as explained below.
 
 #### Scanning for available Wi-Fi networks and inspecting results
 
@@ -120,6 +123,7 @@ root@imx7s-warp-mbl:~#
 #### Connecting to an open (public) Wi-Fi network
 
 To connect to a public open network (AndroidAP5 in the example), run `connmanctl connect <service_id>` where `<service_id>` is a service ID obtained from the output of `connmanctl services`. For example:
+
 ```
 # connmanctl connect wifi_a0b1a0b1a0b1a0b1_416416416416416_managed_none
 [ 1321.787201] IPv6: ADDRCONF(NETDEV_CHANGE): wlan0: link becomes ready
@@ -138,7 +142,7 @@ wlan0     Link encap:Ethernet  HWaddr A0:B1:A0:B1:A0:B1
           RX bytes:1922 (1.8 KiB)  TX bytes:7189 (7.0 KiB)
 ```
 
-After connecting to AndroidAP5, `wlan0` is assigned an IP address (by the DHCP server).
+After connecting to AndroidAP5, the DHCP server assigns `wlan0` an IP address.
 
 If we check the ConnMan configuration folder, we can see the service profile for this connection:
 
@@ -150,7 +154,7 @@ total 10
 drwx------    2 root     root          1024 Nov  6 14:12 wifi_a0cc2b2ccb9b_416e64726f6964415035_managed_none
 ```
 
-ConnMan automatically created the folder `wifi_a0b1a0b1a0b1a0b1_416416416416416_managed_none`. Inside, there is a data (binary) file and a settings text file. The text file is used when inspecting a services using the `services <service_id>` option we introduced above, and includes all current settings.
+ConnMan automatically created the folder `wifi_a0b1a0b1a0b1a0b1_416416416416416_managed_none`. Inside, there is a data (binary) file and a settings text file. The text file is used when inspecting a service using the `services <service_id>` option we introduced above, and includes all current settings.
 
 ```
 # ls -l /config/user/connman/wifi_a0b1a0b1a0b1a0b1_416416416416416_managed_none/
@@ -178,15 +182,18 @@ You can change this file by using `connmanctl config <config_data>`, or by editi
 #### Connecting to a protected network interactively
 
 1. Disconnect from any currently connected Wi-Fi networks. For example, if you were connected to the AndroidAP5 network from the example above:
-```
-# connmanctl disconnect wifi_a0b1a0b1a0b1a0b1_416416416416416_managed_none
-```
 
-1. Start `connmanctl` in interactive mode and:
-   * Enable ConnMan's wireless **agent**, used for entering passphrases, by using the `agent on` command.
-   * Connect to the protected Wi-Fi network using the `connect` command, entering the passphrase when prompted.
+    ```
+    # connmanctl disconnect wifi_a0b1a0b1a0b1a0b1_416416416416416_managed_none
+    ```
 
-   In the following example we connect to the Edimax WEP network from the `connmanctl services` listing above.
+1. Start `connmanctl` in interactive mode, and:
+
+   1. Enable ConnMan's wireless **agent**, used for entering passphrases, by using the `agent on` command.
+   1. Connect to the protected Wi-Fi network using the `connect` command, entering the passphrase when prompted.
+
+   In this example we connect to the Edimax WEP network from the `connmanctl services` listing above:
+   
    ```
    # connmanctl
    connmanctl> agent on
@@ -203,7 +210,7 @@ You can change this file by using `connmanctl config <config_data>`, or by editi
 
 #### Connecting to a network using service configuration (provisioning) files
 
-For advanced configuration, use a provisioning file (with extension `.config`). Configurations include secured wireless access points that need complex authentication (such as WPA2 Enterprise), static IPs and so on. Each provisioning file can be used for multiple services at once.
+For advanced configuration, use a provisioning file (with the extension `.config`). Configurations include secured wireless access points that need complex authentication (such as WPA2 Enterprise), static IPs and so on. Each provisioning file can be used for multiple services at once.
 
 For more information, refer to the [connman-service.config man page](https://manpages.debian.org/testing/connman/connman-service.config.5.en.html).
 
