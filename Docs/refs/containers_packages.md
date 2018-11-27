@@ -1,6 +1,6 @@
 ## Application containers and packages
 
-<span class="notes">The beta version of Mbed Linux OS (MBL) implements only some of the features reviewed in this document.</span>
+<span class="notes">The developer preview version of Mbed Linux OS (MBL) implements only some of the features reviewed in this document.</span>
 
 Like mobile and desktop operating systems, MBL has a framework for user applications that provides independent development, debugging, testing and deployment. Crucially, each application is isolated in a container, so no matter how many applications are running, they cannot interfere with each other or with MBL itself. Applications can be individually managed and updated using Pelion Device Management, and signed by a signing authority independent of the signing needs of other applications.
 
