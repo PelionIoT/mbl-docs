@@ -427,7 +427,7 @@ To perform application update follow next steps:
      -v, --verbose         Increase output verbosity (default: False)
    ``` 
 
-##### Remote script execution
+##### Remote command execution
 
 Select a device from the list of available devices using the `mbl-cli select` command, then run a command on the device:
 
