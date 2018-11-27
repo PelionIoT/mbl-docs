@@ -1,7 +1,7 @@
 ## Mbed Linux CLI
 
 The Mbed Linux CLI is a command-line interface for developing with Mbed Linux. Mbed Linux CLI supports  
-following operations on Mbed Linux OS device:
+the following operations on Mbed Linux OS devices:
 
  * List available devices and select device from a list.
  * Get a shell on a device.
