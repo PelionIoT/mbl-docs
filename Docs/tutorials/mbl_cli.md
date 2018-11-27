@@ -435,7 +435,7 @@ Select the device from the list of available devices using `mbl-cli select` comm
 $ mbl-cli run <command> [address]
 ```
 
-Where `address` is the address of the debug interface on the device or the device hostname. For example, address of usb0 interface on WaRP7 IoT device
+Where `address` is the address of the debug interface on the device or the device hostname. For example, the address of the usb0 interface on WaRP7 IoT devices
 or the address of the eth1 interface on Raspberry Pi 3 devices.
 
 For example, in order to show the statuses of the active interfaces on a device, run the following:
