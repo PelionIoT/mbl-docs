@@ -299,7 +299,7 @@ In order to update the rootfs, prepare a tar file containing `rootfs.tar.xz`. Fo
 
 Once you have a rootfs update payload, follow these steps to update the device:
 
-1. Transfer rootfs update `tar` file to the `/scratch` partition on device:
+1. Transfer the rootfs update tar file to the `/scratch` partition on the device:
 
    ```
    $ mbl-cli copy <rootfs update payload> <destination on device under the /scratch partition> [address]
@@ -370,27 +370,27 @@ To perform an application update, follow these steps:
 1. Transfer an application update tar file to the `/scratch` partition on the device:
 
    ```
-   $ mbl-cli copy <rootfs update payload> <destination on device under the /scratch partition> [address]
+   $ mbl-cli copy <application update payload> <destination on device under the /scratch partition> [address]
    ```
 
-   For example, if `payload.tar` is the name of the payload file for the rootfs update and 169.254.6.215 is a link-local IPv4 address of the debug interface of the device, do the following:
+   For example, if `payload.tar` is the payload name for an application update and 169.254.6.215 is a link-local IPv4 address on the device, do the following:
 
    ```
    $ mbl-cli copy payload.tar /scratch 169.254.6.215
    ```
 
-1. Get shell to the device and run `mbl-firmware-update-manager` similar as it is done for the [rootfs update](#rootfs-update).
-   Application will be installed in [OCI container](https://www.opencontainers.org/) on device under `/home/app/`.  
-   It is recommended to delete old tar files from the `scratch` partition after application install.
+1. Get a shell on the device and run `mbl-firmware-update-manager` similarly to how it is done for [rootfs updates](#rootfs-update).
+   The application will be installed on the device under `/home/app/`.
+   It is recommended to delete old tar files from the `scratch` partition after application installations.
 
-1. Each application run on device in a separate OCI container. To run application in OCI container use application lifecycle manager script:
+1. Each application runs on the device in a separate OCI container. To run an application in an OCI container use the `mbl-application-lifecycle-manager` script:
 
    ```
    $ mbl-app-lifecycle-manager -r <CONTAINER_ID> -a <APPLICATION_ID>
    ```
    
-   Where CONTAINER_ID is a user defined ID wich will be assosiated with a container for a specific application, e.g. `ID1`. 
-   APPLICATION_ID is the directory name under /home/app/ that OCI container was installed to.
+   Where `CONTAINER_ID` is a user defined ID which will be associated with the container created, e.g. `ID1`. 
+   `APPLICATION_ID` is the name of the app as defined in the apps OPKG package.
    
    For example, if `my_application` is an application installed on device under `/home/app/` and `ID1` is a CONTAINER_ID, do the following:
 
