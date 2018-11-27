@@ -35,7 +35,7 @@ MBL and Device Management support over-the-air updates for devices, which you ca
 
 <span class="notes">**Note**: Mbed Linux OS is currently in limited preview. If you would like access to the code repositories, [please request to join the preview](https://os.mbed.com/linux-os/).</span>
 
-Please note that each release has its own branch. Throughout this guide, the release branch is assumed to be `mbl-os-0.5`. 
+Please note that each release has its own branch. Throughout this guide, the release branch is assumed to be `mbl-os-0.5`.
 
 ### Building scripts
 
@@ -311,9 +311,3 @@ To write your disk image to the Warp7's flash device, you must first access the 
 ### Logging in to MBL
 
 To log in to MBL, wait for a login prompt, then enter the username `root`. You will not be prompted for a password.
-
-## Setting up a network connection
-
-### Ethernet
-
-If your device is connected to an Ethernet network **with a DHCP server**, then it automatically connects to that network.

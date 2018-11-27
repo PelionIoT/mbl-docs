@@ -26,13 +26,12 @@
                 "sources": []
             },
             {
-                "title": "Setting up",
+                "title": "Setting up and supported hardware",
                 "intro": {
                     "type": "markdown",
                     "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/intro_reqs.md"
                 },
-                "sub_chapters": [
-                    {
+                "sub_chapters": [{
                         "title": "Hardware",
                         "intro": {
                             "type": "markdown",
@@ -68,7 +67,7 @@
                 ]
             },
             {
-                "title": "Tutorial: Connecting an MBL device",
+                "title": "Tutorial: Building an image",
                 "intro": {
                     "type": "markdown",
                     "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/connect_tutorial_intro.md"
@@ -76,15 +75,24 @@
                 "sources": [{
                     "type": "markdown",
                     "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/create_connecting_image.md"
-                },
-                {
-                    "type": "markdown",
-                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/wifi_setup.md"
-                },
-                {
-                    "type": "markdown",
-                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/quick_start_pelion_check.md"
                 }]
+            },
+            {
+                "title": "Tutorial: Connecting to a network and Pelion Device Management",
+
+                "sources": [{
+                        "type": "markdown",
+                        "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/connect_network.md"
+                    },
+                    {
+                        "type": "markdown",
+                        "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/wifi_setup.md"
+                    },
+                    {
+                        "type": "markdown",
+                        "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/quick_start_pelion_check.md"
+                    }
+                ]
             },
             {
                 "title": "Tutorial: User application",
@@ -109,11 +117,10 @@
         "description": "",
         "slug": "references",
         "type": "markdown",
-        "sources": [
-          {
-              "type": "markdown",
-              "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/refs/refs_intro.md"
-          },
+        "sources": [{
+                "type": "markdown",
+                "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/refs/refs_intro.md"
+            },
             {
                 "type": "markdown",
                 "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/refs/containers_packages.md"
