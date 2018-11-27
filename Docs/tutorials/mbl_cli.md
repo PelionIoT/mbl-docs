@@ -378,61 +378,10 @@ To perform an application update, follow these steps:
    $ mbl-cli copy payload.tar /scratch 169.254.6.215
    ```
 
-1. Get a shell on the device and run `mbl-firmware-update-manager` similarly to how it is done for [rootfs updates](#rootfs-update).
-   The application will be installed on the device under `/home/app/`.
+1. Get a shell on the device and run `mbl-app-update-manager` similarly to how it is done for [rootfs updates](#rootfs-update).
+   The application will be installed on the device and runned authomatically. Each application runs on the device in a separate OCI container.
    It is recommended to delete old tar files from the `scratch` partition after application installations.
-
-1. Each application runs on the device in a separate OCI container. To run an application in an OCI container use the `mbl-application-lifecycle-manager` script:
-
-   ```
-   $ mbl-app-lifecycle-manager -r <CONTAINER_ID> -a <APPLICATION_ID>
-   ```
    
-   Where `CONTAINER_ID` is a user defined ID which will be associated with the container created, e.g. `ID1`. 
-   `APPLICATION_ID` is the name of the app as defined in the apps OPKG package.
-   
-   For example, if `my_application` is an application installed on device under `/home/app/` and `ID1` is a CONTAINER_ID, do the following:
-
-   ```
-   $ mbl-app-lifecycle-manager -r ID1 -a my_application
-   ```
-
-   After the device reboot application will run automatically.
-   
-   In order to see the `mbl-app-lifecycle-manager` help menu run:
-
-   ```
-   $ mbl-app-lifecycle-manager -h
-   usage: mbl-app-lifecycle-manager [-h]
-                                    (-r CONTAINER_ID | -s CONTAINER_ID | -k CONTAINER_ID)
-                                    [-a APPLICATION_ID] [-t SIGTERM_TIMEOUT]
-                                    [-j SIGKILL_TIMEOUT] [-v]
-
-   App lifecycle manager
-
-   optional arguments:
-     -h, --help            show this help message and exit
-     -r CONTAINER_ID, --run-container CONTAINER_ID
-                           Run container, assigning the given container ID
-                           (default: None)
-     -s CONTAINER_ID, --stop-container CONTAINER_ID
-                           Stop container with the given container ID (default:
-                           None)
-     -k CONTAINER_ID, --kill-container CONTAINER_ID
-                           Kill container with the container ID (default: None)
-     -a APPLICATION_ID, --application-id APPLICATION_ID
-                           Application ID (default: None)
-     -t SIGTERM_TIMEOUT, --sigterm-timeout SIGTERM_TIMEOUT
-                           Maximum time (seconds) to wait for application
-                           container to exit after sending a SIGTERM. Default is
-                           3 (default: None)
-     -j SIGKILL_TIMEOUT, --sigkill-timeout SIGKILL_TIMEOUT
-                           Maximum time (seconds) to wait for application
-                           container to exit after sending a SIGKILL. Default is
-                           1 (default: None)
-     -v, --verbose         Increase output verbosity (default: False)
-   ``` 
-
 ##### Remote command execution
 
 Select a device from the list of available devices using the `mbl-cli select` command, then run a command on the device:
