@@ -429,7 +429,7 @@ To perform application update follow next steps:
 
 ##### Remote script execution
 
-Select the device from the list of available devices using `mbl-cli select` command. Run a command on a device:
+Select a device from the list of available devices using the `mbl-cli select` command, then run a command on the device:
 
 ```
 $ mbl-cli run <command> [address]
