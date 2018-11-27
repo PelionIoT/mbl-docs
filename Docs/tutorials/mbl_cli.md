@@ -1,9 +1,9 @@
-## Mbed Linux CLI
+## Mbed Linux OS CLI
 
-The Mbed Linux CLI is a command-line interface for developing with Mbed Linux. Mbed Linux CLI supports  
+The Mbed Linux OS CLI is a command-line interface for developing with Mbed Linux OS. Mbed Linux OS CLI supports  
 the following operations on Mbed Linux OS devices:
 
- * List available devices and select device from a list.
+ * List all available devices on the network and select device from a list. This will allow to ommit optional device address parameter when using other Mbed Linux OS CLI commands.
  * Get a shell on a device.
  * Copy a file to/from a device.
  * Run a command on a device.
@@ -44,7 +44,9 @@ Ethernet driver is used on the device for supporting this kind of communication.
 
 By default, Mbed Linux OS attempts to obtain an IPv4 address for the `usb0` interface on WaRP7 
 or the `eth1` interface on Raspberry Pi 3 using DHCP and falls back to assigning a link-local IPv4 
-address if a DHCP server can't be found.
+address if a DHCP server can't be found.  
+
+IPv6 is always present with a link local address on both WaRP7 and Raspberry Pi 3 devices.
 
 #### Connecting a WaRP7 IoT device to a PC
 To connect a PC to an Mbed Linux OS IoT WaRP7 device using the USB networking facility,
@@ -201,16 +203,17 @@ An alternative to using the NetworkManager command line interface is to use the 
 See the [`nmcli` man page](https://linux.die.net/man/1/nmcli) for more information.
 
 
-## Setting up Mbed Linux CLI
+## Setting up Mbed Linux OS CLI
 
 ### Prerequisites
 
+Node.js Service Discovery which adds multicast DNS service discovery, also known as zeroconf or bonjour to Node.js.  
+
 [Node.js version v8.10.0 or higher](https://nodejs.org/en/), which includes `npm v3`.
 
-mdns -- Node.js Service Discovery adds multicast DNS service discovery, also known as zeroconf or bonjour to Node.js.  
-It provides an object based interface to announce and browse services on the local network.
-We recommend installing NodeSource-managed Node.js snap which contains the Node.js runtime, along the two most widely-used package managers, 
-npm and Yarn. This could be installed from [Node.js website](https://nodejs.org/en/) or from [GitHub Node.js distributions](https://github.com/nodesource/distributions).
+It is better to install NodeSource-managed Node.js snap which includes the Node.js runtime, along with package managers npm and Yarn. 
+This could be installed from [Node.js website](https://nodejs.org/en/) or from [GitHub Node.js distributions](https://github.com/nodesource/distributions).
+
 To install Node.js on the Ubuntu PC, do the following:
 
 ```
@@ -228,10 +231,11 @@ $ npm install -g mbl-cli
 
 ## MBL CLI command
 
-The general structure of an MBL CLI command is:
+To see the general structure of an MBL CLI command, do the following:
 
 ```
-$ mbl-cli <command> [arguments]
+$  mbl-cli -h
+mbl-cli <command> [arguments]
 
 Commands:
   mbl-cli copy <src> <dest> [address]  Copy a file/folder to a device
@@ -245,12 +249,13 @@ Options:
   -h, --help     Show help  
 ```
 
-## Mbed Linux CLI Usage
+## Mbed Linux OS CLI Usage
 
 #### Device discovery and selection
 
 Select the device from the list of available devices using the `mbl-cli select` command. For example, in order to select 
 the device with hostname "mbed-linux-os-3006", type "1" when presented with the output below.
+
 
 ```
 $ mbl-cli select
@@ -260,9 +265,11 @@ Select a device:
 2: None
 ```
 
+After selecting the device, optional device `address` parameter commands could be ommitted when using other Mbed Linux OS CLI commands.
+
 #### Get a shell access (SSH)
 
-Use Mbed Linux CLI `shell` command to get a shell access (SSH) on a device:
+Use Mbed Linux OS CLI `shell` command to get a shell access (SSH) on a device:
 
 ```
 $ mbl-cli shell [address]
@@ -277,16 +284,14 @@ Connecting to mbed-linux-os-3006...
 root@mbed-linux-os-3006:~# 
 ```
 
-#### Set up the Wi-Fi connection
-
-Set up [Wi-Fi connection on the device using ConnMan](https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/wifi_setup.md).
+After obtaining the shell access, [Wi-Fi connection on the device using ConnMan](https://github.com/ARMmbed/mbl-docs/blob/yg_master/Docs/tutorials/wifi_setup.md) could be set up.
 
 #### Device update
 
 Currently device update can be done for the rootfs and applications. Update of boot loaders, the Linux Kernel and other components
 will be supported in later versions.
 
-##### Root-fs update
+##### Rootfs update
 
 In order to update root-fs prepare `tar` file containing `rootfs.tar.xz`. For the detailed explanation how to create a payload for root-fs update see [root file system update workflow ](https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/update_mbl.md#workflow).
 
@@ -304,7 +309,7 @@ To perform root-fs update follow next steps:
    $ mbl-cli copy payload.tar /scratch 169.254.6.215
    ```
 
-1. Use Mbed Linux CLI `shell` command to get a shell access (SSH) on a device:
+1. Use Mbed Linux OS CLI `shell` command to get a shell access (SSH) on a device:
 
    ```
    $ mbl-cli shell [address]
