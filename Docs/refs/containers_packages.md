@@ -8,7 +8,7 @@ The application framework promotes runtime and toolchain interoperability betwee
 
 ### Application isolation
 
-To protect an IoT device, application software should be isolated from other device software. This prevents a malicious or defective application from undermining device integrity. Isolation methods provide:<!--I removed the word "guarantee". Let's never use that wihtout legal approval-->
+To protect an IoT device, application software should be isolated from other device software. This prevents a malicious or defective application from undermining device integrity. Isolation methods provide:
 
 * **Memory isolation**: prevent access to memory associated with the rest of the system.
 * **Limit file access**: allow application access only to a specified set of files.
@@ -33,9 +33,9 @@ To deploy and run an application on a device, the application and associated com
 
     * Incorporated in factory programmed flash image.
     * Updated via the Device Management Update service.
-    * Updated during application development on a device running MBL with special development facilities.<!--what does that mean?-->
+    * Updated during application development on a device running an evaluation build of MBL (which contains services that MBL CLI can use to perform local updates).
 
-* The packaged application image must contain sufficient information to launch the application on the target device. This includes:<!--includes or limited to?-->
+* The packaged application image must contain sufficient information to launch the application on the target device. This includes:
 
     * External platform dependencies.
     * Commands and arguments.
