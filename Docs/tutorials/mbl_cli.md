@@ -249,7 +249,7 @@ Options:
 
 #### Device discovery and selection
 
-Select the device from the list of available devices using mbl-cli select command. For example, in order to select 
+Select the device from the list of available devices using the `mbl-cli select` command. For example, in order to select 
 the device with hostname "mbed-linux-os-3006", type "1" when presented with the output below.
 
 ```
