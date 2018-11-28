@@ -276,7 +276,7 @@ Connecting to mbed-linux-os-3006...
 root@mbed-linux-os-3006:~# 
 ```
 
-After obtaining the shell access, [Wi-Fi connection on the device using ConnMan](https://os.mbed.com/docs/linux-os/current/getting-started/setting-up-a-network-connection.html) could be set up.
+After obtaining shell access, you can set up Wi-Fi on the device (see [Setting up a network connection](https://os.mbed.com/docs/linux-os/current/getting-started/setting-up-a-network-connection.html).
 
 #### Device update
 
