@@ -135,7 +135,7 @@ interface with the `link-local` IPv4 addressing method using the NetworkManager'
       Connection 'mbl-ipv4ll' (0076a29f-6892-45bb-8338-2879b863efdf) successfully added.
       ```
       
-    * If using a Raspberry Pi 3 connected to the PC's `eno0` interface:
+    * If using a Raspberry Pi 3 connected to the PC's `eno0` interface (or something like `enx503eaa4e094c` if using a USB Ethernet adapter):
       ```
       $ sudo nmcli connection add ifname eno0 con-name mbl-ipv4ll type ethernet -- ipv4.method link-local
       Connection 'mbl-ipv4ll' (475ebfb1-d67e-47e9-afd2-8f2cf8a16cdd) successfully added.
