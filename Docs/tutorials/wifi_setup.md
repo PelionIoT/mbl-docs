@@ -76,7 +76,7 @@ To list the available networks found (among other services):
 
 ```
 # connmanctl services
-    AndroidAP5           wifi_a0b1a0b1a0b1a0b1_416416416416416_managed_none
+    AndyAP5           wifi_a0b1a0b1a0b1a0b1_416416416416416_managed_none
     Edimax               wifi_a2b2a2b2a2b2_19999999_managed_wep
     mbed                 wifi_a1a1a1a1a1a1_91111111_managed_psk
     ourLocalNetwork      wifi_a0a0a0a0a0a0_41699999999e47_managed_ieee8021x
@@ -85,7 +85,7 @@ To list the available networks found (among other services):
 
 The last command lists **all** available services. As you can see in the example output, there is also a `Wired` service (listed on the last line). The available Wi-Fi services are prefixed with `wifi_` and suffixed with the security protocol. For example:
 
-* Open network (AndroidAP5): `_managed_none` suffix.
+* Open network (AndyAP5): `_managed_none` suffix.
 * WEP protected network (Edimax): `_managed_wep` suffix.
 * WPA/WPA2 Enterprise 802.1X: (ourLocalNetwork) `managed_ieee8021x` suffix.
 * WPA/WPA2 Personal (also known as WPA-PSK): `_managed_psk` suffix.
@@ -122,7 +122,7 @@ root@imx7s-warp-mbl:~#
 
 #### Connecting to an open (public) Wi-Fi network
 
-To connect to a public open network (AndroidAP5 in the example), run `connmanctl connect <service_id>` where `<service_id>` is a service ID obtained from the output of `connmanctl services`. For example:
+To connect to a public open network (AndyAP5 in the example), run `connmanctl connect <service_id>` where `<service_id>` is a service ID obtained from the output of `connmanctl services`. For example:
 
 ```
 # connmanctl connect wifi_a0b1a0b1a0b1a0b1_416416416416416_managed_none
@@ -142,7 +142,7 @@ wlan0     Link encap:Ethernet  HWaddr A0:B1:A0:B1:A0:B1
           RX bytes:1922 (1.8 KiB)  TX bytes:7189 (7.0 KiB)
 ```
 
-After connecting to AndroidAP5, the DHCP server assigns `wlan0` an IP address.
+After connecting to AndyAP5, the DHCP server assigns `wlan0` an IP address.
 
 If we check the ConnMan configuration folder, we can see the service profile for this connection:
 
@@ -163,7 +163,7 @@ total 7
 -rw-------    1 root     root           272 Nov  6 14:12 settings
 # cat /config/user/connman/wifi_a0b1a0b1a0b1a0b1_416416416416416_managed_none/settings
 [wifi_a0b1a0b1a0b1a0b1_416416416416416_managed_none]
-Name=AndroidAP5
+Name=AndyAP5
 SSID=432432432432432
 Frequency=2412
 Favorite=true
@@ -181,7 +181,7 @@ You can change this file by using `connmanctl config <config_data>`, or by editi
 
 #### Connecting to a protected network interactively
 
-1. Disconnect from any currently connected Wi-Fi networks. For example, if you were connected to the AndroidAP5 network from the example above:
+1. Disconnect from any currently connected Wi-Fi networks. For example, if you were connected to the AndyAP5 network from the example above:
 
     ```
     # connmanctl disconnect wifi_a0b1a0b1a0b1a0b1_416416416416416_managed_none
