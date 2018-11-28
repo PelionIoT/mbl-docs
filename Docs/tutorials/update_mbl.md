@@ -50,7 +50,7 @@ The previously active (now inactive) root file system partition is now ready to 
 An MBL device can only be updated if the followings are available:
 
 * The device is running an MBL image that can connect to a Pelion account. [Follow the first section in this series](../getting-started/accounts-and-certificates.html) to request an account.
-* The build artefacts for the image to send as the update payload. See the [build tutorial](../getting-started/tutorial-connecting-an-mbl-device.html) for instructions.
+* The build artefacts for the image to send as the update payload. See the [build tutorial](../getting-started/tutorial-building-an-image.html) for instructions.
 * An internet connection on the device. [Follow the tutorial to set up an internet connection](../getting-started/tutorial-connecting-to-a-network-and-pelion-device-management.html).
 * The directory in which the manifest tool was initialized, [as reviewed in the development environment setup](../getting-started/enviornment.html).
 

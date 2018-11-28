@@ -117,7 +117,10 @@
         "description": "",
         "slug": "references",
         "type": "markdown",
-        "sources": [
+        "sources": [{
+                "type": "markdown",
+                "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/refs/refs_intro.md"
+            },
             {
                 "type": "markdown",
                 "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/refs/containers_packages.md"
