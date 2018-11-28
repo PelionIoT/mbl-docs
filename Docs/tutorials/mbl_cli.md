@@ -1,158 +1,171 @@
 ## Mbed Linux OS CLI
 
-The Mbed Linux OS CLI is a command-line interface for developing with Mbed Linux OS. Mbed Linux OS CLI supports  
-the following operations on Mbed Linux OS devices:
+The Mbed Linux OS CLI (MBL CLI) is a command-line interface for developing with Mbed Linux OS (MBL). MBL CLI supports  
+the following operations on MBL devices:
 
- * List all available MBL devices on the network and select an MBL device to be used by default by subsequent MBL CLI commands.
+ * List all available MBL devices on the network.
+ * Select a default MBL device for all MBL CLI commands in a single terminal instance.
  * Get a shell on a device.
- * Copy a file to/from a device.
+ * Copy a file to or from a device.
  * Run a command on a device.
- 
-In order to use Mbed Linux OS CLI, you need to [set up networking](#network-setup) on the target device and [set up Mbed Linux OS CLI](#setting-up-mbed-linux-os-cli) on your development PC.
 
-Please note that Mbed Linux OS CLI can only be used with devices running the test image (`mbl-console-image-test`).
+<span class="notes">**Note**: MBL CLI can only be used with devices running the test image (`mbl-console-image-test`).</span>
 
-## Network setup
-An Mbed Linux OS IoT device with suitable hardware supports networking over USB by using the  
-Mbed Linux OS kernel's appropriate driver mechanism.
+ <!--so this isn't the MBL test image, right? what's it a test image of, and where do I get it?-->
+ <!--actually, where do I get MBL CLI?-->
 
-When a device with USB peripheral port(s) is used (such as a WaRP7), communication between 
-the device and the development PC can be established by connecting the device 
-directly to the development PC with a USB cable. The Linux kernel's USB Gadget 
-driver is used on the device in this case.
+## Setting up
 
-When a device with USB host port(s) is used (such as a Raspberry Pi 3), communication between 
-the device and a development PC can be established via a peripheral Ethernet-to-USB adapter 
-plugged into one of the available USB host ports on the device. The Linux kernel's CDC 
-Ethernet driver is used on the device for supporting this kind of communication.
+To use MBL CLI, you need to:
 
-* When running on WaRP7, the Mbed Linux OS kernel's USB Gadget driver mechanism creates 
-  a `usb0` network interface on the IoT device and makes the IoT device itself appear 
-  as a network interface to another device connected via USB (e.g. a development PC). 
+1. [Set up networking](#network-setup) on the target device.
+1. [Set up MBL CLI](#setting-up-mbed-linux-os-cli) on your development PC.
 
-* When Mbed Linux OS is installed on Raspberry Pi 3, the kernel's USB Gadget driver is not installed due to
-  hardware limitations of the board, and the `usb0` interface does not exist. There are two Ethernet network 
-  interfaces in Mbed Linux OS when installed on Raspberry Pi 3: `eth0`, which belongs to the wired 
-  Ethernet port, and `eth1` which is created by the CDC Ethernet driver, once appropriate hardware 
-  has been connected.  
-  An Ethernet-to-USB hardware adapter is required in order to support USB networking on an IoT 
-  device based on a Raspberry Pi 3 board. 
-  Once an Ethernet-to-USB adapter's USB "male" connector is inserted into any of the four type-A 
-  USB ports of the Raspberry Pi 3 board, the Mbed Linux OS kernel's CDC Ethernet driver mechanism creates an `eth1` 
-  network interface. This makes it possible for another device to establish communication with the IoT device. 
-  In order to establish communication with the development PC, the Ethernet cable of the 
-  adapter should be connected to an available Ethernet port on the development PC. 
-  If the PC lacks spare Ethernet ports, you can plug another Ethernet-to-USB adapter into your PC.
+### Network setup
 
-By default, Mbed Linux OS attempts to obtain an IPv4 address for the `usb0` interface on WaRP7 
-or the `eth1` interface on Raspberry Pi 3 using DHCP and falls back to assigning a link-local IPv4 
-address when DHCP timeout occurs.  
+This section explains how to connect devices to a development PC over USB.
 
-IPv6 is always present with a link local address on both WaRP7 and Raspberry Pi 3 devices.
+<span class="notes">**Note**: We provide examples of network interface names such as `enp0s20u5u4u4` and `eno0`, as well as UUIDs. These values may be different for your devices and PC - please do not use them without checking.</span><!--I would like to say that if you don't know that, you maybe shouldn't be configuring MBL stuff. But that's not allowed in my profession.-->
 
-#### Connecting a WaRP7 IoT device to a PC
-To connect a PC to an Mbed Linux OS IoT WaRP7 device using the USB networking facility,
-perform the following steps:
+#### Overview
 
-1. Connect the IoT device to the PC using USB cabel.
-1. Configure the PC to use link-local IPv4 addressing for the interface and
-   determine the address assigned to the interface.
+The MBL kernel can support USB connections to IoT devices that have USB ports. The exact support mechanism depends on the USB port type on the device - peripheral or host:
 
-For example, on an Ubuntu PC, do the following:
+* **Peripheral port(s)**: The kernel's USB Gadget driver mechanism creates
+a `usb0` network interface on the device. The device then appears as a network interface on any other USB-connected device, such as the development PC.
 
-Use `ifconfig -a` to list available network interfaces. Once the IoT device 
-has been connected to the development PC, the PC kernel will
-instantiate the ethernet net_device for the USB network interface. This is shown
-in the following listing, which shows the interface is present but has not yet 
-been assigned an IP address:
+    Example: WaRAP7. For more details, see below.
 
-  ```
-  $ ifconfig -a
-  < ... lines deleted to save space >
+* **Host port(s)**: For devices that cannot work with the kernel's USB Gadget driver, MBL offers two Ethernet interfaces: `eth0`, which belongs to the wired Ethernet port, and `eth1`, which is created by the CDC Ethernet driver when appropriate hardware is connected. The reliance on Ethernet means that you need an Ethernet-to-USB adapter to support USB networking to a device with USB host ports.
 
-  enp0s20u5u4u4 Link encap:Ethernet  HWaddr ee:a9:74:68:fe:69  
+    Example: Raspberry Pi 3. For more details, see below.
+
+By default, MBL attempts to obtain an IPv4 address for the `usb0` interface on WaRP7 or the `eth1` interface on Raspberry Pi 3 using DHCP. MBL falls back to assigning a link-local IPv4 address when DHCP timeout occurs.  
+
+On both devices, IPv6 is always present with a link local address.
+
+#### Connecting a WaRP7 device
+
+To connect a PC to an a WaRP7 device over USB:
+
+1. Connect the device to the PC using a USB cable.
+1. <!--aren't we missing the step where you check which network interface belongs to the USB? we do it for Ethernet, and I think we're doing it in the USB example-->
+1. Configure the PC to use a link-local IPv4 address (169.254.x.y) for the interface.
+1. Determine the address assigned to the interface.<!--when you say determine, do you mean "check which one" or "set"?-->
+
+For example, on an Ubuntu PC:
+
+1. Connect your device to your computer.
+
+    The computer instantiates the Ethernet `net_device`<!--what is this? a driver?--> for the USB network interface, but does not assign it an IP address.
+
+1. Use `ifconfig -a` to list available network interfaces.
+
+    The instantiated interface from the previous step is listed without an IP:
+
+    ```
+    $ ifconfig -a
+
+    < ... lines deleted to save space >
+
+      enp0s20u5u4u4 Link encap:Ethernet  HWaddr ee:a9:74:68:fe:69  
             UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
             RX packets:136 errors:0 dropped:0 overruns:0 frame:0
             TX packets:322 errors:0 dropped:0 overruns:0 carrier:0
-            collisions:0 txqueuelen:1000 
+            collisions:0 txqueuelen:1000
             RX bytes:37211 (37.2 KB)  TX bytes:57393 (57.3 KB)
 
-  < ... lines deleted to save space >
-  ```  
+    < ... lines deleted to save space >
+    ```  
 
-#### Connecting a Raspberry Pi 3 IoT device to a PC
-To connect a PC to an Mbed Linux OS IoT Raspberry Pi 3 device using an Ethernet-to-USB adapter,
-perform the following steps:
+1. Assign an IPv4 address [as explained below](#assigning-an-ipv4-address-to-the-network-interface).
 
-1. Connect an Ethernet-to-USB adapter's USB "male" connector into any of 
-   the four type-A USB ports of the Raspberry Pi 3 board, and the Ethernet 
-   cable of the adapter into an available Ethernet port on the development PC.
-   If an extra USB Ethernet adapter is used on the PC side, a new network interface is created on the PC (e.g. `enx503eaa4e094c`).
-1. Check which network interface belongs to the port that is connected to the 
+#### Connecting a Raspberry Pi 3 device
+
+To connect a PC to an a Raspberry Pi 3 device over an Ethernet-to-USB adapter:
+
+1. Connect an Ethernet-to-USB adapter's USB "male" connector into any of
+   the four type-A USB ports of the Raspberry Pi 3 board.
+1. Connect the Ethernet cable of the adapter to an available Ethernet port on the development PC.
+
+   If an extra USB Ethernet adapter is used on the PC side, a new network interface is created on the PC (for example, `enx503eaa4e094c`).
+
+1. Check which network interface belongs to the port that is connected to the
    Raspberry Pi 3 device.
-1. Configure the PC to use link-local IPv4 addressing for the interface and
-   determine the address assigned to the interface.
+1. Configure the PC to use a link-local IPv4 address (169.254.x.y) for the interface.
+1. Determine the address assigned to the interface.<!--the same way I did for the Warp7?-->
 
-For example, on an Ubuntu PC and a Raspberry Pi 3 device connected to an 
-RTL8153 Gigabit Ethernet-to-USB adapter, do the following:
+For example, on an Ubuntu PC and a Raspberry Pi 3 device connected to an RTL8153 Gigabit Ethernet-to-USB adapter:
 
-Connect the Raspberry Pi 3 device to the PC and use `ifconfig -a` to identify the network interface. 
-  
-  ```
-  $ ifconfig -a
-  < ... lines deleted to save space >
+1. Connect the Raspberry Pi 3 device to the PC
 
-  eno0 Link encap:Ethernet  HWaddr 6c:0b:84:67:18:f5  
+1. Use `ifconfig -a` to identify the network interface:
+
+    ```
+    $ ifconfig -a
+    < ... lines deleted to save space >
+
+    eno0 Link encap:Ethernet  HWaddr 6c:0b:84:67:18:f5  
         UP BROADCAST MULTICAST  MTU:1500  Metric:1
         RX packets:5463 errors:0 dropped:0 overruns:0 frame:0
         TX packets:2839 errors:0 dropped:0 overruns:0 carrier:0
-        collisions:0 txqueuelen:1000 
+        collisions:0 txqueuelen:1000
         RX bytes:3149461 (3.1 MB)  TX bytes:900468 (900.4 KB)
-        Memory:fb100000-fb17ffff 
+        Memory:fb100000-fb17ffff
 
-  < ... lines deleted to save space >
-  ```  
+    < ... lines deleted to save space >
+    ```  
 
-  Note, that an IP address was not assigned yet to the `eno0` network interface. 
+1. Assign an IPv4 address [as explained below](#assigning-an-ipv4-address-to-the-network-interface).
 
-#### Assigning an IPv4 address to the network interface on a PC
+#### Assigning an IPv4 address to the network interface
 
-On an Ubuntu PC using NetworkManager:
+<span class="tips">If you don't want to use the NetworkManager command line interface, you can use the `nm-connection-editor` GUI. See the [`nmcli` man page](https://linux.die.net/man/1/nmcli) for more information.</span>
+
+To assign an IPv4 address to the network interface an Ubuntu PC using NetworkManager:
 
 1. Create a NetworkManager connection profile called `mbl-ipv4ll` for the
-interface with the `link-local` IPv4 addressing method using the NetworkManager's command line interface:
+interface with the `link-local` IPv4 addressing method. Use the NetworkManager's command line interface:
 
     ```
     $ sudo nmcli connection add ifname <interace-name-on-pc> con-name mbl-ipv4ll type ethernet -- ipv4.method link-local
     ```  
 
-    where `<interface-name-on-pc>` is the name of the network interface on the
-    PC that connects to the IoT device.
-    
-    * For example, if using a WaRP7 and the name of the interface on the PC for the WaRP7 connection is `enp0s20u5u4u4`:
+    where `<interface-name-on-pc>` is the name of the network interface on the PC that connects to the device. You found this name in the connection setup.
+
+    * For example, for WaRP7 and the interface `enp0s20u5u4u4`:
+
       ```
       $ sudo nmcli connection add ifname enp0s20u5u4u4 con-name mbl-ipv4ll type ethernet -- ipv4.method link-local
       Connection 'mbl-ipv4ll' (0076a29f-6892-45bb-8338-2879b863efdf) successfully added.
       ```
-      
-    * If using a Raspberry Pi 3 connected to the PC's `eno0` interface (or something like `enx503eaa4e094c` if using a USB Ethernet adapter):
+
+    * For example, for a Raspberry Pi 3 connected to the PC's `eno0` interface (or `enx503eaa4e094c` if using our USB Ethernet adapter example):
+
       ```
       $ sudo nmcli connection add ifname eno0 con-name mbl-ipv4ll type ethernet -- ipv4.method link-local
       Connection 'mbl-ipv4ll' (475ebfb1-d67e-47e9-afd2-8f2cf8a16cdd) successfully added.
       ```
 
 1. Activate the `mbl-ipv4ll` connection profile:
+
     ```
     $ nmcli connection up mbl-ipv4ll
     ```
-    * This step may not be required as NetworkManager may automatically enable the connection profile.
-    * If this command finishes with the error
-      `Error: Connection activation failed: No suitable device found for this connection.`
-      verify that the device is managed by NetworkManager (that the field `managed` is set to `true` in the
-      `/etc/NetworkManager/NetworkManager.conf` configuration file on the Linux development PC).   
 
-1. The NetworkManager connection has now been created and can be inspected using the `nmcli connection show` command.
-    * For example, when using a WaRP7 based IoT device:
+    <span class="notes">**Note**: You can skip this step if NetworkManager automatically enables the connection profile.<!--how do I know?--></span>
+
+    * If this command finishes with the error
+      `Error: Connection activation failed: No suitable device found for this connection.`, please verify that the device is managed by NetworkManager by checking that the field `managed` is set to `true` in the
+      `/etc/NetworkManager/NetworkManager.conf` configuration file on the PC.   
+
+    The NetworkManager connection is created.
+
+1. Inspect the NetworkManager connection using the `nmcli connection show` command.
+
+    * For example, for a WaRP7 device:
+    <!--I suspect the UUID, IPs etc in this document are all real. Please sanitise them if this is the case.-->
+
       ```
       $ nmcli connection show
       NAME                UUID                                  TYPE            DEVICE        
@@ -160,17 +173,18 @@ interface with the `link-local` IPv4 addressing method using the NetworkManager'
       Wired connection 1  99cf6de7-2297-3607-923a-4286fdbf357a  802-3-ethernet  --          
       ```     
 
-    * When using a Raspberry Pi 3 based IoT device:
+    * For example, for a Raspberry Pi 3 device:
+
       ```
       $ nmcli connection show
       NAME                UUID                                  TYPE            DEVICE     
       eno1                a815455d-8f18-4f25-a8d1-39f0f89fc022  802-3-ethernet  eno1    
       mbl-ipv4ll          475ebfb1-d67e-47e9-afd2-8f2cf8a16cdd  802-3-ethernet  eno0
       ```     
-     
-    The PC's network interface (that communicates with an IoT device) should now have been 
-    allocated an IPv4 link-local (169.254.x.y) address:
-    * For example, when using a WaRP7 based IoT device:
+
+1. The PC's network interface now has an allocated IPv4 link-local address.  
+
+    * For example, for a WaRP7 device:
       ```
       $ ifconfig enp0s20u5u4u4
       enp0s20u5u4u4 Link encap:Ethernet  HWaddr ba:77:68:c0:73:df  
@@ -183,7 +197,7 @@ interface with the `link-local` IPv4 addressing method using the NetworkManager'
               RX bytes:40589 (40.5 KB)  TX bytes:65923 (65.9 KB)
       ```
 
-    * When using a Raspberry Pi 3 based IoT device:
+    * For example, for a Raspberry Pi 3 device:
 
       ```
       $ ifconfig eno0
@@ -198,32 +212,26 @@ interface with the `link-local` IPv4 addressing method using the NetworkManager'
           Memory:fb100000-fb17ffff
       ```
 
-Note, that network interface names (like `enp0s20u5u4u4`, `eno0` etc.) and connection's UUID values 
-can be different on other development PCs.
 
-An alternative to using the NetworkManager command line interface is to use the `nm-connection-editor` GUI to configure the interface. 
+### Setting up MBL CLI
 
-See the [`nmcli` man page](https://linux.die.net/man/1/nmcli) for more information.
+#### Prerequisites
 
+The only dependency of MBL CLI that you need to install is Node.js (version v8.10.0 or higher).
 
-## Setting up Mbed Linux OS CLI
-
-### Prerequisites
-
-The only dependency of MBL CLI that you need to install is Node.js (version v8.10.0 or higher). 
 We recommend installing Node.js from NodeSource's binary distribution using [these instructions](https://github.com/nodesource/distributions#installation-instructions).
 
-### Installation
+#### Installation
 
-MBL CLI is distributed using npm. To install the MBL CLI tool run:
+MBL CLI is distributed using npm. To install MBL CLI, run:
 
 ```
 $ npm install -g mbl-cli
 ```
 
-## MBL CLI command
+## MBL CLI command syntax
 
-To see the general structure of an MBL CLI command, do the following:
+To see the general structure of an MBL CLI command:
 
 ```
 $ mbl-cli -h
@@ -243,54 +251,89 @@ Options:
 For more information about Mbed Linux OS, please visit http://mbed.com
 ```
 
-## Mbed Linux OS CLI Usage
+Where `address` is the address of the debug interface on the device or the device's hostname. For example, the address of the `usb0` interface on WaRP7 IoT devices or the address of the `eth1` interface on Raspberry Pi 3 devices.
 
-#### Device discovery and selection
+If the device is [already selected](#device-discovery-and-selection), you can omit the `address` parameter.
 
-Select the device from the list of available devices using the `mbl-cli select` command. For example, in order to select 
-the device with hostname `mbed-linux-os-3006`, type `1` when presented with the output below.
+## MBL CLI usage
 
+### Device discovery and selection
 
-```
-$ mbl-cli select
-Discovering devices...
-Select a device:
-1: mbed-linux-os-3006 (fe80::94f8:52ff:fe67:d5d8%enp0s20u1)
-2: No device
-mbed-linux-os-3006 (fe80::94f8:52ff:fe67:d5d8%enp0s20u1) selected
-```
+You can list available devices, and select one to use for all subsequent commands in the terminal instance:
 
-After selecting the device, the optional `address` argument can be omitted from subsequent Mbed Linux OS CLI commands.
+1. To list the devices:
 
-#### Get a shell access (SSH)
+    ```
+    mbl-cli select
+    ```
 
-Use the Mbed Linux OS CLI `shell` command to get shell access (via SSH) on a device as the user `root`.
+    For example:
+
+    ```
+    $ mbl-cli select
+    Discovering devices...
+    Select a device:
+    1: mbed-linux-os-3006 (fe80::94f8:52ff:fe67:d5d8%enp0s20u1)
+    2: No device
+    mbed-linux-os-3006 (fe80::94f8:52ff:fe67:d5d8%enp0s20u1) selected
+    ```
+
+1. To select a device, enter its number from the list above.
+
+    For example, to select the device `mbed-linux-os-3006`, type `1`.
+
+You can now omit the `address` argument from subsequent commands.
+
+### Get a shell access (SSH)
+
+To get shell access over SSH to a device (as the user `root`), use the `shell` command"
 
 ```
 $ mbl-cli shell [address]
 ```
 
-Where `address` is the address of the debug interface on the device or the device's hostname. For example, the address of the `usb0` interface on WaRP7 IoT devices
-or the address of the `eth1` interface on Raspberry Pi 3 devices. If the device is already selected, the `address` parameter can be omitted.
-For example, to get a shell on a previously selected device, do the following:
+For a previously selected device, omit the address:
 
 ```
 $ mbl-cli shell
 Connecting to mbed-linux-os-3006...
-root@mbed-linux-os-3006:~# 
+root@mbed-linux-os-3006:~#
 ```
 
-After obtaining shell access, you can set up Wi-Fi on the device (see [Setting up a network connection](https://os.mbed.com/docs/linux-os/current/getting-started/setting-up-a-network-connection.html)).
+After obtaining shell access, you can set up Wi-Fi on the device (see [Setting up a network connection](../getting-started/setting-up-a-network-connection.html)).
+<!--do we tell people to come here from that page?-->
 
-#### Device update
+### Device update
 
-Currently device update can be done for the rootfs and applications. Update of boot loaders, the Linux Kernel and other components will be supported in later versions.
+You update the device's root file system (rootfs) and applications. Update of boot loaders, the Linux Kernel and other components will be supported in later versions.
 
-##### Rootfs update
+Device update uses the `mbl-firmware-update-manager`:
 
-In order to update the rootfs, prepare a tar file containing `rootfs.tar.xz`. For a detailed explanation of how to create a payload for rootfs updates see the [root file system update workflow](https://os.mbed.com/docs/linux-os/current/getting-started/tutorial-updating-mbl-devices-and-applications.html#workflow).
+```
+$ mbl-firmware-update-manager -h
 
-Once you have a rootfs update payload, follow these steps to update the device:
+usage: mbl-firmware-update-manager [-h] -i UPDATE_FIRMWARE_TAR_FILE [-s] [-v]
+
+optional arguments:
+
+ -h, --help            show this help message and exit
+
+ -i UPDATE_FIRMWARE_TAR_FILE, --install-firmware UPDATE_FIRMWARE_TAR_FILE
+
+                       Install firmware from a firmware update tar file and
+
+                       reboot (default: None)
+
+ -s, --skip-reboot     Skip reboot after firmware update (default: False)
+
+ -v, --verbose         Increase output verbosity (default: False)
+```
+
+#### Rootfs update
+
+To update the rootfs:
+
+1. Prepare a tar file containing `rootfs.tar.xz`. For a detailed explanation, see the [root file system update workflow](../getting-started/tutorial-updating-mbl-devices-and-applications.html#workflow).
 
 1. Transfer the rootfs update tar file to the `/scratch` partition on the device:
 
@@ -298,13 +341,13 @@ Once you have a rootfs update payload, follow these steps to update the device:
    $ mbl-cli copy <rootfs update payload> <destination on device under the /scratch partition> [address]
    ```
 
-   For example, if `payload.tar` is the name of the payload file for the rootfs update and 169.254.6.215 is a link-local IPv4 address on the device, do the following:
+   For example, if `payload.tar` is the name of the payload file for the rootfs update, and 169.254.6.215 is a link-local IPv4 address on the device:
 
    ```
    $ mbl-cli copy payload.tar /scratch 169.254.6.215
    ```
 
-1. Use the Mbed Linux OS CLI `shell` command to get shell access (via SSH) on the device:
+1. Use the MBL CLI `shell` command to get shell access on the device:
 
    ```
    $ mbl-cli shell [address]
@@ -315,8 +358,8 @@ Once you have a rootfs update payload, follow these steps to update the device:
    ```
    $ mbl-cli shell 169.254.6.215
    ```
-   
-1. Inside the shell run the `mbl-firmware-update-manager` script to install the rootfs:
+
+1. Inside the shell, run the `mbl-firmware-update-manager` script to install the rootfs:
 
    ```
    $ mbl-firmware-update-manager -i <full path to TAR file under /scratch>
@@ -328,37 +371,20 @@ Once you have a rootfs update payload, follow these steps to update the device:
    $ mbl-firmware-update-manager -i /scratch/payload.tar
    ```
 
-   The device will automatically reboot after the rootfs update.
-   It is recommended to delete old tar files from the `scratch` partition after updates finish.
-   
-   In order to see `mbl-firmware-update-manager`'s help menu run:
+    The rootfs is updated.
 
-   ```
-   $ mbl-firmware-update-manager -h
+1. The device automatically reboots.
 
-   usage: mbl-firmware-update-manager [-h] -i UPDATE_FIRMWARE_TAR_FILE [-s] [-v]
+<span class="notes">We recommend deleting the old tar files from the `scratch` partition after updates finish.</span>
 
-   optional arguments:
 
-     -h, --help            show this help message and exit
+#### Update an application
 
-     -i UPDATE_FIRMWARE_TAR_FILE, --install-firmware UPDATE_FIRMWARE_TAR_FILE
+Application run on the device in individual OCI container, so you can update each application independently of any others.
 
-                           Install firmware from a firmware update tar file and
+To install or update an application:
 
-                           reboot (default: None)
-
-     -s, --skip-reboot     Skip reboot after firmware update (default: False)
-
-     -v, --verbose         Increase output verbosity (default: False)
-   ``` 
-
-##### Update an application
-
-In order to install/update an application, prepare a tar file containing an OPKG package (`.ipk` file) for an MBL application. 
-For a detailed explanation of how to create a payload for an application install/update see the [workflow for an application apdate](https://os.mbed.com/docs/linux-os/current/getting-started/tutorial-updating-mbl-devices-and-applications.html#workflow).
-
-To perform an application update, follow these steps:
+1. Prepare a tar file containing an OPKG package (`.ipk` file) for an MBL application. For a detailed explanation, see the [workflow for an application update](../getting-started/tutorial-updating-mbl-devices-and-applications.html#workflow).
 
 1. Transfer an application update tar file to the `/scratch` partition on the device:
 
@@ -366,29 +392,50 @@ To perform an application update, follow these steps:
    $ mbl-cli put <application update payload> <destination on device under the /scratch partition> [address]
    ```
 
-   For example, if `payload.tar` is the payload name for an application update and 169.254.6.215 is a link-local IPv4 address on the device, do the following:
+   For example, if `payload.tar` is the payload name for an application update, and 169.254.6.215 is a link-local IPv4 address on the device:
 
    ```
    $ mbl-cli put payload.tar ./scratch 169.254.6.215
    28 Nov 09:42:04 - File transfer succeeded
    ```
 
-1. Get a shell on the device and run `mbl-firmware-update-manager` with the `--skip-reboot` parameter.
-   The application will be installed on the device and started automatically. Each application runs on the device in a separate OCI container.
-   It is recommended to delete old tar files from the `scratch` partition after application installations.
-   
-##### Remote command execution
+1. Use the MBL CLI `shell` command to get shell access on the device:
 
-Select a device from the list of available devices using the `mbl-cli select` command, then run a command on the device. The command will run on the device with the user `root`'s permissions:
+  ```
+  $ mbl-cli shell [address]
+  ```
 
-```
-$ mbl-cli run <command> [address]
-```
+  For example:
 
-Where `address` is the address of the debug interface on the device or the device hostname. For example, the address of the `usb0` interface on WaRP7 IoT devices
-or the address of the `eth1` interface on Raspberry Pi 3 devices.
+  ```
+  $ mbl-cli shell 169.254.6.215
+  ```
 
-For example, in order to show the statuses of the active interfaces on a device, run the following:
+1. Run `mbl-firmware-update-manager` with the `--skip-reboot` parameter.
+
+    The application is installed.
+
+1. The device restarts automatically.
+
+<span class="notes">We recommend deleting the old tar files from the `scratch` partition after updates finish.</span>
+
+#### Remote command execution
+
+<!--I want to move this earlier so I can have the udpate bits on their own. Is that okay?-->
+
+To execute commands on the device:
+
+1. Select a device from the list of available devices using the `mbl-cli select` command.
+
+1. Run a command on the device:
+
+    ```
+    $ mbl-cli run <command> [address]
+   ```
+
+    <span class="notes">The command runs with permission from the user `root`.</span>
+
+For example, to show the statuses of the active interfaces on a device:
 
 ```
 $ mbl-cli run ifconfig 169.254.11.94
@@ -398,7 +445,7 @@ lo        Link encap:Local Loopback
           UP LOOPBACK RUNNING  MTU:65536  Metric:1
           RX packets:144 errors:0 dropped:0 overruns:0 frame:0
           TX packets:144 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:1000 
+          collisions:0 txqueuelen:1000
           RX bytes:9648 (9.4 KiB)  TX bytes:9648 (9.4 KiB)
 
 usb0      Link encap:Ethernet  HWaddr 96:F8:52:67:D5:D8  
@@ -406,11 +453,10 @@ usb0      Link encap:Ethernet  HWaddr 96:F8:52:67:D5:D8
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
           RX packets:273 errors:0 dropped:0 overruns:0 frame:0
           TX packets:357 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:1000 
+          collisions:0 txqueuelen:1000
           RX bytes:30202 (29.4 KiB)  TX bytes:82367 (80.4 KiB)
 
 usb0:avahi Link encap:Ethernet  HWaddr 96:F8:52:67:D5:D8  
           inet addr:169.254.11.94  Bcast:169.254.255.255  Mask:255.255.0.0
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
 ```
-
