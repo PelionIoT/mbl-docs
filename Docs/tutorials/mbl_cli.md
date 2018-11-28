@@ -87,6 +87,7 @@ perform the following steps:
 1. Connect an Ethernet-to-USB adapter's USB "male" connector into any of 
    the four type-A USB ports of the Raspberry Pi 3 board, and the Ethernet 
    cable of the adapter into an available Ethernet port on the development PC.
+   If an extra USB Ethernet adapter is used on the PC side, a new network interface is created on the PC (e.g. `enx503eaa4e094c`).
 1. Check which network interface belongs to the port that is connected to the 
    Raspberry Pi 3 device.
 1. Configure the PC to use link-local IPv4 addressing for the interface and
