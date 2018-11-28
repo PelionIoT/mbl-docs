@@ -42,7 +42,7 @@ Ethernet driver is used on the device for supporting this kind of communication.
   network interface. This makes it possible for another device to establish communication with the IoT device. 
   In order to establish communication with the development PC, the Ethernet cable of the 
   adapter should be connected to an available Ethernet port on the development PC. 
-  If the PC lacks of Ethernet ports, you might use another USB Ethernet adapter to plug onto your PC.
+  If the PC lacks spare Ethernet ports, you can plug another Ethernet-to-USB adapter into your PC.
 
 By default, Mbed Linux OS attempts to obtain an IPv4 address for the `usb0` interface on WaRP7 
 or the `eth1` interface on Raspberry Pi 3 using DHCP and falls back to assigning a link-local IPv4 
