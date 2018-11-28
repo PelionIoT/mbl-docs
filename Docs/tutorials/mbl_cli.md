@@ -9,7 +9,6 @@ the following operations on Mbed Linux OS devices:
  * Run a command on a device.
  
 In order to use Mbed Linux OS CLI, you need to [set up networking](#network-setup) on the target device and [set up Mbed Linux OS CLI](#setting-up-mbed-linux-os-cli) on your development PC.
-You can [view the code on GitHub](https://github.com/ARMmbed/mbl-cli).
 
 Please note that Mbed Linux OS CLI can only be used with devices running the test image (`mbl-console-image-test`).
 
@@ -46,7 +45,7 @@ Ethernet driver is used on the device for supporting this kind of communication.
 
 By default, Mbed Linux OS attempts to obtain an IPv4 address for the `usb0` interface on WaRP7 
 or the `eth1` interface on Raspberry Pi 3 using DHCP and falls back to assigning a link-local IPv4 
-address if a DHCP server can't be found.  
+address when DHCP timeout occurs.  
 
 IPv6 is always present with a link local address on both WaRP7 and Raspberry Pi 3 devices.
 
@@ -269,8 +268,8 @@ Use the Mbed Linux OS CLI `shell` command to get shell access (via SSH) on a dev
 $ mbl-cli shell [address]
 ```
 
-Where `address` is the address of the debug interface on the device or the device's hostname. For example, the address of the usb0 interface on WaRP7 IoT devices
-or the address of the eth1 interface on Raspberry Pi 3 devices. If the device is already selected, the `address` parameter can be omitted.
+Where `address` is the address of the debug interface on the device or the device's hostname. For example, the address of the `usb0` interface on WaRP7 IoT devices
+or the address of the `eth1` interface on Raspberry Pi 3 devices. If the device is already selected, the `address` parameter can be omitted.
 For example, to get a shell on a previously selected device, do the following:
 
 ```
@@ -279,7 +278,7 @@ Connecting to mbed-linux-os-3006...
 root@mbed-linux-os-3006:~# 
 ```
 
-After obtaining shell access, you can set up Wi-Fi on the device (see [Setting up a network connection](https://os.mbed.com/docs/linux-os/current/getting-started/setting-up-a-network-connection.html).
+After obtaining shell access, you can set up Wi-Fi on the device (see [Setting up a network connection](https://os.mbed.com/docs/linux-os/current/getting-started/setting-up-a-network-connection.html)).
 
 #### Device update
 
@@ -384,8 +383,8 @@ Select a device from the list of available devices using the `mbl-cli select` co
 $ mbl-cli run <command> [address]
 ```
 
-Where `address` is the address of the debug interface on the device or the device hostname. For example, the address of the usb0 interface on WaRP7 IoT devices
-or the address of the eth1 interface on Raspberry Pi 3 devices.
+Where `address` is the address of the debug interface on the device or the device hostname. For example, the address of the `usb0` interface on WaRP7 IoT devices
+or the address of the `eth1` interface on Raspberry Pi 3 devices.
 
 For example, in order to show the statuses of the active interfaces on a device, run the following:
 
