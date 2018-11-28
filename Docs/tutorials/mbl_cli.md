@@ -256,7 +256,7 @@ Select a device:
 2: None
 ```
 
-After selecting the device, optional device `address` parameter commands could be omited when using other Mbed Linux OS CLI commands.
+After selecting the device, the optional `address` argument can be omitted from subsequent Mbed Linux OS CLI commands.
 
 #### Get a shell access (SSH)
 
