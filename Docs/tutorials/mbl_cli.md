@@ -369,7 +369,7 @@ To perform an application update, follow these steps:
    ```
 
 1. Get a shell on the device and run `mbl-app-update-manager` similarly to how it is done for [rootfs updates](#rootfs-update).
-   The application will be installed on the device and runned authomatically. Each application runs on the device in a separate OCI container.
+   The application will be installed on the device and started automatically. Each application runs on the device in a separate OCI container.
    It is recommended to delete old tar files from the `scratch` partition after application installations.
    
 ##### Remote command execution
