@@ -1,6 +1,6 @@
 ## Connecting to a network and Pelion Device Management
 
-<span class="notes">Before you begin this tutorial, please [build an MBL image and install it on your device]().</span>
+<span class="notes">Before you begin this tutorial, please [build an MBL image and install it on your device](../getting-started/tutorial-building-an-image.html).</span>
 
 This tutorial covers:
 

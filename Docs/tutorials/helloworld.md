@@ -5,7 +5,7 @@
 
 This tutorial creates a user application that runs on your MBL device. It is a simple "Hello, World" in C, which prints to standard output (STDOUT). MBL redirects the output to the log file `/var/log/app/user-sample-app-package.log`.
 
-<span class="notes">**Note:** Your device must already be running an MBL image. Please [follow the first tutorial in this series]() if you don't have an MBL image yet.</span>
+<span class="notes">**Note:** Your device must already be running an MBL image. Please [follow the first tutorial in this series](../getting-started/tutorial-building-an-image.html) if you don't have an MBL image yet.</span>
 
 ### Source and build mechanisms overview
 
@@ -21,8 +21,7 @@ The build commands are defined in a Makefile with three sections:
 
 Each section is implemented for both release and debug variants.
 
-<span class="notes">**Note:** For more information, please refer to the [IPK format and OCI containers]() section, or the [dockcross documentation on GitHub](https://github.com/dockcross/dockcross).</span>
-<!--I will create a page with background information about IPK and OCI and link to it-->
+<span class="notes">**Note:** For more information, please refer to the [reference about application containers and packages](../references/application-containers-and-packages.html), or the [dockcross documentation on GitHub](https://github.com/dockcross/dockcross).</span>
 
 ### Setting up the cross-compilation tools
 
@@ -56,5 +55,6 @@ To clean the build, run: `build-armv7 make clean`
 ### Installing and running the application on the device
 
 To install the application on the device, follow one of our tutorials:
-* [Send the application as an over-the-air firmware update]().
+
+* [Send the application as an over-the-air firmware update](../getting-started/tutorial-updating-mbl-devices-and-applications.html).
 * [Use MBL CLI to flash the application over USB]().

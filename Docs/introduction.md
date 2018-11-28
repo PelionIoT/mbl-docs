@@ -6,7 +6,7 @@ Arm Mbed Linux OS (MBL) is a free, open-source IoT operating system based on the
 
 Arm Mbed has been supporting the resource constrained Cortex-M devices for years through Mbed OS. By extending this support to Cortex-A devices, MBL brings the strong Mbed IoT base to use cases that require far more computing power, multi-purpose applications and hardware interfaces.
 
-The potential complexity of Cortex-A IoT devices increases their attack surface area, so MBL uses Arm's security offerings to protect communication with [Mbed TLS](https://tls.mbed.org/), and the device itself with the [Platform Security Architecture (PSA)](https://developer.arm.com/products/architecture/security-architectures/platform-security-architecture). It also isolates each application in its own OCI-compliant container, so a [compromised application cannot damage other applications or the device]().
+The potential complexity of Cortex-A IoT devices increases their attack surface area, so MBL uses Arm's security offerings to protect communication with [Mbed TLS](https://tls.mbed.org/), and the device itself with the [Platform Security Architecture (PSA)](https://developer.arm.com/products/architecture/security-architectures/platform-security-architecture). It also isolates each application in its own OCI-compliant container, so a [compromised application cannot damage other applications or the device](../references/application-containers-and-packages.html).
 
 MBL applications can be built with standard Linux development tools, and rely on Linux Yocto APIs, meaning you can easily adjust desktop Linux applications to work on your IoT devices.
 

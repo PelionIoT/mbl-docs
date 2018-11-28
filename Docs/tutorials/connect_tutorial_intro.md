@@ -6,12 +6,12 @@ This tutorial builds and installs an Mbed Linux OS (MBL) image on a device. This
 
 The full process is:
 
-* [Setting up your development environment](), if you haven't already done so.
-* [Preparing Device Management sources](preparing-device-management-sources.html). You will need these later, when you try to connect to your Device Management account.
-* [Building the Mbed Linux OS image](building-an-mbl-image.html) with a build script.
-* [Writing the image to the device](writing-and-booting-the-disk-image.html).
+* [Setting up your development environment](../getting-started/setting-up-and-supported-hardware.html), if you haven't already done so.
+* [Preparing Device Management sources](../getting-started/preparing-device-management-sources.html). You will need these later, when you try to connect to your Device Management account.
+* [Building the Mbed Linux OS image](../getting-started/building-an-mbl-image.html) with a build script.
+* [Writing the image to the device](../getting-started/writing-and-booting-the-disk-image.html).
 
 You should then continue to the next tutorial, where you will:
 
-* [Set up a network connection](setting-up-a-network-connection.html) over Ethernet or Wi-Fi.
-* [Verify that the device is connected to Device Management](verifying-that-the-device-is-connected-to-device-management.html).
+* [Set up a network connection](../getting-started/tutorial-connecting-to-a-network-and-pelion-device-management.html) over Ethernet or Wi-Fi.
+* [Verify that the device is connected to Device Management](../getting-started/verifying-that-the-device-is-connected-to-device-management.html).

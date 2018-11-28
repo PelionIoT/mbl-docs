@@ -49,14 +49,14 @@ The previously active (now inactive) root file system partition is now ready to 
 
 An MBL device can only be updated if the followings are available:
 
+* The device is running an MBL image that can connect to a Pelion account. [Follow the first section in this series](../getting-started/accounts-and-certificates.html) to request an account.
 * The build artefacts for the image to send as the update payload. See the [build tutorial](../getting-started/tutorial-connecting-an-mbl-device.html) for instructions.
-* An internet connection on the device. [Follow the tutorial to set up an internet connection]().
-* A device running an MBL image that can connect to a Pelion account. [Follow the first tutorial in this series]() to request an account.
-* The directory in which the manifest tool was initialized, [as reviewed in the development environment setup]().
+* An internet connection on the device. [Follow the tutorial to set up an internet connection](../getting-started/tutorial-connecting-to-a-network-and-pelion-device-management.html).
+* The directory in which the manifest tool was initialized, [as reviewed in the development environment setup](../getting-started/enviornment.html).
 
     <span class="notes">This *must* be the directory from which the `update_default_resources.c` file was obtained for building MBL.</span>
 
-* A Pelion API key, to use the manifest tool from the command line. Follow the instructions in the [requirements section]() to obtain an API key (when prompted to select a group to set the API key access level, select **Developers**). Make a note of the API key to use it later; for security reasons, the portal will not display it again.
+* A Pelion API key, to use the manifest tool from the command line. Follow the instructions in the [requirements section](..//getting-started/api-keys.html) to obtain an API key (when prompted to select a group to set the API key access level, select **Developers**). Make a note of the API key to use it later; for security reasons, the portal will not display it again.
 
 ### Workflow
 
@@ -74,8 +74,9 @@ An MBL device can only be updated if the followings are available:
         A symlink to the root file system archive can be found in the build environment at `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image-test/images/mbl-console-image-test-<MACHINE>.tar.xz`
 
         Where:
-        * `/path/to/artifacts` is the output directory specified for all build artifacts. See the [build tutorial]() for more information.
-        * `<MACHINE>` is the value that was given to the build script for the `--machine` option. See the [build tutorial]() to determine which value is suitable for the device in use.
+
+        * `/path/to/artifacts` is the output directory specified for all build artefacts. See the [build tutorial](../getting-started/building-an-mbl-image.html) for more information.
+        * `<MACHINE>` is the value that was given to the build script for the `--machine` option. See the [build tutorial](../getting-started/building-an-mbl-image.html) to determine which value is suitable for the device in use.
 
         <span class="notes">**Note:** The file inside the update payload must be named `rootfs.tar.xz` and must be in the tar's root directory, not a subdirectory.</span>
 
