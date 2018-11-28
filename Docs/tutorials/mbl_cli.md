@@ -254,7 +254,7 @@ $ mbl-cli select
 Discovering devices...
 Select a device:
 1: mbed-linux-os-3006 (fe80::94f8:52ff:fe67:d5d8%enp0s20u1)
-2: None
+2: No device
 mbed-linux-os-3006 (fe80::94f8:52ff:fe67:d5d8%enp0s20u1) selected
 ```
 
