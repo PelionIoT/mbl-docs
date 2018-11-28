@@ -262,7 +262,7 @@ After selecting the device, the optional `address` argument can be omitted from 
 
 #### Get a shell access (SSH)
 
-Use the Mbed Linux OS CLI `shell` command to get shell access (via SSH) on a device. The user gets the shell to the device with the user `root' permission:
+Use the Mbed Linux OS CLI `shell` command to get shell access (via SSH) on a device as the user `root`.
 
 ```
 $ mbl-cli shell [address]
