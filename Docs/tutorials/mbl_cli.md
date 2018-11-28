@@ -225,19 +225,21 @@ $ npm install -g mbl-cli
 To see the general structure of an MBL CLI command, do the following:
 
 ```
-$  mbl-cli -h
+$ mbl-cli -h
 mbl-cli <command> [arguments]
 
 Commands:
-  mbl-cli copy <src> <dest> [address]  Copy a file/folder to a device
-  mbl-cli get <src> [dest] [address]   Copy a file from a device
-  mbl-cli put <src> [dest] [address]   Copy a file to a device
-  mbl-cli select                       Select a device
-  mbl-cli shell [address]              Get a shell on a device
+  mbl-cli get <src> [dest] [address]  Copy a file from a device
+  mbl-cli put <src> [dest] [address]  Copy a file to a device
+  mbl-cli run <command> [address]     Run a command on a device
+  mbl-cli select                      Select a device
+  mbl-cli shell [address]             Get a shell on a device
 
 Options:
-  -v, --version  Show version number 
-  -h, --help     Show help  
+  -v, --version  Show version number                                   [boolean]
+  -h, --help     Show help                                             [boolean]
+
+For more information about Mbed Linux OS, please visit http://mbed.com
 ```
 
 ## Mbed Linux OS CLI Usage
@@ -254,6 +256,7 @@ Discovering devices...
 Select a device:
 1: mbed-linux-os-3006 (fe80::94f8:52ff:fe67:d5d8%enp0s20u1)
 2: None
+mbed-linux-os-3006 (fe80::94f8:52ff:fe67:d5d8%enp0s20u1) selected
 ```
 
 After selecting the device, the optional `address` argument can be omitted from subsequent Mbed Linux OS CLI commands.
@@ -359,13 +362,14 @@ To perform an application update, follow these steps:
 1. Transfer an application update tar file to the `/scratch` partition on the device:
 
    ```
-   $ mbl-cli copy <application update payload> <destination on device under the /scratch partition> [address]
+   $ mbl-cli put <application update payload> <destination on device under the /scratch partition> [address]
    ```
 
    For example, if `payload.tar` is the payload name for an application update and 169.254.6.215 is a link-local IPv4 address on the device, do the following:
 
    ```
-   $ mbl-cli copy payload.tar /scratch 169.254.6.215
+   $ mbl-cli put payload.tar ./scratch 169.254.6.215
+   28 Nov 09:42:04 - File transfer succeeded
    ```
 
 1. Get a shell on the device and run `mbl-app-update-manager` similarly to how it is done for [rootfs updates](#rootfs-update).
