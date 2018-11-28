@@ -372,7 +372,7 @@ To perform an application update, follow these steps:
    28 Nov 09:42:04 - File transfer succeeded
    ```
 
-1. Get a shell on the device and run `mbl-app-update-manager` similarly to how it is done for [rootfs updates](#rootfs-update).
+1. Get a shell on the device and run `mbl-firmware-update-manager` similarly to how it is done for [rootfs updates](#rootfs-update).
    The application will be installed on the device and started automatically. Each application runs on the device in a separate OCI container.
    It is recommended to delete old tar files from the `scratch` partition after application installations.
    
