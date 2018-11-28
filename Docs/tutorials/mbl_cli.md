@@ -300,7 +300,7 @@ Once you have a rootfs update payload, follow these steps to update the device:
    $ mbl-cli copy payload.tar /scratch 169.254.6.215
    ```
 
-1. Use Mbed Linux OS CLI `shell` command to get a shell access (SSH) on a device:
+1. Use the Mbed Linux OS CLI `shell` command to get shell access (via SSH) on the device:
 
    ```
    $ mbl-cli shell [address]
