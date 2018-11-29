@@ -124,6 +124,10 @@
             {
                 "type": "markdown",
                 "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/refs/containers_packages.md"
+            },
+            {
+                "type": "markdown",
+                "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/refs/contribution_guidelines.md"
             }
         ]
     }
