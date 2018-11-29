@@ -38,7 +38,7 @@ The general workflow for contributions is:
 
 We follow an "inbound license = outbound license" approach, where contributions will be accepted under the same license(s) as specified in the repository, so you need to comply with the licenses for the repository that you are contributing to. Please see the `LICENSE.md` file in the root of the repository for more information.
 
-### Access to the ARMmbed organisation
+### Access to the ARMmbed organization
 
 You might require direct access to the ARMmbed organization for one of the following reasons:
 
