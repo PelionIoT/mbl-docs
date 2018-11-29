@@ -27,8 +27,8 @@ The general workflow for contributions is:
 
     Pull requests should:
 
-    * One change per pull request.
-    * One commit when the pull-request is first raised, and - optionally - other commits during the life of the pull request for modifications or improvements. All commits will be squashed when the pull request is merged. See [the full pull request guidelines](https://github.com/ARMmbed/meta-mbl/tree/mbl-os-0.5/docs/pr-guidelines.md),
+    * Have one change per pull request.
+    * Have one commit when the pull-request is first raised, and - optionally - other commits during the life of the pull request for modifications or improvements. All commits will be squashed when the pull request is merged. See [the full pull request guidelines](https://github.com/ARMmbed/meta-mbl/tree/mbl-os-0.5/docs/pr-guidelines.md),
     * Ensure that each commit in the pull-request has at least one `Signed-off-by:` line. Please use your real name and email address.
 
         The names in the `Signed-off-by:` and `Author:` lines must match. If anyone else contributes to the commit, they must also add their own `Signed-off-by:` line. By adding this line, you certify that your contribution was made under the terms of the [Developer Certificate of Origin (DCO)](https://developercertificate.org).
