@@ -1,4 +1,4 @@
-## MBL CLI command syntax
+## Command syntax
 
 To see the general structure of an MBL CLI command:
 
@@ -24,7 +24,7 @@ Where `address` is the address of the debug interface on the device or the devic
 
 If the device is [already selected](#device-discovery-and-selection), you can omit the `address` parameter.
 
-## MBL CLI usage
+## Usage
 
 ### Device discovery and selection
 

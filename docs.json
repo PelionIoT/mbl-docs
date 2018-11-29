@@ -117,6 +117,10 @@
         "description": "",
         "slug": "tools",
         "type": "markdown",
+        "intro": {
+                "type": "markdown",
+                "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tools.md"
+            },
         "chapters": [{
             "title": "MBL CLI",
             "intro": {
