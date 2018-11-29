@@ -22,7 +22,7 @@ To use MBL CLI, you need to:
 
 This section explains how to connect devices to a development PC over USB.
 
-<span class="notes">**Note**: We provide examples of network interface names such as `enp0s20u5u4u4` and `eno0`, as well as UUIDs. These values may be different for your devices and PC - please do not use them without checking.</span><!--I would like to say that if you don't know that, you maybe shouldn't be configuring MBL stuff. But that's not allowed in my profession.-->
+<span class="notes">**Note**: We provide examples of network interface names such as `enp0s2222222a` and `eno0`, as well as UUIDs. These values may be different for your devices and PC - please do not use them without checking.</span>
 
 #### Overview
 
@@ -46,7 +46,6 @@ By default, MBL attempts to obtain an IPv4 address for the `usb0` interface on W
 To connect a PC to an a WaRP7 device over USB:
 
 1. Connect the device to the PC using a USB cable.
-1. <!--aren't we missing the step where you check which network interface belongs to the USB? we do it for Ethernet, and I think we're doing it in the USB example-->
 1. Configure the PC to use a link-local IPv4 address (169.254.x.y) for the interface.
 1. Make sure that link-local IPv4 address is assigned to the network interface.
 
@@ -54,7 +53,7 @@ For example, on an Ubuntu PC:
 
 1. Connect your device to your computer.
 
-    The computer instantiates the Ethernet `net_device`<!--what is this? a driver?--> for the USB network interface, but does not assign it an IP address.
+    The computer instantiates the Ethernet `net_device` for the USB network interface, but does not assign it an IP address.
 
 1. Use `ifconfig -a` to list available network interfaces.
 
@@ -65,7 +64,7 @@ For example, on an Ubuntu PC:
 
     < ... lines deleted to save space >
 
-      enp0s20u5u4u4 Link encap:Ethernet  HWaddr ee:a9:74:68:fe:69  
+      enp0s2222222a Link encap:Ethernet  HWaddr ee:a9:74:68:fe:69  
             UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
             RX packets:136 errors:0 dropped:0 overruns:0 frame:0
             TX packets:322 errors:0 dropped:0 overruns:0 carrier:0
@@ -90,7 +89,7 @@ To connect a PC to an a Raspberry Pi 3 device over an Ethernet-to-USB adapter:
 1. Check which network interface belongs to the port that is connected to the
    Raspberry Pi 3 device.
 1. Configure the PC to use a link-local IPv4 address (169.254.x.y) for the interface.
-1. Determine the address assigned to the interface.<!--the same way I did for the Warp7?-->
+1. Determine the address assigned to the interface.
 
 For example, on an Ubuntu PC and a Raspberry Pi 3 device connected to an RTL8153 Gigabit Ethernet-to-USB adapter:
 
@@ -130,18 +129,18 @@ interface with the `link-local` IPv4 addressing method. Use the NetworkManager's
 
     where `<interface-name-on-pc>` is the name of the network interface on the PC that connects to the device. You found this name in the connection setup.
 
-    * For example, for WaRP7 and the interface `enp0s20u5u4u4`:
+    * For example, for WaRP7 and the interface `enp0s2222222a`:
 
       ```
-      $ sudo nmcli connection add ifname enp0s20u5u4u4 con-name mbl-ipv4ll type ethernet -- ipv4.method link-local
-      Connection 'mbl-ipv4ll' (0076a29f-6892-45bb-8338-2879b863efdf) successfully added.
+      $ sudo nmcli connection add ifname enp0s2222222a con-name mbl-ipv4ll type ethernet -- ipv4.method link-local
+      Connection 'mbl-ipv4ll' (0076a29f-8338-8338-8338-0076a29fffff) successfully added.
       ```
 
     * For example, for a Raspberry Pi 3 connected to the PC's `eno0` interface (or `enx503eaa4e094c` if using our USB Ethernet adapter example):
 
       ```
       $ sudo nmcli connection add ifname eno0 con-name mbl-ipv4ll type ethernet -- ipv4.method link-local
-      Connection 'mbl-ipv4ll' (475ebfb1-d67e-47e9-afd2-8f2cf8a16cdd) successfully added.
+      Connection 'mbl-ipv4ll' (475ebfb1-d67e-d67e-d67e-475ebfb1dddd) successfully added.
       ```
 
 1. Activate the `mbl-ipv4ll` connection profile:
@@ -159,13 +158,12 @@ interface with the `link-local` IPv4 addressing method. Use the NetworkManager's
 1. Inspect the NetworkManager connection using the `nmcli connection show` command.
 
     * For example, for a WaRP7 device:
-    <!--I suspect the UUID, IPs etc in this document are all real. Please sanitise them if this is the case.-->
 
       ```
       $ nmcli connection show
       NAME                UUID                                  TYPE            DEVICE        
-      mbl-ipv4ll          0076a29f-6892-45bb-8338-2879b863efdf  802-3-ethernet  enp0s20u5u4u4
-      Wired connection 1  99cf6de7-2297-3607-923a-4286fdbf357a  802-3-ethernet  --          
+      mbl-ipv4ll          0076a29f-8338-8338-8338-0076a29fffff  802-3-ethernet  enp0s2222222a
+      Wired connection 1  99cf6de7-2297-2297-2297-99cf6de7aaaa  802-3-ethernet  --          
       ```     
 
     * For example, for a Raspberry Pi 3 device:
@@ -173,17 +171,17 @@ interface with the `link-local` IPv4 addressing method. Use the NetworkManager's
       ```
       $ nmcli connection show
       NAME                UUID                                  TYPE            DEVICE     
-      eno1                a815455d-8f18-4f25-a8d1-39f0f89fc022  802-3-ethernet  eno1    
-      mbl-ipv4ll          475ebfb1-d67e-47e9-afd2-8f2cf8a16cdd  802-3-ethernet  eno0
+      eno1                a815455d-8f18-8f18-8f18-a815455ddddd  802-3-ethernet  eno1    
+      mbl-ipv4ll          475ebfb1-d67e-d67e-d67e-475ebfb1dddd  802-3-ethernet  eno0
       ```     
 
 1. The PC's network interface now has an allocated IPv4 link-local address.  
 
     * For example, for a WaRP7 device:
       ```
-      $ ifconfig enp0s20u5u4u4
-      enp0s20u5u4u4 Link encap:Ethernet  HWaddr ba:77:68:c0:73:df  
-              inet addr:169.254.131.167  Bcast:169.254.255.255  Mask:255.255.0.0
+      $ ifconfig enp0s2222222a
+      enp0s2222222a Link encap:Ethernet  HWaddr ba:77:68:c0:73:df  
+              inet addr:169.254.167.167  Bcast:169.254.255.255  Mask:255.255.0.0
               inet6 addr: fe80::b418:c138:20f0:57c7/64 Scope:Link
               UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
               RX packets:146 errors:0 dropped:0 overruns:0 frame:0
@@ -281,7 +279,7 @@ You can list available devices, and select one to use for all subsequent command
 
     The selected device's address is stored in a configuration file (`${HOME}/.mbl.cfg`), so the selection will apply to all subsequent runs of mbl-cli by the same user.
 
- 1. To deselect a device: run `select` again and select a different device. 
+ 1. To deselect a device: run `select` again and select a different device.
 
 #### Remote command execution
 
@@ -340,7 +338,6 @@ root@mbed-linux-os-3006:~#
 ```
 
 After obtaining shell access, you can set up Wi-Fi on the device (see [Setting up a network connection](../getting-started/setting-up-a-network-connection.html)).
-<!--do we tell people to come here from that page?-->
 
 ### Device update
 
@@ -380,10 +377,10 @@ To update the rootfs:
    $ mbl-cli copy <rootfs update payload> <destination on device under the /scratch partition> [address]
    ```
 
-   For example, if `payload.tar` is the name of the payload file for the rootfs update, and 169.254.6.215 is a link-local IPv4 address on the device:
+   For example, if `payload.tar` is the name of the payload file for the rootfs update, and 169.254.111.222 is a link-local IPv4 address on the device:
 
    ```
-   $ mbl-cli copy payload.tar /scratch 169.254.6.215
+   $ mbl-cli copy payload.tar /scratch 169.254.111.222
    ```
 
 1. Use the MBL CLI `shell` command to get shell access on the device:
@@ -395,7 +392,7 @@ To update the rootfs:
    For example:
 
    ```
-   $ mbl-cli shell 169.254.6.215
+   $ mbl-cli shell 169.254.111.222
    ```
 
 1. Inside the shell, run the `mbl-firmware-update-manager` script to install the rootfs:
@@ -431,10 +428,10 @@ To install or update an application:
    $ mbl-cli put <application update payload> <destination on device under the /scratch partition> [address]
    ```
 
-   For example, if `payload.tar` is the payload name for an application update, and 169.254.6.215 is a link-local IPv4 address on the device:
+   For example, if `payload.tar` is the payload name for an application update, and 169.254.111.222 is a link-local IPv4 address on the device:
 
    ```
-   $ mbl-cli put payload.tar ./scratch 169.254.6.215
+   $ mbl-cli put payload.tar ./scratch 169.254.111.222
    28 Nov 09:42:04 - File transfer succeeded
    ```
 
@@ -447,7 +444,7 @@ To install or update an application:
   For example:
 
   ```
-  $ mbl-cli shell 169.254.6.215
+  $ mbl-cli shell 169.254.111.222
   ```
 
 1. Run `mbl-firmware-update-manager` with the `--skip-reboot` parameter.
@@ -457,4 +454,3 @@ To install or update an application:
 1. The application you installed or updated starts automatically, without a device reboot.
 
 <span class="notes">We recommend deleting the old tar files from the `scratch` partition after updates finish.</span>
-
