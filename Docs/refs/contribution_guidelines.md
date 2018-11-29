@@ -2,7 +2,7 @@
 
 Mbed Linux OS (MBL) is currently a developer preview release. It is undergoing significant changes and improvements to meet the product vision.
 
-We would be very happy to hear from you through our [support email](). You can also raise a GitHub issue, but we are not expecting contributions during this period. If you do want to contribute to our projects, then please follow these contribution guidelines - all contributions to MBL must meet them.
+We would be very happy to hear from you through our [support email](mailto:support@mbed.com). You can also raise a GitHub issue, but we are not expecting contributions during this period. If you do want to contribute to our projects, then please follow these contribution guidelines - all contributions to MBL must meet them.
 
 ### Design and coding style
 
