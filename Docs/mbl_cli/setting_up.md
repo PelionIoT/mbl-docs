@@ -2,8 +2,24 @@
 
 To use MBL CLI, you need to:
 
-1. [Set up networking](#network-setup) on the target device.
 1. [Set up MBL CLI](#setting-up-mbed-linux-os-cli) on your development PC.
+1. [Set up networking](#network-setup) on the target device.
+
+### Setting up MBL CLI
+
+#### Prerequisites
+
+The only dependency of MBL CLI that you need to install is Node.js (version v8.10.0 or higher).
+
+We recommend installing Node.js from NodeSource's binary distribution using [these instructions](https://github.com/nodesource/distributions#installation-instructions).
+
+#### Installation
+
+MBL CLI is distributed using npm. To install MBL CLI, run:
+
+```
+$ npm install -g mbl-cli
+```
 
 ### Network setup
 
@@ -191,19 +207,3 @@ interface with the `link-local` IPv4 addressing method. Use the NetworkManager's
           RX bytes:3176233 (3.1 MB)  TX bytes:915351 (915.3 KB)
           Memory:fb100000-fb17ffff
       ```
-
-### Setting up MBL CLI
-
-#### Prerequisites
-
-The only dependency of MBL CLI that you need to install is Node.js (version v8.10.0 or higher).
-
-We recommend installing Node.js from NodeSource's binary distribution using [these instructions](https://github.com/nodesource/distributions#installation-instructions).
-
-#### Installation
-
-MBL CLI is distributed using npm. To install MBL CLI, run:
-
-```
-$ npm install -g mbl-cli
-```

@@ -2,4 +2,4 @@
 
 Mbed Linux OS includes the following tools:
 
-* [MBL CLI]() - a command line tool to control the device.
+* [MBL CLI]() - a command line tool you can use to work with your device while developing and testing.
