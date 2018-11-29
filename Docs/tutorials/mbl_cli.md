@@ -4,15 +4,12 @@ The Mbed Linux OS CLI (MBL CLI) is a command-line interface for developing with 
 the following operations on MBL devices:
 
  * List all available MBL devices on the network.
- * Select a default MBL device for all MBL CLI commands in a single terminal instance.
+ * Select a default MBL device for all MBL CLI commands.
  * Get a shell on a device.
  * Copy a file to or from a device.
  * Run a command on a device.
 
-<span class="notes">**Note**: MBL CLI can only be used with devices running the test image (`mbl-console-image-test`).</span>
-
- <!--so this isn't the MBL test image, right? what's it a test image of, and where do I get it?-->
- <!--actually, where do I get MBL CLI?-->
+<span class="notes">**Note**: MBL CLI can only be used with devices running the MBL test image `mbl-console-image-test`, rather than the production image `mbl-console-image`.</span>
 
 ## Setting up
 
@@ -34,7 +31,7 @@ The MBL kernel can support USB connections to IoT devices that have USB ports. T
 * **Peripheral port(s)**: The kernel's USB Gadget driver mechanism creates
 a `usb0` network interface on the device. The device then appears as a network interface on any other USB-connected device, such as the development PC.
 
-    Example: WaRAP7. For more details, see below.
+    Example: WaRP7. For more details, see below.
 
 * **Host port(s)**: For devices that cannot work with the kernel's USB Gadget driver, MBL offers two Ethernet interfaces: `eth0`, which belongs to the wired Ethernet port, and `eth1`, which is created by the CDC Ethernet driver when appropriate hardware is connected. The reliance on Ethernet means that you need an Ethernet-to-USB adapter to support USB networking to a device with USB host ports.
 
@@ -42,7 +39,7 @@ a `usb0` network interface on the device. The device then appears as a network i
 
 By default, MBL attempts to obtain an IPv4 address for the `usb0` interface on WaRP7 or the `eth1` interface on Raspberry Pi 3 using DHCP. MBL falls back to assigning a link-local IPv4 address when DHCP timeout occurs.  
 
-On both devices, IPv6 is always present with a link local address.
+`usb0` on the WaRP7 and `eth1` on the Raspberry Pi3 are debug network intefaces. On both devices, the debug network interface is always given an IPv6 link-local address.
 
 #### Connecting a WaRP7 device
 
@@ -51,7 +48,7 @@ To connect a PC to an a WaRP7 device over USB:
 1. Connect the device to the PC using a USB cable.
 1. <!--aren't we missing the step where you check which network interface belongs to the USB? we do it for Ethernet, and I think we're doing it in the USB example-->
 1. Configure the PC to use a link-local IPv4 address (169.254.x.y) for the interface.
-1. Determine the address assigned to the interface.<!--when you say determine, do you mean "check which one" or "set"?-->
+1. Find the address assigned to the interface.
 
 For example, on an Ubuntu PC:
 
@@ -61,7 +58,7 @@ For example, on an Ubuntu PC:
 
 1. Use `ifconfig -a` to list available network interfaces.
 
-    The instantiated interface from the previous step is listed without an IP:
+    The interface instantiated in the previous step is listed without an IPv4 address:
 
     ```
     $ ifconfig -a
@@ -122,7 +119,7 @@ For example, on an Ubuntu PC and a Raspberry Pi 3 device connected to an RTL8153
 
 <span class="tips">If you don't want to use the NetworkManager command line interface, you can use the `nm-connection-editor` GUI. See the [`nmcli` man page](https://linux.die.net/man/1/nmcli) for more information.</span>
 
-To assign an IPv4 address to the network interface an Ubuntu PC using NetworkManager:
+To assign an IPv4 address to the network interface on an Ubuntu PC using NetworkManager:
 
 1. Create a NetworkManager connection profile called `mbl-ipv4ll` for the
 interface with the `link-local` IPv4 addressing method. Use the NetworkManager's command line interface:
@@ -152,8 +149,6 @@ interface with the `link-local` IPv4 addressing method. Use the NetworkManager's
     ```
     $ nmcli connection up mbl-ipv4ll
     ```
-
-    <span class="notes">**Note**: You can skip this step if NetworkManager automatically enables the connection profile.<!--how do I know?--></span>
 
     * If this command finishes with the error
       `Error: Connection activation failed: No suitable device found for this connection.`, please verify that the device is managed by NetworkManager by checking that the field `managed` is set to `true` in the
@@ -259,7 +254,7 @@ If the device is [already selected](#device-discovery-and-selection), you can om
 
 ### Device discovery and selection
 
-You can list available devices, and select one to use for all subsequent commands in the terminal instance:
+You can list available devices, and select one to use for all subsequent commands:
 
 1. To list the devices:
 
@@ -282,11 +277,55 @@ You can list available devices, and select one to use for all subsequent command
 
     For example, to select the device `mbed-linux-os-3006`, type `1`.
 
-You can now omit the `address` argument from subsequent commands.
+    You can now omit the `address` argument from subsequent commands.
 
-### Get a shell access (SSH)
+    The selected device's address is stored in a configuration file (`${HOME}/.mbl.cfg`), so the selection will apply to all subsequent runs of mbl-cli by the same user.
 
-To get shell access over SSH to a device (as the user `root`), use the `shell` command"
+ 1. To deselect a device: run `select` again and select a different device. 
+
+#### Remote command execution
+
+To execute commands on the device:
+
+1. Select a device from the list of available devices using the `mbl-cli select` command.
+
+1. Run a command on the device:
+
+    ```
+    $ mbl-cli run <command> [address]
+   ```
+
+    <span class="notes">The commands are run by the user `root`.</span>
+
+For example, to show the statuses of the active interfaces on a device:
+
+```
+$ mbl-cli run ifconfig 169.254.11.94
+lo        Link encap:Local Loopback  
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:144 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:144 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:9648 (9.4 KiB)  TX bytes:9648 (9.4 KiB)
+
+usb0      Link encap:Ethernet  HWaddr 96:F8:52:67:D5:D8  
+          inet6 addr: fe80::94f8:52ff:fe67:d5d8/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:273 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:357 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:30202 (29.4 KiB)  TX bytes:82367 (80.4 KiB)
+
+usb0:avahi Link encap:Ethernet  HWaddr 96:F8:52:67:D5:D8  
+          inet addr:169.254.11.94  Bcast:169.254.255.255  Mask:255.255.0.0
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+```
+
+### Get shell access (SSH)
+
+To get shell access over SSH to a device (as the user `root`), use the `shell` command:
 
 ```
 $ mbl-cli shell [address]
@@ -305,7 +344,7 @@ After obtaining shell access, you can set up Wi-Fi on the device (see [Setting u
 
 ### Device update
 
-You update the device's root file system (rootfs) and applications. Update of boot loaders, the Linux Kernel and other components will be supported in later versions.
+You can update the device's root file system (rootfs) and applications. Update of boot loaders, the Linux kernel and other components will be supported in later versions.
 
 Device update uses the `mbl-firmware-update-manager`:
 
@@ -380,7 +419,7 @@ To update the rootfs:
 
 #### Update an application
 
-Application run on the device in individual OCI container, so you can update each application independently of any others.
+You can update each application independently of any others.
 
 To install or update an application:
 
@@ -415,48 +454,7 @@ To install or update an application:
 
     The application is installed.
 
-1. The device restarts automatically.
+1. The application you installed or updated starts automatically, without a device reboot.
 
 <span class="notes">We recommend deleting the old tar files from the `scratch` partition after updates finish.</span>
 
-#### Remote command execution
-
-<!--I want to move this earlier so I can have the udpate bits on their own. Is that okay?-->
-
-To execute commands on the device:
-
-1. Select a device from the list of available devices using the `mbl-cli select` command.
-
-1. Run a command on the device:
-
-    ```
-    $ mbl-cli run <command> [address]
-   ```
-
-    <span class="notes">The command runs with permission from the user `root`.</span>
-
-For example, to show the statuses of the active interfaces on a device:
-
-```
-$ mbl-cli run ifconfig 169.254.11.94
-lo        Link encap:Local Loopback  
-          inet addr:127.0.0.1  Mask:255.0.0.0
-          inet6 addr: ::1/128 Scope:Host
-          UP LOOPBACK RUNNING  MTU:65536  Metric:1
-          RX packets:144 errors:0 dropped:0 overruns:0 frame:0
-          TX packets:144 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:1000
-          RX bytes:9648 (9.4 KiB)  TX bytes:9648 (9.4 KiB)
-
-usb0      Link encap:Ethernet  HWaddr 96:F8:52:67:D5:D8  
-          inet6 addr: fe80::94f8:52ff:fe67:d5d8/64 Scope:Link
-          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
-          RX packets:273 errors:0 dropped:0 overruns:0 frame:0
-          TX packets:357 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:1000
-          RX bytes:30202 (29.4 KiB)  TX bytes:82367 (80.4 KiB)
-
-usb0:avahi Link encap:Ethernet  HWaddr 96:F8:52:67:D5:D8  
-          inet addr:169.254.11.94  Bcast:169.254.255.255  Mask:255.255.0.0
-          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
-```
