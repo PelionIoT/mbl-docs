@@ -18,7 +18,7 @@ To build MBL, you need:
 * Full internet access (because the build process downloads packages from the
 internet).
 
-* The ability to connect to GitHub with SSH, so you can clone private repositories non-interactively during the build process. See [the GitHub documentation on connecting with SSH](https://help.github.com/articles/connecting-to-github-with-ssh/) for more information.
+* The ability to connect to GitHub with SSH, so you can clone private repositories noninteractively during the build process. See the [GitHub documentation on connecting with SSH](https://help.github.com/articles/connecting-to-github-with-ssh/) for more information.
 
 And the following software:
 
@@ -36,7 +36,7 @@ And the following software:
     sudo apt-get install bmap-tools curl git minicom python-pip
     ```
 
-    Optionally, to be able to use Minicom without `sudo` you can add your user to the `dialout` group by running:
+    Optionally, to be able to use Minicom without `sudo`, you can add your user to the `dialout` group by running:
 
     ```
     sudo usermod -a -G dialout $USER
