@@ -4,8 +4,8 @@
 
 Like mobile and desktop operating systems, MBL has a framework for user applications that provides independent development, debugging, testing and deployment. Crucially, each application is isolated in a container, so no matter how many applications are running, they cannot interfere with each other or with MBL itself. Applications can be individually managed and updated using Pelion Device Management, and signed by a signing authority independent of the signing needs of other applications.
 
-The application framework promotes runtime and toolchain interoperability between MBL and other Linux distributions by relying on the Open Container Initiative (OCI) and the Open PacKaGe management (OPKG) formats. The OCI image format is based on the Docker image format, and open source tools are available to build [OCI runtime bundles](https://github.com/opencontainers/image-tools). Using an open packaging standard also reassures adopters that they are not locked into a particular container technology.
-
+The application framework promotes runtime and toolchain interoperability between MBL and other Linux distributions by relying on the Open Container Initiative (OCI) and the Open PacKaGe management (OPKG) formats. The OCI runtime format is based on the Docker runtime format, and the [specification](https://github.com/opencontainers/runtime-spec) details the contents of the runtime bundle. Using an open packaging standard also reassures adopters that they are not locked into a particular container technology.
+ 
 ### Application isolation
 
 To protect an IoT device, application software should be isolated from other device software. This prevents a malicious or defective application from undermining device integrity. Isolation methods provide:
