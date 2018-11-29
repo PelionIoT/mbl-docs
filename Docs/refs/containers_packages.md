@@ -4,7 +4,7 @@
 
 Like mobile and desktop operating systems, MBL has a framework for user applications that provides independent development, debugging, testing and deployment. Crucially, each application is isolated in a container, so no matter how many applications are running, they cannot interfere with each other or with MBL itself. Applications can be individually managed and updated using Pelion Device Management, and signed by a signing authority independent of the signing needs of other applications.
 
-The application framework promotes runtime and toolchain interoperability between MBL and other Linux distributions by relying on the Open Container Initiative (OCI) and the Open PacKaGe management (OPKG) formats. The OCI image format is based on the Docker image format, and open source tools are available to build [OCI images](https://github.com/opencontainers/image-tools). Using an open packaging standard also reassures adopters that they are not locked into a particular container technology.
+The application framework promotes runtime and toolchain interoperability between MBL and other Linux distributions by relying on the Open Container Initiative (OCI) and the Open PacKaGe management (OPKG) formats. The OCI image format is based on the Docker image format, and open source tools are available to build [OCI runtime bundles](https://github.com/opencontainers/image-tools). Using an open packaging standard also reassures adopters that they are not locked into a particular container technology.
 
 ### Application isolation
 
@@ -27,7 +27,6 @@ MBL uses the Linux kernel's isolation mechanisms as the basis of application iso
 To deploy and run an application on a device, the application and associated components need to be packaged, via the OPKG package manager, to form an application image. This requires:
 
 * A developer creates the application image at build time.
-* To allow the image authentication, the package must support signing.
 * An application can depend on platform provided services and devices, but any additional components that an application depends on, such as libraries, must be included in the application image package.
 * A packaged application image must be deployable to a device using one of:
 
@@ -69,7 +68,7 @@ Applications may also need to be controlled by other clients, such as:
 * Application developer for manual control of applications during development.
 * Automated tester - controls running applications during test.
 
-We recommend using a container runtime that is as simple as possible, to minimize its resource footprint and security attack surface.
+We recommend using an application runtime bundle that is as simple as possible, to minimize its resource footprint and security attack surface.
 
 To meet all of these requirements, MBL uses an [OCI-compliant runtime called runC](https://github.com/opencontainers/runc). It was donated by Docker, and forms the low-level container runtime used by Docker Daemon.
 
@@ -79,7 +78,7 @@ Over the lifetime of an IoT device, application images may need to be updated, e
 
 The application update process meets the following requirements:
 
-* Support updates to individual application containers.
+* Support updates to individual applications.
 * Support delta updates for large applications.
 * Be resilient to failure (such as a power failure) during the application update process. If the update was not applied, the pre-update version should remain viable.
 
