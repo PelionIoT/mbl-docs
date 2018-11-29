@@ -16,15 +16,22 @@ Mbed Linux OS is currently available as a developer preview to selected users. T
 
 The preview release provides:
 
+* OpenEmbedded based OS distribution, enabling extensibility and support for the latest updates and features.
+* Secure boot methodology based on Trusted Firmware for both the ARMv7-A and ARMv8-A platforms.
+* Trusted Execution Environment (OPTEE) integrated by default, to enable future secure world operations.
+* Developer command line tools to facilitate discovery, setup and local update of development devices.
+* A lightweight, feature rich connection manager for Ethernet and Wi-Fi connections.
 * OCI-compliant containers for applications, helping to protect against compromised applications and facilitating a modern development workflow.
-* Signed updates to protect against unauthorised changes.
 * The integration with Pelion Device Management services offers:
     * Support for the Device Management Client for simple in-field provisioning and over-the-air device configuration.
     * Device discovery and secure identity in the Device Management device directory, to protect against impersonation or cloning.
     * Large-scale management of device groups.
-    * Device status monitoring, including notifications of connection status.
-    * Device firmware update and application management.
+    * Device management and status monitoring, including notifications of connection status.
+    * Over the air signed updates for applications and the root file system.
     * Access control at the account level.
+
+
+
 
 ### Design
 
