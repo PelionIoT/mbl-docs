@@ -26,7 +26,7 @@ Each section is implemented for both release and debug variants.
 ### Setting up the cross-compilation tools
 
 1. On a Linux Ubuntu PC, install Docker CE as described in the [Docker CE for Ubuntu documentation](https://docs.docker.com/install/linux/docker-ce/ubuntu/)      
-1. Navigate to the `helloworld` folder in your clone:<!--do we know that they cloned it? shouldn't that be a step here?-->
+1. Navigate to the `helloworld` folder in your clone:
 
     ```
     cd mbl-core/tutorials/helloworld

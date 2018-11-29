@@ -14,7 +14,7 @@ Send software updates to MBL devices using Pelion Device Management Portal. The 
 The payload is a `.tar` file that can contain either:
 
 * An application update: One or more OPKG packages (`.ipk` files).
-* A `rootfs` update: A compressed `tar` file called `rootfs.tar.xz` <!--compressed `tar` within a tar?-->that contains root file system content.
+* A `rootfs` update: A compressed `tar` file called `rootfs.tar.xz` that contains root file system content.
 
 Currently, MBL does **not** support updating both an application and a root file system in a single FOTA update.
 

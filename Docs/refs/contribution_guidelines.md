@@ -40,8 +40,6 @@ We follow an "inbound license = outbound license" approach, where contributions 
 
 ### Access to the ARMmbed organisation
 
-<!-- Not so sure about this section -->
-
 You might require direct access to the ARMmbed organization for one of the following reasons:
 
 - You need access to private repositories.
