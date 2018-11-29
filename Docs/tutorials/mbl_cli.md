@@ -48,7 +48,7 @@ To connect a PC to an a WaRP7 device over USB:
 1. Connect the device to the PC using a USB cable.
 1. <!--aren't we missing the step where you check which network interface belongs to the USB? we do it for Ethernet, and I think we're doing it in the USB example-->
 1. Configure the PC to use a link-local IPv4 address (169.254.x.y) for the interface.
-1. Find the address assigned to the interface.
+1. Make sure that link-local IPv4 address is assigned to the network interface.
 
 For example, on an Ubuntu PC:
 
@@ -147,7 +147,7 @@ interface with the `link-local` IPv4 addressing method. Use the NetworkManager's
 1. Activate the `mbl-ipv4ll` connection profile:
 
     ```
-    $ nmcli connection up mbl-ipv4ll
+    $ sudo nmcli connection up mbl-ipv4ll
     ```
 
     * If this command finishes with the error
