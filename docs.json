@@ -117,12 +117,13 @@
         "description": "",
         "slug": "tools",
         "type": "markdown",
+        "intro": {
+                "type": "markdown",
+                "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/mbl_cli/mbl_cli.md"
+            },
         "chapters": [{
             "title": "MBL CLI",
-            "sources": [{
-                    "type": "markdown",
-                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/mbl_cli/mbl_cli.md"
-                },
+            "sources": [
                 {
                     "type": "markdown",
                     "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/mbl_cli/setting_up.md"
