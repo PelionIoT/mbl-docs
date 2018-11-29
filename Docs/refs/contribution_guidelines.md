@@ -11,6 +11,7 @@ Be consistent with your changes. We will share a full set of software design pri
   * https://www.openembedded.org/wiki/Styleguide
 * Python code
   * Mandatory PEPs (Python Enhancement Proposals): PEP20, PEP8, PEP257
+  * Automated check scripts in our mbl-tools repository - https://github.com/ARMmbed/mbl-tools/tree/mbl-os-0.5/ci/sanity-check
 * C++ coding style
   * Internal style guide at this time
 
@@ -25,9 +26,9 @@ The general workflow expected for contributions is, in the repository you want t
 
 The expected changes on a pull-request should follow these guide-lines:
 * One change per pull-request.
-* One commit is expected when the pull-request is first raised, though other commits can be made during the life of the pull-request to show modifications/improvements during review, these will be squashed on merge. See the full guidelines - https://github.com
+* One commit is expected when the pull-request is first raised, though other commits can be made during the life of the pull-request to show modifications/improvements during review, these will be squashed on merge. See the full guidelines - https://github.com/ARMmbed/meta-mbl/tree/mbl-os-0.5/docs/pr-guidelines.md
 * Ensure that each commit in the pull-request has at least one ```Signed-off-by:``` line, using your real name and email address. The names in the ```Signed-off-by:``` and ```Author:``` lines must match. If anyone else contributes to the commit, they must also add their own ```Signed-off-by:``` line. By adding this line the contributor certifies the contribution is made under the terms of the Developer Certificate of Origin (DCO) - https://developercertificate.org
-* One accepted the Mbed Linux OS maintainers will merge the pull-request.
+* Once accepted the Mbed Linux OS maintainers will merge the pull-request.
 
 #### Licenses
 
