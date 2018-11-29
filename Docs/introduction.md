@@ -30,9 +30,6 @@ The preview release provides:
     * Over the air signed updates for applications and the root file system.
     * Access control at the account level.
 
-
-
-
 ### Design
 
 The following diagram illustrates the components and services provided by MBL. When used in conjunction with Device Management, MBL provides a secure platform for developing, operating and managing IoT applications.
