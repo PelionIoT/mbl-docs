@@ -40,7 +40,7 @@
                         "sources": []
                     },
                     {
-                        "title": "Enviornment",
+                        "title": "Environment",
                         "intro": {
                             "type": "markdown",
                             "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/env_and_software.md"
