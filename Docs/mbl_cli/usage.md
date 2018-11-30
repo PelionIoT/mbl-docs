@@ -113,7 +113,7 @@ Connecting to mbed-linux-os-3006...
 root@mbed-linux-os-3006:~#
 ```
 
-After obtaining shell access, you can set up Wi-Fi on the device (see [Setting up a network connection](../getting-started/setting-up-a-network-connection.html)).
+After obtaining shell access, you can set up Wi-Fi on the device (see [Setting up a network connection](../getting-started/tutorial-connecting-to-a-network-and-pelion-device-management.html)).
 
 ## Device update with MBL
 
