@@ -4,7 +4,7 @@
 
 MBL handles Device Management connectivity on behalf of the device, rather than relying on the user application to do it. This means you need to add your Device Management credentials to the working directory MBL builds from. For development environments, Pelion offers a *developer certificate* for quick connection:
 
-1. Create cloud credentials directory, e.g. `./cloud-credentials`
+1. Create cloud credentials directory, for example `./cloud-credentials`.
 2. To create a Pelion developer certificate (`mbed_cloud_dev_credentials.c`), follow the instructions for [creating and downloading a developer certificate](../getting-started/provisioning-development.html).
 3. Add the developer certificate to the credentials directory you've created.
 
@@ -20,7 +20,7 @@ MBL and Device Management support over-the-air updates for devices, which you ca
     mkdir ./update-resources && cd ./update-resources
     ```
 
-2. Initialize the manifest tool and generate Update resources:
+1. Initialize the manifest tool, and generate Update resources:
 
     ```
     manifest-tool init -q -d arm.com -m dev-device
@@ -29,7 +29,6 @@ MBL and Device Management support over-the-air updates for devices, which you ca
     This generates the `update_default_resources.c` file. Place it in the directory you created in the previous step.
 
     You will use this file in the build process later.
-
 
 ## Building an MBL image
 
@@ -52,13 +51,13 @@ The `run-me.sh` and `build.sh` scripts are called in a single command, with opti
 
 <span class="tips">Note the use of `--`. It separates options for `run-me.sh` from options for `build.sh`.</span>
 
-To invoke the `run-me.sh` help menu use:
+To invoke the `run-me.sh` help menu, use:
 
 ```
 ./mbl-tools/build-mbl/run-me.sh -h
 ```
 
-To invoke the `build.sh` help menu use:
+To invoke the `build.sh` help menu, use:
 
 ```
 ./mbl-tools/build-mbl/run-me.sh -- -h
@@ -70,12 +69,12 @@ The following build options are mandatory:
 | --- | --- |
 | `--branch` | Select the MBL branch to build. For example, to build the branch `mbl-os-0.5`: `./mbl-tools/build-mbl/run-me.sh -- --branch mbl-os-0.5 --machine raspberrypi3-mbl` |
 | `--machine` | Select the target device. The options are [ Warp7, `imx7s-warp-mbl`] and [ Raspberry Pi 3, `raspberrypi3-mbl`]. Example: `./mbl-tools/build-mbl/run-me.sh -- --machine <MACHINE>` |
-| `--builddir` | Create a build directory. This option is for `run-me.sh`. You must use a different build directory for every device (machine), and we recommend including the device's name in the directory's name. Note that this directory includes all other artefacts, such as build and error logs. For example, if you've created `mkdir /path/to/my-build-dir`, the builddir will be `./mbl-tools/build-mbl/run-me.sh --builddir /path/to/my-build-dir` |
-| `--outputdir` | Specify the output directory for all build artefacts (pinned manifest, target specific images etc). For example, if you're created `mkdir /path/to/artifacts`, the outpudir will be `./mbl-tools/build-mbl/run-me.sh --outputdir /path/to/artifacts` |
+| `--builddir` | Create a build directory. This option is for `run-me.sh`. You must use a different build directory for every device (machine), and we recommend including the device's name in the directory's name. Note that this directory includes all other artifacts, such as build and error logs. For example, if you've created `mkdir /path/to/my-build-dir`, the builddir will be `./mbl-tools/build-mbl/run-me.sh --builddir /path/to/my-build-dir` |
+| `--outputdir` | Specify the output directory for all build artifacts (pinned manifest, target specific images etc). For example, if you're created `mkdir /path/to/artifacts`, the outpudir will be `./mbl-tools/build-mbl/run-me.sh --outputdir /path/to/artifacts` |
 | `--inject-mcc` | At the moment, you need to build your Device Management resources (that you obtained above) into the image. `./mbl-tools/build-mbl/run-me.sh --inject-mcc /path/to/mbed_cloud_dev_credentials.c --inject-mcc /path/to/update_default_resources.c` |
 
-
 An example using all mandatory options:
+
 ```
 ./mbl-tools/build-mbl/run-me.sh --builddir /path/to/builddir --inject-mcc /path/to/mbed_cloud_dev_credentials.c --inject-mcc /path/to/update_default_resources.c --outputdir /path/to/artifacts -- --branch mbl-os-0.5 --machine <MACHINE>
 ```
@@ -84,9 +83,8 @@ The following build options are not mandatory, but you may find that they improv
 
 | Name | Information |
 | --- | --- |
-| `--downloaddir` | Cache downloaded artefacts between successive builds (do not use cacheing for parallel builds). For example, if you've created `mkdir /path/to/downloads`, the downloaddir will be `./mbl-tools/build-mbl/run-me.sh --downloaddir /path/to/downloads` |
+| `--downloaddir` | Cache downloaded artifacts between successive builds (do not use cacheing for parallel builds). For example, if you've created `mkdir /path/to/downloads`, the downloaddir will be `./mbl-tools/build-mbl/run-me.sh --downloaddir /path/to/downloads` |
 | `--external-manifest` | You can build using a pinned manifest, which is an encapsulation created by a build and containing enough information to allow an exact rebuild. The manifest is created in your output directory (`outputdir`). To use it to rebuild, run `./mbl-tools/build-mbl/run-me.sh --external-manifest /path/to/pinned-manifest.xml` |
-
 
 ### Build examples
 
@@ -95,7 +93,6 @@ The following examples assume:
 * You have your [Device Management developer credentials, as explained above](#downloading-device-management-developer-credentials).
 * You have your [update resources file, as explained above](#creating-an-update-resources-file).
 * You have an output directory for your machine, for example `./artifacts-warp7` or `./artifacts-rpi3`.
-
 
 #### Warp7 device
 
@@ -108,7 +105,6 @@ The following examples assume:
 ```
 ./mbl-tools/build-mbl/run-me.sh --inject-mcc ./cloud-credentials/mbed_cloud_dev_credentials.c --inject-mcc ./update-resources/update_default_resources.c --outputdir ./artifacts-rpi3 -- --machine raspberrypi3-mbl --branch mbl-os-0.5
 ```
-
 
 ### Building outputs
 
@@ -133,8 +129,8 @@ The process also creates release images, which don't contain packages for testin
 
 This section contains instructions for writing the full disk image to a:
 
-* Warp7 device
-* Raspberry Pi 3 device
+* Warp7 device.
+* Raspberry Pi 3 device.
 
 ### Warp7 devices
 
@@ -183,21 +179,21 @@ To write your disk image to the Warp7's flash device, you must first access the 
 
 1. If you got a U-boot prompt on the device, continue to the next step.
 
-   If you got an operating system boot (for example, Android), reboot the device until you get a U-boot prompt, then press any key to prevent the operating system from booting again. Continue to the next step.
+   If you got an operating system boot (for example, Android), reboot the device until you get a U-boot prompt, and then press any key to prevent the operating system from booting again. Continue to the next step.
 
-1. To expose the Warp7's flash device to Linux as USB mass storage, in the U-boot prompt enter:
+1. To expose the Warp7's flash device to Linux as USB mass storage, in the U-boot prompt, enter:
 
     ```
     ums 0 mmc 0
     ```
 
-    On the Warp7, you should now see an ASCII-art "spinner". On your PC, you should see new storage devices:
+    On the Warp7, you now see an ASCII-art "spinner". On your PC, you now see new storage devices:
 
     ```
     ls -l /dev/disk/by-id/
     ```
 
-    In our example, the Warp7 is listed as `usb-Linux_UMS_disk_0` (the partitions on the device are also shown):
+    In this example, the Warp7 is listed as `usb-Linux_UMS_disk_0` (the partitions on the device are also shown):
 
     ```
     total 0
@@ -218,7 +214,7 @@ To write your disk image to the Warp7's flash device, you must first access the 
     lrwxrwxrwx 1 root root 10 Mar 26 14:00 usb-Linux_UMS_disk_0-0:0-part3 -> ../../sdc3
     ```
 
-    `mbl-console-image-test-imx7s-warp-mbl.wic.gz` is a full disk image so should be written to the whole flash device, not a partition.
+    `mbl-console-image-test-imx7s-warp-mbl.wic.gz` is a full disk image, so it should be written to the whole flash device, not a partition.
 
     The device file for the whole flash device is the one without `-part` in the name (`/dev/disk/by-id/usb-Linux_UMS_disk_0-0:0` in this example).
 
@@ -249,18 +245,18 @@ To write your disk image to the Warp7's flash device, you must first access the 
     reset
     ```
 
-    The device should now boot into MBL.
+    The device now boots into MBL.
 
 ### Raspberry Pi 3 devices
 
-1. Connect a micro-SD card to your PC. You should see:
+1. Connect a micro-SD card to your PC. You now see:
 
     * The SD card device file in `/dev`, probably as `/dev/sdX` for some letter `X` (for example, `/dev/sdd`).
     * Device files for its partitions. `/dev/sdXN` for the same letter `X` and some numbers `N` (for example, `/dev/sdd1` and `/dev/sdd2`).
 
     <span class="notes">In the commands below, replace `/dev/sdX` with the device file name for the SD card _without_ a number at the end. You can use `lsblk` to identify the name of the SD card device.</span>
 
-1. Ensure that none of the micro-SD card's partitions are mounted (replace `/dev/sdX` as explained above):
+1. Ensure none of the micro-SD card's partitions are mounted (replace `/dev/sdX` as explained above):
 
     ```
     sudo umount /dev/sdX*
@@ -280,8 +276,8 @@ To write your disk image to the Warp7's flash device, you must first access the 
     sudo eject /dev/sdX
     ```
 
-1. Detach the micro-SD card from your PC and plug it into the Raspberry Pi 3.
-1. You need access to the device's console, so before powering it on the, either:
+1. Detach the micro-SD card from your PC, and plug it into the Raspberry Pi 3.
+1. You need access to the device's console, so before powering it on, either:
 
     * Connect it to a monitor and keyboard (using its HDMI and USB sockets).
     * Connect it to your PC. For example, if you're using a [C232HD-DDHSP-0](http://www.ftdichip.com/Support/Documents/DataSheets/Cables/DS_C232HD_UART_CABLE.pdf) cable, use [this pin numbering reference](https://www.element14.com/community/servlet/JiveServlet/previewBody/73950-102-10-339300/pi3_gpio.png) and connect USB-UART colored wires:
@@ -304,10 +300,11 @@ To write your disk image to the Warp7's flash device, you must first access the 
     * Baud rate: 115200.
     * Encoding: [8N1](https://en.wikipedia.org/wiki/8-N-1).
     * No hardware flow control.
+    
 1. Connect the Raspberry Pi 3's micro-USB socket to a USB power supply.
 
-    The device should now boot into MBL.
+    The device now boots into MBL.
 
 ### Logging in to MBL
 
-To log in to MBL, wait for a login prompt, then enter the username `root`. You will not be prompted for a password.
+To log in to MBL, wait for a login prompt, and then enter the username `root`. You will not be prompted for a password.
