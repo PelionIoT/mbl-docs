@@ -8,9 +8,9 @@ This tutorial creates a user application that runs on your MBL device. It is a s
 
 ### Source and build mechanisms overview
 
-The application source file, `hello_world.c`, is in [https://github.com/ARMmbed/mbl-core/tree/master/tutorials/helloworld/src](https://github.com/ARMmbed/mbl-core/tree/master/tutorials/helloworld/src). On the device, the application runs on a target inside an OCI container. To create the OCI container, we use [dockcross](https://github.com/dockcross/dockcross) to cross-compile the application, then the `opkg-utils` helper scripts to package the compiled application as an IPK.
+The application source file, `hello_world.c`, is in [https://github.com/ARMmbed/mbl-core/tree/mbl-os-0.5/tutorials/helloworld/src](https://github.com/ARMmbed/mbl-core/tree/mbl-os-0.5/tutorials/helloworld/src). On the device, the application runs on a target inside an OCI container. To create the OCI container, we use [dockcross](https://github.com/dockcross/dockcross) to cross-compile the application, then the `opkg-utils` helper scripts to package the compiled application as an IPK.
 
-Cross-compiling toolchains in the Docker image are built using an existing dockcross Docker image for the ARMv7 architecture. The `opkg-utils` helper scripts are included in the toolchain Docker container, which you can find at [https://github.com/ARMmbed/mbl-core/blob/master/tutorials/helloworld/cc-env/Dockerfile](https://github.com/ARMmbed/mbl-core/blob/master/tutorials/helloworld/cc-env/Dockerfile).
+Cross-compiling toolchains in the Docker image are built using an existing dockcross Docker image for the ARMv7 architecture. The `opkg-utils` helper scripts are included in the toolchain Docker container, which you can find at [https://github.com/ARMmbed/mbl-core/blob/mbl-os-0.5/tutorials/helloworld/cc-env/Dockerfile](https://github.com/ARMmbed/mbl-core/blob/mbl-os-0.5/tutorials/helloworld/cc-env/Dockerfile).
 
 The build commands are defined in a Makefile with three sections:
 
