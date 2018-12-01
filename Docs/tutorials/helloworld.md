@@ -58,4 +58,4 @@ To clean the build, run: `build-armv7 make clean`
 To install the application on the device, follow one of our tutorials:
 
 * [Send the application as an over-the-air firmware update](../getting-started/tutorial-updating-mbl-devices-and-applications.html).
-* [Use MBL CLI to flash the application over USB](,,/tools/mbl-cli.html).
+* [Use MBL CLI to flash the application over USB](../tools/mbl-cli.html).
