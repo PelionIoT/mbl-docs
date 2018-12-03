@@ -97,13 +97,13 @@ The following examples assume:
 #### Warp7 device
 
 ```
-./mbl-tools/build-mbl/run-me.sh --inject-mcc ./cloud-credentials/mbed_cloud_dev_credentials.c --inject-mcc ./update-resources/update_default_resources.c --outputdir ./artifacts-warp7 -- --machine imx7s-warp-mbl --branch mbl-os-0.5
+./mbl-tools/build-mbl/run-me.sh --inject-mcc ./cloud-credentials/mbed_cloud_dev_credentials.c --inject-mcc ./update-resources/update_default_resources.c --builddir ./build-warp7 --outputdir ./artifacts-warp7 -- --machine imx7s-warp-mbl --branch mbl-os-0.5
 ```
 
 #### Raspberry Pi 3 device
 
 ```
-./mbl-tools/build-mbl/run-me.sh --inject-mcc ./cloud-credentials/mbed_cloud_dev_credentials.c --inject-mcc ./update-resources/update_default_resources.c --outputdir ./artifacts-rpi3 -- --machine raspberrypi3-mbl --branch mbl-os-0.5
+./mbl-tools/build-mbl/run-me.sh --inject-mcc ./cloud-credentials/mbed_cloud_dev_credentials.c --inject-mcc ./update-resources/update_default_resources.c --builddir ./build-rpi3 --outputdir ./artifacts-rpi3 -- --machine raspberrypi3-mbl --branch mbl-os-0.5
 ```
 
 ### Building outputs
@@ -265,7 +265,7 @@ To write your disk image to the Warp7's flash device, you must first access the 
 1. Write the disk image to the SD card device - not a partition on it (replace `/dev/sdX` as explained above):
 
     ```
-    sudo bmaptool copy --bmap /path/to/artifacts/machine/raspberrypi3-mbl/images/mbl-console-image-test/images/mbl-console-image-test-raspberrypi3-mbl.wic.bmap /path/to/artifacts/machine/raspberrypi3-mbl/images/mbl-console-image-test/images/mbl-console-image-test-raspberrypi3-mbl.wic.gz /dev/sdX
+    sudo bmaptool put --bmap /path/to/artifacts/machine/raspberrypi3-mbl/images/mbl-console-image-test/images/mbl-console-image-test-raspberrypi3-mbl.wic.bmap /path/to/artifacts/machine/raspberrypi3-mbl/images/mbl-console-image-test/images/mbl-console-image-test-raspberrypi3-mbl.wic.gz /dev/sdX
     ```
 
     This action may take some time.
@@ -300,7 +300,7 @@ To write your disk image to the Warp7's flash device, you must first access the 
     * Baud rate: 115200.
     * Encoding: [8N1](https://en.wikipedia.org/wiki/8-N-1).
     * No hardware flow control.
-    
+
 1. Connect the Raspberry Pi 3's micro-USB socket to a USB power supply.
 
     The device now boots into MBL.

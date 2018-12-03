@@ -48,8 +48,8 @@ The folder contains:
     ```
     # cat /config/user/connman/*/settings
     ```
-    
-* For advanced connection configurations, you may manually generate service files and place them under `/config/user/connman` (see section [Connecting to a network using service configuration files](#connecting-to-a-network-using-service-configuration-files)). These are also known as *provisioning files*, and their file extensions must be `.config`.
+
+* For advanced connection configurations, you may manually generate service files and place them under `/config/user/connman` (see section [Connecting to a network using service configuration (provisioning) files](#service-configuration-files)). These are also known as *provisioning files*, and their file extensions must be `.config`.
 
 #### Enabling Wi-Fi
 
@@ -194,7 +194,7 @@ You can change this file by using `connmanctl config <config_data>`, or by editi
    1. Connect to the protected Wi-Fi network using the `connect` command, entering the passphrase when prompted.
 
    In this example, you connect to the Edimax WEP network from the `connmanctl services` listing above:
-   
+
    ```
    # connmanctl
    connmanctl> agent on
@@ -209,7 +209,7 @@ You can change this file by using `connmanctl config <config_data>`, or by editi
 
 <span class="notes">**Note:** ConnMan does not support password encryption.</span>
 
-#### Connecting to a network using service configuration (provisioning) files
+<h4 id="service-configuration-files">Connecting to a network using service configuration (provisioning) files</h4>
 
 For advanced configuration, use a provisioning file (with the extension `.config`). Configurations include secured wireless access points that need complex authentication (such as WPA2 Enterprise), static IPs and so on. Each provisioning file can be used for multiple services at once.
 

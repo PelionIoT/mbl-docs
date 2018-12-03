@@ -115,7 +115,7 @@ root@mbed-linux-os-3006:~#
 
 After obtaining shell access, you can set up Wi-Fi on the device (see [Setting up a network connection](../getting-started/tutorial-connecting-to-a-network-and-pelion-device-management.html)).
 
-## Device update with MBL
+## Device update
 
 You can update the device's root file system (rootfs) and applications. Update of boot loaders, the Linux kernel and other components will be supported in later versions.
 
@@ -150,13 +150,13 @@ To update the rootfs:
 1. Transfer the rootfs update tar file to the `/scratch` partition on the device:
 
    ```
-   $ mbl-cli copy <rootfs update payload> <destination on device under the /scratch partition> [address]
+   $ mbl-cli put <rootfs update payload> <destination on device under the /scratch partition> [address]
    ```
 
    For example, if `payload.tar` is the name of the payload file for the rootfs update, and 169.254.111.222 is a link-local IPv4 address on the device:
 
    ```
-   $ mbl-cli copy payload.tar /scratch 169.254.111.222
+   $ mbl-cli put payload.tar /scratch 169.254.111.222
    ```
 
 1. Use the MBL CLI `shell` command to get shell access on the device:
@@ -206,7 +206,7 @@ To install or update an application:
    For example, if `payload.tar` is the payload name for an application update, and 169.254.111.222 is a link-local IPv4 address on the device:
 
    ```
-   $ mbl-cli put payload.tar ./scratch 169.254.111.222
+   $ mbl-cli put payload.tar /scratch 169.254.111.222
    28 Nov 09:42:04 - File transfer succeeded
    ```
 
