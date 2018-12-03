@@ -10,4 +10,4 @@ This tutorial covers:
 
 ### Setting up an Ethernet connection
 
-If your device is connected to an Ethernet network **with a DHCP server**, then it automatically connects to that network.
+If your device is physically connected to an Ethernet network (that must have a DHCP server), then it automatically uses that network.

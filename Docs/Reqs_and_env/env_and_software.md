@@ -54,7 +54,8 @@ And the following software:
 
     <span class="tips">**Tip:** The [mbl-tools repository](https://github.com/ARMmbed/mbl-tools) provides a collection of tools and recipes for building and testing MBL.</span>
 
-* The Device Management manifest tool. See [Installing the manifest tool](#install-manifest-tool) below:
+* The Device Management manifest tool:
+
     ```
     pip install --user -U git+ssh://git@github.com/ARMmbed/manifest-tool.git#egg=manifest-tool
     pip install --user mbed-cloud-sdk

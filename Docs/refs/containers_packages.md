@@ -20,7 +20,7 @@ MBL uses the Linux kernel's isolation mechanisms as the basis of application iso
 
 * **Process isolation**: each process has access to a private virtual address space.
 * **Namespace isolation**: partitions resources such as process IDs, file names and names associated with network access.
-* **Cgroups**: isolates the resources (CPU, memory, file storage and network bandwidth) used by a group of processes.
+* **Cgroups**: Limits and isolates the resources (CPU, memory, file storage and network bandwidth) used by a group of processes.
 
 ### Application packaging
 

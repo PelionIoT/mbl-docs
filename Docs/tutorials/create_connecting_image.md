@@ -38,6 +38,8 @@ Please note that each release has its own branch. Throughout this guide, the rel
 
 ### Building scripts
 
+<span class="notes">**Note**: You need to use an SSH agent to build. For usage, see [the GitHub SSH documentation](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).</span>
+
 The `run-me.sh` script:
 
 1. Creates and launches a Docker container that encapsulates the MBL build environment.
@@ -93,6 +95,7 @@ The following examples assume:
 * You have your [Device Management developer credentials, as explained above](#downloading-device-management-developer-credentials).
 * You have your [update resources file, as explained above](#creating-an-update-resources-file).
 * You have an output directory for your machine, for example `./artifacts-warp7` or `./artifacts-rpi3`.
+* You have an [SSH agent](../v0.5/getting-started/environment.html). For usage, see [the GitHub SSH documentation](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).
 
 #### Warp7 device
 
@@ -281,9 +284,9 @@ To write your disk image to the Warp7's flash device, you must first access the 
 
     * Connect it to a monitor and keyboard (using its HDMI and USB sockets).
     * Connect it to your PC. For example, if you're using a [C232HD-DDHSP-0](http://www.ftdichip.com/Support/Documents/DataSheets/Cables/DS_C232HD_UART_CABLE.pdf) cable, use [this pin numbering reference](https://www.element14.com/community/servlet/JiveServlet/previewBody/73950-102-10-339300/pi3_gpio.png) and connect USB-UART colored wires:
-       * **Black** wire to pin **06**.
-       * **Yellow** wire to pin **08**.
-       * **Orange** wire to pin **10**.
+       * **Grounds** wire (usually black) to pin **06**.
+       * **Tx** wire (usually yellow) to pin **08**.
+       * **Rx** wire (usually orange) to pin **10**.
 
     Connect the other end of the C232HD-DDHSP-0 cable to the USB port on your PC.
 
