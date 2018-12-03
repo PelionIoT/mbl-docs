@@ -6,9 +6,9 @@ Arm Mbed Linux OS (MBL) is a free, open-source IoT operating system based on the
 
 Arm Mbed has been supporting the resource constrained Cortex-M devices for years through Mbed OS. By extending this support to Cortex-A devices, MBL brings the strong Mbed IoT base to use cases that require far more computing power, multipurpose applications and hardware interfaces.
 
-The potential complexity of Cortex-A IoT devices increases their attack surface area, so MBL uses Arm's security offerings to protect communication with [Mbed TLS](https://tls.mbed.org/), and the device itself with the [Platform Security Architecture (PSA)](https://developer.arm.com/products/architecture/security-architectures/platform-security-architecture). It also isolates each application in its own OCI-compliant container, so a [compromised application cannot damage other applications or the device](../references/application-containers-and-packages.html).
+MBL is a Linux distribution aimed specifically at IoT devices, with a major emphasis on platform security. At the core of device security is Trusted Firmware (TF-A) and OP-TEE, an open source trusted execution environment that conforms to the Global Platform TEE specification. [Platform Security Architecture (PSA)](https://developer.arm.com/products/architecture/security-architectures/platform-security-architecture) and other security related trusted services can run in this framework. MBL also relies on many isolation mechanisms provided by the Linux kernel to protect device integrity and sensitive data. Each application runs in its own OCI-compliant container, so a compromised application cannot damage other applications or the device.
 
-You can use standard Linux development tools to build MBL applications, which rely on Linux Yocto APIs. This means you can easily adjust desktop Linux applications to work on your IoT devices.
+You can develop and build applications in a standard way, using a variety of tools such as C cross-compilation, Python or Node.js. Applications are then packaged and deployed to MBL in an application container.
 
 ### Developer preview features
 
