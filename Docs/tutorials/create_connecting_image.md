@@ -268,7 +268,7 @@ To write your disk image to the Warp7's flash device, you must first access the 
 1. Write the disk image to the SD card device - not a partition on it (replace `/dev/sdX` as explained above):
 
     ```
-    sudo bmaptool put --bmap /path/to/artifacts/machine/raspberrypi3-mbl/images/mbl-console-image-test/images/mbl-console-image-test-raspberrypi3-mbl.wic.bmap /path/to/artifacts/machine/raspberrypi3-mbl/images/mbl-console-image-test/images/mbl-console-image-test-raspberrypi3-mbl.wic.gz /dev/sdX
+    sudo bmaptool copy --bmap /path/to/artifacts/machine/raspberrypi3-mbl/images/mbl-console-image-test/images/mbl-console-image-test-raspberrypi3-mbl.wic.bmap /path/to/artifacts/machine/raspberrypi3-mbl/images/mbl-console-image-test/images/mbl-console-image-test-raspberrypi3-mbl.wic.gz /dev/sdX
     ```
 
     This action may take some time.
