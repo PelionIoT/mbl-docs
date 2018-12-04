@@ -26,6 +26,12 @@ Each section is implemented for both release and debug variants.
 
 1. On a Linux Ubuntu PC, install Docker CE as described in the [Docker CE for Ubuntu documentation](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
 
+1. Clone the `mbl-core` repo:
+
+    ```
+    git clone git@github.com:ARMmbed/mbl-core.git --branch mbl-os-0.5
+    ```
+
 1. Navigate to the `helloworld` folder in your clone:
 
     ```
@@ -55,7 +61,11 @@ To clean the build, run: `build-armv7 make clean`
 
 ### Installing and running the application on the device
 
-To install the application on the device, follow one of our tutorials:
+To install the application on the device:
 
-* [Send the application as an over-the-air firmware update](../getting-started/tutorial-updating-mbl-devices-and-applications.html).
-* [Use MBL CLI to flash the application over USB](../tools/mbl-cli.html).
+* [Send the application as an over-the-air firmware update with Device Management](../getting-started/tutorial-updating-mbl-devices-and-applications.html).
+* [Flash the application over USB with MBL CLI](../tools/device-update.html#update-an-application).
+
+### Using the application
+
+After installation, and after every reboot, the application runs once and writes "hello world" to the STDOUT. MBL redirects the output to the log file `/var/log/app/user-sample-app-package.log`.
