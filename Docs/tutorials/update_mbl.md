@@ -69,6 +69,9 @@ An MBL device can only be updated if the followings are available:
         ```
         user01@dev-machine:~$ tar -cf /tmp/payload.tar -C /home/user01 my_app.ipk
         ```
+
+        Note the space between the directory name `/home/user01` and the `my_app.ipk` file name.
+
     * **For a root file system**: Make a `tar` file containing the root file system archive from the MBL build artefacts.
 
         A symlink to the root file system archive can be found in the build environment at `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image-test/images/mbl-console-image-test-<MACHINE>.tar.xz`
