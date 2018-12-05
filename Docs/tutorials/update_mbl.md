@@ -94,7 +94,7 @@ An MBL device can only be updated if the followings are available:
     If you only have one registered device, or if each devices has a been assigned a descriptive name in Portal, you can go to [Device Management Portal](https://portal.mbedcloud.com) > **Device Directory** to find the device ID.
 
 1. For a `rootfs` update, identify which root file system partition is currently active to compare it to the active partition after the update. You can use the [`lsblk` command explained later](#identify-the-active-root-file-system-partition).
-1. Change the current working directory to the directory where the manifest tool was initialized.
+1. Change the current working directory to the directory where the manifest tool was initialized. You initialized manifest tool [when you created your update resource file](../getting-started/preparing-device-management-sources.html#creating-an-update-resources-file).
 1. Run the following command:
 
     ```
