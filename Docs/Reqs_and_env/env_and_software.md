@@ -70,7 +70,7 @@ And the following software:
 
 ### Using virtual machines
 
-Building open embedded distributions requires the compilation of hundreds of different packages. You need a powerful machine to build in under an hour.
+Building open embedded distributions requires the compilation of hundreds of different packages.  Using virtual machines on a laptop to build Mbed Linux OS will take a very long time - it could be 8 hours or more for the first build; you need a powerful machine to build in under an hour.
 
 For our own builds, we use:
 
@@ -79,6 +79,17 @@ For our own builds, we use:
 * 2 TB hard drive, 7200RPM, 3.5", SATA.
 * 2.5" 256 GB SATA Solid State Drive.
 * 256 GB SSD PCIe.
+
+#### USB mass storage
+
+There can be USB pass-through issues from host to the virtual machine.
+
+For example, on **VirtualBox**, the WaRP7 did not come up as a mass storage device after running the u-boot command to sync the USB bridge - it needed an additional reset. The full process to see the mass storage device is:
+
+1. On the WaRP7's console, perform the USB mass storage u-boot command: `ums 0 mmc 0`.
+1. In the virtual machine's settings, under **Ports** > **USB**, click the **Add new USB filter** button and select the **FSL USB download gadget**.
+1. Reset the WaRP7.
+1. Perform the `ums` command again.
 
 <h3 id="update-process-group-membership">Updating your shell process's group memberships</h3>
 
