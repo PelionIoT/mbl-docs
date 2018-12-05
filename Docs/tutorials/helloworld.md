@@ -66,6 +66,6 @@ To install the application on the device:
 * [Send the application as an over-the-air firmware update with Device Management](../getting-started/tutorial-updating-mbl-devices-and-applications.html).
 * [Flash the application over USB with MBL CLI](../tools/device-update.html#update-an-application).
 
-### Using the application
+### Using the application
 
 After installation, and after every reboot, the application runs once and writes "hello world" to the STDOUT. MBL redirects the output to the log file `/var/log/app/user-sample-app-package.log`.
