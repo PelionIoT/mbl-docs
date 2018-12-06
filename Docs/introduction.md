@@ -34,7 +34,7 @@ The preview release provides:
 
 The following diagram illustrates the components and services that MBL provides:
 
-<span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/Application_containers.png)<span><When used in conjunction with Device Management, MBL provides a secure platform for developing, operating and managing IoT applications.></span>/span>
+<span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/Application_containers.png)<span>When used in conjunction with Device Management, MBL provides a secure platform for developing, operating and managing IoT applications</span></span>
 
 ### Get started
 
