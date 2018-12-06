@@ -235,7 +235,7 @@ To write your disk image to the Warp7's flash device, you must first access the 
 
     This action may take some time.
 
-1. When `bmaptool` has finished, eject the device (replace `<device-file-name>` with the correct device file for the Warp7's flash device):
+1. When `bmaptool` has finished, eject the device (replace `<device-file-name>` with the correct device file for the Warp7's flash device; in this example, it would be `usb-Linux_UMS_disk_0-0:0`):
 
     ```
     sudo eject /dev/disk/by-id/<device-file-name>
