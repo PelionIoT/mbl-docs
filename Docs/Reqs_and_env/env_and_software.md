@@ -66,7 +66,7 @@ And the following software:
 
 * Docker CE, to use `build-mbl` script from the `mbl-tools` repository to build MBL. [Download and install from the Docker website](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
 
-* Add yourself to the Linux group `docker` to run commands without `sudo`. See [instructions in the Docker Linux documentation](https://docs.docker.com/install/linux/linux-postinstall/). To make this group membership apply to your current shell session, see [the instructions below](#update-process-group-membership).
+* You must add yourself to the `docker` group to be able to run the Docker build environment. See [instructions in the Docker Linux documentation](https://docs.docker.com/install/linux/linux-postinstall/). To make this group membership apply to your current shell session, see [the instructions below](#update-process-group-membership).
 
 ### Using virtual machines
 

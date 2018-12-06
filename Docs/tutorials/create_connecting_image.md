@@ -153,7 +153,7 @@ To write your disk image to the Warp7's flash device, you must first access the 
 
     * Baud rate: 115200.
     * Encdoing: [8N1](https://en.wikipedia.org/wiki/8-N-1).
-    * No hardware flow control.
+    * No hardware flow control (enabled by default).
 
 1. Check the current storage devices on your PC:
 
@@ -302,7 +302,7 @@ To write your disk image to the Warp7's flash device, you must first access the 
 
     * Baud rate: 115200.
     * Encoding: [8N1](https://en.wikipedia.org/wiki/8-N-1).
-    * No hardware flow control.
+    * No hardware flow control (enabled by default).
 
 1. Connect the Raspberry Pi 3's micro-USB socket to a USB power supply.
 
