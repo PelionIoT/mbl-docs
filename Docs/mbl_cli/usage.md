@@ -74,7 +74,7 @@ To execute commands on the device:
 For example, to show the statuses of the active interfaces on a device:
 
 ```
-$ mbl-cli run ifconfig 169.254.11.94
+$ mbl-cli run "ifconfig -a" 169.254.11.94
 lo        Link encap:Local Loopback  
           inet addr:127.0.0.1  Mask:255.0.0.0
           inet6 addr: ::1/128 Scope:Host
@@ -119,7 +119,7 @@ After obtaining shell access, you can set up Wi-Fi on the device (see [Setting u
 
 You can update the device's root file system (rootfs) and applications. Update of boot loaders, the Linux kernel and other components will be supported in later versions.
 
-Device update uses the `mbl-firmware-update-manager`:
+Device update uses the `mbl-firmware-update-manager`, which is part of MBL:
 
 ```
 $ mbl-firmware-update-manager -h

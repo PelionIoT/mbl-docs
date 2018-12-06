@@ -105,7 +105,9 @@ An MBL device can only be updated if the followings are available:
 
         * `<device-id>` is the device ID.
         * `<payload-file>` is the update payload (`.tar` file).
-        * `<api-key>` is the Pelion API key.
+        * `<api-key>` is the Pelion API key you generated as a prerequisite.
+
+    For a root file system update, the process can take a long time, depending on your file size and network bandwidth.
 
 #### Additional notes
 

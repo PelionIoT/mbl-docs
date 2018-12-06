@@ -17,7 +17,13 @@ MBL and Device Management support over-the-air updates for devices, which you ca
 1. Create an update resources directory, such as `./update-resources`:
 
     ```
-    mkdir ./update-resources && cd ./update-resources
+    mkdir ./update-resources
+    ```
+
+1. Move into the new directory:
+
+    ```
+    cd ./update-resources
     ```
 
 1. Initialize the manifest tool, and generate Update resources:
@@ -26,7 +32,7 @@ MBL and Device Management support over-the-air updates for devices, which you ca
     manifest-tool init -q -d arm.com -m dev-device
     ```
 
-    This generates the `update_default_resources.c` file. Place it in the directory you created in the previous step.
+    This generates the `update_default_resources.c` file. 
 
     You will use this file in the build process later.
 
@@ -227,7 +233,7 @@ To write your disk image to the Warp7's flash device, you must first access the 
     sudo umount /dev/disk/by-id/usb-Linux_UMS_disk_0-0:0-part*
     ```
 
-1. From a Linux prompt, write the disk image to the Warp7's flash device (replace `<device-file-name>` with the correct device file for the Warp7's flash device):
+1. From a Linux prompt, write the disk image to the Warp7's flash device (replace `<device-file-name>` with the correct device file for the Warp7's flash device; in this example, it would be `usb-Linux_UMS_disk_0-0:0`):
 
     ```
     sudo bmaptool copy --bmap /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-console-image-test/images/mbl-console-image-test-imx7s-warp-mbl.wic.bmap /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-console-image-test/images/mbl-console-image-test-imx7s-warp-mbl.wic.gz /dev/disk/by-id/<device-file-name>
