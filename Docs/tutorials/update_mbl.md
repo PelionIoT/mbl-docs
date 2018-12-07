@@ -150,9 +150,9 @@ root@mbed-linux-os-1234:~#
 
 You can use `runc list` to list all the active applications and their status.
 
-1. The first steps of an application update is stopping and terminating a running instance of the application (if one exists).
+1. The first steps of an application update include stopping and terminating a running instance of the application (if one exists).
 
-    If you perform `runc list` for a stopped application, you will see:
+    If you perform `runc list` when the application is stopped, you will see:
 
     ```
     root@mbed-linux-os-1234:/home/app# runc list
@@ -160,7 +160,7 @@ You can use `runc list` to list all the active applications and their status.
     user-sample-app-package   0           stopped     /home/app/user-sample-app-package   2018-12-07T08:23:36.742467741Z   root
     ```
 
-    If you perform `runc list` for a terminated application, the application will not appear on the list.
+    If you perform `runc list` when the application is terminated, the application will not appear on the list.
 
 1. When the application is installed or updated, it starts automatically.
 
