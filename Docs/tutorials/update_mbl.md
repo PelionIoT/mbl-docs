@@ -145,3 +145,31 @@ root@mbed-linux-os-1234:~# lsblk --noheadings --output "MOUNTPOINT,LABEL" | awk 
 rootfs1
 root@mbed-linux-os-1234:~#
 ```
+
+### Identifying the running applications
+
+You can use `runc list` to list all the active applications and their status.
+
+1. The first steps of an application update is stopping and terminating a running instance of the application (if one exists).
+
+    If you perform `runc list` for a stopped application, you will see:
+
+    ```
+    root@mbed-linux-os-1234:/home/app# runc list
+    ID                        PID         STATUS      BUNDLE                              CREATED                          OWNER
+    user-sample-app-package   0           stopped     /home/app/user-sample-app-package   2018-12-07T08:23:36.742467741Z   root
+    ```
+
+    If you perform `runc list` for a terminated application, the application will not appear on the list.
+
+1. When the application is installed or updated, it starts automatically.
+
+    If you perform `runc list` for a running application, you will see:
+
+    ```
+    root@mbed-linux-os-1234:/home/app# runc list
+    ID                        PID         STATUS      BUNDLE                              CREATED                          OWNER
+    user-sample-app-package   3654        running     /home/app/user-sample-app-package   2018-12-07T08:23:36.742467741Z   root
+    ```
+
+    <span class="notes">**Note:** an application like Hello World runs for about 20 seconds. When it finishes, it once again appears as stopped.</span>
