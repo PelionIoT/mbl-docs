@@ -172,4 +172,4 @@ You can use `runc list` to list all the active applications and their status.
     user-sample-app-package   3654        running     /home/app/user-sample-app-package   2018-12-07T08:23:36.742467741Z   root
     ```
 
-    <span class="notes">**Note:** an application like Hello World runs for about 20 seconds. When it finishes, it once again appears as stopped.</span>
+    <span class="notes">**Note:** The [Hello World](../getting-started/tutorial-user-application.html) application runs for about 20 seconds. When it finishes, it once again appears as stopped.</span>
