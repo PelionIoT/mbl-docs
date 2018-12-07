@@ -121,7 +121,7 @@ An MBL device can only be updated if the followings are available:
 * You can monitor the update payload **installation** progress by tailing:
 
     * `/var/log/arm_update_activate.log`: for messages about the overall progress of the installation, and messages specific to `rootfs` updates.
-    * `/var/log/mbl-app-update-manager.log`: for messages about application updates.
+    * `/var/log/mbl-app-update-manager-daemon.log`: for messages about application updates.
 
 * For `rootfs` updates, a reboot is automatically initiated to boot into the new firmware. Identify the currently active root file system and verify it was different pre-update. You can use the [`lsblk` command explained later](#identify-the-active-root-file-system-partition).
 
