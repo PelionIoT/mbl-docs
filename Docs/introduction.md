@@ -31,7 +31,7 @@ The preview release provides:
     * Access control at the account level.
     * Over-the-air, digitally signed and verified updates for applications and the root file system. MBL uses updates to send new features and security patches to deployed devices, fixing vulnerabilities before they're exploited.
 
-### Design
+### Design diagram
 
 The following diagram illustrates the components and services that MBL provides:
 
