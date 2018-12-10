@@ -7,7 +7,7 @@ Supported boards:
 
     * A micro-SD card.
     * An C232HD-DDHSP-0 cable to connect the GPIO to a PC's USB (for debugging).
-    * If you want to use MBL CLI: a USB to network adaptor and an RJ45 network cable (to convert from RPi3 USB host port to network). We've tested with the TL-Link UE300.
+    * If you want to use MBL CLI: a USB to network adaptor and an RJ45 network cable (to convert from RPi3 USB host port to network). We've tested with the TP-Link UE300.
 
          An optional second USB network adaptor if you want to convert back to USB (to connect to your PC over USB rather than network).
 
