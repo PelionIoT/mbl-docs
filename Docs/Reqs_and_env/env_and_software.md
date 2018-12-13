@@ -18,7 +18,7 @@ To build MBL, you need:
 * Full internet access (because the build process downloads packages from the
 internet).
 
-* The ability to connect to GitHub with SSH, so you can clone private repositories non-interactively during the build process. See [the GitHub documentation on connecting with SSH](https://help.github.com/articles/connecting-to-github-with-ssh/) for more information.
+* The ability to connect to GitHub with SSH, so you can clone private repositories noninteractively during the build process. See the [GitHub documentation on connecting with SSH](https://help.github.com/articles/connecting-to-github-with-ssh/) for more information.
 
 And the following software:
 
@@ -36,7 +36,7 @@ And the following software:
     sudo apt-get install bmap-tools curl git minicom python-pip
     ```
 
-    Optionally, to be able to use Minicom without `sudo` you can add your user to the `dialout` group by running:
+    Optionally, to be able to use Minicom without `sudo`, you can add your user to the `dialout` group by running:
 
     ```
     sudo usermod -a -G dialout $USER
@@ -54,7 +54,8 @@ And the following software:
 
     <span class="tips">**Tip:** The [mbl-tools repository](https://github.com/ARMmbed/mbl-tools) provides a collection of tools and recipes for building and testing MBL.</span>
 
-* The Device Management manifest tool. See [Installing the manifest tool](#install-manifest-tool) below:
+* The Device Management manifest tool:
+
     ```
     pip install --user -U git+ssh://git@github.com/ARMmbed/manifest-tool.git#egg=manifest-tool
     pip install --user mbed-cloud-sdk
@@ -65,11 +66,11 @@ And the following software:
 
 * Docker CE, to use `build-mbl` script from the `mbl-tools` repository to build MBL. [Download and install from the Docker website](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
 
-* Add yourself to the Linux group `docker` to run commands without `sudo`. See [instructions in the Docker Linux documentation](https://docs.docker.com/install/linux/linux-postinstall/). To make this group membership apply to your current shell session, see [the instructions below](#update-process-group-membership).
+* You must add yourself to the `docker` group to be able to run the Docker build environment. See [instructions in the Docker Linux documentation](https://docs.docker.com/install/linux/linux-postinstall/). To make this group membership apply to your current shell session, see [the instructions below](#update-process-group-membership).
 
 ### Using virtual machines
 
-Building open embedded distributions requires the compilation of hundreds of different packages. You need a powerful machine to build in under an hour.
+Building open embedded distributions requires the compilation of hundreds of different packages.  Using virtual machines on a laptop to build Mbed Linux OS will take a very long time - it could be 8 hours or more for the first build; you need a powerful machine to build in under an hour.
 
 For our own builds, we use:
 
@@ -78,6 +79,17 @@ For our own builds, we use:
 * 2 TB hard drive, 7200RPM, 3.5", SATA.
 * 2.5" 256 GB SATA Solid State Drive.
 * 256 GB SSD PCIe.
+
+#### USB mass storage
+
+There can be USB pass-through issues from host to the virtual machine.
+
+For example, on **VirtualBox**, the WaRP7 did not come up as a mass storage device after running the u-boot command to sync the USB bridge (detailed below) - it needed an additional reset. The full process to see the mass storage device is:
+
+1. On the WaRP7's console, perform the USB mass storage u-boot command: `ums 0 mmc 0`.
+1. In the virtual machine's settings, under **Ports** > **USB**, click the **Add new USB filter** button and select the **FSL USB download gadget**.
+1. Reset the WaRP7.
+1. Perform the `ums` command again.
 
 <h3 id="update-process-group-membership">Updating your shell process's group memberships</h3>
 

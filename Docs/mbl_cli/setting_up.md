@@ -2,8 +2,8 @@
 
 To use MBL CLI, you need to:
 
-1. [Set up MBL CLI](#setting-up-mbed-linux-os-cli) on your development PC.
-1. [Set up networking](#network-setup) on the target device.
+1. [Set up MBL CLI](#setting-up-mbl) on your development PC.
+1. [Set up networking](#setting-up-networking) on the target device.
 
 ### Setting up MBL CLI
 
@@ -21,7 +21,7 @@ MBL CLI is distributed using npm. To install MBL CLI, run:
 $ npm install -g mbl-cli
 ```
 
-### Network setup
+### Setting up networking
 
 This section explains how to connect devices to a development PC over USB.
 
