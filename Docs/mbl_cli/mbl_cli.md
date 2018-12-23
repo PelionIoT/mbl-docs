@@ -9,4 +9,4 @@ the following operations on MBL devices:
  * Copy a file to or from a device.
  * Run a command on a device.
 
-<span class="notes">**Note**: MBL CLI can only be used with devices running the MBL test image `mbl-console-image-test`, rather than the production image `mbl-console-image`.</span>
+<span class="notes">**Note**: MBL CLI can only be used with devices running the MBL development image `mbl-image-development`, rather than the production image `mbl-image-production`.</span>
