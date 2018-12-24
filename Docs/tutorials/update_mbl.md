@@ -71,7 +71,7 @@ An MBL device can only be updated if the followings are available:
         ```
     * **For a root file system**: Make a `tar` file containing the root file system archive from the MBL build artefacts.
 
-        A symlink to the root file system archive can be found in the build environment at `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image-test/images/mbl-console-image-test-<MACHINE>.tar.xz`
+        A symlink to the root file system archive can be found in the build environment at `/path/to/artifacts/machine/<MACHINE>/images/mbl-image-development/images/mbl-image-development-<MACHINE>.tar.xz`
 
         Where:
 
@@ -80,9 +80,9 @@ An MBL device can only be updated if the followings are available:
 
         <span class="notes">**Note:** The file inside the update payload must be named `rootfs.tar.xz` and must be in the tar's root directory, not a subdirectory.</span>
 
-        For example, to create an update payload file at `/tmp/payload.tar` containing a Warp7 root file system image `tar` file with the path `build-mbl/tmp-mbl-glibc/deploy/images/imx7s-warp-mbl/mbl-console-image-imx7s-warp-mbl.tar.xz`, run:
+        For example, to create an update payload file at `/tmp/payload.tar` containing a Warp7 root file system image `tar` file with the path `build-mbl/tmp-mbl-glibc/deploy/images/imx7s-warp-mbl/mbl-image-production-imx7s-warp-mbl.tar.xz`, run:
         ```
-        user01@dev-machine:~$ tar -cf /tmp/payload.tar -C /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-console-image-test/images '--transform=s/.*/rootfs.tar.xz/' --dereference mbl-console-image-test-imx7s-warp-mbl.tar.xz
+        user01@dev-machine:~$ tar -cf /tmp/payload.tar -C /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-image-development/images '--transform=s/.*/rootfs.tar.xz/' --dereference mbl-image-development-imx7s-warp-mbl.tar.xz
         ```
         The `--transform` option renames all files added to the payload to `rootfs.tar.xz` and the `--dereference` option is used so that `tar` adds the actual root file system archive file rather than the symlink to it.
 1. Find the device ID in the `mbl-cloud-client` log file at `/var/log/mbl-cloud-client.log`, using the following command on the device's console:

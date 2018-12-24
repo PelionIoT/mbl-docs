@@ -198,12 +198,12 @@ mbl-cli build
 
 To copy mbl-image.tar to the device you can use one of the following methods, depending on the Mbed Linux image you have installed.
 
-1. If you have used the **test image** (`mbl-console-image-test`), your Warp7 has an ssh client/server which can be used to copy the mbl-image.tar file to the device using the following commands:
+1. If you have used the **test image** (`mbl-image-development`), your Warp7 has an ssh client/server which can be used to copy the mbl-image.tar file to the device using the following commands:
     ```
     cd $WORKDIR/mbl-app-qrcode/file
     scp mbl-image.tar root@<device ip address>:/mbl-image.tar
     ```
-1. If you have used the **production image** (`mbl-console-image`), you can use `wget` to copy the `mbl-image.tar` file to the device. Follow the steps below:
+1. If you have used the **production image** (`mbl-image-production`), you can use `wget` to copy the `mbl-image.tar` file to the device. Follow the steps below:
     1. **On your development machine**, start a temporary HTTP server:
         ```
         cd $WORKDIR/mbl-app-qrcode/file
