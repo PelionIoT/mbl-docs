@@ -257,4 +257,4 @@ Please see the [Contributing][mbl-contributing] document for more information.
 [meta-mbl]: https://github.com/ARMmbed/meta-mbl/blob/master/README.md
 [mbl-license]: LICENSE
 [mbl-contributing]: CONTRIBUTING.md
-[meta-mbl-walkthrough]: https://github.com/ARMmbed/meta-mbl/blob/master/docs/walkthrough.md-->
+[meta-mbl-walkthrough]: https://github.com/ARMmbed/meta-mbl/blob/master/docs/walkthrough.md
