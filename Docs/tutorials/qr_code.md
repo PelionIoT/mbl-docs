@@ -1,6 +1,6 @@
 ## Mbed Linux OS (mbl) mbl-app-qrcode Quick Response (QR) Code Reader Reference Application Repository
 
-<!--This content should be replaced, says Jeremy.
+<!--This content should be replaced, says Jeremy.-->
 
 ### Purpose
 
@@ -257,4 +257,4 @@ Please see the [Contributing][mbl-contributing] document for more information.
 [meta-mbl]: https://github.com/ARMmbed/meta-mbl/blob/master/README.md
 [mbl-license]: LICENSE
 [mbl-contributing]: CONTRIBUTING.md
-[meta-mbl-walkthrough]: https://github.com/ARMmbed/meta-mbl/blob/master/docs/walkthrough.md-->
+[meta-mbl-walkthrough]: https://github.com/ARMmbed/meta-mbl/blob/master/docs/walkthrough.md
