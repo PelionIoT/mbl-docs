@@ -1,6 +1,6 @@
 ## Mbed Linux OS (mbl) mbl-app-qrcode Quick Response (QR) Code Reader Reference Application Repository
 
-<!--This content should be replaced, says Jeremy.
+<!--This content should be replaced, says Jeremy.-->
 
 ### Purpose
 
