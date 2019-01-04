@@ -81,7 +81,7 @@ For example, on an Ubuntu PC:
 
 #### Connecting a Raspberry Pi 3 device
 
-To connect a PC to an a Raspberry Pi 3 device over an Ethernet-to-USB adapter:
+To connect a PC to a Raspberry Pi 3 device over an Ethernet-to-USB adapter:
 
 1. Connect an Ethernet-to-USB adapter's USB "male" connector into any of
    the four type-A USB ports of the Raspberry Pi 3 board.
