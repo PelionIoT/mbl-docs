@@ -159,11 +159,10 @@
             },
             {
                 "title": "QR code reader",
-                "intro": {
+                "sources": [{
                     "type": "markdown",
                     "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/ref_apps/qr_code.md"
-                },
-                "sources": []
+                }]
             }
         ]
     },
