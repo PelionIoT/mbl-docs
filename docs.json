@@ -117,7 +117,6 @@
         "description": "",
         "slug": "tools",
         "type": "markdown",
-
         "chapters": [{
                 "title": "Mbed Linux OS tools",
                 "intro": {
@@ -150,18 +149,23 @@
         "description": "",
         "slug": "ref-apps",
         "type": "markdown",
-        "intro": {
-            "type": "markdown",
-            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/ref_apps/ref_apps_intro.md"
-        },
         "chapters": [{
-            "title": "QR code reader",
-            "intro": {
-                "type": "markdown",
-                "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/ref_apps/qr_code.md"
+                "title": "Introduction",
+                "intro": {
+                    "type": "markdown",
+                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/ref_apps/ref_apps_intro.md"
+                },
+                "sources": []
             },
-            "sources": []
-        }]
+            {
+                "title": "QR code reader",
+                "intro": {
+                    "type": "markdown",
+                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/ref_apps/qr_code.md"
+                },
+                "sources": []
+            }
+        ]
     },
     {
         "title": "References",
