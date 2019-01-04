@@ -1,10 +1,8 @@
-# Mbed Linux OS (mbl) mbl-app-qrcode Quick Response (QR) Code Reader Reference Application Repository
+## Quick Response (QR) code reader application
 
-## Purpose
+<!--sourced from https://github.com/ARMmbed/mbl-app-qrcode/blob/master/README.md-->
 
-This repository contains an Mbed Linux OS reference application for reading a Quick Response (QR) code.
-
-For more information about Mbed Linux OS, please see [meta-mbl][meta-mbl].
+### Purpose
 
 The QR Code reader reference app scans basic QR codes using a video stream provided by a Video For Linux enabled camera device. This app has been developed on an x86 development machine, and then cross-compiled for use on the development board, in the case, a Warp7 board.  This demonstrates a typical development workflow that you might choose, to prototype your IoT applications.
 
@@ -26,7 +24,7 @@ This app has been tested on the following hardware:
 - **Development machine**: x86 PC with Logitech C310 webcam
 - **Development board**: Warp7 with integrated camera
 
-## Dependencies
+### Dependencies
 
 This QR app requires the following packages:
 
@@ -35,7 +33,7 @@ This QR app requires the following packages:
 - [libjpeg](http://www.ijg.org/): a library for reading and writing jpeg images.
 - [Docker](https://www.docker.com/): to build binaries and docker images that run on Arm target machines.
 
-### Makefile commands
+#### Makefile commands
 
 - `default`: builds the qr_code app and creates a Docker image.
 - `run`: runs the image in a Docker container.
@@ -45,18 +43,18 @@ This QR app requires the following packages:
 - `clean`: deletes Docker images and containers, and build artefacts.
 - `status`: shows the status of Docker images and containers.
 
-## Building the QR app for the development machine (x86 PC)
+### Building the QR app for the development machine (x86 PC)
 
 To build the app for your development machine, such as an x86 PC, you need to prepare your environment and install the software dependencies.
 
-### Prepare your development environment
+#### Prepare your development environment
 
 To be able to develop and build apps on your x86 PC, you need to make sure you have installed:
 
 - **Docker**: https://docs.docker.com/install/ (or you could use the following command: `sudo apt-get install docker`).
 - **`build-essential`**: a package which contains tools (such as, the gcc compiler, make tool, etc.) for compiling/building software from source (`sudo apt-get install build-essential`).
 
-### Manage Docker as a non-root user
+#### Manage Docker as a non-root user
 
 You will need to add yourself to the `docker` group to run `docker` commands without `sudo`. First, ensure the `docker` group is present:
 
@@ -74,7 +72,7 @@ sudo usermod -aG docker $USER
 
 Finally, logout and login for this to take affect.
 
-### Install the software dependencies
+#### Install the software dependencies
 
 1. Install the jpeg library for reading and writing JPEG image files, using the following command:
     ```
@@ -95,7 +93,7 @@ Finally, logout and login for this to take affect.
     sudo apt-get install libv4l-dev
     ```
 
-### Build the QR app
+#### Build the QR app
 
 To build the QR app for your x86 PC, use these commands:
  ```
@@ -103,7 +101,7 @@ To build the QR app for your x86 PC, use these commands:
  make compile
  ```
 
-## Building the QR app for an IoT device (Warp7)
+### Building the QR app for an IoT device (Warp7)
 
 To build the app for your development board, such as a Warp7, you need to:
 
@@ -111,7 +109,7 @@ To build the app for your development board, such as a Warp7, you need to:
 * Prepare your cross-compilation environment and library location.
 * Install any softare dependencies.
 
-### Preparing your development environment
+#### Preparing your development environment
 
 Before you can build the QR for the development platform, the Warp7 board, you need to make sure you have:
 
@@ -119,7 +117,7 @@ Before you can build the QR for the development platform, the Warp7 board, you n
 - Installed [Mbed Linux cli](https://github.com/ARMmbed/mbl-cli).
 - Set the `WORKDIR` environment variable to the parent directory of the `mbl-app-qrcode` directory.
 
-### Preparing the cross-compilation environment
+#### Preparing the cross-compilation environment
 
 Use the following commands to prepare your cross-compilation environment:
 
@@ -131,7 +129,7 @@ chmod +x build-armv6
 sudo mv build-armv6 /usr/local/bin
 ```
 
-### Setting the cross-compilation library location
+#### Setting the cross-compilation library location
 
  To set the location for the cross-compilation library:
 
@@ -140,7 +138,7 @@ cd $WORKDIR/mbl-app-qrcode
 mkdir lib
 ```
 
-### Install Quirc
+#### Install Quirc
 
 Use the following commands to install Quirc, the QR decoder library:
 
@@ -153,7 +151,7 @@ cp libquirc.a ../mbl-app-qrcode/lib/
 cp lib/quirc.h ../mbl-app-qrcode/lib/
 ```
 
-### Install Video4Linux (libv4l2)
+#### Install Video4Linux (libv4l2)
 
 Install the Video4Linux libraries using the following commands:
 
@@ -169,7 +167,7 @@ cp ./lib/libv4lconvert/.libs/libv4lconvert.so.0.0.0 ../mbl-app-qrcode/lib/libv4l
 cp ./lib/include/libv4l2.h ../mbl-app-qrcode/lib
 ```
 
-### Cross compile the QR app
+#### Cross compile the QR app
 
 **NOTE: Due to the known Video4Linux issue (IOTMBL-251) on WaRP7 the rest of these instructions
 tell you how to build the version that does not use the camera and instead uses a QR code saved
@@ -182,7 +180,7 @@ cd $WORKDIR/mbl-app-qrcode
 build-armv6 make cross-file
 ```
 
-### Create a docker image
+#### Create a docker image
 
 Create an executable package that includes everything needed to run the QR application, using the following commands:
 
@@ -192,7 +190,7 @@ cd file
 mbl-cli build
 ```
 
-### Transfer the docker image to Warp7
+#### Transfer the docker image to Warp7
 
 To copy mbl-image.tar to the device you can use one of the following methods, depending on the Mbed Linux image you have installed.
 
@@ -222,7 +220,7 @@ Once the mbl-image.tar file is copied to the device, create the docker image wit
 docker image load -i /mbl-image.tar
 ```
 
-### Running the QR app on warp7
+#### Running the QR app on warp7
 
 SSH/serial console to the device and use the following command:
 
@@ -230,23 +228,23 @@ SSH/serial console to the device and use the following command:
 docker run --rm mbl-app
 ```
 
-### Testing the QR app
+#### Testing the QR app
 
 **NOTE: Due to the known Video4Linux issue (IOTMBL-251) on WaRP7 the application will print the contents
 of a pre-scanned QR code saved into the docker image**
 
-### Running Arm executables on x86 linux
+#### Running Arm executables on x86 linux
 
 To run Arm executables on an x86 machine, install the following packages:
 
 * binfmt-support.
 * qemu-user-static.
 
-## License
+### License
 
 Please see the [License][mbl-license] document for more information.
 
-## Contributing
+### Contributing
 
 Please see the [Contributing][mbl-contributing] document for more information.
 
