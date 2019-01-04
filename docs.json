@@ -109,14 +109,6 @@
                     "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/update_mbl.md"
                 },
                 "sources": []
-            },
-            {
-                "title": "Reference application: QR code reader",
-                "intro": {
-                    "type": "markdown",
-                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/qr_code.md"
-                },
-                "sources": []
             }
         ]
     },
@@ -152,6 +144,24 @@
                 ]
             }
         ]
+    },
+    {
+        "title": "Reference applications",
+        "description": "",
+        "slug": "ref-apps",
+        "type": "markdown",
+        "intro": {
+            "type": "markdown",
+            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/ref_apps/ref_apps_intro.md"
+        },
+        "sources": [{
+            "title": "QR code reader",
+            "intro": {
+                "type": "markdown",
+                "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/ref_apps/qr_code.md"
+            },
+            "sources": []
+        }]
     },
     {
         "title": "References",
