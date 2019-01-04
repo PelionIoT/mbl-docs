@@ -154,7 +154,7 @@
             "type": "markdown",
             "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/ref_apps/ref_apps_intro.md"
         },
-        "sources": [{
+        "chapters": [{
             "title": "QR code reader",
             "intro": {
                 "type": "markdown",
