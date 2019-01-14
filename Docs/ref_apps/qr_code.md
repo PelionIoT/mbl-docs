@@ -1,18 +1,17 @@
 ## Mbed Linux OS Example - QR Scanner
 
-<span class="notes">**Note**: Mbed Linux OS (MBL) is currently in limited preview. If you would like access to the code repositories, [please request to join the preview](https://os.mbed.com/linux-os/).</span><!--is this going out with 0.5? If not, it won't need this note for 1.0-->
+<span class="notes">**Note**: Mbed Linux OS (MBL) is currently in limited preview. If you would like access to the code repositories, [please request to join the preview](https://os.mbed.com/linux-os/).</span>
 
-This tutorial creates a Python user application that runs on MBL devices and scans QR codes. By default, the application decodes the QR code to UTF-8 values and saves these values to a log. You can also use the application to upload the decoded QR codes to an Arm Treasure Data account.
+This tutorial creates a Python user application that runs on MBL devices and scans QR codes. By default, the application decodes the QR code to UTF-8 values and saves these values to a log. If you want, you can use the application to upload the decoded QR codes to an Arm Treasure Data account.
 
 ### Requirements and hardware notes
 
+* This is a standard Python application, and can run on any operating system with Python 3. As an Mbed Linux OS IoT application, it runs on a Raspberry Pi 3.
 * Your device must already be running an MBL image. Please [follow the tutorial](../getting-started/tutorial-building-an-image.html) if you don't have an MBL image yet.
 * You must still have all [tool and accounts prerequisites](../getting-started/setting-up-and-supported-hardware.html).
 * Cameras:
     * This application does not work with the Raspberry Pi 3 camera.
     * We recommend using the Logitech webcam series.
-
-<!--do we expect this to work with any board, or just the Warp7?-->
 
 ### License
 
@@ -24,33 +23,31 @@ If you want to contribute additional functionality or fixes to this application,
 
 ## Application code
 
-<span class="notes">**Note**: Mbed Linux OS (MBL) is currently in limited preview. If you would like access to the code repositories, [please request to join the preview](https://os.mbed.com/linux-os/).</span><!--is this going out with 0.5? If not, it won't need this note for 1.0-->
+<span class="notes">**Note**: Mbed Linux OS (MBL) is currently in limited preview. If you would like access to the code repositories, [please request to join the preview](https://os.mbed.com/linux-os/).</span>
 
-### Code source
+### Source code
 
-The application code and scripts are in the [https://github.com/ARMmbed/mbl-example-qr](https://github.com/ARMmbed/mbl-example-qr) repository on GitHub.
-
-Please clone the repo to your development machine:
-
-```
-git clone git@github.com:ARMmbed/mbl-example-qr
-```
+The application code and scripts are in the [https://github.com/ARMmbed/mbl-example-qr](https://github.com/ARMmbed/mbl-example-qr) repository on GitHub. Please download or clone it.
 
 ### Code review
 
-The application's core functionality is in the [`app.py`](https://github.com/ARMmbed/mbl-example-qr/blob/master/example-qr/example_qr/app.py) file<!--what do all the other files do? dockerize things and stuff like that?-->. The application is not MBL-specific; it can run on any operating system. To use it on an MBL device, we wrap the application in an OCI container.<!--what does https://github.com/ARMmbed/mbl-example-qr/blob/master/example-qr/example_qr/cli.py do? how does it interact with the main application?-->
+The application's core functionality is in the [`app.py`](https://github.com/ARMmbed/mbl-example-qr/blob/master/example-qr/example_qr/app.py) file. We also include a standard `cli.py` file to handle CLI inputs when the application is started in a shell.
 
-<!--can we talk a little bit about the code? What are some guiding principles or best practices you used? Some interesting choices you had to make? How would users approach modifying it for their own things?-->
+The Docker image requires an installation of OpenCV for capturing frames from the camera. OpenCV needs to be built from the source, because it is not available from the package manager of the base image OS. Building OpenCV requires adding multiple build tools to the Docker image, which increases its size. To reduce the size, the Dockerfile uses a multi-stage build, and copies only the built OpenCV and its dependencies to the final image.
+
+This is a reference application that you can use as a basis for modifications. One possible modification is to create a Docker base image in Docker Hub, which you can then use to copy<!--copy to where?--> the source code of the nested project (`example-qr`) and install only that image. That will reduce the image build time significantly.
+
+Also, if your camera mounts on anything other than `/dev/video0`, or if the device's `major/minor` (81/0) are different, update the values in `src_bundle/config.json`.
 
 [![View code](https://www.mbed.com/embed/?url=https://github.com/ARMmbed/mbl-example-qr/blob/master/example-qr/example_qr/)](https://github.com/ARMmbed/mbl-example-qr/blob/master/example-qr/example_qr/app.py)
 
 ## Build and usage instructions
 
-<span class="tips">**Tip**: Prefix the commands in these instructions with `sudo` if permission is denied.<!--not wild about this sentence--></span>
+<span class="tips">**Tip**: You may need to prefix the commands in these instructions with `sudo`</span>
 
 ### Dockerizing the application
 
-On the device, the application runs on a target inside an OCI container. To create the OCI container, we dockerize the `example-qr` Python package on a host machine.
+This application is not MBL-specific; it can run on any operating system. To use it on an MBL device, we wrap the application in an OCI container. To create the OCI container, we dockerize the `example-qr` Python package on a host machine.
 
 To dockerize the application, run:
 
@@ -109,10 +106,9 @@ root@mbed-linux-os-1438:~# tail -f /home/app/mbl-example-qr/rootfs/home/scanned_
 ```
 
 <span class="tips">**Tip**: MBL redirects the logging information to the log file `/var/log/app/mbl-example-qr.log`.</span>
-<!--this contradicts the previous line, which pointed to scanned_qrcodes.log (), and I also see only scanned_qr_codes.log in the app.py-->
 
 ### Optional: uploading QR codes to Treasure Data
-<!--Really? Exciting!-->
+
 You can modify the application to upload decoded QR codes to Arm Treasure Data.
 
 1. Before [creating the OCI bundle](#creating-oci-bundle-and-ipk):
@@ -125,11 +121,15 @@ You can modify the application to upload decoded QR codes to Arm Treasure Data.
     1. Retrieve your [Treasure Data **master** API Key](https://support.treasuredata.com/hc/en-us/articles/360000763288-Get-API-Keys).
 
 
-1. In `src_bundle/config.json`, add an optional argument to pass the API key as `TD_API_KEY`. <!--See [`example-qr/example_qr/cli.py`](example-qr/example_qr/cli.py) for more information.--><!--please don't send them to read the code for a single command - just tell them how to do it-->
+1. In `src_bundle/config.json`, add an optional argument to pass the API key as `TD_API_KEY`:
+    1. Open `example-qr/example_qr/cli.py`.
+    1. Modify the `process > args` attribute to include the optional `TD_API_KEY` argument.
+
+    The `args` attribute represents a comma separated shell input. For example, when the OCI container is started, `"args": ["example-qr", "-v", "-l"]` becomes `root@mbl-example-qr-oci-container:/# example-qr -v -l` within the OCI container.
+
 
 ### Cleaning the build artefacts
 
-<!--when and why?-->
 To clean the content of the [`release`](release/) directory, run:
 
 ```
