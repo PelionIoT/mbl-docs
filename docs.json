@@ -50,7 +50,7 @@
                             "title": "Development environment",
                             "intro": {
                                 "type": "markdown",
-                                "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/env_and_software.md"
+                                "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/dev_env_for_distribution.md"
                             },
                             "sources": []
                         },
