@@ -101,7 +101,7 @@ The following examples assume:
 * You have your [Device Management developer credentials](../getting-started/preparing-device-management-sources.html#downloading-device-management-developer-credentials).
 * You have your [update resources file](../getting-started/preparing-device-management-sources.html#creating-an-update-resources-file).
 * You have an output directory for your machine, for example `./artifacts-warp7` or `./artifacts-rpi3`.
-* You have an [SSH agent](../getting-started/software-environment.html). For usage, see [the GitHub SSH documentation](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).
+* You have an [SSH agent](../getting-started/development-environment.html). For usage, see [the GitHub SSH documentation](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).
 
 #### Warp7 device
 
