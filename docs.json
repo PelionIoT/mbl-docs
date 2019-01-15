@@ -148,7 +148,15 @@
                         },
                         {
                             "type": "markdown",
+                            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/mbl_cli/command_syntax.md"
+                        },
+                        {
+                            "type": "markdown",
                             "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/mbl_cli/usage.md"
+                        },
+                        {
+                            "type": "markdown",
+                            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/mbl_cli/device_update.md"
                         }
                     ]
                 }
