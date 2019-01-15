@@ -1,6 +1,6 @@
-## Preparing a development environment
+## Preparing a development environment for the distribution
 
-### Accounts and credentials
+### Accounts
 
 You need:
 

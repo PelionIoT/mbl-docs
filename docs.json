@@ -51,7 +51,7 @@
                             "sources": []
                         },
                         {
-                            "title": "Accounts and certificates",
+                            "title": "Pelion accounts and certificates",
                             "sources": [{
                                     "type": "markdown",
                                     "url": "https://github.com/ARMmbed/mbed_Cloud_Docs/blob/R2.0/Docs/account_management/log_or_create_users.md"
