@@ -43,7 +43,7 @@
                             "sources": []
                         },
                         {
-                            "title": "Software environment",
+                            "title": "Development environment",
                             "intro": {
                                 "type": "markdown",
                                 "url": "https://github.com/ARMmbed/mbl-docs/blob/v0.5/Docs/Reqs_and_env/env_and_software.md"
