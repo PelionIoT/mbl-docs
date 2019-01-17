@@ -35,7 +35,7 @@ The application's core functionality is in the [`app.py`](https://github.com/ARM
 
 The Docker image requires an installation of OpenCV for capturing frames from the camera. OpenCV needs to be built from the source, because it is not available from the package manager of the base image OS. Building OpenCV requires adding multiple build tools to the Docker image, which increases its size. To reduce the size, the Dockerfile uses a multi-stage build, and copies only the built OpenCV and its dependencies to the final image.
 
-This is a reference application that you can use as a basis for modifications. One possible modification is to create a Docker base image in Docker Hub, which you can then use to copy<!--copy to where?--> the source code of the nested project (`example-qr`) and install only that image. That will reduce the image build time significantly.
+This is a reference application that you can use as a basis for modifications. One possible modification is to create a Docker base image in Docker Hub, which you can then use to copy the source code of the nested project (`example-qr`) to a new image, and install only that image. That will reduce the image build time significantly.
 
 Also, if your camera mounts on anything other than `/dev/video0`, or if the device's `major/minor` (81/0) are different, update the values in `src_bundle/config.json`.
 
