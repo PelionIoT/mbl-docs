@@ -39,8 +39,6 @@ This is a reference application that you can use as a basis for modifications. O
 
 Also, if your camera mounts on anything other than `/dev/video0`, or if the device's `major/minor` (81/0) are different, update the values in `src_bundle/config.json`.
 
-[![View code](https://www.mbed.com/embed/?url=https://github.com/ARMmbed/mbl-example-qr/blob/master/example-qr/example_qr/)](https://github.com/ARMmbed/mbl-example-qr/blob/master/example-qr/example_qr/app.py)
-
 ## Build and usage instructions
 
 <span class="tips">**Tip**: You may need to prefix the commands in these instructions with `sudo`</span>
