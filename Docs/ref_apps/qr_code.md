@@ -33,7 +33,7 @@ The application code and scripts are in the [https://github.com/ARMmbed/mbl-exam
 
 The application's core functionality is in the [`app.py`](https://github.com/ARMmbed/mbl-example-qr/blob/master/example-qr/example_qr/app.py) file. We also include a standard `cli.py` file to handle CLI inputs when the application is started in a shell.
 
-We use the `src_bundle/config.json` file to let the application interact with the device and peripherals across its container borders, and you can modify the config file to adjust the reference application to your own device. For example, if your camera mounts on anything other than `/dev/video0`, or if the device's `major/minor` (81/0) are different, update the values in `src_bundle/config.json`.
+We use the `src_bundle/config.json` file to let the application interact with the device and peripherals across its container borders. The example below shows how the application accesses the video camera and the GPIO memory. You can modify the config file to adjust the reference application to your own device. For example, if your camera mounts on anything other than `/dev/video0`, or if the device's `major/minor` (81/0) are different, update the values in `src_bundle/config.json`:
 
 ```
 "linux": {
