@@ -2,8 +2,8 @@
     "product_name": "Mbed Linux OS",
     "books": [
         {
-            "title": "Welcome",
-            "description": "Mbed Linux OS introduction",
+            "title": "Mbed Linux OS",
+            "description": "Introduction",
             "slug": "welcome",
             "type": "markdown",
             "chapters": [
