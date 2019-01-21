@@ -2,7 +2,7 @@
     "product_name": "Mbed Linux OS",
     "books": [
         {
-            "title": "Mbed Linux OS",
+            "title": "Arm Mbed Linux OS",
             "description": "Introduction",
             "slug": "welcome",
             "type": "markdown",
