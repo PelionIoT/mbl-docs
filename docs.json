@@ -8,7 +8,7 @@
             "type": "markdown",
             "chapters": [
                 {
-                    "title": "Mbed Linux OS",
+                    "title": "Introduction",
                     "intro": {
                         "type": "markdown",
                         "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/introduction.md"
