@@ -2,12 +2,12 @@
     "product_name": "Mbed Linux OS",
     "books": [
         {
-            "title": "Welcome",
+            "title": "Arm Mbed Linux OS",
             "description": "Mbed Linux OS introduction",
             "slug": "welcome",
             "type": "markdown",
             "chapters": [{
-                "title": "Mbed Linux OS",
+                "title": "Introduction",
                 "intro": {
                     "type": "markdown",
                     "url": "https://github.com/ARMmbed/mbl-docs/blob/v0.5/Docs/introduction.md"
