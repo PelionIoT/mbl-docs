@@ -1,4 +1,4 @@
-## Mbed Linux OS introduction
+## Mbed Linux OS
 
 <img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/OS_v_MBL.png" width="25%" align="right">
 
