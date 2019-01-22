@@ -1,29 +1,25 @@
 {
     "product_name": "Mbed Linux OS",
-    "books": [
-        {
+    "books": [{
             "title": "Arm Mbed Linux OS",
             "description": "Introduction",
             "slug": "welcome",
             "type": "markdown",
-            "chapters": [
-                {
-                    "title": "Introduction",
-                    "intro": {
-                        "type": "markdown",
-                        "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/introduction.md"
-                    },
-                    "sources": []
-                }
-            ]
+            "chapters": [{
+                "title": "Introduction",
+                "intro": {
+                    "type": "markdown",
+                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/introduction.md"
+                },
+                "sources": []
+            }]
         },
         {
             "title": "Getting started",
             "description": "",
             "slug": "getting-started",
             "type": "markdown",
-            "chapters": [
-                {
+            "chapters": [{
                     "title": "Introduction",
                     "intro": {
                         "type": "markdown",
@@ -37,8 +33,7 @@
                         "type": "markdown",
                         "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/intro_reqs.md"
                     },
-                    "sub_chapters": [
-                        {
+                    "sub_chapters": [{
                             "title": "Hardware",
                             "intro": {
                                 "type": "markdown",
@@ -56,8 +51,7 @@
                         },
                         {
                             "title": "Pelion accounts and certificates",
-                            "sources": [
-                                {
+                            "sources": [{
                                     "type": "markdown",
                                     "url": "https://github.com/ARMmbed/mbed_Cloud_Docs/blob/R2.0/Docs/account_management/log_or_create_users.md"
                                 },
@@ -79,17 +73,14 @@
                         "type": "markdown",
                         "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/connect_tutorial_intro.md"
                     },
-                    "sources": [
-                        {
-                            "type": "markdown",
-                            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/create_connecting_image.md"
-                        }
-                    ]
+                    "sources": [{
+                        "type": "markdown",
+                        "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/create_connecting_image.md"
+                    }]
                 },
                 {
                     "title": "Tutorial: Connecting to a network and Pelion Device Management",
-                    "sources": [
-                        {
+                    "sources": [{
                             "type": "markdown",
                             "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/connect_network.md"
                         },
@@ -126,8 +117,7 @@
             "description": "",
             "slug": "tools",
             "type": "markdown",
-            "chapters": [
-                {
+            "chapters": [{
                     "title": "Mbed Linux OS tools",
                     "intro": {
                         "type": "markdown",
@@ -137,8 +127,7 @@
                 },
                 {
                     "title": "MBL CLI",
-                    "sources": [
-                        {
+                    "sources": [{
                             "type": "markdown",
                             "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/mbl_cli/mbl_cli.md"
                         },
@@ -167,8 +156,7 @@
             "description": "",
             "slug": "ref-apps",
             "type": "markdown",
-            "chapters": [
-                {
+            "chapters": [{
                     "title": "Introduction",
                     "intro": {
                         "type": "markdown",
@@ -178,10 +166,17 @@
                 },
                 {
                     "title": "QR code reader",
-                    "sources": [
+                    "intro": {
+                        "type": "markdown",
+                        "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/ref_apps/qr_reader/intro.md"
+                    },
+                    "sources": [{
+                            "type": "markdown",
+                            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/ref_apps/qr_reader/code_review.md"
+                        },
                         {
                             "type": "markdown",
-                            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/ref_apps/qr_code.md"
+                            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/ref_apps/qr_reader/usage.md"
                         }
                     ]
                 }
@@ -192,8 +187,7 @@
             "description": "",
             "slug": "references",
             "type": "markdown",
-            "sources": [
-                {
+            "sources": [{
                     "type": "markdown",
                     "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/refs/refs_intro.md"
                 },
