@@ -2,7 +2,7 @@
 
 <span class="notes">**Note**: Mbed Linux OS (MBL) is currently in limited preview. If you would like access to the code repositories, [please request to join the preview](https://os.mbed.com/linux-os/).</span>
 
-This tutorial creates a Python user application that runs on MBL devices and scans QR codes. By default, the application decodes the QR code to UTF-8 values and saves these values to a log. If you want, you can use the application to upload the decoded QR codes to an Arm Treasure Data account.
+This tutorial creates a Python user application that runs on MBL devices and scans QR codes. By default, the application decodes the QR code to UTF-8 values and saves these values to a log. If you want, you can use the application to upload the decoded QR codes to an Arm Treasure Data account. This reference demonstrates how easily a standalone application can be adjusted to work on MBL, and how to use the configuration file to give a dockerized application access to device peripherals.
 
 ### Requirements and hardware notes
 
@@ -33,11 +33,43 @@ The application code and scripts are in the [https://github.com/ARMmbed/mbl-exam
 
 The application's core functionality is in the [`app.py`](https://github.com/ARMmbed/mbl-example-qr/blob/master/example-qr/example_qr/app.py) file. We also include a standard `cli.py` file to handle CLI inputs when the application is started in a shell.
 
-The Docker image requires an installation of OpenCV for capturing frames from the camera. OpenCV needs to be built from the source, because it is not available from the package manager of the base image OS. Building OpenCV requires adding multiple build tools to the Docker image, which increases its size. To reduce the size, the Dockerfile uses a multi-stage build, and copies only the built OpenCV and its dependencies to the final image.
+We use the `src_bundle/config.json` file to let the application interact with the device and peripherals across its container borders. The example below shows how the application accesses the video camera and the GPIO memory. You can modify the config file to adjust the reference application to your own device. For example, if your camera mounts on anything other than `/dev/video0`, or if the device's `major/minor` (81/0) are different, update the values in `src_bundle/config.json`:
 
-This is a reference application that you can use as a basis for modifications. One possible modification is to create a Docker base image in Docker Hub, which you can then use to copy the source code of the nested project (`example-qr`) to a new image, and install only that image. That will reduce the image build time significantly.
+```
+"linux": {
+     "devices": [{
+         "path": "/dev/video0",
+         "type": "c",
+         "major": 81,
+         "minor": 0,
+         "uid": 0,
+         "gid": 0
+     }, {
+         "path": "/dev/gpiomem",
+         "type": "c",
+         "major": 81,
+         "minor": 0,
+         "uid": 0,
+         "gid": 0
+     }],
 
-Also, if your camera mounts on anything other than `/dev/video0`, or if the device's `major/minor` (81/0) are different, update the values in `src_bundle/config.json`.
+```
+
+The config file also maps the container's memory to the device's persistent memory, so that your QR codes remain in memory even after you stop the application. You can adjust the application code to use the existing mapping:
+
+```
+{
+    "destination": "/tmpC",
+    "type": "ext4",
+    "source": "/tmp",
+    "options": [
+        "rw",
+        "bind"
+    ]
+},
+```
+
+You can also modify the build process. The Docker image requires an installation of OpenCV for capturing frames from the camera. OpenCV needs to be built from the source, because it is not available from the package manager of the base image OS. Building OpenCV requires adding multiple build tools to the Docker image, which increases its size. To reduce the size, the Dockerfile uses a multi-stage build, and copies only the built OpenCV and its dependencies to the final image. You can build on this functionality to reduce your image build time: create a Docker base image in Docker Hub, which you can then use to combine the the source code of the nested project (`example-qr`) with a built OpenCV to create a new image, and install only that image.
 
 ## Build and usage instructions
 
