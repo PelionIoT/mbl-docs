@@ -1,8 +1,28 @@
-# Current Mbed Linux OS partition layout
+## Partition layout
 
-Copyright © 2018 Arm Limited.
+### Design
 
-## General information
+The flash memory partition layout for MBL is driven by four high-level requirements:
+
+* Use cases for device firmware update.
+* Use cases for application management.
+* Secure Boot and firmware verification.
+* Use cases for device manufacturing.
+
+In summary, requirements that influence the flash layout are:
+
+| Requirement | Implication |
+| --- | --- |
+| It should be possible to update all device firmware except for early stage boot loaders. | Components that are loaded during boot need to start at a block number known by the loading boot loader. |
+| A failure during the update process (such as a power loss) should not result in a bricked device.	| The previous known good version of a booted component should be maintained in flash until an updated version has been verified to be complete, authentic and viable. This means that all booted components should be banked to accommodate both the known good and the updated versions of a component. |
+| A firmware update involving multiple components may extend across power failures. |	Non-volatile state must be held reflecting the presence of a component update. Only when all components are installed can the entire update be viewed as complete. |
+| A multi-component update should be applied either in its entirety or not at all. A device should never be left in a state where only a partial update was performed. | A non-volatile state must be held, reflecting that a multi-component update is in progress but is not yet complete. |
+| Data saved in flash memory that does not need to be modified in normal device operation should be write-protected. |	Some partitions should be created or modified to be read-only. Factory data written during the manufacturing process should be saved in a partition that is modified to read-only when a device boots after its life-cycle state has been modified to 'manufacture complete'. |
+| A device should support the 'restore to factory' use case. | To allow the user configuration to be deleted without deleting the factory configuration, the two types of data should be kept separate. |
+
+### General information
+
+<span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/partition_layout.png)</span>
 
 The partition layout for every board includes at least the following partitions
 
@@ -21,9 +41,9 @@ The partition layout for every board includes at least the following partitions
 | scratch          | rw    | ext4         | /scratch         | 500MiB   | Temporary files (such as downloaded firmware files) |
 | home             | rw    | ext4         | /home            | 450MiB   | User application storage |
 
-## Board specific information
+### Board specific information
 
-### Raspberry Pi 3
+#### Raspberry Pi 3
 
 Full partition layout:
 
@@ -43,11 +63,9 @@ Full partition layout:
 | rootfs2_ver_hash | 20MiB  | mmc 0:12              | mmcblk0p12        | Logical  |
 | home             | 450MiB | mmc 0:13              | mmcblk0p13        | Logical  |
 
-### Warp7
+#### WaRP7
 
-On Warp7 there is an area of the disk used for TF-A (Trusted Firmware-A) and
-BL2 (Second Boot Loader) images. It is the first "partition" although it is not in the
-disk's partition table.
+WaRP7 uses an area of the disk for Trusted Firmware-A (TF-A) and Second Boot Loader (BL2) images. It is the first partition although it is not in the disk's partition table.
 
 Full partition layout:
 
@@ -69,45 +87,22 @@ Full partition layout:
 | home             | 450MiB | mmc 0:13              | mmcblk0p13        | Logical     |
 
 
-## Notes on firmware update
+### Notes on firmware update
 
-To support firmware updates, Mbed Linux OS system has storage for two
-separate firmware installations and a mechanism to select which installation to
+To support firmware updates, MBL has storage for two separate firmware installations and a mechanism to select which installation to
 boot into after reboots.
 
-A flag file in the bootflags partition is used to indicate which root partition
-is currently active. If there is a file called "rootfs2" in the bootflags
-partition then U-boot will use rootfs2 as the root partition, otherwise it will
-use rootfs1.
+A flag file in the `bootflags` partition indicates which root partition is currently active. If there is a file called `rootfs2` in the `bootflags` partition, then U-boot will use `rootfs2` as the root partition. Otherwise, it will use `rootfs1`.<!--is it easier to say "it defaults to rootfs1, but will use rootfs2 if the flag file is present", or is it not a question of default - it *must* have a flag file?-->
 
-Each firmware installation is separated into several partitions: a
-read-write root partition, a configuration partition and a user application
-partition. Using a separate partition for the user application eases the
-support of updates of just the user application.
+<!--shouldn't this line come before discussing how we choose a root partition?-->Each firmware installation has several partitions: a read-write root partition, a configuration partition, and a user application partition. Using a separate partition for the user application eases the support of updates of just the user application.
 
-In the case of configuration that should persist across firmware updates,
-Mbed Linux OS system actually stores three versions: a configuration for each firmware
-installation (stored on the installation's "config" partition) and the initial
-configuration installed at build time and/or at the factory (stored on the
-"nfactory_config" partition). During firmware updates, the configuration for the newly
-installed firmware will be created based on the configuration for the currently
-running installation, rules contained in a "configuration update" script in
-attached to the new firmware and, possibly, the initial factory configuration.
+For a configuration that should persist across firmware updates, MBL actually stores three versions: a configuration for each firmware installation (stored on the installation's `config` partition) and the initial configuration installed at build time or in the factory (stored on the `nfactory_config` partition). During firmware updates, the configuration for the newly installed firmware will be created based on the configuration for the currently running installation, rules contained in a **configuration update** script attached to the new firmware and, possibly, the initial factory configuration.
 
-Additionally, there is the "scratch" partition for temporary storage of firmware
-downloaded during the update process. This partition is shared between the
-firmware installations.
+Additionally, there is the `scratch` partition for temporary storage of firmware downloaded during the update process. This partition is shared between the firmware installations.
 
-## Future plans
+### Plans
 
-New "BL3 FIP Image" partition should hold versions of the BL31 boot loader and associated
-components contained within a signed FIP image.
-
-"rootfs_ver_hash" partitions should include meta-data for the dm-verity tool
-for the corresponding root filesystem.  
-
-"rootfs_ver_hash", "factory_config" and "rootfs" partitions should be switched to read-only mode
-(currently these partitions are read-write).
-
-The new "BL3 FIP Image" and the existing "boot", "rootfs1_ver_hash" and "nfactory_config1"
-partitions should be banked.
+* A new `BL3 FIP Image` partition should hold versions of the BL31 boot loader and associated components contained within a signed FIP image.
+* The `rootfs_ver_hash` partitions should include meta-data for the dm-verity tool for the corresponding root filesystem.  
+* The `rootfs_ver_hash`, `factory_config` and `rootfs` partitions should be switched to read-only mode (currently they are read-write).
+* The new `BL3 FIP Image` and the existing `boot`, `rootfs1_ver_hash` and `nfactory_config1` partitions should be banked.
