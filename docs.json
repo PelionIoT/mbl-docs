@@ -71,12 +71,21 @@
                     "title": "Tutorial: Building an image",
                     "intro": {
                         "type": "markdown",
-                        "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/connect_tutorial_intro.md"
+                        "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/building_an_image/connect_tutorial_intro.md"
                     },
                     "sources": [{
-                        "type": "markdown",
-                        "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/create_connecting_image.md"
-                    }]
+                            "type": "markdown",
+                            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/building_an_image/prep_resources.md"
+                        },
+                        {
+                            "type": "markdown",
+                            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/building_an_image/building_an_mbl_image.md"
+                        },
+                        {
+                            "type": "markdown",
+                            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/building_an_image/writing_booting_disk_image.md"
+                        }
+                    ]
                 },
                 {
                     "title": "Tutorial: Connecting to a network and Pelion Device Management",
