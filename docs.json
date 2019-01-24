@@ -91,15 +91,11 @@
                     "title": "Tutorial: Connecting to a network and Pelion Device Management",
                     "sources": [{
                             "type": "markdown",
-                            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/connect_network.md"
+                            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/connect_network_and_pelion/connect_network.md"
                         },
                         {
                             "type": "markdown",
-                            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/wifi_setup.md"
-                        },
-                        {
-                            "type": "markdown",
-                            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/quick_start_pelion_check.md"
+                            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/connect_network_and_pelion/verify_device_connected.md"
                         }
                     ]
                 },
