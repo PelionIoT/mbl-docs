@@ -103,7 +103,7 @@
                     "title": "Tutorial: User application",
                     "intro": {
                         "type": "markdown",
-                        "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/helloworld.md"
+                        "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/user_app_helloworld.md"
                     },
                     "sources": []
                 },
