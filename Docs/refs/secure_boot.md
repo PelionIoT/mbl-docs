@@ -153,7 +153,7 @@ An IoT device is unlikely to include TPM hardware; it will instead rely on a tru
 * Secure flash (accessible to secure<!--secure what?--> only), protected by a derived key from the DEK (authenticated encryption).
 * In future SoCs, ARM's CryptoCell/Island products will also provide a facility for roll-back protection.
 
-For all of these, the trusted OS must have an application interface through which it can provide and increase counter values.
+For all of these, the trusted application must have an application interface through which it can provide and increase counter values.
 <!--don't think we've mentioned "trusted OS" before-->
 
 ### Integrity checking with dm-verity
