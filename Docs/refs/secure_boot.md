@@ -55,7 +55,7 @@ This document uses the following terminology:
 
 This is a summary of the MBL secure boot's requirements and recommendations:<!--"highly desirable" is not a requirement, so I changed this to say "requirements and recommendations"-->
 
-* All booted images must be signed and verified using a chain of trust. The root of trust for the chain must be an OTP <!--programmed--><!--"p" stands for programmable - is it correct to follow that with "programmed"?--> key.
+* All booted images must be signed and verified using a chain of trust. The root of trust key for the chain must be put in OTP storage.
 * <!--For a Linux distribution, --><!--as opposed to what? this is an MBL doc-->We recommend using unmodified existing components (such as Trusted Firmware, OP-TEE and U-Boot) wherever possible, to exploit code maturity and familiarity by adopters. The boot process should use these components with build options that meet requirements for security and reuse.
 * As much of the secure verification logic as possible should be common across supported platforms. This is explained in greater detail [later in this document](#platform-independent-boot-stage-verification).
 * Trusted Firmware provides a generic solution for booting and verifying trusted world firmware and the first normal world boot stage (U-Boot).<!--and? this is phrased like background info, not a requirement or recommendation-->
