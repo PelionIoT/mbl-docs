@@ -119,7 +119,7 @@ The following diagram illustrates the chaining of the secure boot steps:
 
 <span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/u_boot_flow.png)</span>
 
-#### Trusted world boot
+#### Secure world boot
 
 Booting of trusted world components is performed by Trusted Firmware<!--is that a proper name that should be capitalised? and what's the difference between Trusted Firmware and Trusted World Firmware?-->. After the ROM boot loader performs the initial boot, TF-A performs boot steps BL2, BL31, BL32 and BL33 (in the above diagram). The switch from secure to non-secure execution mode is done *before* entering BL33, when all trusted components (like OP-TEE) have already been initialised. For MBL, BL33 is U-Boot.<!--U-Boot is a step, not a thing?-->
 
