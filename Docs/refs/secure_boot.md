@@ -106,7 +106,7 @@ After loading and verifying the initial image, loaded by the SoC boot ROM, the b
 
 Ideally, the boot stage verification code should be free of SoC dependencies to allow a default software-only implementation, which can then be used on different platforms. However, you can consider using hardware features that offer significant benefits, such as support for cryptographic operations.<!--this again raises the question of who this document is for - Linux developers or people porting MBL, for example?-->
 
-### A generic flow using trusted world firmware and U-Boot
+### A generic flow using Trusted Firmware and U-Boot
 
 The boot sequence chains the following boot mechanisms:
 
