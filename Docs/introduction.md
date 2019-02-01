@@ -2,13 +2,17 @@
 
 <img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/OS_v_MBL.png" width="25%" align="right" />
 
+## Arm Mbed Linux OS
+
+<img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/OS_v_MBL.png" width="25%" align="right" />
+
 Arm Mbed Linux OS (MBL) is a free, open-source IoT operating system based on the embedded Linux Yocto Project. It is designed for [Cortex-A](https://www.arm.com/products/silicon-ip-cpu) devices, which can run multiple, complex applications and perform edge computing. MBL provides the common services these applications rely on, such as access to hardware peripherals, security and connectivity protocols and access to the [Pelion IoT Platform](https://cloud.mbed.com/docs).
 
-Arm Mbed now offers a duo of operating systems to support Cortex-M and Cortex-A microprocessors: Mbed OS and Mbed Linux OS. If you want to quickly test a market with Cortex-A devices and then move to Cortex-M for mass production, we now make that easy.
+Arm Mbed now supports all IoT device classes with a duo of operating systems: Mbed OS for Cortex-M microprocessors and Mbed Linux OS for Cortex-A microprocessors.
 
-Because MBL is aimed specifically at IoT devices, it places a major emphasis on platform security. At the core of device security is Trusted Firmware (TF-A) and OP-TEE, an open source trusted execution environment that conforms to the Global Platform TEE specification. [Platform Security Architecture (PSA)](https://developer.arm.com/products/architecture/security-architectures/platform-security-architecture) and other security related trusted services can run in this framework. MBL also relies on the Linux kernel's isolation mechanisms to protect device integrity and sensitive data: each application runs in its own OCI-compliant container, so a compromised application cannot damage other applications or the device.
+Because MBL is aimed specifically at IoT devices, it places a major emphasis on platform security. At the core of device security is Trusted Firmware (TF-A) and OP-TEE, an open source trusted execution environment that conforms to the Global Platform TEE specification. MBL also conforms to [Platform Security Architecture (PSA)](https://developer.arm.com/products/architecture/security-architectures/platform-security-architecture) for secure boot and other security measures, and relies on the Linux kernel's isolation mechanisms to protect device integrity and sensitive data: each application runs in its own OCI-compliant container, so a compromised application cannot damage other applications or the device.
 
-You can develop and build applications in using a variety of standard tools such as C cross-compilation, Python or Node.js. Applications are then packaged and deployed to MBL in an application container. By using standard tools, you can quickly repurpose existing Linux applications to run on MBL.
+You can develop and build applications in using a variety of standard tools such as C cross-compilation, Python or Node.js. Applications are then packaged and deployed to MBL in an application container.
 
 ### Developer preview features
 
@@ -20,7 +24,7 @@ The preview release provides:
 * Hardware and software-based isolation mechanisms for security:
     * Dedicated hardware within most Cortex-A devices enforces the most secure isolation boundary. This technology, called TrustZone, allows the most sensitive code and data to run within a so-called **Secure World**. MBL includes a trusted operating system for this Secure World called **Open Source Trusted Execution Environment** (OP-TEE). OP-TEE is essentially an operating system within an operating system, which is loaded by the Trusted Firmware and would typically be used to protect cryptographic keys and other sensitive data assets.
     * Secure boot methodology based on Linaro's Trusted Firmware A for both the ARMv7-A and ARMv8-A platforms. Trusted Firmware is a minimal secure bootloader that runs when a Cortex-A microprocessor is executing in TrustZone's "secure world" mode.
-    * Open Container Initiative (OCI)-compliant containers for applications, protecting against compromised applications and facilitating a modern development workflow. Based on the RUNC engine, this Docker-like system allows OEMs to package services or applications as independent container images that run entirely within a sandbox. This provides two benefits. First, if an attacker compromises a single application, it's far harder for the attack to spread beyond the infected container. This will help to reduce the impact of an attack and ensure a device can easily be restored to a secure state. Second, applications can be developed independently of the underlying IoT platform. For example, it's easier for a developer to build and test on their desktop workstation or laptop.
+    * Open Container Initiative (OCI)-compliant containers for applications, protecting against compromised applications and facilitating a modern development workflow. Based on the RUNC container runtime, this Docker-like system allows OEMs to package services or applications as independent container images that run entirely within a sandbox. This provides two benefits. First, if an attacker compromises a single application, it's far harder for the attack to spread beyond the infected container. This will help to reduce the impact of an attack and ensure a device can easily be restored to a secure state. Second, applications can be developed independently of the underlying IoT platform. For example, it's easier for a developer to build and test on their desktop workstation or laptop.
 * Developer command-line tools to facilitate discovery, setup and local update of development devices.
 * A lightweight, feature rich connection manager for Ethernet and Wi-Fi connections.
 * The integration with Pelion Device Management services offers:
