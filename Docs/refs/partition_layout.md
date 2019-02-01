@@ -24,7 +24,7 @@ In summary, requirements that influence the flash layout are:
 
 <span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/partition_layout.png)</span>
 
-The partition layout for every board includes at least the following partitions
+The partition layout for every board includes at least the following partitions:
 
 | Label            | ro/rw | Type         | Mount point      | Size     | Contains |
 |------------------|-------|--------------|------------------|----------|----------|
@@ -33,8 +33,8 @@ The partition layout for every board includes at least the following partitions
 | rootfs1          | rw    | ext4         | /                | 500MiB   | Root filesystem for installation 1 |
 | rootfs2          | rw    | ext4         | /                | 500MiB   | Root filesystem for installation 2 |
 | factory_config   | rw    | ext4         | /config/factory  | 20MiB    | Factory configuration |
-| nfactory_config1 | rw    | ext4         | /config/user     | 20MiB    | User data configuration |
-| nfactory_config2 | rw    | ext4         | /config/user     | 20MiB    | Unused |
+| nfactory_config1 | rw    | ext4         | /config/user     | 20MiB    | Non-factory config 1; user data configuration (listed in the diagram as "Config 1") |
+| nfactory_config2 | rw    | ext4         | /config/user     | 20MiB    | Unused at this time |
 | rootfs1_ver_hash | rw    | ext4         | /mnt/verity_hash | 20MiB    | dm_verity meta-data for rootfs1 |
 | rootfs2_ver_hash | rw    | ext4         | /mnt/verity_hash | 20MiB    | dm_verity meta-data for rootfs2 |
 | log              | rw    | ext4         | /var/log         | 20MiB    | Log files |
@@ -89,14 +89,14 @@ Full partition layout:
 
 ### Notes on firmware update
 
+Each firmware installation has several partitions: a read-write root partition, a configuration partition, and a user application(s) partition. Using a separate partition for the user application eases the support of updates of just the user application.
+
 To support firmware updates, MBL has storage for two separate firmware installations and a mechanism to select which installation to
 boot into after reboots.
 
-A flag file in the `bootflags` partition indicates which root partition is currently active. If there is a file called `rootfs2` in the `bootflags` partition, then U-boot will use `rootfs2` as the root partition. Otherwise, it will use `rootfs1`.<!--is it easier to say "it defaults to rootfs1, but will use rootfs2 if the flag file is present", or is it not a question of default - it *must* have a flag file?-->
+A script inside `initramfs` checks which root partition is currently active; by default this is `rootfs1`, but the script will change to `rootfs2` if a flag file called `rootfs2` is present in the `bootflags` partition.
 
-<!--shouldn't this line come before discussing how we choose a root partition?-->Each firmware installation has several partitions: a read-write root partition, a configuration partition, and a user application partition. Using a separate partition for the user application eases the support of updates of just the user application.
-
-For a configuration that should persist across firmware updates, MBL actually stores three versions: a configuration for each firmware installation (stored on the installation's `config` partition) and the initial configuration installed at build time or in the factory (stored on the `nfactory_config` partition). During firmware updates, the configuration for the newly installed firmware will be created based on the configuration for the currently running installation, rules contained in a **configuration update** script attached to the new firmware and, possibly, the initial factory configuration.
+For a configuration that should persist across firmware updates, MBL actually stores three versions: a configuration for each firmware installation (stored on the installation's `nfactory_config1` or `nfactory_config2` partitions) and the initial configuration installed at build time or in the factory (stored on the `factory_config` partition). During firmware updates, the configuration for the newly installed firmware will be created based on the configuration for the currently running installation, rules contained in a **configuration update** script attached to the new firmware and, possibly, the initial factory configuration.
 
 Additionally, there is the `scratch` partition for temporary storage of firmware downloaded during the update process. This partition is shared between the firmware installations.
 
