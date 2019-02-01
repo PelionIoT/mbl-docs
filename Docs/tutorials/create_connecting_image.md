@@ -28,11 +28,14 @@ MBL and Device Management support over-the-air updates for devices, which you ca
 
 1. Initialize the manifest tool, and generate Update resources:
 
-    ```
-    manifest-tool init -q -d arm.com -m dev-device
-    ```
+    `manifest-tool init -q -d <domain> -m <device class>`
 
-    This generates the `update_default_resources.c` file. 
+    Where:
+
+    * `<domain>` is your company's domain, like `arm.com`
+    * `<device class>` is a unique identifier for the device class. If you're in development (using developer credentials), you can use `dev-device`.
+
+    This generates the `update_default_resources.c` file.
 
     You will use this file in the build process later.
 
