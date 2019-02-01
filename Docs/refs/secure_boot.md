@@ -190,4 +190,4 @@ Beyond the initial step performed by the Soc ROM boot loader, Mbed Linux OS only
 * Reduced test burden, while supporting easy developer project on-boarding.
 * Reduced software attack surface, and therefore increased software security.
 
-To support firmware development on an open device, the build process should automatically sign images using one or more developer keys. You can also choose to use the SoC signing tool to sign the image containing SPL (U-Boot, for MBL). When producing a release build, images must be signed by a trusted firmware supplier.
+To support firmware development on an open device, the build process will automatically sign images using one or more developer keys. You can use the SoC signing tools to sign the image containing secondary boot - TF-A BL2. When producing a release build, images must be signed by a trusted firmware supplier.
