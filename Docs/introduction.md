@@ -51,13 +51,13 @@ The **platform services** are general purpose services common across most IoT ap
 * A logging framework to tag and forward logged events.
 * Secure services to protect assets: secrets storage and cryptographic operations with access control.
 
-MBL uses an integrated agent to connect to the **Pelion Device Management services**. The services provides secure remote ownership, update and monitoring for devices.
+MBL uses an integrated agent to connect to the **Pelion Device Management services**. The services will provide secure remote ownership, update and monitoring for devices using the Device Management Client.
 
 **Management agents** extend the way in which a device is managed. They are user-space agents providing:
 
 * Additional device configuration access:
 
-    * Over BLE.
+    * Over BLE (in a future release).
     * Remote cloud-based (via the Pelion Connect service).
     * Over USB (during manufacturing).
 
