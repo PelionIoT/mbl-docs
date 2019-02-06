@@ -1,239 +1,359 @@
-# <a name="section-1"></a> 1. Mbed Linux OS Basic Signing Flow
+## Mbed Linux OS basic signing flow
 
-Copyright © 2018 Arm Limited.
+### Overview
 
-## <a name="section-1-1"></a> 1.1 Overview
+<!--we can only hope this renders properly-->
 
-The MBL secure boot process is responsible for bringing the system into a secure computing state after power-on, which includes 
-only authorized versions of software components are permitted to run in the system. To do this the secure boot
-implements the following processing:
+***
 
-* FOR EACH COMPONENT in a list of boot chain components DO:
-    * Load the COMPONENT into memory.
-    * Compute a HASH (signature) of the COMPONENT binary image.
-    * IF the HASH matches the hash in the authority's 'COMPONENT content' certificate then the image has been authenticated and will run.
-    * ELSE stop booting, and possibly enter a recovery mode depending on configuration.
+<details><summary>Terminology used in this document</summary><blockquote>
+<p><table>
+<thead>
+<tr>
+<th>Acronym</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AP</td>
+<td>Application Processor</td>
+</tr>
+<tr>
+<td>BL</td>
+<td>Bootloader</td>
+</tr>
+<tr>
+<td>BL1</td>
+<td>1st Stage Boot Loader</td>
+</tr>
+<tr>
+<td>BL2</td>
+<td>2nd Stage Boot Loader</td>
+</tr>
+<tr>
+<td>BL31</td>
+<td>3rd Stage Boot Loader - Part 1. For example: Secure Monitor running in EL1-SW.</td>
+</tr>
+<tr>
+<td>BL32</td>
+<td>3rd Stage Boot Loader - Part 2. For example: OPTEE, the secure world OS.</td>
+</tr>
+<tr>
+<td>BL33</td>
+<td>3rd Stage Boot Loader - Part 3. For example: u-boot, the Normal World boot loader. Also referred to as Non-Trusted World Firmware (NT-FW).</td>
+</tr>
+<tr>
+<td>COT</td>
+<td>Chain of Trust</td>
+</tr>
+<tr>
+<td>DEPLOY_DIR</td>
+<td>Yocto symbol for the MBL build deploy directory: <code>&lt;src_root&gt;/build-mbl/tmp-mbl-glibc/deploy</code></td>
+</tr>
+<tr>
+<td>DEPLOY_DIR_IMAGE</td>
+<td>Yocto symbol for the MACHINE specific deploy directory <code>${DEPLOY_DIR}/images/${MACHINE}/</code></td>
+</tr>
+<tr>
+<td>DTB</td>
+<td>Device Tree Binary</td>
+</tr>
+<tr>
+<td>EL0-NW</td>
+<td>Execution Level 0 - Normal World. Lowest privilege level, non-secure, e.g. for Linux applications.</td>
+</tr>
+<tr>
+<td>EL0-SW</td>
+<td>Execution Level 0 - Secure World. Lowest privilege level, secure, e.g. for trusted applications.</td>
+</tr>
+<tr>
+<td>EL1-NW</td>
+<td>Execution Level 1 - Normal World.</td>
+</tr>
+<tr>
+<td>EL1-SW</td>
+<td>Execution Level 1 - Secure World.</td>
+</tr>
+<tr>
+<td>EL2-NW</td>
+<td>Execution Level 2 - Normal World.</td>
+</tr>
+<tr>
+<td>EL2-SW</td>
+<td>Execution Level 2 - Secure World.</td>
+</tr>
+<tr>
+<td>EL3-NW</td>
+<td>Execution Level 3 - Normal World. Highest privilege.</td>
+</tr>
+<tr>
+<td>EL3-SW</td>
+<td>Execution Level 3 - Secure World. Highest privilege level, secure, e.g. for BL1 bootROM, Secure Monitor.</td>
+</tr>
+<tr>
+<td>FIP</td>
+<td>Firmware Image Package. This is a "simple filesystem" for managing signed bootchain components.</td>
+</tr>
+<tr>
+<td>FIT</td>
+<td>Flat Image Tree. This is a Linux Kernel image container for holding the kernel, kernel DTB and initramfs.</td>
+</tr>
+<tr>
+<td>MBL</td>
+<td>Mbed Linux OS</td>
+</tr>
+<tr>
+<td>NT</td>
+<td>Non-Trusted</td>
+</tr>
+<tr>
+<td>NT-FW</td>
+<td>Non-Trusted Firmware Binary (TF-A fiptool). For example: BL33 u-boot. Runs at EL2-NW.</td>
+</tr>
+<tr>
+<td>NT-FW-CERT</td>
+<td>Non-Trusted Firmware Certificate (TF-A fiptool). For example: u-boot content certificate.</td>
+</tr>
+<tr>
+<td>NT-FW-KEY-CERT</td>
+<td>Non-Trusted Firmware Certificate (TF-A fiptool)</td>
+</tr>
+<tr>
+<td>NW</td>
+<td>Normal World (TrustZone)</td>
+</tr>
+<tr>
+<td>SW</td>
+<td>Secure World (TrustZone)</td>
+</tr>
+<tr>
+<td>SOC-FW</td>
+<td>System-On-Chip Firmware Binary (TF-A fiptool)</td>
+</tr>
+<tr>
+<td>SOC-FW-CERT</td>
+<td>System-On-Chip Firmware Certificate (TF-A fiptool)</td>
+</tr>
+<tr>
+<td>SOC-FW-KEY-CERT</td>
+<td>System-On-Chip Firmware Key Certificate (TF-A fiptool)</td>
+</tr>
+<tr>
+<td>ROTPK</td>
+<td>Root of Trust Public Key</td>
+</tr>
+<tr>
+<td>ROTPrvK</td>
+<td>Root of Trust Private Key</td>
+</tr>
+<tr>
+<td>TBBR</td>
+<td>Trusted Board Boot Requirements</td>
+</tr>
+<tr>
+<td>TBBR-CLIENT</td>
+<td>TBBR Specification document</td>
+</tr>
+<tr>
+<td>TB-FW</td>
+<td>Trusted Board Firmware Binary (TF-A fiptool)</td>
+</tr>
+<tr>
+<td>TB-FW-CERT</td>
+<td>Trusted Board Firmware Certificate (TF-A fiptool)</td>
+</tr>
+<tr>
+<td>TB-FW-KEY-CERT</td>
+<td>Trusted Board Firmware Key Certificate (TF-A fiptool)</td>
+</tr>
+<tr>
+<td>TF-A</td>
+<td>Trusted Firmware for Cortex-A</td>
+</tr>
+<tr>
+<td>TOS-FW</td>
+<td>Trusted OS Firmware Binary (TF-A fiptool)</td>
+</tr>
+<tr>
+<td>TOS-FW-CERT</td>
+<td>Trusted OS Firmware Certificate (TF-A fiptool)</td>
+</tr>
+<tr>
+<td>TOS-FW-EXTRA1</td>
+<td>Trusted OS Firmware Extra-1 Binary (TF-A fiptool)</td>
+</tr>
+<tr>
+<td>TOS-FW-EXTRA2</td>
+<td>Trusted OS Firmware Extra-2 Binary (TF-A fiptool)</td>
+</tr>
+<tr>
+<td>TOS-FW-KEY-CERT</td>
+<td>Trusted OS Firmware Key Certificate (TF-A fiptool)</td>
+</tr>
+<tr>
+<td>TRUSTED-KEY-CERT</td>
+<td>Trusted Key Certificate. Contains both the trusted and non-trusted world public keys.</td>
+</tr>
+</tbody>
+</table>
+</div></p>
+</blockquote></details>
+
+***
+
+<details><summary>References</summary><blockquote>
+
+- Trusted Board Boot Requirements CLIENT (TBBR-CLIENT), Document number: ARM DEN0006C-1, Copyright ARM Limited 2011-2015</p>
+- [Linaro Releases](linaro-gcc-linaro-7.2.1)</p>
+- [linaro-gcc-linaro-7.2.1](http://releases.linaro.org/components/toolchain/binaries/7.2-2017.11/aarch64-linux-gnu/gcc-linaro-7.2.1-2017.11-x86_64_aarch64-linux-gnu.tar.xz)</p>
+- [linaro-connect-las16-402-slides](https://connect.linaro.org/resources/las16/las16-402/)</p>
+- [Trusted Firmware For Cortex-A User Guide, Building and using the fip tool](https://github.com/ARM-software/arm-trusted-firmware/blob/master/docs/user-guide.rst#45building-and-using-the-fip-tool)</p>
+- [Trusted Firmware For Cortex-A User Guide, Building and using the cert tool](https://github.com/ARM-software/arm-trusted-firmware/blob/master/docs/user-guide.rst#47building-the-certificate-generation-tool)</p>
+- [Using RSA Private Key to Generate Public Key, Stackoverflow](https://stackoverflow.com/questions/5244129/use-rsa-private-key-to-generate-public-key)</p>
+- [Public-Private Key Encryption Using Openssl](https://www.devco.net/archives/2006/02/13/public_-_private_key_encryption_using_openssl.php)</p>
+
+</blockquote></details>
+
+***
+
+After power-on, the [MBL secure boot process]() brings the system into a secure computing state by allowing only authorized versions of software components to run. To do this, the secure boot implements the following processing for each component in a list of boot chain components:
+
+1. Loads the component into memory.
+1. Computes a hash (signature) of the component's binary image. Then:<!--the hash of the image or a hash for the image?-->
+    * If the hash matches the hash in the authority's 'component content' certificate<!--where did that come in?-->, then the image has been authenticated and will run.
+    * Otherwise, it stops booting, and possibly enters a recovery mode (depending on configuration)<!--who sets this configuration?-->.
 
 For example, the processing logic iterates over the following boot chain components and associated content certificates:
+
 * TF-A BL2 has the [TRUSTED-BOOT-FW-CERT](#TRUSTED-BOOT-FW-CERT) content certificate.
 * TF-A BL31 (Secure Monitor) has the [SOC-FW-CONTENT-CERT](#SOC-FW-CONTENT-CERT) content certificate.
 * TF-A BL32 (OPTEE) has the [TRUSTED-OS-FW-CONTENT-CERT](#TRUSTED-OS-FW-CONTENT-CERT) content certificate.
 * TF-A BL33 (u-boot) has the [NON-TRUSTED-FW-CONTENT-CERT](#NON-TRUSTED-FW-CONTENT-CERT) content certificate.
 
-The "signing" process of generating the content certificates is performed as part of the MBL build, and has the following generic procedure:
+The **signing** process that generates the content certificates is performed as part of the MBL build, and follows a set procedure:
+<!--I'm assuming this process goes in the listed order, so I'm changing from bullets to numbers-->
 
-* When TF-A first builds, TF-A generates a set of "dummy" PKI keying material including ROTPK/ROTPrvK and TBBR certificate chains.
-  This is required so as to reserve space in BL1/BL2 for ROTPK hashes, for example.
-* TF-A artifacts are packaged into a FIP image which includes the BL3x boot chain components and associated certificates
-  i.e. BL31, BL32, BL33, [TRUSTED-BOOT-FW-CERT](#TRUSTED-BOOT-FW-CERT), [SOC-FW-CONTENT-CERT](#SOC-FW-CONTENT-CERT),  
-  [TRUSTED-OS-FW-CONTENT-CERT](#TRUSTED-OS-FW-CONTENT-CERT) and [NON-TRUSTED-FW-CONTENT-CERT](#NON-TRUSTED-FW-CONTENT-CERT).
-    * Boot chain build artifacts are stored in the DEPLOY_IMAGE_DIR directory in the build workspace.
-      This includes the FIP image. They are used again later in the signing process.
-* A new set of develop keying material is generated for the "Developer Security Domain".
+1. When TF-A first builds, it generates a set of "dummy" PKI keying material, including ROTPK/ROTPrvK and TBBR certificate chains. This reserves space in BL1 and BL2 for ROTPK hashes.<!--which part of it is the example, the BL1 and 2 or the ROTPK?, for example.-->
+1. TF-A artifacts are packaged into an FIP image<!--by who?-->, which includes the BL3x boot chain components and associated certificates: BL31, BL32, BL33, [TRUSTED-BOOT-FW-CERT](#TRUSTED-BOOT-FW-CERT), [SOC-FW-CONTENT-CERT](#SOC-FW-CONTENT-CERT), [TRUSTED-OS-FW-CONTENT-CERT](#TRUSTED-OS-FW-CONTENT-CERT) and [NON-TRUSTED-FW-CONTENT-CERT](#NON-TRUSTED-FW-CONTENT-CERT).
+
+    Boot chain build artifacts, including the FIP image, are stored in the `DEPLOY_IMAGE_DIR` directory in the build workspace. They are used again later in the signing process.
+1. A new set of developer keying material is generated for the **Developer Security Domain**.<!--by who?-->
     * The developer security domain has its own ROTPK/ROTPrvK.
-    * Some developer keying material will be generated once and used for many different builds e.g. the ROTPK/ROTPrvK
-      will be used for all developer builds.
-    * Developer content certificates will change each time the hash of the associated binary image changes.    
-* The auto-generated "dummy" keying material is replaced by the developer keying material.
-    * On signing for the first time, the FIP image is updated by deleting the dummy content certificates and adding
-      the new developer content certificates.
-* If any of the COMPONENTS change such that the hash of the binary image changes then new contents certificates are generated using
-  the developer ROTPK/ROTPrvK.
-    * If BL2 changes then a new [TRUSTED-BOOT-FW-CERT](#TRUSTED-BOOT-FW-CERT) content certificate is generated and updated into the FIP image.
-    * If BL31 changes then a new [SOC-FW-CONTENT-CERT](#SOC-FW-CONTENT-CERT) content certificate is generated and updated into the FIP image.
-    * If BL32 changes then a new [TRUSTED-OS-FW-CONTENT-CERT](#TRUSTED-OS-FW-CONTENT-CERT) content certificate is generated and updated into the FIP image.
-    * If BL33 changes then a new [NON-TRUSTED-FW-CONTENT-CERT](#NON-TRUSTED-FW-CONTENT-CERT) content certificate is generated and updated into the FIP image.
+    * Some developer keying material are generated once and used for many different builds. For example, the ROTPK/ROTPrvK will be used for all developer builds.
+    * Developer content certificates change each time the hash of the associated binary image changes.    
+1. The autogenerated "dummy" keying material in the FIP image is replaced by the developer keying material: the dummy content is deleted and the new developer content certificate is added. <!--who does all this?-->
 
-This document describes the process for re-signing binary artifacts with a new set of developer generated keying material.
+1. If any of the COMPONENTS change, the hash of the binary image also changes. The new contents certificates are generated <!--by who?-->using the developer ROTPK/ROTPrvK, and updated in the FIP image:
+    * If BL2 changes: a new [TRUSTED-BOOT-FW-CERT](#TRUSTED-BOOT-FW-CERT).
+    * If BL31 changes: a new [SOC-FW-CONTENT-CERT](#SOC-FW-CONTENT-CERT).
+    * If BL32 changes: a new [TRUSTED-OS-FW-CONTENT-CERT](#TRUSTED-OS-FW-CONTENT-CERT).
+    * If BL33 changes: a new [NON-TRUSTED-FW-CONTENT-CERT](#NON-TRUSTED-FW-CONTENT-CERT).
 
+This document describes the process of resigning binary artifacts with a new set of developer-generated keying material.<!--oh, okay... I should warn people. Something about "this document is about the last step of the following process". That will help them skim the rest-->
 
-## <a name="section-1-2"></a> 1.2 Prerequisites
+### Prerequisites
 
-The development machine should have ```openssl``` pre-installed on the machine. This is used to generate new developer keys, for example.
+The development machine should have `openssl` (to generate new developer keys, for example).
 
-
-## <a name="section-1-3"></a> 1.3 Terminology
-
-This section defines terminology used throughout this document.
-
-    Acronym             Definition
-
-    AP                  Application Processor
-    BL                  Bootloader
-    BL1                 1st Stage Boot Loader
-    BL2                 2nd Stage Boot Loader
-    BL31                3rd Stage Boot Loader - Part 1.
-                          - e.g. Secure Monitor running in EL1-SW.
-    BL32                3rd Stage Boot Loader - Part 2.
-                          - e.g. OPTEE, the secure world OS.
-    BL33                3rd Stage Boot Loader - Part 3.
-                          - e.g. u-boot, the Normal World boot loader.
-                          - Also referred to as Non-Trusted World Firmware (NT-FW).
-    COT                 Chain of Trust
-    DEPLOY_DIR          Yocto symbol for the MBL build deploy directory:
-                        <src_root>/build-mbl/tmp-mbl-glibc/deploy
-    DEPLOY_DIR_IMAGE    Yocto symbol for the MACHINE specific deploy directory
-                        ${DEPLOY_DIR}/images/${MACHINE}/
-    DTB                 Device Tree Binary
-    EL0-NW              Execution Level 0 - Normal World.
-                          - Lowest privilege level, non-secure, e.g. for Linux applications.
-    EL0-SW              Execution Level 0 - Secure World.
-                          - Lowest privilege level, secure, e.g. for trusted applications.
-    EL1-NW              Execution Level 1 - Normal World.
-    EL1-SW              Execution Level 1 - Secure World.
-    EL2-NW              Execution Level 2 - Normal World
-    EL2-SW              Execution Level 2 - Secure World
-    EL3-NW              Execution Level 3 - Normal World. Highest privilege
-    EL3-SW              Execution Level 3 - Secure World.
-                          - Highest privilege level, secure, e.g. for BL1 bootROM, Secure Monitor.
-    FIP                 Firmware Image Package. This is a "simple filesystem" for
-                        managing signed bootchain components.
-    FIT                 Flat Image Tree. This is a Linux Kernel image container for
-                        holding the kernel, kernel DTB abd initramfs.
-    MBL                 mbed Linux OS
-    NT                  Non-Trusted
-    NT-FW               Non-Trusted Firmware Binary (TF-A fiptool)
-                          - e.g. BL33 u-boot. Runs at EL2-NW
-    NT-FW-CERT          Non-Trusted Firmware Certificate (TF-A fiptool)
-                          - e.g. u-boot content certificate.
-    NT-FW-KEY-CERT      Non-Trusted Firmware Certificate (TF-A fiptool)
-    NW                  Normal World (TrustZone)
-    SW                  Secure World (TrustZone)
-    SOC-FW              System-On-Chip Firmware Binary (TF-A fiptool)
-    SOC-FW-CERT         System-On-Chip Firmware Certificate (TF-A fiptool)
-    SOC-FW-KEY-CERT     System-On-Chip Firmware Key Certificate (TF-A fiptool)
-
-    ROTPK               Root of Trust Public Key
-    ROTPrvK             Root of Trust Private Key
-    TBBR                Trusted Board Boot Requirements
-    TBBR-CLIENT         TBBR Specification document
-    TB-FW               Trusted Board Firmware Binary (TF-A fiptool)
-    TB-FW-CERT          Trusted Board Firmware Certificate (TF-A fiptool)
-    TB-FW-KEY-CERT      Trusted Board Firmware Key Certificate (TF-A fiptool)
-    TF-A                Trusted Firmware for Cortex-A
-    TOS-FW              Trusted OS Firmware Binary (TF-A fiptool)
-    TOS-FW-CERT         Trusted OS Firmware Certificate (TF-A fiptool)
-    TOS-FW-EXTRA1       Trusted OS Firmware Extra-1 Binary (TF-A fiptool)
-    TOS-FW-EXTRA2       Trusted OS Firmware Extra-2 Binary (TF-A fiptool)
-    TOS-FW-KEY-CERT     Trusted OS Firmware Key Certificate (TF-A fiptool)
-    TRUSTED-KEY-CERT    Trusted Key Certificate.
-                          - Contains the trusted world public key.
-                          - Contains the non-trusted world public key.
-
-**Table 1: Acronyms.**
-
-
-
-
-## <a name="section-2-0"></a> 2.0 The Secure Boot Chain and Signing Components
+## The secure boot chain and signing components
 
 This section describes the secure boot chain.
 
+### The generic TF-A secure boot chain
 
-## <a name="section-2-1"></a> 2.1 The Generic TF-A Secure Boot Chain
+In general terms, a secure boot chain consists of N bootloaders (BL), with a chain formed by the bootloaders running in order: BL1, BL2, BL3, ... BLN-1.<!--out of curiosity, why N-1 rather than N?--> Table 1 introduces these terms and how they map to the TBBR-Client secure boot reference specification:
 
-    BLx     Definition              TBBR-Client Term          MBL           `fiptool` option
-    ----------------------------------------------------------------------------------------
+| BLx | Definition | TBBR-Client Term | MBL <!--mbl what?-->| `fiptool` option |
+| --- | --- | --- | --- | --- |
+| BL1 | 1st Stage Bootloader | BootROM  | | |
+| BL2 | 2nd Stage Bootloader | Trusted Boot Firmware | | `--tb-fw`ss |
+| BL31 | 3rd Stage Part 1 BL  | SoC AP Firmware | Secure Monitor | `--soc-fw` |
+| BL32 | 3rd Stage Part 2 BL | Secure Payload | OPTEE | `--tos-fw` |
+| BL33 | 3rd Stage Part 3 BL | Normal World Firmware | u-boot | `--nt-fw` |
 
-    BL1     1st Stage Bootloader    BootROM                       
-    BL2     2nd Stage Bootloader    Trusted Boot Firmware                   `--tb-fw`ss
-    BL31    3rd Stage Part 1 BL     SoC AP Firmware         Secure Monitor  `--soc-fw`
-    BL32    3rd Stage Part 2 BL     Secure Payload          OPTEE           `--tos-fw`
-    BL33    3rd Stage Part 3 BL     Normal World Firmware   u-boot          `--nt-fw`
+<a name="table1"></a><!--both tables were called table 1-->
+**Table 1: Terminology normalisation.**
+<!--how did we end up with more than one terminology table? And what does "normalisation" mean in this context?-->
 
-<a name="table1"></a>
-**Table 1: Terminology Normalisation.**
-
-
-Logically, a secure boot chain consists of N Boot-Loaders (BL) where (in general terms) the chain is formed by the
-boot-loaders running in order i.e. BL1, BL2, BL3, ... BLN-1. [Table 1](#table1) introduces these terms and how they
-map to the TBBR-Client secure boot reference specification (see TBBR-Client in the [References section](#section-4-0)).
-
-In [Table 1](#table1):
-
-* Column 1 is the BLx acronym for the boot-loader stage. These
-  acronyms are used throughout this document to introduce the logical structure of the bootchain functionality
-  because it's easy to remember that BL1 comes before BL2 etc., and BL1 is the first component that runs after
-  power is reset.
+* Column 1 is the BLx acronym for the boot-loader stage. These acronyms are used throughout this document to introduce the logical structure of the boot chain functionality, because it's easy to remember that BL1 is the first component that runs after power is reset, and that it comes before BL2.
 * Column 2 provides a definition of the BLx acronym.
 * Column 3 gives the equivalent term used in the TBBR-Client specification.
-* Column 4 gives the mbed Linux OS selected software component to fulfill the BLx role at runtime (i.e. after the bootchain has brought up the system, some of the authenticated components continue running in the system).
-* Column 5 provides the `fiptool/cert_create` TF-A tool option for referencing the particular bootchain component in the FIP image or certificate creation process. These tools will be discussed in more detail later.
+* Column 4 gives the Mbed Linux OS software component that fulfils the BLx role at runtime (that is, after the boot chain has brought up the system, some of the authenticated components continue running in the system<!--in the system as opposed to the boot, or is "in the system" not really necessary in the sentence?-->).
+* Column 5 provides the `fiptool/cert_create` TF-A tool option for referencing the particular boot chain component in the FIP image or certificate creation process. These tools will be discussed in more detail later.
 
-<a name="fig1"></a>
-![fig1](assets/LAS16-402_slide_15.png "Figure 1")
-**Figure 1: Linaro Connect 2016 Presentation LAS16-402 [slide 15][linaro-connect-las16-402-slides] showing AArch64 secure boot process.**
+<span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/secure_boot_process.png)<span>**Figure 1:** Linaro Connect 2016 Presentation LAS16-402 showing AArch64 secure boot process.</span></span>
 
+<!--just to double check that we're okay with having this image - with the Linaro logo - in the public docs.-->
 
-[Figure 1](#fig1) shows the Cortex-v8A AArch64 generic secure boot process which is the starting point for discussing the RPI3 secure boot.
+[Figure 1](#fig1) shows the ARMv8-A AArch64<!--so says the internal doc for it: https://developer.arm.com/docs/den0024/latest/armv8-a-architecture-and-processors/armv8-a--> generic secure boot process, which is the starting point for discussing the RPi3 secure boot.
 
-* The first column shows the software components that execute from secure ROM.
-* The second column shows the software components that execute from secure on-chip RAM.
-* The third column shows the software components that execute from secure RAM, which may be on or off the SoC.
-* The forth column shows the software components that execute from insecure DRAM, which is off-chip.
-* After power on reset, the first component to run is the AP bootROM, also known as the first stage boot loader BL1 (shown as AP\_BL1 figure).
-    * BL1 executes at the EL3-SW execution level and is known as the BootROM in the TBBR-Client specification (see [Table 1](#table1) row 1).
-    * BL1 loads the second stage bootloader BL2 into secure on-chip RAM (wide arrow, BL2 is denoted AP\_BL2 in the figure).
-    * BL1 authenticates BL2.
-    * If BL2 is successfully authenticated then BL1 runs BL2 (thin black arrow).
-* BL2 orchestrates the loading and running of the third stage bootloader components:
-    * BL2 executes at the EL1-SW execution level and is known as the Trusted Boot Firmware in the TBBR-Client specification (see [Table 1](#table1) row 2).
-    * BL2 loads the third stage bootloader BL31 into secure on-chip RAM. BL31 is known as "SoC AP Firmware" in the TBBR-CLIENT specification. In MBL this is the TF-A Secure Monitor.
-    * BL2 authenticates BL31. If BL31 fails authentications then the secure boot stops (recovery mode may be entered).
-    * BL2 loads the third stage bootloader BL32 into secure on-chip RAM. BL32 is known as the "Secure Payload" in the TBBR-CLIENT specification. In MBL this is OPTEE.
-    * BL2 authenticates BL32. If BL32 fails authentications then the secure boot stops (recovery mode may be entered).
-    * BL2 loads the third stage bootloader BL33 into secure on-chip RAM. BL33 is known as the "Normal World Firmware" in the TBBR-CLIENT specification. In MBL this is u-boot.
-    * BL2 authenticates BL33. If BL33 fails authentications then the secure boot stops (recovery mode may be entered).
-    * BL2 runs BL31.
-* BL31 runs BL32 and then blocks waiting for BL32 to complete initialisation.
-    * BL31 executes at the EL3-SW execution level and is known as the Soc AP Firmware in the TBBR-Client specification (see [Table 1](#table1) row 3).
-    * BL31 is also known as the Secure Monitor.
-* BL32 (Secure Payload, OPTEE) runs and initialises.
-    * BL32 executes at the EL1-SW execution level and is known as the Secure Payload in the TBBR-Client specification (see [Table 1](#table1) row 4).
-    * When initialisation is complete, it makes an "External Hand-Off API call" so BL31 (Secure Monitor) will to continue with secure boot chain processing.
-      BL32 continues to run in the system.
-* BL31 (SoC AP Firmware, Secure Monitor) resumes and runs BL33 (Normal World Firmware, u-boot). BL31 continues to run in the system.
-* BL33 orchestrates the loading and running of the Rich OS.
-    * BL33 executes at the EL2-NW execution level and is known as the Normal World Firmware in the TBBR-Client specification (see [Table 1](#table1) row 5).
-    * BL33 in MBL is u-boot.
-    * BL33 loads the Linux kernel kernel into memory.
-    * BL33 authenticates the Linux kernel. If authentication fails then the secure boot stops (recovery mode may be entered).
-    * BL33 loads the Linux kernel initramfs into memory.
-    * BL33 authenticates the Linux initramfs. If authentication fails then the secure boot stops (recovery mode may be entered).
-    * BL33 loads the Linux kernel DTB into memory.
-    * BL33 authenticates the Linux DTB. If authentication fails then the secure boot stops (recovery mode may be entered).
-    * BL33 runs the Linux kernel kernel.
-* The secure boot chain process has now completed.
+Each column shows the software components that execute in a specific location:
 
+* Column 1: secure ROM.
+* Column 2: secure on-chip RAM.
+* Column 3: secure RAM, which may be on or off the SoC.
+* Column 4: insecure DRAM, which is off-chip.
 
-## <a name="section-2-2"></a> 2.2 The RPI3 boot chain
+The flow:<!--we keep saying "x is known as y and z" but that's all in the table; why repeat it here, or if we say it here, why have the table? I removed it as duplicate-->
 
-The RPI3 boot chain differs from the generic TF-A secure boot chain in the following ways:
+1. After power on or<!--I think we need an "or", unless we treat "power on reset" as a phrase--> reset, the first component to run is the AP bootROM<!--this is two words in the diagram: Boot ROM--> (shown as `AP_BL1`). It executes at the EL3-SW execution level:
+    1. BL1 loads the second stage bootloader BL2 into secure on-chip RAM (wide arrow; BL2 shown as `AP_BL2`).
+    1. BL1 authenticates BL2.
+    1. If BL2 authentication is successful, then BL1 runs BL2 (thin black arrow).
+    <!--and if it's not? for other stages we say "secure mode may be entered" do we stop and the device can't finish booting? do we report the problem?-->
+1. BL2 executes at the EL1-SW execution level, and is known as the *Trusted Boot Firmware* in the TBBR-Client specification. It loads and runs the third stage bootloader components:
+    1. BL2 loads the third stage bootloader BL31 into secure on-chip RAM.
+    1. BL2 authenticates BL31. If authentication fails, the secure boot stops (recovery mode may be entered<!--what does that depend on?-->).
+    1. BL2 loads the third stage bootloader BL32 into secure on-chip RAM.
+    1. BL2 authenticates BL32. If authentication fails, the secure boot stops (recovery mode may be entered).<!--again, what does that depend on?-->
+    1. BL2 loads the third stage bootloader BL33 into secure on-chip RAM.
+    1. BL2 authenticates BL33. If authentication fails, the secure boot stops (recovery mode may be entered).<!--normal question-->
+    1. BL2 runs BL31.
+1. BL31 executes at the EL3-SW execution level. It runs BL32, then blocks while waiting for BL32 to complete initialisation.<!--out of curiosity, why does BL2 authenticate stages that it doesn't run?-->
+1. BL32 executes at the EL1-SW execution level. It runs and initialises.
 
-* The RPI3+ uses a Broadcom BCM2837B0 SoC with a 1.4 GHz 64-bit quad-core ARM Cortex-A53 processor and a VideoCore IV GPU.
-* A bootROM (BL0) runs on the GPU but does not use the TF-A BL1 code. BL0 implements RPI3 specific processing logic which loads `armstub8.bin` into memory if `armstub8.bin`
-  is present on the SDCard boot partition.
-* The RPI3 is not secure.
-    * The BCM2837B0 SoC fabric has not wired up the ARM Trustzone Secure-World/Non-Secure-World address line, and therefore it's always
-      possible for a DMA engine to read RAM configured as secure memory.
-    * The GPU sets the A53 into ELx-NW before running `armstub8.bin` i.e. the system is not in a secure state when the first programmable boot chain component runs.
-* `armstub8.bin` includes a "normalisation" version of BL1 which authenticate BL2. BL1 therefore contains a ROTPK hash which is used as part of the authentication process. The benefit of including BL1
-   is that the RPI3 bootchain is thereby identical to the generic TF-A bootchain from BL2 onwards.
+    When initialisation is complete, it makes an *External Hand-Off API call* so BL31 will continue with secure boot chain processing.
 
+    BL32 continues to run in the system.
+1. BL31 resumes and runs BL33.
 
-## <a name="section-2-3"></a> 2.3 The TBBR chain of trust
+    BL31 continues to run in the system.
+1. BL33 executes at the EL2-NW execution level. It loads and runs the Rich OS.
+    1. BL33 loads the Linux kernel kernel into memory.
+    1. BL33 authenticates the Linux kernel. If authentication fails, the secure boot stops (recovery mode may be entered).
+    1. BL33 loads the Linux kernel initramfs into memory.
+    1. BL33 authenticates the Linux initramfs. If authentication fails, the secure boot stops (recovery mode may be entered).
+    1. BL33 loads the Linux kernel DTB into memory.
+    1. BL33 authenticates the Linux DTB. If authentication fails, the secure boot stops (recovery mode may be entered).
+    1. BL33 runs the Linux kernel kernel.
+1. The secure boot chain process has now completed.
 
-<a name="fig2"></a>
-![fig2](assets/tbbr_cot_2.png "Figure 1")
-**Figure 2: TBBR chain of trust certificate chains used by the secure boot components.**
+### The RPi3 boot chain
 
-[Figure 2](#fig2) shows the TBBR certificate chains as specified in the TBBR specification. The entities relevant to the discussion in this document are described below:
+The RPi3 boot chain differs from the generic TF-A secure boot chain in the following ways:
 
-* ROTPK. This is a key certificate containing the ROTPK (ROT public key).
+* The RPi3+ uses a Broadcom BCM2837B0 SoC with a 1.4 GHz 64-bit quad-core ARM Cortex-A53 processor and a VideoCore IV GPU.
+* A bootROM (BL0) runs on the GPU but does not use the TF-A BL1 code. BL0 implements RPi3-specific processing logic, which loads `armstub8.bin` into memory if `armstub8.bin` is present on the SDCard boot partition.
+* The RPi3 is not secure:
+    * The BCM2837B0 SoC fabric has not wired up the ARM Trustzone Secure-World/Non-Secure-World address line, and therefore it's always possible for a DMA engine to read RAM configured as secure memory.
+    * The GPU sets the A53 into ELx-NW before running `armstub8.bin`. That is, the system is not in a secure state when the first programmable boot chain component runs.
+* `armstub8.bin` includes a "normalisation" version of BL1, which authenticate BL2. BL1 therefore contains a ROTPK hash that is used as part of the authentication process. The benefit of including BL1 is that the RPi3 boot chain is thereby identical to the generic TF-A bootchain from BL2 onwards.
+
+### The Trusted Board Boot Requirements chain of trust
+
+Figure 2 shows the certificate chains in the TBBR specification:
+
+<span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/tbbr_cot_2.png)<span>**Figure 2:** TBBR chain of trust certificate chains used by the secure boot components.</span></span>
+<!--chain of chains? -->
+
+The entities relevant to this document:
+
+* ROTPK. This is a key certificate containing the Root of Trust Public Key (ROTPK).<!--ROTPK contains itself?-->
     * The associated private key is used to sign the following certificates:
         * [TRUSTED-KEY-CERT](#TRUSTED-KEY-CERT).
         * [TRUSTED-BOOT-FW-CERT](#TRUSTED-BOOT-FW-CERT).
-    * A ROTPK hash is embedded in the RPI3 BL1 and BL2 images.
+    * An ROTPK hash is embedded in the RPi3 BL1 and BL2 images.
 * <a name="TRUSTED-KEY-CERT"></a> TRUSTED-KEY-CERT.
     * This contains the trusted world signing public key `trusted_world_pk` for authenticating certificates chains of trusted world components.
       The associated private key is used to sign the following certificates:
@@ -273,7 +393,7 @@ The RPI3 boot chain differs from the generic TF-A secure boot chain in the follo
     * This certificate is present in the FIP image. `fiptool` refers to this FIP image component using the [`--nt-fw-cert`](#fiptool-help) option.
 
 
-## <a name="section-2-4"></a> 2.4 BL1, BL2, FIP and FIT image composition
+### BL1, BL2, FIP and FIT image composition
 
 
     BL1 Image
@@ -377,12 +497,12 @@ The RPI3 boot chain differs from the generic TF-A secure boot chain in the follo
       loading the Linux Kernel.
 
 
-## <a name="section-3-0"></a> 3.0 Re-signing RPI3 BL1/BL2/FIP images with a new developer ROTPrvK
+## Re-signing RPi3 BL1/BL2/FIP images with a new developer ROTPrvK
 
-This section describes how to re-sign the RPI3 BL1/BL2/FIP images with a new developer ROTPrvK. An overview of the re-signing process is described below:
+This section describes how to re-sign the RPi3 BL1/BL2/FIP images with a new developer ROTPrvK. An overview of the re-signing process is described below:
 
 1. A new developer ROTPrvK is generated.
-1. The BL1 and FIP image are unpacked from the RPI3 `armstub8.bin`. The FIP image components are then unpacked.
+1. The BL1 and FIP image are unpacked from the RPi3 `armstub8.bin`. The FIP image components are then unpacked.
 1. BL1 and BL2 are patched with the new develoepr ROTPK hash. This means all the certificates have to be regenerated because the new ROTPK is at the root of all the TBBR certicate chains.
 1. New certificate chains are generated for all the components using the new developer ROTPK/ROTPrvK.
 1. A new FIP is created with the new certificate chains and BL2.
@@ -407,7 +527,7 @@ The above proceedure is currently accomplished by manually working through the f
 * [Step 3.10:](#section-3-10) Boot the new armstub8.bin.
 
 
-## <a name="section-3-1"></a> 3.1: Get the re-signing scripts
+### Get the re-signing scripts
 
 The re-signing scripts are stored in the rpi3-cst git repository https://gitlab.com/grandpaul/rpi3-cst. Get a local copy of these tools by cloning the git repository:
 
@@ -439,7 +559,7 @@ These scripts should be made available on the PATH by adding the rpi3-cst direct
     export PATH=`pwd`/rpi3-cst:$PATH
 
 
-## <a name="section-3-2"></a> <a name="fiptool"></a> 3.2: Build the ATF fiptool
+### Build the ATF fiptool
 
 The instructions for building the fiptool are available in the [ATF user guide][atf-user-guide-fiptool]. In summary:
 
@@ -447,24 +567,25 @@ The instructions for building the fiptool are available in the [ATF user guide][
 1. Extract it to somewhere sensible on your devhost e.g.: ```/opt/linaro/```
 1. Put the Linaro GCC AArch64 toolchain on the path:
 
-    ```export PATH=/opt/linaro/gcc-linaro-7.2.1-2017.11-x86_64_aarch64-linux-gnu/bin:$PATH```
+    `export PATH=/opt/linaro/gcc-linaro-7.2.1-2017.11-x86_64_aarch64-linux-gnu/bin:$PATH`
 
 1. Get a clone of the arm-trusted-firmware repo:
 
-	```git clone https://github.com/ARM-software/arm-trusted-firmware.git```
+	`git clone https://github.com/ARM-software/arm-trusted-firmware.git`
 
-1. Move into the top level ATF directory ```arm-trusted-firmware``` and build the ```fiptool``` as follows:
+1. Move into the top level ATF directory `arm-trusted-firmware` and build the `fiptool` as follows:
 
-    ```make [DEBUG=1] [V=1] fiptool```
+    `make [DEBUG=1] [V=1] fiptool`
 
    On a successful build, ```fiptool``` will be in ```arm-trusted-firmware/tool/fiptool```.
 
 1. Make ```fiptool``` available on the PATH:
 
-    ```export PATH=`pwd`/tool/fiptool:$PATH```
+    `export PATH=`pwd`/tool/fiptool:$PATH`
 
 
 <a name="fiptool-help"></a>
+
 For reference, the ```fiptool``` help is shown below.
 
     user@machine:/data/2284/test/to_delete/20181018/pr239/work$ fiptool -h
@@ -519,7 +640,7 @@ For reference, the ```fiptool``` help is shown below.
 
 Note the ```fiptool``` help output uses the TBBR terminology.
 
-## <a name="section-3-3"></a> 3.3: Build the ATF cert_create tool
+### Build the ATF cert_create tool
 
 The instructions for building the cert_create are available in the [ATF user guide][atf-user-guide-cert-create-tool] section for building the certificate generation tool. In summary:
 
@@ -592,7 +713,7 @@ For reference, the ```cert_create``` help is shown below.
 Note the ```fiptool``` help output uses the TBBR terminology.
 
 
-## <a name="section-3-4"></a> 3.4: Unpack armstub8.bin and fip.bin
+### Unpack armstub8.bin and fip.bin
 
 Create the ```work``` subdirectory and copy the ```armstub8.bin``` from the ```DEPLOY_DIR_IMAGE``` into it:
 
@@ -648,7 +769,7 @@ The ```fip_components``` subdirectory now contains the following:
 Use the ```fiptool``` [help command output](#section-3-2) and the [Terminology](#section-1-3) section to understand how the  above ```.bin``` files map to entities in boot chain.
 
 
-## <a name="section-3-5"></a> 3.5 Generate new ROTPK/ROTPrvK (public/private) key pair
+### Generate new ROTPK/ROTPrvK (public/private) key pair
 
 First, generate a new ROT key pair (which will is stored in the file rot_key.pem in the new_keys subdirectory:
 
@@ -699,7 +820,7 @@ Devco article ["Public Private key encryption using OpenSSL"][devco-net-ref-1-ge
     $ openssl rsa -in private.pem -out public.pem -outform PEM -pubout
 
 
-## <a name="section-3-6"></a> 3.6 Generate new developer ROTPK hash
+### Generate new developer ROTPK hash
 
 Next generate a SHA256 hash of the ROTPK and store it in the ```new_keys/rotpk_sha256.bin``` file:
 
@@ -713,7 +834,7 @@ The contents of the hash `rotpk_sha256.bin` file can be seen with the following 
     0000010 37c6 7a04 87d8 a4e0 67d2 10ca f8fe 8620
 
 
-## <a name="section-3-7"></a> 3.7 Patch BL1 image with the new developer ROTPK hash
+### Patch BL1 image with the new developer ROTPK hash
 
 The BL1 image binary `bl1.bin` is copied into the `new_keys` directory ready for patching. For reference, the current contents of the `new_keys` directory is shown below:
 
@@ -735,7 +856,7 @@ The `bl1.bin` ROTPK hash is patched by replacing the old hash with the new hash 
     eb 3d 25 5d b9 31 b5 7c f1 98 0d 88 de 1d e4 55
     user@machine:/data/2284/test/to_delete/20181018/pr239/work$
 
-## <a name="section-3-8"></a> 3.8 Patch BL2 image with the new developer ROTPK hash
+### Patch BL2 image with the new developer ROTPK hash
 
 The ATF name for BL2 image is `tb-fw.bin`. The BL2 image binary `tb-fw.bin` is copied into the new_keys directory ready for patching.
 
@@ -766,7 +887,7 @@ This is somewhat confused by using the hack_bl1_rothash.py script (a script with
     user@machine:/data/2284/test/to_delete/20181018/pr239/work$
 
 
-## <a name="section-3-9"></a> 3.9 Regenerate armstub8.bin with new developer ROTPK
+### Regenerate armstub8.bin with new developer ROTPK
 
 The following `update_bl3x.sh` command line is used to generate a new `armstub8.bin` with the new ROT private key, patched BL1 binary, patched BL2 binary:
 
@@ -819,9 +940,9 @@ The following trace shows the output of the `update_bl3x.sh` command:
     user@machine:/data/2284/test/to_delete/20181018/pr239/work$
 
 
-## <a name="section-3-10"></a> 3.10 Boot the new armstub8.bin
+### Boot the new armstub8.bin
 
-The new `armstub8_new.bin` is now copied to the RPI3 SDCard boot partition:
+The new `armstub8_new.bin` is now copied to the RPi3 SDCard boot partition:
 
 
     user@machine:/data/2284/test/to_delete/20181018/pr239/work$ rm /media/user-007/boot/armstub8.bin
@@ -945,21 +1066,3 @@ The reprogrammed SDCard should now show the following boot trace:
            scanning usb for storage devices... 0 Storage Device(s) found
     Hit any key to stop autoboot:  0
     U-Boot>
-
-## <a name="section-4-0"></a> 4.0 References
-
-* Trusted Board Boot Requirements CLIENT (TBBR-CLIENT), Document number: ARM DEN0006C-1, Copyright ARM Limited 2011-2015
-* [Linaro Releases][linaro-gcc-linaro-7.2.1]
-* [Trusted Firmware For Cortex-A User Guide, Building and using the fip tool][atf-user-guide-fiptool]
-* [Trusted Firmware For Cortex-A User Guide, Building and using the cert tool][atf-user-guide-cert-create-tool]
-* [Using RSA Private Key to Generate Public Key, Stackoverflow][stackoverflow-ref-1-get-public-key]
-* [Public-Private Key Encryption Using Openssl][devco-net-ref-1-get-public-key]
-
-
-
-[atf-user-guide-fiptool]: https://github.com/ARM-software/arm-trusted-firmware/blob/master/docs/user-guide.rst#45building-and-using-the-fip-tool
-[atf-user-guide-cert-create-tool]: https://github.com/ARM-software/arm-trusted-firmware/blob/master/docs/user-guide.rst#47building-the-certificate-generation-tool
-[devco-net-ref-1-get-public-key]: https://www.devco.net/archives/2006/02/13/public_-_private_key_encryption_using_openssl.php
-[linaro-gcc-linaro-7.2.1]: http://releases.linaro.org/components/toolchain/binaries/7.2-2017.11/aarch64-linux-gnu/gcc-linaro-7.2.1-2017.11-x86_64_aarch64-linux-gnu.tar.xz
-[linaro-connect-las16-402-slides]: https://connect.linaro.org/resources/las16/las16-402/
-[stackoverflow-ref-1-get-public-key]: https://stackoverflow.com/questions/5244129/use-rsa-private-key-to-generate-public-key
