@@ -32,7 +32,7 @@ We use the `src_bundle/config.json` file to let the application interact with th
 
 ```
 
-The config file also maps the container's memory to the device's persistent memory, so that your QR codes remain in memory even after you stop the application. You can adjust the application code to use the existing mapping:
+The config file also maps the container's memory to the device's persistent memory, so that your QR codes remain in memory even after you stop the application (a containerized application does not save data between runs). You can adjust the application code to use the existing mapping:
 
 ```
 {
