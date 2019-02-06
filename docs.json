@@ -206,6 +206,10 @@
                 },
                 {
                     "type": "markdown",
+                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/refs/partition_layout.md"
+                },
+                {
+                    "type": "markdown",
                     "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/refs/contribution_guidelines.md"
                 }
             ]
