@@ -202,10 +202,6 @@
                 },
                 {
                     "type": "markdown",
-                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/refs/secure_boot.md"
-                },
-                {
-                    "type": "markdown",
                     "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/refs/partition_layout.md"
                 },
                 {
