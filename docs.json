@@ -14,18 +14,11 @@
             }]
         },
         {
-            "title": "Getting started",
+            "title": "Getting MBL on a device",
             "description": "",
-            "slug": "getting-started",
+            "slug": "first-image",
             "type": "markdown",
             "chapters": [{
-                    "title": "Introduction",
-                    "intro": {
-                        "path": "Docs/tutorials/intro_tut.md"
-                    },
-                    "sources": []
-                },
-                {
                     "title": "Setting up and supported hardware",
                     "intro": {
                         "path": "Docs/Reqs_and_env/intro_reqs.md"
@@ -63,7 +56,7 @@
                     ]
                 },
                 {
-                    "title": "Tutorial: Building an image",
+                    "title": "Building an image",
                     "intro": {
                         "path": "Docs/tutorials/building_an_image/connect_tutorial_intro.md"
                     },
@@ -77,42 +70,19 @@
                             "path": "Docs/tutorials/building_an_image/writing_booting_disk_image.md"
                         }
                     ]
-                },
-                {
-                    "title": "Tutorial: Connecting to a network and Pelion Device Management",
-                    "sources": [{
-                            "path": "Docs/tutorials/connect_network_and_pelion/connect_network.md"
-                        },
-                        {
-                            "path": "Docs/tutorials/connect_network_and_pelion/verify_device_connected.md"
-                        }
-                    ]
-                },
-                {
-                    "title": "Tutorial: User application",
-                    "intro": {
-                        "path": "Docs/tutorials/user_app_helloworld.md"
-                    },
-                    "sources": []
-                },
-                {
-                    "title": "Tutorial: updating MBL devices and applications",
-                    "intro": {
-                        "path": "Docs/tutorials/update_mbl.md"
-                    },
-                    "sources": []
                 }
+
             ]
         },
         {
-            "title": "Tools",
+            "title": "Developing applications",
             "description": "",
-            "slug": "tools",
+            "slug": "develop-apps",
             "type": "markdown",
             "chapters": [{
-                    "title": "Mbed Linux OS tools",
+                    "title": "Introduction",
                     "intro": {
-                        "path": "Docs/tools.md"
+                        "path": "Docs/tutorials/intro_tut.md"
                     },
                     "sources": []
                 },
@@ -134,18 +104,21 @@
                             "path": "Docs/mbl_cli/device_update.md"
                         }
                     ]
-                }
-            ]
-        },
-        {
-            "title": "Reference applications",
-            "description": "",
-            "slug": "ref-apps",
-            "type": "markdown",
-            "chapters": [{
-                    "title": "Introduction",
+                },
+                {
+                    "title": "Tutorial: Connecting to a network and Pelion Device Management",
+                    "sources": [{
+                            "path": "Docs/tutorials/connect_network_and_pelion/connect_network.md"
+                        },
+                        {
+                            "path": "Docs/tutorials/connect_network_and_pelion/verify_device_connected.md"
+                        }
+                    ]
+                },
+                {
+                    "title": "Tutorial: User application",
                     "intro": {
-                        "path": "Docs/ref_apps/ref_apps_intro.md"
+                        "path": "Docs/tutorials/user_app_helloworld.md"
                     },
                     "sources": []
                 },
@@ -161,9 +134,17 @@
                             "path": "Docs/ref_apps/qr_reader/usage.md"
                         }
                     ]
+                },
+                {
+                    "title": "Tutorial: updating MBL devices and applications",
+                    "intro": {
+                        "path": "Docs/tutorials/update_mbl.md"
+                    },
+                    "sources": []
                 }
             ]
         },
+
         {
             "title": "References",
             "description": "",
