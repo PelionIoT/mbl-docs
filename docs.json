@@ -70,8 +70,17 @@
                             "path": "Docs/tutorials/building_an_image/writing_booting_disk_image.md"
                         }
                     ]
+                },
+                {
+                    "title": "Tutorial: Connecting to a network and Pelion Device Management",
+                    "sources": [{
+                            "path": "Docs/tutorials/connect_network_and_pelion/connect_network.md"
+                        },
+                        {
+                            "path": "Docs/tutorials/connect_network_and_pelion/verify_device_connected.md"
+                        }
+                    ]
                 }
-
             ]
         },
         {
@@ -106,16 +115,6 @@
                     ]
                 },
                 {
-                    "title": "Tutorial: Connecting to a network and Pelion Device Management",
-                    "sources": [{
-                            "path": "Docs/tutorials/connect_network_and_pelion/connect_network.md"
-                        },
-                        {
-                            "path": "Docs/tutorials/connect_network_and_pelion/verify_device_connected.md"
-                        }
-                    ]
-                },
-                {
                     "title": "Tutorial: User application",
                     "intro": {
                         "path": "Docs/tutorials/user_app_helloworld.md"
@@ -144,7 +143,6 @@
                 }
             ]
         },
-
         {
             "title": "References",
             "description": "",
