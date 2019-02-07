@@ -8,8 +8,7 @@
             "chapters": [{
                 "title": "Introduction",
                 "intro": {
-                    "type": "markdown",
-                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/introduction.md"
+                    "path": "Docs/introduction.md"
                 },
                 "sources": []
             }]
@@ -22,30 +21,26 @@
             "chapters": [{
                     "title": "Introduction",
                     "intro": {
-                        "type": "markdown",
-                        "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/intro_tut.md"
+                        "path": "Docs/tutorials/intro_tut.md"
                     },
                     "sources": []
                 },
                 {
                     "title": "Setting up and supported hardware",
                     "intro": {
-                        "type": "markdown",
-                        "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/intro_reqs.md"
+                        "path": "Docs/Reqs_and_env/intro_reqs.md"
                     },
                     "sub_chapters": [{
                             "title": "Hardware",
                             "intro": {
-                                "type": "markdown",
-                                "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/Hardware.md"
+                                "path": "Docs/Reqs_and_env/Hardware.md"
                             },
                             "sources": []
                         },
                         {
                             "title": "Development environment",
                             "intro": {
-                                "type": "markdown",
-                                "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/Reqs_and_env/dev_env_for_distribution.md"
+                                "path": "Docs/Reqs_and_env/dev_env_for_distribution.md"
                             },
                             "sources": []
                         },
@@ -70,48 +65,40 @@
                 {
                     "title": "Tutorial: Building an image",
                     "intro": {
-                        "type": "markdown",
-                        "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/building_an_image/connect_tutorial_intro.md"
+                        "path": "Docs/tutorials/building_an_image/connect_tutorial_intro.md"
                     },
                     "sources": [{
-                            "type": "markdown",
-                            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/building_an_image/prep_resources.md"
+                            "path": "Docs/tutorials/building_an_image/prep_resources.md"
                         },
                         {
-                            "type": "markdown",
-                            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/building_an_image/building_an_mbl_image.md"
+                            "path": "Docs/tutorials/building_an_image/building_an_mbl_image.md"
                         },
                         {
-                            "type": "markdown",
-                            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/building_an_image/writing_booting_disk_image.md"
+                            "path": "Docs/tutorials/building_an_image/writing_booting_disk_image.md"
                         }
                     ]
                 },
                 {
                     "title": "Tutorial: Connecting to a network and Pelion Device Management",
                     "sources": [{
-                            "type": "markdown",
-                            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/connect_network_and_pelion/connect_network.md"
+                            "path": "Docs/tutorials/connect_network_and_pelion/connect_network.md"
                         },
                         {
-                            "type": "markdown",
-                            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/connect_network_and_pelion/verify_device_connected.md"
+                            "path": "Docs/tutorials/connect_network_and_pelion/verify_device_connected.md"
                         }
                     ]
                 },
                 {
                     "title": "Tutorial: User application",
                     "intro": {
-                        "type": "markdown",
-                        "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/user_app_helloworld.md"
+                        "path": "Docs/tutorials/user_app_helloworld.md"
                     },
                     "sources": []
                 },
                 {
                     "title": "Tutorial: updating MBL devices and applications",
                     "intro": {
-                        "type": "markdown",
-                        "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tutorials/update_mbl.md"
+                        "path": "Docs/tutorials/update_mbl.md"
                     },
                     "sources": []
                 }
@@ -125,32 +112,26 @@
             "chapters": [{
                     "title": "Mbed Linux OS tools",
                     "intro": {
-                        "type": "markdown",
-                        "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/tools.md"
+                        "path": "Docs/tools.md"
                     },
                     "sources": []
                 },
                 {
                     "title": "MBL CLI",
                     "sources": [{
-                            "type": "markdown",
-                            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/mbl_cli/mbl_cli.md"
+                            "path": "Docs/mbl_cli/mbl_cli.md"
                         },
                         {
-                            "type": "markdown",
-                            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/mbl_cli/setting_up.md"
+                            "path": "Docs/mbl_cli/setting_up.md"
                         },
                         {
-                            "type": "markdown",
-                            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/mbl_cli/command_syntax.md"
+                            "path": "Docs/mbl_cli/command_syntax.md"
                         },
                         {
-                            "type": "markdown",
-                            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/mbl_cli/usage.md"
+                            "path": "Docs/mbl_cli/usage.md"
                         },
                         {
-                            "type": "markdown",
-                            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/mbl_cli/device_update.md"
+                            "path": "Docs/mbl_cli/device_update.md"
                         }
                     ]
                 }
@@ -164,24 +145,20 @@
             "chapters": [{
                     "title": "Introduction",
                     "intro": {
-                        "type": "markdown",
-                        "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/ref_apps/ref_apps_intro.md"
+                        "path": "Docs/ref_apps/ref_apps_intro.md"
                     },
                     "sources": []
                 },
                 {
                     "title": "QR code reader",
                     "intro": {
-                        "type": "markdown",
-                        "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/ref_apps/qr_reader/intro.md"
+                        "path": "Docs/ref_apps/qr_reader/intro.md"
                     },
                     "sources": [{
-                            "type": "markdown",
-                            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/ref_apps/qr_reader/code_review.md"
+                            "path": "Docs/ref_apps/qr_reader/code_review.md"
                         },
                         {
-                            "type": "markdown",
-                            "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/ref_apps/qr_reader/usage.md"
+                            "path": "Docs/ref_apps/qr_reader/usage.md"
                         }
                     ]
                 }
@@ -193,20 +170,16 @@
             "slug": "references",
             "type": "markdown",
             "sources": [{
-                    "type": "markdown",
-                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/refs/refs_intro.md"
+                    "path": "Docs/refs/refs_intro.md"
                 },
                 {
-                    "type": "markdown",
-                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/refs/containers_packages.md"
+                    "path": "Docs/refs/containers_packages.md"
                 },
                 {
-                    "type": "markdown",
-                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/refs/partition_layout.md"
+                    "path": "Docs/refs/partition_layout.md"
                 },
                 {
-                    "type": "markdown",
-                    "url": "https://github.com/ARMmbed/mbl-docs/blob/master/Docs/refs/contribution_guidelines.md"
+                    "path": "Docs/refs/contribution_guidelines.md"
                 }
             ]
         }
