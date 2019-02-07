@@ -154,7 +154,7 @@
                 "path": "Docs/Update/intro_update.md"
             },
             "sources": [{
-                "path": "Docs/tutorials/update_mbl.md"
+                "path": "Docs/Update/update_mbl.md"
             }]
         },
         {
@@ -178,3 +178,4 @@
         }
     ]
 }
+update_
