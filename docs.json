@@ -150,10 +150,10 @@
             "description": "",
             "slug": "update",
             "type": "markdown",
-            "intro": {
+            "sources": [{
                 "path": "Docs/Update/intro_update.md"
             },
-            "sources": [{
+            {
                 "path": "Docs/Update/update_mbl.md"
             }]
         },
