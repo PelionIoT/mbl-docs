@@ -37,6 +37,28 @@ The following diagram illustrates the components and services that MBL provides:
 
 <span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/Application_containers.png)<span>When used in conjunction with Device Management, MBL provides a secure platform for developing, operating and managing IoT applications</span></span>
 
+The **application management framework** manages installing and running separate applications:
+
+* **Core application configuration**: configures the set of core applications that are run automatically when a device boots.
+* **Life-cycle management**: runs instances of an application.
+* **Package management**: installs and updates application packages.
+
+The **platform services** handle the common requirements of IoT applications:
+
+* **Network manager**: uses ConnMan to manage network connections. Future releases will include **BLE** for local connections and a **modem manager** for cellular connections.
+* **Logging framework**: tags and forwards logged events.
+* **Secure services**: protect assets using secrets storage and cryptographic operations with access control.
+
+The **Device Management Services** are integrated user-space agents that connect to the Pelion Device Management services. They provide secure remote ownership, update and monitoring for devices using the Device Management Client, and will provide a data client to manage application data. Together, the management agents extend the way in which a device is managed by providing:
+
+* Additional device configuration access:
+
+    * Over BLE (in a future release).
+    * Cloud-based, using the Pelion Device Management Connect service.
+    * Over USB (during manufacturing).
+
+* Trusted Execution Environment and OP-TEE run security-sensitive applications within the isolated environment provided by Arm TrustZone.
+
 ### Get started
 
 There are two paths to working with MBL:
