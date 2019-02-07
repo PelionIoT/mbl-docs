@@ -37,31 +37,27 @@ The following diagram illustrates the components and services that MBL provides:
 
 <span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/Application_containers.png)<span>When used in conjunction with Device Management, MBL provides a secure platform for developing, operating and managing IoT applications</span></span>
 
-The **application management** framework manages installing and running separate applications:
+The **application management framework** manages installing and running separate applications:
 
-* Package management for installing and updating application packages.
-* Life-cycle management for running instances of an application.
-* Core application configuration for configuring the set of core applications that are run automatically when a device boots.
+* **Core application configuration**: configures the set of core applications that are run automatically when a device boots.
+* **Life-cycle management**: runs instances of an application.
+* **Package management**: installs and updates application packages.
 
-The **platform services** are general purpose services common across most IoT applications:
+The **platform services** handle the common requirements of IoT applications:
 
-* The network manager uses ConnMan to manage network connections.
-* Modem management for cellular connections (future).
-* Local connectivity, for example BLE for connection to local devices.
-* A logging framework to tag and forward logged events.
-* Secure services to protect assets: secrets storage and cryptographic operations with access control.
+* **Network manager**: uses ConnMan to manage network connections. Future releases will include **BLE** for local connections and a **modem manager** for cellular connections.
+* **Logging framework**: tags and forwards logged events.
+* **Secure services**: protect assets using secrets storage and cryptographic operations with access control.
 
-MBL uses an integrated agent to connect to the **Pelion Device Management services**. The services will provide secure remote ownership, update and monitoring for devices using the Device Management Client.
-
-**Management agents** extend the way in which a device is managed. They are user-space agents providing:
+The **Device Management Services** are integrated user-space agents that connect to the Pelion Device Management services. They provide secure remote ownership, update and monitoring for devices using the Device Management Client, and will provide a data client to manage application data. Together, the management agents extend the way in which a device is managed by providing:
 
 * Additional device configuration access:
 
     * Over BLE (in a future release).
-    * Remote cloud-based (via the Pelion Connect service).
+    * Cloud-based, using the Pelion Device Management Connect service.
     * Over USB (during manufacturing).
 
-* Trusted Execution Environment and OP-TEE provide an environment for running security-sensitive applications within the isolated environment provided by Arm TrustZone.
+* Trusted Execution Environment and OP-TEE run security-sensitive applications within the isolated environment provided by Arm TrustZone.
 
 ### Get started
 
