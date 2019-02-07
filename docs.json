@@ -133,15 +133,29 @@
                             "path": "Docs/ref_apps/qr_reader/usage.md"
                         }
                     ]
-                },
-                {
-                    "title": "Tutorial: updating MBL devices and applications",
-                    "intro": {
-                        "path": "Docs/tutorials/update_mbl.md"
-                    },
-                    "sources": []
                 }
             ]
+        },
+        {
+            "title": "Developing MBL",
+            "description": "",
+            "slug": "develop-mbl",
+            "type": "markdown",
+            "sources": [{
+                "path": "Docs/dev_mbl/intro.md"
+            }]
+        },
+        {
+            "title": "Updating devices",
+            "description": "",
+            "slug": "update",
+            "type": "markdown",
+            "intro": {
+                "path": "Docs/Update/intro_update.md"
+            },
+            "sources": [{
+                "path": "Docs/tutorials/update_mbl.md"
+            }]
         },
         {
             "title": "References",
