@@ -26,6 +26,8 @@ optional arguments:
 
 ### Rootfs update
 
+<!--interesting - this needs to move-->
+
 To update the rootfs:
 
 1. Prepare a tar file containing `rootfs.tar.xz`. For a detailed explanation, see the [root file system update workflow](../getting-started/tutorial-updating-mbl-devices-and-applications.html#workflow).
