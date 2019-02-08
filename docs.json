@@ -142,29 +142,39 @@
             "slug": "develop-mbl",
             "type": "markdown",
             "sources": [{
-                "path": "Docs/dev_mbl/intro.md"
-            },
-            {
-                "path": "Docs/dev_mbl/contribution_guidelines.md"
-            }]
+                    "path": "Docs/dev_mbl/intro.md"
+                },
+                {
+                    "path": "Docs/dev_mbl/contribution_guidelines.md"
+                }
+            ]
         },
         {
             "title": "Updating devices",
             "description": "",
             "slug": "update",
             "type": "markdown",
-            "sources": [{
-                "path": "Docs/Update/intro_update.md"
-            },
-            {
-                "path": "Docs/Update/update_mbl.md"
-            },
-            {
-                "path": "Docs/Update/updating_the_image.md"
-            },
-            {
-                "path": "Docs/Update/updating_an_application.md"
-            }]
+            "chatpers": [{
+                    "title": "Understanding device update",
+                    "intro": {
+                        "path": "Docs/Update/intro_update.md"
+                    },
+                    "sources": []
+                },
+                {
+                    "title": "Update tutorials",
+                    "sources": [{
+                            "path": "Docs/Update/update_mbl.md"
+                        },
+                        {
+                            "path": "Docs/Update/updating_the_image.md"
+                        },
+                        {
+                            "path": "Docs/Update/updating_an_application.md"
+                        }
+                    ]
+                }
+            ]
         },
         {
             "title": "References",
