@@ -1,4 +1,6 @@
-## Tutorial: Updating MBL or applications
+## Updating MBL images or applications
+
+<!--something about how this covers images and apps separately, and each one has both manifest tool and MBL CLI explained-->
 
 ### Prerequisites
 

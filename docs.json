@@ -10,7 +10,9 @@
                 "intro": {
                     "path": "Docs/introduction.md"
                 },
-                "sources": []
+                "sources": [{
+                    "path": "Docs/licensing.md"
+                }]
             }]
         },
         {
@@ -91,7 +93,7 @@
             "chapters": [{
                     "title": "Introduction",
                     "intro": {
-                        "path": "Docs/tutorials/intro_tut.md"
+                        "path": "Docs/tutorials/app_dev_intro.md"
                     },
                     "sources": []
                 },

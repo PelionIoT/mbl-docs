@@ -70,7 +70,3 @@ There are two paths to working with MBL:
     1. Please [build MBL locally and flash it to your device](../getting-started/tutorial-building-an-image.html).
     1. Try our [example application](../getting-started/tutorial-user-application.html), or start writing your own application using the Linux APIs.
     1. You can also [use our update example](../getting-started/tutorial-updating-mbl-devices-and-applications.html) to send firmware updates over the air.
-
-### Licensing
-
-Both MBL and our test suites will be open source, helping you automate product testing in a modern continuous integration pipeline. For more information, please see the [Contributing section in the MBL source](https://github.com/ARMmbed/meta-mbl/blob/master/CONTRIBUTING.md).
