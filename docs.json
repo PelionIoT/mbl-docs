@@ -122,7 +122,7 @@
                     "sources": []
                 },
                 {
-                    "title": "Tutorial: accessing devices resources from an application",
+                    "title": "Tutorial: accessing device resources from an application",
                     "intro": {
                         "path": "Docs/ref_apps/qr_reader/intro.md"
                     },
