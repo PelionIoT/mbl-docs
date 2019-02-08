@@ -96,7 +96,7 @@
                     "sources": []
                 },
                 {
-                    "title": "MBL CLI",
+                    "title": "The MBL command line interface",
                     "sources": [{
                             "path": "Docs/mbl_cli/mbl_cli.md"
                         },
@@ -115,14 +115,14 @@
                     ]
                 },
                 {
-                    "title": "Tutorial: User application",
+                    "title": "Tutorial: creating a self-contained application",
                     "intro": {
                         "path": "Docs/tutorials/user_app_helloworld.md"
                     },
                     "sources": []
                 },
                 {
-                    "title": "QR code reader",
+                    "title": "Tutorial: accessing devices resources from an application",
                     "intro": {
                         "path": "Docs/ref_apps/qr_reader/intro.md"
                     },
