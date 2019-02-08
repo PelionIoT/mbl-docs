@@ -143,6 +143,9 @@
             "type": "markdown",
             "sources": [{
                 "path": "Docs/dev_mbl/intro.md"
+            },
+            {
+                "path": "Docs/dev_mbl/contribution_guidelines.md"
             }]
         },
         {
@@ -170,9 +173,6 @@
                 },
                 {
                     "path": "Docs/refs/partition_layout.md"
-                },
-                {
-                    "path": "Docs/refs/contribution_guidelines.md"
                 }
             ]
         }
