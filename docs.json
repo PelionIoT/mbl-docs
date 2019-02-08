@@ -163,9 +163,10 @@
                 },
                 {
                     "title": "Update tutorial",
-                    "sources": [{
+                    "intro": {
                             "path": "Docs/Update/tutorial_intro.md"
                         },
+                    "sources": [
                         {
                             "path": "Docs/Update/updating_the_image.md"
                         },
