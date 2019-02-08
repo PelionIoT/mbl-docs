@@ -162,9 +162,9 @@
                     "sources": []
                 },
                 {
-                    "title": "Update tutorials",
+                    "title": "Update tutorial",
                     "sources": [{
-                            "path": "Docs/Update/update_mbl.md"
+                            "path": "Docs/Update/tutorial_intro.md"
                         },
                         {
                             "path": "Docs/Update/updating_the_image.md"
