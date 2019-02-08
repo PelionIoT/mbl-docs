@@ -115,14 +115,14 @@
                     ]
                 },
                 {
-                    "title": "Tutorial: creating a self-contained application",
+                    "title": "Application with linker script and no device resources",
                     "intro": {
                         "path": "Docs/tutorials/user_app_helloworld.md"
                     },
                     "sources": []
                 },
                 {
-                    "title": "Tutorial: accessing device resources from an application",
+                    "title": "Dockerized application with device resources",
                     "intro": {
                         "path": "Docs/ref_apps/qr_reader/intro.md"
                     },
