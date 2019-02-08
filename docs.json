@@ -154,7 +154,7 @@
             "description": "",
             "slug": "update",
             "type": "markdown",
-            "chatpers": [{
+            "chapters": [{
                     "title": "Understanding device update",
                     "intro": {
                         "path": "Docs/Update/intro_update.md"
