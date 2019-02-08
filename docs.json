@@ -43,15 +43,15 @@
                             "title": "Pelion accounts and certificates",
                             "sources": [{
                                     "type": "markdown",
-                                    "url": "https://github.com/ARMmbed/mbed_Cloud_Docs/blob/R2.0/Docs/account_management/log_or_create_users.md"
+                                    "url": "https://github.com/ARMmbed/mbed_Cloud_Docs/blob/R2.1/Docs/account_management/log_or_create_users.md"
                                 },
                                 {
                                     "type": "markdown",
-                                    "url": "https://github.com/ARMmbed/mbed_Cloud_Docs/blob/R2.0/Docs/web_apps/api_keys.md"
+                                    "url": "https://github.com/ARMmbed/mbed_Cloud_Docs/blob/R2.1/Docs/web_apps/api_keys.md"
                                 },
                                 {
                                     "type": "markdown",
-                                    "url": "https://github.com/ARMmbed/mbed_Cloud_Docs/blob/R2.0/Docs/provisioning/fcc_for_development.md"
+                                    "url": "https://github.com/ARMmbed/mbed_Cloud_Docs/blob/R2.1/Docs/provisioning/fcc_for_development.md"
                                 }
                             ]
                         }
