@@ -6,14 +6,20 @@
             "slug": "welcome",
             "type": "markdown",
             "chapters": [{
-                "title": "Introduction",
-                "intro": {
-                    "path": "Docs/introduction.md"
+                    "title": "Introduction",
+                    "intro": {
+                        "path": "Docs/introduction.md"
+                    },
+                    "sources": []
                 },
-                "sources": [{
-                    "path": "Docs/licensing.md"
-                }]
-            }]
+                {
+                    "title": "Licensing",
+                    "intro": {
+                        "path": "Docs/licensing.md"
+                    },
+                    "sources": []
+                }
+            ]
         },
         {
             "title": "Getting MBL on a device",
@@ -166,10 +172,9 @@
                 {
                     "title": "Update tutorial",
                     "intro": {
-                            "path": "Docs/Update/tutorial_intro.md"
-                        },
-                    "sources": [
-                        {
+                        "path": "Docs/Update/tutorial_intro.md"
+                    },
+                    "sources": [{
                             "path": "Docs/Update/updating_the_image.md"
                         },
                         {
