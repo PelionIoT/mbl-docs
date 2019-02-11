@@ -544,6 +544,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 $
 ```
 
+
 ### String formatting
 
 Never use "+" for sting concatenation.
