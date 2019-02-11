@@ -60,6 +60,7 @@ The **Device Management Services** are integrated user-space agents that connect
 * Trusted Execution Environment and OP-TEE run security-sensitive applications within the isolated environment provided by Arm TrustZone.
 
 ### Get started
+<!--this needs to change for 1.0-->
 
 There are two paths to working with MBL:
 

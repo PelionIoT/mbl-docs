@@ -58,6 +58,9 @@
                                 {
                                     "type": "markdown",
                                     "url": "https://github.com/ARMmbed/mbed_Cloud_Docs/blob/R2.1/Docs/provisioning/fcc_for_development.md"
+                                },
+                                {
+                                  "path": "Docs/app_dev/provision_developer.md"
                                 }
                             ]
                         }
@@ -99,7 +102,7 @@
             "chapters": [{
                     "title": "Introduction",
                     "intro": {
-                        "path": "Docs/tutorials/app_dev_intro.md"
+                        "path": "Docs/app_dev/app_dev_intro.md"
                     },
                     "sources": []
                 },
