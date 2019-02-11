@@ -4,16 +4,6 @@ Mbed Linux OS (MBL) is currently a developer preview release. It is undergoing s
 
 We would be very happy to hear from you through our [support email](mailto:support@mbed.com). You can also raise a GitHub issue, but we are not expecting contributions during this period. If you do want to contribute to our projects, then please follow these contribution guidelines - all contributions to MBL must meet them.
 
-### Design and coding style
-
-Be consistent with your changes. We will share a full set of software design principles and coding style after the developer preview, but some of the main principles are:
-
-* OpenEmbedded layers and recipes: [https://www.openembedded.org/wiki/Styleguide](https://www.openembedded.org/wiki/Styleguide).
-* Python code:
-  * Mandatory PEPs (Python Enhancement Proposals): PEP20, PEP8, PEP257.
-  * Automated check scripts in our `mbl-tools` repository: [https://github.com/ARMmbed/mbl-tools/tree/mbl-os-0.5/ci/sanity-check](https://github.com/ARMmbed/mbl-tools/tree/mbl-os-0.5/ci/sanity-check).
-* C++ coding style: Internal style guide at this time.
-
 ### Contributions guidance
 
 <span class="notes">**Note**: At this stage of development, we are not expecting large contributions. See above for details.</span>
@@ -36,7 +26,7 @@ The general workflow for contributions is:
 
 ### Licenses
 
-We follow an "inbound license = outbound license" approach, where contributions will be accepted under the same license(s) as specified in the repository, so you need to comply with the licenses for the repository that you are contributing to. Please see the `LICENSE.md` file in the root of the repository for more information.
+We follow an "inbound license = outbound license" approach, where contributions will be accepted under the same license(s) as specified in the repository, so you need to comply with the licenses for the repository that you are contributing to. Please see the [Licensing section for more information](../welcome/licensing.html).
 
 ### Access to the ARMmbed organization
 

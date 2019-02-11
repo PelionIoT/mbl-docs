@@ -149,11 +149,23 @@
             "description": "",
             "slug": "develop-mbl",
             "type": "markdown",
-            "sources": [{
-                    "path": "Docs/dev_mbl/intro.md"
+            "chapters": [{
+                    "title": "Developing Mbed Linux OS",
+                    "intro": {
+                        "path": "Docs/dev_mbl/intro.md"
+                    },
+                    "sources": []
                 },
                 {
-                    "path": "Docs/dev_mbl/contribution_guidelines.md"
+                    "title": "Contribution guidelines",
+
+                    "sources": [{
+                        "path": "Docs/dev_mbl/contribution_guidelines.md"
+                    },
+                    {
+                        "path": "Docs/dev_mbl/coding_style_guide.md"
+                    }
+                  ]
                 }
             ]
         },
