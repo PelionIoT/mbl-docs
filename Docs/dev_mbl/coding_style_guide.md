@@ -67,7 +67,6 @@ Be consistent with your changes. Some of the main principles are:
 
 * Indent 4 spaces at a time (no tabs).
 
-
 * Function/method definitions look like this:
 
     ```C++
@@ -195,8 +194,8 @@ mbl-cloud-client contains a mixture of C++98 and C++11, and in certain places mu
 
 The list of C++ Core Guidelines below is not a complete list of the C++ Core Guidelines that should be followed in this project, it is merely the highlights.
 
-* Don't use exceptions
-* Switch statements over an enum value should not contain a `default` case so that the compiler can catch missing cases
+* Don't use exceptions.
+* Switch statements over an enum value should not contain a `default` case so that the compiler can catch missing cases.
 * From the C++ Core Guidelines:
     * [I.2: Avoid non-`const` global variables](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#i2-avoid-non-const-global-variables)
     * [I.3: Avoid singletons](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#i3-avoid-singletons)
