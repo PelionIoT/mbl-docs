@@ -4,28 +4,27 @@
 
 #### Global variables
 
-* Global variables have names with a `g_` prefix (e.g. `g_time_prefix_format`).
+* Global variables have names with a `g_` prefix. Example: `g_time_prefix_format`.
 
 #### Classes and Structs
 
-* Names of classes, structs and aliases for them are in `UpperCamelCase`. When the name includes an initialism, only the first letter of the initialism is capitalized (e.g. `MblCloudClient`).
+* Names of classes, structs and aliases for them are in `UpperCamelCase`. When the name includes an initialism, only the first letter of the initialism is capitalized. Example: `MblCloudClient`.
 
 * Use `class` rather than `struct` whenever it contains anything but public data members.
 
 * Names of data members are in `lower_snake_case`.
 
-* Static data member names have an `s_` prefix (e.g. `s_instance`).
+* Static data member names have an `s_` prefix. Example: `s_instance`.
 
-#### 2. Enums
+#### Enums
 
-* Names of enum types and aliases for them are in `UpperCamelCase`. When the name includes an initialism, only the first letter of the initialism is capitalized (e.g.  `MblError`).
+* Names of enum types and aliases for them are in `UpperCamelCase`. When the name includes an initialism, only the first letter of the initialism is capitalized. Example: `MblError`.
 
-* In C++98 code, enumerator names are usually prefixed with the name of the enum type and an underscore (e.g. `MblError_None`) to mitigate the lack of scoping for enumerator names. In C++11 code that doesn't touch C/C++98 interfaces (and isn't likely to in the future) then scoped enums should be used instead.
+* In C++98 code, enumerator names are usually prefixed with the name of the enum type and an underscore (Example: `MblError_None`) to mitigate the lack of scoping for enumerator names. In C++11 code that doesn't touch C/C++98 interfaces (and isn't likely to in the future), scoped enums should be used instead.
 
-#### 3. Methods and Free Functions
+#### Methods and Free Functions
 
-* Names of methods and free functions are in `lower_snake_case` except when the name includes a type, when the type name is used verbatim (e.g. `MblError_to_str`).
-
+* Names of methods and free functions are in `lower_snake_case`, except when the name includes a type - then the type name is used verbatim. Example: `MblError_to_str`.
 
 #### Namespaces
 
@@ -47,7 +46,7 @@
 
 #### Files
 
-* Files containing code for a single class are named after that class (e.g. `MblCloudClient.h` and `MblCloudClient.cpp`).
+* Files containing code for a single class are named after that class. Examples: `MblCloudClient.h` and `MblCloudClient.cpp`.
 
 * Files containing code for a single function are named after that function.
 
@@ -55,9 +54,9 @@
 
 ### Whitespace
 
-* Indent 4 spaces at a time (no tabs).
+* Indent four spaces at a time (no tabs).
 
-* Function/method definitions look like this:
+* Function/method definitions:
 
     ```C++
     ReturnType ClassName::method_name(ParamType1 param1, ParamType2 param2)
@@ -66,7 +65,7 @@
     }
     ```
 
-    or if that gets too long:
+    Or, if that gets too long:
 
     ```C++
     ReturnType ClassName::method_name(
@@ -79,7 +78,7 @@
     }
     ```
 
-    or if there's a constructor's initialization list:
+    Or, if there's a constructor's initialization list:
 
     ```C++
     ClassName::ClassName(ParamType1 param1, ParamType2 param2)
@@ -90,7 +89,7 @@
     }
     ```
 
-    or possibly:
+    And possibly:
 
     ```C++
     ClassName::ClassName(
@@ -106,7 +105,7 @@
     }
     ```
 
-* C++98 enum definitions look like this:
+* C++98 enum definitions:
 
     ```C++
     enum EnumType {
@@ -129,7 +128,7 @@
     } // namespace mbl
     ```
 
-* `if`s look like:
+* `if`s:
 
     ```C++
     if (condition) {
@@ -140,7 +139,7 @@
     }
     ```
 
-* `for`s look like:
+* `for`s:
 
     ```C++
     for (i = 0; i < n; ++i) {
@@ -148,7 +147,7 @@
     }
     ```
 
-* `while`s look like:
+* `while`s:
 
     ```C++
     while (condition) {
@@ -156,7 +155,7 @@
     }
     ```
 
-* `switch`es look like:
+* `switch`es:
 
     ```C++
     switch (value) {
@@ -180,9 +179,9 @@
 
 ### Other guidelines
 
-mbl-cloud-client contains a mixture of C++98 and C++11, and in certain places must provide C-style APIs. Not all of the following guidelines will apply to both C++98 and C++11 and C-style APIs.
+<span class="notes">`mbl-cloud-client` contains a mixture of C++98 and C++11, and in certain places must provide C-style APIs. Not all of the following guidelines will apply to both C++98 and C++11 and C-style APIs.</span>
 
-The list of C++ Core Guidelines below is not a complete list of the C++ Core Guidelines that should be followed in this project, it is merely the highlights.
+The list of C++ Core Guidelines below is not the complete list of the C++ Core Guidelines that apply to MBL; it is merely the highlights.
 
 * Don't use exceptions.
 * Switch statements over an enum value should not contain a `default` case so that the compiler can catch missing cases.
