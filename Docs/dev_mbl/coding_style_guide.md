@@ -235,32 +235,32 @@ The list of C++ Core Guidelines below is not the complete list of the C++ Core G
 ## Python coding style guide
 
 ### Goal of the document
-The intent of this document is to give guidance on how to write Python code within the Mbed Linux team.
 
-The document wants to standardise different aspects of Python, beyond the syntax. The ultimate goal is to have code which is readable and maintainable and conforms to Python upstream standard.
+This document gives guidance on writing Python code for MBL. It standardises different aspects of Python, beyond the syntax. The ultimate goal is to have code that is readable, maintainable, and conforms to Python upstream standards.
 
-This is not a matter of personal preferences: the code will be opensource and upstream python developers expect the code to be written in a certain and consistent way.
+This is not a matter of personal preferences: the code is open-sourced, and upstream Python developers expect the code to be written in a certain and consistent way.
 
-If you have any doubt on how to write good Python code, check how the standard library (on Linux is under /usr/lib/python3.5) is written: you will find plenty of examples.
+If you have any doubt on how to write good Python code, check how the standard library (on Linux it's under `/usr/lib/python3.5`) is written; you will find plenty of examples.
 
 ### Python 2 vs Python 3
 
-It is mandatory to use Python 3 unless there is a strict requirement to use Python 2. This because Python 2 has its days numbered, and it will only be supported until Pycon 2020 with:
+You must use Python 3, unless there is a strict requirement to use Python 2. This because Python 2's days are numbered, and it will only be supported until Pycon 2020 with:
 
-* security fixes
-* support for new OS versions / tool chains
-* rarely bug fixes
+* Security fixes.
+* Support for new OS versions and tool chains.
+* (Rarely) bug fixes.
 
 Check the countdown here: https://pythonclock.org/.
 
 To ease the transition, the official porting guide has advice for running Python 2 code in Python 3.
 
 ### Mandatory PEPs
-If you don't know what a PEP is, I suggest you to read a post I wrote time ago on my personal website. There are basically three PEPs which are the fundamental basics for writing any python application:
+
+Three PEPs form the basis for writing any Python application: PEP20, PEP8 and PEP257.
 
 #### PEP20
 
-This is the PEP you need to keep in mind whenever you develop (not only) with Python. Although it was born as joke, it has been the fundamental principles for Python developers for years.
+Although it was born as joke, it has been the fundamental principles for Python developers for years.
 
 ##### Zen of Python
 
@@ -294,9 +294,8 @@ Namespaces are one honking great idea -- let's do more of those!
 ```
 
 #### PEP8
-PEP8 is the PEP which defines style guide for python. It covers every aspect of good formatting Python code. You don't need to to learn now every rule in the PEP8 but it will come with time. Fortunately there are tools which help you to have a PEP8 clean code. Here an example:
 
-#####PEP8
+PEP8 is the official Python style guide. It covers every aspect of good formatting for Python code.
 
 ```
 (pycodestyle) dierus01 at e108032-lin in ~$ pip install pycodestyle
@@ -331,9 +330,7 @@ bad_pep8.py:9:1: W391 blank line at end of file
 
 ```
 
-If you don't want to fix every line manually, there is autopep8 which reformat the input file in order to comply as much as possible to PEP8.
-
-##### autopep8
+If you don't want to fix every line manually, use autopep8 to reformat the input file.
 
 ```
 (pycodestyle) dierus01 at e108032-lin in ~$ pip install autopep8
@@ -366,32 +363,28 @@ good_pep8.py:10:1: E741 ambiguous variable name 'l'
 (pycodestyle) dierus01 at e108032-lin in ~$
 ```
 
-Few things from the code above:
+A few notes from the code above:
 
-* autopep8 by default doesn't perform in place changes (enable it with -i)
-* it doesn't fix every error: it cannot generate code for you, don't be lazy
-
-Pystylecode is never wrong, you are (smile) Let's try to stick as much as possible to PEP8 without introducing any exception.
+* By default, autopep8 doesn't perform in-place changes (enable it with `-i`).
+* It doesn't fix every error; it cannot generate code for you.
 
 ##### Black
 
-Our sanity check pipelines will run few checks on python files. Among those checks, black is run. From their website:
+Our sanity check pipelines runs a few checks on Python files, among them Black:
 
 > By using Black, you agree to cede control over minutiae of hand-formatting. In return, Black gives you speed, determinism, and freedom from pycodestyle nagging about formatting. You will save time and mental energy for more important matters.
 
 > Black makes code review faster by producing the smallest diffs possible. Blackened code looks the same regardless of the project you’re reading. Formatting becomes transparent after a while and you can focus on the content instead.
 
-Sanity checks will be running on a submitted Pull request hence they will perform only a checks without changing any code. it is down to the user submitting compliant code.
+Sanity checks run on all pull requests, and they perform the check but do not change any code. It is down to you to submit compliant code.
 
-Black can be integrated on many editors: http://black.readthedocs.io/en/stable/editor_integration.html
+Black can be integrated [with many editors](http://black.readthedocs.io/en/stable/editor_integration.html).
 
 #### PEP257
 
-Code is good when there is documentation attached. Luckily we have PEP257 which explains docstring convention for Python. Those are conventions, but please let's stick as much as possible to those.
+PEP257 explains docstring conventions for Python.
 
-Like pep8, we have tools to check if we are missing docstrings.
-
-##### pep257
+Like PEP8, we have tools to check if we are missing docstrings:
 
 ```
 (pep257) dierus01 at e108032-lin in ~$ pip install pep257
@@ -430,13 +423,9 @@ l = [1, 2, 3, 4]
 
 ### Spaces vs Tabs
 
-TL;DR: use 4 spaces indentation
+Use four-spaces indentation. This is [already covered by PEP8](https://www.python.org/dev/peps/pep-0008/#tabs-or-spaces).
 
-This is already covered by PEP8: https://www.python.org/dev/peps/pep-0008/#tabs-or-spaces
-
-Read it few times and convince yourself that spaces are the way to go. We don't want to end up like this.
-
-For Vim users, stick the following in your ~/.vimrc and your are good to go
+For Vim users, add the following to `~/.vimrc`:
 
 ```
 set expandtab       " tabs are converted to space                                                                                                                                                                                                                                                                             
@@ -448,21 +437,21 @@ set softtabstop=4   " Number of spaces that a <Tab> counts for while performing 
 
 ### Virtual environments vs system packages
 
-When running python applications, it is likely you need third party dependencies. There are several ways to install python packages:
+When running Python applications, you're like to have third party dependencies. There are several ways to install Python packages:
 
-* using the system package manager
-* using pip install `--user`
-* using the Python3 built-in venv module
+* Using the system package manager.
+* using pip install `--user`.
+* Using the Python3 built-in `venv` module.
 
-The suggested method is using virtual environments for the following reasons:
+We suggest using virtual environments, for the following reasons:
 
-* it can be created/destroyed on the fly
-* we can control what we install (down to specific package version)
-* it doesn't pollute the system or other virtual environments with unwanted packages
+* They can be created and destroyed on the fly.
+* You can control what you install (down to specific package versions).
+* They don't pollute the system or other virtual environments with unwanted packages.
 
 ##### Virtual environments
 
-Here an example on how to use virtualenvs.
+Here's an virtualenv use example:
 
 ```
 user01 at dev-machine in /tmp
@@ -525,9 +514,7 @@ $ deactivate
 $
 ```
 
-Once the virtual environment has been created, you can use it without activating. You just need to call the binaries which are contained in the virtualenv itself.
-
-##### Virtual environment without activation
+Once the virtual environment has been created, you can use it without activating. You just need to call the binaries contained in the virtualenv itself:
 
 ```
 (my_venv) user01 at dev-machine in /tmp
@@ -559,43 +546,37 @@ $
 
 ### String formatting
 
-First things first. The basic rule is: never use "+" for sting concatenation. Just don't.
+Never use "+" for sting concatenation.
 
-There are 3 ways to format strings. These are:
+There are three ways to format strings:
 
-* The old way: %-formatting
-* The current way: str.format()
-* The future: f-Strings
-
-Let's forget about the old way and let's use the current way: str.format()
-
-f-Strings are introduced in Python 3.6. The current version of Python on Mbed Linux is 3.5.5 so at the moment we are not able to use f-Strings.
+* The old way: `%-formatting`. Please don't use this.
+* The current way: `str.format()`. This is the prefered MBL format.
+* The future: `f-Strings`. They're introduced in Python 3.6. The current version of Python on Mbed Linux OS is 3.5.5, so at the moment you can't use f-Strings.
 
 ### Returns, exit codes, error management and logging
 
-Every Python application/script should have a clear workflow. This is driven by having a good story in returning and managing errors withing the application.
+Every Python application or script should have a clear workflow. This is driven by clearly returning and managing errors within the application.
 
 #### Return statement
 
-Number of return statements should be minimal throughout the codebase:
+Keep the number of return statements throughout the codebase to a minimum:
 
-* one return per function, unless you have a very good reason
-* __main__() implementation could have multiple return statements only if it is returning different return codes
+* One return per function, unless you have a very good reason.
+* `__main__()` implementation can have multiple return statements only if it returns different codes.
 
 #### Error management
 
-Errors are quite important for the life cycle of the application. Those are the rules for having a good strategy in error management:
+Errors are quite important for the lifecycle of the application. A good error management strategy depends on:
 
-* methods/functions might propagate the error upwards. Main implementation will catch it eventually.
-* methods/functions might catch errors only if they need to perform a corrective action
-* methods/functions might catch errors, perform an action and re-propagate upwards the exception
-* __main__() is the last resort to catch errors
+* Methods and functions may propagate the error upwards. The main implementation will catch it eventually.
+* Methods and functions may catch the error, if they need to perform a corrective action.
+* Methods and functions may catch the error, perform an action and repropagate the exception upwards.
+* Catching errors in `__main__()` is the last resort.<!--doesn't that contradict the first sentence?-->
 
 #### Exit codes
 
-If the application performs as expected, it must return 0 (zero). Any other return code should be easily identifiable in the main implementation. Example:
-
-##### Exit codes
+If the application performs as expected, it must return `0` (zero). Any other return code should be easily identifiable in the main implementation. Example:
 
 ```
 import sys
@@ -621,11 +602,9 @@ if __name__ == "__main__":
     sys.exit(_main(sys.argv[1:]))
 ```
 
-#### Only __main__() can exit
+#### Only `__main__()` can exit
 
-Any other sys.exit() call in the application is just wrong. Don't do it unless you have a very good reason (I doubt you have)
-
-##### sys.exit
+Do no use any other `sys.exit()` call in the application.
 
 ```
 import sys
@@ -638,34 +617,28 @@ if __name__ == "__main__":
 
 #### print() vs logging
 
-For knowing when to use print of logging, just follow these rules:
+To choose between `print()` and logging:
 
-* if you need to show anything which is not part of the application life cycle, use logging
-* if you need to show anything which is part of application life cycle, use print()
-
-There are cases where you might want to use both.
-
-Examples:
-
-* an application needs input from the user and it needs to give context on the request. Use print()
-* an application connects to a database. Use logging()
-* the application behaviour is to return a string to the user. Use print()
-* an application exits with an error. Use logging (with the error level)
-* an application needs to show life cycle stages. Use logging and print()
+* If you need to show anything that is not part of the application lifecycle, use logging. Examples:
+    * The application connects to a database.
+    * The application exits with an error. Use logging with the error level.
+* If you need to show anything that is part of application lifecycle, use `print()`. Examples:
+    * The application needs input from the user and must give context for the request.
+    * The application returns a string to the user.
+* There are cases where you might want to use both. Example:
+    * The application needs to show lifecycle stages.
 
 ### Public vs Private vs Protected methods
 
-Python doesn't have a proper privacy model and there are no access modifiers like in C++ or Java. There are no truly protected or private attributes and anything can be publicly accessed. Conventions play a big role here and depending how you name methods, those can be either:
+Since Python has no truly protected or private attributes and anything can be publicly accessed, naming conventions play a big role in identifying method privacy levels:
 
-* public methods: they usually are the method for interacting with the object
-* protected methods: method's name starts with a single underscore
-* private methods: method's name starts with a double underscore (and no trailing double underscore)
+* Public methods: the usual method for interacting with the object; has no specific naming convention as far as privacy.
+* Protected methods: the method's name starts with a single underscore.
+* Private methods: the method's name starts with a double underscore (and has no trailing double underscore).
 
-Private methods' names are mangled to protect them from the clashes when inherited. Subclasses can define their own `__private()` method and these will not interfere with the same name on the parent class.
+Private methods' names are mangled to protect them from clashes when inherited. Subclasses can define their own `__private()` method, and it will not interfere with the same name on the parent class. Mangling is done by prepending a name with an extra underscore and the class name (regardless of how the name is used or if it exists), effectively giving the method a namespace. In the Parent class, any `__private` identifier is replaced by the name `_Parent__private`, while in the Child class the identifier is replaced by `_Child__private` (in the entire class definition).
 
-Mangling is done by prepending any such name with an extra underscore and the class name (regardless of how the name is used or if it exists), effectively giving them a namespace. In the Parent class, any `__private` identifier is replaced by the name `_Parent__private`, while in the Child class the identifier is replaced by `_Child__private`, everywhere in the class definition.
-
-Here an example:
+Exmaple:
 
 ```
 dierus01 at e108032-lin in /tmp$ cat c.py
@@ -694,26 +667,24 @@ private method
 >>>
 ```
 
-Few conventions for having a readable and maintainable code:
+A few conventions for a readable and maintainable code:
 
-* when you implement a class, the methods order should be: 'special methods' (defined with double underscores, for example __getiitem__), public, protected and private. In this way we have at the top the methods which change the standard behaviour of the class, and then the public interface of the class.
-* public methods are allowed to call any method within the class
-* let's limit the use of private methods unless we need to (E.g.: avoid clashes when inheriting classes)
+* When you implement a class, the method order should be: 'special methods' (defined with double underscores, for example `__getiitem__`), public, protected, private. This puts at the top the methods that change the standard behaviour of the class, and only then the public interface of the class.
+* Public methods are allowed to call any method within the class.
+* Limit the use of private methods whenever possible. For example, use private methods to avoid clashes when inheriting classes.
 
 ### Testing
 
-Test your code whenever is needed and it makes sense to test it. Automation could play a big role and can improve productivity.
+Test your code whenever is needed. Automation can play a big role and improve productivity. We recommend pytest.
 
-pytest is the framework of choice for writing tests. This section is well covered on: Pytest MBL guidelines
 
 ### Pythonic code
-Writing code in a pythonic way is not only cool but it can bring more readability and better performance. This section is a collaborative one: users are invited to add their pythonic code to generic solutions.
+
+Writing code in a Pythonic way is not only cool but it can bring more readability and better performance. This section is a collaborative one: users are invited to add their Pythonic code to generic solutions.
 
 #### Data structure constructors
 
-The pythonic way to initialize data structures is using the respective empty representation. Examples:
-
-##### Data structures
+The Pythonic way to initialize data structures is using the respective empty representation. Examples:
 
 ```
 # Empty list                                                                   
@@ -732,13 +703,11 @@ data = set()
 data = ()
 ```
 
-A good read about data structure can be found on python website: https://docs.python.org/3/tutorial/datastructures.html
+The Python website has [a good tutorial about data structures](https://docs.python.org/3/tutorial/datastructures.html).
 
 #### class Class
 
-TL;DR: define the class without inheriting from object
-
-##### class definition
+Define the class without inheriting from an object..
 
 ```
 # Python 3 only code
@@ -746,21 +715,15 @@ class Class:
     pass
 ```
 
-If you need the reasoning behind it, read here: https://stackoverflow.com/questions/4015417/python-class-inherits-object
+There is a good discussion on [stackoverflow](https://stackoverflow.com/questions/4015417/python-class-inherits-object).
 
 #### pathlib vs os.path
 
-pathlib is an evolution of os.path library. The main benefits of using pathlib are:
+`pathlib` is an evolution of the `os.path` library. The main benefits of using `pathlib` are:
 
-* This module offers classes representing filesystem paths with semantics appropriate for different operating systems
-* You want to make sure that your code only manipulates paths without actually accessing the OS
+* It offers classes representing filesystem paths with semantics appropriate for different operating systems.
+* You want to make sure that your code only manipulates paths without actually accessing the OS.
 
 #### Type hints (PEP484)
 
-Type hints are defined in PEP484. Although not mandatory their usage is encouraged.
-
-#### setup.py
-
-Setup.py files should include licensing information. The owner should be "Arm Ltd."
-
-Do not include personal contact details such as email. The license we are currently using is BSD-3-Clause.
+Type hints are defined in PEP484. Although not mandatory, their usage is encouraged.
