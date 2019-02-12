@@ -126,7 +126,7 @@
             "slug": "develop-apps",
             "type": "markdown",
             "chapters": [{
-                    "title": "Introduction",
+                    "title": "Mbed Linux OS Applications",
                     "intro": {
                         "path": "Docs/app_dev/app_dev_intro.md"
                     },
