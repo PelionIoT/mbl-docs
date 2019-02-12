@@ -1,11 +1,11 @@
-## Updating an MBL image
+# Updating an MBL image
 
 There are two ways to update an MBL image:
 
 * Using the manifest tool
 * Using MBL CLI
 
-### Using the manifest tool
+## Using the manifest tool
 
 1. Create an update payload file: Make a `tar` file containing the root file system archive from the MBL build artefacts.
 
@@ -55,8 +55,7 @@ There are two ways to update an MBL image:
 
 A reboot is automatically initiated to boot into the new firmware. Identify the currently active root file system and verify it was different pre-update. You can use the [`lsblk` command explained later](#identify-the-active-root-file-system-partition).
 
-
-### Using MBL CLI
+## Using MBL CLI
 
 <span class="tips">You can find installation and general usage instructions for MBL CLI [in the application development section]().</span>
 
@@ -105,7 +104,7 @@ A reboot is automatically initiated to boot into the new firmware. Identify the 
 
 <span class="notes">We recommend deleting the old tar files from the `scratch` partition after updates finish.</span>
 
-### Identifying the active root file system partition
+## Identifying the active root file system partition
 
 To verify that a root system update succeeded, you can check which root file system partition is active before and after the update. If the update succeeded, the active partition changes.
 

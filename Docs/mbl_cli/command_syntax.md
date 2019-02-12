@@ -1,4 +1,4 @@
-## Command syntax
+# Command syntax
 
 To see the general structure of an MBL CLI command:
 

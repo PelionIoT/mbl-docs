@@ -1,19 +1,19 @@
-## Setting up
+# Setting up
 
 To use MBL CLI, you need to:
 
 1. [Set up MBL CLI](#setting-up-mbl) on your development PC.
 1. [Set up networking](#setting-up-networking) on the target device.
 
-### Setting up MBL CLI
+## Setting up MBL CLI
 
-#### Prerequisites
+### Prerequisites
 
 The only dependency of MBL CLI that you need to install is Node.js (version v8.10.0 or higher).
 
 We recommend installing Node.js from NodeSource's binary distribution using [these instructions](https://github.com/nodesource/distributions#installation-instructions).
 
-#### Installation
+### Installation
 
 MBL CLI is distributed using npm. To install MBL CLI, run:
 
@@ -21,13 +21,13 @@ MBL CLI is distributed using npm. To install MBL CLI, run:
 $ npm install -g mbl-cli
 ```
 
-### Setting up networking
+## Setting up networking
 
 This section explains how to connect devices to a development PC over USB.
 
 <span class="notes">**Note**: We provide examples of network interface names such as `enp0s2222222a` and `eno0`, as well as UUIDs. These values may be different for your devices and PC - please do not use them without checking.</span>
 
-#### Overview
+### Overview
 
 The MBL kernel can support USB connections to IoT devices that have USB ports. The exact support mechanism depends on the USB port type on the device - peripheral or host:
 
@@ -44,7 +44,7 @@ By default, MBL attempts to obtain an IPv4 address for the `usb0` interface on W
 
 `usb0` on the WaRP7 and `eth1` on the Raspberry Pi3 are debug network intefaces. On both devices, the debug network interface is always given an IPv6 link-local address.
 
-#### Connecting a WaRP7 device
+### Connecting a WaRP7 device
 
 To connect a PC to an a WaRP7 device over USB:
 
@@ -79,7 +79,7 @@ For example, on an Ubuntu PC:
 
 1. Assign an IPv4 address [as explained below](#assigning-an-ipv4-address-to-the-network-interface).
 
-#### Connecting a Raspberry Pi 3 device
+### Connecting a Raspberry Pi 3 device
 
 To connect a PC to a Raspberry Pi 3 device over an Ethernet-to-USB adapter:
 
@@ -117,7 +117,7 @@ For example, on an Ubuntu PC and a Raspberry Pi 3 device connected to an RTL8153
 
 1. Assign an IPv4 address [as explained below](#assigning-an-ipv4-address-to-the-network-interface).
 
-#### Assigning an IPv4 address to the network interface
+### Assigning an IPv4 address to the network interface
 
 <span class="tips">If you don't want to use the NetworkManager command line interface, you can use the `nm-connection-editor` GUI. See the [`nmcli` man page](https://linux.die.net/man/1/nmcli) for more information.</span>
 

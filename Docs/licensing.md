@@ -1,10 +1,10 @@
-## Licensing
+# Licensing
 
-### Source code
+## Source code
 
 The source code for Mbed Linux OS that Arm provides is open source and follows the [**REUSE practices version 2.0**](https://reuse.software/practices/2.0/) for stating license information. In accordance with this practice, each Arm repository lists the licenses used in that repository.
 
-### Binaries
+## Binaries
 
 The Mbed Linux OS distribution is made up of an aggregation of Open Source Software under many different licenses. The OpenEmbedded build framework that is used by Mbed Linux OS outputs a list of the licenses from the build recipes used to create the distribution.
 
@@ -23,7 +23,7 @@ In each set, there are two files that document the licenses:
 
 These license files will be bundled with any disk image binary supplied by Arm.
 
-### GPLv3 statement
+## GPLv3 statement
 
 To enable efficient update of Mbed Linux OS, the distribution is split into several logical binary sections referred to as *updatable packages*. Each updatable package can be updated individually and contains its own aggregation of software and licenses. To verify that an updatable package is authentic, a standard certificate signing procedure is used, whereby each running package validates that the next package has been signed by an accepted authority.
 

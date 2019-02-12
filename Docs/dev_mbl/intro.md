@@ -1,4 +1,4 @@
-## Developing and contributing to Mbed Linux OS
+# Developing and contributing to Mbed Linux OS
 
 Here will go:
 

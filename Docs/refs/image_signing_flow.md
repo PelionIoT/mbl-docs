@@ -1,6 +1,6 @@
-## Mbed Linux OS basic signing flow
+# Mbed Linux OS basic signing flow
 
-### Overview
+## Overview
 
 <!--we can only hope this renders properly-->
 
@@ -252,15 +252,15 @@ The **signing** process that generates the content certificates is performed as 
 
 This document describes the process of resigning binary artifacts with a new set of developer-generated keying material.<!--oh, okay... I should warn people. Something about "this document is about the last step of the following process". That will help them skim the rest-->
 
-### Prerequisites
+## Prerequisites
 
 The development machine should have `openssl` (to generate new developer keys, for example).
 
-## The secure boot chain and signing components
+# The secure boot chain and signing components
 
 This section describes the secure boot chain.
 
-### The generic TF-A secure boot chain
+## The generic TF-A secure boot chain
 
 In general terms, a secure boot chain consists of N bootloaders (BL), with a chain formed by the bootloaders running in order: BL1, BL2, BL3, ... BLN-1.<!--out of curiosity, why N-1 rather than N?--> Table 1 introduces these terms and how they map to the TBBR-Client secure boot reference specification:
 
@@ -329,7 +329,7 @@ The flow:<!--we keep saying "x is known as y and z" but that's all in the table;
     1. BL33 runs the Linux kernel kernel.
 1. The secure boot chain process has now completed.
 
-### The RPi3 boot chain
+## The RPi3 boot chain
 
 The RPi3 boot chain differs from the generic TF-A secure boot chain in the following ways:
 
@@ -340,7 +340,7 @@ The RPi3 boot chain differs from the generic TF-A secure boot chain in the follo
     * The GPU sets the A53 into ELx-NW before running `armstub8.bin`. That is, the system is not in a secure state when the first programmable boot chain component runs.
 * `armstub8.bin` includes a "normalisation" version of BL1, which authenticate BL2. BL1 therefore contains a ROTPK hash that is used as part of the authentication process. The benefit of including BL1 is that the RPi3 boot chain is thereby identical to the generic TF-A bootchain from BL2 onwards.
 
-### The Trusted Board Boot Requirements chain of trust
+## The Trusted Board Boot Requirements chain of trust
 
 Figure 2 shows the certificate chains in the TBBR specification:
 
@@ -393,7 +393,7 @@ The entities relevant to this document:
     * This certificate is present in the FIP image. `fiptool` refers to this FIP image component using the [`--nt-fw-cert`](#fiptool-help) option.
 
 
-### BL1, BL2, FIP and FIT image composition
+## BL1, BL2, FIP and FIT image composition
 
 
     BL1 Image
@@ -497,7 +497,7 @@ The entities relevant to this document:
       loading the Linux Kernel.
 
 
-## Re-signing RPi3 BL1/BL2/FIP images with a new developer ROTPrvK
+# Re-signing RPi3 BL1/BL2/FIP images with a new developer ROTPrvK
 
 This section describes how to re-sign the RPi3 BL1/BL2/FIP images with a new developer ROTPrvK. An overview of the re-signing process is described below:
 
@@ -527,7 +527,7 @@ The above proceedure is currently accomplished by manually working through the f
 * [Step 3.10:](#section-3-10) Boot the new armstub8.bin.
 
 
-### Get the re-signing scripts
+## Get the re-signing scripts
 
 The re-signing scripts are stored in the rpi3-cst git repository https://gitlab.com/grandpaul/rpi3-cst. Get a local copy of these tools by cloning the git repository:
 
@@ -559,7 +559,7 @@ These scripts should be made available on the PATH by adding the rpi3-cst direct
     export PATH=`pwd`/rpi3-cst:$PATH
 
 
-### Build the ATF fiptool
+## Build the ATF fiptool
 
 The instructions for building the fiptool are available in the [ATF user guide][atf-user-guide-fiptool]. In summary:
 
@@ -640,7 +640,7 @@ For reference, the ```fiptool``` help is shown below.
 
 Note the ```fiptool``` help output uses the TBBR terminology.
 
-### Build the ATF cert_create tool
+## Build the ATF cert_create tool
 
 The instructions for building the cert_create are available in the [ATF user guide][atf-user-guide-cert-create-tool] section for building the certificate generation tool. In summary:
 
@@ -713,7 +713,7 @@ For reference, the ```cert_create``` help is shown below.
 Note the ```fiptool``` help output uses the TBBR terminology.
 
 
-### Unpack armstub8.bin and fip.bin
+## Unpack armstub8.bin and fip.bin
 
 Create the ```work``` subdirectory and copy the ```armstub8.bin``` from the ```DEPLOY_DIR_IMAGE``` into it:
 
@@ -769,7 +769,7 @@ The ```fip_components``` subdirectory now contains the following:
 Use the ```fiptool``` [help command output](#section-3-2) and the [Terminology](#section-1-3) section to understand how the  above ```.bin``` files map to entities in boot chain.
 
 
-### Generate new ROTPK/ROTPrvK (public/private) key pair
+## Generate new ROTPK/ROTPrvK (public/private) key pair
 
 First, generate a new ROT key pair (which will is stored in the file rot_key.pem in the new_keys subdirectory:
 
@@ -820,7 +820,7 @@ Devco article ["Public Private key encryption using OpenSSL"][devco-net-ref-1-ge
     $ openssl rsa -in private.pem -out public.pem -outform PEM -pubout
 
 
-### Generate new developer ROTPK hash
+## Generate new developer ROTPK hash
 
 Next generate a SHA256 hash of the ROTPK and store it in the ```new_keys/rotpk_sha256.bin``` file:
 
@@ -834,7 +834,7 @@ The contents of the hash `rotpk_sha256.bin` file can be seen with the following 
     0000010 37c6 7a04 87d8 a4e0 67d2 10ca f8fe 8620
 
 
-### Patch BL1 image with the new developer ROTPK hash
+## Patch BL1 image with the new developer ROTPK hash
 
 The BL1 image binary `bl1.bin` is copied into the `new_keys` directory ready for patching. For reference, the current contents of the `new_keys` directory is shown below:
 
@@ -856,7 +856,7 @@ The `bl1.bin` ROTPK hash is patched by replacing the old hash with the new hash 
     eb 3d 25 5d b9 31 b5 7c f1 98 0d 88 de 1d e4 55
     user@machine:/data/2284/test/to_delete/20181018/pr239/work$
 
-### Patch BL2 image with the new developer ROTPK hash
+## Patch BL2 image with the new developer ROTPK hash
 
 The ATF name for BL2 image is `tb-fw.bin`. The BL2 image binary `tb-fw.bin` is copied into the new_keys directory ready for patching.
 
@@ -887,7 +887,7 @@ This is somewhat confused by using the hack_bl1_rothash.py script (a script with
     user@machine:/data/2284/test/to_delete/20181018/pr239/work$
 
 
-### Regenerate armstub8.bin with new developer ROTPK
+## Regenerate armstub8.bin with new developer ROTPK
 
 The following `update_bl3x.sh` command line is used to generate a new `armstub8.bin` with the new ROT private key, patched BL1 binary, patched BL2 binary:
 
@@ -940,7 +940,7 @@ The following trace shows the output of the `update_bl3x.sh` command:
     user@machine:/data/2284/test/to_delete/20181018/pr239/work$
 
 
-### Boot the new armstub8.bin
+## Boot the new armstub8.bin
 
 The new `armstub8_new.bin` is now copied to the RPi3 SDCard boot partition:
 

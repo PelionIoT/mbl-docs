@@ -1,11 +1,11 @@
-## Writing and booting the disk image
+# Writing and booting the disk image
 
 This section contains instructions for writing the full disk image to a:
 
 * Warp7 device.
 * Raspberry Pi 3 device.
 
-### Warp7 devices
+## Warp7 devices
 
 To write your disk image to the Warp7's flash device, you must first access the Warp7's serial console. To do this:
 
@@ -120,7 +120,7 @@ To write your disk image to the Warp7's flash device, you must first access the 
 
     The device now boots into MBL.
 
-### Raspberry Pi 3 devices
+## Raspberry Pi 3 devices
 
 1. Connect a micro-SD card to your PC. You now see:
 
@@ -178,6 +178,6 @@ To write your disk image to the Warp7's flash device, you must first access the 
 
     The device now boots into MBL.
 
-### Logging in to MBL
+## Logging in to MBL
 
 To log in to MBL, wait for a login prompt, and then enter the username `root`. You will not be prompted for a password.

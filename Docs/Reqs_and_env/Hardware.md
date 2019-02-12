@@ -1,4 +1,4 @@
-## Supported hardware
+# Supported hardware
 
 Supported boards:
 

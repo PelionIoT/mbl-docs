@@ -1,4 +1,4 @@
-## Verifying that the device is connected to Device Management
+# Verifying that the device is connected to Device Management
 
 When the device boots into MBL, `mbl-cloud-client` automatically starts and connects to Device Management. You can check whether it has connected by:
 

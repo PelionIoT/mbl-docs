@@ -1,8 +1,8 @@
-## Secure boot and firmware verification requirements
+# Secure boot and firmware verification requirements
 
 This article provides information about the methodology Mbed Linux OS (MBL) uses to support secure boot and firmware updates, and assumes you are an experienced Linux developer. You may find it interesting if you are porting MBL to new hardware or contributing to its code base.
 
-### Introduction
+## Introduction
 
 This document describes the requirements for the secure boot and firmware integrity verification of an Mbed Linux OS platform. To protect high value data, the secure boot procedure and subsequent integrity verification ensure a device will only run firmware from legitimate sources. The secure boot procedure also guarantees the integrity of the trusted execution environment by isolating it from possible vulnerabilities in other firmware components. The verification of application container bundles is beyond the scope of this document.
 
@@ -15,7 +15,7 @@ Boot components and their corresponding code signing authorities form a chain of
 
 The secure boot process must accommodate field updates for all firmware components, including trusted firmware, boot loaders and TEE, as individuals. Device operators will then define their own policy for what can and cannot be updated.
 
-#### Terminology
+### Terminology
 
 This document uses the following terminology:
 
@@ -30,7 +30,7 @@ This document uses the following terminology:
 * **TPM**: Trusted Platform Module.
 
 
-#### References
+### References
 
 * REF1: DM Verity project: [https://gitlab.com/cryptsetup/cryptsetup/wikis/DMVerity](https://gitlab.com/cryptsetup/cryptsetup/wikis/DMVerity)
 * REF2: Trusted Base System Architecture CLIENT2 (TBSA-CLIENT2), Document number: ARM DEN 0021A-6, Copyright ARM Limited 2011-2013
@@ -42,7 +42,7 @@ This document uses the following terminology:
 * REF8: Platform Security Architecture: [https://developer.arm.com/products/architecture/security-architectures/platform-security-architecture](https://developer.arm.com/products/architecture/security-architectures/platform-security-architecture)
 
 
-### Summary of requirements and recommendations
+## Summary of requirements and recommendations
 
 This is a summary of the MBL secure boot's requirements and recommendations:
 
@@ -56,11 +56,11 @@ This is a summary of the MBL secure boot's requirements and recommendations:
 * dm-verity (REF1) will be used to check the integrity of the read-only root FS.
 * Only allow development images to run on development devices; it must not be possible to run a development image on a production device.
 
-### Trusted Firmware
+## Trusted Firmware
 
 [Trusted Firmware](https://www.trustedfirmware.org/index.html) provides a reference implementation for the secure boot of trusted world components, up to loading and verifying the first normal world boot loader. Trusted Firmware meets the requirements specified in the Arm Trusted Boot Requirements specification (REF3) but with restrictions for ARMv7-A devices (because it was developed for [the ARMv8-A architecture](https://www.trustedfirmware.org/about/)).
 
-### Aligning with PSA requirements
+## Aligning with PSA requirements
 <!--I think "requirements" is confusing, because an equally plausible interoperation is that you're forcing PSA to align to you.-->
 All MBL design choices <!--for Cortex-A class devices--><!--MBL is only ever for Cortex-A--> will be aligned to the goals of PSA, based on:
 
@@ -69,19 +69,19 @@ All MBL design choices <!--for Cortex-A class devices--><!--MBL is only ever for
 
 These documents give guidance on the scope of the SoC Root of Trust key, and the boot sequence for trusted and normal world components.
 
-#### Scope of SoC Root of Trust key
+### Scope of SoC Root of Trust key
 
 The Root of Trust (RoT) key, used by the SoC boot ROM, should only be used for verifying the firmware loaded and run by the boot ROM. Subsequent boot images should be verified using keys embedded either in the image of a previously loaded stage or in certificates held in secure storage. The scope of the SoC root of trust key should be restricted to verifying the first booted image, so that no other component used during the boot flow is dependent on any SoC-specific RoT key. Instead, for rollback protection, they must depend on SoC-specific NV counters stored in OTP.
 
 The type and size of the key are constrained by the SoC boot ROM capabilities. For example, NXP support RSA key pairs of sizes 1K, 2K and 4K. The signing authority is responsible for using an appropriate key size to meet longevity requirements. We also recommend encrypting the first loaded image if the SoC can support that.
 
-#### Trusted world components must be booted before Normal world components
+### Trusted world components must be booted before Normal world components
 
 To avoid the possibility of a Normal world component compromising a Trusted (or Secure) world component in some way, all Trusted world components must be booted before Normal world components. Also, to reduce the risk of unknown software running in secure mode, the size of any boot loader that runs in the secure state should be minimized. A boot flow that uses Trusted Firmware, OP-TEE and U-Boot will follow the illustrated sequence:
 
 <span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/boot_sequence_for_components.png)</span>
 
-### Platform-independent boot stage verification
+## Platform-independent boot stage verification
 
 After loading and verifying the initial image, loaded by the SoC boot ROM, the boot logic and verification of subsequent steps in the boot process should be common across supported platforms. This achieves:
 
@@ -92,7 +92,7 @@ After loading and verifying the initial image, loaded by the SoC boot ROM, the b
 
 Ideally, the boot stage verification code should be free of SoC dependencies to allow a default software-only implementation, which can then be used on different platforms. Different platforms can exploit hardware features only available on those platforms if they bring significant benefits - such as hardware crypto.
 
-### A generic flow using Trusted Firmware and U-Boot
+## A generic flow using Trusted Firmware and U-Boot
 
 The boot sequence chains the following boot mechanisms:
 
@@ -105,15 +105,15 @@ The following diagram illustrates the chaining of the secure boot steps:
 
 <span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/u_boot_flow.png)</span>
 
-#### Secure world boot
+### Secure world boot
 
 Booting of trusted boot components is performed by Trusted Firmware. After the ROM boot loader performs the initial boot, TF-A performs boot steps BL2, BL31, BL32 and BL33 (in the above diagram). The switch from secure to non-secure execution mode on the CPU is done *before* entering BL33, when all trusted components (like OP-TEE) have already been initialised. For MBL, BL33 is U-Boot.
 
-#### Normal world boot
+### Normal world boot
 
 Booting of normal world components is performed by U-Boot, a boot loader for embedded devices most commonly used to boot the Linux kernel. Its many configuration options support different boot requirements, and MBL uses the **Verified Boot** option to provide a common boot solution for normal world firmware.
 
-##### Verified Boot
+#### Verified Boot
 
 U-Boot supports **Verified Boot**, a generic secure boot mechanism that can be used for embedded devices. The term is used in Chrome OS to refer to its secure boot and user-space integrity checking features. Verified Boot features have been mainlined into U-Boot, and you can enable them with a build configuration.
 
@@ -141,13 +141,13 @@ An IoT device is unlikely to include TPM hardware; it will instead rely on a tru
 
 For all of these, the trusted application must have an application interface through which it can provide and increase counter values.
 
-### Integrity checking with dm-verity
+## Integrity checking with dm-verity
 
 The boot flow described above provides secure verification of all components in the boot chain, up to and including the Linux kernel. It does not verify the read-only root file system or any other mounted file system that may hold executables or configuration data. Checking the integrity of read-only files requires an additional solution: dm-verity.
 
 Verified Boot, used in Chrome OS, relies on integrity checking of read-only block devices, performed before blocks are read. This in turn relies on the dm-verity kernel feature (REF1), which provides transparent checking of block devices. The dm-verity feature scans block devices on demand, and checks that block hashes match the expected hash (generated when the image file was created). If it detects a mismatch, it stops both the kernel and the user space from accessing the block. Use of block level integrity checking requires block-oriented firmware updates of a read-only device to ensure that block content hashes over the whole block device match the expected hashes.
 
-### Image signing
+## Image signing
 
 <!--to do: crosslink to image signing when it's published-->
 
@@ -164,7 +164,7 @@ The following diagram illustrates how image signing tools sign different boot co
 1. The root file system (rootfs) contains the keys for the IoT applications and TEE applications. rootfs is verified by dm-verity rather than being signed.
 1. A signing tool signs the dm-verity hash tree using the key from the FIT image.
 
-### Operation on open and closed devices
+## Operation on open and closed devices
 
 An SoC provides OTP hardware that determines the 'open' or 'closed' state of a device:
 

@@ -1,13 +1,13 @@
-## Preparing a development environment for the distribution
+# Preparing a development environment for the distribution
 
-### Accounts
+## Accounts
 
 You need:
 
 * A [Pelion Device Management](https://portal.mbedcloud.com/) account.
 * A GitHub account with access to private Arm Mbed repositories (supplied by Arm to users enrolled in the preview).
 
-### Software requirements
+## Software requirements
 
 To build MBL, you need:
 
@@ -68,7 +68,7 @@ And the following software:
 
 * You must add yourself to the `docker` group to be able to run the Docker build environment. See [instructions in the Docker Linux documentation](https://docs.docker.com/install/linux/linux-postinstall/). To make this group membership apply to your current shell session, see [the instructions below](#update-process-group-membership).
 
-### Using virtual machines
+## Using virtual machines
 
 Building open embedded distributions requires the compilation of hundreds of different packages.  Using virtual machines on a laptop to build Mbed Linux OS will take a very long time - it could be 8 hours or more for the first build; you need a powerful machine to build in under an hour.
 
@@ -80,7 +80,7 @@ For our own builds, we use:
 * 2.5" 256 GB SATA Solid State Drive.
 * 256 GB SSD PCIe.
 
-#### USB mass storage
+### USB mass storage
 
 There can be USB pass-through issues from host to the virtual machine.
 

@@ -1,4 +1,4 @@
-## Mbed Linux OS CLI
+# Mbed Linux OS CLI
 
 The Mbed Linux OS CLI (MBL CLI) is a command-line interface for developing with Mbed Linux OS (MBL). MBL CLI supports  
 the following operations on MBL devices:

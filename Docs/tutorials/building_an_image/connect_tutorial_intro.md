@@ -1,4 +1,4 @@
-<h2 id="mbl-image-build">Building an Mbed Linux OS image</h2>
+<h1 id="mbl-image-build">Building an Mbed Linux OS image</h1>
 
 <span class="notes">**Note**: Mbed Linux OS is currently in limited preview. If you would like access to the code repositories, [please request to join the preview](https://os.mbed.com/linux-os/).</span>
 

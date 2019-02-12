@@ -1,11 +1,11 @@
-## Developer credentials for Pelion Device Management
+# Developer credentials for Pelion Device Management
 
 <!--https://confluence.arm.com/display/mbedlinux/Pelion+Provisioning+During+Development-->
 <!--https://confluence.arm.com/display/mbedlinux/Development+Provisioning+Use-Cases-->
 
 <!--Assumption: a team of developers are working with one or more devices that are associated with a single pelion account. They all have their own account, with one or more API keys.-->
 
-### Process goal and overview
+## Process goal and overview
 
 Pelion Device Management offers a **developer certificate** to connect a development device to a Device Management account. The developer certificate doesn't require setting up a certificate authority (unlike the full credentials for production devices). Instead,  developers can simply download the certificate from the Device Management Portal. They then need to get the certificate on the device in a process called **provisioning**.
 
@@ -21,7 +21,7 @@ Preparing an MBL device for Pelion Device Management Connectivity requires:
 
 <span class="tips">You also need to know your device's vendor and class ID.</span>
 
-### Provisioning process breakdown
+## Provisioning process breakdown
 
 The full provisioning process is:
 
@@ -57,4 +57,4 @@ The full provisioning process is:
 
 <!--do we want to discuss KCM? Is this page actually for app developers, in which case they won't care what's happening on the device so long as it works, or is it for people who may need to properly understand both sides?-->
 
-### Tools
+## Tools

@@ -1,6 +1,6 @@
-## Partition layout
+# Partition layout
 
-### Design
+## Design
 
 The flash memory partition layout for MBL is driven by four high-level requirements:
 
@@ -20,7 +20,7 @@ In summary, requirements that influence the flash layout are:
 | Data saved in flash memory that does not need to be modified in normal device operation should be write-protected. |	Some partitions should be created or modified to be read-only. Factory data written during the manufacturing process should be saved in a partition that is modified to read-only when a device boots after its life-cycle state has been modified to 'manufacture complete'. |
 | A device should support the 'restore to factory' use case. | To allow the user configuration to be deleted without deleting the factory configuration, the two types of data should be kept separate. |
 
-### General information
+## General information
 
 <span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/partition_layout.png)</span>
 
@@ -41,9 +41,9 @@ The partition layout for every board includes at least the following partitions:
 | scratch          | rw    | ext4         | /scratch         | 500MiB   | Temporary files (such as downloaded firmware files) |
 | home             | rw    | ext4         | /home            | 450MiB   | User application storage |
 
-### Board specific information
+## Board specific information
 
-#### Raspberry Pi 3
+### Raspberry Pi 3
 
 Full partition layout:
 
@@ -63,7 +63,7 @@ Full partition layout:
 | rootfs2_ver_hash | 20MiB  | mmc 0:12              | mmcblk0p12        | Logical  |
 | home             | 450MiB | mmc 0:13              | mmcblk0p13        | Logical  |
 
-#### WaRP7
+### WaRP7
 
 WaRP7 uses an area of the disk for Trusted Firmware-A (TF-A) and Second Boot Loader (BL2) images. It is the first partition although it is not in the disk's partition table.
 
@@ -87,7 +87,7 @@ Full partition layout:
 | home             | 450MiB | mmc 0:13              | mmcblk0p13        | Logical     |
 
 
-### Notes on firmware update
+## Notes on firmware update
 
 Each firmware installation has several partitions: a read-write root partition, a configuration partition, and a user application(s) partition. Using a separate partition for the user application eases the support of updates of just the user application.
 
@@ -100,7 +100,7 @@ For a configuration that should persist across firmware updates, MBL actually st
 
 Additionally, there is the `scratch` partition for temporary storage of firmware downloaded during the update process. This partition is shared between the firmware installations.
 
-### Plans
+## Plans
 
 * A new `BL3 FIP Image` partition should hold versions of the BL31 boot loader and associated components contained within a signed FIP image.
 * The `rootfs_ver_hash` partitions should include meta-data for the dm-verity tool for the corresponding root filesystem.  

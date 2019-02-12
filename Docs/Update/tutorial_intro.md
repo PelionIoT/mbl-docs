@@ -1,8 +1,8 @@
-## Updating MBL images or applications
+# Updating MBL images or applications
 
 <!--something about how this covers images and apps separately, and each one has both manifest tool and MBL CLI explained-->
 
-### Prerequisites
+## Prerequisites
 
 An MBL device can only be updated if the followings are available:
 
@@ -15,7 +15,7 @@ An MBL device can only be updated if the followings are available:
 
 * A Pelion API key, to use the manifest tool from the command line. Follow the instructions in the [requirements section](..//getting-started/api-keys.html) to obtain an API key (when prompted to select a group to set the API key access level, select **Developers**). Make a note of the API key to use it later; for security reasons, the portal will not display it again.
 
-### Notes
+## Notes
 
 * You can monitor the update payload **download** progress by tailing the `mbl-cloud-client` log file:
 

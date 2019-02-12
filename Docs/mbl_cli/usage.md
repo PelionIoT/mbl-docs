@@ -1,6 +1,6 @@
-## Usage
+# Usage
 
-### Device discovery and selection
+## Device discovery and selection
 
 You can list available devices, and select one to use for all subsequent commands:
 
@@ -31,7 +31,7 @@ You can list available devices, and select one to use for all subsequent command
 
  1. To deselect a device: run `select` again and select a different device.
 
-### Remote command execution
+## Remote command execution
 
 To execute commands on the device:
 
@@ -71,7 +71,7 @@ usb0:avahi Link encap:Ethernet  HWaddr 96:F8:52:67:D5:D8
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
 ```
 
-### Get shell access (SSH)
+## Get shell access (SSH)
 
 To get shell access over SSH to a device (as the user `root`), use the `shell` command:
 

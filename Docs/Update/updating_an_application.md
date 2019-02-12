@@ -1,11 +1,11 @@
-## Updating an application
+# Updating an application
 
 There are two ways to update an MBL application:
 
 * Using the manifest tool
 * Using MBL CLI
 
-### Using the manifest tool
+## Using the manifest tool
 
 1. Create an update payload file: Make a `tar` file containing the `.ipk` files for the applications to update.
 
@@ -43,8 +43,7 @@ There are two ways to update an MBL application:
 
 The system does not reboot after an application update.
 
-### Using MBL CLI
-
+## Using MBL CLI
 
 You can update each application independently of any others.
 
@@ -85,7 +84,7 @@ To install or update an application:
 
 <span class="notes">We recommend deleting the old tar files from the `scratch` partition after updates finish.</span>
 
-### Identifying the running applications
+## Identifying the running applications
 
 You can use `runc list` to list all the active applications and their status.
 

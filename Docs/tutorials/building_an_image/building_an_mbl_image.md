@@ -1,10 +1,10 @@
-## Building an MBL image
+# Building an MBL image
 
 <span class="notes">**Note**: Mbed Linux OS is currently in limited preview. If you would like access to the code repositories, [please request to join the preview](https://os.mbed.com/linux-os/).</span>
 
 Please note that each release has its own branch. Throughout this guide, the release branch is assumed to be `mbl-os-0.5`.
 
-### Building scripts
+## Building scripts
 
 <span class="notes">**Note**: You need to use an SSH agent to build. For usage, see [the GitHub SSH documentation](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).</span>
 
@@ -63,7 +63,7 @@ The following build options are not mandatory, but you may find that they improv
 | `--downloaddir` | Cache downloaded artifacts between successive builds (do not use cacheing for parallel builds). For example, if you've created `mkdir /path/to/downloads`, the downloaddir will be `./mbl-tools/build-mbl/run-me.sh --downloaddir /path/to/downloads` |
 | `--external-manifest` | You can build using a pinned manifest, which is an encapsulation created by a build and containing enough information to allow an exact rebuild. The manifest is created in your output directory (`outputdir`). To use it to rebuild, run `./mbl-tools/build-mbl/run-me.sh --external-manifest /path/to/pinned-manifest.xml` |
 
-### Build examples
+## Build examples
 
 The following examples assume:
 
@@ -72,19 +72,19 @@ The following examples assume:
 * You have an output directory for your machine, for example `./artifacts-warp7` or `./artifacts-rpi3`.
 * You have an [SSH agent](../getting-started/development-environment.html). For usage, see [the GitHub SSH documentation](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).
 
-#### Warp7 device
+### Warp7 device
 
 ```
 ./mbl-tools/build-mbl/run-me.sh --inject-mcc ./cloud-credentials/mbed_cloud_dev_credentials.c --inject-mcc ./update-resources/update_default_resources.c --builddir ./build-warp7 --outputdir ./artifacts-warp7 -- --machine imx7s-warp-mbl --branch mbl-os-0.5
 ```
 
-#### Raspberry Pi 3 device
+### Raspberry Pi 3 device
 
 ```
 ./mbl-tools/build-mbl/run-me.sh --inject-mcc ./cloud-credentials/mbed_cloud_dev_credentials.c --inject-mcc ./update-resources/update_default_resources.c --builddir ./build-rpi3 --outputdir ./artifacts-rpi3 -- --machine raspberrypi3-mbl --branch mbl-os-0.5
 ```
 
-### Building outputs
+## Building outputs
 
 The build process creates the following files:
 

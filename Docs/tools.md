@@ -1,4 +1,4 @@
-## Mbed Linux OS tools
+# Mbed Linux OS tools
 
 Mbed Linux OS includes the following tools:
 

@@ -1,12 +1,12 @@
-## Application code
+# Application code
 
 <span class="notes">**Note**: Mbed Linux OS (MBL) is currently in limited preview. If you would like access to the code repositories, [please request to join the preview](https://os.mbed.com/linux-os/).</span>
 
-### Source code
+## Source code
 
 The application code and scripts are in the [https://github.com/ARMmbed/mbl-example-qr](https://github.com/ARMmbed/mbl-example-qr) repository on GitHub. Please download or clone it.
 
-### Code review
+## Code review
 
 The application's core functionality is in the [`app.py`](https://github.com/ARMmbed/mbl-example-qr/blob/master/example-qr/example_qr/app.py) file. We also include a standard `cli.py` file to handle CLI inputs when the application is started in a shell.
 

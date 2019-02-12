@@ -1,4 +1,4 @@
-## Device update
+# Device update
 
 You can update the device's root file system (rootfs) and applications. Update of boot loaders, the Linux kernel and other components will be supported in later versions.
 
