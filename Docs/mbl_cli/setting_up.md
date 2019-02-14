@@ -18,7 +18,7 @@ We recommend installing Node.js from NodeSource's binary distribution using [the
 MBL CLI is distributed using npm. To install MBL CLI, run:
 
 ```
-$ npm install -g mbl-cli
+$ sudo npm install -g mbl-cli
 ```
 
 ### Setting up networking
