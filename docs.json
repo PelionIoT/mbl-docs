@@ -47,19 +47,8 @@
                             "sources": []
                         },
                         {
-                            "title": "Pelion accounts and certificates",
-                            "sources": [{
-                                    "type": "markdown",
-                                    "url": "https://github.com/ARMmbed/mbed_Cloud_Docs/blob/R2.1/Docs/account_management/log_or_create_users.md"
-                                },
-                                {
-                                    "type": "markdown",
-                                    "url": "https://github.com/ARMmbed/mbed_Cloud_Docs/blob/R2.1/Docs/web_apps/api_keys.md"
-                                },
-                                {
-                                    "type": "markdown",
-                                    "url": "https://github.com/ARMmbed/mbed_Cloud_Docs/blob/R2.1/Docs/provisioning/fcc_for_development.md"
-                                },
+                            "title": "Pelion Device Management accounts and certificates",
+                            "sources": [
                                 {
                                   "path": "Docs/app_dev/provision_developer.md"
                                 }
