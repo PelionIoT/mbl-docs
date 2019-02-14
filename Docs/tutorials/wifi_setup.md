@@ -254,3 +254,10 @@ For more information, refer to the [connman-service.config man page](https://man
 ConnMan now connects to the specified network.
 
 If you experience any issues, restart both ConnMan and `wpa_supplicant` daemons.
+
+
+#### Troubleshooting WiFi connections
+
+When connecting, the network name you use in the command must match the real network name exactly, including capitalisation and without trailing characters. Otherwise, you may get the following error:
+
+`Error /net/connman/service/WIFI_NAME: Method "Connect" with signature "" on interface "net.connman.Service" doesn't exist`
