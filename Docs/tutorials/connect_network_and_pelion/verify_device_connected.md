@@ -1,5 +1,7 @@
 # Verifying that the device is connected to Device Management
 
+<span class="notes">You need to have [the right credentials on your device]() to connect to Device Management.</span>
+
 When the device boots into MBL, `mbl-cloud-client` automatically starts and connects to Device Management. You can check whether it has connected by:
 
 * Checking the device status on the [Device Management Portal](https://portal.mbedcloud.com/).
@@ -13,6 +15,7 @@ When the device boots into MBL, `mbl-cloud-client` automatically starts and conn
     2018-12-06T07:11:58+0000 [INFO][mbl ]: Endpoint Name: 0167827df31500000000000100100032
     2018-12-06T07:11:58+0000 [INFO][mbl ]: Device Id: 0167827df31500000000000100100032
     ```
+
 If your device hasn't automatically connected to Device Management, it could be that:
 
 * Networking wasn't configured before the device was rebooted. Check your configurations and reboot the device.
