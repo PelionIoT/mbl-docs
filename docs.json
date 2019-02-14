@@ -85,31 +85,6 @@
             ]
         },
         {
-            "title": "Developing MBL",
-            "description": "",
-            "slug": "develop-mbl",
-            "type": "markdown",
-            "chapters": [{
-                    "title": "Developing Mbed Linux OS",
-                    "intro": {
-                        "path": "Docs/dev_mbl/intro.md"
-                    },
-                    "sources": []
-                },
-                {
-                    "title": "Contribution guidelines",
-
-                    "sources": [{
-                        "path": "Docs/dev_mbl/contribution_guidelines.md"
-                    },
-                    {
-                        "path": "Docs/dev_mbl/coding_style_guide.md"
-                    }
-                  ]
-                }
-            ]
-        },
-        {
             "title": "Developing applications",
             "description": "",
             "slug": "develop-apps",
@@ -186,6 +161,31 @@
                             "path": "Docs/Update/updating_an_application.md"
                         }
                     ]
+                }
+            ]
+        },
+        {
+            "title": "Developing MBL",
+            "description": "",
+            "slug": "develop-mbl",
+            "type": "markdown",
+            "chapters": [{
+                    "title": "Developing Mbed Linux OS",
+                    "intro": {
+                        "path": "Docs/dev_mbl/intro.md"
+                    },
+                    "sources": []
+                },
+                {
+                    "title": "Contribution guidelines",
+
+                    "sources": [{
+                        "path": "Docs/dev_mbl/contribution_guidelines.md"
+                    },
+                    {
+                        "path": "Docs/dev_mbl/coding_style_guide.md"
+                    }
+                  ]
                 }
             ]
         },
