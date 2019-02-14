@@ -34,7 +34,7 @@ Although it was born as joke, it has been the fundamental principles for Python 
 Python 3.5.2 (default, Nov 23 2017, 16:37:01)
 [GCC 5.4.0 20160609] on linux
 Type "help", "copyright", "credits" or "license" for more information.
->>> import this
+>> import this
 The Zen of Python, by Tim Peters
 
 Beautiful is better than ugly.
@@ -56,7 +56,7 @@ Although never is often better than *right* now.
 If the implementation is hard to explain, it's a bad idea.
 If the implementation is easy to explain, it may be a good idea.
 Namespaces are one honking great idea -- let's do more of those!
->>>
+>>
 ```
 
 ### PEP8
@@ -305,7 +305,8 @@ $ ./my_venv/bin/python
 Python 3.5.2 (default, Nov 23 2017, 16:37:01)
 [GCC 5.4.0 20160609] on linux
 Type "help", "copyright", "credits" or "license" for more information.
->>>
+
+
 (my_venv) user01 at dev-machine in /tmp
 $
 ```
@@ -421,16 +422,16 @@ class Class(object):
 
 
 user1 at e10000 in /tmp$ python -i c.py
->>> dir(Class)
+>> dir(Class)
 ['_Class__private_method', '__class__', '__delattr__', '__dict__', '__doc__', '__format__', '__getattribute__', '__hash__', '__init__', '__module__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_protected_method', 'public_method']
->>> c = Class()
->>> c.public_method()
+>> c = Class()
+>> c.public_method()
 public method
->>> c._protected_method()
+>> c._protected_method()
 protected method
->>> c._Class__private_method()
+>> c._Class__private_method()
 private method
->>>
+>>
 ```
 
 A few conventions for a readable and maintainable code:
