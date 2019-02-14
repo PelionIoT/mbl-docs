@@ -161,6 +161,9 @@
                     },
                     {
                         "path": "Docs/dev_mbl/contribution/coding_style_guide_python.md"
+                    },
+                    {
+                        "path": "Docs/dev_mbl/contribution/coding_style_guide_pytest.md"
                     }
                   ]
                 }
