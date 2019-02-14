@@ -154,10 +154,13 @@
                     "title": "Contribution guidelines",
 
                     "sources": [{
-                        "path": "Docs/dev_mbl/contribution_guidelines.md"
+                        "path": "Docs/dev_mbl/contribution/contribution_guidelines.md"
                     },
                     {
-                        "path": "Docs/dev_mbl/coding_style_guide.md"
+                        "path": "Docs/dev_mbl/contribution/coding_style_guide_cpp.md"
+                    },
+                    {
+                        "path": "Docs/dev_mbl/contribution/coding_style_guide_python.md"
                     }
                   ]
                 }
