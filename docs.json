@@ -73,7 +73,7 @@
                     ]
                 },
                 {
-                    "title": "Tutorial: Connecting to a network and Pelion Device Management",
+                    "title": "Connecting to a network and Pelion Device Management",
                     "sources": [{
                             "path": "Docs/tutorials/connect_network_and_pelion/connect_network.md"
                         },
