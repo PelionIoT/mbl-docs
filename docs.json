@@ -30,19 +30,19 @@
             "chapters": [{
                     "title": "Setting up and supported hardware",
                     "intro": {
-                        "path": "Docs/Reqs_and_env/intro_reqs.md"
+                        "path": "Docs/get_mbl_on_device/Reqs_and_env/intro_reqs.md"
                     },
                     "sub_chapters": [{
                             "title": "Hardware",
                             "intro": {
-                                "path": "Docs/Reqs_and_env/Hardware.md"
+                                "path": "Docs/get_mbl_on_device/Reqs_and_env/Hardware.md"
                             },
                             "sources": []
                         },
                         {
                             "title": "Development environment",
                             "intro": {
-                                "path": "Docs/Reqs_and_env/dev_env_for_distribution.md"
+                                "path": "Docs/get_mbl_on_device/Reqs_and_env/dev_env_for_distribution.md"
                             },
                             "sources": []
                         },
@@ -50,10 +50,10 @@
                             "title": "Pelion Device Management accounts and certificates",
                             "sources": [
                               {
-                                      "path": "Docs/building_an_image/prep_resources.md"
+                                      "path": "Docs/get_mbl_on_device/building_an_image/prep_resources.md"
                                   },
                                   {
-                                  "path": "Docs/app_dev/provision_developer.md"
+                                  "path": "Docs/get_mbl_on_device/provision_developer.md"
                                 }
                             ]
                         }
@@ -62,24 +62,24 @@
                 {
                     "title": "Building and writing an image",
                     "intro": {
-                        "path": "Docs/building_an_image/connect_tutorial_intro.md"
+                        "path": "Docs/get_mbl_on_device/building_an_image/connect_tutorial_intro.md"
                     },
                     "sources": [
                         {
-                            "path": "Docs/building_an_image/building_an_mbl_image.md"
+                            "path": "Docs/get_mbl_on_device/building_an_image/building_an_mbl_image.md"
                         },
                         {
-                            "path": "Docs/building_an_image/writing_booting_disk_image.md"
+                            "path": "Docs/get_mbl_on_device/building_an_image/writing_booting_disk_image.md"
                         }
                     ]
                 },
                 {
                     "title": "Connecting to a network and Pelion Device Management",
                     "sources": [{
-                            "path": "Docs/tutorials/connect_network_and_pelion/connect_network.md"
+                            "path": "Docs/get_mbl_on_device/connect_network_and_pelion/connect_network.md"
                         },
                         {
-                            "path": "Docs/tutorials/connect_network_and_pelion/verify_device_connected.md"
+                            "path": "Docs/get_mbl_on_device/connect_network_and_pelion/verify_device_connected.md"
                         }
                     ]
                 }
@@ -119,20 +119,20 @@
                 {
                     "title": "Application with linker script and no device resources",
                     "intro": {
-                        "path": "Docs/tutorials/user_app_helloworld.md"
+                        "path": "Docs/app_dev/user_app_helloworld.md"
                     },
                     "sources": []
                 },
                 {
                     "title": "Dockerized application with device resources",
                     "intro": {
-                        "path": "Docs/ref_apps/qr_reader/intro.md"
+                        "path": "Docs/app_dev/qr_reader/intro.md"
                     },
                     "sources": [{
-                            "path": "Docs/ref_apps/qr_reader/code_review.md"
+                            "path": "Docs/app_dev/qr_reader/code_review.md"
                         },
                         {
-                            "path": "Docs/ref_apps/qr_reader/usage.md"
+                            "path": "Docs/app_dev/qr_reader/usage.md"
                         }
                     ]
                 }
