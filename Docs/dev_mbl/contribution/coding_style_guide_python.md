@@ -317,9 +317,9 @@ Never use "+" for sting concatenation.
 
 There are three ways to format strings:
 
-* The old way: `%-formatting`. Please don't use this.
-* The current way: `str.format()`. This is the prefered MBL format.
-* The future: `f-Strings`. They're introduced in Python 3.6. The current version of Python on Mbed Linux OS is 3.5.5, so at the moment you can't use f-Strings.
+* `%-formatting`. Please don't use this format.
+* `str.format()`. This is the preferred MBL format.
+* `f-Strings` can be used with Python 3.6 and higher; check the version available in your distribution.
 
 ## Returns, exit codes, error management and logging
 
@@ -339,7 +339,7 @@ Errors are quite important for the lifecycle of the application. A good error ma
 * Methods and functions may propagate the error upwards. The main implementation will catch it eventually.
 * Methods and functions may catch the error, if they need to perform a corrective action.
 * Methods and functions may catch the error, perform an action and repropagate the exception upwards.
-* Catching errors in `__main__()` is the last resort.<!--doesn't that contradict the first sentence?-->
+* The last place you can catch errors is in `__main__()`.
 
 ### Exit codes
 

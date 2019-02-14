@@ -60,9 +60,9 @@ This is a summary of the MBL secure boot's requirements and recommendations:
 
 [Trusted Firmware](https://www.trustedfirmware.org/index.html) provides a reference implementation for the secure boot of trusted world components, up to loading and verifying the first normal world boot loader. Trusted Firmware meets the requirements specified in the Arm Trusted Boot Requirements specification (REF3) but with restrictions for ARMv7-A devices (because it was developed for [the ARMv8-A architecture](https://www.trustedfirmware.org/about/)).
 
-## Aligning with PSA requirements
-<!--I think "requirements" is confusing, because an equally plausible interoperation is that you're forcing PSA to align to you.-->
-All MBL design choices <!--for Cortex-A class devices--><!--MBL is only ever for Cortex-A--> will be aligned to the goals of PSA, based on:
+## Aligning MBL with PSA requirements
+
+All MBL design choices will be aligned to the goals of PSA, based on:
 
 * Trusted Base System Architecture CLIENT2 (TBSA-CLIENT2), Document number: ARM DEN 0021A-6, Copyright ARM Limited 2011-2013 (REF2)
 * Trusted Board Boot Requirements CLIENT (TBBR-CLIENT), Document number: ARM DEN0006C-1, Copyright ARM Limited 2011-2015 (REF3)
