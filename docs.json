@@ -27,7 +27,17 @@
             "description": "",
             "slug": "first-image",
             "type": "markdown",
-            "chapters": [{
+            "chapters": [
+                    {
+                      "title": "Introduction",
+                      "intro":
+                      {
+                        "path": "Docs/get_mbl_on_device/introduction_mbl_on_device.md"
+
+                      },
+                      "sources":[]
+                    },
+                    {
                     "title": "Setting up and supported hardware",
                     "intro": {
                         "path": "Docs/get_mbl_on_device/Reqs_and_env/intro_reqs.md"
