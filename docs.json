@@ -127,7 +127,7 @@
                     ]
                 },
                 {
-                    "title": "Application with linker script and no device resources",
+                    "title": "Hello World application",
                     "intro": {
                         "path": "Docs/app_dev/user_app_helloworld.md"
                     },
