@@ -132,19 +132,6 @@
                         "path": "Docs/app_dev/user_app_helloworld.md"
                     },
                     "sources": []
-                },
-                {
-                    "title": "Dockerized application with device resources",
-                    "intro": {
-                        "path": "Docs/app_dev/qr_reader/intro.md"
-                    },
-                    "sources": [{
-                            "path": "Docs/app_dev/qr_reader/code_review.md"
-                        },
-                        {
-                            "path": "Docs/app_dev/qr_reader/usage.md"
-                        }
-                    ]
                 }
             ]
         },
