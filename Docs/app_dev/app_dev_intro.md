@@ -1,2 +1,43 @@
 # Developing applications for Mbed Linux OS
-Nothing to see here yet
+
+
+
+## Preparing your device
+
+<span class="tips">**Tip**: for a list of supported devices, [see our hardware requirements]().</span>
+
+MBL applications are not compiled together with the MBL codebase or with any Pelion Device Management credentials (unlike Mbed OS, where the codebase, credentials and application form a single binary). This method allows you to deploy and manage multiple applications on a single device, but it requires some preparation work: To install applications on the device, you first need to install MBL and Device Management credentials on that device.
+
+1. Get an MBL image:
+    * You can use [our evaluation image]().
+    * You can [build your own](). You will need to [set up a full development environment for this]().
+1. [Flash the image to the device]().
+1. Provision the device with [Pelion Device Management credentials and an API key]() so that it can connect to your Device Management account.
+1. [Set up your network connection]() and [test your Device Management connectivity]().
+
+## Application development requirements
+
+1. [Install MBL CLI]().
+1. Set up [a USB connection to your device](), so you can work with MBL CLI.
+1. Install Docker CE<!--or any docker? is CE only important if you're building the image itself?-->
+
+## Building your application
+
+MBL applications run as containers from images prepared with Docker. A container has:
+
+* Your application executable file.
+* A `config.json` file that lists the device resources, such as hardware or persistent memory, the application container can access. It also carries running instructions for the device. <!--does it also tell the device how to run the application? the "process" bit?-->
+
+<span class="tips">More information about containers and packages is available in our [Reference section]().</span>
+
+Docker's cross-compiling tool, dockcross, has a standard image with everything you need to build applications for Linux on ARMv7. When we build MBL applications, the first stage of the build adds some tooling (opkg-utils and a helper script - build-armv7) to the standard dockcross image. The resulting dockcross image takes a standard MakeFile and builds according to its instructions:
+
+1. Builds your application using [dockcross](https://github.com/dockcross/dockcross) to cross-compile.<!--do they have to use dockcross, or do we just happen to always use it?-->
+1. Creates an OCI bundle, which combines your built application and your configuration file.<!--that's still with dockcross, right? That's why they have to use it?-->
+1. Creates an IPK file. This is the file format the MBL's package manager - which installs applications - can handle.<!--we use opkg-utils for that, and I think those scripts are *in* the image... are they?-->
+1. Compresses your IPK into a TAR, to match the requirements of the Device Management Update service.
+
+The applications in the following tutorials all use MakeFile and dockcross to cross-compile. They introduce different levels of reliance on Docker and access from the dockerized application to the device:
+
+1. The Hello World application is entirely self contained. It has just one file to build - `hello_world.c` - and a `config.json` defining how to run the application on the device. The `config.json` doesn't give the application any special access to the device's software or hardware resources; the application doesn't even use the device's C runtime library.
+1. The QR scanner uses its `config.json` to access the device's hardware resources and persistent memory. It also demonstrates using Docker build stages to add libraries to the final image - OpenCV, in this case.

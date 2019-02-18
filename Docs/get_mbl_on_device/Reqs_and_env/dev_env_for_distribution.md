@@ -1,5 +1,10 @@
 # Preparing a development environment for the distribution
 
+These requirements are for anyone building an MBL image that can connect to Pelion Device Management.
+
+
+<span class="tips">**Tip**: in addition to these requirements, you can also install [MBL CLI](). You will need to do this if you are developing applications that run on top of MBL. If you are contributing to MBL, you can choose to use MBL CLI to update the MBL image on your device (you can update the image with the manifest tool if you do not want to use MBL CLI).</span>
+
 ## Accounts
 
 You need:
