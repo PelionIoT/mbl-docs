@@ -1,6 +1,6 @@
 # Developing applications for Mbed Linux OS
 
-
+<!--needs an intro paragraph-->
 
 ## Preparing your device
 
@@ -39,5 +39,10 @@ Docker's cross-compiling tool, dockcross, has a standard image with everything y
 
 The applications in the following tutorials all use MakeFile and dockcross to cross-compile. They introduce different levels of reliance on Docker and access from the dockerized application to the device:
 
-1. The Hello World application is entirely self contained. It has just one file to build - `hello_world.c` - and a `config.json` defining how to run the application on the device. The `config.json` doesn't give the application any special access to the device's software or hardware resources; the application doesn't even use the device's C runtime library.
-1. The QR scanner uses its `config.json` to access the device's hardware resources and persistent memory. It also demonstrates using Docker build stages to add libraries to the final image - OpenCV, in this case.
+1. The Hello World C application is entirely self contained. It has just one file to build - `hello_world.c` - and a `config.json` defining how to run the application on the device. The `config.json` doesn't give the application any special access to the device's software or hardware resources; the application doesn't even use the device's C runtime library.
+
+    The application also has a very simple build - dockcross and a MakeFile - because as a simple C file it doesn't require any other tools to be containerised with it.
+    
+1. The QR scanner Python application uses its `config.json` to access the device's hardware resources and persistent memory.
+
+    This application is Dockerised - because it's a Python application and needs the Python runtime environment with it, as well an the OpenCV library to capture camera frames, it cannot be built and converted to an OCI individually (the way we did with the Hello World C application). Instead, it's built and then bundled with all its Python dependencies.
