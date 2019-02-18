@@ -19,7 +19,7 @@ MBL applications are not compiled together with the MBL codebase or with any Pel
 
 1. [Install MBL CLI]().
 1. Set up [a USB connection to your device](), so you can work with MBL CLI.
-1. Install Docker CE<!--or any docker? is CE only important if you're building the image itself?-->
+1. Install Docker CE<!--or any docker? is CE only important if you're building the image itself?--><!--does docker include runc?-->
 
 ## Building your application
 
@@ -42,7 +42,7 @@ The applications in the following tutorials all use MakeFile and dockcross to cr
 1. The Hello World C application is entirely self contained. It has just one file to build - `hello_world.c` - and a `config.json` defining how to run the application on the device. The `config.json` doesn't give the application any special access to the device's software or hardware resources; the application doesn't even use the device's C runtime library.
 
     The application also has a very simple build - dockcross and a MakeFile - because as a simple C file it doesn't require any other tools to be containerised with it.
-    
+
 1. The QR scanner Python application uses its `config.json` to access the device's hardware resources and persistent memory.
 
     This application is Dockerised - because it's a Python application and needs the Python runtime environment with it, as well an the OpenCV library to capture camera frames, it cannot be built and converted to an OCI individually (the way we did with the Hello World C application). Instead, it's built and then bundled with all its Python dependencies.
