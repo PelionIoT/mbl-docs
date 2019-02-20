@@ -66,12 +66,15 @@
                         },
                         {
                             "path": "Docs/get_mbl_on_device/building_an_image/writing_booting_disk_image.md"
-                        },
-
-                        {
-                            "path": "Docs/get_mbl_on_device/provision_developer.md"
                         }
                     ]
+                },
+                {
+                    "title": "Provisioning for Pelion Device Management",
+                    "intro": {
+                        "path": "Docs/get_mbl_on_device/provision_developer.md"
+                    },
+                    "sources": []
                 },
                 {
                     "title": "Connecting to a network and Pelion Device Management",
