@@ -48,6 +48,12 @@ You can use MBL CLI to provision your device dynamically (at runtime).<!--move t
 
 ## Prerequisites
 
+<!--haven't told them to install manifest tool-->
+
+* <a href="https://os.mbed.com/account/login/" target="_blank">A Pelion Device Management Account</a>
+
+* An API key from [Pelion Device Management](https://cloud.mbed.com/docs/latest/integrate-web-app/api-keys.html). Be sure to copy the key when prompted.
+
 * An `update_default_resources.c` file, created with the `manifest-tool`:
     1. Create an update resources directory, such as `./update-resources`:
 
@@ -71,8 +77,6 @@ You can use MBL CLI to provision your device dynamically (at runtime).<!--move t
         * `<device class>` is a unique identifier for the device class. If you're in development (using developer credentials), you can use `dev-device`.
 
         This generates the `update_default_resources.c` file.
-
-* An API key from [Pelion Device Management](https://cloud.mbed.com/docs/latest/integrate-web-app/api-keys.html). Be sure to copy the key when prompted.
 
 * You also need to know your device's vendor and class ID.
 
