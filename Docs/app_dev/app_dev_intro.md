@@ -29,9 +29,9 @@ At the moment, the communication between the device application and DM Client is
 
 
 
-# Application development flow
+## Application development flow
 
-## Preparing your device
+### Preparing your device
 
 <span class="tips">**Tip**: for a list of supported devices, [see our hardware requirements]().</span>
 
@@ -46,13 +46,13 @@ MBL applications are not compiled together with the MBL codebase or with any Pel
 1. [Set up your network connection](../first-image/connecting-to-a-network-and-pelion-device-management.html) and [test your Device Management connectivity](../first-image/verifying-that-the-device-is-connected-to-device-management.html).
 
 
-## Application development requirements
+### Application development requirements
 
 1. [Install MBL CLI](../develop-apps/setting-up.html).
 1. Set up [a USB connection to your device](), so you can work with MBL CLI.
 1. Install Docker CE.
 
-## Build examples
+### Build examples
 
 MBL applications run as containers from images prepared with Docker. A container has:
 
