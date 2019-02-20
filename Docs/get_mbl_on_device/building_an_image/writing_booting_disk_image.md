@@ -100,10 +100,12 @@ To write your disk image to the Warp7's flash device, you must first access the 
 1. From a Linux prompt, write the disk image to the Warp7's flash device (replace `<device-file-name>` with the correct device file for the Warp7's flash device; in this example, it would be `usb-Linux_UMS_disk_0-0:0`):
 
     ```
-    sudo bmaptool copy --bmap /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-image-development/images/mbl-image-development-imx7s-warp-mbl.wic.bmap /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-image-development/images/mbl-image-development-imx7s-warp-mbl.wic.gz /dev/disk/by-id/<device-file-name>
+    sudo bmaptool copy --nobmap /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-image-development/images/mbl-image-development-imx7s-warp-mbl.wic.gz /dev/disk/by-id/<device-file-name>
     ```
 
     This action may take some time.
+
+    <span class="tips">**Tip**: Use `--nobmap` for the initial flashing, to ensure your flash is set up correctly. On all subsequent flashings, you can use the `--bmap` option with a bmap file to speed up the process: `sudo bmaptool copy --bmap /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-image-development/images/mbl-image-development-imx7s-warp-mbl.wic.bmap /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-image-development/images/mbl-image-development-imx7s-warp-mbl.wic.gz /dev/disk/by-id/<device-file-name>`</span>
 
 1. When `bmaptool` has finished, eject the device (replace `<device-file-name>` with the correct device file for the Warp7's flash device; in this example, it would be `usb-Linux_UMS_disk_0-0:0`):
 
@@ -138,10 +140,12 @@ To write your disk image to the Warp7's flash device, you must first access the 
 1. Write the disk image to the SD card device - not a partition on it (replace `/dev/sdX` as explained above):
 
     ```
-    sudo bmaptool copy --bmap /path/to/artifacts/machine/raspberrypi3-mbl/images/mbl-image-development/images/mbl-image-development-raspberrypi3-mbl.wic.bmap /path/to/artifacts/machine/raspberrypi3-mbl/images/mbl-image-development/images/mbl-image-development-raspberrypi3-mbl.wic.gz /dev/sdX
+    sudo bmaptool copy --nobmap /path/to/artifacts/machine/raspberrypi3-mbl/images/mbl-image-development/images/mbl-image-development-raspberrypi3-mbl.wic.gz /dev/sdX
     ```
 
     This action may take some time.
+
+    <span class="tips">**Tip**: Use `--nobmap` for the initial flashing, to ensure your flash is set up correctly. On all subsequent flashings, you can use the `--bmap` option with a bmap file to speed up the process: `sudo bmaptool copy --bmap /path/to/artifacts/machine/raspberrypi3-mbl/images/mbl-image-development/images/mbl-image-development-raspberrypi3-mbl.wic.bmap /path/to/artifacts/machine/raspberrypi3-mbl/images/mbl-image-development/images/mbl-image-development-raspberrypi3-mbl.wic.gz /dev/sdX`</span>
 
 1. When `bmaptool` has finished, eject the device:
 
