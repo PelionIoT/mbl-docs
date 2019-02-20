@@ -1,10 +1,10 @@
 # Updating MBL images or applications
 
-<!--something about how this covers images and apps separately, and each one has both manifest tool and MBL CLI explained-->
+This section explain how to update either your MBL image or any of your applications. For both updates, we provide two workflows: one using MBL CLI, the other using the manifest tool.
 
 ## Prerequisites
 
-An MBL device can only be updated if the followings are available:
+An MBL device can only be updated if the following are available:
 
 * The device is running an MBL image that can connect to a Pelion account. [Follow the first section in this series](../getting-started/pelion-accounts-and-certificates.html) to request an account.
 * The build artefacts for the image to send as the update payload. See the [build tutorial](../getting-started/tutorial-building-an-image.html) for instructions.
