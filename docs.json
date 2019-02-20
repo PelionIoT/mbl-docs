@@ -58,11 +58,11 @@
                         },
                         {
                             "title": "Pelion Device Management accounts and certificates",
-                            "sources": [
+                            "intro":
                                   {
                                   "path": "Docs/get_mbl_on_device/provision_developer.md"
-                                }
-                            ]
+                                },
+                            "sources": []
                         }
                     ]
                 },
