@@ -1,10 +1,5 @@
 # Developer credentials for Pelion Device Management
 
-<!--https://confluence.arm.com/display/mbedlinux/Pelion+Provisioning+During+Development-->
-<!--https://confluence.arm.com/display/mbedlinux/Development+Provisioning+Use-Cases-->
-
-<!--Assumption: a team of developers are working with one or more devices that are associated with a single pelion account. They all have their own account, with one or more API keys.-->
-
 To connect your devices to Pelion Device Management, you must provision the device with security credentials that establish trust with the cloud services. Device Management offers a **developer certificate** to connect a development device to a Device Management account. The developer certificate doesn't require setting up a certificate authority (unlike the full credentials for production devices). Instead, you can simply download the certificate from the Device Management Portal. You then need to get the certificate on the device in a process called **provisioning**.
 
 <span class="tips">You can use the same certificate on up to 100 devices. You can generate another certificate if you need to provision more devices.</span><!--not sure I want to state this here - DM might change their policy and we won't know. Better to link to the DM page that explains this, and that is more likely to be updated regularly-->
