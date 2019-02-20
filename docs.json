@@ -27,17 +27,15 @@
             "description": "",
             "slug": "first-image",
             "type": "markdown",
-            "chapters": [
-                    {
-                      "title": "Introduction",
-                      "intro":
-                      {
+            "chapters": [{
+                    "title": "Introduction",
+                    "intro": {
                         "path": "Docs/get_mbl_on_device/introduction_mbl_on_device.md"
 
-                      },
-                      "sources":[]
                     },
-                    {
+                    "sources": []
+                },
+                {
                     "title": "Setting up and supported hardware",
                     "intro": {
                         "path": "Docs/get_mbl_on_device/Reqs_and_env/intro_reqs.md"
@@ -55,14 +53,6 @@
                                 "path": "Docs/get_mbl_on_device/Reqs_and_env/dev_env_for_distribution.md"
                             },
                             "sources": []
-                        },
-                        {
-                            "title": "Pelion Device Management accounts and certificates",
-                            "intro":
-                                  {
-                                  "path": "Docs/get_mbl_on_device/provision_developer.md"
-                                },
-                            "sources": []
                         }
                     ]
                 },
@@ -71,12 +61,15 @@
                     "intro": {
                         "path": "Docs/get_mbl_on_device/building_an_image/connect_tutorial_intro.md"
                     },
-                    "sources": [
-                        {
+                    "sources": [{
                             "path": "Docs/get_mbl_on_device/building_an_image/building_an_mbl_image.md"
                         },
                         {
                             "path": "Docs/get_mbl_on_device/building_an_image/writing_booting_disk_image.md"
+                        },
+
+                        {
+                            "path": "Docs/get_mbl_on_device/provision_developer.md"
                         }
                     ]
                 },
@@ -148,18 +141,18 @@
                     "title": "Contribution guidelines",
 
                     "sources": [{
-                        "path": "Docs/dev_mbl/contribution/contribution_guidelines.md"
-                    },
-                    {
-                        "path": "Docs/dev_mbl/contribution/coding_style_guide_cpp.md"
-                    },
-                    {
-                        "path": "Docs/dev_mbl/contribution/coding_style_guide_python.md"
-                    },
-                    {
-                        "path": "Docs/dev_mbl/contribution/coding_style_guide_pytest.md"
-                    }
-                  ]
+                            "path": "Docs/dev_mbl/contribution/contribution_guidelines.md"
+                        },
+                        {
+                            "path": "Docs/dev_mbl/contribution/coding_style_guide_cpp.md"
+                        },
+                        {
+                            "path": "Docs/dev_mbl/contribution/coding_style_guide_python.md"
+                        },
+                        {
+                            "path": "Docs/dev_mbl/contribution/coding_style_guide_pytest.md"
+                        }
+                    ]
                 }
             ]
         },
