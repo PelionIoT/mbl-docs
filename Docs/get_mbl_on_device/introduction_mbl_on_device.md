@@ -1,10 +1,6 @@
 # Installing MBL on a new device
 
-<!--this is the same text as the app developers intro...-->
-
-MBL applications are not compiled together with the MBL codebase or with any Pelion Device Management credentials (unlike Mbed OS, where the codebase, credentials and application form a single binary). This method allows you to deploy and manage multiple applications on a single device.
-
-To install MBL on a new device:
+To install Mbed Linux OS on a new device:
 
 1. Review our list of [supported development boards](../first-image/hardware.html) and set up your [development environment](../first-image/development-environment.html).
 1. Get an MBL image:
