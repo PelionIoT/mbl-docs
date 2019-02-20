@@ -59,9 +59,6 @@
                         {
                             "title": "Pelion Device Management accounts and certificates",
                             "sources": [
-                              {
-                                      "path": "Docs/get_mbl_on_device/building_an_image/prep_resources.md"
-                                  },
                                   {
                                   "path": "Docs/get_mbl_on_device/provision_developer.md"
                                 }
@@ -143,7 +140,7 @@
             "chapters": [{
                     "title": "Developing Mbed Linux OS",
                     "intro": {
-                        "path": "Docs/dev_mbl/intro.md"
+                        "path": "Docs/dev_mbl/dev_mbl_intro.md"
                     },
                     "sources": []
                 },

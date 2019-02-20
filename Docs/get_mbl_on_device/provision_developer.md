@@ -1,4 +1,4 @@
-# Developer credentials for Pelion Device Management
+# Provisioning for Pelion Device Management
 
 To connect your devices to Pelion Device Management, you must provision the device with security credentials that establish trust with the cloud services. Device Management offers a **developer certificate** to connect a development device to a Device Management account. The developer certificate doesn't require setting up a certificate authority (unlike the full credentials for production devices). Instead, you can simply download the certificate from the Device Management Portal. You then need to get the certificate on the device in a process called **provisioning**.
 
@@ -83,7 +83,7 @@ If, on first use, you do not create your own `~/.mbl-stores.json`, it will be au
 
 Prerequisites:
 
-* An `update_default_resources.c` file, created with the `manifest-tool` when you [built your device's first image](../first-image/preparing-device-management-sources.html#creating-an-update-resources-file).<!--what if they got an image from us?-->
+* An `update_default_resources.c` file, created with the `manifest-tool` when you [built your device's first image](../first-image/preparing-device-management-sources.html#creating-an-update-resources-file).<!--what if they got an image from us?--><!--I put this below - I'm not sure where it fits now - did they need to do it earlier?-->
 * An API key from [Pelion Device Management](https://cloud.mbed.com/docs/latest/integrate-web-app/api-keys.html). Be sure to copy the key when prompted.
 
 To provision your device:
@@ -109,7 +109,7 @@ To provision your device:
 
     The command validates the key exists in Device Management, then saves the key in the User Store.
 
-1. To provision your device with the developed and update certificates:
+1. To provision your device with the developer and update certificates:
 
     ```bash
     mbl-cli provision-pelion  <cert-name> <update-cert-path> --create-dev-cert
@@ -122,3 +122,35 @@ To provision your device:
     * The path to the `update_default_resources.c` file created using the manifest tool.
 
     MBL CLI injects the certificates into your selected device's secure storage.
+
+
+## Creating an update resources file
+
+<!--not sure where this goes now - do they still need to do it?-->
+
+MBL and Device Management support over-the-air updates for devices, which you can do [in a later tutorial in this sequence](../getting-started/tutorial-updating-mbl-devices-and-applications.html). For a device to be updatable, it needs to include some update resources (such as credentials) in the original image.
+
+1. Create an update resources directory, such as `./update-resources`:
+
+    ```
+    mkdir ./update-resources
+    ```
+
+1. Move into the new directory:
+
+    ```
+    cd ./update-resources
+    ```
+
+1. Initialize the manifest tool, and generate Update resources:
+
+    `manifest-tool init -q -d <domain> -m <device class>`
+
+    Where:
+
+    * `<domain>` is your company's domain, like `arm.com`
+    * `<device class>` is a unique identifier for the device class. If you're in development (using developer credentials), you can use `dev-device`.
+
+    This generates the `update_default_resources.c` file.
+
+    You will use this file in the build process later.
