@@ -1,8 +1,13 @@
 # Developing applications for Mbed Linux OS
 
+NOTE: a lot of this is Irit talking to herself; don't worry about typos, weird sentences and repetitions.
+
+In fact, do yourself a favour and don't read this yet. Waste of your time.
+
 ## Application design
 
-NOTE: a lot of this is Irit talking to herself; don't worry about typos, weird sentences and repetitions.
+
+Stealing from: https://confluence.arm.com/display/mbedlinux/How+IoT+Applications+are+Structured
 
 Mbed Linux OS (MBL) is designed for cloud-connected applications for IoT devices.
 
