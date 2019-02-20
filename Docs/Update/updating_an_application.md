@@ -9,12 +9,12 @@ There are two ways to update an MBL application:
 
 1. Create an update payload file: Make a `tar` file containing the `.ipk` files for the applications to update.
 
-    Note that the `.ipk` files must be in the `.tar`'s root directory, not a subdirectory.
+    Note that the `.ipk` files must be in the `.tar`'s root directory, not a subdirectory (we use `-C` in the tar command to specify a directory where the package is).
 
     For example, to create an update payload file at `/tmp/payload.tar` containing an `.ipk` file with the path `/home/user01/my_app.ipk`, run:
 
     ```
-    user01@dev-machine:~$ tar -cf /tmp/payload.tar -C /home/user01 my_app.ipk
+    user01@dev-machine:~$ tar -cf /tmp/payload.tar -C /home/user01  my_app.ipk
     ```
 
 1. Find the device ID in the `mbl-cloud-client` log file at `/var/log/mbl-cloud-client.log`, using the following command on the device's console:
