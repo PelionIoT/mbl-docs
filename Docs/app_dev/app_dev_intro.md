@@ -16,7 +16,7 @@ When designing applications for IoT devices running MBL, we make the following a
 
 <span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/applications_map_highlight.png)<span>Application design focuses on connecting the IoT device and the end user's device over an application cloud</span></span>
 
-We're designing an Iot device that manages its Device Management connection, as well as any processing and automation it needs to perform to be useful. We have three options:
+We're designing an Iot device that must handle its Device Management connection, as well as any processing and automation it needs to perform to be useful. We have three options:
 
 * Create a single application that does all these things.
 * Use a modular approach:
