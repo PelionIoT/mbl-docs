@@ -5,6 +5,47 @@ This section contains instructions for writing the full disk image to a:
 * Warp7 device.
 * Raspberry Pi 3 device.
 
+<!-- JIJ: Need a section on first time writing for Pico7 and imx8mm -->
+
+## PICO-PI baseboard with the PICO-IMX7D SoM
+
+### First-time
+
+<span class="notes">This assumes you have already assembled your baseboard and SoM. These first-time instructions are distilled from [information from TechNexion](https://www.technexion.com/support/knowledgebase/loading-bootable-software-images-onto-the-emmc-of-picosom-on-pico-pi/).</span>
+
+To write your first disk image, you need to:
+
+1. Download and unzip the TechNexion image loader software: [ftp://download.technexion.net/development_resources/development_tools/installer/pico-imx6-imx6ul-imx7_otg-installer_20171101.zip](ftp://download.technexion.net/development_resources/development_tools/installer/pico-imx6-imx6ul-imx7_otg-installer_20171101.zip)
+
+1. Set the PICO-PI into serial download mode by chainging the boot configuration jumper settings.
+
+<!--JIJ:picture TBD->>
+
+1. Connect both the PICO-PI-GL USB-C socket and the micro-USB socket to your PC.
+
+    You should now be able to see a USB TTY device, such as, `/dev/ttyUSB0`, on your PC.
+
+1. Connect to the PICO-PI-GL's console using a command such as:
+
+    ```
+    minicom -D /dev/ttyUSB0
+    ```
+
+    Use the following settings:
+
+    * Baud rate: 115200.
+    * Encdoing: [8N1](https://en.wikipedia.org/wiki/8-N-1).
+    * No hardware flow control (enabled by default).
+    
+1. Run the USB OTG (on the go) Loader, using the following commands on Linux:
+
+    ```
+    cd pico-imx6-imx6ul-imx7_otg-installer_20171101
+    sudo linux/imx_usb pico-imx7d_bootbomb_20170112.imx 
+    ```
+    
+    TBD!
+
 ## Warp7 devices
 
 To write your disk image to the Warp7's flash device, you must first access the Warp7's serial console. To do this:
