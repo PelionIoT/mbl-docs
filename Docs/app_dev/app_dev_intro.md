@@ -31,9 +31,9 @@ Applications will have dependencies, for example on a runtime library or Python.
 
 ## Installer devices
 
-Installer devices configure deployed devices that cannot be fully preconfigured. For example, so far we've been using our own Device Management account, but when we start producing devices for a market, we may not want to associate those devices with our own account. Instead, a company that bought a group of devices may want to associate them with its own account. To do that, they must be able to access the platform services on the device, which handle common functions on behalf of applications, including the network manager and secure storage (to store keys and credentials).
+Installer devices configure deployed IoT devices that cannot be fully preconfigured. For example, so far we've been using our own Device Management account, but when we start producing devices for a market, we may not want to associate those devices with our own account. Instead, a company that bought a group of devices may want to associate them with its own account. To do that, they must be able to access the platform services on the device, which handle common functions on behalf of applications, including the network manager and secure storage (to store keys and credentials).
 
-You don't need an installer device while developing your application, but you do need to think about what that application may require from the installer device.
+You don't need an installer device while developing your application, but you do need to think about what that application may later require from the installer device.
 
 ## Application development flow
 
