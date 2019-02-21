@@ -25,12 +25,15 @@ We're designing an Iot device that manages its Device Management connection, as 
 
     For example, one application or base layer can manage communication with Device Management Client, while another handles input and output; we can reuse both of these on many different devices, either as base layers or as microservices. It's only our device-specific application - the one that performs the actions that our device specialises in, such as determining when to alert the user of certain conditions - that will not be widely reusable.
 
-
-<!--I have two problems with this diagram: 1. it doesn't show that DM Client is part of MBL and therefore all apps use the same instance of it. 2. It doesn't show building a layered application. . -->
-
 <span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/multi_apps.png)![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/application_from_layers.png)<span>An MBL IoT device can have multiple applications, and one or more of those applications can be made of base layers</span></span>
 
-Applications will have dependencies, for example on a runtime library or Python. We can containerise an application with all of its dependencies, or rely on our Linux distribution to provide them. There's a tradeoff: the more we pack into the application container, the bigger it is. The advantage is that the application is independent of the distribution. We can update the distribution without worrying about breaking the application with a mismatched dependency, and we can update the application without being forced to update the distribution at the same time.
+Applications will have dependencies, for example on a runtime library or Python. We can containerise an application with all of its dependencies, or rely on our Linux distribution to provide them. There's a tradeoff: the more we pack into the application container, the bigger it is. The advantage is that the application is independent of the distribution, so we can update the distribution without worrying about breaking the application with a mismatched dependency, and we can update the application without being forced to update the distribution at the same time.
+
+## Installer devices
+
+Installer devices configure deployed devices that cannot be fully preconfigured. For example, so far we've been using our own Device Management account, but when we start producing devices for a market, we may not want to associate those devices with our own account. Instead, a company that bought a group of devices may want to associate them with its own account. To do that, they must be able to access the platform services on the device, which handle common functions on behalf of applications, including the network manager and secure storage (to store keys and credentials).
+
+You don't need an installer device while developing your application, but you do need to think about what that application may require from the installer device.
 
 ## Application development flow
 
