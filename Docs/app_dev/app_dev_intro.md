@@ -6,33 +6,19 @@ In fact, do yourself a favour and don't read this yet. Waste of your time.
 
 ## Application design
 
+When designing applications for IoT devices running MBL, we make the following assumptions:
 
-Stealing from: https://confluence.arm.com/display/mbedlinux/How+IoT+Applications+are+Structured
+* Our goal is to give end users control of the IoT device running our application. They do this through their own application, and we don't care too much about where those applications run - a phone, a control panel and so on - but we assume that they connect to our Pelion Device Management account.
+* Our IoT device also connects to our Pelion Device Management account. The Device Management service provided to that account is how IoT devices and end user devices communicate. MBL uses Device Management Client to connect to Device Management. Each device has only one instance of the client, which supports all applications running on that device.
 
-You have a Pelion Device Management account.
-
-All IoT devices in your fleet need to use that account (though within that account, you may choose to group them). They access that account by relying on the Device Management Client running on the IoT devices; this client is part of MBL, and so all applications on a device can access Device Management using the same client.
-
-The applications operated by your end users (on their phones, control panels and so on) connect to the same Device Management account.
-
-Having both device types accessing the same Device Management account - and therefore accessing the Device Management services for that account - is what allows your end users to control IoT devices.  
-
-Mbed Linux OS (MBL) is designed for cloud-connected applications for IoT devices.
-
-End user: my phone
-
-Cloud: duh
-
-Terminal IoT device: just an iot device
-
-<span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/applications_map.png)</span>
-
-<span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/multi_apps.png)</span>
+<span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/applications_map_highlight.png)<span>Application design focuses on connecting the IoT device and the end user's device over an application cloud</span></span>
 
 
-What you're trying to achieve: the left-hand side of the diagram: device application to user application.
+We're designing an Iot device that manages its cloud connection, as well as any processing and automation it needs to perform to be useful. We can design a single application that does all these things, or smaller applications that provide one microservice each. For example, one application can manage communication with Device Management Client, while another handles input and output; we can reuse both of these on many different devices. It's only our device-specific application - the one that performs the actions that our device specialises in, such as determining when to alert the user of certain conditions - that will not be widely reusable.
 
-You are designing an Iot Device that manages its communication with the Device Management Client, as well as any processing and automation it needs to perform to be useful. You can design a single application to do all these things, or you can design smaller applications that provide a microservice. One can manage communication with Device Management Client, and will always be able to manage that, no matter what else the device requires. Another can be the application that processes sensor input. This, too, can be useful for more than one type of device. One application can be very specific - it performs the actions that device specialises in.
+<span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/multi_apps.png)<span>An MBL IoT device can have multiple applications (marked as Device Application in the full diagram)</span></span>
+
+
 
 There's a tradeoff: the more you pack into the application container, the bigger it is. But the less it relies on the distro. Not relying on the distro means you can update your applications and your distro completely independently of each other. You can reduce the container size by using elements of the distro, like runtime library or Python versions, but you then have to be careful to always match any changes in the app and the distro. This makes your application less portable, and your updates more complicated.
 
