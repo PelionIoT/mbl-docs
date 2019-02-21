@@ -11,20 +11,19 @@ When designing applications for IoT devices running MBL, we make the following a
 * Our goal is to give end users control of the IoT device running our application. They do this through their own application, and we don't care too much about where those applications run - a phone, a control panel and so on - but we assume that they connect to our Pelion Device Management account.
 * Our IoT device also connects to our Pelion Device Management account. The Device Management service provided to that account is how IoT devices and end user devices communicate. MBL uses Device Management Client to connect to Device Management. Each device has only one instance of the client, which supports all applications running on that device.
 
+<!--need a comment here about it being post 0.6...-->
+
 <span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/applications_map_highlight.png)<span>Application design focuses on connecting the IoT device and the end user's device over an application cloud</span></span>
 
+We're designing an Iot device that manages its cloud connection, as well as any processing and automation it needs to perform to be useful. We can design a single application that does all these things, or smaller applications that provide one microservice each. For example, one application can manage communication with Device Management Client, while another handles input and output; we can reuse both of these on many different devices by layering them as base images. It's only our device-specific application - the one that performs the actions that our device specialises in, such as determining when to alert the user of certain conditions - that will not be widely reusable.
 
-We're designing an Iot device that manages its cloud connection, as well as any processing and automation it needs to perform to be useful. We can design a single application that does all these things, or smaller applications that provide one microservice each. For example, one application can manage communication with Device Management Client, while another handles input and output; we can reuse both of these on many different devices. It's only our device-specific application - the one that performs the actions that our device specialises in, such as determining when to alert the user of certain conditions - that will not be widely reusable.
+Jezz says "So you have written something slightly contradictory, microservices are generally regarded as separate applications/services so they wouldn't be layered. But both ways are possible, you could create an application from existing layers, or many applications each one from a different existing layer."
 
-<span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/multi_apps.png)<span>An MBL IoT device can have multiple applications (marked as Device Application in the full diagram)</span></span>
+<!--I have two problems with this diagram: 1. it doesn't show that DM Client is part of MBL and therefore all apps use the same instance of it. 2. It doesn't show building a layered application. . -->
 
+<span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/multi_apps.png)<span>An MBL IoT device can have multiple applications (combined under "Device Application" in the full diagram)</span></span>
 
-
-There's a tradeoff: the more you pack into the application container, the bigger it is. But the less it relies on the distro. Not relying on the distro means you can update your applications and your distro completely independently of each other. You can reduce the container size by using elements of the distro, like runtime library or Python versions, but you then have to be careful to always match any changes in the app and the distro. This makes your application less portable, and your updates more complicated.
-
-At the moment, the communication between the device application and DM Client isn't possible - we're missing the d-bus to connect the two.
-
-
+Most applications will have dependencies, for example on a runtime library or Python. We can containerise an application with all of its dependencies, or rely on our Linux distribution to provide them. There's a tradeoff: the more we pack into the application container, the bigger it is. The advantage is that the application is independent of the distribution. We can update the distribution without worrying about breaking the application with a mismatched dependency, and we can update the application without being forced to update the distribution at the same time.
 
 ## Application development flow
 
