@@ -19,7 +19,7 @@ To write your first disk image, you need to:
 
 1. Set the PICO-PI into serial download mode by chainging the boot configuration jumper settings.
 
-<!--JIJ:picture TBD->>
+<!--JIJ:picture TBD-->
 
 1. Connect both the PICO-PI-GL USB-C socket and the micro-USB socket to your PC.
 
