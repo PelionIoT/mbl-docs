@@ -9,6 +9,14 @@ In fact, do yourself a favour and don't read this yet. Waste of your time.
 
 Stealing from: https://confluence.arm.com/display/mbedlinux/How+IoT+Applications+are+Structured
 
+You have a Pelion Device Management account.
+
+All IoT devices in your fleet need to use that account (though within that account, you may choose to group them). They access that account by relying on the Device Management Client running on the IoT devices; this client is part of MBL, and so all applications on a device can access Device Management using the same client.
+
+The applications operated by your end users (on their phones, control panels and so on) connect to the same Device Management account.
+
+Having both device types accessing the same Device Management account - and therefore accessing the Device Management services for that account - is what allows your end users to control IoT devices.  
+
 Mbed Linux OS (MBL) is designed for cloud-connected applications for IoT devices.
 
 End user: my phone
@@ -18,6 +26,9 @@ Cloud: duh
 Terminal IoT device: just an iot device
 
 <span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/applications_map.png)</span>
+
+<span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/multi_apps.png)</span>
+
 
 What you're trying to achieve: the left-hand side of the diagram: device application to user application.
 
