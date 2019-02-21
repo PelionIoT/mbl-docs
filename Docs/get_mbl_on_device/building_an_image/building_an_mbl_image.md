@@ -45,7 +45,7 @@ The following build options are mandatory:
 | Name | Information |
 | --- | --- |
 | `--branch` | Select the MBL branch to build. For example, to build the branch `mbl-os-0.5`: `./mbl-tools/build-mbl/run-me.sh -- --branch mbl-os-0.5 --machine raspberrypi3-mbl` |
-| `--machine` | Select the target device. The options are [ Warp7, `imx7s-warp-mbl`] and [ Raspberry Pi 3, `raspberrypi3-mbl`]. Example: `./mbl-tools/build-mbl/run-me.sh -- --machine <MACHINE>` |
+| `--machine` | Select the target device. The options are [ Pico 7d, `imx7d-pico-mbl`], [ 8m mini evk, `imx8mmevk-mbl`], [ Warp7, `imx7s-warp-mbl`] and [ Raspberry Pi 3, `raspberrypi3-mbl`]. Example: `./mbl-tools/build-mbl/run-me.sh -- --machine <MACHINE>` |
 | `--builddir` | Create a build directory. This option is for `run-me.sh`. You must use a different build directory for every device (machine), and we recommend including the device's name in the directory's name. Note that this directory includes all other artifacts, such as build and error logs. For example, if you've created `mkdir /path/to/my-build-dir`, the builddir will be `./mbl-tools/build-mbl/run-me.sh --builddir /path/to/my-build-dir` |
 | `--outputdir` | Specify the output directory for all build artifacts (pinned manifest, target specific images etc). For example, if you're created `mkdir /path/to/artifacts`, the outpudir will be `./mbl-tools/build-mbl/run-me.sh --outputdir /path/to/artifacts` |
 | `--inject-mcc` | At the moment, you need to build your Device Management resources (that you obtained above) into the image. `./mbl-tools/build-mbl/run-me.sh --inject-mcc /path/to/mbed_cloud_dev_credentials.c --inject-mcc /path/to/update_default_resources.c` |
@@ -69,8 +69,10 @@ The following examples assume:
 
 * You have your [Device Management developer credentials](../getting-started/preparing-device-management-sources.html#downloading-device-management-developer-credentials).
 * You have your [update resources file](../getting-started/preparing-device-management-sources.html#creating-an-update-resources-file).
-* You have an output directory for your machine, for example `./artifacts-warp7` or `./artifacts-rpi3`.
+* You have an output directory for your machine, for example `./artifacts-warp7` or `./artifacts-rpi3`. <!-- JIJ: Could expand these with examples for all platforms -->
 * You have an [SSH agent](../getting-started/development-environment.html). For usage, see [the GitHub SSH documentation](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).
+
+<!-- JIJ: Could expand below with examples for all platforms -->
 
 ### Warp7 device
 
