@@ -7,8 +7,8 @@ This tutorial creates a Python user application that runs on MBL devices and sca
 ## Requirements and hardware notes
 
 * This is a standard Python application, and can run on any operating system with Python 3. As an Mbed Linux OS IoT application, it runs on a Raspberry Pi 3.
-* Your device must already be running an MBL image. Please [follow the tutorial](../getting-started/tutorial-building-an-image.html) if you don't have an MBL image yet.
-* You must still have all [tool and accounts prerequisites](../getting-started/setting-up-and-supported-hardware.html).
+* Your device must already be running an MBL image. Please [follow the tutorial](../first-image/index.html) if you don't have an MBL image yet.
+* You must still have all [tool and accounts prerequisites](../first-image/setting-up-and-supported-hardware.html).
 * Cameras:
     * This application does not work with the Raspberry Pi 3 camera.
     * We recommend using the Logitech webcam series.

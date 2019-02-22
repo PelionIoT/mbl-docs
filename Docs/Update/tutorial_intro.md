@@ -6,10 +6,10 @@ This section explain how to update either your MBL image or any of your applicat
 
 An MBL device can only be updated if the following are available:
 
-* The device is running an MBL image that can connect to a Pelion account. [Follow the first section in this series](../getting-started/pelion-accounts-and-certificates.html) to request an account.
-* The build artefacts for the image to send as the update payload. See the [build tutorial](../getting-started/tutorial-building-an-image.html) for instructions.
-* An internet connection on the device. [Follow the tutorial to set up an internet connection](../getting-started/tutorial-connecting-to-a-network-and-pelion-device-management.html).
-* The directory in which the manifest tool was initialized, [as reviewed in the development environment setup](../getting-started/development-environment.html).
+* The device is running an MBL image that can connect to a Pelion account. [Follow the first section in this series](../first-image/pelion-accounts-and-certificates.html) to request an account.
+* The build artefacts for the image to send as the update payload. See the [build tutorial](../first-image/index.html) for instructions.
+* An internet connection on the device. [Follow the tutorial to set up an internet connection](../first-image/connecting-to-a-network-and-pelion-device-management.html).
+* The directory in which the manifest tool was initialized, [as reviewed in the development environment setup](../first-image/development-environment.html).
 
     <span class="notes">This *must* be the directory from which the `update_default_resources.c` file was obtained for building MBL.</span>
 

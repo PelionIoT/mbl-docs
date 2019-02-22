@@ -13,8 +13,8 @@ There are two ways to update an MBL image:
 
     Where:
 
-    * `/path/to/artifacts` is the output directory specified for all build artefacts. See the [build tutorial](../getting-started/building-an-mbl-image.html) for more information.
-    * `<MACHINE>` is the value that was given to the build script for the `--machine` option. See the [build tutorial](../getting-started/building-an-mbl-image.html) to determine which value is suitable for the device in use.
+    * `/path/to/artifacts` is the output directory specified for all build artefacts. See the [build tutorial](../first-image/building-an-mbl-image.html) for more information.
+    * `<MACHINE>` is the value that was given to the build script for the `--machine` option. See the [build tutorial](../first-image/building-an-mbl-image.html) to determine which value is suitable for the device in use.
 
     <span class="notes">**Note:** The file inside the update payload must be named `rootfs.tar.xz` and must be in the tar's root directory, not a subdirectory.</span>
 
@@ -37,7 +37,7 @@ There are two ways to update an MBL image:
 
 1. Identify which root file system partition is currently active to compare it to the active partition after the update. You can use the [`lsblk` command explained later](#identify-the-active-root-file-system-partition).
 
-1. Change the current working directory to the directory where the manifest tool was initialized. You initialized the manifest tool [when you created the `update_default_resources.c` file](../getting-started/preparing-device-management-sources.html#creating-an-update-resources-file).
+1. Change the current working directory to the directory where the manifest tool was initialized. You initialized the manifest tool [when you created the `update_default_resources.c` file](../first-image/provisioning-for-pelion-device-management.html#creating-an-update-resources-file).
 
 1. Run the following command:
 

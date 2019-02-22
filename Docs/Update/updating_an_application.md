@@ -25,7 +25,7 @@ There are two ways to update an MBL application:
 
     If you only have one registered device, or if each devices has a been assigned a descriptive name in Portal, you can go to [Device Management Portal](https://portal.mbedcloud.com) > **Device Directory** to find the device ID.
 
-1. Change the current working directory to the directory where the manifest tool was initialized. You initialized the manifest tool [when you created the `update_default_resources.c` file](../getting-started/preparing-device-management-sources.html#creating-an-update-resources-file).
+1. Change the current working directory to the directory where the manifest tool was initialized. You initialized the manifest tool [when you created the `update_default_resources.c` file](../first-image/provisioning-for-pelion-device-management.html#creating-an-update-resources-file).
 
 1. Run the following command:
 
@@ -110,4 +110,4 @@ You can use `runc list` to list all the active applications and their status.
     user-sample-app-package   3654        running     /home/app/user-sample-app-package   2018-12-07T08:23:36.742467741Z   root
     ```
 
-    <span class="notes">**Note:** The [Hello World](../getting-started/tutorial-user-application.html) application runs for about 20 seconds. When it finishes, it once again appears as stopped.</span>
+    <span class="notes">**Note:** The [Hello World](../develop-apps/hello-world-application.html) application runs for about 20 seconds. When it finishes, it once again appears as stopped.</span>
