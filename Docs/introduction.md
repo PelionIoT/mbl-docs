@@ -65,9 +65,9 @@ The **Device Management Services** are integrated user-space agents that connect
 There are two paths to working with MBL:
 
 1. If you are a Linux developer interested in contributing to MBL or porting it to a new device:
-    1. Please [build MBL locally so you can test](../getting-started/tutorial-building-an-image.html).
+    1. Please [build MBL locally so you can test](../first-image/index.html).
     1. Use our porting or contributing guides (coming soon).
 1. If you are an application developer interested in building applications for devices that run MBL:
-    1. Please [build MBL locally and flash it to your device](../getting-started/tutorial-building-an-image.html).
-    1. Try our [example application](../getting-started/tutorial-user-application.html), or start writing your own application using the Linux APIs.
-    1. You can also [use our update example](../getting-started/tutorial-updating-mbl-devices-and-applications.html) to send firmware updates over the air.
+    1. Please [build MBL locally and flash it to your device](../first-image/index.html).
+    1. Try our [example application](../develop-apps/hello-world-application.html), or start writing your own application using the Linux APIs.
+    1. You can also [use our update example](../update/index.html) to send firmware updates over the air.

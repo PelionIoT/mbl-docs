@@ -217,7 +217,7 @@
 
 ***
 
-After power-on, the [MBL secure boot process]() brings the system into a secure computing state by allowing only authorized versions of software components to run. To do this, the secure boot implements the following processing for each component in a list of boot chain components:
+After power-on, the MBL secure boot process brings the system into a secure computing state by allowing only authorized versions of software components to run. To do this, the secure boot implements the following processing for each component in a list of boot chain components:
 
 1. Loads the component into memory.
 1. Computes a hash (signature) of the component's binary image. Then:<!--the hash of the image or a hash for the image?-->

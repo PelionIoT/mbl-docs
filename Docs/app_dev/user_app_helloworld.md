@@ -4,7 +4,7 @@
 
 This tutorial creates a user application that runs on your MBL device. It is a simple "Hello, World" in C, which prints to standard output (STDOUT). MBL redirects the output to the log file `/var/log/app/user-sample-app-package.log`. This application demonstrates the use of dockercross and MakeFile to build a self-contained application: it requires no access to device resources (not even the runtime library) and no dockerisation.
 
-<span class="notes">**Note:** Your device must already be running an MBL image. Please [follow the first tutorial in this series](../getting-started/tutorial-building-an-image.html) if you don't have an MBL image yet.</span>
+<span class="notes">**Note:** Your device must already be running an MBL image. Please [follow the tutorial](../first-image/index.html) if you don't have an MBL image yet.</span>
 
 ## Source and build mechanisms overview
 
@@ -67,8 +67,8 @@ The build produces an IPK file at `./release/ipk/user-sample-app-package_1.0_arm
 
 There are two ways to install the application on the device:
 
-* [Send the application as an over-the-air firmware update with Pelion Device Management](../getting-started/tutorial-updating-mbl-devices-and-applications.html).
-* [Flash the application over USB with MBL CLI](../tools/device-update.html#update-an-application).
+* [Send the application as an over-the-air firmware update with Pelion Device Management](../update/index.html).
+* [Flash the application over USB with MBL CLI](../update/updating-an-application.html).
 
 ## Using the application
 
