@@ -95,10 +95,10 @@
             "type": "markdown",
             "chapters": [{
                     "title": "Mbed Linux OS Applications",
-                    "intro": {
+                    "sources": [{
                         "path": "Docs/app_dev/app_dev_intro.md"
                     },
-                    "sources": [{
+                    {
                         "path": "Docs/app_dev/app_dev_workflow.md"
                     }]
                 },
