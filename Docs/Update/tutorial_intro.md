@@ -6,14 +6,14 @@ This section explain how to update either your MBL image or any of your applicat
 
 An MBL device can only be updated if the following are available:
 
-* The device is running an MBL image that can connect to a Pelion account. [Follow the first section in this series](../first-image/pelion-accounts-and-certificates.html) to request an account.
+* The device is running an MBL image that can connect to a Pelion account. [Follow the first section in this series](../first-image/provisioning-for-pelion-device-management.html) to request an account.
 * The build artefacts for the image to send as the update payload. See the [build tutorial](../first-image/index.html) for instructions.
 * An internet connection on the device. [Follow the tutorial to set up an internet connection](../first-image/connecting-to-a-network-and-pelion-device-management.html).
 * The directory in which the manifest tool was initialized, [as reviewed in the development environment setup](../first-image/development-environment.html).
 
     <span class="notes">This *must* be the directory from which the `update_default_resources.c` file was obtained for building MBL.</span>
 
-* A Pelion API key, to use the manifest tool from the command line. Follow the instructions in the [requirements section](..//getting-started/api-keys.html) to obtain an API key (when prompted to select a group to set the API key access level, select **Developers**). Make a note of the API key to use it later; for security reasons, the portal will not display it again.
+* A Pelion API key, to use the manifest tool from the command line. Follow the instructions in the [requirements section](../first-image/provisioning-for-pelion-device-management.html) to obtain an API key (when prompted to select a group to set the API key access level, select **Developers**). Make a note of the API key to use it later; for security reasons, the portal will not display it again.
 
 ## Notes
 
