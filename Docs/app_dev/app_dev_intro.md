@@ -1,33 +1,38 @@
 # Developing applications for Mbed Linux OS
 
-NOTE: a lot of this is Irit talking to herself; don't worry about typos, weird sentences and repetitions.
-
-In fact, do yourself a favour and don't read this yet. Waste of your time.
-
-## Application design
-
 When designing applications for IoT devices running MBL, we make the following assumptions:
 
-* Our goal is to give end users control of the IoT device running our application. They do this through their own application, and we don't care too much about where those applications run - a phone, a control panel and so on - but we assume that they connect to our Pelion Device Management account.
-* Our IoT device also connects to our Pelion Device Management account. The Device Management service provided to that account is how IoT devices and end user devices communicate. MBL uses Device Management Client to connect to Device Management. Each device has only one instance of the client, which supports all applications running on that device.
+* Our goal is to give end users control of the IoT device running our application.
+* **End user applications** (on a phone, control panel and so on) and MBL IoT **device applications** both communicate with the same Pelion Device Management account. They do not communicate directly with each other.
 
-<!--need a comment here about it being post 0.6...-->
-<!--that might need to say "device management services"-->
+<!--we're just being nice, right? you can use any cloud you want?-->
+* For mass production, we may need to create an **install device** that can configure our IoT devices with information that cannot be assumed at the factory stage, such as access to secure WiFi networks.
 
 <span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/applications_map_highlight.png)<span>Application design focuses on connecting the IoT device and the end user's device over an application cloud</span></span>
 
-We're designing an Iot device that must handle its Device Management connection, as well as any processing and automation it needs to perform to be useful. We have three options:
+## Designing modular applications
 
-* Create a single application that does all these things.
-* Use a modular approach:
-    * Create smaller applications that provide one microservice each.
-    * Create base layers that provide one functionality each, and use them as base layers for many applications.
+We're designing an Iot device that must handle an internet connection, as well as any processing and automation it needs to perform to be useful. We'll need some general functionality - like connectivity and I/O handling - for every single application we develop. Other functionality - like calculating and responding to commands from the end user's phone - will need to match the requirements of the device-specific application.
+<!--is "device-specific" a clear concept?-->
 
-    For example, one application or base layer can manage communication with Device Management Client, while another handles input and output; we can reuse both of these on many different devices, either as base layers or as microservices. It's only our device-specific application - the one that performs the actions that our device specialises in, such as determining when to alert the user of certain conditions - that will not be widely reusable.
+We have three options:
+
+* Create a single application that includes all the functionality we need. This is simple, but it makes our code less portable because it ties the generic code to device-specific code.
+* Use one of two modular approaches:
+    * Create smaller applications that provide one microservice each, and install these applications together with a very lean device-specific application.
+    * Create base layers that provide one functionality each, and use them as base layers for many applications. Each application will add its own device-specific layer to these base layers.
 
 <span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/multi_apps.png)![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/application_from_layers.png)<span>An MBL IoT device can have multiple applications, and one or more of those applications can be made of base layers</span></span>
 
+## Handling application dependencies
+
 Applications will have dependencies, for example on a runtime library or Python. We can containerise an application with all of its dependencies, or rely on our Linux distribution to provide them. There's a tradeoff: the more we pack into the application container, the bigger it is. The advantage is that the application is independent of the distribution, so we can update the distribution without worrying about breaking the application with a mismatched dependency, and we can update the application without being forced to update the distribution at the same time.
+
+## Connectivity
+
+End user applications and MBL IoT device applications both communicate with the same Device Management account and rely on the Device Management services provided to that account.
+
+MBL uses Device Management Client to connect to Device Management. Each device has only one instance of the client, which supports all applications running on that device.
 
 ## Installer devices
 
