@@ -1,6 +1,6 @@
 # Verifying that the device is connected to Device Management
 
-<span class="notes">You need to have [the right credentials on your device]() to connect to Device Management.</span>
+<span class="notes">You need to have [the right credentials on your device](../first-image/provisioning-for-pelion-device-management.html) to connect to Device Management.</span>
 
 When the device boots into MBL, `mbl-cloud-client` automatically starts and connects to Device Management. You can check whether it has connected by:
 

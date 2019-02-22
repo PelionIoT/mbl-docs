@@ -57,7 +57,7 @@ A reboot is automatically initiated to boot into the new firmware. Identify the 
 
 ## Using MBL CLI
 
-<span class="tips">You can find installation and general usage instructions for MBL CLI [in the application development section]().</span>
+<span class="tips">You can find installation and general usage instructions for MBL CLI [in the application development section](../develop-apps/the-mbl-command-line-interface.html).</span>
 
 
 1. Prepare a tar file containing `rootfs.tar.xz` as explained in the [manifest tool section above](#using-the-manifest-tool).
