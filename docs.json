@@ -23,7 +23,7 @@
             ]
         },
         {
-            "title": "Getting MBL on a device",
+            "title": "Installing MBL on a device",
             "description": "",
             "slug": "first-image",
             "type": "markdown",
@@ -70,6 +70,13 @@
                     ]
                 },
                 {
+                    "title": "Flashing an evaluation image",
+                    "intro": {
+                        "path": "Docs/get_mbl_on_device/eval_image.md"
+                    },
+                    "sources": []
+                },
+                {
                     "title": "Provisioning for Pelion Device Management",
                     "intro": {
                         "path": "Docs/get_mbl_on_device/provision_developer.md"
@@ -96,11 +103,12 @@
             "chapters": [{
                     "title": "Mbed Linux OS Applications",
                     "sources": [{
-                        "path": "Docs/app_dev/app_dev_intro.md"
-                    },
-                    {
-                        "path": "Docs/app_dev/app_dev_workflow.md"
-                    }]
+                            "path": "Docs/app_dev/app_dev_intro.md"
+                        },
+                        {
+                            "path": "Docs/app_dev/app_dev_workflow.md"
+                        }
+                    ]
                 },
                 {
                     "title": "The MBL command line interface",
