@@ -42,4 +42,4 @@ The applications in the following tutorials all use a MakeFile and mbl-dockcross
 
 1. The QR scanner Python application (coming soon) uses its `config.json` to access the device's hardware resources and persistent memory.
 
-    This application is Dockerised (built in a Docker container) - because it's a Python application and we have chosen to include the Python runtime environment with it, as well an the OpenCV library to capture camera frames, it cannot be built and converted to an OCI individually (the way we did with the Hello World C application). Instead, it's built and then bundled with all its Python dependencies.
+    This application is Dockerized (built in a Docker container) - because it's a Python application and we have chosen to include the Python runtime environment with it, as well as the OpenCV library to capture camera frames, it cannot be built and converted to an OCI individually (the way we did with the Hello World C application). Instead, it's built and then bundled with all its Python dependencies.

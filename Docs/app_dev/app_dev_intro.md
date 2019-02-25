@@ -5,7 +5,6 @@ When designing applications for IoT devices running Mbed Linux OS (MBL), make th
 * The main goal is to give end users control of the IoT device running your application.
 * **End user applications** (on a phone, control panel and so on) and MBL IoT **device applications** both communicate with a cloud service linked to a single Pelion Device Management account. They do not communicate directly with each other.
 * For mass production, you may need to create an **installer device** that can configure our IoT devices with information that cannot be assumed at the factory stage, such as access to secure WiFi networks.
-<!--Scout is now called Pelion Device Management Application, without a mention of what sort of application it actually is. There's nothing to link to - not even marketing content - so I'm not going to mention it. It's just too confusing as a name. The cloud docs call what engineers can create with Mbed OS and Client a DM app.-->
 
 <span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/applications_map_highlight.png)<span>Application design focuses on connecting the IoT device and the end user's device over an application cloud</span></span>
 
@@ -30,7 +29,7 @@ Applications will have dependencies, for example on a runtime library or a langu
 
 End user applications and MBL IoT device applications both communicate with the same Device Management account and rely on the Device Management services provided to that account.
 
-MBL contains the Pelion Device Management Client, which is used to connect to Device Management. Each device has only one instance of the client, which supports all applications running on that device. Your applications can include other cloud clients, but must not include Device Management client.
+MBL contains the Pelion Device Management Client, which is used to connect to Pelion Device Management. Each device has only one instance of the client, which supports all applications running on that device. Your applications can include other cloud clients, but must not include Pelion Device Management Client.
 
 Applications can communicate with Device Management Client over MBL's D-Bus API. This allows using the [LwM2M communication protocol provided by Device Management](https://cloud.mbed.com/docs/latest/introduction/management-services-and-protocols.html).
 
@@ -40,4 +39,4 @@ Applications can communicate with Device Management Client over MBL's D-Bus API.
 
 Installer devices configure deployed IoT devices that cannot be fully preconfigured. For example, so far you've been using your own Device Management account, but when you start producing devices for a market, you may not want to associate those devices with your own account. Instead, a company that bought a group of devices may want to associate them with its own account. To do that, they must be able to access the device's platform services, which handle common functions on behalf of applications, including the network manager and secure storage (to store keys and credentials). They do this with an installer device, which can be on their phone or PC, and can access the IoT device over BLE, USB cable and other local connections.
 
-You don't need an installer device while developing your IoT application, but you do need to think about what that application may later require from the installer device.
+You don't need an installer device while developing your IoT application, but you do need to think about what your application may later require from the installer device.
