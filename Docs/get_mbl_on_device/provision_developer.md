@@ -45,7 +45,7 @@ To connect your devices to Pelion Device Management, you must provision the devi
 ## Persistent Storage Locations
 <!--MBL-CLI sets up defaults automatically. This 'set up' of the strorage location is optional. -->
 
-MBL CLI can fetch and store and API keys, firmware update authority certificates and developer certificates from a persistent storage location you can configure. This simplifies the provisioning workflow and makes API authentication easier; MBL-CLI will automatically find the API key when it needs to authenticate with the Pelion Service APIs.<!--why does it make authentication easier?-->
+MBL CLI can fetch and store API keys, firmware update authority certificates and developer certificates from a persistent storage location you can configure. This simplifies the provisioning workflow and makes API authentication easier; MBL-CLI will automatically find the API key when it needs to authenticate with the Pelion Service APIs.<!--why does it make authentication easier?-->
 <!--Ideally I want to do this before anything else, right?  - If you want to configure a location that isn't the default then you should do this first. However the defaults will be created automatically. This is so we have a better out of box experience for the majority use case (at this point in time) which is, a single developer working with a single device.-->
 You can save your credentials to either a **user** store or a **team** store:
 
