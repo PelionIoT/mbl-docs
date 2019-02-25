@@ -6,7 +6,7 @@ Supported boards:
 
     <span class="notes">This platform does not yet support WiFi communication.</span>
     
-* [NXP i.MX 8M Mini LPDDR4 Evaluation Kit](https://www.nxp.com/products/processors-and-microcontrollers/arm-based-processors-and-mcus/i.mx-applications-processors/i.mx-8-processors/i.mx-8m-mini-family-arm-cortex-a53-cortex-m4-audio-voice-video:i.MX8MMINI) Referred to as the NXP 8M Mini EVK.
+* [NXP i.MX 8M Mini LPDDR4 Evaluation Kit](https://www.nxp.com/products/processors-and-microcontrollers/arm-based-processors-and-mcus/i.mx-applications-processors/i.mx-8-processors/i.mx-8m-mini-family-arm-cortex-a53-cortex-m4-audio-voice-video:i.MX8MMINI) Referred to as the NXP 8M Mini EVK. This kit comes with power supply, micro-USB cable and USB-C cable.
 
     <span class="notes">This platform is still in development and is only partially supported at the moment. The boot partitioning has not been finished and WiFi communication is not working yet.</span>
     
