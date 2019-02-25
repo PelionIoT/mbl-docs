@@ -78,7 +78,7 @@ The full provisioning process is:
 
 2. Program the following to the device:
 
-    * The developer certificate.
+    * The bootstrap server CA certificate.
     * The private key.
     * The bootstrap server information.
 
@@ -94,7 +94,7 @@ This data is stored in the developer certificate referred to in the previous ste
 
 This data is stored in the update authenticity certificate the manifest-tool creates (update_default_resources.c).
 
-You can use MBL CLI to provision your device dynamically (at runtime). MBL-CLI will create the developer certificate for you, but requires use of the manifest-tool to create the update authenticity certificate. MBL-CLI will then program both certificates to the device.
+You can use MBL-CLI to provision your device dynamically (at runtime). MBL-CLI will create the developer certificate for you, but requires an update authenticity certificate which you can create using the manifest-tool. MBL-CLI will then program both certificate payloads to the device.
 
 ## Provisioning
 
