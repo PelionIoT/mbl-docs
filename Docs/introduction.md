@@ -24,7 +24,7 @@ The preview release provides:
     * Open Container Initiative (OCI)-compliant containers for applications, protecting against compromised applications and facilitating a modern development workflow. Based on the RUNC container runtime, this Docker-like system allows OEMs to package services or applications as independent container images that run entirely within a sandbox. This provides two benefits. First, if an attacker compromises a single application, it's far harder for the attack to spread beyond the infected container. This will help to reduce the impact of an attack and ensure a device can easily be restored to a secure state. Second, applications can be developed independently of the underlying IoT platform. For example, it's easier for a developer to build and test on their desktop workstation or laptop.
 * A developer command-line tool - MBL CLI - to facilitate:
     * Discovery, setup and local update of development devices.
-    * First-time provisioning of device and update credentials to support binary distributions (added in 0.6).
+    * First-time provisioning of device and update credentials to the IoT device (added in 0.6).
 * A lightweight, feature rich connection manager for Ethernet and Wi-Fi connections.
 * The integration with Pelion Device Management services offers:
     * Support for the Device Management Client for in-field provisioning and over-the-air device configuration.
