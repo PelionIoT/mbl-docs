@@ -72,17 +72,17 @@ The full provisioning process is:
 
 1. Use the Account Management API to create a developer certificate. This step requires the API key obtained above.
 
-1. Program the developer certificate to the device, the developer certificate contains the following data:
-<!--I don't think we explained these at any point-->
+1. Program the developer certificate to the device. It contains:
+
     * The bootstrap server CA certificate.
     * The private key.
     * The bootstrap server information.
 
 1. Use the manifest tool to generate the firmware update authenticity certificate.
 
-2. Program `update_default_resources.c` to the device, which contains:
+2. Program `update_default_resources.c` to the device. It contains:
 
-    * Update certificate fingerprint.<!--where did we get this?-->
+    * Update certificate fingerprint.
     * Update certificate.
     * Vendor and class IDs.
 
@@ -122,8 +122,10 @@ To provision your device:
 
     You must pass in:
 
-    * A name for your developer certificate. Because we passed in the optional argument `--create-dev-cert`, MBL CLI will create a new developer certificate with the given name, then save it in the Team Store for use with other devices. If we had omitted this option, MBL CLI would search the Team Store for a developer certificate with the given name.
+    * `<cert-name>`: A name for your developer certificate. 
+    
+    Depending on whether or not you use the optional argument `--create-dev-cert`, MBL CLI will either create a new certificate (if you used the argument) or search for an existing one with that name in the Team Store (if you didn't use the argument).
 
-    * The path to the `update_default_resources.c` file created using the manifest tool.
+    * `<update-cert-path>`: The path to the `update_default_resources.c` file you created earlier using the manifest tool.
 
     MBL CLI injects the certificates into your selected device's secure storage.
