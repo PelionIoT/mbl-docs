@@ -25,7 +25,7 @@ The preview release provides:
 * A developer command-line tool - MBL CLI - to facilitate:
     * Discovery, setup and local update of development devices.
     * First-time provisioning of device and update credentials to support binary distributions (added in 0.6).
-* A lightweight, feature rich connection manager for Ethernet and Wi-Fi connections, with example support for cellular hardware on Raspberry Pi 3B+ (added in 0.6).
+* A lightweight, feature rich connection manager for Ethernet and Wi-Fi connections.
 * The integration with Pelion Device Management services offers:
     * Support for the Device Management Client for in-field provisioning and over-the-air device configuration.
     * Device discovery and secure identity in the Device Management device directory, to protect against impersonation or cloning.
