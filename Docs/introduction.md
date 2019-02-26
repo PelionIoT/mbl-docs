@@ -17,15 +17,15 @@ MBL is currently available as a developer preview to selected users. To request 
 The preview release provides:
 
 * An OpenEmbedded-based OS distribution, enabling extensibility and support for the latest updates and features.
-    * 4 different development boards supported. **2 new boards supported in 0.6.** <!--JIJ: Link to hardware supported?-->
+* Support for [four development boards](../first-image/hardware.html) (two added for 0.6).
 * Hardware and software-based isolation mechanisms for security:
     * Dedicated hardware within most Cortex-A devices enforces the most secure isolation boundary. This technology, called TrustZone, allows the most sensitive code and data to run within a so-called **Secure World**. MBL includes a trusted operating system for this Secure World called **Open Source Trusted Execution Environment** (OP-TEE) - an operating system within an operating system. It is loaded by the Trusted Firmware and typically used to protect cryptographic keys and other sensitive data assets.
     * Secure boot methodology based on Linaro's Trusted Firmware A for both the ARMv7-A and ARMv8-A platforms. Trusted Firmware is a minimal secure bootloader that runs when a Cortex-A microprocessor is executing in TrustZone's "secure world" mode.
     * Open Container Initiative (OCI)-compliant containers for applications, protecting against compromised applications and facilitating a modern development workflow. Based on the RUNC container runtime, this Docker-like system allows OEMs to package services or applications as independent container images that run entirely within a sandbox. This provides two benefits. First, if an attacker compromises a single application, it's far harder for the attack to spread beyond the infected container. This will help to reduce the impact of an attack and ensure a device can easily be restored to a secure state. Second, applications can be developed independently of the underlying IoT platform. For example, it's easier for a developer to build and test on their desktop workstation or laptop.
-* Developer command-line tool - `mbl-cli` - to facilitate discovery, setup and local update of development devices.
-    * First-time provisioning of device and update credentials to support binary distributions. **Added in 0.6.**
-* A lightweight, feature rich connection manager for Ethernet and Wi-Fi connections.
-    * Including example support for cellular hardware on Raspberry Pi 3B+. **Added in 0.6.** <!--JIJ: Hopefully in for 0.6-->
+* A developer command-line tool - MBL CLI - to facilitate:
+    * Discovery, setup and local update of development devices.
+    * First-time provisioning of device and update credentials to support binary distributions (added in 0.6).
+* A lightweight, feature rich connection manager for Ethernet and Wi-Fi connections, with example support for cellular hardware on Raspberry Pi 3B+ (added in 0.6).
 * The integration with Pelion Device Management services offers:
     * Support for the Device Management Client for in-field provisioning and over-the-air device configuration.
     * Device discovery and secure identity in the Device Management device directory, to protect against impersonation or cloning.
@@ -63,7 +63,7 @@ The **Device Management Services** are integrated user-space agents that connect
 * Trusted Execution Environment and OP-TEE run security-sensitive applications within the isolated environment provided by Arm TrustZone.
 
 ## Get started
-<!--this needs to change for 1.0 (JIJ:0.6)-->
+<!--this needs to change for 0.6-->
 
 There are two paths to working with MBL:
 
