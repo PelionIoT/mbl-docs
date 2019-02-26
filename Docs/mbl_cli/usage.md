@@ -22,11 +22,11 @@ You can list available devices, and select one to use for all subsequent command
 
 1. To select a device, enter its number from the list above.
 
-    For example, to select the device `mbed-linux-os-2833`, type `1`.
+    For example, to select the device `mbed-linux-os-2833`, enter `1`.
 
     You can now omit the `address` argument from subsequent commands.
 
-    The selected device's address is stored in a configuration file (`${HOME}/.mbl-dev.json`), so the selection will apply to all subsequent runs of mbl-cli by the same user.
+    The selected device's address is stored in a configuration file (`${HOME}/.mbl-dev.json`), so the selection will apply to all subsequent runs of MBLC LI by the same user.
 
  1. To deselect a device: run `select` again and select a different device.
 
