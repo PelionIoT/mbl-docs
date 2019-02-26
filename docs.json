@@ -57,17 +57,25 @@
                     ]
                 },
                 {
-                    "title": "Building and writing an image",
+                  "title": "Downloading sources or evaluation images",
+                  "intro": {
+                      "path": "Docs/get_mbl_on_device/building_an_image/getting_image.md"
+                  },
+                  "sources": []
+                },
+                {
+                    "title": "Building an image from sources",
                     "intro": {
-                        "path": "Docs/get_mbl_on_device/building_an_image/connect_tutorial_intro.md"
+                      "path": "Docs/get_mbl_on_device/building_an_image/building_an_mbl_image.md"
                     },
-                    "sources": [{
-                            "path": "Docs/get_mbl_on_device/building_an_image/building_an_mbl_image.md"
-                        },
-                        {
-                            "path": "Docs/get_mbl_on_device/building_an_image/writing_booting_disk_image.md"
-                        }
-                    ]
+                    "sources": []
+                },
+                {
+                  "title": "Writing an image",
+                  "intro": {
+                      "path": "Docs/get_mbl_on_device/building_an_image/writing_booting_disk_image.md"
+                  },
+                  "sources": []
                 },
                 {
                     "title": "Provisioning for Pelion Device Management",
