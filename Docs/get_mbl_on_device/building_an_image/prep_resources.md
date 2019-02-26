@@ -3,6 +3,7 @@
 ## Downloading Device Management developer credentials
 
 <!--do we still need this, or can we remove it now that provisioning does this using MBL CLI?-->
+<!-- JH_TODO: we should remove this file. I'm not sure how to find other docs that link to this though... -->
 
 MBL handles Device Management connectivity on behalf of the device, rather than relying on the user application to do it. This means you need to add your Device Management credentials to the working directory MBL builds from. For development environments, Pelion offers a *developer certificate* for quick connection:
 

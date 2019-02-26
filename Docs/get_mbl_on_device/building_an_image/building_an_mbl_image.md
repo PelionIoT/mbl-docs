@@ -48,12 +48,11 @@ The following build options are mandatory:
 | `--machine` | Select the target device. The options are [ Warp7, `imx7s-warp-mbl`] and [ Raspberry Pi 3, `raspberrypi3-mbl`]. Example: `./mbl-tools/build-mbl/run-me.sh -- --machine <MACHINE>` |
 | `--builddir` | Create a build directory. This option is for `run-me.sh`. You must use a different build directory for every device (machine), and we recommend including the device's name in the directory's name. Note that this directory includes all other artifacts, such as build and error logs. For example, if you've created `mkdir /path/to/my-build-dir`, the builddir will be `./mbl-tools/build-mbl/run-me.sh --builddir /path/to/my-build-dir` |
 | `--outputdir` | Specify the output directory for all build artifacts (pinned manifest, target specific images etc). For example, if you're created `mkdir /path/to/artifacts`, the outpudir will be `./mbl-tools/build-mbl/run-me.sh --outputdir /path/to/artifacts` |
-| `--inject-mcc` | At the moment, you need to build your Device Management resources (that you obtained above) into the image. `./mbl-tools/build-mbl/run-me.sh --inject-mcc /path/to/mbed_cloud_dev_credentials.c --inject-mcc /path/to/update_default_resources.c` |
 
 An example using all mandatory options:
 
 ```
-./mbl-tools/build-mbl/run-me.sh --builddir /path/to/builddir --inject-mcc /path/to/mbed_cloud_dev_credentials.c --inject-mcc /path/to/update_default_resources.c --outputdir /path/to/artifacts -- --branch mbl-os-0.5 --machine <MACHINE>
+./mbl-tools/build-mbl/run-me.sh --builddir /path/to/builddir --outputdir /path/to/artifacts -- --branch mbl-os-0.5 --machine <MACHINE>
 ```
 
 The following build options are not mandatory, but you may find that they improve the development process:
@@ -67,21 +66,19 @@ The following build options are not mandatory, but you may find that they improv
 
 The following examples assume:
 
-* You have your [Device Management developer credentials](../first-image/provisioning-for-pelion-device-management.html#downloading-device-management-developer-credentials).
-* You have your [update resources file](../first-image/provisioning-for-pelion-device-management.html#creating-an-update-resources-file).
 * You have an output directory for your machine, for example `./artifacts-warp7` or `./artifacts-rpi3`.
 * You have an [SSH agent](../first-image/development-environment.html). For usage, see [the GitHub SSH documentation](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).
 
 ### Warp7 device
 
 ```
-./mbl-tools/build-mbl/run-me.sh --inject-mcc ./cloud-credentials/mbed_cloud_dev_credentials.c --inject-mcc ./update-resources/update_default_resources.c --builddir ./build-warp7 --outputdir ./artifacts-warp7 -- --machine imx7s-warp-mbl --branch mbl-os-0.5
+./mbl-tools/build-mbl/run-me.sh --builddir ./build-warp7 --outputdir ./artifacts-warp7 -- --machine imx7s-warp-mbl --branch mbl-os-0.5
 ```
 
 ### Raspberry Pi 3 device
 
 ```
-./mbl-tools/build-mbl/run-me.sh --inject-mcc ./cloud-credentials/mbed_cloud_dev_credentials.c --inject-mcc ./update-resources/update_default_resources.c --builddir ./build-rpi3 --outputdir ./artifacts-rpi3 -- --machine raspberrypi3-mbl --branch mbl-os-0.5
+./mbl-tools/build-mbl/run-me.sh --builddir ./build-rpi3 --outputdir ./artifacts-rpi3 -- --machine raspberrypi3-mbl --branch mbl-os-0.5
 ```
 
 ## Building outputs
@@ -93,6 +90,12 @@ The build process creates the following files:
 | Full disk image  | `/path/to/artifacts/machine/<MACHINE>/images/mbl-image-development/images/mbl-image-development-<MACHINE>.wic.gz` | This is a compressed image of the entire flash. Once decompressed, this image can be directly written to storage media, and initializes the device's storage with a full set of disk partitions and an initial version of firmware. |
 | Full disk image block map | `/path/to/artifacts/machine/<MACHINE>/images/mbl-image-development/images/mbl-image-development-<MACHINE>.wic.bmap` | This is a file containing information about which blocks of the uncompressed full disk image actually need to be written to the device. Some blocks of the image represent unused storage space, which does not actually need to be written. |
 | Root file system archive  | `/path/to/artifacts/machine/<MACHINE>/images/mbl-image-development/images/mbl-image-development-<MACHINE>.tar.xz` | This is a compressed `.tar` archive, which you need when you update the device firmware (this topic is covered [in the Updating MBL tutorial](../update/index.html)). |
+
+<!--
+JH_TODO: Not really related to my current task, but, I suggest we remove the text below: the production image isn't very useful because we don't have a way to provision pelion credentials on it. Also, calling these images "test" images seems wrong to me.
+
+I suggest we add documentation of build.sh's "image" option - you can tell it to only build mbl-image-development and not bother with mbl-image-production.
+-->
 
 The process also creates release images, which don't contain packages for testing and debugging (it removes packages such as OP-TEE test suite, Dropbear to support SSH during development and test, and the strace utility).
 
