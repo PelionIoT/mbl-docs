@@ -21,7 +21,7 @@ To write your first disk image, you need to:
 
 1. Set the PICO-PI into serial download mode by chainging the boot configuration jumper settings.
 
-    <!--JIJ:pico7-serial-download.jpg-->
+<span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/pico7-serial-download.jpg)<span>
 
 1. Connect both the PICO-PI USB-C socket and the micro-USB socket to your PC.
 
@@ -135,7 +135,7 @@ To write your first disk image, you need to:
 
 1. Unplug both USB cables from the PICO-PI, and set the boot configuration jumper settings to boot from the on board EMMC flash.
 
-    <!--JIJ:pico7-flash-boot.jpg-->
+<span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/pico7-flash-boot.jpg)<span>
 
 1. Connect both the PICO-PI USB-C socket and the micro-USB socket back to your PC.
 
