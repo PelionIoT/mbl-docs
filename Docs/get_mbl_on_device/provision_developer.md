@@ -51,7 +51,7 @@ You can save your credentials to either a **user** store or a **team** store:
 
     MBL CLI can save a single API key in the User Store, which it uses when it needs authentication with the Device Management APIs. If you save another API key, it will overwrite the previously stored key.
 
-- Team Store: Where developer certificates and firmware update authority certificates for your devices are stored; any team member who has access to this folder can provision devices with these credentials (using MBL CLI), because these aren't tied to a particular Device Management<!--Pelion isn't a single account right now to my knowledge - Data need their own users--> user account. If you want to give your team access to this folder, you can set this folder to be shared over a cloud service, or make it discoverable on your network.
+- Team Store: Where developer certificates and firmware update authority certificates for your devices are stored; any team member who has access to this folder can provision devices with these credentials (using MBL CLI). If you want to give your team access to this folder, you can set this folder to be shared over a cloud service, or make it discoverable on your network.
 
     Default location: `~/.mbl-store/team/` (permissions for this folder are set to `drwxrw----`). You should set this store's `user:group` according to the access permissions you have defined for your team.
 
@@ -72,24 +72,20 @@ The full provisioning process is:
 
 1. Use the Account Management API to create a developer certificate. This step requires the API key obtained above.
 
-1. Program the following to the device:
+1. Program the developer certificate to the device, the developer certificate contains the following data:
 <!--I don't think we explained these at any point-->
     * The bootstrap server CA certificate.
     * The private key.
     * The bootstrap server information.
 
-    These are stored<!--we've used "store" to mean something else until now; is there another word we can use here? "included"?--> in the developer certificate referred to in the previous step.
-    <!--can we say "program the developer certificate, which contains a b c "?-->
-
 1. Use the manifest tool to generate the firmware update authenticity certificate.
 
-1. Program the following to the device:
+2. Program `update_default_resources.c` to the device, which contains:
 
     * Update certificate fingerprint.<!--where did we get this?-->
     * Update certificate.
     * Vendor and class IDs.
 
-    These are stored<!--same questions--> in the update authenticity certificate the manifest tool creates (`update_default_resources.c`).<!--again, might be clearer to say program `update_default_resources.c`, which contains....-->
 
 You can use MBL CLI to provision your device dynamically (at runtime). MBL CLI will create the developer certificate for you, but requires an update authenticity certificate (which you can create using the manifest tool). MBL CLI will then program both certificate payloads to the device.
 
@@ -126,7 +122,7 @@ To provision your device:
 
     You must pass in:
 
-    * A name for your developer certificate. Because we passed in `--create-dev-cert`, MBL CLI will create a new developer certificate with the given name, then save it in the Team Store for use with other devices. If we had omitted this option, MBL CLI would have searched the Team Store for a developer certificate with the given name.
+    * A name for your developer certificate. Because we passed in the optional argument `--create-dev-cert`, MBL CLI will create a new developer certificate with the given name, then save it in the Team Store for use with other devices. If we had omitted this option, MBL CLI would search the Team Store for a developer certificate with the given name.
 
     * The path to the `update_default_resources.c` file created using the manifest tool.
 
