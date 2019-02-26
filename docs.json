@@ -59,7 +59,7 @@
                 {
                   "title": "Downloading sources or evaluation images",
                   "intro": {
-                      "path": "Docs/get_mbl_on_device/building_an_image/getting_image.md"
+                      "path": "Docs/get_mbl_on_device/getting_image.md"
                   },
                   "sources": []
                 },
