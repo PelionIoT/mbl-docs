@@ -57,14 +57,14 @@
                     ]
                 },
                 {
-                  "title": "Downloading sources or evaluation images",
+                  "title": "Downloading evaluation images",
                   "intro": {
                       "path": "Docs/get_mbl_on_device/getting_image.md"
                   },
                   "sources": []
                 },
                 {
-                    "title": "Building an image from sources",
+                    "title": "Building a developer image",
                     "intro": {
                       "path": "Docs/get_mbl_on_device/building_an_image/building_an_mbl_image.md"
                     },

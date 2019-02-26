@@ -1,1 +1,1 @@
-# Downloading MBL images or sources
+# Downloading evaluation images

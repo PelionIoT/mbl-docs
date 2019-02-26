@@ -1,6 +1,8 @@
-# Building an MBL image
+# Building an MBL developer image
 
 <span class="notes">**Note**: Mbed Linux OS is currently in limited preview. If you would like access to the code repositories, [please request to join the preview](https://os.mbed.com/linux-os/).</span>
+
+<span class="tips">**Tip**: If you downloaded an evaluation image, you can skip the build stage [and go directly to writing]().</span>
 
 Please note that each release has its own branch. Throughout this guide, the release branch is assumed to be `mbl-os-0.5`.
 
