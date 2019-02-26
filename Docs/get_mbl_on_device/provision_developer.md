@@ -4,19 +4,18 @@
 
 To connect your devices to Pelion Device Management, you must provision the device with security credentials that establish trust with the cloud services. Device Management offers a **developer certificate** to connect a development device to a Device Management account. The developer certificate doesn't require setting up a certificate authority (unlike the full credentials for production devices). Instead, you can simply download the certificate from the Device Management Portal. You then need to get the certificate on the device in a process called **provisioning**.
 
-<span class="tips">[See this page for some background on the developer certificate and its scope.](https://cloud.mbed.com/docs/current/connecting/provisioning-development-devices.html)</span><!--not sure I want to state this here - DM might change their policy and we won't know. Better to link to the DM page that explains this, and that is more likely to be updated regularly-->
-
+<span class="tips">**Tip**: See the Device Management documentation for [background on the developer certificate and its scope](https://cloud.mbed.com/docs/latest/connecting/provisioning-development-devices.html).</span>
 
 ## Prerequisites
 
-<!--haven't told them to install manifest tool-->
-* The [manifest-tool](https://github.com/ARMmbed/manifest-tool) must be installed.
-   
-* <a href="https://os.mbed.com/account/login/" target="_blank">A Pelion Device Management Account</a>
+* The [manifest tool](https://github.com/ARMmbed/manifest-tool). See the Device Management documentation [for an installation guide](https://cloud.mbed.com/docs/latest/cloud-requirements/manifest-tutorial.html).
+
+* <a href="https://os.mbed.com/account/login/" target="blank">A Pelion Device Management Account</a>
 
 * An API key from [Pelion Device Management](https://cloud.mbed.com/docs/latest/integrate-web-app/api-keys.html). Be sure to copy the key when prompted.
 
-* An `update_default_resources.c` file, created with the `manifest-tool`:
+* An `update_default_resources.c` file, created with the manifest tool:
+
     1. Create an update resources directory, such as `./update-resources`:
 
         ```
@@ -29,33 +28,30 @@ To connect your devices to Pelion Device Management, you must provision the devi
         cd ./update-resources
         ```
 
-     1. Initialize the manifest tool, and generate Update resources:
+     1. Initialize the manifest tool, and generate an `update_default_resources.c` file:
 
         `manifest-tool init -q -d <domain> -m <device class>`
 
         Where:
 
-        * `<domain>` is your company's domain, like `arm.com`
+        * `<domain>` is your company's domain, like `arm.com`.
         * `<device class>` is a unique identifier for the device class. If you're in development (using developer credentials), you can use `dev-device`.
 
-        This generates the `update_default_resources.c` file.
+## Persistent storage locations
 
-* You also need to know your device's vendor and class ID. <!--For development device provisioning using MBL-CLI this isn't needed, domain and device class just need to be set using the manifest tool as per the instructions above.-->
+<span class="notes">**Note**: MBL CLI sets up defaults automatically; this manual step is optional, but if you chose to perform it, it should be done before any other provisioning steps.</span>
 
-## Persistent Storage Locations
-<!--MBL-CLI sets up defaults automatically. This 'set up' of the strorage location is optional. -->
+MBL CLI can fetch and store API keys, firmware update authority certificates and developer certificates from a persistent storage location you can configure. This simplifies the provisioning workflow and makes API authentication easier; MBL CLI will automatically find the API key when it needs to authenticate with the Pelion Device Management service APIs.
 
-MBL CLI can fetch and store API keys, firmware update authority certificates and developer certificates from a persistent storage location you can configure. This simplifies the provisioning workflow and makes API authentication easier; MBL-CLI will automatically find the API key when it needs to authenticate with the Pelion Service APIs.<!--why does it make authentication easier?-->
-<!--Ideally I want to do this before anything else, right?  - If you want to configure a location that isn't the default then you should do this first. However the defaults will be created automatically. This is so we have a better out of box experience for the majority use case (at this point in time) which is, a single developer working with a single device.-->
 You can save your credentials to either a **user** store or a **team** store:
 
-- User Store: Where per-user API keys are stored.
+- User Store: Where API keys for each user are stored.<!--we don't use "per", as it's Latin and contradicts the Arm style guide. Despite half of English being Latin-->
 
     Default location: `~/.mbl-store/user/` (permissions for this folder are set to `drwx------`). The folder is owned by the `*nix` user who created the store (the store is automatically created on first use).
 
-    MBL CLI can save a single API key in the User Store, which it uses when it needs authentication with the Device Management APIs. If you save another API key it will overwrite the previously stored key.
+    MBL CLI can save a single API key in the User Store, which it uses when it needs authentication with the Device Management APIs. If you save another API key, it will overwrite the previously stored key.
 
-- Team Store: Where developer certificates and firmware update authority certificates for your devices are stored; any team member who has access to this folder can provision devices with these credentials (using MBL CLI) as they aren't tied to a particular Pelion user account. If you want to give your team access to this folder, you could set this folder to be shared over a cloud service or make it discoverable on your network.
+- Team Store: Where developer certificates and firmware update authority certificates for your devices are stored; any team member who has access to this folder can provision devices with these credentials (using MBL CLI), because these aren't tied to a particular Device Management<!--Pelion isn't a single account right now to my knowledge - Data need their own users--> user account. If you want to give your team access to this folder, you can set this folder to be shared over a cloud service, or make it discoverable on your network.
 
     Default location: `~/.mbl-store/team/` (permissions for this folder are set to `drwxrw----`). You should set this store's `user:group` according to the access permissions you have defined for your team.
 
@@ -76,31 +72,32 @@ The full provisioning process is:
 
 1. Use the Account Management API to create a developer certificate. This step requires the API key obtained above.
 
-2. Program the following to the device:
-
+1. Program the following to the device:
+<!--I don't think we explained these at any point-->
     * The bootstrap server CA certificate.
     * The private key.
     * The bootstrap server information.
 
-This data is stored in the developer certificate referred to in the previous step.
+    These are stored<!--we've used "store" to mean something else until now; is there another word we can use here? "included"?--> in the developer certificate referred to in the previous step.
+    <!--can we say "program the developer certificate, which contains a b c "?-->
 
-3. Generate the firmware update authenticity certificate. This is currently done using the manifest-tool.
+1. Use the manifest tool to generate the firmware update authenticity certificate.
 
-4. Program the following to the device:
+1. Program the following to the device:
 
-    * Update certificate fingerprint.
-    * Update certificate. 
+    * Update certificate fingerprint.<!--where did we get this?-->
+    * Update certificate.
     * Vendor and class IDs.
 
-This data is stored in the update authenticity certificate the manifest-tool creates (update_default_resources.c).
+    These are stored<!--same questions--> in the update authenticity certificate the manifest tool creates (`update_default_resources.c`).<!--again, might be clearer to say program `update_default_resources.c`, which contains....-->
 
-You can use MBL-CLI to provision your device dynamically (at runtime). MBL-CLI will create the developer certificate for you, but requires an update authenticity certificate which you can create using the manifest-tool. MBL-CLI will then program both certificate payloads to the device.
+You can use MBL CLI to provision your device dynamically (at runtime). MBL CLI will create the developer certificate for you, but requires an update authenticity certificate (which you can create using the manifest tool). MBL CLI will then program both certificate payloads to the device.
 
 ## Provisioning
 
 To provision your device:
 
-1. Connect the device to your development PC. Follow the steps to connacet and assign an IPv4 address as described [in this tutorial](https://os.mbed.com/docs/mbed-linux-os/v0.5/tools/setting-up.html#setting-up-networking)
+1. Connect the device to your development PC. Follow the tutorial to [connect and assign an IPv4 address](../develop-apps/setting-up.html#setting-up-networking)
 2. Run the `select` command. It returns a list of discovered devices; you can select your device by its list index:
 
     ```bash
