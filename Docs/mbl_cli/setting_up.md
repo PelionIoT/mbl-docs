@@ -9,7 +9,7 @@ To use MBL CLI, you need to:
 
 ### Prerequisites
 
-[Python > v3.5](https://python.org) and `pip`. 
+[Python v3.5 or higher](https://python.org) and `pip`.
 
 Linux users require a few other dependencies. Install them using apt-get (this example is for Ubuntu 16.04):
 
@@ -17,25 +17,26 @@ Linux users require a few other dependencies. Install them using apt-get (this e
 
 ### Installation
 
-To install the MBL-CLI, first clone the repository.
+To install the MBL CLI:
 
-```bash
-git clone git@github.com:armmbed/mbl-cli-python.git
-```
+1. Clone the repository.
 
-Ensure your `pwd` is the `mbl-cli-python` directory (contains `setup.py`).
+    ```bash
+    git clone git@github.com:armmbed/mbl-cli-python.git
+    ```
 
-```bash
-cd mbl-cli-python
-```
+1. Ensure your `pwd` is the `mbl-cli-python` directory (contains `setup.py`).
 
-Use `pip` to install the MBL-CLI. We recommended to install in a python [venv](https://www.python.org/dev/peps/pep-0405/).
+    ```bash
+    cd mbl-cli-python
+    ```
 
-Ensure you install using the python3 version of pip (and your python version is 3.5 or later).
+1. Use pip to install the MBL CLI. We recommend installing in a [Python virtual environment](https://www.python.org/dev/peps/pep-0405/).
 
-```bash
-pip install .
-```
+
+    ```bash
+    pip install .
+    ```
 
 ## Setting up networking
 
