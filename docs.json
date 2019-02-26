@@ -57,7 +57,7 @@
                     ]
                 },
                 {
-                  "title": "Downloading evaluation images",
+                  "title": "Downloading an evaluation image",
                   "intro": {
                       "path": "Docs/get_mbl_on_device/getting_image.md"
                   },
