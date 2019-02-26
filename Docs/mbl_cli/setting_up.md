@@ -7,7 +7,7 @@ To use MBL CLI, you need to:
 
 ## Setting up MBL CLI
 
-## Prerequisites
+### Prerequisites
 
 [Python > v3.5](https://python.org) and `pip`. 
 
@@ -15,7 +15,7 @@ Linux users require a few other dependencies. Install them using apt-get (this e
 
 `apt-get install --yes python3-cffi libssl-dev libffi-dev python3-dev`
 
-## Installation
+### Installation
 
 To install the MBL-CLI, first clone the repository.
 
