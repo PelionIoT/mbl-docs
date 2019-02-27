@@ -2,19 +2,19 @@
 
 <span class="notes">This process currently uses a micro-SD card, but will be updated in future to explain usage of the on board EMMC</span>
 
-1. Check the current block storage devices on your PC:
+<!--
+1. Check the current block storage devices on your PC:-->
 
 <!-- JIJ: lsblk method part 1 -->
 
-1. Connect a micro-SD card to your PC. You can now see new storage devices:
+<!--1. Connect a micro-SD card to your PC. You can now see new storage devices:-->
 
 <!-- JIJ: lsblk method part 2 and I have left in some of the stuff from RPi3 as it doesn't hurt, but could be part of the generic docs -->
 
-    * The SD card device file in `/dev`, probably as `/dev/sdX` for some letter `X` (for example, `/dev/sdd`).
-    * Device files for its partitions. `/dev/sdXN` for the same letter `X` and some numbers `N` (for example, `/dev/sdd1` and `/dev/sdd2`).
 
-    <span class="notes">In the commands below, replace `/dev/sdX` with the device file name for the SD card _without_ a number at the end. </span>
-
+<!--
+    <span class="notes">In the commands below, replace `/dev/sdX` with the device file name for the SD card _without_ a number at the end. </span>-->
+<!--
 1. Ensure none of the micro-SD card's partitions are mounted (replace `/dev/sdX` as explained above):
 
     ```
@@ -54,6 +54,7 @@
     * Encoding: [8N1](https://en.wikipedia.org/wiki/8-N-1).
     * No hardware flow control (enabled by default).
 
-1. Connect the NXP 8M Mini EVK USB-C power socket <!--JIJ: This is a different USB-C socket to the one I mentioned above!--> to the kits power brick and plug this into a wall socket.<!--JIJ: Urk! That probably needs re-phrasing -->
+1. Connect the NXP 8M Mini EVK USB-C power socket <!--JIJ: This is a different USB-C socket to the one I mentioned above!--> <!--to the kits power brick and plug this into a wall socket.<!--JIJ: Urk! That probably needs re-phrasing -->-->
 
-    The device now boots into MBL.
+    <!--The device now boots into MBL.
+-->

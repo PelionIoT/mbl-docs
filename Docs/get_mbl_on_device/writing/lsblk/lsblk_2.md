@@ -1,6 +1,5 @@
 ## Identifying the newly mounted devices
 
-
 1. On your PC, you can now see new storage devices:
 
     ```
@@ -22,6 +21,11 @@
     │ └─vg00-root 253:0    0 230.6G  0 lvm  /
     └─sda1          8:1    0   476M  0 part /boot
     ```
+
+    For an NXP i.MX, you expect:
+
+    * The SD card device file in `/dev`, probably as `/dev/sdX` for some letter `X` (for example, `/dev/sdd`).
+    * Device files for its partitions. `/dev/sdXN` for the same letter `X` and some numbers `N` (for example, `/dev/sdd1` and `/dev/sdd2`).
 
     <span class="notes">In the commands below, replace `/dev/sdX` with the device file name for the SD card _without_ a number at the end.</span>
 
