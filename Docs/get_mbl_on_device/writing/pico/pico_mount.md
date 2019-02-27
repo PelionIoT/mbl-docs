@@ -1,6 +1,6 @@
 ## Mounting the device
 
-1. For PICO device: Run the USB OTG (on the go) Loader, using the following commands on Linux:<!--is this specific to pico? I don't think I saw it in the other ones-->
+1. Run the USB OTG (on the go) Loader, using the following commands on Linux:<!--is this specific to pico? I don't think I saw it in the other ones-->
 
     ```
     cd pico-imx6-imx6ul-imx7_otg-installer_20171101

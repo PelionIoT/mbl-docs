@@ -22,7 +22,7 @@
     └─sda1          8:1    0   476M  0 part /boot
     ```
 
-    <!--For an NXP i.MX or RPi3, you can see:
+    <!--For an NXP EVK or RPi3, you can see:
 
     * The SD card device file in `/dev`, probably as `/dev/sdX` for some letter `X` (for example, `/dev/sdd`).
     * Device files for its partitions. `/dev/sdXN` for the same letter `X` and some numbers `N` (for example, `/dev/sdd1` and `/dev/sdd2`).-->
@@ -39,7 +39,7 @@
 
 1. From a Linux prompt, write the disk image to the device's flash device - not a partition on it (replace `/dev/sdX` as explained above):
 
-    <span class="notes">**Note**: If you are not using the PICO device, replace the device name (`imx7d-pico-mbl`) in the command with your device's: `imx8mmevk-mbl`, `imx7s-warp-mbl` or `raspberrypi3-mbl`.</span>
+    <span class="notes">**Note**: If you are not using the PICO-PI device, replace the device name (`imx7d-pico-mbl`) in the command with your device's: `imx8mmevk-mbl`, `imx7s-warp-mbl` or `raspberrypi3-mbl`.</span>
 
     ```
     sudo bmaptool copy --nobmap /path/to/artifacts/machine/imx7d-pico-mbl/images/mbl-image-development/images/mbl-image-development-imx7d-pico-mbl.wic.gz /dev/sdX

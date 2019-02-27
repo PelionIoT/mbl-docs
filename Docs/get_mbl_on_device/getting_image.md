@@ -7,7 +7,7 @@ Each target hardware has its own release archive, with a hardware-specific image
 * [Raspberry Pi 3]()
 * [Warp7]()
 * [PICO-PI]()
-* [NXP i.MX]()
+* [NXP EVK]()
 
 All release archives contain:
 

@@ -76,7 +76,7 @@
                         "path": "Docs/get_mbl_on_device/writing/writing_booting_disk_image.md"
                     },
                     "sub_chapters": [{
-                            "title": "PICO",
+                            "title": "PICO-PI",
                             "sources": [{
                                     "path": "Docs/get_mbl_on_device/writing/pico/pico_hardware.md"
                                 },
@@ -96,7 +96,7 @@
                         },
 
                         {
-                            "title": "NXP i.MX",
+                            "title": "NXP EVK",
                             "sources": [{
                                     "path": "Docs/get_mbl_on_device/writing/nxp_imx/imx_hardware.md"
                                 },
