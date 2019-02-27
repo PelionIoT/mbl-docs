@@ -54,7 +54,7 @@
     * Encoding: [8N1](https://en.wikipedia.org/wiki/8-N-1).
     * No hardware flow control (enabled by default).
 
-1. Connect the NXP 8M Mini EVK USB-C power socket <!--JIJ: This is a different USB-C socket to the one I mentioned above!--> <!--to the kits power brick and plug this into a wall socket.<!--JIJ: Urk! That probably needs re-phrasing -->-->
+1. Connect the NXP 8M Mini EVK USB-C power socket <!--JIJ: This is a different USB-C socket to the one I mentioned above!--> <!--to the kits power brick and plug this into a wall socket.<!--JIJ: Urk! That probably needs re-phrasing -->
 
-    <!--The device now boots into MBL.
+<!--The device now boots into MBL.
 -->

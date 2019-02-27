@@ -115,10 +115,28 @@
                             ]
                         },
                         {
-                            "title": "the ones I haven't handled yet",
-                            "sourcse": [{
-                                    "path": "Docs/get_mbl_on_device/writing/wrap7.md"
+                          "title": "Warp7",
+                          "sources": [
+                            {
+                                    "path": "Docs/get_mbl_on_device/writing/warp7/warp7_hardware.md"
                                 },
+                                {
+                                    "path": "Docs/get_mbl_on_device/writing/lsblk/lsblk_1.md"
+                                },
+                                {
+                                    "path": "Docs/get_mbl_on_device/writing/warp7/warp7_mount.md"
+                                },
+                                {
+                                    "path": "Docs/get_mbl_on_device/writing/lsblk/lsblk_2.md"
+                                },
+                                {
+                                    "path": "Docs/get_mbl_on_device/writing/finish_process.md"
+                                }
+                          ]
+                        }
+                        {
+                            "title": "Raspberry Pi 3",
+                            "sources": [
                                 {
                                     "path": "Docs/get_mbl_on_device/writing/rpi3.md"
                                 },

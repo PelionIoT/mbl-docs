@@ -5,7 +5,7 @@ To write your disk image to the Warp7's flash device, you must first access the 
 1. Connect both the Warp7's USB socket (on the I/O board) and the Warp7's mass storage USB socket (on the CPU board) to your PC.
 
     You should now be able to see a USB TTY device, such as, `/dev/ttyUSB0`, on your PC.
-
+<!--
 1. Connect to the Warp7's console using a command such as:
 
     ```
@@ -113,4 +113,4 @@ To write your disk image to the Warp7's flash device, you must first access the 
     reset
     ```
 
-    The device now boots into MBL.
+    The device now boots into MBL.-->
