@@ -4,13 +4,9 @@
 
 To connect your devices to Pelion Device Management, you must provision the device with security credentials that establish trust with the cloud services. Device Management offers a **developer certificate** to connect a development device to a Device Management account. The developer certificate doesn't require setting up a certificate authority (unlike the full credentials for production devices). Instead, you can simply download the certificate from the Device Management Portal. You then need to get the certificate on the device in a process called **provisioning**.
 
-<!--We should include some background on the update authenticity cert at this point.
-My suggestion:
-To perform OTA updates of your root file-system or application payloads via Pelion Device Management, you must also provision your device with an update authenticity certificate. This certificate is used to sign and verify [firmware update manifests](https://cloud.mbed.com/docs/current/updating-firmware/firmware-manifests.html) and is created using the manifest tool.
+To use Pelion Device Management for firmware updates of either your file system or your applications, you must also provision your device with an **update authenticity certificate**. This certificate is used to sign and verify [firmware update manifests](https://cloud.mbed.com/docs/latest/updating-firmware/firmware-manifests.html), and is created using the manifest tool.
 
--->
-Starting with Mbed Linux v0.6, your devices can be provisioned with developer and update authenticity certificates using MBL CLI 2.0.
-
+Starting with Mbed Linux OS 0.6, your devices can be provisioned with developer and update authenticity certificates using MBL CLI 2.0.
 
 <span class="tips">**Tip**: See the Device Management documentation for [background on the developer certificate and its scope](https://cloud.mbed.com/docs/latest/connecting/provisioning-development-devices.html).</span>
 
@@ -18,7 +14,7 @@ Starting with Mbed Linux v0.6, your devices can be provisioned with developer an
 
 * The [manifest tool](https://github.com/ARMmbed/manifest-tool). See the Device Management documentation [for an installation guide](https://cloud.mbed.com/docs/latest/cloud-requirements/manifest-tutorial.html).
 
-* <a href="https://os.mbed.com/account/login/" target="blank">A Pelion Device Management Account</a>
+* <a href="https://os.mbed.com/account/login/" target="_blank">A Pelion Device Management Account</a>
 
 * An API key from [Pelion Device Management](https://cloud.mbed.com/docs/latest/integrate-web-app/api-keys.html). Be sure to copy the key when prompted.
 
@@ -136,8 +132,6 @@ To provision your device:
 
     * `<update-cert-name>`: A name for your update authenticity certificate, created earlier using the manifest tool.
 
-    Depending on whether or not you use the optional argument `--parse-update-cert`, you must also pass in
-
-    * `<update-cert-path>`: The path to the `update_default_resources.c` file you created earlier using the manifest tool.
+    * Depending on whether or not you use the optional argument `--parse-update-cert`, you must also pass in `<update-cert-path>`: The path to the `update_default_resources.c` file you created earlier using the manifest tool.
 
     MBL CLI injects the certificates into your selected device's secure storage.
