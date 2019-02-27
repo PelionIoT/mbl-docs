@@ -8,5 +8,3 @@ This section contains instructions for writing the full disk image to a:
 * Raspberry Pi 3 device.
 
 <!-- JIJ: I think we could refactor this (possibly) as the instructions to find out which device to flash to, could be the same as the new instructions I have written - they would work for SDcard, Warp7 or Pico or IMX8 - i.e. using lsblk, and the following instructions on unmount, bmap-tool and eject would then be all identical. Its just the plugging in, and the rebooting that is different -->
-
-# Using lsblk

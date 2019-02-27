@@ -1,23 +1,10 @@
-# PICO-PI baseboard with the PICO-IMX7D SoM
+## Identifying mounted devices
 
-## Hardware setup
-
-<span class="notes">This assumes you have already assembled your baseboard and SoM. These first-time instructions are distilled from [information from TechNexion](https://www.technexion.com/support/knowledgebase/loading-bootable-software-images-onto-the-emmc-of-picosom-on-pico-pi/). These instructions can also be used to recover the board if it cannot boot into u-boot.</span>
-
-To write your first disk image, you need to:
-
-1. Download and unzip the TechNexion image loader software: [ftp://download.technexion.net/development_resources/development_tools/installer/pico-imx6-imx6ul-imx7_otg-installer_20171101.zip](ftp://download.technexion.net/development_resources/development_tools/installer/pico-imx6-imx6ul-imx7_otg-installer_20171101.zip)
-
-1. Set the PICO-PI into serial download mode by changing the boot configuration jumper settings.
-
-<span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/pico7-serial-download.jpg)<span>
-
-<!--
-1. Connect both the PICO-PI USB-C socket and the micro-USB socket to your PC.
+1. Connect both your device's USB-C and micro-USB sockets to your PC.
 
     You should now be able to see a USB TTY device, such as, `/dev/ttyUSB0`, on your PC.
 
-1. Connect to the PICO-PI's console using a command such as:
+1. Connect to the device's console using a command such as:
 
     ```
     minicom -D /dev/ttyUSB0
@@ -51,15 +38,14 @@ To write your first disk image, you need to:
 
    You'll need to refer to this output in the following steps, so save it for reference.
 
-
-1. Run the USB OTG (on the go) Loader, using the following commands on Linux:
+1. Run the USB OTG (on the go) Loader, using the following commands on Linux:<!--is this specific to pico? I don't think I saw it in the other ones-->
 
     ```
     cd pico-imx6-imx6ul-imx7_otg-installer_20171101
     sudo linux/imx_usb pico-imx7d_bootbomb_20170112.imx
     ```
 
-    <span class="notes">Make sure you run the command as root using sudo otherwise the `imx_usb` loader will report `main:Could not open device vid=0x... pid=0x... err=-3`</span>
+    <span class="notes">Make sure you run the command as root using sudo, otherwise the `imx_usb` loader will report `main:Could not open device vid=0x... pid=0x... err=-3`.</span>
 
     You should see output on the PC that ends with:
 
@@ -101,15 +87,20 @@ To write your first disk image, you need to:
     │ └─vg00-root 253:0    0 230.6G  0 lvm  /
     └─sda1          8:1    0   476M  0 part /boot
     ```
+
     <span class="notes">In the commands below, replace `/dev/sdX` with the device file name for the SD card _without_ a number at the end.</span>
 
-1. Ensure that none of the PICO-PI's flash partitions are mounted (replace `/dev/sdX` as explained above):
+1. Ensure that none of the device's flash partitions are mounted (replace `/dev/sdX` as explained above):
 
     ```
     sudo umount /dev/sdX*
     ```
 
-1. From a Linux prompt, write the disk image to the PICO-PI's flash device - not a partition on it (replace `/dev/sdX` as explained above)::
+## Writing the disk image
+
+1. From a Linux prompt, write the disk image to the device's flash device - not a partition on it (replace `/dev/sdX` as explained above):
+
+    <span class="notes">**Note**: If you are not using the PICO device, replace the device name (`imx7d-pico-mbl`) in the command with your device's: `imx8mmevk-mbl`, `imx7s-warp-mbl` or `raspberrypi3-mbl`.</span>
 
     ```
     sudo bmaptool copy --nobmap /path/to/artifacts/machine/imx7d-pico-mbl/images/mbl-image-development/images/mbl-image-development-imx7d-pico-mbl.wic.gz /dev/sdX
@@ -123,15 +114,10 @@ To write your first disk image, you need to:
     sudo eject /dev/sdX
     ```
 
-1. Unplug both USB cables from the PICO-PI, and set the boot configuration jumper settings to boot from the on board EMMC flash.
+1. Unplug both USB cables from the device, and set the boot configuration jumper settings to boot from the on-board EMMC flash.
 
-<span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/pico7-flash-boot.jpg)<span>
+    <span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/pico7-flash-boot.jpg)<span>
 
-1. Connect both the PICO-PI USB-C socket and the micro-USB socket back to your PC.
+1. Connect both your device's USB-C and micro-USB sockets back to your PC.
 
     The device now boots into MBL.
--->
-<!--
-## Subsequent flashing-->
-
-<!-- JIJ: This is the same as the Warp7 instructions, apart from the cabling set up, and I would suggest using the same lsblk method -->

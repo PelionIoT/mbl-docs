@@ -79,6 +79,9 @@
                             "path": "Docs/get_mbl_on_device/writing/pico.md"
                         },
                         {
+                            "path": "Docs/get_mbl_on_device/writing/lsblk.md"
+                        },
+                        {
                             "path": "Docs/get_mbl_on_device/writing/imx.md"
                         },
                         {
@@ -88,7 +91,7 @@
                             "path": "Docs/get_mbl_on_device/writing/rpi3.md"
                         },
                         {
-                            "path": "Docs/get_mbl_on_device/writing/log_in.md"
+                            "path": "Docs/get_mbl_on_device/writing/finish_process.md"
                         }
                     ]
                 },
