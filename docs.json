@@ -23,7 +23,7 @@
             ]
         },
         {
-            "title": "Getting MBL on a device",
+            "title": "Installing MBL on a device",
             "description": "",
             "slug": "first-image",
             "type": "markdown",
@@ -128,6 +128,13 @@
                             ]
                         }
                     ]
+                },
+                {
+                    "title": "Flashing an evaluation image",
+                    "intro": {
+                        "path": "Docs/get_mbl_on_device/eval_image.md"
+                    },
+                    "sources": []
                 },
                 {
                     "title": "Provisioning for Pelion Device Management",
