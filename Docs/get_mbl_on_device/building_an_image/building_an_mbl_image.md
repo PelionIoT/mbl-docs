@@ -98,7 +98,7 @@ The following examples assume:
 ./mbl-tools/build-mbl/run-me.sh --inject-mcc ./cloud-credentials/mbed_cloud_dev_credentials.c --inject-mcc ./update-resources/update_default_resources.c --builddir ./build-pico --outputdir ./artifacts-pico -- --machine imx7d-pico-mbl --branch mbl-os-0.6
 ```
 
-### NXP EVK
+### NXP 8M Mini EVK
 
 ```
 ./mbl-tools/build-mbl/run-me.sh --inject-mcc ./cloud-credentials/mbed_cloud_dev_credentials.c --inject-mcc ./update-resources/update_default_resources.c --builddir ./build-nxpimx --outputdir ./artifacts-nxpimx -- --machine nxpimx-mbl --branch mbl-os-0.6
