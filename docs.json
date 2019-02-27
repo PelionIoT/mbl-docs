@@ -136,7 +136,16 @@
                         {
                             "title": "Raspberry Pi 3",
                             "sources": [{
-                                    "path": "Docs/get_mbl_on_device/writing/rpi3.md"
+                                    "path": "Docs/get_mbl_on_device/writing/rpi3/rpi3_hardware.md"
+                                },
+                                {
+                                    "path": "Docs/get_mbl_on_device/writing/lsblk/lsblk_1.md"
+                                },
+                                {
+                                    "path": "Docs/get_mbl_on_device/writing/lsblk/lsblk_2.md"
+                                },
+                                {
+                                    "path": "Docs/get_mbl_on_device/writing/rpi3/rpi3_connect.md"
                                 },
                                 {
                                     "path": "Docs/get_mbl_on_device/writing/finish_process.md"
