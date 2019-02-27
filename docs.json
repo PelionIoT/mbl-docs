@@ -57,25 +57,40 @@
                     ]
                 },
                 {
-                  "title": "Downloading an evaluation image",
-                  "intro": {
-                      "path": "Docs/get_mbl_on_device/getting_image.md"
-                  },
-                  "sources": []
-                },
-                {
-                    "title": "Building a developer image",
+                    "title": "Downloading an evaluation image",
                     "intro": {
-                      "path": "Docs/get_mbl_on_device/building_an_image/building_an_mbl_image.md"
+                        "path": "Docs/get_mbl_on_device/getting_image.md"
                     },
                     "sources": []
                 },
                 {
-                  "title": "Writing an image",
-                  "intro": {
-                      "path": "Docs/get_mbl_on_device/building_an_image/writing_booting_disk_image.md"
-                  },
-                  "sources": []
+                    "title": "Building a developer image",
+                    "intro": {
+                        "path": "Docs/get_mbl_on_device/building_an_image/building_an_mbl_image.md"
+                    },
+                    "sources": []
+                },
+                {
+                    "title": "Writing an image",
+                    "intro": {
+                        "path": "Docs/get_mbl_on_device/writing/writing_booting_disk_image.md"
+                    },
+                    "sources": [{
+                            "path": "Docs/get_mbl_on_device/writing/pico.md"
+                        },
+                        {
+                            "path": "Docs/get_mbl_on_device/writing/imx.md"
+                        },
+                        {
+                            "path": "Docs/get_mbl_on_device/writing/wrap7.md"
+                        },
+                        {
+                            "path": "Docs/get_mbl_on_device/writing/rpi3.md"
+                        },
+                        {
+                            "path": "Docs/get_mbl_on_device/writing/log_in.md"
+                        }
+                    ]
                 },
                 {
                     "title": "Provisioning for Pelion Device Management",
@@ -104,11 +119,12 @@
             "chapters": [{
                     "title": "Mbed Linux OS Applications",
                     "sources": [{
-                        "path": "Docs/app_dev/app_dev_intro.md"
-                    },
-                    {
-                        "path": "Docs/app_dev/app_dev_workflow.md"
-                    }]
+                            "path": "Docs/app_dev/app_dev_intro.md"
+                        },
+                        {
+                            "path": "Docs/app_dev/app_dev_workflow.md"
+                        }
+                    ]
                 },
                 {
                     "title": "The MBL command line interface",
