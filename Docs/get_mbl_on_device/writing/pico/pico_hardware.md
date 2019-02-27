@@ -1,6 +1,6 @@
 # PICO-PI baseboard with the PICO-IMX7D SoM
 
-## Hardware setup
+## Setup
 
 <span class="notes">This assumes you have already assembled your baseboard and SoM. These first-time instructions are distilled from [information from TechNexion](https://www.technexion.com/support/knowledgebase/loading-bootable-software-images-onto-the-emmc-of-picosom-on-pico-pi/). These instructions can also be used to recover the board if it cannot boot into u-boot.</span>
 
@@ -10,7 +10,8 @@ To write your first disk image, you need to:
 
 1. Set the PICO-PI into serial download mode by changing the boot configuration jumper settings.
 
-<span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/pico7-serial-download.jpg)<span>
+<img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/pico7-serial-download.jpg" width="25%" align="middle" />
+
 
 <!--
 1. Connect both the PICO-PI USB-C socket and the micro-USB socket to your PC.

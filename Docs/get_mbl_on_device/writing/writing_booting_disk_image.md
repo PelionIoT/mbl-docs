@@ -1,6 +1,6 @@
 # Writing and booting the disk image
 
-This section contains instructions for writing the full disk image to a:
+This section contains instructions for writing the full disk image to:
 
 * PICO-PI with an IMX7D SoM.
 * NXP 8M Mini EVK.

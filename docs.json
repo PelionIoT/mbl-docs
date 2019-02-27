@@ -75,23 +75,57 @@
                     "intro": {
                         "path": "Docs/get_mbl_on_device/writing/writing_booting_disk_image.md"
                     },
-                    "sources": [{
-                            "path": "Docs/get_mbl_on_device/writing/pico.md"
+                    "sub_chapters": [{
+                            "title": "PICO",
+                            "sources": [{
+                                    "path": "Docs/get_mbl_on_device/writing/pico/pico_hardware.md"
+                                },
+                                {
+                                    "path": "Docs/get_mbl_on_device/writing/lsblk/lsblk_1.md"
+                                },
+                                {
+                                    "path": "Docs/get_mbl_on_device/writing/pico/pico_mount.md"
+                                },
+                                {
+                                    "path": "Docs/get_mbl_on_device/writing/lsblk/lsblk_2.md"
+                                },
+                                {
+                                    "path": "Docs/get_mbl_on_device/writing/finish_process.md"
+                                }
+                            ]
+                        },
+
+                        {
+                            "title": "NXP i.MX",
+                            "sources": [{
+                                    "path": "Docs/get_mbl_on_device/writing/nxp_imx/imx_hardware.md"
+                                },
+                                {
+                                    "path": "Docs/get_mbl_on_device/writing/lsblk/lsblk_1.md"
+                                },
+                                {
+                                    "path": "Docs/get_mbl_on_device/writing/nxp_imx/imx_mount.md"
+                                },
+                                {
+                                    "path": "Docs/get_mbl_on_device/writing/lsblk/lsblk_2.md"
+                                },
+                                {
+                                    "path": "Docs/get_mbl_on_device/writing/finish_process.md"
+                                }
+                            ]
                         },
                         {
-                            "path": "Docs/get_mbl_on_device/writing/lsblk.md"
-                        },
-                        {
-                            "path": "Docs/get_mbl_on_device/writing/imx.md"
-                        },
-                        {
-                            "path": "Docs/get_mbl_on_device/writing/wrap7.md"
-                        },
-                        {
-                            "path": "Docs/get_mbl_on_device/writing/rpi3.md"
-                        },
-                        {
-                            "path": "Docs/get_mbl_on_device/writing/finish_process.md"
+                            "title": "the ones I haven't handled yet",
+                            "sourcse": [{
+                                    "path": "Docs/get_mbl_on_device/writing/wrap7.md"
+                                },
+                                {
+                                    "path": "Docs/get_mbl_on_device/writing/rpi3.md"
+                                },
+                                {
+                                    "path": "Docs/get_mbl_on_device/writing/finish_process.md"
+                                }
+                            ]
                         }
                     ]
                 },
