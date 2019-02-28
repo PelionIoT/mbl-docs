@@ -49,7 +49,7 @@ MBL CLI can fetch and store API keys, firmware update authority certificates and
 
 You can save your credentials to either a **user** store or a **team** store:
 
-- User Store: Where API keys for each user are stored.<!--we don't use "per", as it's Latin and contradicts the Arm style guide. Despite half of English being Latin-->
+- User Store: Where API keys for each user are stored.
 
     Default location: `~/.mbl-store/user/` (permissions for this folder are set to `drwx------`). The folder is owned by the `*nix` user who created the store (the store is automatically created on first use).
 
@@ -97,7 +97,7 @@ You can use MBL CLI to provision your device dynamically (at runtime). MBL CLI w
 
 To provision your device:
 
-1. Connect the device to your development PC. Follow the tutorial to [connect and assign an IPv4 address](../develop-apps/setting-up.html#setting-up-networking)
+1. Connect the device to your development PC. Follow the tutorial to [connect your device](../develop-apps/setting-up.html#setting-up-networking). You don't need to assign an IPv4 address.
 2. Run the `select` command. It returns a list of discovered devices; you can select your device by its list index:
 
     ```bash
@@ -121,17 +121,15 @@ To provision your device:
 4. To provision your device with the developer and update certificates:
 
     ```bash
-    mbl-cli provision-pelion  <cert-name> <update-cert-name> --create-dev-cert --parse-update-cert <update-cert-path> 
+    mbl-cli provision-pelion  <cert-name> <update-cert-name> -c -p <update-cert-path> 
     ```
 
-    You must pass in:
+    The arguments are explained below:
+    | Argument | Info |
+    | --- | --- |
+    |`<cert-name>`| A name for your developer certificate. |
+    |`<update-cert-name>`| A name for your update authenticity certificate, created earlier using the manifest tool.|
+    |`-c`| Tells MBL CLI to create a new developer certificate and save it in your Team Store.|
+    |`-p`| Tells MBL CLI to parse an existing `update_default_resources.c` file and save it in the Team Store. For example, if your `update_default_resources.c` is located in `path/to/resources/update_default_resources.c` the form of the invocation would be: `-p path/to/resources/update_default_resources.c` |
 
-    * `<cert-name>`: A name for your developer certificate. 
-    
-    Depending on whether or not you use the optional argument `--create-dev-cert`, MBL CLI will either create a new certificate (if you used the argument) or search for an existing one with that name in the Team Store (if you didn't use the argument).
-
-    * `<update-cert-name>`: A name for your update authenticity certificate, created earlier using the manifest tool.
-
-    * Depending on whether or not you use the optional argument `--parse-update-cert`, you must also pass in `<update-cert-path>`: The path to the `update_default_resources.c` file you created earlier using the manifest tool.
-
-    MBL CLI injects the certificates into your selected device's secure storage.
+    MBL CLI injects the certificates into your selected device's secure storage. MBL CLI also saves the certificates, under the given names, in your Team Store for use with other devices.
