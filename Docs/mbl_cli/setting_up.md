@@ -9,17 +9,42 @@ To use MBL CLI, you need to:
 
 ### Prerequisites
 
-The only dependency of MBL CLI that you need to install is Node.js (version v8.10.0 or higher).
+[Python v3.5 or higher](https://python.org) and `pip`.
 
-We recommend installing Node.js from NodeSource's binary distribution using [these instructions](https://github.com/nodesource/distributions#installation-instructions).
+Linux users require a few other dependencies. Install them using apt-get (this example is for Ubuntu 16.04):
+
+`apt-get install --yes python3-cffi libssl-dev libffi-dev python3-dev`
+
+### Uninstalling old versions
+
+To uninstall an old version of MBL CLI, run:
+
+```
+npm uninstall mbl-cli -g --save
+```
 
 ### Installation
 
-MBL CLI is distributed using npm. To install MBL CLI, run:
+To install the MBL CLI:
 
-```
-$ sudo npm install -g mbl-cli
-```
+1. Clone the repository.
+
+    ```bash
+    git clone git@github.com:armmbed/mbl-cli-python.git
+    ```
+
+1. Ensure your `pwd` is the `mbl-cli-python` directory (contains `setup.py`).
+
+    ```bash
+    cd mbl-cli-python
+    ```
+
+1. Use pip to install the MBL CLI. We recommend installing in a [Python virtual environment](https://www.python.org/dev/peps/pep-0405/).
+
+
+    ```bash
+    pip install .
+    ```
 
 ## Setting up networking
 
