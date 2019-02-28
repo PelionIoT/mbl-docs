@@ -25,7 +25,7 @@ npm uninstall mbl-cli -g --save
 
 ### Installation
 
-To install the MBL CLI:
+To install MBL CLI:
 
 1. Clone the repository.
 
