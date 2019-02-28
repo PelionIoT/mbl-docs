@@ -17,7 +17,7 @@ Linux users require a few other dependencies. Install them using apt-get (this e
 
 ### Uninstalling old versions
 
-To uninstall an old version (1.x) of MBL CLI, run:
+If you are running an old version (1.x) of MBL CLI, but remove it (and install version 2.0):
 
 ```
 npm uninstall mbl-cli -g --save
