@@ -71,7 +71,7 @@
                     "sources": []
                 },
                 {
-                    "title": "Writing an image",
+                    "title": "Writing an image to supported boards",
                     "intro": {
                         "path": "Docs/get_mbl_on_device/writing/writing_booting_disk_image.md"
                     },
