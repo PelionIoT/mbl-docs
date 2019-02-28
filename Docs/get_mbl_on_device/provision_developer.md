@@ -8,6 +8,8 @@ To use Pelion Device Management for firmware updates of either your file system 
 
 Starting with Mbed Linux OS 0.6, your devices can be provisioned with developer and update authenticity certificates using MBL CLI 2.0.
 
+<span class="notes">**Note**: If you have MBL CLI 1.x installed, please [uninstall it, and install 2.0 instead](../develop-apps/setting-up.html#setting-up-mbl-cli).</span>
+
 <span class="tips">**Tip**: See the Device Management documentation for [background on the developer certificate and its scope](https://cloud.mbed.com/docs/latest/connecting/provisioning-development-devices.html).</span>
 
 ## Prerequisites
