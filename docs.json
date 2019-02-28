@@ -152,13 +152,6 @@
                     ]
                 },
                 {
-                    "title": "Flashing an evaluation image",
-                    "intro": {
-                        "path": "Docs/get_mbl_on_device/eval_image.md"
-                    },
-                    "sources": []
-                },
-                {
                     "title": "Provisioning for Pelion Device Management",
                     "intro": {
                         "path": "Docs/get_mbl_on_device/provision_developer.md"

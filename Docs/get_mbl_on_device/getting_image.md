@@ -9,6 +9,8 @@ Each target hardware has its own release archive, with a hardware-specific image
 * [PICO-PI with IMX7D SoM]()
 * [NXP 8M Mini EVK]()
 
+## Archive content
+
 All release archives contain:
 
 * `.wic.gz`: a full disk image for the target.
@@ -32,3 +34,9 @@ All release archives contain:
 * `buildinfo.txt`: a file containing the version of the mbl-tools repository used to build the disk image and the command lines used to invoke the scripts in mbl-tools.
 
 * `README`: a list of the files in the release archive.
+
+## Where next
+
+1. [Write the image to your board](../first-image/writing-an-image.html).
+1. [Provision your board so it can connect to your Pelion Device Management account](../first-image/provisioning-for-pelion-device-management.html).
+1. [Set up a network connection and make sure you can connect to your account](../first-image/connecting-to-a-network-and-pelion-device-management.html).

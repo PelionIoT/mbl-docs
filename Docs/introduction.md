@@ -67,10 +67,24 @@ The **Device Management Services** are integrated user-space agents that connect
 
 There are two paths to working with MBL:
 
-1. If you are a Linux developer interested in contributing to MBL or porting it to a new device:
+1. If you are a **Linux developer** interested in contributing to MBL or porting it to a new device:
     1. Please [build MBL locally so you can test](../first-image/index.html).
-    1. Use our porting or contributing guides (coming soon).
-1. If you are an application developer interested in building applications for devices that run MBL:
-    1. Please [build MBL locally and flash it to your device](../first-image/index.html).
-    1. Try our [example application](../develop-apps/hello-world-application.html), or start writing your own application using the Linux APIs.
-    1. You can also [use our update example](../update/index.html) to send firmware updates over the air.
+    1. Review our [contribution guide](../develop-mbl/index.html).
+    1. Use [our update tutorial](../update/index.html) to send image firmware updates over the air.
+
+1. If you are an **application developer** interested in building applications for devices that run MBL:
+    1. We recommend [using an evaluation image](../first-image/downloading-an-evaluation-image.html).
+    1. Review our [development guide](../develop-apps/index.html), our [command line tool, MBL CLI](../develop-apps/the-mbl-command-line-interface.html) and our [Hello World application](../develop-apps/hello-world-application.html).
+    1. [Use our update tutorial](../update/index.html) to send application firmware updates over the air.
+
+## Recently updated documentation
+
+<!--tempting to just say "we redid the docs; get reading"-->
+
+* A standalone guide [for writing images to devices](../first-image/index.html), including evaluation images and new board support for version 0.6.
+* A new [provisioning guide](../provisioning-for-pelion-device-management.html).
+* Instructions for [removing the old version of MBL CLI]().
+* A new [guide for application developers](../develop-apps/index.html).
+* New [contribution guidelines and code style guides](develop-mbl/index.html).
+* Revised [firmware update tutorials](../update/index.html).
+* A new [reference about partition layout](../references/partition-layout.html).
