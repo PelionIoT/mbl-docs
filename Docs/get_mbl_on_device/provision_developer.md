@@ -124,7 +124,8 @@ To provision your device:
     mbl-cli provision-pelion  <cert-name> <update-cert-name> -c -p <update-cert-path> 
     ```
 
-    The arguments are explained below:
+    The arguments are:
+    
     | Argument | Info |
     | --- | --- |
     |`<cert-name>`| A name for your developer certificate. |
