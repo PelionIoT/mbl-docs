@@ -14,20 +14,19 @@ You can list available devices, and select one to use for all subsequent command
 
     ```
     $ mbl-cli select
-    Discovering devices...
-    Select a device:
-    1: mbed-linux-os-3006 (fe80::94f8:52ff:fe67:d5d8%enp0s20u1)
-    2: No device
-    mbed-linux-os-3006 (fe80::94f8:52ff:fe67:d5d8%enp0s20u1) selected
+    Discovering devices. This will take up to 30 seconds.
+    1: mbed-linux-os-2833: fe80::4f3a:cbef:fe1254d6%enx7c8bca12130a
+
+    Select a device from the list: 1
     ```
 
 1. To select a device, enter its number from the list above.
 
-    For example, to select the device `mbed-linux-os-3006`, type `1`.
+    For example, to select the device `mbed-linux-os-2833`, enter `1`.
 
     You can now omit the `address` argument from subsequent commands.
 
-    The selected device's address is stored in a configuration file (`${HOME}/.mbl.cfg`), so the selection will apply to all subsequent runs of mbl-cli by the same user.
+    The selected device's address is stored in a configuration file (`${HOME}/.mbl-dev.json`), so the selection will apply to all subsequent runs of MBLC LI by the same user.
 
  1. To deselect a device: run `select` again and select a different device.
 
@@ -40,7 +39,7 @@ To execute commands on the device:
 1. Run a command on the device:
 
     ```
-    $ mbl-cli run <command> [address]
+    $ mbl-cli shell <command> [-a address]
    ```
 
     <span class="notes">The commands are run by the user `root`.</span>
@@ -48,7 +47,7 @@ To execute commands on the device:
 For example, to show the statuses of the active interfaces on a device:
 
 ```
-$ mbl-cli run "ifconfig -a" 169.254.11.94
+$ mbl-cli -a 169.254.11.94 shell "ifconfig -a" 
 lo        Link encap:Local Loopback  
           inet addr:127.0.0.1  Mask:255.0.0.0
           inet6 addr: ::1/128 Scope:Host
@@ -76,15 +75,15 @@ usb0:avahi Link encap:Ethernet  HWaddr 96:F8:52:67:D5:D8
 To get shell access over SSH to a device (as the user `root`), use the `shell` command:
 
 ```
-$ mbl-cli shell [address]
+$ mbl-cli shell [-a address]
 ```
 
 For a previously selected device, omit the address:
 
 ```
 $ mbl-cli shell
-Connecting to mbed-linux-os-3006...
-root@mbed-linux-os-3006:~#
+Connecting to mbed-linux-os-2833...
+root@mbed-linux-os-2833:~#
 ```
 
 After obtaining shell access, you can set up Wi-Fi on the device (see [Setting up a network connection](../first-image/connecting-to-a-network-and-pelion-device-management.html)).
