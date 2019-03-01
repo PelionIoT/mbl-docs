@@ -180,36 +180,36 @@
             "chapters": [{
                     "title": "Mbed Linux OS Applications",
                     "sources": [{
-                            "path": "Docs/app_dev/app_dev_intro.md"
+                            "path": "Docs/develop_applications/develop_applications_intro.md"
                         },
                         {
-                            "path": "Docs/app_dev/app_dev_workflow.md"
+                            "path": "Docs/develop_applications/develop_applications_workflow.md"
                         }
                     ]
                 },
                 {
                     "title": "The MBL command line interface",
                     "sources": [{
-                            "path": "Docs/mbl_cli/mbl_cli.md"
+                            "path": "Docs/develop_applications/mbl_cli/mbl_cli.md"
                         },
                         {
-                            "path": "Docs/mbl_cli/setting_up.md"
+                            "path": "Docs/develop_applications/mbl_cli/setting_up.md"
                         },
                         {
-                            "path": "Docs/mbl_cli/command_syntax.md"
+                            "path": "Docs/develop_applications/mbl_cli/command_syntax.md"
                         },
                         {
-                            "path": "Docs/mbl_cli/usage.md"
+                            "path": "Docs/develop_applications/mbl_cli/usage.md"
                         },
                         {
-                            "path": "Docs/mbl_cli/device_update.md"
+                            "path": "Docs/develop_applications/mbl_cli/device_update.md"
                         }
                     ]
                 },
                 {
                     "title": "Hello World application",
                     "intro": {
-                        "path": "Docs/app_dev/user_app_helloworld.md"
+                        "path": "Docs/develop_applications/user_app_helloworld.md"
                     },
                     "sources": []
                 }
