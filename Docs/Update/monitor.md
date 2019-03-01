@@ -1,4 +1,4 @@
-## Note: monitoring progress
+## Monitoring progress
 
 * You can monitor the update payload **download** progress by tailing the `mbl-cloud-client` log file:
 
