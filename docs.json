@@ -30,7 +30,7 @@
             "chapters": [{
                     "title": "Introduction",
                     "intro": {
-                        "path": "Docs/get_mbl_on_device/introduction_mbl_on_device.md"
+                        "path": "Docs/install_mbl_on_device/introduction_mbl_on_device.md"
 
                     },
                     "sources": []
@@ -38,19 +38,19 @@
                 {
                     "title": "Setting up and supported hardware",
                     "intro": {
-                        "path": "Docs/get_mbl_on_device/Reqs_and_env/intro_reqs.md"
+                        "path": "Docs/install_mbl_on_device/Reqs_and_env/intro_reqs.md"
                     },
                     "sub_chapters": [{
                             "title": "Hardware",
                             "intro": {
-                                "path": "Docs/get_mbl_on_device/Reqs_and_env/Hardware.md"
+                                "path": "Docs/install_mbl_on_device/Reqs_and_env/Hardware.md"
                             },
                             "sources": []
                         },
                         {
                             "title": "Development environment",
                             "intro": {
-                                "path": "Docs/get_mbl_on_device/Reqs_and_env/dev_env_for_distribution.md"
+                                "path": "Docs/install_mbl_on_device/Reqs_and_env/dev_env_for_distribution.md"
                             },
                             "sources": []
                         }
@@ -59,43 +59,43 @@
                 {
                     "title": "Downloading an evaluation image",
                     "intro": {
-                        "path": "Docs/get_mbl_on_device/getting_image.md"
+                        "path": "Docs/install_mbl_on_device/getting_image.md"
                     },
                     "sources": []
                 },
                 {
                     "title": "Building a developer image",
                     "intro": {
-                        "path": "Docs/get_mbl_on_device/building_an_image/build_intro_setup.md"
+                        "path": "Docs/install_mbl_on_device/building_an_image/build_intro_setup.md"
                     },
                     "sources": [{
-                        "path": "Docs/get_mbl_on_device/building_an_image/build_scripts.md"
+                        "path": "Docs/install_mbl_on_device/building_an_image/build_scripts.md"
                     },
                     {
-                        "path": "Docs/get_mbl_on_device/building_an_image/build_examples.md"
+                        "path": "Docs/install_mbl_on_device/building_an_image/build_examples.md"
                     }]
                 },
                 {
                     "title": "Writing an image to supported boards",
                     "intro": {
-                        "path": "Docs/get_mbl_on_device/writing/writing_booting_disk_image.md"
+                        "path": "Docs/install_mbl_on_device/writing/writing_booting_disk_image.md"
                     },
                     "sub_chapters": [{
                             "title": "PICO-PI",
                             "sources": [{
-                                    "path": "Docs/get_mbl_on_device/writing/pico/pico_hardware.md"
+                                    "path": "Docs/install_mbl_on_device/writing/pico/pico_hardware.md"
                                 },
                                 {
-                                    "path": "Docs/get_mbl_on_device/writing/lsblk/lsblk_1.md"
+                                    "path": "Docs/install_mbl_on_device/writing/lsblk/lsblk_1.md"
                                 },
                                 {
-                                    "path": "Docs/get_mbl_on_device/writing/pico/pico_mount.md"
+                                    "path": "Docs/install_mbl_on_device/writing/pico/pico_mount.md"
                                 },
                                 {
-                                    "path": "Docs/get_mbl_on_device/writing/lsblk/lsblk_2.md"
+                                    "path": "Docs/install_mbl_on_device/writing/lsblk/lsblk_2.md"
                                 },
                                 {
-                                    "path": "Docs/get_mbl_on_device/writing/finish_process.md"
+                                    "path": "Docs/install_mbl_on_device/writing/finish_process.md"
                                 }
                             ]
                         },
@@ -103,51 +103,51 @@
                         {
                             "title": "NXP EVK",
                             "sources": [{
-                                    "path": "Docs/get_mbl_on_device/writing/nxp_imx/imx_hardware.md"
+                                    "path": "Docs/install_mbl_on_device/writing/nxp_imx/imx_hardware.md"
                                 },
                                 {
-                                    "path": "Docs/get_mbl_on_device/writing/lsblk/lsblk_1.md"
+                                    "path": "Docs/install_mbl_on_device/writing/lsblk/lsblk_1.md"
                                 },
                                 {
-                                    "path": "Docs/get_mbl_on_device/writing/lsblk/lsblk_2.md"
+                                    "path": "Docs/install_mbl_on_device/writing/lsblk/lsblk_2.md"
                                 },
                                 {
-                                    "path": "Docs/get_mbl_on_device/writing/finish_process.md"
+                                    "path": "Docs/install_mbl_on_device/writing/finish_process.md"
                                 }
                             ]
                         },
                         {
                             "title": "Warp7",
                             "sources": [{
-                                    "path": "Docs/get_mbl_on_device/writing/warp/warp7_hardware.md"
+                                    "path": "Docs/install_mbl_on_device/writing/warp/warp7_hardware.md"
                                 },
                                 {
-                                    "path": "Docs/get_mbl_on_device/writing/lsblk/lsblk_1.md"
+                                    "path": "Docs/install_mbl_on_device/writing/lsblk/lsblk_1.md"
                                 },
                                 {
-                                    "path": "Docs/get_mbl_on_device/writing/lsblk/lsblk_2.md"
+                                    "path": "Docs/install_mbl_on_device/writing/lsblk/lsblk_2.md"
                                 },
                                 {
-                                    "path": "Docs/get_mbl_on_device/writing/finish_process.md"
+                                    "path": "Docs/install_mbl_on_device/writing/finish_process.md"
                                 }
                             ]
                         },
                         {
                             "title": "Raspberry Pi 3",
                             "sources": [{
-                                    "path": "Docs/get_mbl_on_device/writing/rpi3/rpi3_hardware.md"
+                                    "path": "Docs/install_mbl_on_device/writing/rpi3/rpi3_hardware.md"
                                 },
                                 {
-                                    "path": "Docs/get_mbl_on_device/writing/lsblk/lsblk_1.md"
+                                    "path": "Docs/install_mbl_on_device/writing/lsblk/lsblk_1.md"
                                 },
                                 {
-                                    "path": "Docs/get_mbl_on_device/writing/lsblk/lsblk_2.md"
+                                    "path": "Docs/install_mbl_on_device/writing/lsblk/lsblk_2.md"
                                 },
                                 {
-                                    "path": "Docs/get_mbl_on_device/writing/rpi3/rpi3_connect.md"
+                                    "path": "Docs/install_mbl_on_device/writing/rpi3/rpi3_connect.md"
                                 },
                                 {
-                                    "path": "Docs/get_mbl_on_device/writing/finish_process.md"
+                                    "path": "Docs/install_mbl_on_device/writing/finish_process.md"
                                 }
                             ]
                         }
@@ -156,17 +156,17 @@
                 {
                     "title": "Provisioning for Pelion Device Management",
                     "intro": {
-                        "path": "Docs/get_mbl_on_device/provision_developer.md"
+                        "path": "Docs/install_mbl_on_device/provision_developer.md"
                     },
                     "sources": []
                 },
                 {
                     "title": "Connecting to a network and Pelion Device Management",
                     "sources": [{
-                            "path": "Docs/get_mbl_on_device/connect_network_and_pelion/connect_network.md"
+                            "path": "Docs/install_mbl_on_device/connect_network_and_pelion/connect_network.md"
                         },
                         {
-                            "path": "Docs/get_mbl_on_device/connect_network_and_pelion/verify_device_connected.md"
+                            "path": "Docs/install_mbl_on_device/connect_network_and_pelion/verify_device_connected.md"
                         }
                     ]
                 }
