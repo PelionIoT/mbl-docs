@@ -28,6 +28,7 @@ After receiving a payload file containing application updates, for each applicat
 * Removes any existing version of the application.
 * Installs the application update from the payload file.
 * Starts the updated application.
+<!--JH_TODO: The order of these operations my change in 0.6 - check with Hugues-->
 
 ### Root file system updates
 

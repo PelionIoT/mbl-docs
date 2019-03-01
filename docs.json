@@ -265,7 +265,13 @@
                             "path": "Docs/Update/updating_the_image.md"
                         },
                         {
+                            "path": "Docs/Update/monitor.md"
+                        },
+                        {
                             "path": "Docs/Update/updating_an_application.md"
+                        },
+                        {
+                            "path": "Docs/Update/monitor.md"
                         }
                     ]
                 }

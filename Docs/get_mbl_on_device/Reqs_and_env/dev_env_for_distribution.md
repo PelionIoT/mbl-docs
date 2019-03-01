@@ -2,9 +2,6 @@
 
 These requirements are for anyone building an MBL image that can connect to Pelion Device Management.
 
-
-<span class="tips">**Tip**: in addition to these requirements, you can also install [MBL CLI](../develop-apps/the-mbl-command-line-interface.html). You will need to do this if you are developing applications that run on top of MBL. If you are contributing to MBL, you can choose to use MBL CLI to update the MBL image on your device (you can update the image with the manifest tool if you do not want to use MBL CLI).</span>
-
 ## Accounts
 
 You need:
@@ -68,6 +65,10 @@ And the following software:
     Make sure your GitHub SSH key is valid.
 
     See [the manifest tool documentation](https://cloud.mbed.com/docs/latest/updating-firmware/manifest-tool.html) for more information.
+
+* MBL CLI. Please see [installation and network setup instructions](../develop-apps/setting-up.html).
+
+    <span class="notes">**Note:** If you are running an old version (1.x) of MBL CLI, please remove it (and install version 2.0).</span>
 
 * Docker CE, to use `build-mbl` script from the `mbl-tools` repository to build MBL. [Download and install from the Docker website](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
 

@@ -98,6 +98,8 @@ A script inside `initramfs` checks which root partition is currently active; by 
 
 For a configuration that should persist across firmware updates, MBL actually stores three versions: a configuration for each firmware installation (stored on the installation's `nfactory_config1` or `nfactory_config2` partitions) and the initial configuration installed at build time or in the factory (stored on the `factory_config` partition). During firmware updates, the configuration for the newly installed firmware will be created based on the configuration for the currently running installation, rules contained in a **configuration update** script attached to the new firmware and, possibly, the initial factory configuration.
 
+<!--JH_TODO: This isn't currently accurate - it's a potential future plan-->
+
 Additionally, there is the `scratch` partition for temporary storage of firmware downloaded during the update process. This partition is shared between the firmware installations.
 
 ## Plans
