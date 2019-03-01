@@ -66,9 +66,11 @@
                 {
                     "title": "Building a developer image",
                     "intro": {
-                        "path": "Docs/get_mbl_on_device/building_an_image/building_an_mbl_image.md"
+                        "path": "Docs/get_mbl_on_device/building_an_image/build_scripts.md"
                     },
-                    "sources": []
+                    "sources": [{
+                        "path": "Docs/get_mbl_on_device/building_an_image/build_examples.md"
+                    }]
                 },
                 {
                     "title": "Writing an image to supported boards",
