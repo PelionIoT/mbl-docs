@@ -223,7 +223,7 @@
             "chapters": [{
                     "title": "Developing Mbed Linux OS",
                     "intro": {
-                        "path": "Docs/dev_mbl/dev_mbl_intro.md"
+                        "path": "Docs/develop_contribute_mbl/develop_contribute_mbl_intro.md"
                     },
                     "sources": []
                 },
@@ -231,16 +231,16 @@
                     "title": "Contribution guidelines",
 
                     "sources": [{
-                            "path": "Docs/dev_mbl/contribution/contribution_guidelines.md"
+                            "path": "Docs/develop_contribute_mbl/contribution/contribution_guidelines.md"
                         },
                         {
-                            "path": "Docs/dev_mbl/contribution/coding_style_guide_cpp.md"
+                            "path": "Docs/develop_contribute_mbl/contribution/coding_style_guide_cpp.md"
                         },
                         {
-                            "path": "Docs/dev_mbl/contribution/coding_style_guide_python.md"
+                            "path": "Docs/develop_contribute_mbl/contribution/coding_style_guide_python.md"
                         },
                         {
-                            "path": "Docs/dev_mbl/contribution/coding_style_guide_pytest.md"
+                            "path": "Docs/develop_contribute_mbl/contribution/coding_style_guide_pytest.md"
                         }
                     ]
                 }
