@@ -1,22 +1,6 @@
 ## Identifying mounted devices
 
-1. Connect both your device's USB-C and micro-USB sockets to your PC.
-
-    You should now be able to see a USB TTY device, such as, `/dev/ttyUSB0`, on your PC.
-
-1. Connect to the device's console using a command such as:
-
-    ```
-    minicom -D /dev/ttyUSB0
-    ```
-
-    Use the following settings:
-
-    * Baud rate: 115200.
-    * Encdoing: [8N1](https://en.wikipedia.org/wiki/8-N-1).
-    * No hardware flow control (enabled by default).
-
-1. Check the current block storage devices on your PC:
+1. Before connecting your device, check the current block storage devices on your PC:
 
     ```
     lsblk
@@ -37,3 +21,20 @@
     ```
 
    You'll need to refer to this output in the following steps, so save it for reference.
+
+1. Connect your device to your PC:
+
+    * If your device doesn't have an SD-card, connect both your device's USB-C and micro-USB sockets to your PC.
+    * If your device has an SD card, connect the card to your PC.
+
+1. Connect to the device's console using a command such as:
+
+   ```
+   minicom -D /dev/ttyUSB0
+   ```
+
+   Use the following settings:
+
+   * Baud rate: 115200.
+   * Encdoing: [8N1](https://en.wikipedia.org/wiki/8-N-1).
+   * No hardware flow control (enabled by default).
