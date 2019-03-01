@@ -9,14 +9,14 @@
             "chapters": [{
                     "title": "Introduction",
                     "intro": {
-                        "path": "Docs/introduction.md"
+                        "path": "Docs/introduction/introduction.md"
                     },
                     "sources": []
                 },
                 {
                     "title": "Licensing",
                     "intro": {
-                        "path": "Docs/licensing.md"
+                        "path": "Docs/introduction/licensing.md"
                     },
                     "sources": []
                 }
