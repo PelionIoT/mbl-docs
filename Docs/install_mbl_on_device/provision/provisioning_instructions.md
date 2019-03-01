@@ -2,6 +2,10 @@
 
 ## Prerequisites
 
+* MBL CLI. Please see [installation and network setup instructions](../develop-apps/setting-up.html).
+
+    <span class="notes">**Note:** If you are running an old version (1.x) of MBL CLI, please remove it (and install version 2.0).</span>
+
 * The [manifest tool](https://github.com/ARMmbed/manifest-tool). See the Device Management documentation [for an installation guide](https://cloud.mbed.com/docs/latest/cloud-requirements/manifest-tutorial.html).
 
 * <a href="https://os.mbed.com/account/login/" target="_blank">A Pelion Device Management Account</a>
