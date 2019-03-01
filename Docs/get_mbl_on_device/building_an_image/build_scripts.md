@@ -1,26 +1,4 @@
-# Building an MBL developer image
-
-<span class="notes">**Note**: Mbed Linux OS is currently in limited preview. If you would like access to the code repositories, [please request to join the preview](https://os.mbed.com/linux-os/).</span>
-
-<span class="tips">**Tip**: If you downloaded an evaluation image, you can skip the build stage [and go directly to writing]().</span>
-
-Please note that each release has its own branch. Throughout this guide, the release branch is assumed to be `mbl-os-0.6`.
-
-## Building scripts
-
-<span class="notes">**Note**: You need to use an SSH agent to build. For usage, see [the GitHub SSH documentation](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).</span>
-
-
-If you haven't already done so, check out the relevant branch from the `build-mbl` repository (in this example, we use `mbl-os-0.6`):
-
-```
-$ git clone git@github.com:ARMmbed/mbl-tools.git --branch mbl-os-0.6
-```
-
-The repository includes the `run-me.sh` script, which:
-
-1. Creates and launches a Docker container that encapsulates the MBL build environment.
-1. Launches a build script, `build.sh`, inside the container.
+# Using the build scripts
 
 The `run-me.sh` and `build.sh` scripts are called in a single command, with options that control what to build and how. The general form of a `run-me.sh` invocation is:
 
@@ -30,17 +8,8 @@ The `run-me.sh` and `build.sh` scripts are called in a single command, with opti
 
 <span class="tips">Note the use of `--`. It separates options for `run-me.sh` from options for `build.sh`.</span>
 
-To invoke the `run-me.sh` help menu, use:
 
-```
-./mbl-tools/build-mbl/run-me.sh -h
-```
-
-To invoke the `build.sh` help menu, use:
-
-```
-./mbl-tools/build-mbl/run-me.sh -- -h
-```
+## Mandatory build flags
 
 The following build options are mandatory:
 
@@ -56,6 +25,8 @@ An example using all mandatory options:
 ```
 ./mbl-tools/build-mbl/run-me.sh --builddir /path/to/builddir --outputdir /path/to/artifacts -- --branch mbl-os-0.6 --machine <MACHINE>
 ```
+
+## Optional build flags
 
 The following build options are not mandatory, but you may find that they improve the development process:
 

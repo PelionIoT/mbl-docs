@@ -66,9 +66,12 @@
                 {
                     "title": "Building a developer image",
                     "intro": {
-                        "path": "Docs/get_mbl_on_device/building_an_image/build_scripts.md"
+                        "path": "Docs/get_mbl_on_device/building_an_image/build_intro_setup.md"
                     },
                     "sources": [{
+                        "path": "Docs/get_mbl_on_device/building_an_image/build_scripts.md"
+                    },
+                    {
                         "path": "Docs/get_mbl_on_device/building_an_image/build_examples.md"
                     }]
                 },
