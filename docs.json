@@ -57,24 +57,99 @@
                     ]
                 },
                 {
-                    "title": "Building and writing an image",
+                    "title": "Downloading an evaluation image",
                     "intro": {
-                        "path": "Docs/get_mbl_on_device/building_an_image/connect_tutorial_intro.md"
-                    },
-                    "sources": [{
-                            "path": "Docs/get_mbl_on_device/building_an_image/building_an_mbl_image.md"
-                        },
-                        {
-                            "path": "Docs/get_mbl_on_device/building_an_image/writing_booting_disk_image.md"
-                        }
-                    ]
-                },
-                {
-                    "title": "Flashing an evaluation image",
-                    "intro": {
-                        "path": "Docs/get_mbl_on_device/eval_image.md"
+                        "path": "Docs/get_mbl_on_device/getting_image.md"
                     },
                     "sources": []
+                },
+                {
+                    "title": "Building a developer image",
+                    "intro": {
+                        "path": "Docs/get_mbl_on_device/building_an_image/building_an_mbl_image.md"
+                    },
+                    "sources": []
+                },
+                {
+                    "title": "Writing an image to supported boards",
+                    "intro": {
+                        "path": "Docs/get_mbl_on_device/writing/writing_booting_disk_image.md"
+                    },
+                    "sub_chapters": [{
+                            "title": "PICO-PI",
+                            "sources": [{
+                                    "path": "Docs/get_mbl_on_device/writing/pico/pico_hardware.md"
+                                },
+                                {
+                                    "path": "Docs/get_mbl_on_device/writing/lsblk/lsblk_1.md"
+                                },
+                                {
+                                    "path": "Docs/get_mbl_on_device/writing/pico/pico_mount.md"
+                                },
+                                {
+                                    "path": "Docs/get_mbl_on_device/writing/lsblk/lsblk_2.md"
+                                },
+                                {
+                                    "path": "Docs/get_mbl_on_device/writing/finish_process.md"
+                                }
+                            ]
+                        },
+
+                        {
+                            "title": "NXP EVK",
+                            "sources": [{
+                                    "path": "Docs/get_mbl_on_device/writing/nxp_imx/imx_hardware.md"
+                                },
+                                {
+                                    "path": "Docs/get_mbl_on_device/writing/lsblk/lsblk_1.md"
+                                },
+                                {
+                                    "path": "Docs/get_mbl_on_device/writing/nxp_imx/imx_mount.md"
+                                },
+                                {
+                                    "path": "Docs/get_mbl_on_device/writing/lsblk/lsblk_2.md"
+                                },
+                                {
+                                    "path": "Docs/get_mbl_on_device/writing/finish_process.md"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Warp7",
+                            "sources": [{
+                                    "path": "Docs/get_mbl_on_device/writing/warp/warp7_hardware.md"
+                                },
+                                {
+                                    "path": "Docs/get_mbl_on_device/writing/lsblk/lsblk_1.md"
+                                },
+                                {
+                                    "path": "Docs/get_mbl_on_device/writing/lsblk/lsblk_2.md"
+                                },
+                                {
+                                    "path": "Docs/get_mbl_on_device/writing/finish_process.md"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Raspberry Pi 3",
+                            "sources": [{
+                                    "path": "Docs/get_mbl_on_device/writing/rpi3/rpi3_hardware.md"
+                                },
+                                {
+                                    "path": "Docs/get_mbl_on_device/writing/lsblk/lsblk_1.md"
+                                },
+                                {
+                                    "path": "Docs/get_mbl_on_device/writing/lsblk/lsblk_2.md"
+                                },
+                                {
+                                    "path": "Docs/get_mbl_on_device/writing/rpi3/rpi3_connect.md"
+                                },
+                                {
+                                    "path": "Docs/get_mbl_on_device/writing/finish_process.md"
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
                     "title": "Provisioning for Pelion Device Management",
