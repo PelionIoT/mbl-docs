@@ -35,7 +35,7 @@ The following build options are not mandatory, but you may find that they improv
 | `--downloaddir` | Cache downloaded artifacts between successive builds (do not use cacheing for parallel builds). <br>For example, if you've created `mkdir /path/to/downloads`, the downloaddir will be `./mbl-tools/build-mbl/run-me.sh --downloaddir /path/to/downloads` |
 | `--external-manifest` | You can build using a pinned manifest, which is an encapsulation created by a build and containing enough information to allow an exact rebuild. The manifest is created in your output directory (`outputdir`). <br>To use it to rebuild, run `./mbl-tools/build-mbl/run-me.sh --external-manifest /path/to/pinned-manifest.xml` |
 
-## Building outputs
+## Build outputs
 
 The build process creates the following files:
 

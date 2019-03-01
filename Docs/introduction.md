@@ -10,6 +10,20 @@ Because MBL is aimed specifically at IoT devices, it places a major emphasis on 
 
 You can develop and build applications in using a variety of standard tools such as C cross-compilation, Python or Node.js. Applications are then packaged and deployed to MBL in an application container.
 
+<section class="row">
+<div class="columns large-6 medium-6 small-12">
+  <h3>On this page</h3>
+  <ul class="guides-list">
+          <ul data-tab-content>
+                <li><a href="#developer-preview-features">Developer preview features</a></li>
+                <li><a href="#design-diagram">Design diagram</a></li>
+                <li><a href="getting-started">Getting started</a></li>
+                <li><a href="recently-updated-documentation">Recently updated documentation</a></li>
+            </ul>
+    </ul>
+</div>
+</section>
+
 ## Developer preview features
 
 MBL is currently available as a developer preview to selected users. To request access, [please contact us](https://os.mbed.com/linux-os/).
@@ -62,8 +76,7 @@ The **Device Management Services** are integrated user-space agents that connect
 
 * Trusted Execution Environment and OP-TEE run security-sensitive applications within the isolated environment provided by Arm TrustZone.
 
-## Get started
-<!--this needs to change for 0.6-->
+## Getting started
 
 There are two paths to working with MBL:
 
