@@ -2,7 +2,7 @@
 
 <span class="notes">**Note**: Mbed Linux OS is currently in limited preview. If you would like access to the code repositories, [please request to join the preview](https://os.mbed.com/linux-os/).</span>
 
-You can perform a firmware an over the air (FOTA) update for the following components of Mbed Linux OS (MBL):
+You can perform a firmware over the air (FOTA) update for the following components of Mbed Linux OS (MBL):
 
 * The root file system.
 * An application.
