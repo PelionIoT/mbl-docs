@@ -2,6 +2,13 @@
 
 <span class="notes">This process currently uses a micro-SD card, but will be updated in future to explain usage of the on board EMMC</span>
 
+## Setting up SD-card boot
+
+To let the device boot from the SD-card, set up the device's DIP switches as explained on the device.
+
+
+
+
 <!--
 1. Check the current block storage devices on your PC:-->
 

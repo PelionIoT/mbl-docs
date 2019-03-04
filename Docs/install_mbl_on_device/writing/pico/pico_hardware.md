@@ -1,5 +1,12 @@
 # PICO-PI baseboard with the PICO-IMX7D SoM
 
+There are two processes for writing to the PICO-PI:
+
+* Writing the first image.
+* Writing subsequent images.
+
+# Writing the first image
+
 ## Setup
 
 <span class="notes">This assumes you have already assembled your baseboard and SoM. These first-time instructions are distilled from [information from TechNexion](https://www.technexion.com/support/knowledgebase/loading-bootable-software-images-onto-the-emmc-of-picosom-on-pico-pi/). These instructions can also be used to recover the board if it cannot boot into u-boot.</span>

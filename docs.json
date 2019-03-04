@@ -92,6 +92,27 @@
                                     "path": "Docs/install_mbl_on_device/writing/pico/pico_mount.md"
                                 },
                                 {
+                                    "path": "Docs/install_mbl_on_device/writing/mounting_writing/newly_mounted.md"
+                                },
+                                {
+                                    "path": "Docs/install_mbl_on_device/writing/mounting_writing/write_to_mounted.md"
+                                },
+                                {
+                                    "path": "Docs/install_mbl_on_device/writing/finish_process.md"
+                                },
+                                {
+                                    "path": "Docs/install_mbl_on_device/writing/pico/second_time.md"
+                                },
+                                {
+                                    "path": "Docs/install_mbl_on_device/writing/mounting_writing/identify_devices.md"
+                                },
+                                {
+                                    "path": "Docs/install_mbl_on_device/writing/mounting_writing/u_boot.md"
+                                },
+                                {
+                                    "path": "Docs/install_mbl_on_device/writing/mounting_writing/newly_mounted.md"
+                                },
+                                {
                                     "path": "Docs/install_mbl_on_device/writing/mounting_writing/write_to_mounted.md"
                                 },
                                 {
@@ -99,7 +120,6 @@
                                 }
                             ]
                         },
-
                         {
                             "title": "NXP EVK",
                             "sources": [{
@@ -107,6 +127,9 @@
                                 },
                                 {
                                     "path": "Docs/install_mbl_on_device/writing/mounting_writing/identify_devices.md"
+                                },
+                                {
+                                    "path": "Docs/install_mbl_on_device/writing/mounting_writing/newly_mounted.md"
                                 },
                                 {
                                     "path": "Docs/install_mbl_on_device/writing/mounting_writing/write_to_mounted.md"
@@ -128,6 +151,12 @@
                                     "path": "Docs/install_mbl_on_device/writing/mounting_writing/identify_devices.md"
                                 },
                                 {
+                                    "path": "Docs/install_mbl_on_device/writing/mounting_writing/newly_mounted.md"
+                                },
+                                {
+                                    "path": "Docs/install_mbl_on_device/writing/mounting_writing/u_boot.md"
+                                },
+                                {
                                     "path": "Docs/install_mbl_on_device/writing/mounting_writing/write_to_mounted.md"
                                 },
                                 {
@@ -142,6 +171,10 @@
                                 },
                                 {
                                     "path": "Docs/install_mbl_on_device/writing/mounting_writing/identify_devices.md"
+                                },
+
+                                {
+                                    "path": "Docs/install_mbl_on_device/writing/mounting_writing/newly_mounted.md"
                                 },
                                 {
                                     "path": "Docs/install_mbl_on_device/writing/mounting_writing/write_to_mounted.md"

@@ -38,3 +38,5 @@
    * Baud rate: 115200.
    * Encdoing: [8N1](https://en.wikipedia.org/wiki/8-N-1).
    * No hardware flow control (enabled by default).
+
+    <span class="notes">**Note**: If you are using the NXP EVK, you will see two USB ports: micro-USB and USB-C. Connect to the **micro-USB** one.</span>
