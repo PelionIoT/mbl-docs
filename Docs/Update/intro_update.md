@@ -2,14 +2,14 @@
 
 <span class="notes">**Note**: Mbed Linux OS is currently in limited preview. If you would like access to the code repositories, [please request to join the preview](https://os.mbed.com/linux-os/).</span>
 
-You can perform a firmware an over the air (FOTA) update for the following components of Mbed Linux OS (MBL):
+You can perform a **firmware over the air** (FOTA) update for:
 
-* The root file system.
-* An application.
+* The MBL root file system.
+* Any application running on the MBL device.
 
 ## How software is updated
 
-Send software updates to MBL devices using Pelion Device Management Portal. The update process begins when Device Management sends the device a request with a manifest. If the device accepts the request, Device Management sends a payload file containing an update for one or more MBL component.
+MBL uses Pelion Device Management to update firmware. <!--this is clunky-->After you upload a new version of your firmware (for one or more components) to your Device Management account, you can start the update process: Device Management sends the device an update request with a manifest. If the device accepts the request, Device Management sends your uploaded payload file.
 
 The payload is a `.tar` file that can contain either:
 
