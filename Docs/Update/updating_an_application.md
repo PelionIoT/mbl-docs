@@ -94,8 +94,8 @@ You can use `runc list` to list all the active applications and their status.
 
     ```
     root@mbed-linux-os-1234:/home/app# runc list
-    ID                        PID         STATUS      BUNDLE                              CREATED                          OWNER
-    user-sample-app-package   0           stopped     /home/app/user-sample-app-package   2018-12-07T08:23:36.742467741Z   root
+    ID                        PID         STATUS      BUNDLE                                CREATED                          OWNER
+    user-sample-app-package   0           stopped     /home/app/user-sample-app-package/0   2018-12-07T08:23:36.742467741Z   root
     ```
 
     If you perform `runc list` when the application is terminated, the application will not appear on the list.
@@ -106,8 +106,8 @@ You can use `runc list` to list all the active applications and their status.
 
     ```
     root@mbed-linux-os-1234:/home/app# runc list
-    ID                        PID         STATUS      BUNDLE                              CREATED                          OWNER
-    user-sample-app-package   3654        running     /home/app/user-sample-app-package   2018-12-07T08:23:36.742467741Z   root
+    ID                        PID         STATUS      BUNDLE                                CREATED                          OWNER
+    user-sample-app-package   3654        running     /home/app/user-sample-app-package/0   2018-12-07T08:23:36.742467741Z   root
     ```
 
     <span class="notes">**Note:** The [Hello World](../develop-apps/hello-world-application.html) application runs for about 20 seconds. When it finishes, it once again appears as stopped.</span>
