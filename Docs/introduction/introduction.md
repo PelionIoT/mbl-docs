@@ -15,16 +15,16 @@ You can develop and build applications in using a variety of standard tools such
   <h3>On this page</h3>
   <ul class="guides-list">
           <ul data-tab-content>
-                <li><a href="#developer-preview-features">Developer preview features</a></li>
-                <li><a href="#design-diagram">Design diagram</a></li>
-                <li><a href="getting-started">Getting started</a></li>
-                <li><a href="recently-updated-documentation">Recently updated documentation</a></li>
+                <li><a href="#preview">Developer preview features</a></li>
+                <li><a href="#design">Design diagram</a></li>
+                <li><a href="#getting-started">Getting started</a></li>
+                <li><a href="#doc-updates">Recently updated documentation</a></li>
             </ul>
     </ul>
 </div>
 </section>
 
-## Developer preview features
+<h2 id="preview">Developer preview features</h2>
 
 MBL is currently available as a developer preview to selected users. To request access, [please contact us](https://os.mbed.com/linux-os/).
 
@@ -48,7 +48,7 @@ The preview release provides:
     * Access control at the account level.
     * Over-the-air, digitally signed and verified updates for applications and the root file system. MBL uses updates to send new features and security patches to deployed devices, fixing vulnerabilities before they're exploited.
 
-## Design diagram
+<h2 id="design">Design diagram</h2>
 
 The following diagram illustrates the components and services that MBL provides:
 
@@ -76,7 +76,7 @@ The **Device Management Services** are integrated user-space agents that connect
 
 * Trusted Execution Environment and OP-TEE run security-sensitive applications within the isolated environment provided by Arm TrustZone.
 
-## Getting started
+<h2 id="getting-started">Getting started</h2>
 
 There are two paths to working with MBL:
 
@@ -90,7 +90,7 @@ There are two paths to working with MBL:
     1. Review our [development guide](../develop-apps/index.html), our [command line tool, MBL CLI](../develop-apps/the-mbl-command-line-interface.html) and our [Hello World application](../develop-apps/hello-world-application.html).
     1. [Use our update tutorial](../update/index.html) to send application firmware updates over the air.
 
-## Recently updated documentation
+<h2 id="doc-updates">Recently updated documentation</h2>
 
 <!--tempting to just say "we redid the docs; get reading"-->
 
