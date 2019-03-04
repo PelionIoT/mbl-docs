@@ -55,7 +55,7 @@
     sudo eject /dev/sdX
     ```
 
-1. Unplug both USB cables from the device, and set the boot configuration jumper settings to boot from the on-board EMMC flash.
+1. For the PICO-PI, unplug both USB cables from the device, and set the boot configuration jumper settings to boot from the on-board EMMC flash.<!--this, too, makes the file breakdown less than entirely useful-->
 
     <img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/pico7-flash-boot.jpg" width="25%" align="middle" />
 
