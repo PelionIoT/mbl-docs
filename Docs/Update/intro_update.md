@@ -24,13 +24,12 @@ Currently, MBL does **not** support updating both an application and a root file
 
 After receiving a payload file containing application updates, for each application update, MBL:
 
-* Installs the version of the application contained in the update payload
+* Installs the version of the application contained in the update payload.
 * Stops the version of the application previously running on the system.
 * Runs the newly installed version of the application.
 * Removes the previously installed version of the application.
 
-Note: The previously installed version of an application is removed only if the new version can be successfully installed and run. In case of the update payload containing multiple applications, the previously installed versions are removed only if and only if all applications are successfully installed and run. In case of failure to run or install any application in the update payload, all newly installed application versions are removed and the previously installed versions are restarted. 
-
+<span class="notes">**Note**: The previously installed version of an application is removed only if the new version can be successfully installed and run. If the update payload contains multiple applications, the previously installed versions are removed only if all applications are successfully installed and run. If any application in the update payload fails to run or install, all newly installed application versions are removed, and the previously installed versions are restarted.</span>
 
 ### Root file system updates
 
