@@ -106,11 +106,12 @@
                                 {
                                     "path": "Docs/install_mbl_on_device/writing/mounting_writing/identify_devices.md"
                                 },
-                                {
-                                    "path": "Docs/install_mbl_on_device/writing/mounting_writing/u_boot.md"
-                                },
+
                                 {
                                     "path": "Docs/install_mbl_on_device/writing/mounting_writing/newly_mounted.md"
+                                },
+                                {
+                                    "path": "Docs/install_mbl_on_device/writing/mounting_writing/u_boot.md"
                                 },
                                 {
                                     "path": "Docs/install_mbl_on_device/writing/mounting_writing/write_to_mounted.md"
