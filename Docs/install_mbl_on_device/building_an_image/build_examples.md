@@ -7,7 +7,7 @@ The following examples assume:
     * `./artifacts-rpi3`
     * `./artifacts-evk`
     * `./artifacts-nxpimx`
-* You have an [SSH agent](../getting-started/development-environment.html). For usage, see [the GitHub SSH documentation](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).
+* You have an [SSH agent](../first-image/development-environment.html). For usage, see [the GitHub SSH documentation](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).
 
 
 ## PICO-PI with IMX7D

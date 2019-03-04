@@ -95,9 +95,9 @@ There are two paths to working with MBL:
 <!--tempting to just say "we redid the docs; get reading"-->
 
 * A standalone guide [for writing images to devices](../first-image/index.html), including evaluation images and new board support for version 0.6.
-* A new [provisioning guide](../provisioning-for-pelion-device-management.html).
+* A new [provisioning guide](../first-image/provisioning-for-pelion-device-management.html).
 * Instructions for [removing the old version of MBL CLI](../develop-apps/setting-up.html#setting-up-mbl-cli).
 * A new [guide for application developers](../develop-apps/index.html).
-* New [contribution guidelines and code style guides](develop-mbl/index.html).
+* New [contribution guidelines and code style guides](../develop-mbl/index.html).
 * Revised [firmware update tutorials](../update/index.html).
 * A new [reference about partition layout](../references/partition-layout.html).
