@@ -1,22 +1,6 @@
 # Warp7 devices
 
-To write your disk image to the Warp7's flash device, you must first access the Warp7's serial console. To do this:
 
-1. Connect both the Warp7's USB socket (on the I/O board) and the Warp7's mass storage USB socket (on the CPU board) to your PC.
-
-    You should now be able to see a USB TTY device, such as, `/dev/ttyUSB0`, on your PC.
-<!--
-1. Connect to the Warp7's console using a command such as:
-
-    ```
-    minicom -D /dev/ttyUSB0
-    ```
-
-    Use the following settings:
-
-    * Baud rate: 115200.
-    * Encdoing: [8N1](https://en.wikipedia.org/wiki/8-N-1).
-    * No hardware flow control (enabled by default).
 
 1. Check the current storage devices on your PC:
 
@@ -42,6 +26,23 @@ To write your disk image to the Warp7's flash device, you must first access the 
     ```
 
     You'll need to refer to this output in the following steps, so save it for reference.
+
+
+1. Connect both the Warp7's USB socket (on the I/O board) and the Warp7's mass storage USB socket (on the CPU board) to your PC.
+
+    You should now be able to see a USB TTY device, such as, `/dev/ttyUSB0`, on your PC.
+
+1. Connect to the Warp7's serial console using a command such as:
+
+    ```
+    minicom -D /dev/ttyUSB0
+    ```
+
+    Use the following settings:
+
+    * Baud rate: 115200.
+    * Encdoing: [8N1](https://en.wikipedia.org/wiki/8-N-1).
+    * No hardware flow control (enabled by default).
 
 1. If you got a U-boot prompt on the device, continue to the next step.
 

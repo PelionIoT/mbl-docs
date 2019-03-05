@@ -1,4 +1,4 @@
-# NXP 8M Mini EVK
+# NXP 8M Mini EVK devices
 
 <span class="notes">This process currently uses a micro-SD card, but will be updated in future to explain usage of the on board EMMC</span>
 

@@ -5,13 +5,13 @@ There are two processes for writing to the PICO-PI:
 * Writing the first image.
 * Writing subsequent images.
 
-# Writing the first image
+## Writing the first image
 
-## Setup
+### Setup
 
 <span class="notes">This assumes you have already assembled your baseboard and SoM. These first-time instructions are distilled from [information from TechNexion](https://www.technexion.com/support/knowledgebase/loading-bootable-software-images-onto-the-emmc-of-picosom-on-pico-pi/). These instructions can also be used to recover the board if it cannot boot into u-boot.</span>
 
-To write your first disk image, you need to:
+To write your first disk image:
 
 1. Download and unzip the TechNexion image loader software: [ftp://download.technexion.net/development_resources/development_tools/installer/pico-imx6-imx6ul-imx7_otg-installer_20171101.zip](ftp://download.technexion.net/development_resources/development_tools/installer/pico-imx6-imx6ul-imx7_otg-installer_20171101.zip)
 
@@ -19,23 +19,9 @@ To write your first disk image, you need to:
 
 <img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/pico7-serial-download.jpg" width="25%" align="middle" />
 
+### Writing
 
-<!--
-1. Connect both the PICO-PI USB-C socket and the micro-USB socket to your PC.
-
-    You should now be able to see a USB TTY device, such as, `/dev/ttyUSB0`, on your PC.
-
-1. Connect to the PICO-PI's console using a command such as:
-
-    ```
-    minicom -D /dev/ttyUSB0
-    ```
-
-    Use the following settings:
-
-    * Baud rate: 115200.
-    * Encdoing: [8N1](https://en.wikipedia.org/wiki/8-N-1).
-    * No hardware flow control (enabled by default).
+<!--you said to check before connecting, otherwise it may already turn up on the list in some format. I wasn't sure if that applies to the PICO, since there's a loader to run, but I moved it-->
 
 1. Check the current block storage devices on your PC:
 
@@ -58,6 +44,23 @@ To write your first disk image, you need to:
     ```
 
    You'll need to refer to this output in the following steps, so save it for reference.
+
+1. Connect both the PICO-PI USB-C socket and the micro-USB socket to your PC.
+
+    You should now be able to see a USB TTY device, such as, `/dev/ttyUSB0`, on your PC.
+
+1. Connect to the PICO-PI's console using a command such as:
+
+    ```
+    minicom -D /dev/ttyUSB0
+    ```
+
+    Use the following settings:
+
+    * Baud rate: 115200.
+    * Encdoing: [8N1](https://en.wikipedia.org/wiki/8-N-1).
+    * No hardware flow control (enabled by default).
+
 
 
 1. Run the USB OTG (on the go) Loader, using the following commands on Linux:
@@ -138,8 +141,8 @@ To write your first disk image, you need to:
 1. Connect both the PICO-PI USB-C socket and the micro-USB socket back to your PC.
 
     The device now boots into MBL.
--->
-<!--
-## Subsequent flashing-->
+
+## Writing subsequent images
+
 
 <!-- JIJ: This is the same as the Warp7 instructions, apart from the cabling set up, and I would suggest using the same lsblk method -->
