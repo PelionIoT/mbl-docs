@@ -40,8 +40,8 @@ The following build options are not mandatory, but you may find that they improv
 
 The build process creates the following files:
 
-| File | Path | Information |
-| --- | --- | --- |
-| Full disk image  | `/path/to/artifacts/machine/<MACHINE>/images/mbl-image-development/images/mbl-image-development-<MACHINE>.wic.gz` | This is a compressed image of the entire flash. Once decompressed, this image can be directly written to storage media, and initializes the device's storage with a full set of disk partitions and an initial version of firmware. |
-| Full disk image block map | `/path/to/artifacts/machine/<MACHINE>/images/mbl-image-development/images/mbl-image-development-<MACHINE>.wic.bmap` | This is a file containing information about which blocks of the uncompressed full disk image actually need to be written to the device. Some blocks of the image represent unused storage space, which does not actually need to be written. |
-| Root file system archive  | `/path/to/artifacts/machine/<MACHINE>/images/mbl-image-development/images/mbl-image-development-<MACHINE>.tar.xz` | This is a compressed `.tar` archive, which you need when you update the device firmware (this topic is covered [in the Updating MBL tutorial](../update/index.html)). |
+| File | Path | File | Information |
+| --- | --- | --- | --- |
+| Full disk image  | `/path/to/artifacts/machine/<MACHINE>/images/mbl-image-development/images/` | `mbl-image-development-<MACHINE>.wic.gz` | This is a compressed image of the entire flash. Once decompressed, this image can be directly written to storage media, and initializes the device's storage with a full set of disk partitions and an initial version of firmware. |
+| Full disk image block map | `/path/to/artifacts/machine/<MACHINE>/images/mbl-image-development/images/` | `mbl-image-development-<MACHINE>.wic.bmap` | This is a file containing information about which blocks of the uncompressed full disk image actually need to be written to the device. Some blocks of the image represent unused storage space, which does not actually need to be written. |
+| Root file system archive  | `/path/to/artifacts/machine/<MACHINE>/images/mbl-image-development/images/` | `mbl-image-development-<MACHINE>.tar.xz` | This is a compressed `.tar` archive, which you need when you update the device firmware (this topic is covered [in the Updating MBL tutorial](../update/index.html)). |
