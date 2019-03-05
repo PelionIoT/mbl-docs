@@ -1,7 +1,5 @@
 # Warp7 devices
 
-
-
 1. Check the current storage devices on your PC:
 
     ```
@@ -114,4 +112,4 @@
     reset
     ```
 
-    The device now boots into MBL.-->
+    The device now boots into MBL.

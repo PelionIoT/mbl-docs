@@ -232,10 +232,10 @@ To write your first disk image:
 
 1. From a Linux prompt, write the disk image to the PICO's flash device<!--I'd like not to use 'flash device', because the rest of the time that is what we call the whole board--> (replace `<device-file-name>` with the correct device file for the PICO's flash device; in this example, it would be `usb-Linux_UMS_disk_0-0:0`):
 
+        <!--this isn't the initial flashing, so it shouldn't use `--nobmap`-->
     ```
     sudo bmaptool copy --nobmap /path/to/artifacts/machine/imx7d-pico-mbl/images/mbl-image-development/images/mbl-image-development-imx7d-pico-mbl.wic.gz /dev/sdX
     ```
-<!--this isn't the initial flashing, so it shouldn't use `--nobmap`-->
 
     This action may take some time.
 
