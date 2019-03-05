@@ -69,135 +69,41 @@
                         "path": "Docs/install_mbl_on_device/building_an_image/build_intro_setup.md"
                     },
                     "sources": [{
-                        "path": "Docs/install_mbl_on_device/building_an_image/build_scripts.md"
-                    },
-                    {
-                        "path": "Docs/install_mbl_on_device/building_an_image/build_examples.md"
-                    }]
+                            "path": "Docs/install_mbl_on_device/building_an_image/build_scripts.md"
+                        },
+                        {
+                            "path": "Docs/install_mbl_on_device/building_an_image/build_examples.md"
+                        }
+                    ]
                 },
                 {
                     "title": "Writing an image to supported boards",
                     "intro": {
                         "path": "Docs/install_mbl_on_device/writing/writing_booting_disk_image.md"
                     },
-                    "sub_chapters": [{
-                            "title": "PICO-PI",
-                            "sources": [{
-                                    "path": "Docs/install_mbl_on_device/writing/pico/pico_hardware.md"
-                                },
-                                {
-                                    "path": "Docs/install_mbl_on_device/writing/mounting_writing/identify_devices.md"
-                                },
-                                {
-                                    "path": "Docs/install_mbl_on_device/writing/pico/pico_mount.md"
-                                },
-                                {
-                                    "path": "Docs/install_mbl_on_device/writing/mounting_writing/newly_mounted.md"
-                                },
-                                {
-                                    "path": "Docs/install_mbl_on_device/writing/mounting_writing/write_to_mounted.md"
-                                },
-                                {
-                                    "path": "Docs/install_mbl_on_device/writing/finish_process.md"
-                                },
-                                {
-                                    "path": "Docs/install_mbl_on_device/writing/pico/second_time.md"
-                                },
-                                {
-                                    "path": "Docs/install_mbl_on_device/writing/mounting_writing/identify_devices.md"
-                                },
-
-                                {
-                                    "path": "Docs/install_mbl_on_device/writing/mounting_writing/newly_mounted.md"
-                                },
-                                {
-                                    "path": "Docs/install_mbl_on_device/writing/mounting_writing/u_boot.md"
-                                },
-                                {
-                                    "path": "Docs/install_mbl_on_device/writing/mounting_writing/write_to_mounted.md"
-                                },
-                                {
-                                    "path": "Docs/install_mbl_on_device/writing/finish_process.md"
-                                }
-                            ]
+                    "sources": [{
+                            "path": "Docs/install_mbl_on_device/writing/pico.md"
                         },
                         {
-                            "title": "NXP EVK",
-                            "sources": [{
-                                    "path": "Docs/install_mbl_on_device/writing/nxp_evk/nxp_evk_hardware.md"
-                                },
-                                {
-                                    "path": "Docs/install_mbl_on_device/writing/mounting_writing/identify_devices.md"
-                                },
-                                {
-                                    "path": "Docs/install_mbl_on_device/writing/mounting_writing/newly_mounted.md"
-                                },
-                                {
-                                    "path": "Docs/install_mbl_on_device/writing/mounting_writing/write_to_mounted.md"
-                                },
-                                {
-                                    "path": "Docs/install_mbl_on_device/writing/rpi3/rpi3_connect.md"
-                                },
-                                {
-                                    "path": "Docs/install_mbl_on_device/writing/finish_process.md"
-                                }
-                            ]
+                            "path": "Docs/install_mbl_on_device/writing/nxp_evk.md"
                         },
                         {
-                            "title": "Warp7",
-                            "sources": [{
-                                    "path": "Docs/install_mbl_on_device/writing/warp7/warp7_hardware.md"
-                                },
-                                {
-                                    "path": "Docs/install_mbl_on_device/writing/mounting_writing/identify_devices.md"
-                                },
-                                {
-                                    "path": "Docs/install_mbl_on_device/writing/mounting_writing/newly_mounted.md"
-                                },
-                                {
-                                    "path": "Docs/install_mbl_on_device/writing/mounting_writing/u_boot.md"
-                                },
-                                {
-                                    "path": "Docs/install_mbl_on_device/writing/mounting_writing/write_to_mounted.md"
-                                },
-                                {
-                                    "path": "Docs/install_mbl_on_device/writing/finish_process.md"
-                                }
-                            ]
+                            "path": "Docs/install_mbl_on_device/writing/warp7.md"
                         },
                         {
-                            "title": "Raspberry Pi 3",
-                            "sources": [{
-                                    "path": "Docs/install_mbl_on_device/writing/rpi3/rpi3_hardware.md"
-                                },
-                                {
-                                    "path": "Docs/install_mbl_on_device/writing/mounting_writing/identify_devices.md"
-                                },
-
-                                {
-                                    "path": "Docs/install_mbl_on_device/writing/mounting_writing/newly_mounted.md"
-                                },
-                                {
-                                    "path": "Docs/install_mbl_on_device/writing/mounting_writing/write_to_mounted.md"
-                                },
-                                {
-                                    "path": "Docs/install_mbl_on_device/writing/rpi3/rpi3_connect.md"
-                                },
-                                {
-                                    "path": "Docs/install_mbl_on_device/writing/finish_process.md"
-                                }
-                            ]
+                            "path": "Docs/install_mbl_on_device/writing/rpi3.md"
                         }
                     ]
                 },
                 {
                     "title": "Provisioning for Pelion Device Management",
                     "sources": [{
-                        "path": "Docs/install_mbl_on_device/provision/provision_intro.md"
-                    },
-                    {
-                        "path": "Docs/install_mbl_on_device/provision/provisioning_instructions.md"
-                    }]
+                            "path": "Docs/install_mbl_on_device/provision/provision_intro.md"
+                        },
+                        {
+                            "path": "Docs/install_mbl_on_device/provision/provisioning_instructions.md"
+                        }
+                    ]
                 },
                 {
                     "title": "Connecting to a network and Pelion Device Management",
