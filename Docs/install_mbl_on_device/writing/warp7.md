@@ -46,7 +46,7 @@
 
 1. If you got a U-boot prompt on the device, continue to the next step.
 
-   If you got an operating system boot (for example, Android), reboot the device until you get a U-boot prompt, and then press any key to prevent the operating system from booting again. Continue to the next step.
+   If you got an operating system boot (for example, Android), reboot the device<!--this is where it gets confusing - because we also call the flash bit "flash device"--> until you get a U-boot prompt, and then press any key to prevent the operating system from booting again. Continue to the next step.
 
 1. To expose the Warp7's flash device to Linux as USB mass storage, in the U-boot prompt, enter:
 
@@ -81,17 +81,15 @@
     lrwxrwxrwx 1 root root 10 Mar 26 14:00 usb-Linux_UMS_disk_0-0:0-part3 -> ../../sdc3
     ```
 
-    `mbl-image-development-imx7s-warp-mbl.wic.gz` is a full disk image, so it should be written to the whole flash device, not a partition.
+1.  `mbl-image-development-imx7s-warp-mbl.wic.gz` is a full disk image, so it should be written to the whole flash device, not a partition; you need to unmount the partitions before you start writing.
 
-    The device file for the whole flash device is the one without `-part` in the name (`/dev/sdX/usb-Linux_UMS_disk_0-0:0` in this example).
-
-1. Ensure that none of the Warp7's flash partitions are mounted (you may need to adjust the path depending on the name of the storage device):
+    The device file for the whole flash device is the one without `-part` in the name (`/dev/sdX/usb-Linux_UMS_disk_0-0:0` in this example). So you can unmount all the partitions at once, by unmounting anything with `part` in its name (you may need to adjust the path to match the name of the storage device):
 
     ```
     sudo umount /dev/sdX/usb-Linux_UMS_disk_0-0:0-part*
     ```
 
-1. From a Linux prompt, write the disk image to the Warp7's flash device (replace `<device-file-name>` with the correct device file for the Warp7's flash device; in this example, it would be `usb-Linux_UMS_disk_0-0:0`):
+1. From a Linux prompt on your PC, write the disk image to the Warp7's flash device (replace `<device-file-name>` with the correct device file for the Warp7's flash device; in this example, it would be `usb-Linux_UMS_disk_0-0:0`):
 
     ```
     sudo bmaptool copy --nobmap /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-image-development/images/mbl-image-development-imx7s-warp-mbl.wic.gz /dev/sdX/<device-file-name>
@@ -101,7 +99,7 @@
 
     <span class="tips">**Tip**: Use `--nobmap` for the initial flashing, to ensure your flash is set up correctly. On all subsequent flashings, you can use the `--bmap` option with a bmap file to speed up the process: `sudo bmaptool copy --bmap /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-image-development/images/mbl-image-development-imx7s-warp-mbl.wic.bmap /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-image-development/images/mbl-image-development-imx7s-warp-mbl.wic.gz /dev/sdX/<device-file-name>`</span>
 
-1. When `bmaptool` has finished, eject the device (replace `<device-file-name>` with the correct device file for the Warp7's flash device; in this example, it would be `usb-Linux_UMS_disk_0-0:0`):
+1. When `bmaptool` has finished, eject the device<!--is this the whole device or the flash device? I think flash device--> (replace `<device-file-name>` with the correct device file for the Warp7's flash device; in this example `usb-Linux_UMS_disk_0-0:0`):
 
     ```
     sudo eject /dev/sdX/<device-file-name>
