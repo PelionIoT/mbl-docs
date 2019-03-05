@@ -12,7 +12,7 @@
     On the Warp7, you now see an ASCII-art "spinner". On your PC, you now see new storage devices:
 
     ```
-    ls -l /dev/disk/by-id/
+    ls -l /dev/sdX/
     ```
 
     In this example, the Warp7 is listed as `usb-Linux_UMS_disk_0` (the partitions on the device are also shown):
@@ -38,4 +38,4 @@
 
     `mbl-image-development-imx7s-warp-mbl.wic.gz` is a full disk image, so it should be written to the whole flash device, not a partition.
 
-    The device file for the whole flash device is the one without `-part` in the name (`/dev/disk/by-id/usb-Linux_UMS_disk_0-0:0` in this example).
+    The device file for the whole flash device is the one without `-part` in the name (`/dev/sdX/usb-Linux_UMS_disk_0-0:0` in this example).

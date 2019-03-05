@@ -5,7 +5,7 @@
 1. Check the current storage devices on your PC:
 
     ```
-    ls -l /dev/disk/by-id/
+    ls -l /dev/sdX/
     ```
 
     A list of devices displays. For example:
@@ -57,7 +57,7 @@
     On the Warp7, you now see an ASCII-art "spinner". On your PC, you now see new storage devices:
 
     ```
-    ls -l /dev/disk/by-id/
+    ls -l /dev/sdX/
     ```
 
     In this example, the Warp7 is listed as `usb-Linux_UMS_disk_0` (the partitions on the device are also shown):
@@ -83,28 +83,28 @@
 
     `mbl-image-development-imx7s-warp-mbl.wic.gz` is a full disk image, so it should be written to the whole flash device, not a partition.
 
-    The device file for the whole flash device is the one without `-part` in the name (`/dev/disk/by-id/usb-Linux_UMS_disk_0-0:0` in this example).
+    The device file for the whole flash device is the one without `-part` in the name (`/dev/sdX/usb-Linux_UMS_disk_0-0:0` in this example).
 
 1. Ensure that none of the Warp7's flash partitions are mounted (you may need to adjust the path depending on the name of the storage device):
 
     ```
-    sudo umount /dev/disk/by-id/usb-Linux_UMS_disk_0-0:0-part*
+    sudo umount /dev/sdX/usb-Linux_UMS_disk_0-0:0-part*
     ```
 
 1. From a Linux prompt, write the disk image to the Warp7's flash device (replace `<device-file-name>` with the correct device file for the Warp7's flash device; in this example, it would be `usb-Linux_UMS_disk_0-0:0`):
 
     ```
-    sudo bmaptool copy --nobmap /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-image-development/images/mbl-image-development-imx7s-warp-mbl.wic.gz /dev/disk/by-id/<device-file-name>
+    sudo bmaptool copy --nobmap /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-image-development/images/mbl-image-development-imx7s-warp-mbl.wic.gz /dev/sdX/<device-file-name>
     ```
 
     This action may take some time.
 
-    <span class="tips">**Tip**: Use `--nobmap` for the initial flashing, to ensure your flash is set up correctly. On all subsequent flashings, you can use the `--bmap` option with a bmap file to speed up the process: `sudo bmaptool copy --bmap /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-image-development/images/mbl-image-development-imx7s-warp-mbl.wic.bmap /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-image-development/images/mbl-image-development-imx7s-warp-mbl.wic.gz /dev/disk/by-id/<device-file-name>`</span>
+    <span class="tips">**Tip**: Use `--nobmap` for the initial flashing, to ensure your flash is set up correctly. On all subsequent flashings, you can use the `--bmap` option with a bmap file to speed up the process: `sudo bmaptool copy --bmap /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-image-development/images/mbl-image-development-imx7s-warp-mbl.wic.bmap /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-image-development/images/mbl-image-development-imx7s-warp-mbl.wic.gz /dev/sdX/<device-file-name>`</span>
 
 1. When `bmaptool` has finished, eject the device (replace `<device-file-name>` with the correct device file for the Warp7's flash device; in this example, it would be `usb-Linux_UMS_disk_0-0:0`):
 
     ```
-    sudo eject /dev/disk/by-id/<device-file-name>
+    sudo eject /dev/sdX/<device-file-name>
     ```
 
 1. On the Warp7's U-boot prompt, press <kbd>Ctrl</kbd>-<kbd>C</kbd> to exit USB mass storage mode.
