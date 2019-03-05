@@ -1,5 +1,6 @@
 # Raspberry Pi 3 devices
 
+<span class="warnings">UNFINISHED. DO NOT USE.</span>
 
 1. Connect a micro-SD card to your PC. You now see:
 

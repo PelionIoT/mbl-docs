@@ -1,5 +1,7 @@
 # PICO-PI baseboard with the PICO-IMX7D SoM
 
+<span class="warnings">UNFINISHED. DO NOT USE.</span>
+
 There are two processes for writing to the PICO-PI:
 
 * Writing the first image.

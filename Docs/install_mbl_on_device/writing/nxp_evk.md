@@ -1,5 +1,7 @@
 # NXP 8M Mini EVK devices
 
+<span class="warnings">UNFINISHED. DO NOT USE.</span>
+
 <span class="notes">This process currently uses a micro-SD card, but will be updated in future to explain usage of the on board EMMC</span>
 
 ## Setting up SD-card boot
