@@ -2,7 +2,7 @@
 
 <span class="warnings">UNFINISHED. DO NOT USE.</span>
 
-<span class="notes">This process currently uses a micro-SD card, but will be updated in future to explain usage of the on board EMMC</span>
+<span class="tips">This process currently uses a micro-SD card. A future release will use the on-board EMMC.</span>
 
 1. Check the current block storage devices on your PC:
 
