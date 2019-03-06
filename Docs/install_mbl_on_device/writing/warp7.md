@@ -2,29 +2,27 @@
 
 <span class="warnings">UNFINISHED. DO NOT USE.</span>
 
-Warp7 devices use a flash memory, and <!--do I have a point?-->
+<!--needs lsblk-->
 
 1. Check the current storage devices on your PC:
 
+
     ```
-    ls -l /dev/sdX/
+    lsblk
     ```
 
     A list of devices displays. For example:
 
     ```
-    total 0
-    lrwxrwxrwx 1 root root  9 Mar 19 10:38 ata-Crucial_CT240M500SSD1_140709691C39 -> ../../sda
-    lrwxrwxrwx 1 root root 10 Mar 19 10:38 ata-Crucial_CT240M500SSD1_140709691C39-part1 -> ../../sda1
-    lrwxrwxrwx 1 root root 10 Mar 19 10:38 ata-Crucial_CT240M500SSD1_140709691C39-part2 -> ../../sda2
-    lrwxrwxrwx 1 root root 10 Mar 19 10:38 ata-Crucial_CT240M500SSD1_140709691C39-part3 -> ../../sda3
-    lrwxrwxrwx 1 root root  9 Mar 19 10:38 ata-HL-DT-ST_DVD+_-RW_GHB0N_K8RD9II5408 -> ../../sr0
-    lrwxrwxrwx 1 root root  9 Mar 19 10:38 ata-ST1000DM003-1CH162_W1D2QL7A -> ../../sdb
-    lrwxrwxrwx 1 root root 10 Mar 19 10:38 ata-ST1000DM003-1CH162_W1D2QL7A-part1 -> ../../sdb1
-    lrwxrwxrwx 1 root root 10 Mar 19 10:38 ata-ST1000DM003-1CH162_W1D2QL7A-part2 -> ../../sdb2
-    lrwxrwxrwx 1 root root 10 Mar 19 10:38 ata-ST1000DM003-1CH162_W1D2QL7A-part3 -> ../../sdb3
-    lrwxrwxrwx 1 root root 10 Mar 19 10:38 ata-ST1000DM003-1CH162_W1D2QL7A-part4 -> ../../sdb4
-    lrwxrwxrwx 1 root root 10 Mar 19 10:38 ata-ST1000DM003-1CH162_W1D2QL7A-part5 -> ../../sdb5
+    NAME          MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+    sdb             8:16   0   1.8T  0 disk
+    └─sdb1          8:17   0   1.8T  0 part /mnt/2tb-disk
+    sr0            11:0    1  1024M  0 rom  
+    sda             8:0    0 238.5G  0 disk
+    ├─sda2          8:2    0   238G  0 part
+    │ ├─vg00-swap 253:1    0   7.5G  0 lvm  [SWAP]
+    │ └─vg00-root 253:0    0 230.6G  0 lvm  /
+    └─sda1          8:1    0   476M  0 part /boot
     ```
 
     You'll need to refer to this output in the following steps, so save it for reference.
@@ -114,5 +112,5 @@ Warp7 devices use a flash memory, and <!--do I have a point?-->
     ```
 
     The device now boots into MBL.
-    
+
 1. To log in to MBL, wait for a login prompt, and then enter the username `root`. You will not be prompted for a password.

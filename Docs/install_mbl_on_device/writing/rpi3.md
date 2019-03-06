@@ -2,12 +2,54 @@
 
 <span class="warnings">UNFINISHED. DO NOT USE.</span>
 
-1. Connect a micro-SD card to your PC. You now see:
+1. Check the current block storage devices on your PC:
+
+    ```
+    lsblk
+    ```
+
+    A list of devices displays. For example:
+
+    ```
+    NAME          MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+    sdb             8:16   0   1.8T  0 disk
+    └─sdb1          8:17   0   1.8T  0 part /mnt/2tb-disk
+    sr0            11:0    1  1024M  0 rom  
+    sda             8:0    0 238.5G  0 disk
+    ├─sda2          8:2    0   238G  0 part
+    │ ├─vg00-swap 253:1    0   7.5G  0 lvm  [SWAP]
+    │ └─vg00-root 253:0    0 230.6G  0 lvm  /
+    └─sda1          8:1    0   476M  0 part /boot
+    ```
+
+   You'll need to refer to this output in the following steps, so save it for reference.
+
+1. Connect a micro-SD card to your PC.
+
+1. On your PC, you can now see new storage devices:
+
+    ```
+    lsblk
+    ```
 
     * The SD card device file in `/dev`, probably as `/dev/sdX` for some letter `X` (for example, `/dev/sdd`).
     * Device files for its partitions. `/dev/sdXN` for the same letter `X` and some numbers `N` (for example, `/dev/sdd1` and `/dev/sdd2`).
+    <!--this doesn't match, because it's PICO.-->
 
-    <span class="notes">In the commands below, replace `/dev/sdX` with the device file name for the SD card _without_ a number at the end. You can use `lsblk` to identify the name of the SD card device.</span>
+    ```
+    NAME          MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+    sdb             8:16   0   1.8T  0 disk
+    └─sdb1          8:17   0   1.8T  0 part /mnt/2tb-disk
+    sr0            11:0    1  1024M  0 rom  
+    sdc             8:32   1   7.3G  0 disk
+    └─sdc1          8:33   1    39M  0 part /media/user01/61DB-E6FE
+    sda             8:0    0 238.5G  0 disk
+    ├─sda2          8:2    0   238G  0 part
+    │ ├─vg00-swap 253:1    0   7.5G  0 lvm  [SWAP]
+    │ └─vg00-root 253:0    0 230.6G  0 lvm  /
+    └─sda1          8:1    0   476M  0 part /boot
+    ```
+    <span class="notes">In the commands below, replace `/dev/sdX` with the device file name for the SD card _without_ a number at the end.</span>
 
 1. Ensure none of the micro-SD card's partitions are mounted (replace `/dev/sdX` as explained above):
 
@@ -61,6 +103,4 @@
 
     The device now boots into MBL.
 
-## Logging in to MBL
-
-To log in to MBL, wait for a login prompt, and then enter the username `root`. You will not be prompted for a password.
+1. To log in to MBL, wait for a login prompt, and then enter the username `root`. You will not be prompted for a password.
