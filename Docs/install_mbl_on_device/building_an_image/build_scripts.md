@@ -32,8 +32,8 @@ The following build options are not mandatory, but you may find that they improv
 
 | Name | Option Type | Information |
 | --- | --- | --- |
-| `--downloaddir` | run-me.sh | Cache downloaded artifacts between successive builds (do not use cacheing for parallel builds). <br>For example, if you've created `mkdir /path/to/downloads`, the downloaddir will be `./mbl-tools/build-mbl/run-me.sh --downloaddir /path/to/downloads` |
-| `--manifest` | build.sh | The `default.xml` manifest is used when building which will use branches of all the Arm maintained repositories. You can specify `release.xml` as the manifest to use pinned versions of all repositories and can combine  this with `--branch refs/tags/mbl-os-0.6.0` to specify a particular release version. <br>Example: `./mbl-tools/build-mbl/run-me.sh -- --branch refs/tags/mbl-os-0.6.0 --manifest release.xml`|
+| `--downloaddir` | run-me.sh | Cache downloaded artifacts between successive builds (do not use cacheing for parallel builds). <br>For example, if you create `mkdir /path/to/downloads`, the downloaddir will be `./mbl-tools/build-mbl/run-me.sh --downloaddir /path/to/downloads` |
+| `--manifest` | build.sh | By default, building uses the `default.xml`, which uses branches of all the Arm maintained repositories. To use pinned versions for all repositories, specify `release.xml` as the manifest. You can combine this with `--branch refs/tags/mbl-os-0.6.0` to specify a particular release version. <br>Example: `./mbl-tools/build-mbl/run-me.sh -- --branch refs/tags/mbl-os-0.6.0 --manifest release.xml`|
 | `--external-manifest` | run-me.sh | You can build using a pinned manifest, which is an encapsulation created by a build and containing enough information to allow an exact rebuild. The manifest is created in your output directory (`outputdir`). <br>To use it to rebuild, run `./mbl-tools/build-mbl/run-me.sh --external-manifest /path/to/pinned-manifest.xml` |
 
 ## Build outputs
