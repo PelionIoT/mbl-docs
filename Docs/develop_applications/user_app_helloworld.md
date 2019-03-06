@@ -67,8 +67,8 @@ The build produces an IPK file at `./release/ipk/user-sample-app-package_1.0_arm
 
 There are two ways to install the application on the device:
 
-* [Send the application as an over-the-air firmware update with Pelion Device Management](../update/index.html).
-* [Flash the application over USB with MBL CLI](../update/updating-an-application.html).
+* [Send the application as an over-the-air firmware update with Pelion Device Management](../update/updating-an-application.html#using-the-manifest-tool).
+* [Flash the application over USB with MBL CLI](../update/updating-an-application.html#using-mbl-cli).
 
 ## Using the application
 

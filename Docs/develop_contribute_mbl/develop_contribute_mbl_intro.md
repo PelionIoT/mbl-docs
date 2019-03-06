@@ -1,5 +1,7 @@
 # Contributing to Mbed Linux OS
 
+<span class="notes">**Note**: Mbed Linux OS is currently in limited preview. If you would like access to the code repositories, [please request to join the preview](https://os.mbed.com/linux-os/).</span>
+
 We expect most MBL contributions to be Board Support Package (BSP) layers and fixes on top of the [Yocto Project](https://www.yoctoproject.org/), and recommend reading their [development guides](https://www.yoctoproject.org/docs/).
 
 <!--missing: Some docs on a development environment and how you can work on bits and pieces-->

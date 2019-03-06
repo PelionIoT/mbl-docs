@@ -7,16 +7,16 @@ You can perform a **firmware over the air** (FOTA) update for:
 * The MBL root file system.
 * Any application running on the MBL device.
 
+<span class="notes">**Note**: Currently, MBL does **not** support updating both an application and a root file system in a single FOTA update.</span>
+
 ## How software is updated
 
-MBL uses Pelion Device Management to update firmware. <!--this is clunky-->After you upload a new version of your firmware (for one or more components) to your Device Management account, you can start the update process: Device Management sends the device an update request with a manifest. If the device accepts the request, Device Management sends your uploaded payload file.
-
-The payload is a `.tar` file that can contain either:
+MBL uses Pelion Device Management to manage firmware updates. Before you start, upload a new version of your firmware (for one or more components) to your Device Management account. This is your payload, and it is a `.tar` file that can contain either:
 
 * An application update: One or more OPKG packages (`.ipk` files).
 * A `rootfs` update: A compressed `tar` file called `rootfs.tar.xz` that contains root file system content.
 
-Currently, MBL does **not** support updating both an application and a root file system in a single FOTA update.
+Start the process by initiating an update campaign; Device Management then sends the device an update request with a manifest detailing what needs to be updated. If the device accepts the request, Device Management sends your uploaded payload file to the device and monitors the update process.
 
 <span class="tips">**Tip:** Refer to the Pelion Device Management documentation for a [full review of the update process](https://cloud.mbed.com/docs/latest/updating-firmware/index.html).</span>
 
@@ -29,7 +29,7 @@ After receiving a payload file containing application updates, for each applicat
 * Runs the newly installed version of the application.
 * Removes the previously installed version of the application.
 
-<span class="notes">**Note**: The previously installed version of an application is removed only if the new version can be successfully installed and run. If the update payload contains multiple applications, the previously installed versions are removed only if all applications are successfully installed and run. If any application in the update payload fails to run or install, all newly installed application versions are removed, and the previously installed versions are restarted.</span>
+<span class="notes">**Note**: The previously installed version of an application is removed only if the new version can be successfully installed and run. If the update payload contains multiple applications, the previously installed versions are removed only if *all* applications are successfully installed and run. If any application in the update payload fails to install or run, all newly installed application versions are removed, and the previously installed versions are restarted.</span>
 
 ### Root file system updates
 

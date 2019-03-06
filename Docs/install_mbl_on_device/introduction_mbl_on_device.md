@@ -1,5 +1,7 @@
 # Installing MBL on a new device
 
+<span class="notes">**Note**: Mbed Linux OS is currently in limited preview. If you would like access to the code repositories, [please request to join the preview](https://os.mbed.com/linux-os/).</span>
+
 To install Mbed Linux OS on a new device:
 
 1. Review our list of [supported development boards](../first-image/hardware.html) and set up your [development environment](../first-image/development-environment.html).
