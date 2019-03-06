@@ -4,26 +4,14 @@
 
 There are two processes for writing to the PICO-PI:
 
-* Writing the first image.
-* Writing subsequent images.
+* [Writing the first image](#writing-the-first-image).
+* [Writing subsequent images](#writing-subsequent-images).
 
 ## Writing the first image
 
-### Setup
 
 <span class="notes">This assumes you have already assembled your baseboard and SoM. These first-time instructions are distilled from [information from TechNexion](https://www.technexion.com/support/knowledgebase/loading-bootable-software-images-onto-the-emmc-of-picosom-on-pico-pi/). These instructions can also be used to recover the board if it cannot boot into u-boot.</span>
 
-To write your first disk image:
-
-1. Download and unzip the TechNexion image loader software: [ftp://download.technexion.net/development_resources/development_tools/installer/pico-imx6-imx6ul-imx7_otg-installer_20171101.zip](ftp://download.technexion.net/development_resources/development_tools/installer/pico-imx6-imx6ul-imx7_otg-installer_20171101.zip)
-
-1. Set the PICO-PI into serial download mode by changing the boot configuration jumper settings.
-
-<img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/pico7-serial-download.jpg" width="25%" align="middle" />
-
-### Writing
-
-<!--you said to check before connecting, otherwise it may already turn up on the list in some format. I wasn't sure if that applies to the PICO, since there's a loader to run, but I moved it-->
 
 1. Check the current block storage devices on your PC:
 
@@ -46,6 +34,12 @@ To write your first disk image:
     ```
 
    You'll need to refer to this output in the following steps, so save it for reference.
+
+1. Download and unzip the TechNexion image loader software: [ftp://download.technexion.net/development_resources/development_tools/installer/pico-imx6-imx6ul-imx7_otg-installer_20171101.zip](ftp://download.technexion.net/development_resources/development_tools/installer/pico-imx6-imx6ul-imx7_otg-installer_20171101.zip)
+
+1. Set the PICO-PI into serial download mode by changing the boot configuration jumper settings.
+
+   <img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/pico7-serial-download.jpg" width="25%" align="middle" />
 
 1. Connect both the PICO-PI USB-C socket and the micro-USB socket to your PC.
 
@@ -128,7 +122,7 @@ To write your first disk image:
 
     This action may take some time.
 
-    <span class="tips">**Tip**: Use `--nobmap` for the initial flashing, to ensure your flash is set up correctly. On all subsequent flashings, you can use the `--bmap` option with a bmap file to speed up the process: `sudo bmaptool copy --bmap /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-image-development/images/mbl-image-development-imx7s-warp-mbl.wic.bmap /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-image-development/images/mbl-image-development-imx7s-warp-mbl.wic.gz /dev/sdX/<device-file-name>`</span>
+    <span class="tips">**Tip**: Use `--nobmap` for the initial flashing, to ensure your flash is set up correctly. On all subsequent flashings, you can use the `--bmap` option with a bmap file to speed up the process: `sudo bmaptool copy --bmap /path/to/artifacts/machine/imx7d-pico-mbl/images/mbl-image-development/images/mbl-image-development-imx7d-pico-mbl.wic.bmap /path/to/artifacts/machine/imx7d-pico-mbl/images/mbl-image-development/images/mbl-image-development-imx7d-pico-mbl.wic.gz /dev/sdX/<device-file-name>`</span>
 
 1. When `bmaptool` has finished, eject the device:
 
@@ -144,16 +138,9 @@ To write your first disk image:
 
     The device now boots into MBL.
 
-### Logging in to MBL
-
-To log in to MBL, wait for a login prompt, and then enter the username `root`. You will not be prompted for a password.
-
+1. To log in to MBL, wait for a login prompt, and then enter the username `root`. You will not be prompted for a password.
 
 ## Writing subsequent images
-
-
-<!-- JIJ: This is the same as the Warp7 instructions, apart from the cabling set up, and I would suggest using the same lsblk method -->
-
 
 1. Check the current block storage devices on your PC:
 
@@ -177,7 +164,6 @@ To log in to MBL, wait for a login prompt, and then enter the username `root`. Y
 
    You'll need to refer to this output in the following steps, so save it for reference.
 
-
 1. Connect both the PICO-PI USB-C socket and the micro-USB socket to your PC.
 
    You should now be able to see a USB TTY device, such as, `/dev/ttyUSB0`, on your PC.
@@ -190,7 +176,7 @@ To log in to MBL, wait for a login prompt, and then enter the username `root`. Y
 
    Use the following settings:
 
-     * Baud rate: 115200.
+   * Baud rate: 115200.
    * Encdoing: [8N1](https://en.wikipedia.org/wiki/8-N-1).
    * No hardware flow control (enabled by default).
 
@@ -205,7 +191,6 @@ To log in to MBL, wait for a login prompt, and then enter the username `root`. Y
     ```
 
     On the device, you now see an ASCII-art "spinner".
-
 
 1. On your PC, you can now see new storage devices:
 
@@ -241,7 +226,7 @@ To log in to MBL, wait for a login prompt, and then enter the username `root`. Y
 
         <!--this isn't the initial flashing, so it shouldn't use `--nobmap`-->
     ```
-    sudo bmaptool copy --nobmap /path/to/artifacts/machine/imx7d-pico-mbl/images/mbl-image-development/images/mbl-image-development-imx7d-pico-mbl.wic.gz /dev/sdX
+    sudo bmaptool copy --bmap /path/to/artifacts/machine/imx7d-pico-mbl/images/mbl-image-development/images/mbl-image-development-imx7d-pico-mbl.wic.bmap /path/to/artifacts/machine/imx7d-pico-mbl/images/mbl-image-development/images/mbl-image-development-imx7d-pico-mbl.wic.gz /dev/sdX/<device-file-name>    
     ```
 
     This action may take some time.
@@ -262,6 +247,4 @@ To log in to MBL, wait for a login prompt, and then enter the username `root`. Y
 
     The device now boots into MBL.
 
-### Logging in to MBL
-
-To log in to MBL, wait for a login prompt, and then enter the username `root`. You will not be prompted for a password.
+1. To log in to MBL, wait for a login prompt, and then enter the username `root`. You will not be prompted for a password.

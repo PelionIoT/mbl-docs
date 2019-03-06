@@ -2,6 +2,8 @@
 
 <span class="warnings">UNFINISHED. DO NOT USE.</span>
 
+Warp7 devices use a flash memory, and <!--do I have a point?-->
+
 1. Check the current storage devices on your PC:
 
     ```
@@ -26,7 +28,6 @@
     ```
 
     You'll need to refer to this output in the following steps, so save it for reference.
-
 
 1. Connect both the Warp7's USB socket (on the I/O board) and the Warp7's mass storage USB socket (on the CPU board) to your PC.
 
@@ -113,7 +114,5 @@
     ```
 
     The device now boots into MBL.
-
-## Logging in to MBL
-
-To log in to MBL, wait for a login prompt, and then enter the username `root`. You will not be prompted for a password.
+    
+1. To log in to MBL, wait for a login prompt, and then enter the username `root`. You will not be prompted for a password.
