@@ -88,7 +88,7 @@
     minicom -D /dev/ttyUSB1
     ```
 
-    <span class="notes">**Note**: There will be 2 `ttyUSB` connections when you plug in the NXP 8M Mini EVK. You need to use the second connection to get the serial console output.</span>
+    <span class="notes">**Note**: There will be two `ttyUSB` connections when you plug in the NXP 8M Mini EVK. You need to use the second connection to get the serial console output.</span>
 
     Use the following settings:
 
