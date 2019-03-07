@@ -123,7 +123,7 @@
             "slug": "develop-apps",
             "type": "markdown",
             "chapters": [{
-                    "title": "Mbed Linux OS Applications",
+                    "title": "Design and development workflow",
                     "sources": [{
                             "path": "Docs/develop_applications/develop_applications_intro.md"
                         },
@@ -147,7 +147,7 @@
                             "path": "Docs/develop_applications/mbl_cli/usage.md"
                         },
                         {
-                            "path": "Docs/develop_applications/mbl_cli/device_update.md"
+                            "path": "Docs/develop_applications/mbl_cli/device_update_provision.md"
                         }
                     ]
                 },

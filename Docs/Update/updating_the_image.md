@@ -2,8 +2,57 @@
 
 There are two ways to update an MBL image:
 
-* Using the manifest tool
-* Using MBL CLI
+* [Using MBL CLI](#using-mbl-cli).
+* [Using the manifest tool](#using-the-manifest-tool).
+
+## Using MBL CLI
+
+<span class="tips">You can find installation and general usage instructions for MBL CLI [in the application development section](../develop-apps/the-mbl-command-line-interface.html).</span>
+
+
+1. Prepare a tar file containing `rootfs.tar.xz` as explained in the [manifest tool section above](#using-the-manifest-tool).
+
+1. Transfer the rootfs update tar file to the `/scratch` partition on the device:
+
+   ```
+   $ mbl-cli put <rootfs update payload> <destination on device under the /scratch partition> [address]
+   ```
+
+   For example, if `payload.tar` is the name of the payload file for the rootfs update, and 169.254.111.222 is a link-local IPv4 address on the device:
+
+   ```
+   $ mbl-cli put payload.tar /scratch 169.254.111.222
+   ```
+
+1. Use the MBL CLI `shell` command to get shell access on the device:
+
+   ```
+   $ mbl-cli shell [address]
+   ```
+
+   For example:
+
+   ```
+   $ mbl-cli shell 169.254.111.222
+   ```
+
+1. Inside the shell, run the `mbl-firmware-update-manager` script to install the rootfs:
+
+   ```
+   $ mbl-firmware-update-manager -i <full path to TAR file under /scratch>
+   ```
+
+   For example:
+
+   ```
+   $ mbl-firmware-update-manager -i /scratch/payload.tar
+   ```
+
+    The rootfs is updated.
+
+1. The device automatically reboots.
+
+<span class="notes">We recommend deleting the old tar files from the `scratch` partition after updates finish.</span>
 
 ## Using the manifest tool
 
@@ -55,54 +104,6 @@ There are two ways to update an MBL image:
 
 A reboot is automatically initiated to boot into the new firmware. Identify the currently active root file system and verify it was different pre-update. You can use the [`lsblk` command explained later](#identify-the-active-root-file-system-partition).
 
-## Using MBL CLI
-
-<span class="tips">You can find installation and general usage instructions for MBL CLI [in the application development section](../develop-apps/the-mbl-command-line-interface.html).</span>
-
-
-1. Prepare a tar file containing `rootfs.tar.xz` as explained in the [manifest tool section above](#using-the-manifest-tool).
-
-1. Transfer the rootfs update tar file to the `/scratch` partition on the device:
-
-   ```
-   $ mbl-cli put <rootfs update payload> <destination on device under the /scratch partition> [address]
-   ```
-
-   For example, if `payload.tar` is the name of the payload file for the rootfs update, and 169.254.111.222 is a link-local IPv4 address on the device:
-
-   ```
-   $ mbl-cli put payload.tar /scratch 169.254.111.222
-   ```
-
-1. Use the MBL CLI `shell` command to get shell access on the device:
-
-   ```
-   $ mbl-cli shell [address]
-   ```
-
-   For example:
-
-   ```
-   $ mbl-cli shell 169.254.111.222
-   ```
-
-1. Inside the shell, run the `mbl-firmware-update-manager` script to install the rootfs:
-
-   ```
-   $ mbl-firmware-update-manager -i <full path to TAR file under /scratch>
-   ```
-
-   For example:
-
-   ```
-   $ mbl-firmware-update-manager -i /scratch/payload.tar
-   ```
-
-    The rootfs is updated.
-
-1. The device automatically reboots.
-
-<span class="notes">We recommend deleting the old tar files from the `scratch` partition after updates finish.</span>
 
 ## Identifying the active root file system partition
 

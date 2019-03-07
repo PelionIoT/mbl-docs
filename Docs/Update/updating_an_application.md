@@ -2,8 +2,47 @@
 
 There are two ways to update an MBL application:
 
-* Using the manifest tool
-* Using MBL CLI
+* [Using MBL CLI](#using-mbl-cli).
+* [Using the manifest tool](#using-the-manifest-tool).
+
+## Using MBL CLI
+
+To install or update an application:
+
+1. Prepare a tar file containing an OPKG package (`.ipk` file), as explained in the [manifest tool section above](#using-the-manifest-tool)
+
+1. Transfer an application update tar file to the `/scratch` partition on the device:
+
+   ```
+   $ mbl-cli put <application update payload> <destination on device under the /scratch partition> [address]
+   ```
+
+   For example, if `payload.tar` is the payload name for an application update, and 169.254.111.222 is a link-local IPv4 address on the device:
+
+   ```
+   $ mbl-cli put payload.tar /scratch 169.254.111.222
+   28 Nov 09:42:04 - File transfer succeeded
+   ```
+
+1. Use the MBL CLI `shell` command to get shell access on the device:
+
+    ```
+    $ mbl-cli shell [address]
+    ```
+
+    For example:
+
+    ```
+    $ mbl-cli shell 169.254.111.222
+    ```
+
+1. Run `mbl-firmware-update-manager` with the `--skip-reboot` parameter.
+
+    The application is installed.
+
+1. The application starts automatically, without a device reboot.
+
+<span class="notes">We recommend deleting the old tar files from the `scratch` partition after updates finish.</span>
 
 ## Using the manifest tool
 
@@ -43,46 +82,6 @@ There are two ways to update an MBL application:
 
 The system does not reboot after an application update.
 
-## Using MBL CLI
-
-You can update each application independently of any others.
-
-To install or update an application:
-
-1. Prepare a tar file containing an OPKG package (`.ipk` file), as explained in the [manifest tool section above](#using-the-manifest-tool)
-
-1. Transfer an application update tar file to the `/scratch` partition on the device:
-
-   ```
-   $ mbl-cli put <application update payload> <destination on device under the /scratch partition> [address]
-   ```
-
-   For example, if `payload.tar` is the payload name for an application update, and 169.254.111.222 is a link-local IPv4 address on the device:
-
-   ```
-   $ mbl-cli put payload.tar /scratch 169.254.111.222
-   28 Nov 09:42:04 - File transfer succeeded
-   ```
-
-1. Use the MBL CLI `shell` command to get shell access on the device:
-
-    ```
-    $ mbl-cli shell [address]
-    ```
-
-    For example:
-
-    ```
-    $ mbl-cli shell 169.254.111.222
-    ```
-
-1. Run `mbl-firmware-update-manager` with the `--skip-reboot` parameter.
-
-    The application is installed.
-
-1. The application starts automatically, without a device reboot.
-
-<span class="notes">We recommend deleting the old tar files from the `scratch` partition after updates finish.</span>
 
 ## Identifying the running applications
 
