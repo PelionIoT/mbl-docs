@@ -22,5 +22,5 @@ If your device hasn't automatically connected to Device Management, it could be 
 * There are issues with the network. The device retries periodically, but you may need to restart `mbl-cloud-client`:
 
      ```
-     /etc/init.d/mbl-cloud-client restart
+     systemctl restart mbl-cloud-client
      ```
