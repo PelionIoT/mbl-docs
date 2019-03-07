@@ -1,8 +1,8 @@
-# Mbed Linux OS CLI
+# MBL CLI
 
 <span class="notes">**Note**: If you have MBL CLI 1.x installed, please [uninstall it, and install 2.0 instead](../develop-apps/setting-up.html#setting-up-mbl-cli).</span>
 
-The Mbed Linux OS CLI (MBL CLI) is a command-line interface for application developers. It interacts with the MBL device to perform routine development actions:
+The Mbed Linux OS command-line interface (MBL CLI) interacts with the MBL device to perform actions that application developers routinely need:
 
 * List all available MBL devices on the network.
 * Select a default MBL device for all MBL CLI commands.
