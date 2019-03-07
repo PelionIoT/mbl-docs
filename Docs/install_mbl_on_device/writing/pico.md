@@ -35,8 +35,6 @@ There are two processes for writing to the PICO-PI:
 
    You'll need to refer to this output in the following steps, so save it for reference.
 
-1. Download and unzip the TechNexion image loader software: [ftp://download.technexion.net/development_resources/development_tools/installer/pico-imx6-imx6ul-imx7_otg-installer_20171101.zip](ftp://download.technexion.net/development_resources/development_tools/installer/pico-imx6-imx6ul-imx7_otg-installer_20171101.zip)
-
 1. Set the PICO-PI into serial download mode by changing the boot configuration jumper settings.
 
    <img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/pico7-serial-download.jpg" width="25%" align="middle" />
@@ -57,7 +55,9 @@ There are two processes for writing to the PICO-PI:
     * Encdoing: [8N1](https://en.wikipedia.org/wiki/8-N-1).
     * No hardware flow control (enabled by default).
 
-1. Run the USB OTG (on the go) Loader, using the following commands on Linux:
+1. Download and unzip the TechNexion image loader software: [ftp://download.technexion.net/development_resources/development_tools/installer/pico-imx6-imx6ul-imx7_otg-installer_20171101.zip](ftp://download.technexion.net/development_resources/development_tools/installer/pico-imx6-imx6ul-imx7_otg-installer_20171101.zip)
+
+1. Run the USB OTG (on the go) image loader, using the following commands on Linux:
 
     ```
     cd pico-imx6-imx6ul-imx7_otg-installer_20171101
