@@ -13,7 +13,7 @@ To use MBL CLI, you need to:
 
 Linux users require a few other dependencies. Install them using apt-get (this example is for Ubuntu 16.04):
 
-`apt-get install --yes python3-cffi libssl-dev libffi-dev python3-dev`
+`apt-get install --yes avahi-utils python3-cffi libssl-dev libffi-dev python3-dev`
 
 ### Uninstalling old versions
 
@@ -48,18 +48,22 @@ To install MBL CLI:
 
 ## Setting up networking
 
-Your device, running an MBL development image<!--this implies I should expect something else with other images-->, should broadcast its SSH services by default over mDNS. All you need to do is connect the device to your local network (or to your computer if using USB networking); an IPv6 address should be automatically assigned.
+Your device should broadcast its SSH services by default over mDNS. All you need to do is connect the device to your local network (or to your computer if using USB networking); an IPv6 address should be automatically assigned.
 
-If for some reason you are unable to use IPv6 addresses, please see the section on [Assigning an IPv4 address to the device's network interface](#assigning-an-IPv4-address-to-the-network-interface).
+If you're using a device with , please see the section on [Assigning an IPv4 address to the device's network interface](#assigning-an-IPv4-address-to-the-network-interface).
 
 <span class="tips">See the [appendix](#appendix) for details on the mechanism MBL uses to assign IP addresses to the various interfaces on the device.</span>
 
 
-### Connecting a WaRP7 device
+### Connecting a device with a USB gadget
 
-To connect a PC to a WaRP7 device over USB connect the device to the PC using a USB cable. A new network interface, with an assigned IPv6 address, is created on the development PC. 
+To connect a PC to a device over USB 
 
-Note that you may have to wait up to a minute for your device to fully boot before the mDNS broadcast begins.
+Connect the device to the PC using a USB cable. A new network interface is created on the development PC. 
+
+Linux users: You must ensure the new interface is managed by Networkmanager. 
+
+
 
 ### Connecting a Raspberry Pi 3 device
 
@@ -104,7 +108,7 @@ To assign an IPv4 address to the network interface on an Ubuntu PC using Network
 1. Create a NetworkManager connection profile called `mbl-ipv4ll` for the interface with the `link-local` IPv4 addressing method. Use the NetworkManager's command line interface:
 
     ```
-    $ sudo nmcli connection add ifname <interace-name-on-pc> con-name mbl-ipv4ll type ethernet -- ipv4.method link-local
+    $ sudo nmcli connection add ifname <interface-name-on-pc> con-name mbl-ipv4ll type ethernet -- ipv4.method link-local
     ```  
 
     where `<interface-name-on-pc>` is the name of the network interface on the PC that connects to the device. You found this name in the connection setup.
