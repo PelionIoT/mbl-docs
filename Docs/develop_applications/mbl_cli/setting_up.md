@@ -82,15 +82,13 @@ Connect the device to the PC using a USB cable. A new network interface is creat
     $ sudo nmcli connection up mbl-ipv4ll
     ```
 
-    * If this command finishes with
-      `Error: Connection activation failed: No suitable device found for this connection.` or similar, please verify that the device is managed by NetworkManager. Check in the
-      `/etc/NetworkManager/NetworkManager.conf` configuration file on the Linux PC for an entry similar to the following.
+    If this command finishes with `Error: Connection activation failed: No suitable device found for this connection.` or similar, please verify that the device is managed by NetworkManager. Check the `/etc/NetworkManager/NetworkManager.conf` configuration file on the Linux PC for an entry similar to:
 
-      ```
-      [device]
-      match-device=interface-name:enp0s2222222a
-      managed=1
-      ```
+    ```
+    [device]
+    match-device=interface-name:enp0s2222222a
+    managed=1
+    ```
 
     The NetworkManager connection is created.
 
@@ -116,18 +114,19 @@ Connect the device to the PC using a USB cable. A new network interface is creat
 
 4. The PC's network interface now has an allocated link-local address.  
 
-    * For example, for a WaRP7 device:
-      ```
-      $ ifconfig enp0s2222222a
-      enp0s2222222a Link encap:Ethernet  HWaddr ba:77:68:c0:73:df  
-              inet addr:169.254.167.167  Bcast:169.254.255.255  Mask:255.255.0.0
-              inet6 addr: fe80::b418:c138:20f0:57c7/64 Scope:Link
-              UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
-              RX packets:146 errors:0 dropped:0 overruns:0 frame:0
-              TX packets:364 errors:0 dropped:0 overruns:0 carrier:0
-              collisions:0 txqueuelen:1000
-              RX bytes:40589 (40.5 KB)  TX bytes:65923 (65.9 KB)
-      ```
+    For example, for a WaRP7 device:
+
+    ```
+    $ ifconfig enp0s2222222a
+    enp0s2222222a Link encap:Ethernet  HWaddr ba:77:68:c0:73:df  
+            inet addr:169.254.167.167  Bcast:169.254.255.255  Mask:255.255.0.0
+            inet6 addr: fe80::b418:c138:20f0:57c7/64 Scope:Link
+            UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+            RX packets:146 errors:0 dropped:0 overruns:0 frame:0
+            TX packets:364 errors:0 dropped:0 overruns:0 carrier:0
+            collisions:0 txqueuelen:1000
+            RX bytes:40589 (40.5 KB)  TX bytes:65923 (65.9 KB)
+    ```
 
 
 ### Connecting a Raspberry Pi 3 device
@@ -138,6 +137,7 @@ To connect a PC to a Raspberry Pi 3 device over an Ethernet-to-USB adapter:
 2. Connect the Ethernet cable of the adapter to an available Ethernet port on the development PC.
 
    If another USB Ethernet adapter is used on the PC side, a new network interface is created on the PC (for example, `enx503eaa4e094c`).
+   
     ```
     $ ifconfig eno0
     eno0 Link encap:Ethernet  HWaddr 6c:0b:84:67:18:f5  
