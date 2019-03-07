@@ -14,6 +14,8 @@ If your device is physically connected to an Ethernet network (that must have a 
 
 ## Setting up a Wi-Fi connection
 
+<span class="tips">**Tip**: We recommend [installing MBL CLI](../develop-apps/setting-up.html) and setting up a USB connection to the device. You can then discover the device and [use a shell](../develop-apps/usage.html#get-shell-access-ssh) to set up the Wi-Fi connection.</span>
+
 Mbed Linux OS (MBL) uses **Connection Manager (ConnMan)** to manage Wi-Fi interfaces and connections. This page briefly reviews ConnMan and then explains how to use it to set up and manage Wi-Fi on MBL devices.
 
 As an MBL developer, use ConnMan for all basic Wi-Fi operations, rather than interacting directly with the `wpa_supplicant` daemon or modifying the `wpa_supplicant.conf` file.
