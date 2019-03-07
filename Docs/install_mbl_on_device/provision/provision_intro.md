@@ -14,7 +14,7 @@ Starting with Mbed Linux OS 0.6, your devices can be provisioned with developer 
 
 The full provisioning process is:
 
-1. Use the Account Management API to create a developer certificate. This step requires the API key obtained above.
+1. Use the Account Management API to create a developer certificate. This step requires the API key.
 
 1. Program the developer certificate to the device. It contains:
 
