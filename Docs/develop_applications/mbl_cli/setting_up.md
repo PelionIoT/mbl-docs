@@ -48,62 +48,11 @@ To install MBL CLI:
 
 ## Setting up networking
 
-Your device should broadcast its SSH services by default over mDNS. All you need to do is connect the device to your local network (or to your computer if using USB networking); an IPv6 address should be automatically assigned.
-
-If you're using a device with , please see the section on [Assigning an IPv4 address to the device's network interface](#assigning-an-IPv4-address-to-the-network-interface).
-
-<span class="tips">See the [appendix](#appendix) for details on the mechanism MBL uses to assign IP addresses to the various interfaces on the device.</span>
-
-
-### Connecting a device with a USB gadget
-
-To connect a PC to a device over USB 
+### Connecting a device with a USB gadget network interface
 
 Connect the device to the PC using a USB cable. A new network interface is created on the development PC. 
 
-Linux users: You must ensure the new interface is managed by Networkmanager. 
-
-
-
-### Connecting a Raspberry Pi 3 device
-
-To connect a PC to a Raspberry Pi 3 device over an Ethernet-to-USB adapter:
-
-1. Connect the Ethernet-to-USB adapter's USB "male" connector to any of the four type-A USB ports of the Raspberry Pi 3 board.
-2. Connect the Ethernet cable of the adapter to an available Ethernet port on the development PC.
-
-   If an extra<!--"extra" to what?--> USB Ethernet adapter is used on the PC side, a new network interface is created on the PC (for example, `enx503eaa4e094c`).
-
-Alternatively, you can connect the Raspberry Pi 3 to a network switch or router using its Ethernet port. 
-
-## Appendix
-
-<span class="notes">**Note**: We provide examples of network interface names such as `enp0s2222222a` and `eno0`, as well as UUIDs. These values may be different for your devices and PC - please do not use them without checking.</span>
-
-### Overview
-
-The MBL kernel can support USB connections to IoT devices that have USB ports. The exact support mechanism depends on the USB port type on the device - peripheral or host:
-
-* **Peripheral port(s)**: The kernel's USB Gadget driver mechanism creates a `usb0` network interface on the device. The device then appears as a network interface on any other USB-connected device, such as the development PC.
-
-    Example: WaRP7. For more details, see below.<!--where is "below"? that word applies to the whole page, but I think you mean the very next paragraph-->
-
-* **Host port(s)**: For devices that cannot work with the kernel's USB Gadget driver, MBL offers two Ethernet interfaces: `eth0`, which belongs to the wired Ethernet port, and `eth1`, which is created by the CDC Ethernet driver when appropriate hardware is connected. The reliance on Ethernet means that you need an Ethernet-to-USB adapter to support USB networking to a device with USB host ports.
-
-    Example: Raspberry Pi 3. For more details, see below.<!--where is "below"? that word applies to the whole page, but I think you mean the very next paragraph-->
-
-By default, MBL attempts to obtain an IPv4 address for the `usb0` interface on WaRP7 or the `eth1` interface on Raspberry Pi 3 using DHCP. MBL falls back to assigning a link-local IPv4 address when DHCP timeout occurs.  
-
-`usb0` on the WaRP7 and `eth1` on the Raspberry Pi3 are debug network interfaces. On both devices, the debug network interface is always given an IPv6 link-local address.<!--what's the relationship between this paragraph and the previous one? It seems to say that these ports are by default IPv6, but in the previous paragraph they were by default IPv4-->
-
-
-### Assigning an IPv4 address to the network interface
-
-<span class="tips">If you don't want to use the NetworkManager command line interface, you can use the `nm-connection-editor` GUI. See the [`nmcli` man page](https://linux.die.net/man/1/nmcli) for more information.</span>
-
-If you cannot use IPv6 on Linux, you can manually assign IPv4 addresses instead.
-
-To assign an IPv4 address to the network interface on an Ubuntu PC using NetworkManager:
+**Linux users must ensure the new interface is managed by NetworkManager by following the steps below.**
 
 1. Create a NetworkManager connection profile called `mbl-ipv4ll` for the interface with the `link-local` IPv4 addressing method. Use the NetworkManager's command line interface:
 
@@ -127,19 +76,25 @@ To assign an IPv4 address to the network interface on an Ubuntu PC using Network
       Connection 'mbl-ipv4ll' (475ebfb1-d67e-d67e-d67e-475ebfb1dddd) successfully added.
       ```
 
-1. Activate the `mbl-ipv4ll` connection profile:
+2. Activate the `mbl-ipv4ll` connection profile:
 
     ```
     $ sudo nmcli connection up mbl-ipv4ll
     ```
 
-    * If this command finishes with the error
-      `Error: Connection activation failed: No suitable device found for this connection.`, please verify that the device is managed by NetworkManager by checking that the field `managed` is set to `true` in the
-      `/etc/NetworkManager/NetworkManager.conf` configuration file on the PC.   
+    * If this command finishes with
+      `Error: Connection activation failed: No suitable device found for this connection.` or similar, please verify that the device is managed by NetworkManager. Check in the
+      `/etc/NetworkManager/NetworkManager.conf` configuration file on the Linux PC for an entry similar to the following.
+
+      ```
+      [device]
+      match-device=interface-name:enp0s2222222a
+      managed=1
+      ```
 
     The NetworkManager connection is created.
 
-1. Inspect the NetworkManager connection using the `nmcli connection show` command.
+3. Inspect the NetworkManager connection using the `nmcli connection show` command.
 
     * For example, for a WaRP7 device:
 
@@ -159,7 +114,7 @@ To assign an IPv4 address to the network interface on an Ubuntu PC using Network
       mbl-ipv4ll          475ebfb1-d67e-d67e-d67e-475ebfb1dddd  802-3-ethernet  eno0
       ```     
 
-1. The PC's network interface now has an allocated IPv4 link-local address.  
+4. The PC's network interface now has an allocated link-local address.  
 
     * For example, for a WaRP7 device:
       ```
@@ -174,17 +129,26 @@ To assign an IPv4 address to the network interface on an Ubuntu PC using Network
               RX bytes:40589 (40.5 KB)  TX bytes:65923 (65.9 KB)
       ```
 
-    * For example, for a Raspberry Pi 3 device:
 
-      ```
-      $ ifconfig eno0
-      eno0 Link encap:Ethernet  HWaddr 6c:0b:84:67:18:f5  
-          inet addr:169.254.4.179  Bcast:169.254.255.255  Mask:255.255.0.0
-          inet6 addr: fe80::3714:e5ad:7eb2:c3a5/64 Scope:Link
-          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
-          RX packets:5529 errors:0 dropped:0 overruns:0 frame:0
-          TX packets:2936 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:1000
-          RX bytes:3176233 (3.1 MB)  TX bytes:915351 (915.3 KB)
-          Memory:fb100000-fb17ffff
-      ```
+### Connecting a Raspberry Pi 3 device
+
+To connect a PC to a Raspberry Pi 3 device over an Ethernet-to-USB adapter:
+
+1. Connect the Ethernet-to-USB adapter's USB "male" connector to any of the four type-A USB ports of the Raspberry Pi 3 board.
+2. Connect the Ethernet cable of the adapter to an available Ethernet port on the development PC.
+
+   If another USB Ethernet adapter is used on the PC side, a new network interface is created on the PC (for example, `enx503eaa4e094c`).
+    ```
+    $ ifconfig eno0
+    eno0 Link encap:Ethernet  HWaddr 6c:0b:84:67:18:f5  
+        inet addr:169.254.4.179  Bcast:169.254.255.255  Mask:255.255.0.0
+        inet6 addr: fe80::3714:e5ad:7eb2:c3a5/64 Scope:Link
+        UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+        RX packets:5529 errors:0 dropped:0 overruns:0 frame:0
+        TX packets:2936 errors:0 dropped:0 overruns:0 carrier:0
+        collisions:0 txqueuelen:1000
+        RX bytes:3176233 (3.1 MB)  TX bytes:915351 (915.3 KB)
+        Memory:fb100000-fb17ffff
+    ```
+
+Alternatively, you can connect the Raspberry Pi 3 to a network switch or router using its Ethernet port. 
