@@ -106,7 +106,7 @@ There are two processes for writing to the PICO-PI:
     │ └─vg00-root 253:0    0 230.6G  0 lvm  /
     └─sda1          8:1    0   476M  0 part /boot
     ```
-    <span class="notes">In the commands below, replace `/dev/sdX` with the device file name for the SD card _without_ a number at the end.</span>
+    <span class="notes">In the commands below, replace `/dev/sdX` with the device file name for the device's USB mass storage _without_ a number at the end.</span>
 
 1. Ensure that none of the PICO-PI's flash partitions are mounted (replace `/dev/sdX` as explained above):
 
@@ -114,7 +114,7 @@ There are two processes for writing to the PICO-PI:
     sudo umount /dev/sdX*
     ```
 
-1. From a Linux prompt, write the disk image to the PICO-PI's flash device - not a partition on it (replace `/dev/sdX` as explained above)::
+1. From a Linux prompt, write the disk image to the PICO-PI's USB mass storage - not a partition on it (replace `/dev/sdX` as explained above)::
 
     ```
     sudo bmaptool copy --nobmap /path/to/artifacts/machine/imx7d-pico-mbl/images/mbl-image-development/images/mbl-image-development-imx7d-pico-mbl.wic.gz /dev/sdX
@@ -122,7 +122,7 @@ There are two processes for writing to the PICO-PI:
 
     This action may take some time.
 
-    <span class="tips">**Tip**: Use `--nobmap` for the initial flashing, to ensure your flash is set up correctly. On all subsequent flashings, you can use the `--bmap` option with a bmap file to speed up the process: `sudo bmaptool copy --bmap /path/to/artifacts/machine/imx7d-pico-mbl/images/mbl-image-development/images/mbl-image-development-imx7d-pico-mbl.wic.bmap /path/to/artifacts/machine/imx7d-pico-mbl/images/mbl-image-development/images/mbl-image-development-imx7d-pico-mbl.wic.gz /dev/sdX/<device-file-name>`</span>
+    <span class="tips">**Tip**: Use `--nobmap` for the initial flashing, to ensure your flash is set up correctly. On all subsequent flashings, you can use the `--bmap` option with a bmap file to speed up the process: `sudo bmaptool copy --bmap /path/to/artifacts/machine/imx7d-pico-mbl/images/mbl-image-development/images/mbl-image-development-imx7d-pico-mbl.wic.bmap /path/to/artifacts/machine/imx7d-pico-mbl/images/mbl-image-development/images/mbl-image-development-imx7d-pico-mbl.wic.gz /dev/sdX`</span>
 
 1. When `bmaptool` has finished, eject the device:
 
@@ -214,7 +214,7 @@ There are two processes for writing to the PICO-PI:
     └─sda1          8:1    0   476M  0 part /boot
     ```
 
-    <span class="notes">In the commands below, replace `/dev/sdX` with the device file name for the SD card _without_ a number at the end.</span>
+    <span class="notes">In the commands below, replace `/dev/sdX` with the device file name for the device's USB mass storage _without_ a number at the end.</span>
 
 1. Ensure that none of the PICO-PI's flash partitions are mounted (replace `/dev/sdX` as explained above):
 
@@ -222,20 +222,19 @@ There are two processes for writing to the PICO-PI:
     sudo umount /dev/sdX*
     ```
 
-1. From a Linux prompt, write the disk image to the PICO's flash device<!--I'd like not to use 'flash device', because the rest of the time that is what we call the whole board--> (replace `<device-file-name>` with the correct device file for the PICO's flash device; in this example, it would be `usb-Linux_UMS_disk_0-0:0`):
+1. From a Linux prompt, write the disk image to the PICO-PI's USB mass storage - not a partition on it (replace `/dev/sdX` as explained above)::
 
-        <!--this isn't the initial flashing, so it shouldn't use `--nobmap`-->
     ```
-    sudo bmaptool copy --bmap /path/to/artifacts/machine/imx7d-pico-mbl/images/mbl-image-development/images/mbl-image-development-imx7d-pico-mbl.wic.bmap /path/to/artifacts/machine/imx7d-pico-mbl/images/mbl-image-development/images/mbl-image-development-imx7d-pico-mbl.wic.gz /dev/sdX/<device-file-name>    
+    sudo bmaptool copy --bmap /path/to/artifacts/machine/imx7d-pico-mbl/images/mbl-image-development/images/mbl-image-development-imx7d-pico-mbl.wic.bmap /path/to/artifacts/machine/imx7d-pico-mbl/images/mbl-image-development/images/mbl-image-development-imx7d-pico-mbl.wic.gz /dev/sdX
     ```
 
     This action may take some time.
 
 
-1. When `bmaptool` has finished, eject the device (replace `<device-file-name>` with the correct device file for the board's flash device; in this example, it would be `usb-Linux_UMS_disk_0-0:0`):
+1. When `bmaptool` has finished, eject the device:
 
     ```
-    sudo eject /dev/sdX/<device-file-name>
+    sudo eject /dev/sdX
     ```
 
 1. On the device's U-boot prompt, press <kbd>Ctrl</kbd>-<kbd>C</kbd> to exit USB mass storage mode.
