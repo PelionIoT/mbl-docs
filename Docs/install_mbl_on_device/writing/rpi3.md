@@ -19,7 +19,7 @@
     ├─sda2          8:2    0   238G  0 part
     │ ├─vg00-swap 253:1    0   7.5G  0 lvm  [SWAP]
     │ └─vg00-root 253:0    0 230.6G  0 lvm  /
-    └─sda1          8:1    0   476M  0 part /boot
+    └─sda1          8:1    0   476M  0 part
     ```
 
    You'll need to refer to this output in the following steps, so save it for reference.
@@ -42,7 +42,7 @@
     └─sdb1          8:17   0   1.8T  0 part /mnt/2tb-disk
     sr0            11:0    1  1024M  0 rom  
     sdc             8:32   1  14.5G  0 disk
-    └─sdc1          8:33   1  14.5G  0 part /media/jjohnson/141E-8726
+    └─sdc1          8:33   1  14.5G  0 part /media/user01/141E-8726
     sda             8:0    0 238.5G  0 disk
     ├─sda2          8:2    0   238G  0 part
     │ ├─vg00-swap 253:1    0   7.5G  0 lvm  [SWAP]
@@ -87,7 +87,7 @@
 
     The cable's TX and RX are used to communicate with the board.
 
-1. After connecting the Raspberry Pi 3, from your PC, run the following command to connect to the device's serial console:
+1. If you are using a UART cable, after connecting the Raspberry Pi 3, from your PC, run the following command to connect to the device's serial console:
 
     ```
     minicom -D /dev/ttyUSB0
@@ -98,6 +98,8 @@
     * Baud rate: 115200.
     * Encoding: [8N1](https://en.wikipedia.org/wiki/8-N-1).
     * No hardware flow control (enabled by default).
+    
+    <!--JIJ: otherwise you will see output on your monitor connected via HDMI-->
 
 1. Connect the Raspberry Pi 3's micro-USB socket to a USB power supply.
 

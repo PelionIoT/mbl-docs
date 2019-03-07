@@ -21,7 +21,7 @@
     ├─sda2          8:2    0   238G  0 part
     │ ├─vg00-swap 253:1    0   7.5G  0 lvm  [SWAP]
     │ └─vg00-root 253:0    0 230.6G  0 lvm  /
-    └─sda1          8:1    0   476M  0 part /boot
+    └─sda1          8:1    0   476M  0 part 
     ```
 
    You'll need to refer to this output in the following steps, so save it for reference.
@@ -42,7 +42,7 @@
     └─sdb1          8:17   0   1.8T  0 part /mnt/2tb-disk
     sr0            11:0    1  1024M  0 rom  
     sdc             8:32   1  14.5G  0 disk
-    └─sdc1          8:33   1  14.5G  0 part /media/jjohnson/141E-8726
+    └─sdc1          8:33   1  14.5G  0 part /media/user01/141E-8726
     sda             8:0    0 238.5G  0 disk
     ├─sda2          8:2    0   238G  0 part
     │ ├─vg00-swap 253:1    0   7.5G  0 lvm  [SWAP]
@@ -85,10 +85,10 @@
 1. From your PC, connect to the device's serial console (over your micro-USB port):
 
     ```
-    minicom -D /dev/ttyUSB0
+    minicom -D /dev/ttyUSB1
     ```
 
-    <span class="notes">**Note**: If you have also connected the USB-C cable to your PC, you may need `/dev/ttyUSB1`</span><!--instead or as well?-->
+    <span class="notes">**Note**: There will be two `ttyUSB` connections when you plug in the NXP 8M Mini EVK. You need to use the second connection to get the serial console output.</span>
 
     Use the following settings:
 
