@@ -13,7 +13,7 @@ To use MBL CLI, you need to:
 
 Linux users require a few other dependencies. Install them using apt-get (this example is for Ubuntu 16.04):
 
-`apt-get install --yes python3-cffi libssl-dev libffi-dev python3-dev`
+`apt-get install --yes avahi-utils python3-cffi libssl-dev libffi-dev python3-dev`
 
 ### Uninstalling old versions
 
@@ -48,111 +48,16 @@ To install MBL CLI:
 
 ## Setting up networking
 
-This section explains how to connect devices to a development PC over USB.
+### Connecting a device with a USB gadget network interface
 
-<span class="notes">**Note**: We provide examples of network interface names such as `enp0s2222222a` and `eno0`, as well as UUIDs. These values may be different for your devices and PC - please do not use them without checking.</span>
+Connect the device to the PC using a USB cable. A new network interface is created on the development PC. 
 
-### Overview
+**Linux users must ensure the new interface is managed by NetworkManager by following the steps below.**
 
-The MBL kernel can support USB connections to IoT devices that have USB ports. The exact support mechanism depends on the USB port type on the device - peripheral or host:
-
-* **Peripheral port(s)**: The kernel's USB Gadget driver mechanism creates
-a `usb0` network interface on the device. The device then appears as a network interface on any other USB-connected device, such as the development PC.
-
-    Example: WaRP7. For more details, see below.
-
-* **Host port(s)**: For devices that cannot work with the kernel's USB Gadget driver, MBL offers two Ethernet interfaces: `eth0`, which belongs to the wired Ethernet port, and `eth1`, which is created by the CDC Ethernet driver when appropriate hardware is connected. The reliance on Ethernet means that you need an Ethernet-to-USB adapter to support USB networking to a device with USB host ports.
-
-    Example: Raspberry Pi 3. For more details, see below.
-
-By default, MBL attempts to obtain an IPv4 address for the `usb0` interface on WaRP7 or the `eth1` interface on Raspberry Pi 3 using DHCP. MBL falls back to assigning a link-local IPv4 address when DHCP timeout occurs.  
-
-`usb0` on the WaRP7 and `eth1` on the Raspberry Pi3 are debug network intefaces. On both devices, the debug network interface is always given an IPv6 link-local address.
-
-### Connecting a WaRP7 device
-
-To connect a PC to an a WaRP7 device over USB:
-
-1. Connect the device to the PC using a USB cable.
-1. Configure the PC to use a link-local IPv4 address (169.254.x.y) for the interface.
-1. Make sure that link-local IPv4 address is assigned to the network interface.
-
-For example, on an Ubuntu PC:
-
-1. Connect your device to your computer.
-
-    The computer instantiates the Ethernet `net_device` for the USB network interface, but does not assign it an IP address.
-
-1. Use `ifconfig -a` to list available network interfaces.
-
-    The interface instantiated in the previous step is listed without an IPv4 address:
+1. Create a NetworkManager connection profile called `mbl-ipv4ll` for the interface with the `link-local` IPv4 addressing method. Use the NetworkManager's command line interface:
 
     ```
-    $ ifconfig -a
-
-    < ... lines deleted to save space >
-
-      enp0s2222222a Link encap:Ethernet  HWaddr ee:a9:74:68:fe:69  
-            UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
-            RX packets:136 errors:0 dropped:0 overruns:0 frame:0
-            TX packets:322 errors:0 dropped:0 overruns:0 carrier:0
-            collisions:0 txqueuelen:1000
-            RX bytes:37211 (37.2 KB)  TX bytes:57393 (57.3 KB)
-
-    < ... lines deleted to save space >
-    ```  
-
-1. Assign an IPv4 address [as explained below](#assigning-an-ipv4-address-to-the-network-interface).
-
-### Connecting a Raspberry Pi 3 device
-
-To connect a PC to a Raspberry Pi 3 device over an Ethernet-to-USB adapter:
-
-1. Connect an Ethernet-to-USB adapter's USB "male" connector into any of
-   the four type-A USB ports of the Raspberry Pi 3 board.
-1. Connect the Ethernet cable of the adapter to an available Ethernet port on the development PC.
-
-   If an extra USB Ethernet adapter is used on the PC side, a new network interface is created on the PC (for example, `enx503eaa4e094c`).
-
-1. Check which network interface belongs to the port that is connected to the
-   Raspberry Pi 3 device.
-1. Configure the PC to use a link-local IPv4 address (169.254.x.y) for the interface.
-1. Determine the address assigned to the interface.
-
-For example, on an Ubuntu PC and a Raspberry Pi 3 device connected to an RTL8153 Gigabit Ethernet-to-USB adapter:
-
-1. Connect the Raspberry Pi 3 device to the PC
-
-1. Use `ifconfig -a` to identify the network interface:
-
-    ```
-    $ ifconfig -a
-    < ... lines deleted to save space >
-
-    eno0 Link encap:Ethernet  HWaddr 6c:0b:84:67:18:f5  
-        UP BROADCAST MULTICAST  MTU:1500  Metric:1
-        RX packets:5463 errors:0 dropped:0 overruns:0 frame:0
-        TX packets:2839 errors:0 dropped:0 overruns:0 carrier:0
-        collisions:0 txqueuelen:1000
-        RX bytes:3149461 (3.1 MB)  TX bytes:900468 (900.4 KB)
-        Memory:fb100000-fb17ffff
-
-    < ... lines deleted to save space >
-    ```  
-
-1. Assign an IPv4 address [as explained below](#assigning-an-ipv4-address-to-the-network-interface).
-
-### Assigning an IPv4 address to the network interface
-
-<span class="tips">If you don't want to use the NetworkManager command line interface, you can use the `nm-connection-editor` GUI. See the [`nmcli` man page](https://linux.die.net/man/1/nmcli) for more information.</span>
-
-To assign an IPv4 address to the network interface on an Ubuntu PC using NetworkManager:
-
-1. Create a NetworkManager connection profile called `mbl-ipv4ll` for the
-interface with the `link-local` IPv4 addressing method. Use the NetworkManager's command line interface:
-
-    ```
-    $ sudo nmcli connection add ifname <interace-name-on-pc> con-name mbl-ipv4ll type ethernet -- ipv4.method link-local
+    $ sudo nmcli connection add ifname <interface-name-on-pc> con-name mbl-ipv4ll type ethernet -- ipv4.method link-local
     ```  
 
     where `<interface-name-on-pc>` is the name of the network interface on the PC that connects to the device. You found this name in the connection setup.
@@ -171,19 +76,23 @@ interface with the `link-local` IPv4 addressing method. Use the NetworkManager's
       Connection 'mbl-ipv4ll' (475ebfb1-d67e-d67e-d67e-475ebfb1dddd) successfully added.
       ```
 
-1. Activate the `mbl-ipv4ll` connection profile:
+2. Activate the `mbl-ipv4ll` connection profile:
 
     ```
     $ sudo nmcli connection up mbl-ipv4ll
     ```
 
-    * If this command finishes with the error
-      `Error: Connection activation failed: No suitable device found for this connection.`, please verify that the device is managed by NetworkManager by checking that the field `managed` is set to `true` in the
-      `/etc/NetworkManager/NetworkManager.conf` configuration file on the PC.   
+    If this command finishes with `Error: Connection activation failed: No suitable device found for this connection.` or similar, please verify that the device is managed by NetworkManager. Check the `/etc/NetworkManager/NetworkManager.conf` configuration file on the Linux PC for an entry similar to:
+
+    ```
+    [device]
+    match-device=interface-name:enp0s2222222a
+    managed=1
+    ```
 
     The NetworkManager connection is created.
 
-1. Inspect the NetworkManager connection using the `nmcli connection show` command.
+3. Inspect the NetworkManager connection using the `nmcli connection show` command.
 
     * For example, for a WaRP7 device:
 
@@ -203,32 +112,43 @@ interface with the `link-local` IPv4 addressing method. Use the NetworkManager's
       mbl-ipv4ll          475ebfb1-d67e-d67e-d67e-475ebfb1dddd  802-3-ethernet  eno0
       ```     
 
-1. The PC's network interface now has an allocated IPv4 link-local address.  
+4. The PC's network interface now has an allocated link-local address.  
 
-    * For example, for a WaRP7 device:
-      ```
-      $ ifconfig enp0s2222222a
-      enp0s2222222a Link encap:Ethernet  HWaddr ba:77:68:c0:73:df  
-              inet addr:169.254.167.167  Bcast:169.254.255.255  Mask:255.255.0.0
-              inet6 addr: fe80::b418:c138:20f0:57c7/64 Scope:Link
-              UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
-              RX packets:146 errors:0 dropped:0 overruns:0 frame:0
-              TX packets:364 errors:0 dropped:0 overruns:0 carrier:0
-              collisions:0 txqueuelen:1000
-              RX bytes:40589 (40.5 KB)  TX bytes:65923 (65.9 KB)
-      ```
+    For example, for a WaRP7 device:
 
-    * For example, for a Raspberry Pi 3 device:
+    ```
+    $ ifconfig enp0s2222222a
+    enp0s2222222a Link encap:Ethernet  HWaddr ba:77:68:c0:73:df  
+            inet addr:169.254.167.167  Bcast:169.254.255.255  Mask:255.255.0.0
+            inet6 addr: fe80::b418:c138:20f0:57c7/64 Scope:Link
+            UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+            RX packets:146 errors:0 dropped:0 overruns:0 frame:0
+            TX packets:364 errors:0 dropped:0 overruns:0 carrier:0
+            collisions:0 txqueuelen:1000
+            RX bytes:40589 (40.5 KB)  TX bytes:65923 (65.9 KB)
+    ```
 
-      ```
-      $ ifconfig eno0
-      eno0 Link encap:Ethernet  HWaddr 6c:0b:84:67:18:f5  
-          inet addr:169.254.4.179  Bcast:169.254.255.255  Mask:255.255.0.0
-          inet6 addr: fe80::3714:e5ad:7eb2:c3a5/64 Scope:Link
-          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
-          RX packets:5529 errors:0 dropped:0 overruns:0 frame:0
-          TX packets:2936 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:1000
-          RX bytes:3176233 (3.1 MB)  TX bytes:915351 (915.3 KB)
-          Memory:fb100000-fb17ffff
-      ```
+
+### Connecting a Raspberry Pi 3 device
+
+To connect a PC to a Raspberry Pi 3 device over an Ethernet-to-USB adapter:
+
+1. Connect the Ethernet-to-USB adapter's USB "male" connector to any of the four type-A USB ports of the Raspberry Pi 3 board.
+2. Connect the Ethernet cable of the adapter to an available Ethernet port on the development PC.
+
+   If another USB Ethernet adapter is used on the PC side, a new network interface is created on the PC (for example, `enx503eaa4e094c`).
+   
+    ```
+    $ ifconfig eno0
+    eno0 Link encap:Ethernet  HWaddr 6c:0b:84:67:18:f5  
+        inet addr:169.254.4.179  Bcast:169.254.255.255  Mask:255.255.0.0
+        inet6 addr: fe80::3714:e5ad:7eb2:c3a5/64 Scope:Link
+        UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+        RX packets:5529 errors:0 dropped:0 overruns:0 frame:0
+        TX packets:2936 errors:0 dropped:0 overruns:0 carrier:0
+        collisions:0 txqueuelen:1000
+        RX bytes:3176233 (3.1 MB)  TX bytes:915351 (915.3 KB)
+        Memory:fb100000-fb17ffff
+    ```
+
+Alternatively, you can connect the Raspberry Pi 3 to a network switch or router using its Ethernet port. 
