@@ -1,9 +1,5 @@
 # Warp7 devices
 
-<span class="warnings">UNFINISHED. DO NOT USE.</span>
-
-<!--needs lsblk-->
-
 1. Check the current storage devices on your PC:
 
 
@@ -53,8 +49,8 @@
     ums 0 mmc 0
     ```
 
-    On the Warp7, you now see an ASCII-art "spinner". 
-    
+    On the Warp7, you now see an ASCII-art "spinner".
+
 1. On your PC, you can now see new storage devices:
 
     ```

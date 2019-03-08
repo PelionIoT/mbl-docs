@@ -19,12 +19,12 @@ The full provisioning process is:
 1. Program the developer certificate to the device. It contains:
 
     * The bootstrap server CA certificate.
-    * The private key.
+    * The bootstrap server private key.
     * The bootstrap server information.
 
 1. Use the manifest tool to generate the firmware update authenticity certificate.
 
-2. Program `update_default_resources.c` to the device. It contains:
+2. Program `update_default_resources.c` to the device. It contains:<!--is that the same thing as the update authenticity certificate? if not, we've not done anything with the certificate and I've no idea where .c came from-->
 
     * Update certificate fingerprint.
     * Update certificate.

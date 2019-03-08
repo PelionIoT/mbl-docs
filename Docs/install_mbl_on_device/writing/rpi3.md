@@ -1,7 +1,5 @@
 # Raspberry Pi 3 devices
 
-<span class="warnings">UNFINISHED. DO NOT USE.</span>
-
 1. Check the current block storage devices on your PC:
 
     ```
@@ -47,7 +45,7 @@
     ├─sda2          8:2    0   238G  0 part
     │ ├─vg00-swap 253:1    0   7.5G  0 lvm  [SWAP]
     │ └─vg00-root 253:0    0 230.6G  0 lvm  /
-    └─sda1          8:1    0   476M  0 part 
+    └─sda1          8:1    0   476M  0 part
     ```
     <span class="notes">In the commands below, replace `/dev/sdX` with the device file name for the SD card _without_ a number at the end.</span>
 
@@ -98,7 +96,7 @@
     * Baud rate: 115200.
     * Encoding: [8N1](https://en.wikipedia.org/wiki/8-N-1).
     * No hardware flow control (enabled by default).
-    
+
     <!--JIJ: otherwise you will see output on your monitor connected via HDMI-->
 
 1. Connect the Raspberry Pi 3's micro-USB socket to a USB power supply.

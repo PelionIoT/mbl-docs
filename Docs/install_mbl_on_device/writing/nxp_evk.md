@@ -1,7 +1,5 @@
 # NXP 8M Mini EVK devices
 
-<span class="warnings">UNFINISHED. DO NOT USE.</span>
-
 <span class="tips">This process currently uses a micro-SD card. A future release will use the on-board EMMC.</span>
 
 1. Check the current block storage devices on your PC:
@@ -21,7 +19,7 @@
     ├─sda2          8:2    0   238G  0 part
     │ ├─vg00-swap 253:1    0   7.5G  0 lvm  [SWAP]
     │ └─vg00-root 253:0    0 230.6G  0 lvm  /
-    └─sda1          8:1    0   476M  0 part 
+    └─sda1          8:1    0   476M  0 part
     ```
 
    You'll need to refer to this output in the following steps, so save it for reference.
@@ -47,7 +45,7 @@
     ├─sda2          8:2    0   238G  0 part
     │ ├─vg00-swap 253:1    0   7.5G  0 lvm  [SWAP]
     │ └─vg00-root 253:0    0 230.6G  0 lvm  /
-    └─sda1          8:1    0   476M  0 part 
+    └─sda1          8:1    0   476M  0 part
     ```
 
     <span class="notes">In the commands below, replace `/dev/sdX` with the device file name for the SD card _without_ a number at the end.</span>
