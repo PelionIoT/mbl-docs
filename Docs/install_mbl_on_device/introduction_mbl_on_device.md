@@ -9,3 +9,5 @@ To install Mbed Linux OS on a new device:
 1. [Flash the image to the device]().
 1. Provision the device with [Pelion Device Management credentials and an API key](../first-image/provisioning-for-pelion-device-management.html) so that it can connect to your Device Management account.
 1. [Set up your network connection](../first-image/connecting-to-a-network-and-pelion-device-management.html) and [test your Device Management connectivity](../first-image/verifying-that-the-device-is-connected-to-device-management.html).<!--will this be needed for the evaluation image?-->
+
+<span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/install_process.png)</span>
