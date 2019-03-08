@@ -4,22 +4,18 @@
 
 <span class="tips">**Tip**: for a list of supported devices, [see our hardware requirements](../first-image/hardware.html).</span>
 
-MBL applications are not compiled together with the MBL codebase or with any Pelion Device Management credentials (unlike Mbed OS, where the codebase, credentials and application form a single binary). This method allows you to deploy and manage multiple applications on a single device, but it requires some preparation work: To install applications on the device, you first need to install MBL and Device Management credentials on that device.
+MBL applications are not compiled together with the MBL codebase or with any Pelion Device Management credentials (unlike Mbed OS, where the codebase, credentials and application form a single binary). This method allows you to deploy and manage multiple applications on a single device, but it requires some preparation work: To install applications on the device, you first need to install MBL and provision Device Management credentials on that device.
 
-1. Review our list of [supported development boards](../first-image/hardware.html) and set up your [development environment](../first-image/development-environment.html).
-1. Get an MBL image:
-    * You can use [our evaluation image]().<!--when will we have this?-->
-    * You can [build your own](../first-image/index.html). You will need to [set up a full development environment for this](../first-image/building-a-developer-image.html).
-1. [Flash the image to the device](../first-image/writing-an-image-to-supported-boards.html).
-1. Provision the device with [Pelion Device Management credentials and an API key](../first-image/provisioning-for-pelion-device-management.html) so that it can connect to your Device Management account.
-1. [Set up your network connection](../first-image/connecting-to-a-network-and-pelion-device-management.html) and [test your Device Management connectivity](../first-image/verifying-that-the-device-is-connected-to-device-management.html).
+* If you were given a device with MBL already installed and provisioned, please:
 
-## Application development requirements
-
-1. [Install MBL CLI](../develop-apps/setting-up.html).
+    1. [Install MBL CLI](../develop-apps/setting-up.html), which you will also use when developing applications.
 
     <span class="notes">**Note**: If you have MBL CLI 1.x installed, please [uninstall it, and install 2.0 instead](../develop-apps/setting-up.html#setting-up-mbl-cli).</span>
-1. Set up [a USB connection to your device](../develop-apps/setting-up.html#setting-up-networking), so you can work with MBL CLI.
+
+    1. Set up [a developer (USB) connection to your device](../develop-apps/setting-up.html#setting-up-networking), so you can work with MBL CLI.
+
+* If your device does not have MBL, please install an [image on it](../first-image/index.html).
+
 
 ## Build examples
 
