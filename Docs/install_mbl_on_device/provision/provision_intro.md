@@ -36,6 +36,6 @@ The full provisioning process is:
 
     1. Program the developer certificate and authenticity certificate to the device.
 
-<span class="images">![](../../Figures/provision_key.png)<span>As a preliminary step, create an API key on the Device Management Portal and used MBL CLI to save it to the device.</span></span>
+<span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/provision_key.png)<span>As a preliminary step, create an API key on the Device Management Portal and used MBL CLI to save it to the device.</span></span>
 
-<span class="images">![](../../Figures/provision_process.png)<span>As a preliminary step, create an update authenticity certificate with the manifest tool. Then use MBL CLI to create a developer certificate and program both the update authenticity and developer certificates on the device.</span></span>
+<span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/provision_process.png)<span>As a preliminary step, create an update authenticity certificate with the manifest tool. Then use MBL CLI to create a developer certificate and program both the update authenticity and developer certificates on the device.</span></span>
