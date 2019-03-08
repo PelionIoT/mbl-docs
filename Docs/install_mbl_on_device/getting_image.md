@@ -4,7 +4,7 @@ If you're only interested in developing applications (as opposed to contributing
 
 Each target hardware has its own release archive, with a hardware-specific image:
 
-* [Raspberry Pi 3B or Raspberry Pi 3B+]()
+* [Raspberry Pi 3B or Raspberry Pi 3B+]()<!--missing the links!!-->
 * [Warp7]()
 * [PICO-PI with IMX7D SoM]()
 * [NXP 8M Mini EVK]()
