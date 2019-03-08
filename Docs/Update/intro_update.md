@@ -11,7 +11,7 @@ You can perform a **firmware over the air** (FOTA) update for:
 
 ## How software is updated
 
-<img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/update_process.png" width="33%" align="right" />
+<img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/update_process.png" width="50%" align="right" />
 
 MBL uses Pelion Device Management to manage firmware updates. Before you start, upload a new version of your firmware (for one or more components) to your Device Management account. This is your payload, and it is a `.tar` file that can contain either:
 
@@ -20,7 +20,7 @@ MBL uses Pelion Device Management to manage firmware updates. Before you start, 
 
 Start the process by initiating an update campaign; Device Management then sends the device an update request with a manifest detailing what needs to be updated. If the device accepts the request, Device Management sends your uploaded payload file to the device and monitors the update process.
 
-<span class="tips">**Tip:** Refer to the Pelion Device Management documentation for a [full review of the update process](https://cloud.mbed.com/docs/latest/updating-firmware/index.html).</span>
+**Tip:** Refer to the Pelion Device Management documentation for a [full review of the update process](https://cloud.mbed.com/docs/latest/updating-firmware/index.html).
 
 
 ### Application updates
