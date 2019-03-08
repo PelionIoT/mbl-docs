@@ -2,6 +2,15 @@
 
 If you're only interested in developing applications (as opposed to contributing to MBL itself), you can download a prebuilt MBL evaluation image.
 
+## Prerequisites
+
+Using MBL requires the following:
+
+* A board from our [supported hardware list](../first-image/hardware.html).
+* <a href="https://os.mbed.com/account/login/" target="_blank">A Pelion Device Management Account</a>
+
+## Evaluation images
+
 Each target hardware has its own release archive, with a hardware-specific image:
 
 * [Raspberry Pi 3B or Raspberry Pi 3B+]()<!--missing the links!!-->
