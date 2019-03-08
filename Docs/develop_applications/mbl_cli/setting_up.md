@@ -39,6 +39,12 @@ To install MBL CLI:
     cd mbl-cli-python
     ```
 
+1. Check out the mbl-0-6 branch.
+   
+    ```bash
+    git checkout mbl-0-6
+    ```
+
 1. Use pip to install the MBL CLI. We recommend installing in a [Python virtual environment](https://www.python.org/dev/peps/pep-0405/).
 
 
