@@ -8,11 +8,15 @@
 
 * The [manifest tool](https://github.com/ARMmbed/manifest-tool). See the Device Management documentation [for an installation guide](https://cloud.mbed.com/docs/latest/cloud-requirements/manifest-tutorial.html).
 
-* <a href="https://os.mbed.com/account/login/" target="_blank">A Pelion Device Management Account</a>
+* <a href="https://os.mbed.com/account/login/" target="_blank">A Pelion Device Management Account</a>.
 
-* An API key from [Pelion Device Management](https://cloud.mbed.com/docs/latest/integrate-web-app/api-keys.html). Be sure to copy the key when prompted.
+## Preliminary steps
 
-* An `update_default_resources.c` file, created with the manifest tool:
+### Mandatory: API key and update authenticity certificate
+
+1. Create an API key for [Pelion Device Management](https://cloud.mbed.com/docs/latest/integrate-web-app/api-keys.html). Be sure to copy the key when prompted - you will need to store it on the device before you begin provisioning.
+
+1. Create an `update_default_resources.c` file with your update authenticity certificate, created with the manifest tool:
 
     1. Create an update resources directory, such as `./update-resources`:
 
@@ -35,7 +39,7 @@
         * `<domain>` is your company's domain, like `arm.com`.
         * `<device class>` is a unique identifier for the device class. If you're in development (using developer credentials), you can use `dev-device`.
 
-## Persistent storage locations
+### Optional: persistent storage locations
 
 <span class="notes">**Note**: MBL CLI sets up defaults automatically; this manual step is optional, but if you chose to perform it, it should be done before any other provisioning steps.</span>
 

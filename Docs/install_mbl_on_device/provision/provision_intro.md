@@ -12,23 +12,27 @@ Starting with Mbed Linux OS 0.6, your devices can be provisioned with developer 
 
 ## Provisioning process review
 
+<span class="tips">**Tip**: If you want to specify a storage location on the device for your API key and certificates, rather than use the default storage location, [do so before you begin the provisioning process](../first-image/provisioning-your-device.html#optional-persistent-storage-locations).</span><!--double-check that the link works - I think it won't now-->
+
 The full provisioning process is:
 
-1. Use the Account Management API to create a developer certificate. This step requires the API key.
+1. Generate a Device Management API key from the **Device Management Portal**.
 
-1. Program the developer certificate to the device. It contains:
+1. Use **MBL CLI** to save the API key to the device.
 
-    * The bootstrap server CA certificate.
-    * The bootstrap server private key.
-    * The bootstrap server information.
-
-1. Use the manifest tool to generate the firmware update authenticity certificate.
-
-2. Program `update_default_resources.c` to the device. It contains:<!--is that the same thing as the update authenticity certificate? if not, we've not done anything with the certificate and I've no idea where .c came from-->
+1. Use the **manifest tool** to generate the firmware update authenticity certificate (`update_default_resources.c`), which contains the:
 
     * Update certificate fingerprint.
     * Update certificate.
     * Vendor and class IDs.
 
 
-You can use MBL CLI to provision your device dynamically (at runtime). MBL CLI will create the developer certificate for you, but requires an update authenticity certificate (which you can create using the manifest tool). MBL CLI will then program both certificate payloads to the device.
+1. Use **MBL CLI** to:
+
+    1. Create a developer certificate. The developer certificate (`mbed_cloud_credentials.c`) contains:
+
+        * The bootstrap server CA certificate.
+        * The bootstrap server private key.
+        * The bootstrap server information.
+
+    1. Program the developer certificate and authenticity certificate to the device.
