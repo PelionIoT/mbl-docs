@@ -1,6 +1,6 @@
 # Provisioning for Pelion Device Management
 
-<span class="notes">**Note**: This document assumes you already [have a device running MBL](../first-image/index.html).</span>
+<span class="notes">**Note**: This document assumes you already [have a device running MBL](../first-image/index.html) and a [Pelion Device Management account](https://os.mbed.com/account/login/).</span>
 
 To connect your devices to Pelion Device Management, you must provision the device with security credentials that establish trust with the cloud services. Device Management offers a **developer certificate** to connect a development device to a Device Management account. The developer certificate doesn't require setting up a certificate authority (unlike the full credentials for production devices). Instead, you can simply download the certificate from the Device Management Portal. You then need to get the certificate on the device in a process called **provisioning**.
 
