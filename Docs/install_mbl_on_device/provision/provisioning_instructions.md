@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-* MBL CLI and a developer connection. Please see [installation and network setup instructions](../develop-apps/setting-up.html).
+* MBL CLI and a developer connection. Please see [installation and developer connection instructions](../develop-apps/setting-up.html).
 
     <span class="notes">**Note:** If you are running an old version (1.x) of MBL CLI, please remove it (and install version 2.0).</span>
 

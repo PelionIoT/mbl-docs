@@ -3,7 +3,7 @@
 To use MBL CLI, you need to:
 
 1. [Set up MBL CLI](#setting-up-mbl) on your development PC.
-1. [Set up networking](#setting-up-networking) on the target device.
+1. [Set up a developer connection over USB](#set-up-a-developer-connection-over-USB) on the target device.
 
 ## Setting up MBL CLI
 
@@ -40,7 +40,7 @@ To install MBL CLI:
     ```
 
 1. Check out the mbl-0-6 branch.
-   
+
     ```bash
     git checkout mbl-0-6
     ```
@@ -52,11 +52,13 @@ To install MBL CLI:
     pip install .
     ```
 
-## Setting up networking
+## Set up a developer connection over USB
+
+You can use a USB developer connection to debug and test your applications. The connection will not be interrupted by your development work, including work that disrupts network connectivity.
 
 ### Connecting a device with a USB gadget network interface
 
-Connect the device to the PC using a USB cable. A new network interface is created on the development PC. 
+Connect the device to the PC using a USB cable. A new network interface is created on the development PC.
 
 **Linux users must ensure the new interface is managed by NetworkManager by following the steps below.**
 
@@ -143,7 +145,7 @@ To connect a PC to a Raspberry Pi 3 device over an Ethernet-to-USB adapter:
 2. Connect the Ethernet cable of the adapter to an available Ethernet port on the development PC.
 
    If another USB Ethernet adapter is used on the PC side, a new network interface is created on the PC (for example, `enx503eaa4e094c`).
-   
+
     ```
     $ ifconfig eno0
     eno0 Link encap:Ethernet  HWaddr 6c:0b:84:67:18:f5  
@@ -157,4 +159,4 @@ To connect a PC to a Raspberry Pi 3 device over an Ethernet-to-USB adapter:
         Memory:fb100000-fb17ffff
     ```
 
-Alternatively, you can connect the Raspberry Pi 3 to a network switch or router using its Ethernet port. 
+Alternatively, you can connect the Raspberry Pi 3 to a network switch or router using its Ethernet port.
