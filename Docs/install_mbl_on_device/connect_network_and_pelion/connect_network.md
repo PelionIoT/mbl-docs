@@ -14,7 +14,7 @@ If your device is physically connected to an Ethernet network (that must have a 
 
 ## Setting up a Wi-Fi connection
 
-<span class="notes">NXP 8M Mini EVK devices do not currenlty support Wi-Fi.</span>
+<span class="notes">NXP 8M Mini EVK devices do not currently support Wi-Fi.</span>
 
 <span class="tips">**Tip**: We recommend [installing MBL CLI](../develop-apps/setting-up.html) and setting up a USB connection to the device. You can then discover the device and [use a shell](../develop-apps/usage.html#get-shell-access-ssh) to set up the Wi-Fi connection.</span>
 
