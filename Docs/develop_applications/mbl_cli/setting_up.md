@@ -31,7 +31,7 @@ npm uninstall mbl-cli -g --save
     pip install git+ssh://git@github.com/armmbed/mbl-cli.git@mbl-0-6
     ```
 
-## Set up a developer connection over USB
+## Setting up a developer connection over USB
 
 You can use a USB developer connection to debug and test your applications. The connection will not be interrupted by your development work, including work that disrupts network connectivity.
 
@@ -48,7 +48,7 @@ If the device uses an Ethernet-to-USB adapter (for example, Raspberry Pi 3):
 
    If another USB Ethernet adapter is used on the PC side, a new network interface is created on the PC (for example, `enx503eaa4e094c`).
 
-### Set up NetworkManager on Linux
+### Setting up NetworkManager on Linux
 
 <span class="notes">**Note**: These instructions assume you're using Ubuntu 16.4; the commands may be different or unnecessary in other operating systems.</span>
 
