@@ -26,13 +26,11 @@
 
 1. Connect a micro-SD card to your PC. You can now see new storage devices:
 
-
     ```
     lsblk
     ```
 
     In this example, the device is listed as `sdc` (the partitions on the device are also shown):
-<!--this doesn't match, because it's PICO-->
 
     ```
     NAME          MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
