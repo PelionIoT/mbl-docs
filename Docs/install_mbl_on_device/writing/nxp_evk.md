@@ -70,11 +70,13 @@
     sudo eject /dev/sdX
     ```
 
-1. To let the device boot from the SD-card, set up the device's DIP switches as explained on the device.
+1. To let the device boot from the SD-card, set up the device's DIP switches as explained on the device:
+
+    <span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/IMX8-DIP.jpg)</span>
 
 1. Detach the micro-SD card from your PC, and plug it into the NXP 8M Mini EVK.
 
-1. connect the micro-USB port to your PC.
+1. Connect the board's micro-USB port to a regular USB port on your PC.
 
 1. Power on the device.
 
