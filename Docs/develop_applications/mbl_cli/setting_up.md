@@ -37,13 +37,11 @@ You can use a USB developer connection to debug and test your applications. The 
 
 ### Connecting a device with a USB gadget network interface
 
-If the device can use the kernal USB gadget driver (for example Warp 7):
-
-1. Connect the device to the PC using a USB cable. A new network interface is created on the development PC.
+If the device can use the kernal USB gadget driver (for example, Warp 7), connect the device to the PC using a USB cable. A new network interface is created on the development PC.
 
 ### Connecting a device with an Ethernet-to-USB adapter
 
-If the device uses a Ethernet-to-USB adapter (for example Raspberry Pi 3):
+If the device uses an Ethernet-to-USB adapter (for example, Raspberry Pi 3):
 
 1. Connect the Ethernet-to-USB adapter's USB "male" connector to any of the four type-A USB ports of the Raspberry Pi 3 board.
 2. Connect the Ethernet cable of the adapter to an available Ethernet port on the development PC.
@@ -126,7 +124,7 @@ If the device uses a Ethernet-to-USB adapter (for example Raspberry Pi 3):
             RX bytes:40589 (40.5 KB)  TX bytes:65923 (65.9 KB)
     ```
 
-    Or a Raspberry Pi 3 device using an Ethernet-to-USB adapter:
+    For a Raspberry Pi 3 device using an Ethernet-to-USB adapter:
     
     ```
     $ ifconfig eno0
