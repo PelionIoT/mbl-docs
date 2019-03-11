@@ -116,9 +116,9 @@ If the device uses an Ethernet-to-USB adapter (for example, Raspberry Pi 3):
 
     ```
     $ ifconfig enp0s2222222a
-    enp0s2222222a Link encap:Ethernet  HWaddr ba:77:68:c0:73:df  
+    enp0s2222222a Link encap:Ethernet  HWaddr xy:11:22:x3:44:xy  
             inet addr:169.254.167.167  Bcast:169.254.255.255  Mask:255.255.0.0
-            inet6 addr: fe80::b418:c138:20f0:57c7/64 Scope:Link
+            inet6 addr: xy80::xy18:x111:00f0:57c7/64 Scope:Link
             UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
             RX packets:146 errors:0 dropped:0 overruns:0 frame:0
             TX packets:364 errors:0 dropped:0 overruns:0 carrier:0
@@ -130,9 +130,9 @@ If the device uses an Ethernet-to-USB adapter (for example, Raspberry Pi 3):
 
     ```
     $ ifconfig eno0
-    eno0 Link encap:Ethernet  HWaddr 6c:0b:84:67:18:f5  
+    eno0 Link encap:Ethernet  HWaddr 1x:1y:11:22:33:z1  
         inet addr:169.254.4.179  Bcast:169.254.255.255  Mask:255.255.0.0
-        inet6 addr: fe80::3714:e5ad:7eb2:c3a5/64 Scope:Link
+        inet6 addr: xy80::1111:x5yz:9xy9:x1y1/64 Scope:Link
         UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
         RX packets:5529 errors:0 dropped:0 overruns:0 frame:0
         TX packets:2936 errors:0 dropped:0 overruns:0 carrier:0
