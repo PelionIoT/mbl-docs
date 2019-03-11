@@ -48,7 +48,7 @@ If the device uses an Ethernet-to-USB adapter (for example, Raspberry Pi 3):
 
    If another USB Ethernet adapter is used on the PC side, a new network interface is created on the PC (for example, `enx503eaa4e094c`).
 
-### NetworkManager setup on Linux
+### Set up NetworkManager on Linux
 
 <span class="notes">**Note**: These instructions assume you're using Ubuntu 16.4; the commands may be different or unnecessary in other operating systems.</span>
 
