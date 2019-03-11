@@ -87,7 +87,7 @@ NOTE: Tasks Summary: Attempted 338 tasks of which 337 didn't need to be rerun an
 
 You should be able to visualize a screen like the following:
 
-<span class="images">![](link_to_image)</span>
+<span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/dev_interactive_shell_kernel_menuconfig.png)</span>
 
 After exiting from the menuconfig you can rebuild the linux kernel with `bitbake virtual/kernel` command:
 
