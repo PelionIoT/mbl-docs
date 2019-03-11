@@ -2,6 +2,8 @@
 
 <span class="tips">This process currently uses a micro-SD card. A future release will use the on-board EMMC.</span>
 
+<span class="notes">This platform is still in development and is only partially supported at the moment. The boot partitioning has not been finished and Wi-Fi communication is not working yet.</span>
+
 1. Check the current block storage devices on your PC:
 
     ```
