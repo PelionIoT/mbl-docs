@@ -25,31 +25,10 @@ npm uninstall mbl-cli -g --save
 
 ### Installation
 
-To install MBL CLI:
-
-1. Clone the repository.
-
-    ```bash
-    git clone git@github.com:armmbed/mbl-cli-python.git
-    ```
-
-1. Ensure your `pwd` is the `mbl-cli-python` directory (contains `setup.py`).
-
-    ```bash
-    cd mbl-cli-python
-    ```
-
-1. Check out the mbl-0-6 branch.
-
-    ```bash
-    git checkout mbl-0-6
-    ```
-
 1. Use pip to install the MBL CLI. We recommend installing in a [Python virtual environment](https://www.python.org/dev/peps/pep-0405/).
 
-
     ```bash
-    pip install .
+    pip install git+ssh://git@github.com/armmbed/mbl-cli.git@mbl-0-6
     ```
 
 ## Set up a developer connection over USB
@@ -58,7 +37,18 @@ You can use a USB developer connection to debug and test your applications. The 
 
 ### Connecting a device with a USB gadget network interface
 
-Connect the device to the PC using a USB cable. A new network interface is created on the development PC.
+If the device can use the kernal USB gadget driver (for example Warp 7):
+
+1. Connect the device to the PC using a USB cable. A new network interface is created on the development PC.
+
+### Connecting a device with an Ethernet-to-USB adapter
+
+If the device uses a Ethernet-to-USB adapter (for example Raspberry Pi 3):
+
+1. Connect the Ethernet-to-USB adapter's USB "male" connector to any of the four type-A USB ports of the Raspberry Pi 3 board.
+2. Connect the Ethernet cable of the adapter to an available Ethernet port on the development PC.
+
+   If another USB Ethernet adapter is used on the PC side, a new network interface is created on the PC (for example, `enx503eaa4e094c`).
 
 **Linux users must ensure the new interface is managed by NetworkManager by following the steps below.**
 
@@ -136,16 +126,8 @@ Connect the device to the PC using a USB cable. A new network interface is creat
             RX bytes:40589 (40.5 KB)  TX bytes:65923 (65.9 KB)
     ```
 
-
-### Connecting a Raspberry Pi 3 device
-
-To connect a PC to a Raspberry Pi 3 device over an Ethernet-to-USB adapter:
-
-1. Connect the Ethernet-to-USB adapter's USB "male" connector to any of the four type-A USB ports of the Raspberry Pi 3 board.
-2. Connect the Ethernet cable of the adapter to an available Ethernet port on the development PC.
-
-   If another USB Ethernet adapter is used on the PC side, a new network interface is created on the PC (for example, `enx503eaa4e094c`).
-
+    Or a Raspberry Pi 3 device using an Ethernet-to-USB adapter:
+    
     ```
     $ ifconfig eno0
     eno0 Link encap:Ethernet  HWaddr 6c:0b:84:67:18:f5  

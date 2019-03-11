@@ -72,7 +72,7 @@ If, on first use, you do not create your own `~/.mbl-stores.json`, it will be au
 
 To provision your device:
 
-1. Connect the device to your development PC. Follow the tutorial to [connect your device](../develop-apps/setting-up.html#setting-up-networking). You don't need to assign an IPv4 address.
+1. Connect the device to your development PC. Follow the tutorial to [connect your device](../develop-apps/setting-up.html#setting-up-networking).
 2. Run the `select` command. It returns a list of discovered devices; you can select your device by its list index:
 
     ```bash
