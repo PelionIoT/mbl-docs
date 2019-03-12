@@ -28,7 +28,7 @@ npm uninstall mbl-cli -g --save
 1. Use pip to install the MBL CLI. We recommend installing in a [Python virtual environment](https://www.python.org/dev/peps/pep-0405/).
 
     ```bash
-    pip install git+ssh://git@github.com/armmbed/mbl-cli.git@mbl-0-6
+    pip install git+ssh://git@github.com/armmbed/mbl-cli.git@mbl-os-0.6
     ```
 
 ## Setting up a developer connection over USB
