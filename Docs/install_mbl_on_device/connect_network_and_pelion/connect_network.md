@@ -283,39 +283,19 @@ When connecting, the network name you use in the command must match the real net
 
 ## Setting up a cellular connection
 
-<span class="notes">**Note**: cellular support was only tested on the Raspberry Pi 3B+.</span>
+<span class="notes">**Note**: cellular support was only tested on the Raspberry Pi 3B+, NXP 8M Mini EVK and Pico IMX7D </span>
 
-### Hardware for the Raspberry Pi 3
+### Hardware configuration
 
 <img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/cellular_hardware.jpg" width="50%" align="right" />
 
 Required hardware: [sixfab evaluation board with Quectel EC25 cellular modem](https://sixfab.com/product/raspberry-pi-4g-lte-shield-kit/).
 
-You must disable the SIM pin enquiry before inserting the SIM card.
+<span class="notes">**Note**: You must disable the SIM pin enquiry before inserting the SIM card.</span>
 
 ### Software configuration
 
-There are two ways to establish a network connection through the cellular modem:
-
-* Use the Ethernet Control Model (ECM) to connect over USB. This is the preferred method, and the one we show in this document. ECM is activated using AT command (detailed below), and the modem interface appears on ifconfig as `usbo0`.
-* Use the oFono daemon to control the modem. The modem interface appears on ifconfig as `wwan0`.
-
-<!--we're not showing oFono?-->
-
-In both cases, the modem interface is controlled with ConnMan<!--then what does "use ofono dameon for modem control" mean?-->
-
-#### ConnMan configuration
-
-To allow ConnMan to use the cellular interface when a connection<!--a connection between what and what? a connection to the cellular network?--> is established, set the following variables in `/config/user/connman/main.conf`:
-
-<!--does this mean it will try ethernet, and only then wi-fi, and only then cellular? if i want it to try cellular first, do i reverse the order?-->
-<!--should we explain why we're using these variables, and what their values mean?-->
-
-```
-PreferredTechnologies = ethernet,wifi,cellular
-NetworkInterfaceBlacklist = eth1
-SingleConnectedTechnology = true
-```
+In order to establish a cellular connection we need to use the Ethernet Control Model (ECM) driver to connect over USB. ECM is activated using AT command (detailed below), and the modem interface appears on ifconfig as `usb0`.
 
 ### Activating ECM with AT commands
 
@@ -391,7 +371,65 @@ To activate ECM:
     [    518.367866] cdc_ether 1-1.3:1.4 usb0: kevent 12 may have been dropped
     ```    
 
-1. Check that ECM is working by pinging a website, for example www.google.com:
+1. Check that ECM is working by verifying a valid IP address on the interface and by pinging a website, for example www.google.com:
+
+    ```
+    # ifconfig usb0
+    usb0  Link encap:Ethernet  HWaddr 46:1C:33:88:26:11  
+          inet addr:192.168.225.37  Bcast:192.168.225.255  Mask:255.255.255.0
+          inet6 addr: fe80::441c:33ff:fe88:2611/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:1918 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:2141 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:177877 (173.7 KiB)  TX bytes:197501 (192.8 KiB)
+    # ping -I usb0 www.google.com
+      PING www.google.com (216.58.213.100): 56 data bytes
+      64 bytes from 216.58.213.100: seq=0 ttl=51 time=168.265 ms
+      64 bytes from 216.58.213.100: seq=1 ttl=51 time=60.287 ms
+      64 bytes from 216.58.213.100: seq=2 ttl=51 time=59.877 ms
+      64 bytes from 216.58.213.100: seq=3 ttl=51 time=58.314 ms
+    ```
+
+### Connect/Disconnect the cellular connection using Connman
+ 
+Once the ECM is up and running, Connman can connect/disconnect the cellular connection. In order to identify the right service you need the MAC address of the network interface because it is used to name the Connman service. In the case above, it is `46:1C:33:88:26:11` and the service name will be `ethernet_461c33882611_cable`
+
+1. List all Connman services:
+
+   ```
+   # connmanctl services
+   *AO Wired                ethernet_461c33882611_cable
+   *AR Wired                ethernet_de5e17ac558d_cable
+   ```
+1. Disconnect cellular connection:
+ 
+   ```
+   # connmanctl disconnect ethernet_461c33882611_cable
+   ```
+1. Check `usb0` doesn't have an IP address anymore:
+
+   ```
+   # ifconfig usb0
+   usb0      Link encap:Ethernet  HWaddr 46:1C:33:88:26:11  
+             inet6 addr: fe80::441c:33ff:fe88:2611/64 Scope:Link
+             UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+             RX packets:2072 errors:0 dropped:0 overruns:0 frame:0
+             TX packets:2339 errors:0 dropped:0 overruns:0 carrier:0
+             collisions:0 txqueuelen:1000 
+             RX bytes:183673 (179.3 KiB)  TX bytes:211149 (206.2 KiB)
+   ```
+   
+1. Connect cellular connection:
+
+   ```
+   # connmanctl connect ethernet_461c33882611_cable
+   Connected ethernet_461c33882611_cable
+   ```
+
+You can now check if the cellular connection is connected again by pinging an external a website.
+ 
+### Deactivate ECM with AT commands
 
 To deactivate ECM:
 
