@@ -306,7 +306,7 @@ To activate ECM:
 1. Open a serial interface to the EC25 modem:
 
     ```
-    microcom /dev/ttyUBS2
+    # microcom /dev/ttyUBS2
     ```
 
 1. Check whether or not ECM is already active:
@@ -432,6 +432,12 @@ You can now check if the cellular connection is connected again by pinging an ex
 ### Deactivate ECM with AT commands
 
 To deactivate ECM:
+
+1. Open a serial interface to the EC25 modem:
+
+    ```
+    # microcom /dev/ttyUBS2
+    ```
 
 1. Enter:
 
