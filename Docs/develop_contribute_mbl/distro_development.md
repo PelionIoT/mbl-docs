@@ -1,38 +1,52 @@
-# Mbed Linux OS Distribution Development
+# Mbed Linux OS distribution development with mbl-tools
 
-<span class="notes">**Note**: Make sure you have followed [Preparing a development environment for the distribution - Software requirements](https://os.mbed.com/docs/mbed-linux-os/master/first-image/development-environment.html) instructions.</span>
+The [mbl-tools repository](https://github.com/ARMmbed/mbl-tools/) contains a set of tools to build, develop and test the Mbed Linux OS (MBL) distribution, which is based on OpenEmbedded and Yocto. MBL supports all of the development workflows listed in the [Yocto Manuals](https://www.yoctoproject.org/docs/current/mega-manual/mega-manual.html).
+<!--which of the tools are we covering in this page? we should name them, with a couple of words about what each one does. -->
+<!--also, I *think* this really only covers build-mbl. Is that right? why, then?-->
 
-The [mbl-tools](https://github.com/ARMmbed/mbl-tools/) is a set of tools to build, develop and test the Mbed Linux OS Distribution which is based on Openembedded/Yocto. All development workflows listed in the [Yocto Manuals](https://www.yoctoproject.org/docs/current/mega-manual/mega-manual.html) are supported.
+To perform incremental builds, use [devtool](https://www.yoctoproject.org/docs/current/mega-manual/mega-manual.html#ref-devtool-reference), or just call `bitbake [options] <target>`.<!--what's the relationship between devtool and mbl-tools, and why is it needed for an incremental build?-->
 
-In order to be able to perform incremental builds, use [devtool](https://www.yoctoproject.org/docs/current/mega-manual/mega-manual.html#ref-devtool-reference), or just call `bitbake [options] <target>`, you need to run the **mbl-tool** build in *interactive mode*.The interactive mode consists of an interactive shell inside the Docker build environment with the bitbake environment setup, and to be launched you should have run a [complete build](https://os.mbed.com/docs/mbed-linux-os/master/first-image/building-a-developer-image.html) at least once. Unlike the build mode, the interactive mode only supports one `--machine` option at a time.
+## Requirements for mbl-tools
 
-## Running mbl-tools build interactive mode
+* To be able to launch mbl-tools, you need to [run a complete build](../first-image/building-a-developer-image.html) at least once.
+<!--so I can use these with an evaluation image? it has to be one I built from the sources?-->
+* Install [all software requirements for a development environment](../first-image/development-environment.html).
 
-Issue the follwing command and change the appropriate options for `--builddir`, `--outputdir` and `--machine`:
+## Running build-mbl in interactive mode
+
+<!--I guessed "build-mbl" because that's the only thing that matched the text. but why am I running it? what is it, and what's its relationship to the other items on this page?-->
+
+You need to run the **build-mbl tool** in interactive mode: an interactive shell inside the Docker build environment with the BitBake environment setup. This allows running commands for BitBake and its associated tools (such as bitbake-layers, devtool and receipetool).
+
+Issue the following command (change `--builddir`, `--outputdir` and `--machine` as needed):<!--what does this do? start an interactive shell? is that a way to run commands on the device, or is it part of your PC development environment?-->
 
 `./mbl-tools/build-mbl/run-me.sh --builddir ./build-warp7 --outputdir ./artifacts-warp7 -- --branch mbl-os-0.6 --machine imx7s-warp-mbl interactive`
 
-<span class="notes">**Note**: If you haven't run a complete build before you will be propmpted with the following message:
+<span class="tips">Unlike the build mode, the interactive mode only supports one `--machine` option at a time.</span>
 
+<div style="background-color:#F3F3F3; text-align:left; vertical-align: middle; padding:15px 30px;">**Note:** If you haven't run a complete build before you will be prompted with the following message:
+<br></br>
 ```
 error: '<builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl' path missing.
 Please run a complete build for 'imx7s-warp-mbl' machine before using the interactive mode.
 Would you like to run the complete build now? (Y/N):
 ```
-</span>
 
+Please [run the complete build before proceeding](../first-image/building-a-developer-image.html).
+</div>
 
-The interactive shell should looks like the following:
+The interactive shell should looks like:<!--where?-->
 
 `user@9c2c89bf20a6:<builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl$`
 
-And now you are able to run bitbake commads and its associated tools (e.g: bitbake-layers, devtool, recipetool etc). To exit from it you can press `Ctrl+D` or enter `exit`.
+To exit the interactive shell, press <kbd>Ctrl</kbd>+<kbd>D</kbd> or enter `exit`.
 
+## Examples
+<!--examples of what? using the tools?-->
 
+### bitbake-layers
 
-### Examples
-
-1. bitbake-layers (`$ bitbake-layers show-appends linux-fslc`):
+Using `$ bitbake-layers show-appends linux-fslc`<!--to achieve what?-->:
 
 ```
 user@9c2c89bf20a6:<builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl$ bitbake-layers show-appends linux-fslc
@@ -45,8 +59,9 @@ linux-fslc_4.20.bb:
   <builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl/conf/../../layers/meta-mbl/recipes-kernel/linux/linux-fslc_%.bbappend
   ```
 
-2. Changing the kernel configuration (`$ bitbake virtual/kernel -c menuconfig`):
+### Changing the kernel configuration
 
+Using `$ bitbake virtual/kernel -c menuconfig`<!--to achieve what?-->:
 
 ```
 user@9c2c89bf20a6:<builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl$ bitbake virtual/kernel -c menuconfig
@@ -85,18 +100,18 @@ Currently  1 running tasks (338 of 338)  99% |##################################
 NOTE: Tasks Summary: Attempted 338 tasks of which 337 didn't need to be rerun and all succeeded.
 ```
 
-You should be able to visualize a screen like the following:
+You should see something like:
+<!--where? why?-->
 
 <span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/dev_interactive_shell_kernel_menuconfig.png)</span>
 
-After exiting from the menuconfig you can rebuild the linux kernel with `bitbake virtual/kernel` command:
+After exiting the kernel configuration screen, you can rebuild the Linux kernel with the `bitbake virtual/kernel` command:
 
 `user@9c2c89bf20a6:<builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl$ bitbake virtual/kernel`
 
+### Rebuilding an image
 
-4. Rebuild an image
-
-You can call `bitbake image-recipe-name` to generate the image:
+You can call `bitbake <image-recipe-name>` to generate the image:
 
 ```
 user@9c2c89bf20a6:<builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl$ bitbake mbl-image-development
@@ -134,22 +149,19 @@ NOTE: Tasks Summary: Attempted 4038 tasks of which 3672 didn't need to be rerun 
 NOTE: Writing buildhistory
 ```
 
-<span class="notes">**Note**: The images are placed in:
-  
-``` 
+The images are placed in:
+
+```
 <builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/imx7s-warp-mbl/
 ```
- </span>
 
+### Modifying the source of an existing component
 
-5.  Modify the source of an existing component built by Openembedded/Yocto
+To modify the source of an existing component built by OpenEmbedded/Yocto, follow the [Use `devtool modify` to Modify the Source of an Existing Component](https://www.yoctoproject.org/docs/current/mega-manual/mega-manual.html#sdk-devtool-use-devtool-modify-to-modify-the-source-of-an-existing-component) section on the Yocto website. It works inside the interactive mode.
 
-The [Use devtool modify to Modify the Source of an Existing Component](https://www.yoctoproject.org/docs/current/mega-manual/mega-manual.html#sdk-devtool-use-devtool-modify-to-modify-the-source-of-an-existing-component) section works inside the interactive mode.
+### Updating the meta layers sources
 
-
-6. Update the meta layers sources
-
-Using `repo sync` you are able to update all the layers sources:
+Use `repo sync` to update all the layers sources:
 
 ```
 user@9c2c89bf20a6:<builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl$ repo sync
