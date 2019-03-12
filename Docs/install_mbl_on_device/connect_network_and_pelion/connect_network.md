@@ -4,9 +4,11 @@
 
 This tutorial covers:
 
-1. Setting up an Ethernet connection.
-2. Setting up a Wi-Fi connection.
-3. Verifying that your device can connect to your Pelion Device Management account.
+1. Setting up a connection over:
+    * [Ethernet](#setting-up-an-ethernet-connection).
+    * [Wi-Fi](#setting-up-a-wi-fi-connection).
+    * [Cellular](setting-up-a-cellular-connection).
+1. Verifying that your device can connect to your Pelion Device Management account.
 
 ## Setting up an Ethernet connection
 
@@ -278,3 +280,5 @@ If you experience any issues, restart both ConnMan and `wpa_supplicant` daemons.
 When connecting, the network name you use in the command must match the real network name exactly, including capitalisation and without trailing characters. Otherwise, you may get the following error:
 
 `Error /net/connman/service/WIFI_NAME: Method "Connect" with signature "" on interface "net.connman.Service" doesn't exist`
+
+## Setting up a cellular connection
