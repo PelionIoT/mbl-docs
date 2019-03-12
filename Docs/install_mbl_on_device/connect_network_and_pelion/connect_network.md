@@ -291,7 +291,7 @@ When connecting, the network name you use in the command must match the real net
 
 Required hardware: [sixfab evaluation board with Quectel EC25 cellular modem](https://sixfab.com/product/raspberry-pi-4g-lte-shield-kit/).
 
-<span class="notes">**Note**: You must disable the SIM pin enquiry before inserting the SIM card.</span>
+You must disable the SIM pin enquiry before inserting the SIM card.
 
 ### Software configuration
 
