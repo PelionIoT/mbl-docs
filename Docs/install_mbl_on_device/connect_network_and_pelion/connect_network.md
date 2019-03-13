@@ -301,7 +301,7 @@ To establish a cellular connection, use the Ethernet Control Model (ECM) driver 
 
 <span class="tips">This example uses the microcom terminal to send AT commands to the modem.</span>
 
-To activate ECM:
+**To activate ECM:**
 
 1. Open a serial interface to the EC25 modem:
 
@@ -395,7 +395,7 @@ To activate ECM:
  
 Once the ECM is up and running, ConnMan can connect and disconnect the cellular connection. To identify the right service you need the MAC address of the network interface, which is used to name the Connman service. In the example above, the address is `46:1C:33:88:26:11`, and the derived service name is `ethernet_461c33882611_cable`.
 
-To disconnect:
+**To disconnect:**
 
 1. List all ConnMan services:
 
@@ -422,7 +422,7 @@ To disconnect:
              RX bytes:183673 (179.3 KiB)  TX bytes:211149 (206.2 KiB)
    ```
    
-To reconnect: 
+**To reconnect:**
 
 1. Connect cellular connection:
 
@@ -435,7 +435,7 @@ To reconnect:
  
 ### Deactivate ECM with AT commands
 
-To deactivate ECM:
+**To deactivate ECM:**
 
 1. Open a serial interface to the EC25 modem:
 
