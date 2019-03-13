@@ -36,7 +36,7 @@ The preview release provides:
     * Dedicated hardware within most Cortex-A devices enforces the most secure isolation boundary. This technology, called TrustZone, allows the most sensitive code and data to run within a so-called **Secure World**. MBL includes a trusted operating system for this Secure World called **Open Source Trusted Execution Environment** (OP-TEE) - an operating system within an operating system. It is loaded by the Trusted Firmware and typically used to protect cryptographic keys and other sensitive data assets.
     * Secure boot methodology based on Linaro's Trusted Firmware A for both the ARMv7-A and ARMv8-A platforms. Trusted Firmware is a minimal secure bootloader that runs when a Cortex-A microprocessor is executing in TrustZone's "secure world" mode.
     * Open Container Initiative (OCI)-compliant containers for applications, protecting against compromised applications and facilitating a modern development workflow. Based on the RUNC container runtime, this Docker-like system allows OEMs to package services or applications as independent container images that run entirely within a sandbox. This provides two benefits. First, if an attacker compromises a single application, it's far harder for the attack to spread beyond the infected container. This will help to reduce the impact of an attack and ensure a device can easily be restored to a secure state. Second, applications can be developed independently of the underlying IoT platform. For example, it's easier for a developer to build and test on their desktop workstation or laptop.
-* Support for a developer connection to the IoT device (over USB), to develop without disrupting the production networking options. 
+* Support for a developer connection to the IoT device (over USB), to develop without disrupting the production networking options.
 * A developer command-line tool - MBL CLI - to facilitate:
     * Discovery, setup and local update of development devices.
     * First-time provisioning of device and update credentials to the IoT device (added in 0.6).
@@ -95,10 +95,10 @@ There are two paths to working with MBL:
 
 <!--tempting to just say "we redid the docs; get reading"-->
 
-* A standalone guide [for writing images to devices](../first-image/index.html), including evaluation images and new board support for version 0.6.
+* A standalone guide [for writing images to devices](../first-image/index.html), including evaluation images, new board support and cellular connections for version 0.6.
 * A new [provisioning guide](../first-image/provisioning-for-pelion-device-management.html).
 * Instructions for [removing the old version of MBL CLI](../develop-apps/setting-up.html#setting-up-mbl-cli).
 * A new [guide for application developers](../develop-apps/index.html).
-* New [contribution guidelines and code style guides](../develop-mbl/index.html).
+* New [information for MBL development](../develop-mbl/index.html), including tool reviews for incremental builds, [contribution guidelines and code style guides](develop-mbl/contribution-guidelines.html).
 * Revised [firmware update tutorials](../update/index.html).
 * A new [reference about partition layout](../references/partition-layout.html).
