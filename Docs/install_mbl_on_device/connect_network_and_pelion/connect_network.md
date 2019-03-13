@@ -283,7 +283,7 @@ When connecting, the network name you use in the command must match the real net
 
 ## Setting up a cellular connection
 
-<span class="notes">**Note**: cellular support was only tested on the Raspberry Pi 3B+, NXP 8M Mini EVK and Pico IMX7D </span>
+<span class="notes">**Note**: cellular support was tested on the Raspberry Pi 3B+, NXP 8M Mini EVK and Pico IMX7D.</span>
 
 ### Hardware configuration
 
@@ -295,7 +295,7 @@ You must disable the SIM pin enquiry before inserting the SIM card.
 
 ### Software configuration
 
-In order to establish a cellular connection we need to use the Ethernet Control Model (ECM) driver to connect over USB. ECM is activated using AT command (detailed below), and the modem interface appears on ifconfig as `usb0`.
+To establish a cellular connection, use the Ethernet Control Model (ECM) driver to connect to the device over USB. ECM is activated using AT commands (detailed below), and the modem interface appears on ifconfig as `usb0`.
 
 ### Activating ECM with AT commands
 
@@ -391,11 +391,13 @@ To activate ECM:
       64 bytes from 216.58.213.100: seq=3 ttl=51 time=58.314 ms
     ```
 
-### Connect/Disconnect the cellular connection using Connman
+### Connecting and disconnecting the cellular connection using ConnMan
  
-Once the ECM is up and running, Connman can connect/disconnect the cellular connection. In order to identify the right service you need the MAC address of the network interface because it is used to name the Connman service. In the case above, it is `46:1C:33:88:26:11` and the service name will be `ethernet_461c33882611_cable`
+Once the ECM is up and running, ConnMan can connect and disconnect the cellular connection. To identify the right service you need the MAC address of the network interface, which is used to name the Connman service. In the example above, the address is `46:1C:33:88:26:11`, and the derived service name is `ethernet_461c33882611_cable`.
 
-1. List all Connman services:
+To disconnect:
+
+1. List all ConnMan services:
 
    ```
    # connmanctl services
@@ -407,7 +409,7 @@ Once the ECM is up and running, Connman can connect/disconnect the cellular conn
    ```
    # connmanctl disconnect ethernet_461c33882611_cable
    ```
-1. Check `usb0` doesn't have an IP address anymore:
+1. Check that `usb0` doesn't have an IP address anymore:
 
    ```
    # ifconfig usb0
@@ -420,6 +422,8 @@ Once the ECM is up and running, Connman can connect/disconnect the cellular conn
              RX bytes:183673 (179.3 KiB)  TX bytes:211149 (206.2 KiB)
    ```
    
+To reconnect: 
+
 1. Connect cellular connection:
 
    ```
@@ -427,7 +431,7 @@ Once the ECM is up and running, Connman can connect/disconnect the cellular conn
    Connected ethernet_461c33882611_cable
    ```
 
-You can now check if the cellular connection is connected again by pinging an external a website.
+1. Check whether the cellular connection has reconnected by pinging an external website.
  
 ### Deactivate ECM with AT commands
 
