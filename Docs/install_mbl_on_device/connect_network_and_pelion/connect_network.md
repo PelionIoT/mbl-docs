@@ -283,7 +283,7 @@ When connecting, the network name you use in the command must match the real net
 
 ## Setting up a cellular connection
 
-<span class="notes">**Note**: cellular support was tested on the Raspberry Pi 3B+, NXP 8M Mini EVK and Pico IMX7D.</span>
+<span class="notes">**Note**: cellular support was tested on the Raspberry Pi 3B/B+ and Pico IMX7D.</span>
 
 ### Hardware configuration
 
