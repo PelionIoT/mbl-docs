@@ -12,11 +12,27 @@ To perform incremental builds, use [devtool](https://www.yoctoproject.org/docs/c
 <!--so I can use these with an evaluation image? it has to be one I built from the sources?-->
 * Install [all software requirements for a development environment](../first-image/development-environment.html).
 
+## Build Mbed Linux OS using a custom repo manifest
+
+It is possible to have mbl-tools building your custom repo manifest forked from the [mbl-manifest](https://github.com/ARMmbed/mbl-manifest), for example.
+
+To accomplish this you need to pass at least `--branch` and `--url` options. The `--manifest` option can be used to pass the manifest file name if it is different from `default.xml`.
+
+<span class="notes">**Note**: the `--url` must be in the **Clone with SSH** format.</span>
+
+Issue the following command (change `--builddir`, `--outputdir` and `--machine` as needed):
+
+```
+./mbl-tools/build-mbl/run-me.sh --builddir ./build-warp7 --outputdir ./artifacts-warp7 -- --machine imx7s-warp-mbl --branch mbl-os-0.6 --url git@github.com:diego-sueiro/mbl-manifest.git`
+```
+
 ## Running build-mbl in interactive mode
 
 <!--I guessed "build-mbl" because that's the only thing that matched the text. but why am I running it? what is it, and what's its relationship to the other items on this page?-->
 
 You need to run the **build-mbl tool** in interactive mode: an interactive shell inside the Docker build environment with the BitBake environment setup. This allows running commands for BitBake and its associated tools (such as bitbake-layers, devtool and receipetool).
+
+The Docker build environment is very limited and is not supposed to be used for editing files since it doesn't include vim, for example. If you want to inspect/edit files you can accomplish from another shell terminal. The layers source code are located at: `<builddir>/<mbl-machine-name>/mbl-manifest/layers` and the BitBake build directory at: `<builddir>/<mbl-machine-name>/mbl-manifest/build-mbl`
 
 Issue the following command (change `--builddir`, `--outputdir` and `--machine` as needed):<!--what does this do? start an interactive shell? is that a way to run commands on the device, or is it part of your PC development environment?-->
 
