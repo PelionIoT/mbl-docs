@@ -10,9 +10,9 @@ The Mbed Linux OS distribution is made up of an aggregation of Open Source Softw
 
 The full list of licenses for a particular build of Mbed Linux OS can be found in either the OpenEmbedded builds deploy directory (for example, `build-mbl/tmp-mbl-glibc/deploy/licenses`) or, if you have used the docker builds artifacts option, in the `licenses.tar.gz` archive in the `artifacts` directory.
 
-<span class="notes">The full source code should be made available for a binary build as some software licenses do not contain specific copyright declarations, instead the copyrights can be found in the respective source code for that software.</span>
+<span class="notes">The full source code should be made available for a binary build, because some software licenses do not contain specific copyright declarations; instead, the copyrights can be found in the respective source code for that software.</span>
 
-There are upto three sets of license manifests (lists of the software and licenses) for every machine:
+There are upt o three sets of license manifests (lists of the software and licenses) for every machine:
 
 * `mbl-image-development-<MACHINE>-<DATE>`: the development image licenses.
 * `mbl-image-initramfs-<MACHINE>-<DATE>`: the initramfs licenses (used in both development and production).
