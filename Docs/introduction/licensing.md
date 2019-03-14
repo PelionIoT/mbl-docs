@@ -23,7 +23,7 @@ In each set, there are two files that document the licenses:
 * `license.manifest`: all the system packages installed in the file system for that image.
 * `image_license.manifest`: the binary files that have been put in the disk image.
 
-These license files are bundled with any disk image binary supplied by Arm.
+These license files and full source code are bundled with any disk image binary supplied by Arm.
 
 ## GPLv3 statement
 
