@@ -295,7 +295,7 @@ You must disable the SIM pin enquiry before inserting the SIM card.
 
 ### Software configuration
 
-To establish a cellular connection, use the Ethernet Control Model (ECM) to connect to the device over USB. ECM is activated using AT commands (detailed below). The modem interface appears on `ifconfig` as:
+To establish a cellular connection, use the Ethernet Control Model (ECM) mode to connect to the device over USB. ECM is activated using AT commands (detailed below). The modem interface appears on `ifconfig` as:
 * `usb0` on Raspberry Pi3 B/B+
 * `usb1` on Pico IMX7D
 
