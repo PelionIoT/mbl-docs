@@ -385,6 +385,8 @@ The activation of ECM mode is only needed once: the change is saved in NV (non-v
 
 1. Check that ECM is working by verifying a valid IP address on the interface and by pinging a website, for example www.google.com:
 
+<span class="tips">Note: on Pico IMX7D the interface is `usb1`</span>
+
     ```
     # ifconfig usb0
     usb0  Link encap:Ethernet  HWaddr 46:1C:33:88:26:11  
