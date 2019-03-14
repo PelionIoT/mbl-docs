@@ -306,7 +306,7 @@ To establish a cellular connection, use the Ethernet Control Model (ECM) driver 
 1. Open a serial interface to the EC25 modem:
 
     ```
-    # microcom /dev/ttyUBS2
+    # microcom /dev/ttyUSB2
     ```
 
 1. Check whether or not ECM is already active:
