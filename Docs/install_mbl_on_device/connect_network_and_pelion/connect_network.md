@@ -296,6 +296,7 @@ You must disable the SIM pin enquiry before inserting the SIM card.
 ### Software configuration
 
 To establish a cellular connection, use the Ethernet Control Model (ECM) mode to connect to the device over USB. ECM is activated using AT commands (detailed below). The modem interface appears on `ifconfig` as:
+
 * `usb0` on Raspberry Pi3 B/B+
 * `usb1` on Pico IMX7D
 
@@ -449,9 +450,9 @@ Once the ECM is up and running, ConnMan can connect and disconnect the cellular 
  
 ### Deactivate ECM with AT commands
 
-**To deactivate ECM:**
+If you need to deactivate the ECM mode, you can use AT commands as detailed below. You only need to do this once; the change is stored in the modem's NV (non-volatile) memory.
 
-If you have the need to deactivate the ECM mode, you can do it with the below commands. This operation is needed only once as the change is stored in the NV (non-volatile) memory of the modem.
+**To deactivate ECM:**
 
 1. Open a serial interface to the EC25 modem:
 
