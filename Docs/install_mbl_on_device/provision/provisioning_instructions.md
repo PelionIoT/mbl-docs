@@ -4,7 +4,7 @@
 
 * MBL CLI and a developer connection. Please see [installation and developer connection instructions](../develop-apps/setting-up.html).
 
-    <span class="notes">**Note:** If you are running an old version (1.x) of MBL CLI, please remove it (and install version 2.0).</span>
+    <span class="notes">**Note:** If you are running an earlier version (1.x) of MBL CLI, please remove it (and install 2.0).</span>
 
 * The [manifest tool](https://github.com/ARMmbed/manifest-tool). See the Device Management documentation [for an installation guide](https://cloud.mbed.com/docs/latest/cloud-requirements/manifest-tutorial.html).
 
