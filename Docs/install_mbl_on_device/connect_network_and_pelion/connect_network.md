@@ -440,7 +440,7 @@ Once the ECM is up and running, ConnMan can connect and disconnect the cellular 
 1. Open a serial interface to the EC25 modem:
 
     ```
-    # microcom /dev/ttyUBS2
+    # microcom /dev/ttyUSB2
     ```
 
 1. Enter:
