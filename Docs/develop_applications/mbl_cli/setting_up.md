@@ -52,7 +52,7 @@ If the device uses an Ethernet-to-USB adapter (for example, Raspberry Pi 3):
 
 <span class="notes">**Note**: These instructions assume you're using Ubuntu 16.4; the commands may be different or unnecessary in other operating systems.</span>
 
-1. Create a NetworkManager connection profile called `mbl-ipv4ll` for the interface with the `link-local` IPv4 addressing method. Use the NetworkManager's command line interface:
+1. Create a named NetworkManager connection profile for the interface with the `link-local` IPv4 addressing method. In this example we use the name `mbl-ipv4ll`. If you are setting up managed connections for multiple boards, you must give them unique names. Use the NetworkManager's command line interface:
 
     ```
     $ sudo nmcli connection add ifname <interface-name-on-pc> con-name mbl-ipv4ll type ethernet -- ipv4.method link-local
