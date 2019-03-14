@@ -451,6 +451,8 @@ Once the ECM is up and running, ConnMan can connect and disconnect the cellular 
 
 **To deactivate ECM:**
 
+If you have the need to deactivate the ECM mode, you can do it with the below commands. This operation is needed only once as the change is stored in the NV (non-volatile) memory of the modem.
+
 1. Open a serial interface to the EC25 modem:
 
     ```
