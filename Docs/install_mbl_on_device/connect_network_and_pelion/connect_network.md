@@ -305,10 +305,20 @@ To establish a cellular connection, use the Ethernet Control Model (ECM) to conn
 
 **To activate ECM:**
 
+The activation of ECM mode is only needed once: the change is saved in NV (non-volatile) memory in the modem.
+
 1. Open a serial interface to the EC25 modem:
 
     ```
     # microcom /dev/ttyUSB2
+    ```
+
+1. microcom doesn't give any feedback once connected. To check it is working type `at` and it should respond `OK`
+
+    ```
+    # microcom /dev/ttyUSB2
+    at
+    OK
     ```
 
 1. Check whether or not ECM is already active:
