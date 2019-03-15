@@ -6,8 +6,8 @@ You can use the Docker build environment's shell (interactive mode, explained be
 
 ## Requirements for mbl-tools
 
-* To be able to use interactive mode and launch mbl-tools, you need to [run a complete build](../first-image/building-a-developer-image.html) at least once.
 * Install [all software requirements for a development environment](../first-image/development-environment.html).
+* To be able to use interactive mode and launch mbl-tools, you need to [run a complete build](../first-image/building-a-developer-image.html) at least once.
 
 ## Building MBL using a custom repo manifest
 
@@ -16,7 +16,7 @@ You can use a custom repo manifest with mbl-tools to specify source revisions or
 To point to a custom manifest, you need to pass at least the `--branch` and `--url` options. If the manifest filename is not `default.xml`, use the `--manifest` option to pass the correct name. For example (change `--builddir`, `--outputdir` and `--machine` as needed):
 
 ```
-./mbl-tools/build-mbl/run-me.sh --builddir ./build-warp7 --outputdir ./artifacts-warp7 -- --machine imx7s-warp-mbl --branch mbl-os-0.6 --url git@github.com:diego-sueiro/mbl-manifest.git`
+./mbl-tools/build-mbl/run-me.sh --builddir ./build-warp7 --outputdir ./artifacts-warp7 -- --machine imx7s-warp-mbl --branch mbl-os-0.6 --url git@github.com:your-github-account/mbl-manifest.git`
 ```
 
 <span class="notes">**Note**: the `--url` must be in the **Clone with SSH** format.</span>
@@ -69,7 +69,7 @@ linux-fslc_4.20.bb:
 
 ### Changing the kernel configuration
 
-Using `$ bitbake virtual/kernel -c menuconfig` to launch the menuconfig command:
+Using `$ bitbake virtual/kernel -c menuconfig` to launch the Linux kernel's menuconfig command:
 
 ```
 user@9c2c89bf20a6:<builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl$ bitbake virtual/kernel -c menuconfig
