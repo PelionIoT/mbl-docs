@@ -19,7 +19,7 @@ To point to a custom manifest, you need to pass at least the `--branch` and `--u
 ./mbl-tools/build-mbl/run-me.sh --builddir ./build-warp7 --outputdir ./artifacts-warp7 -- --machine imx7s-warp-mbl --branch mbl-os-0.6 --url git@github.com:your-github-account/mbl-manifest.git
 ```
 
-<span class="notes">**Note**: the `--url` must be in the **Clone with SSH** format.</span>
+<span class="notes">**Note**: the `--url` must be in [the **Clone with SSH** format](https://git-scm.com/docs/git-clone#_git_urls_a_id_urls_a).</span>
 
 ## Running build-mbl in interactive mode
 
@@ -29,7 +29,9 @@ You need to run the **build-mbl tool** in interactive mode: an interactive shell
 
 To run build-mbl in interactive mode (change `--builddir`, `--outputdir` and `--machine` as needed):
 
-`./mbl-tools/build-mbl/run-me.sh --builddir ./build-warp7 --outputdir ./artifacts-warp7 -- --branch mbl-os-0.6 --machine imx7s-warp-mbl interactive`
+```
+./mbl-tools/build-mbl/run-me.sh --builddir ./build-warp7 --outputdir ./artifacts-warp7 -- --branch mbl-os-0.6 --machine imx7s-warp-mbl interactive
+```
 
 <span class="tips">Unlike the build mode, the interactive mode only supports one `--machine` option at a time.</span>
 
