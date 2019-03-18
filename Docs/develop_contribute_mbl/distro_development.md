@@ -24,32 +24,32 @@ To point to a custom manifest, you need to pass at least the `--branch` and `--u
 
 ## Running build-mbl in interactive mode
 
-You need to run the **build-mbl tool** in interactive mode: an interactive shell inside the Docker build environment with the BitBake environment setup. This allows running commands for BitBake and its associated tools (such as bitbake-layers, devtool and receipetool).
-
 <span class="tips">This section only covers building a distribution; the Docker build environment was not designed for editing files (since it doesn't include vim, for example). If you want to inspect or edit files, use another shell terminal. The layers source code are located at: `<builddir>/<mbl-machine-name>/mbl-manifest/layers` and the BitBake build directory at: `<builddir>/<mbl-machine-name>/mbl-manifest/build-mbl`.</span>
 
-To run build-mbl in interactive mode (change `--builddir`, `--outputdir` and `--machine` as needed):
-
-```
-./mbl-tools/build-mbl/run-me.sh --builddir ./build-warp7 --outputdir ./artifacts-warp7 -- --branch mbl-os-0.6 --machine imx7s-warp-mbl interactive
-```
+You need to run the **build-mbl tool** in interactive mode: an interactive shell inside the Docker build environment with the BitBake environment setup. This allows running commands for BitBake and its associated tools (such as bitbake-layers, devtool and receipetool).
 
 
-<span class="tips">Unlike the build mode, the interactive mode only supports one `--machine` option at a time.</span>
+1. To run build-mbl in interactive mode (change `--builddir`, `--outputdir` and `--machine` as needed):
 
-<span class="notes">**Note**: If you haven't run a complete build before you will be prompted with the following message. Please [run the complete build before proceeding](../first-image/building-a-developer-image.html):</span>
+    ```
+    ./mbl-tools/build-mbl/run-me.sh --builddir ./build-warp7 --outputdir ./artifacts-warp7 -- --branch mbl-os-0.6 --machine imx7s-warp-mbl interactive
+    ```
 
-```
-error: '<builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl' path missing.
-Please run a complete build for 'imx7s-warp-mbl' machine before using the interactive mode.
-Would you like to run the complete build now? (Y/N):
-```
+    <span class="tips">Unlike the build mode, the interactive mode only supports one `--machine` option at a time.</span>
 
-The interactive shell should looks like:
+    <span class="notes">**Note**: If you haven't run a complete build before you will be prompted with the following message. Please [run the complete build before proceeding](../first-image/building-a-developer-image.html):</span>
 
-```
-user@9c2c89bf20a6:<builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl$
-```
+    ```
+    error: '<builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl' path missing.
+    Please run a complete build for 'imx7s-warp-mbl' machine before using the interactive mode.
+    Would you like to run the complete build now? (Y/N):
+    ```
+
+1. The interactive shell should looks like:
+
+    ```
+    user@9c2c89bf20a6:<builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl$
+    ```
 
 To exit the interactive shell, press <kbd>Ctrl</kbd>+<kbd>D</kbd> or enter `exit`.
 
