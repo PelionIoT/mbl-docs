@@ -283,9 +283,9 @@ When connecting, the network name you use in the command must match the real net
 
 ## Setting up a cellular connection
 
-<span class="notes">**Note**: cellular support was only tested on the Raspberry Pi 3B+.</span>
+<span class="notes">**Note**: cellular support was tested on the Raspberry Pi3 B/B+.</span>
 
-### Hardware for the Raspberry Pi 3
+### Hardware configuration
 
 <img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/cellular_hardware.jpg" width="50%" align="right" />
 
@@ -295,38 +295,28 @@ You must disable the SIM pin enquiry before inserting the SIM card.
 
 ### Software configuration
 
-There are two ways to establish a network connection through the cellular modem:
-
-* Use the Ethernet Control Model (ECM) to connect over USB. This is the preferred method, and the one we show in this document. ECM is activated using AT command (detailed below), and the modem interface appears on ifconfig as `usbo0`.
-* Use the oFono daemon to control the modem. The modem interface appears on ifconfig as `wwan0`.
-
-<!--we're not showing oFono?-->
-
-In both cases, the modem interface is controlled with ConnMan<!--then what does "use ofono dameon for modem control" mean?-->
-
-#### ConnMan configuration
-
-To allow ConnMan to use the cellular interface when a connection<!--a connection between what and what? a connection to the cellular network?--> is established, set the following variables in `/config/user/connman/main.conf`:
-
-<!--does this mean it will try ethernet, and only then wi-fi, and only then cellular? if i want it to try cellular first, do i reverse the order?-->
-<!--should we explain why we're using these variables, and what their values mean?-->
-
-```
-PreferredTechnologies = ethernet,wifi,cellular
-NetworkInterfaceBlacklist = eth1
-SingleConnectedTechnology = true
-```
+To establish a cellular connection, use the Ethernet Control Model (ECM) mode to connect to the device over USB. ECM is activated using AT commands (detailed below). For the Raspberry Pi 3B/B+, the modem interface appears on `ifconfig` as `usb0`.
 
 ### Activating ECM with AT commands
 
 <span class="tips">This example uses the microcom terminal to send AT commands to the modem.</span>
 
-To activate ECM:
+**To activate ECM:**
+
+The activation of ECM mode is only needed once: the change is saved in NV (non-volatile) memory in the modem.
 
 1. Open a serial interface to the EC25 modem:
 
     ```
-    microcom /dev/ttyUBS2
+    # microcom /dev/ttyUSB2
+    ```
+
+1. microcom doesn't give any feedback once connected. To check it is working type `at` and it should respond `OK`
+
+    ```
+    # microcom /dev/ttyUSB2
+    at
+    OK
     ```
 
 1. Check whether or not ECM is already active:
@@ -391,9 +381,79 @@ To activate ECM:
     [    518.367866] cdc_ether 1-1.3:1.4 usb0: kevent 12 may have been dropped
     ```    
 
-1. Check that ECM is working by pinging a website, for example www.google.com:
+1. Check that ECM is working by verifying a valid IP address on the interface and by pinging a website, for example www.google.com:
 
-To deactivate ECM:
+    ```
+    # ifconfig usb0
+    usb0  Link encap:Ethernet  HWaddr 46:1C:33:88:26:11  
+          inet addr:192.168.225.37  Bcast:192.168.225.255  Mask:255.255.255.0
+          inet6 addr: fe80::441c:33ff:fe88:2611/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:1918 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:2141 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:177877 (173.7 KiB)  TX bytes:197501 (192.8 KiB)
+    # ping -I usb0 www.google.com
+      PING www.google.com (216.58.213.100): 56 data bytes
+      64 bytes from 216.58.213.100: seq=0 ttl=51 time=168.265 ms
+      64 bytes from 216.58.213.100: seq=1 ttl=51 time=60.287 ms
+      64 bytes from 216.58.213.100: seq=2 ttl=51 time=59.877 ms
+      64 bytes from 216.58.213.100: seq=3 ttl=51 time=58.314 ms
+    ```
+
+### Connecting and disconnecting the cellular connection using ConnMan
+ 
+Once the ECM is up and running, ConnMan can connect and disconnect the cellular connection. To identify the right service you need the MAC address of the network interface, which is used to name the Connman service. In the example above, the address is `46:1C:33:88:26:11`, and the derived service name is `ethernet_461c33882611_cable`.
+
+**To disconnect:**
+
+1. List all ConnMan services:
+
+   ```
+   # connmanctl services
+   *AO Wired                ethernet_461c33882611_cable
+   *AR Wired                ethernet_de5e17ac558d_cable
+   ```
+1. Disconnect cellular connection:
+ 
+   ```
+   # connmanctl disconnect ethernet_461c33882611_cable
+   ```
+1. Check that `usb0` doesn't have an IP address anymore:
+
+   ```
+   # ifconfig usb0
+   usb0      Link encap:Ethernet  HWaddr 46:1C:33:88:26:11  
+             inet6 addr: fe80::441c:33ff:fe88:2611/64 Scope:Link
+             UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+             RX packets:2072 errors:0 dropped:0 overruns:0 frame:0
+             TX packets:2339 errors:0 dropped:0 overruns:0 carrier:0
+             collisions:0 txqueuelen:1000 
+             RX bytes:183673 (179.3 KiB)  TX bytes:211149 (206.2 KiB)
+   ```
+   
+**To reconnect:**
+
+1. Connect cellular connection:
+
+   ```
+   # connmanctl connect ethernet_461c33882611_cable
+   Connected ethernet_461c33882611_cable
+   ```
+
+1. Check whether the cellular connection has reconnected by pinging an external website.
+ 
+### Deactivate ECM with AT commands
+
+If you need to deactivate the ECM mode, you can use AT commands as detailed below. You only need to do this once; the change is stored in the modem's NV (non-volatile) memory.
+
+**To deactivate ECM:**
+
+1. Open a serial interface to the EC25 modem:
+
+    ```
+    # microcom /dev/ttyUSB2
+    ```
 
 1. Enter:
 
