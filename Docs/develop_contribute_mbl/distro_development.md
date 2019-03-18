@@ -38,13 +38,16 @@ To run build-mbl in interactive mode (change `--builddir`, `--outputdir` and `--
 <span class="tips">Unlike the build mode, the interactive mode only supports one `--machine` option at a time.</span>
 
 <div style="background-color:#F3F3F3; text-align:left; vertical-align: middle; padding:15px 30px;">**Note:** If you haven't run a complete build before you will be prompted with the following message:
-<br><br>
+
+</div>
+
 ```
 error: '<builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl' path missing.
 Please run a complete build for 'imx7s-warp-mbl' machine before using the interactive mode.
 Would you like to run the complete build now? (Y/N):
 ```
-<br><br>
+
+<div style="background-color:#F3F3F3; text-align:left; vertical-align: middle; padding:15px 30px;">
 Please [run the complete build before proceeding](../first-image/building-a-developer-image.html).
 </div>
 
