@@ -47,7 +47,9 @@ Would you like to run the complete build now? (Y/N):
 
 The interactive shell should looks like:
 
-`user@9c2c89bf20a6:<builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl$`
+```
+user@9c2c89bf20a6:<builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl$
+```
 
 To exit the interactive shell, press <kbd>Ctrl</kbd>+<kbd>D</kbd> or enter `exit`.
 
