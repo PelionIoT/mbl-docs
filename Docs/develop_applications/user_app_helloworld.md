@@ -18,9 +18,9 @@ The build commands are defined in a Makefile with three sections:
 
 Each section is implemented for both release and debug variants.
 
-Depending of the architecture of the microprocessor on the device, we use the existing dockcross Docker image for the ARMv7 or ARM64 architecture to cross-compile the application and create an OCI container.
+We use the existing dockcross Docker image (for the ARMv7 or ARM64 architecture) to cross-compile the application and create an OCI container.
 
-To the standard dockcross image we add `opkg-utils` helper scripts that can package the compiled application as an IPK. The Docker files to build the dockcross image for supported architectures are found at at [https://github.com/ARMmbed/mbl-core/blob/mbl-os-0.6/tutorials/helloworld/cc-env](https://github.com/ARMmbed/mbl-core/blob/mbl-os-0.6/tutorials/helloworld/cc-env).
+To the standard dockcross image we add `opkg-utils` helper scripts that can package the compiled application as an IPK. The Docker files to build the dockcross image for supported architectures are found at [https://github.com/ARMmbed/mbl-core/blob/mbl-os-0.6/tutorials/helloworld/cc-env](https://github.com/ARMmbed/mbl-core/blob/mbl-os-0.6/tutorials/helloworld/cc-env).
 
 <span class="notes">**Note:** For more information, please refer to the [reference about application containers and packages](../references/application-containers-and-packages.html) or the [dockcross documentation on GitHub](https://github.com/dockcross/dockcross).</span>
 
@@ -49,11 +49,11 @@ Where `<arm-arch>` is the architecture type of the microprocessor on the target 
 | Warp7              |    armv7          |
 
 
-The freshly built image can be used to generate a short lived container to compile the application in. This is done by running the container and capturing the output as an executable file.
+You can use the built image to generate a short-lived container to compile the application in. Do this by running the container and capturing the output as an executable file.
 
 The Make toolchain is then invoked along with the cross-compilation executable file to build a variant (release or debug) of the helloworld application.
 
-Run the following command to perform all the above steps to build the application:
+To build the application with all of the steps explained above:
 
 ```
 $ ./ci/lava/tests/lxc-build-helloworld.sh <arm-arch>
