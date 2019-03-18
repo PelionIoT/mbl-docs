@@ -40,16 +40,16 @@ To the standard dockcross image we add `opkg-utils` helper scripts that can pack
 
 [dockcross](https://github.com/dockcross/dockcross) is a Docker-based cross-compiling toolchain. We build a new Docker image with dockcross as our starting point, adding the opkg utilities. The image is defined in `./tutorials/helloworld/cc-env/<arm-arch>/Dockerfile`, where `<arm-arch>` is the architecture type of the microprocessor on the target device:
 
-| Target device      | architecture type |
-| -------------      | ----------------- |
-| NXP 8M Mini EVK    |    arm64          |
-| PICO-PI with IMX7D |    armv7          |
-| Raspberry Pi 3     |    armv7          |
-| Warp7              |    armv7          |
+| Target device | `<arm-arch>` value |
+| --- | --- |
+| NXP 8M Mini EVK | `arm64` |
+| PICO-PI with IMX7D | `armv7` |
+| Raspberry Pi 3 | `armv7` |
+| Warp7 | `armv7` |
 
 You can use the built image to generate a short-lived container to compile the application in. Do this by running the container and capturing the output as an executable file.
 
-The Make toolchain is then invoked along with the cross-compilation executable file to build a variant (release or debug) of the helloworld application.
+The Make toolchain is then invoked along with the cross-compilation executable file to build a variant (release or debug) of the Hello World application.
 
 To build the application with all of the steps explained above:
 
