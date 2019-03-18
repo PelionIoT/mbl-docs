@@ -4,15 +4,19 @@
 
 This tutorial covers:
 
-1. Setting up an Ethernet connection.
-2. Setting up a Wi-Fi connection.
-3. Verifying that your device can connect to your Pelion Device Management account.
+1. Setting up a connection over:
+    * [Ethernet](#setting-up-an-ethernet-connection).
+    * [Wi-Fi](#setting-up-a-wi-fi-connection).
+    * [Cellular](setting-up-a-cellular-connection).
+1. Verifying that your device can connect to your Pelion Device Management account.
 
 ## Setting up an Ethernet connection
 
 If your device is physically connected to an Ethernet network (that must have a DHCP server), then it automatically uses that network.
 
 ## Setting up a Wi-Fi connection
+
+<span class="notes">NXP 8M Mini EVK devices do not currently support Wi-Fi.</span>
 
 <span class="tips">**Tip**: We recommend [installing MBL CLI](../develop-apps/setting-up.html) and setting up a USB connection to the device. You can then discover the device and [use a shell](../develop-apps/usage.html#get-shell-access-ssh) to set up the Wi-Fi connection.</span>
 
@@ -276,3 +280,158 @@ If you experience any issues, restart both ConnMan and `wpa_supplicant` daemons.
 When connecting, the network name you use in the command must match the real network name exactly, including capitalisation and without trailing characters. Otherwise, you may get the following error:
 
 `Error /net/connman/service/WIFI_NAME: Method "Connect" with signature "" on interface "net.connman.Service" doesn't exist`
+
+## Setting up a cellular connection
+
+<span class="notes">**Note**: cellular support was only tested on the Raspberry Pi 3B+.</span>
+
+### Hardware for the Raspberry Pi 3
+
+<img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/cellular_hardware.jpg" width="50%" align="right" />
+
+Required hardware: [sixfab evaluation board with Quectel EC25 cellular modem](https://sixfab.com/product/raspberry-pi-4g-lte-shield-kit/).
+
+You must disable the SIM pin enquiry before inserting the SIM card.
+
+### Software configuration
+
+There are two ways to establish a network connection through the cellular modem:
+
+* Use the Ethernet Control Model (ECM) to connect over USB. This is the preferred method, and the one we show in this document. ECM is activated using AT command (detailed below), and the modem interface appears on ifconfig as `usbo0`.
+* Use the oFono daemon to control the modem. The modem interface appears on ifconfig as `wwan0`.
+
+<!--we're not showing oFono?-->
+
+In both cases, the modem interface is controlled with ConnMan<!--then what does "use ofono dameon for modem control" mean?-->
+
+#### ConnMan configuration
+
+To allow ConnMan to use the cellular interface when a connection<!--a connection between what and what? a connection to the cellular network?--> is established, set the following variables in `/config/user/connman/main.conf`:
+
+<!--does this mean it will try ethernet, and only then wi-fi, and only then cellular? if i want it to try cellular first, do i reverse the order?-->
+<!--should we explain why we're using these variables, and what their values mean?-->
+
+```
+PreferredTechnologies = ethernet,wifi,cellular
+NetworkInterfaceBlacklist = eth1
+SingleConnectedTechnology = true
+```
+
+### Activating ECM with AT commands
+
+<span class="tips">This example uses the microcom terminal to send AT commands to the modem.</span>
+
+To activate ECM:
+
+1. Open a serial interface to the EC25 modem:
+
+    ```
+    microcom /dev/ttyUBS2
+    ```
+
+1. Check whether or not ECM is already active:
+
+    ```
+    at+qcfg="usbnet"
+    ```
+
+    The response will be `+qcfg: "ubsnet",x`
+
+    If x is `0`, ECM is not active.
+
+1. Activate ECM:
+
+    ```
+    at+qcfg="usbnet",1
+    ```
+
+    And wait for the `OK` response.
+
+1. Power cycle the modem:
+
+    ```
+    at+qpowd
+    ```
+
+    It may take some time to get the response `OK POWERED DOWN`.
+
+1. When ECM is activated, you will see the following kernel messages:
+
+    ```
+    [    503.173904] usb 1-1.3: USB disconnect, device number 5
+    [    503.179829] option1 ttyUSB0: GSM modem (1-port) converter now disconnected from ttyUSB0
+    [    503.191543] option 1-1.3:1.0: device disconnected
+    [    503.197298] option1 ttyUSB1: GSM modem(1-port) converter now disconnected from ttyUSB1
+    [    503.208974] option 1-1.3:1.1: device disconnected
+    [    503.216097] option1 ttyUSB2: GSM modem (1-port) converter now disconnected from ttyUSB2
+    [    503.228136] option 1-1.3:1.2: device disconnected
+    [    503.233799] option1 ttyUSB3: GSM modem (1-port) converter now disconnected from ttyUSB3
+    [    503.245459] option 1-1.3:1.3: device disconnected
+    [    503.250863] qmi_wwan 1-1.3:1.4 wwan0: unregister 'qmi_wwan' usb-3f980000.usb-1.3, WWAN/QMI device
+    [    516.013299] usb 1-1.3: new high-speed USB device number 6 using dwc_otg
+    [    516.153487] usb 1-1.3: New USB device found, idVendor=2c7c, idProduct=0125
+    [    516.160485] usb 1-1.3: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+    [    516.167962] usb 1-1.3: Product: Android[    516.171876] usb 1-1.3: Manufacturer: Android
+    [    516.177884] option 1-1.3:1.0: GSM modem (1-port) converter detected
+    [    516.184794] usb 1-1.3: GSM modem (1-port) converter now attached to ttyUSB0
+    [    516.192544] option 1-1.3:1.1: GSM modem (1-port) converter detected
+    [    516.199382] usb 1-1.3: GSM modem (1-port) converter now attached to ttyUSB1
+    [    516.207241] option 1-1.3:1.2: GSM modem (1-port) converter detected
+    [    516.214110] usb 1-1.3: GSM modem (1-port) converter now attached to ttyUSB2
+    [    516.221878] option 1-1.3:1.3: GSM modem (1-port) converter detected
+    [    516.228632] usb 1-1.3: GSM modem (1-port) converter now attached to ttyUSB3
+    [    516.241350] cdc_ether 1-1.3:1.4 usb0: register 'cdc_ether' at usb-3f980000.usb-1.3, CDC Ethernet Device, fe:54:59:9c:81:6b
+    [    516.243570] cdc_ether 1-1.3:1.4 usb0: kevent 12 may have been dropped
+    [    516.252855] cdc_ether 1-1.3:1.4 usb0: kevent 11 may have been dropped
+    [    516.374254] cdc_ether 1-1.3:1.4 usb0: kevent 12 may have been dropped
+    [    516.380811] cdc_ether 1-1.3:1.4 usb0: kevent 12 may have been dropped
+    [    516.391067] IPv6: ADDRCONF(NETDEV_UP): usb0: link is not ready
+    [    518.354870] IPv6: ADDRCONF(NETDEV_CHANGE): usb0: link becomes ready
+    [    518.361271] cdc_ether 1-1.3:1.4 usb0: kevent 12 may have been dropped
+    [    518.367866] cdc_ether 1-1.3:1.4 usb0: kevent 12 may have been dropped
+    ```    
+
+1. Check that ECM is working by pinging a website, for example www.google.com:
+
+To deactivate ECM:
+
+1. Enter:
+
+    ```
+    at+qcfg="usbnet",0
+    ```
+
+    And wait for the `OK` response.
+
+1. Power cycle the modem:
+
+    ```
+    at+qpowd
+    ```
+
+    It may take some time to get the response `OK POWERED DOWN`.
+
+1. When ECM is deactivated, you will see the following kernel messages:
+
+    ```
+    [    344.769511] option1 ttyUSB3: GSM modem (1-port) converter now disconnected from ttyUSB3
+    [    344.781101] option 1-1.3:1.3: device disconnected
+    [    344.786296] cdc_ether 1-1.3:1.4 usb0: unregister 'cdc_ether' usb-3f980000.usb-1.3, CDC Ethernet Device
+    [    344.826839] IPv6: ADDRCONF(NETDEV_UP): eth0: link is not ready
+    [    344.832874] IPv6: ADDRCONF(NETDEV_UP): wlan0: link is not ready
+    [    357.544005] usb 1-1.3: new high-speed USB device number 5 using dwc_otg
+    [    357.684252] usb 1-1.3: New USB device found, idVendor=2c7c, idProduct=0125
+    [    357.691249] usb 1-1.3: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+    [    357.698723] usb 1-1.3: Product: Android
+    [    357.702637] usb 1-1.3: Manufacturer: Android
+    [    357.708371] option 1-1.3:1.0: GSM modem (1-port) converter detected
+    [    357.715347] usb 1-1.3: GSM modem (1-port) converter now attached to ttyUSB0
+    [    357.723079] option 1-1.3:1.1: GSM modem (1-port) converter detected
+    [    357.729918] usb 1-1.3: GSM modem (1-port) converter now attached to ttyUSB1
+    [    357.737798] option 1-1.3:1.2: GSM modem (1-port) converter detected
+    [    357.744601] usb 1-1.3: GSM modem (1-port) converter now attached to ttyUSB2
+    [    357.752391] option 1-1.3:1.3: GSM modem (1-port) converterdetected
+    [    357.759201] usb 1-1.3: GSM modem (1-port) converter now attached to ttyUSB3
+    [    357.767804] qmi_wwan 1-1.3:1.4: cdc-wdm0: USB WDM device
+    [    357.774595] qmi_wwan 1-1.3:1.4 wwan0: register 'qmi_wwan' at usb-3f980000.usb-1.3, WWAN/QMI device, da:b3:ca:ab:e7:30
+    ```

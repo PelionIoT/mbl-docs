@@ -2,7 +2,7 @@
 
 <span class="notes">**Note**: Mbed Linux OS is currently in limited preview. If you would like access to the code repositories, [please request to join the preview](https://os.mbed.com/linux-os/).</span>
 
-<span class="tips">**Tip**: If you downloaded an evaluation image, you can skip the build stage [and go directly to writing]().</span>
+<span class="tips">**Tip**: If you downloaded an evaluation image, you can skip the build stage [and go directly to writing](../first-image/writing-an-image-to-supported-boards.html).</span>
 
 Please note that each release has its own branch. Throughout this guide, the release branch is assumed to be `mbl-os-0.6`.
 
@@ -10,7 +10,7 @@ Please note that each release has its own branch. Throughout this guide, the rel
 
 <span class="notes">**Note**: You need to use an SSH agent to build. For usage, see [the GitHub SSH documentation](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).</span>
 
-If you haven't already done so, check out the relevant branch from the `build-mbl` repository (in this example, we use `mbl-os-0.6`):
+If you haven't already done so, check out the relevant branch from the `mbl-tools` repository (in this example, we use `mbl-os-0.6`):
 
 ```
 $ git clone git@github.com:ARMmbed/mbl-tools.git --branch mbl-os-0.6
@@ -19,7 +19,7 @@ $ git clone git@github.com:ARMmbed/mbl-tools.git --branch mbl-os-0.6
 The repository includes the `run-me.sh` script, which:
 
 1. Creates and launches a Docker container that encapsulates the MBL build environment.
-1. Launches a build script, `build.sh`, inside the container.
+1. Launches a build script (the **build-mbl** tool), `build.sh`, inside the container.
 
 To invoke the `run-me.sh` help menu, use:
 

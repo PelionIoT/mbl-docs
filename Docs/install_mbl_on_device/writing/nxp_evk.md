@@ -2,6 +2,8 @@
 
 <span class="tips">This process currently uses a micro-SD card. A future release will use the on-board EMMC.</span>
 
+<span class="notes">This platform is still in development and is only partially supported at the moment. The boot partitioning has not been finished and Wi-Fi communication is not working yet.</span>
+
 1. Check the current block storage devices on your PC:
 
     ```
@@ -26,13 +28,11 @@
 
 1. Connect a micro-SD card to your PC. You can now see new storage devices:
 
-
     ```
     lsblk
     ```
 
     In this example, the device is listed as `sdc` (the partitions on the device are also shown):
-<!--this doesn't match, because it's PICO-->
 
     ```
     NAME          MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
@@ -72,11 +72,13 @@
     sudo eject /dev/sdX
     ```
 
-1. To let the device boot from the SD-card, set up the device's DIP switches as explained on the device.
+1. To let the device boot from the SD-card, set up the device's DIP switches as explained on the device:
+
+    <img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/IMX8-DIP.jpg" width="25%" align="middle" />
 
 1. Detach the micro-SD card from your PC, and plug it into the NXP 8M Mini EVK.
 
-1. connect the micro-USB port to your PC.
+1. Connect the board's micro-USB port to a regular USB port on your PC.
 
 1. Power on the device.
 

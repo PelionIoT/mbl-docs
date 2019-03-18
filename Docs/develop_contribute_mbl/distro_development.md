@@ -21,6 +21,7 @@ To point to a custom manifest, you need to pass at least the `--branch` and `--u
 
 <span class="notes">**Note**: the `--url` must be in [the **Clone with SSH** format](https://git-scm.com/docs/git-clone#_git_urls_a_id_urls_a).</span>
 
+
 ## Running build-mbl in interactive mode
 
 You need to run the **build-mbl tool** in interactive mode: an interactive shell inside the Docker build environment with the BitBake environment setup. This allows running commands for BitBake and its associated tools (such as bitbake-layers, devtool and receipetool).
@@ -32,6 +33,7 @@ To run build-mbl in interactive mode (change `--builddir`, `--outputdir` and `--
 ```
 ./mbl-tools/build-mbl/run-me.sh --builddir ./build-warp7 --outputdir ./artifacts-warp7 -- --branch mbl-os-0.6 --machine imx7s-warp-mbl interactive
 ```
+
 
 <span class="tips">Unlike the build mode, the interactive mode only supports one `--machine` option at a time.</span>
 

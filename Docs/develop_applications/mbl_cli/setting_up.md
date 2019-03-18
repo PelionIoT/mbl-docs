@@ -28,10 +28,10 @@ npm uninstall mbl-cli -g --save
 1. Use pip to install the MBL CLI. We recommend installing in a [Python virtual environment](https://www.python.org/dev/peps/pep-0405/).
 
     ```bash
-    pip install git+ssh://git@github.com/armmbed/mbl-cli.git@mbl-0-6
+    pip install git+ssh://git@github.com/armmbed/mbl-cli.git@mbl-os-0.6
     ```
 
-## Set up a developer connection over USB
+## Setting up a developer connection over USB
 
 You can use a USB developer connection to debug and test your applications. The connection will not be interrupted by your development work, including work that disrupts network connectivity.
 
@@ -48,9 +48,13 @@ If the device uses an Ethernet-to-USB adapter (for example, Raspberry Pi 3):
 
    If another USB Ethernet adapter is used on the PC side, a new network interface is created on the PC (for example, `enx503eaa4e094c`).
 
-**Linux users must ensure the new interface is managed by NetworkManager by following the steps below. These instructions assume Ubuntu 16.4; the commands may be different or unnecessary in other operating systems.**
+### Setting up NetworkManager on Linux
 
-1. Create a NetworkManager connection profile called `mbl-ipv4ll` for the interface with the `link-local` IPv4 addressing method. Use the NetworkManager's command line interface:
+<span class="notes">**Note**: These instructions assume you're using Ubuntu 16.4; the commands may be different or unnecessary in other operating systems.</span>
+
+1. Create a named NetworkManager connection profile for the interface with the `link-local` IPv4 addressing method (If you are setting up managed connections for multiple boards, you must give them unique names; reusing a name will overwrite an existing connection profile). 
+
+    In this example we use the name `mbl-ipv4ll`. Use the NetworkManager's command line interface:
 
     ```
     $ sudo nmcli connection add ifname <interface-name-on-pc> con-name mbl-ipv4ll type ethernet -- ipv4.method link-local
@@ -114,9 +118,9 @@ If the device uses an Ethernet-to-USB adapter (for example, Raspberry Pi 3):
 
     ```
     $ ifconfig enp0s2222222a
-    enp0s2222222a Link encap:Ethernet  HWaddr ba:77:68:c0:73:df  
+    enp0s2222222a Link encap:Ethernet  HWaddr xy:11:22:x3:44:xy  
             inet addr:169.254.167.167  Bcast:169.254.255.255  Mask:255.255.0.0
-            inet6 addr: fe80::b418:c138:20f0:57c7/64 Scope:Link
+            inet6 addr: xy80::xy18:x111:00f0:57c7/64 Scope:Link
             UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
             RX packets:146 errors:0 dropped:0 overruns:0 frame:0
             TX packets:364 errors:0 dropped:0 overruns:0 carrier:0
@@ -128,9 +132,9 @@ If the device uses an Ethernet-to-USB adapter (for example, Raspberry Pi 3):
 
     ```
     $ ifconfig eno0
-    eno0 Link encap:Ethernet  HWaddr 6c:0b:84:67:18:f5  
+    eno0 Link encap:Ethernet  HWaddr 1x:1y:11:22:33:z1  
         inet addr:169.254.4.179  Bcast:169.254.255.255  Mask:255.255.0.0
-        inet6 addr: fe80::3714:e5ad:7eb2:c3a5/64 Scope:Link
+        inet6 addr: xy80::1111:x5yz:9xy9:x1y1/64 Scope:Link
         UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
         RX packets:5529 errors:0 dropped:0 overruns:0 frame:0
         TX packets:2936 errors:0 dropped:0 overruns:0 carrier:0

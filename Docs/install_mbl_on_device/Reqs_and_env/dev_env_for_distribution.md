@@ -48,10 +48,10 @@ And the following software:
 
 * The `build-mbl` tool.
 
-    Check out the relevant branch from the repository (in this example, we use `mbl-os-0.5`):
+    Check out the relevant branch from the repository (in this example, we use `mbl-os-0.6`):
 
     ```
-    $ git clone git@github.com:ARMmbed/mbl-tools.git --branch mbl-os-0.5
+    $ git clone git@github.com:ARMmbed/mbl-tools.git --branch mbl-os-0.6
     ```
 
     <span class="tips">**Tip:** The [mbl-tools repository](https://github.com/ARMmbed/mbl-tools) provides a collection of tools and recipes for building and testing MBL.</span>
@@ -68,7 +68,7 @@ And the following software:
 
 * MBL CLI. Please see [installation and network setup instructions](../develop-apps/setting-up.html).
 
-    <span class="notes">**Note:** If you are running an old version (1.x) of MBL CLI, please remove it (and install version 2.0).</span>
+    <span class="notes">**Note:** If you are running an earlier version (1.x) of MBL CLI, please remove it (and install 2.0).</span>
 
 * Docker CE, to use `build-mbl` script from the `mbl-tools` repository to build MBL. [Download and install from the Docker website](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
 
