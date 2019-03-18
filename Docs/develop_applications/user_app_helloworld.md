@@ -38,16 +38,14 @@ To the standard dockcross image we add `opkg-utils` helper scripts that can pack
 
 ## Building the application with the cross-compiler
 
-[dockcross](https://github.com/dockcross/dockcross) is a Docker-based cross-compiling toolchain. We build a new Docker image with dockcross as our starting point, adding the opkg utilities. The image is defined in `./tutorials/helloworld/cc-env/<arm-arch>/Dockerfile`.
+[dockcross](https://github.com/dockcross/dockcross) is a Docker-based cross-compiling toolchain. We build a new Docker image with dockcross as our starting point, adding the opkg utilities. The image is defined in `./tutorials/helloworld/cc-env/<arm-arch>/Dockerfile`, where `<arm-arch>` is the architecture type of the microprocessor on the target device:
 
-Where `<arm-arch>` is the architecture type of the microprocessor on the target device.
 | Target device      | architecture type |
 | -------------      | ----------------- |
 | NXP 8M Mini EVK    |    arm64          |
 | PICO-PI with IMX7D |    armv7          |
 | Raspberry Pi 3     |    armv7          |
 | Warp7              |    armv7          |
-
 
 You can use the built image to generate a short-lived container to compile the application in. Do this by running the container and capturing the output as an executable file.
 
@@ -57,7 +55,7 @@ To build the application with all of the steps explained above:
 
 ```
 $ ./ci/lava/tests/lxc-build-helloworld.sh <arm-arch>
-``` 
+```
 
 The build produces an IPK file at `./tutorials/helloworld/release/ipk/user-sample-app-package_1.0_any.ipk` and a Pelion Device Management update payload package at `/tmp/user-sample-app-package_1.0_any.ipk.tar`.
 
