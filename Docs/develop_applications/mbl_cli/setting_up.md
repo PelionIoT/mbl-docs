@@ -25,34 +25,100 @@ npm uninstall mbl-cli -g --save
 
 ### Installation
 
-1. Use pip to install the MBL CLI. We recommend installing in a [Python virtual environment](https://www.python.org/dev/peps/pep-0405/).
+1. Use pip to install the MBL CLI. We recommend installing in a [Python virtual environment](https://www.python.org/dev/peps/pep-0405/). 
+   If for any reason you must install MBL CLI using the 'system' python, install with the `--user` flag.
 
     ```bash
-    pip install git+ssh://git@github.com/armmbed/mbl-cli.git@mbl-os-0.6
+    pip install --user git+ssh://git@github.com/armmbed/mbl-cli.git@mbl-os-0.6
     ```
 
 ## Setting up a developer connection over USB
 
 You can use a USB developer connection to debug and test your applications. The connection will not be interrupted by your development work, including work that disrupts network connectivity.
 
+Before setting up run `ifconfig` and take note of the interface names, you will need this information later to determine the name of your device's network interface.
+
+
+
 ### Connecting a device with a USB gadget network interface
 
-If the device can use the kernal USB gadget driver (for example, Warp 7), connect the device to the PC using a USB cable. A new network interface is created on the development PC.
+If the device can use the kernal USB gadget driver (for example, Warp 7), connect the device to the PC using a USB cable. A new network interface is created on the development PC (for example `enp0s2222222a`). 
+
+```bash
+$ ifconfig
+enp0s2222222a Link encap:Ethernet  HWaddr xy:11:22:x3:44:xy  
+          UP BROADCAST MULTICAST  MTU:1500  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+lo        Link encap:Local Loopback  
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:52489 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:52489 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1 
+          RX bytes:59176006 (59.1 MB)  TX bytes:59176006 (59.1 MB)
+
+veth93e055c Link encap:Ethernet  HWaddr be:9e:84:59:53:ac  
+          inet6 addr: fe80::bc3e:64ff:fe52:52ac/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:386 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:575 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:42239 (42.2 KB)  TX bytes:625618 (625.6 KB)
+```
+
+<span class="notes">**Note**: Usually there is no link-local IP address assigned to the interface at this stage. The IPv6/4 addresses will be assigned when we set up a managed connection in the [Setting up NetworkManager on Linux](#setting-up-networkmanager-on-linux) section. Even if there is an assigned link-local address, we still need to ensure the connection is managed; the link local address will be periodically revoked and reassigned for an unmanaged connection.</span>
 
 ### Connecting a device with an Ethernet-to-USB adapter
+
+<span class="notes">**Note**: If your device has an ethernet port and you don't want to use USB-networking, you can connect your device directly via ethernet to a router or network switch. The device will advertise its network presence on all available interfaces.</span>
 
 If the device uses an Ethernet-to-USB adapter (for example, Raspberry Pi 3):
 
 1. Connect the Ethernet-to-USB adapter's USB "male" connector to any of the four type-A USB ports of the Raspberry Pi 3 board.
-2. Connect the Ethernet cable of the adapter to an available Ethernet port on the development PC.
+2. Connect the Ethernet cable of the adapter to an available Ethernet port on the development PC. Alternatively, if you don't have a spare ethernet port available, you can connect a second Ethernet-to-USB adapter to a USB port on the PC side, then connect the ethernet cable from the device side adapter to it.
 
-   If another USB Ethernet adapter is used on the PC side, a new network interface is created on the PC (for example, `enx503eaa4e094c`).
+   If another Ethernet-to-USB is used on the PC side, a new network interface is created on the PC (for example, `enx503eaa4e094c`).
+
+```bash
+$ ifconfig
+enx503eaa4e094c Link encap:Ethernet  HWaddr xy:11:22:x3:44:xy  
+          UP BROADCAST MULTICAST  MTU:1500  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+lo        Link encap:Local Loopback  
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:52489 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:52489 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1 
+          RX bytes:59176006 (59.1 MB)  TX bytes:59176006 (59.1 MB)
+
+veth93e055c Link encap:Ethernet  HWaddr be:9e:84:59:53:ac  
+          inet6 addr: fe80::bc3e:64ff:fe52:52ac/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:386 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:575 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:42239 (42.2 KB)  TX bytes:625618 (625.6 KB)
+```
+
+<span class="notes">**Note**: Usually there is no link-local IP address assigned to the interface at this stage. The IPv6/4 addresses will be assigned when we set up a managed connection in the [Setting up NetworkManager on Linux](#setting-up-networkmanager-on-linux) section. Even if there is an assigned link-local address, we still need to ensure the connection is managed; the link local address will be periodically revoked and reassigned for an unmanaged connection.</span>
+
 
 ### Setting up NetworkManager on Linux
 
 <span class="notes">**Note**: These instructions assume you're using Ubuntu 16.4; the commands may be different or unnecessary in other operating systems.</span>
 
-1. Create a named NetworkManager connection profile for the interface with the `link-local` IPv4 addressing method (If you are setting up managed connections for multiple boards, you must give them unique names; reusing a name will overwrite an existing connection profile). 
+1. Create a named NetworkManager connection profile for the interface with the `link-local` IPv4 addressing method.
 
     In this example we use the name `mbl-ipv4ll`. Use the NetworkManager's command line interface:
 
@@ -75,6 +141,8 @@ If the device uses an Ethernet-to-USB adapter (for example, Raspberry Pi 3):
       $ sudo nmcli connection add ifname eno0 con-name mbl-ipv4ll type ethernet -- ipv4.method link-local
       Connection 'mbl-ipv4ll' (475ebfb1-d67e-d67e-d67e-475ebfb1dddd) successfully added.
       ```
+   
+<span class="notes">**Note**: If you are setting up managed connections for multiple boards, you must give them unique names; reusing a name will overwrite an existing connection profile.</span> 
 
 2. Activate the `mbl-ipv4ll` connection profile:
 
@@ -94,7 +162,7 @@ If the device uses an Ethernet-to-USB adapter (for example, Raspberry Pi 3):
 
 3. Inspect the NetworkManager connection using the `nmcli connection show` command.
 
-    * For example, for a WaRP7 device:
+    * For example, for a WaRP7 device using a USB-gadget interface:
 
       ```
       $ nmcli connection show
@@ -103,18 +171,18 @@ If the device uses an Ethernet-to-USB adapter (for example, Raspberry Pi 3):
       Wired connection 1  99cf6de7-2297-2297-2297-99cf6de7aaaa  802-3-ethernet  --          
       ```     
 
-    * For example, for a Raspberry Pi 3 device:
+    * For example, for a Raspberry Pi 3 device using an Ethernet-to-USB adapter:
 
       ```
       $ nmcli connection show
       NAME                UUID                                  TYPE            DEVICE     
+      mbl-ipv4ll          475ebfb1-d67e-d67e-d67e-475ebfb1dddd  802-3-ethernet  enx503eaa4e094c
       eno1                a815455d-8f18-8f18-8f18-a815455ddddd  802-3-ethernet  eno1    
-      mbl-ipv4ll          475ebfb1-d67e-d67e-d67e-475ebfb1dddd  802-3-ethernet  eno0
       ```     
 
 4. The PC's network interface now has an allocated link-local address.  
 
-    For example, for a WaRP7 device:
+    For example, for a WaRP7 device using a USB-gadget interface:
 
     ```
     $ ifconfig enp0s2222222a
@@ -131,8 +199,8 @@ If the device uses an Ethernet-to-USB adapter (for example, Raspberry Pi 3):
     For a Raspberry Pi 3 device using an Ethernet-to-USB adapter:
 
     ```
-    $ ifconfig eno0
-    eno0 Link encap:Ethernet  HWaddr 1x:1y:11:22:33:z1  
+    $ ifconfig enx503eaa4e094c
+    enx503eaa4e094c Link encap:Ethernet  HWaddr 1x:1y:11:22:33:z1  
         inet addr:169.254.4.179  Bcast:169.254.255.255  Mask:255.255.0.0
         inet6 addr: xy80::1111:x5yz:9xy9:x1y1/64 Scope:Link
         UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
@@ -140,7 +208,5 @@ If the device uses an Ethernet-to-USB adapter (for example, Raspberry Pi 3):
         TX packets:2936 errors:0 dropped:0 overruns:0 carrier:0
         collisions:0 txqueuelen:1000
         RX bytes:3176233 (3.1 MB)  TX bytes:915351 (915.3 KB)
-        Memory:fb100000-fb17ffff
     ```
 
-Alternatively, you can connect the Raspberry Pi 3 to a network switch or router using its Ethernet port.
