@@ -13,10 +13,10 @@ You can use the Docker build environment's shell (interactive mode, explained be
 
 You can use a custom repo manifest with mbl-tools to specify source revisions or use your own MBL forks. You can create a new manifest, or fork [mbl-manifest](https://github.com/ARMmbed/mbl-manifest).
 
-To point to a custom manifest, you need to pass at least the `--branch` and `--url` options. If the manifest filename is not `default.xml`, use the `--manifest` option to pass the correct name. For example (change `--builddir`, `--outputdir` and `--machine` as needed):
+To point to a custom manifest, you need to pass at least the `--branch` and `--url` options. If the manifest filename is not `default.xml`, use the `--manifest` option to pass the correct name. For example (change `--builddir` and `--machine` as needed):
 
 ```
-./mbl-tools/build-mbl/run-me.sh --builddir ./build-warp7 --outputdir ./artifacts-warp7 -- --machine imx7s-warp-mbl --branch mbl-os-0.6 --url git@github.com:your-github-account/mbl-manifest.git
+./mbl-tools/build-mbl/run-me.sh --builddir ./build-warp7 -- --machine imx7s-warp-mbl --branch mbl-os-0.6 --url git@github.com:your-github-account/mbl-manifest.git
 ```
 
 <span class="notes">**Note**: the `--url` must be in [the **Clone with SSH** format](https://git-scm.com/docs/git-clone#_git_urls_a_id_urls_a).</span>
@@ -29,10 +29,10 @@ To point to a custom manifest, you need to pass at least the `--branch` and `--u
 You need to run the **build-mbl tool** in interactive mode: an interactive shell inside the Docker build environment with the BitBake environment setup. This allows running commands for BitBake and its associated tools (such as bitbake-layers, devtool and receipetool).
 
 
-1. To run build-mbl in interactive mode (change `--builddir`, `--outputdir` and `--machine` as needed):
+1. To run build-mbl in interactive mode (change `--builddir` and `--machine` as needed):
 
     ```
-    ./mbl-tools/build-mbl/run-me.sh --builddir ./build-warp7 --outputdir ./artifacts-warp7 -- --branch mbl-os-0.6 --machine imx7s-warp-mbl interactive
+    ./mbl-tools/build-mbl/run-me.sh --builddir ./build-warp7 -- --branch mbl-os-0.6 --machine imx7s-warp-mbl interactive
     ```
 
     <span class="tips">Unlike the build mode, the interactive mode only supports one `--machine` option at a time.</span>
