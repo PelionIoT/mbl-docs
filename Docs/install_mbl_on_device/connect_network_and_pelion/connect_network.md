@@ -283,7 +283,7 @@ When connecting, the network name you use in the command must match the real net
 
 ## Setting up a cellular connection
 
-<span class="notes">**Note**: cellular support was tested on the Raspberry Pi3 B/B+ and Pico IMX7D.</span>
+<span class="notes">**Note**: cellular support was tested on the Raspberry Pi3 B/B+.</span>
 
 ### Hardware configuration
 
@@ -295,10 +295,7 @@ You must disable the SIM pin enquiry before inserting the SIM card.
 
 ### Software configuration
 
-To establish a cellular connection, use the Ethernet Control Model (ECM) mode to connect to the device over USB. ECM is activated using AT commands (detailed below). The modem interface appears on `ifconfig` as:
-
-* `usb0` on Raspberry Pi3 B/B+
-* `usb1` on Pico IMX7D
+To establish a cellular connection, use the Ethernet Control Model (ECM) mode to connect to the device over USB. ECM is activated using AT commands (detailed below). The modem interface appears on `ifconfig` as `usb0` on Raspberry Pi3 B/B+.
 
 ### Activating ECM with AT commands
 
@@ -385,8 +382,6 @@ The activation of ECM mode is only needed once: the change is saved in NV (non-v
     ```    
 
 1. Check that ECM is working by verifying a valid IP address on the interface and by pinging a website, for example www.google.com:
-
-<span class="tips">Note: on Pico IMX7D the interface is `usb1`</span>
 
     ```
     # ifconfig usb0
