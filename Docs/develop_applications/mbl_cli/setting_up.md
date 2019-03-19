@@ -42,7 +42,7 @@ Before setting up, run `ifconfig` and note the interface names; you will need th
 
 ### Connecting a device with a USB gadget network interface
 
-If the device can use the kernal USB gadget driver (for example, Warp 7), connect the device to the PC using a USB cable. A new network interface is created on the development PC (for example `enp0s2222222a`). 
+If the device can use the kernel's USB gadget driver (for example, Warp 7), connect the device to the PC using a USB cable. A new network interface is created on the development PC (for example `enp0s2222222a`). 
 
 ```bash
 $ ifconfig
