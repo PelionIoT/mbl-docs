@@ -80,7 +80,7 @@ veth93e055c Link encap:Ethernet  HWaddr be:9e:84:59:53:ac
 If the device uses an Ethernet-to-USB adapter (for example, Raspberry Pi 3):
 
 1. Connect the Ethernet-to-USB adapter's USB "male" connector to any of the four type-A USB ports of the Raspberry Pi 3 board.
-2. Connect the Ethernet cable of the adapter to an available Ethernet port on the development PC. Alternatively, if you don't have a spare ethernet port available, you can connect a second Ethernet-to-USB adapter to a USB port on the PC side, then connect the ethernet cable from the device side adapter to it.
+2. Connect the Ethernet cable of the adapter to an available Ethernet port on the development PC. Alternatively, if you don't have a spare Ethernet port available, you can connect a second Ethernet-to-USB adapter to a USB port on the PC side, and connect the Ethernet cable from the device-side adapter to it.
 
    If another Ethernet-to-USB is used on the PC side, a new network interface is created on the PC (for example, `enx503eaa4e094c`).
 
