@@ -48,6 +48,6 @@ All release archives contain:
 
 ## Where next
 
-1. [Write the image to your board]((..first-image/writing-an-image-to-supported-boards.html).
+1. [Write the image to your board](../first-image/writing-an-image-to-supported-boards.html).
 1. [Provision your board so it can connect to your Pelion Device Management account](../first-image/provisioning-for-pelion-device-management.html).
 1. [Set up a network connection and make sure you can connect to your account](../first-image/connecting-to-a-network-and-pelion-device-management.html).
