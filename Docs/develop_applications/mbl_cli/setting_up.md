@@ -75,7 +75,7 @@ veth93e055c Link encap:Ethernet  HWaddr be:9e:84:59:53:ac
 
 ### Connecting a device with an Ethernet-to-USB adapter
 
-<span class="notes">**Note**: If your device has an ethernet port and you don't want to use USB-networking, you can connect your device directly via ethernet to a router or network switch. The device will advertise its network presence on all available interfaces.</span>
+<span class="notes">**Note**: If your device has an ethernet port and you don't want to use USB networking, you can connect your device directly over Ethernet to a router or network switch. The device will advertise its network presence on all available interfaces.</span>
 
 If the device uses an Ethernet-to-USB adapter (for example, Raspberry Pi 3):
 
