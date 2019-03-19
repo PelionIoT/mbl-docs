@@ -36,7 +36,7 @@ npm uninstall mbl-cli -g --save
 
 You can use a USB developer connection to debug and test your applications. The connection will not be interrupted by your development work, including work that disrupts network connectivity.
 
-Before setting up run `ifconfig` and take note of the interface names, you will need this information later to determine the name of your device's network interface.
+Before setting up, run `ifconfig` and note the interface names; you will need this information later to determine the name of your device's network interface.
 
 
 
