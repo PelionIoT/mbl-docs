@@ -64,6 +64,8 @@ And the following software:
     ```
     Make sure your GitHub SSH key is valid.
 
+    <span class="notes">**Note**: If you use a [Python virtual environment](https://www.python.org/dev/peps/pep-0405/) instead of performing a system install, you won't need to use the `--user` option.</span>
+
     See [the manifest tool documentation](https://cloud.mbed.com/docs/latest/updating-firmware/manifest-tool.html) for more information.
 
 * MBL CLI. Please see [installation and network setup instructions](../develop-apps/setting-up.html).
