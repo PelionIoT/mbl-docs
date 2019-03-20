@@ -39,7 +39,7 @@ To execute commands on the device:
 1. Run a command on the device:
 
     ```
-    $ mbl-cli shell <command> [-a address]
+    $ mbl-cli [-a address] shell <command>
    ```
 
     <span class="notes">The commands are run by the user `root`. The commands are not executed in a login shell; to execute a remote command in a login shell, prefix it with `su -l -c` (this is the same behaviour as OpenSSH).</span>
@@ -47,7 +47,7 @@ To execute commands on the device:
 For example, to show the statuses of the active interfaces on a device:
 
 ```
-$ mbl-cli -a 169.254.11.94 shell "ifconfig -a"
+$ mbl-cli -a 169.254.11.94 shell 'su -l -c "ifconfig -a"'
 lo        Link encap:Local Loopback  
           inet addr:127.0.0.1  Mask:255.0.0.0
           inet6 addr: ::1/128 Scope:Host
@@ -75,7 +75,7 @@ usb0:avahi Link encap:Ethernet  HWaddr 96:F8:52:67:D5:D8
 To get shell access over SSH to a device (as the user `root`), use the `shell` command:
 
 ```
-$ mbl-cli shell [-a address]
+$ mbl-cli [-a address] shell 
 ```
 
 For a previously selected device, omit the address:
