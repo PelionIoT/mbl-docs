@@ -42,7 +42,7 @@ To execute commands on the device:
     $ mbl-cli shell <command> [-a address]
    ```
 
-    <span class="notes">The commands are run by the user `root`.</span>
+    <span class="notes">The commands are run by the user `root`. The commands are not executed in a login shell; to execute a remote command in a login shell, prefix it with `su -l -c` (this is the same behaviour as OpenSSH).</span>
 
 For example, to show the statuses of the active interfaces on a device:
 
