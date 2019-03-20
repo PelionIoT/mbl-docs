@@ -12,7 +12,7 @@ Starting with Mbed Linux OS 0.6, your devices can be provisioned with developer 
 
 ## Provisioning process review
 
-<span class="tips">**Tip**: If you want to specify a storage location on the device for your API key and certificates, rather than use the default storage location, [do so before you begin the provisioning process](../first-image/provisioning-your-device.html#optional-persistent-storage-locations).</span><!--double-check that the link works - I think it won't now-->
+<span class="tips">**Tip**: If you want to specify a storage location on the device for your API key and certificates, rather than use the default storage location, [do so before you begin the provisioning process](../first-image/provisioning-your-device.html#optional-persistent-storage-locations).</span>
 
 The full provisioning process is:
 

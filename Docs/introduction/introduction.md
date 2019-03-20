@@ -93,8 +93,6 @@ There are two paths to working with MBL:
 
 <h2 id="doc-updates">Recently updated documentation</h2>
 
-<!--tempting to just say "we redid the docs; get reading"-->
-
 * A standalone guide [for writing images to devices](../first-image/index.html), including evaluation images, new board support and cellular connections for version 0.6.
 * A new [provisioning guide](../first-image/provisioning-for-pelion-device-management.html).
 * Instructions for [removing the old version of MBL CLI](../develop-apps/setting-up.html#setting-up-mbl-cli).

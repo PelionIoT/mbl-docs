@@ -75,7 +75,7 @@ usb0:avahi Link encap:Ethernet  HWaddr 96:F8:52:67:D5:D8
 To get shell access over SSH to a device (as the user `root`), use the `shell` command:
 
 ```
-$ mbl-cli [-a address] shell 
+$ mbl-cli [-a address] shell
 ```
 
 For a previously selected device, omit the address:
@@ -86,4 +86,4 @@ Connecting to mbed-linux-os-2833...
 root@mbed-linux-os-2833:~#
 ```
 
-After obtaining shell access, you can set up Wi-Fi on the device (see [Setting up a network connection](../first-image/connecting-to-a-network-and-pelion-device-management.html)).<!--that page doesn't mention you need MBL CLI-->
+After obtaining shell access, you can set up Wi-Fi on the device (see [Setting up a network connection](../first-image/connecting-to-a-network-and-pelion-device-management.html)).

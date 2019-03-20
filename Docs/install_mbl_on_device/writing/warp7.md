@@ -41,7 +41,7 @@
 
 1. If you got a U-boot prompt on the device, continue to the next step.
 
-   If you got an operating system boot (for example, Android), reboot the device<!--this is where it gets confusing - because we also call the flash bit "flash device"--> until you get a U-boot prompt, and then press any key to prevent the operating system from booting again. Continue to the next step.
+   If you got an operating system boot (for example, Android), reboot the device until you get a U-boot prompt, and then press any key to prevent the operating system from booting again. Continue to the next step.
 
 1. To expose the Warp7's flash device to Linux as USB mass storage, in the U-boot prompt, enter:
 

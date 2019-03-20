@@ -32,7 +32,6 @@
 
     * The SD card device file in `/dev`, probably as `/dev/sdX` for some letter `X` (for example, `/dev/sdd`).
     * Device files for its partitions. `/dev/sdXN` for the same letter `X` and some numbers `N` (for example, `/dev/sdd1` and `/dev/sdd2`).
-    <!--this doesn't match, because it's PICO.-->
 
     ```
     NAME          MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
@@ -85,7 +84,7 @@
 
     The cable's TX and RX are used to communicate with the board.
 
-1. If you are using a UART cable, after connecting the Raspberry Pi 3, from your PC, run the following command to connect to the device's serial console:
+1. If you are using a UART cable, after connecting the Raspberry Pi 3, from your PC, run the following command to connect to the device's serial console (otherwise, you will see output on your HDMI connected monitor):
 
     ```
     minicom -D /dev/ttyUSB0
@@ -96,8 +95,6 @@
     * Baud rate: 115200.
     * Encoding: [8N1](https://en.wikipedia.org/wiki/8-N-1).
     * No hardware flow control (enabled by default).
-
-    <!--JIJ: otherwise you will see output on your monitor connected via HDMI-->
 
 1. Connect the Raspberry Pi 3's micro-USB socket to a USB power supply.
 
