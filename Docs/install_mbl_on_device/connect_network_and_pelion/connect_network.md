@@ -7,7 +7,7 @@ This tutorial covers:
 1. Setting up a connection over:
     * [Ethernet](#setting-up-an-ethernet-connection).
     * [Wi-Fi](#setting-up-a-wi-fi-connection).
-    * [Cellular](setting-up-a-cellular-connection).
+    * [Cellular](#setting-up-a-cellular-connection).
 1. Verifying that your device can connect to your Pelion Device Management account.
 
 ## Setting up an Ethernet connection
@@ -391,7 +391,7 @@ The activation of ECM mode is only needed once: the change is saved in NV (non-v
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
           RX packets:1918 errors:0 dropped:0 overruns:0 frame:0
           TX packets:2141 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:1000 
+          collisions:0 txqueuelen:1000
           RX bytes:177877 (173.7 KiB)  TX bytes:197501 (192.8 KiB)
     # ping -I usb0 www.google.com
       PING www.google.com (216.58.213.100): 56 data bytes
@@ -402,7 +402,7 @@ The activation of ECM mode is only needed once: the change is saved in NV (non-v
     ```
 
 ### Connecting and disconnecting the cellular connection using ConnMan
- 
+
 Once the ECM is up and running, ConnMan can connect and disconnect the cellular connection. To identify the right service you need the MAC address of the network interface, which is used to name the Connman service. In the example above, the address is `46:1C:33:88:26:11`, and the derived service name is `ethernet_461c33882611_cable`.
 
 **To disconnect:**
@@ -415,7 +415,7 @@ Once the ECM is up and running, ConnMan can connect and disconnect the cellular 
    *AR Wired                ethernet_de5e17ac558d_cable
    ```
 1. Disconnect cellular connection:
- 
+
    ```
    # connmanctl disconnect ethernet_461c33882611_cable
    ```
@@ -428,10 +428,10 @@ Once the ECM is up and running, ConnMan can connect and disconnect the cellular 
              UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
              RX packets:2072 errors:0 dropped:0 overruns:0 frame:0
              TX packets:2339 errors:0 dropped:0 overruns:0 carrier:0
-             collisions:0 txqueuelen:1000 
+             collisions:0 txqueuelen:1000
              RX bytes:183673 (179.3 KiB)  TX bytes:211149 (206.2 KiB)
    ```
-   
+
 **To reconnect:**
 
 1. Connect cellular connection:
@@ -442,7 +442,7 @@ Once the ECM is up and running, ConnMan can connect and disconnect the cellular 
    ```
 
 1. Check whether the cellular connection has reconnected by pinging an external website.
- 
+
 ### Deactivate ECM with AT commands
 
 If you need to deactivate the ECM mode, you can use AT commands as detailed below. You only need to do this once; the change is stored in the modem's NV (non-volatile) memory.
