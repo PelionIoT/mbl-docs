@@ -59,7 +59,7 @@ To install or update an application:
 1. Find the device ID in the `mbl-cloud-client` log file at `/var/log/mbl-cloud-client.log`, using the following command on the device's console:
 
     ```
-    root@mbed-linux-os-1234:~# grep -i 'device id' /var/log/mbl-cloud-client.  
+    root@mbed-linux-os-1234:~# grep -i 'device id' /var/log/mbl-cloud-client.log  
     ```
 
     If you only have one registered device, or if each devices has a been assigned a descriptive name in Portal, you can go to [Device Management Portal](https://portal.mbedcloud.com) > **Device Directory** to find the device ID.
