@@ -19,3 +19,11 @@ Supported boards:
          An optional second USB network adaptor if you want to convert back to USB (to connect to your PC over USB rather than network).
 
     <span class="warnings">**Warning:** The Raspberry Pi 3 is suitable for development only. Do not use it for production.</span>
+
+## Hardware features
+
+A basic comparison of features of the different boards supported:
+
+| Name | SoC | CPUs | Memory | Storage | WiFi | Ethernet | Bluetooth | Cellular | Security |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| PICO-PI with IMX7D | NXP i.MX7D | Arm 2x Cortex-A7, 1x M4 | 1GB | 8GB eMMC | 802.11 a/b/g/n/ac* | RGMII | 4.1* | * | High |
