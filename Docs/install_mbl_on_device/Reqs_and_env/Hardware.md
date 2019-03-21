@@ -22,7 +22,7 @@ Supported boards:
 
 ## Hardware features
 
-A basic comparison of features of the different boards supported:
+A basic comparison of features of the supported board:
 
 | Name | SoC | CPUs | Memory | Storage | WiFi | Ethernet | Bluetooth | USB | Cellular | Security |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
