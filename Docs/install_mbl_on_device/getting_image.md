@@ -11,14 +11,9 @@ Using MBL requires the following:
 
 ## Evaluation images
 
-Each target hardware has its own release archive, with a hardware-specific image:
+[MBL evaluation images for the 0.6 release are on GitHub](https://github.com/ARMmbed/mbl-manifest/releases/tag/mbl-os-0.6.0)
 
 <span class="notes">**Note**: Mbed Linux OS is currently in limited preview. If you would like access to these repositories, [please request to join the preview](https://os.mbed.com/linux-os/). These links will display an error if you do not have access.</span>
-
-* [Raspberry Pi 3B or Raspberry Pi 3B+]()<!--missing the links!!-->
-* [Warp7]()
-* [PICO-PI with IMX7D SoM]()
-* [NXP 8M Mini EVK]()
 
 ## Archive content
 
