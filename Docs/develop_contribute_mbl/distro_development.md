@@ -1,19 +1,20 @@
 # Mbed Linux OS distribution development with mbl-tools
 
-The Mbed Linux OS (MBL) distribution is based on OpenEmbedded and Yocto and supports all of the development workflows listed in the [Yocto Manuals](https://www.yoctoproject.org/docs/current/mega-manual/mega-manual.html). MBL distribution development relies on the [mbl-tools repository](https://github.com/ARMmbed/mbl-tools/), and in particular build-mbl, to build, develop and test the distribution.
+The Mbed Linux OS (MBL) distribution is based on OpenEmbedded and Yocto; it supports all of the development workflows listed in the [Yocto Manuals](https://www.yoctoproject.org/docs/current/mega-manual/mega-manual.html). MBL distribution development relies on the [`mbl-tools` repository](https://github.com/ARMmbed/mbl-tools/), and in particular `build-mbl`, to build, develop and test the distribution.
 
-You can use the Docker build environment's shell (interactive mode, explained below) to perform incremental builds, use [devtool](https://www.yoctoproject.org/docs/current/mega-manual/mega-manual.html#ref-devtool-reference), or just call `bitbake [options] <target>`.
+You can use the Docker build environment's shell (interactive mode, [explained below](#running-build-mbl-in-interactive-mode)) to perform incremental builds, use [devtool](https://www.yoctoproject.org/docs/current/mega-manual/mega-manual.html#ref-devtool-reference), or just call `bitbake [options] <target>`.
 
 ## Requirements for mbl-tools
 
-* Install [all software requirements for a development environment](../first-image/development-environment.html).
-* To be able to use interactive mode and launch mbl-tools, you need to [run a complete build](../first-image/building-a-developer-image.html) at least once.
+Install [all software requirements for a development environment](../first-image/development-environment.html).
 
 ## Building MBL using a custom repo manifest
 
-You can use a custom repo manifest with mbl-tools to specify source revisions or use your own MBL forks. You can create a new manifest, or fork [mbl-manifest](https://github.com/ARMmbed/mbl-manifest).
+You can use a custom repo manifest with `mbl-tools` to specify source revisions or use your own MBL forks. You can create a new manifest, or fork [`mbl-manifest`](https://github.com/ARMmbed/mbl-manifest).
 
-To point to a custom manifest, you need to pass at least the `--branch` and `--url` options. If the manifest filename is not `default.xml`, use the `--manifest` option to pass the correct name. For example (change `--builddir` and `--machine` as needed):
+To point to a custom manifest, you need to pass at least the options `--branch` and `--url`. If the manifest filename is not `default.xml`, use the `--manifest` option to pass the correct name.
+
+For example (change parameters for `--builddir` and `--machine` as needed):
 
 ```
 ./mbl-tools/build-mbl/run-me.sh --builddir ./build-warp7 -- --machine imx7s-warp-mbl --branch mbl-os-0.6 --url git@github.com:your-github-account/mbl-manifest.git
@@ -24,12 +25,12 @@ To point to a custom manifest, you need to pass at least the `--branch` and `--u
 
 ## Running build-mbl in interactive mode
 
-<span class="tips">This section only covers building a distribution; the Docker build environment was not designed for editing files (since it doesn't include vim, for example). If you want to inspect or edit files, use another shell terminal. The layers source code are located at: `<builddir>/<mbl-machine-name>/mbl-manifest/layers` and the BitBake build directory at: `<builddir>/<mbl-machine-name>/mbl-manifest/build-mbl`.</span>
+<span class="tips">This section only covers building a distribution; the Docker build environment was not designed for editing files (since it doesn't include a file editor such as `vim`). If you want to inspect or edit files, do so in your viewer/editor of choice before launching interactive mode. The BitBake layers are located at: `<builddir>/<mbl-machine-name>/mbl-manifest/layers` and the build directory at: `<builddir>/<mbl-machine-name>/mbl-manifest/build-mbl`.</span>
 
 You need to run the **build-mbl tool** in interactive mode: an interactive shell inside the Docker build environment with the BitBake environment setup. This allows running commands for BitBake and its associated tools (such as bitbake-layers, devtool and receipetool).
 
 
-1. To run build-mbl in interactive mode (change `--builddir` and `--machine` as needed):
+1. To run build-mbl in interactive mode (change parameters for `--builddir` and `--machine` as needed):
 
     ```
     ./mbl-tools/build-mbl/run-me.sh --builddir ./build-warp7 -- --branch mbl-os-0.6 --machine imx7s-warp-mbl interactive
@@ -37,23 +38,21 @@ You need to run the **build-mbl tool** in interactive mode: an interactive shell
 
     <span class="tips">Unlike the build mode, the interactive mode only supports one `--machine` option at a time.</span>
 
-    <span class="notes">**Note**: If you haven't run a complete build before you will be prompted with the following message. Please [run the complete build before proceeding](../first-image/building-a-developer-image.html):</span>
-
-    ```
-    error: '<builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl' path missing.
-    Please run a complete build for 'imx7s-warp-mbl' machine before using the interactive mode.
-    Would you like to run the complete build now? (Y/N):
-    ```
-
-1. The interactive shell should looks like:
+1. The interactive shell prompt should be similar to:
 
     ```
     user@9c2c89bf20a6:<builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl$
     ```
 
-To exit the interactive shell, press <kbd>Ctrl</kbd>+<kbd>D</kbd> or enter `exit`.
+To exit the interactive mode, press <kbd>Ctrl</kbd>+<kbd>D</kbd> or type `exit` and press <kbd>Enter</kbd>.
 
-## Examples of command use
+<span class="notes">**Note**: To perform a full build after exiting interactive mode, you must provide the `build` stage as follows (change parameters for `--builddir` and `--machine` as needed):</span>
+
+```
+./mbl-tools/build-mbl/run-me.sh --builddir ./build-warp7 -- --branch mbl-os-0.6 --machine imx7s-warp-mbl build
+```
+
+## Examples of interactive mode commands
 
 ### bitbake-layers
 
