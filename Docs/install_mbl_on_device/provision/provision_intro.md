@@ -18,7 +18,7 @@ The full provisioning process is:
 
 1. Generate a Device Management API key from the **Device Management Portal**.
 
-1. Use **MBL CLI** to save the API key to the device.
+1. Use **MBL CLI** to save the API key to the host machine.
 
 1. Use the **manifest tool** to generate the firmware update authenticity certificate (`update_default_resources.c`), which contains the:
 
