@@ -10,7 +10,7 @@ MBL applications are not compiled together with the MBL codebase or with any Pel
 
     1. [Install MBL CLI](../develop-apps/setting-up.html), which you will also use when developing applications.
 
-    <span class="notes">**Note**: If you have MBL CLI 1.x installed, please [uninstall it, and install 2.0 instead](../develop-apps/setting-up.html#setting-up-mbl-cli).</span>
+    <span class="notes">**Note**: If you have MBL CLI 1.x installed, please [uninstall it, and install 2.0 instead](../develop-apps/setting-up.html#setting-up-mbl-cli). Use `--version` to check.</span>
 
     1. Set up [a developer (USB) connection to your device](../develop-apps/setting-up.html#setting-up-networking), so you can work with MBL CLI.
 
