@@ -12,4 +12,4 @@ The Mbed Linux OS command-line interface (MBL CLI) interacts with the MBL device
 * Provision the device for Pelion Device Management.
 * Install a new application, or update an existing one.
 
-<span class="notes">**Note**: MBL CLI can only be used with devices running the MBL development image `mbl-image-development`, rather than the production image `mbl-image-production`.</span><!--is this for security?-->
+<span class="notes">**Note**: MBL CLI can only be used with devices running the MBL development image `mbl-image-development`, rather than the production image `mbl-image-production`.</span>
