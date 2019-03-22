@@ -239,6 +239,9 @@
                 },
                 {
                     "path": "Docs/refs/partition_layout.md"
+                },
+                {
+                    "path": "Docs/refs/secure_boot.md"
                 }
             ]
         }
