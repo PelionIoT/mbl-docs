@@ -13,7 +13,7 @@ Using MBL requires the following:
 
 [MBL evaluation images for the 0.6 release are on GitHub](https://github.com/ARMmbed/mbl-manifest/releases/tag/mbl-os-0.6.0)
 
-<span class="notes">**Note**: Mbed Linux OS is currently in limited preview. If you would like access to these repositories, [please request to join the preview](https://os.mbed.com/linux-os/). These links will display an error if you do not have access.</span>
+<span class="notes">**Note**: Mbed Linux OS is currently in limited preview. If you would like access to these repositories, [please request to join the preview](https://os.mbed.com/linux-os/). The link will display an error if you do not have access.</span>
 
 ## Archive content
 
