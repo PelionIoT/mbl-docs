@@ -88,7 +88,7 @@ There are two paths to working with MBL:
 
 1. If you are an **application developer** interested in building applications for devices that run MBL:
     1. We recommend [using an evaluation image](../first-image/downloading-an-evaluation-image.html).
-    1. Review our [development guide](../develop-apps/index.html), our [command line tool, MBL CLI](../develop-apps/the-mbl-command-line-interface.html) and our [Hello World application](../develop-apps/hello-world-application.html).
+    1. Review our [development guide](../develop-apps/index.html), our [command-line interface MBL CLI](../develop-apps/the-mbl-command-line-interface.html) and our [Hello World application](../develop-apps/hello-world-application.html).
     1. [Use our update tutorial](../update/index.html) to send application firmware updates over the air.
 
 <h2 id="doc-updates">Recently updated documentation</h2>
