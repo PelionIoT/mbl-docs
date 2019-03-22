@@ -99,4 +99,4 @@ There are two paths to working with MBL:
 * A new [guide for application developers](../develop-apps/index.html).
 * New [information for MBL development](../develop-mbl/index.html), including tool reviews for incremental builds, [contribution guidelines and code style guides](../develop-mbl/contribution-guidelines.html).
 * Revised [firmware update tutorials](../update/index.html).
-* A new [reference about partition layout](../references/partition-layout.html) and [secure boot](../references/secure-boot-and-firmware-verification-requirements.html)
+* A new [reference about partition layout](../references/partition-layout.html).
