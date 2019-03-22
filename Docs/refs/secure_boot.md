@@ -1,5 +1,7 @@
 # Secure boot and firmware verification requirements
 
+<!--note: this mustn't go live until the code does-->
+
 This article provides information about the methodology Mbed Linux OS (MBL) uses to support secure boot and firmware updates, and assumes you are an experienced Linux developer. You may find it interesting if you are porting MBL to new hardware or contributing to its code base.
 
 ## Introduction
