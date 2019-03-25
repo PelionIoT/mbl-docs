@@ -20,20 +20,19 @@ To install or update an application:
    For example, if `payload.tar` is the payload name for an application update, and 169.254.111.222 is a link-local IPv4 address on the device:
 
    ```
-   $ mbl-cli put payload.tar /scratch 169.254.111.222
-   28 Nov 09:42:04 - File transfer succeeded
+   $ mbl-cli -a 169.254.111.222 put payload.tar /scratch
    ```
 
 1. Use the MBL CLI `shell` command to get shell access on the device:
 
     ```
-    $ mbl-cli shell [address]
+    $ mbl-cli [-a address] shell
     ```
 
     For example:
 
     ```
-    $ mbl-cli shell 169.254.111.222
+    $ mbl-cli -a 169.254.111.222 shell
     ```
 
 1. Run `mbl-firmware-update-manager` with the `--skip-reboot` parameter.
