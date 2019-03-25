@@ -100,3 +100,5 @@ There are two paths to working with MBL:
 * New [information for MBL development](../develop-mbl/index.html), including tool reviews for incremental builds, [contribution guidelines and code style guides](../develop-mbl/contribution-guidelines.html).
 * Revised [firmware update tutorials](../update/index.html).
 * A new [reference about partition layout](../references/partition-layout.html).
+
+The [full release note](https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.6/docs/release_note.md) is available to users who have access to our limited preview repository.
