@@ -81,7 +81,7 @@
     sudo umount /dev/sdX*
     ```
 
-1. From a Linux prompt, write the disk image to the PICO-PI's USB mass storage - not a partition on it (replace `/dev/sdX` as explained above):
+1. From a Linux prompt, write the disk image to the board's USB mass storage - not a partition on it (replace `/dev/sdX` as explained above):
 
     ```
     sudo bmaptool copy --nobmap /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-image-development/images/mbl-image-development-imx7s-warp-mbl.wic.gz /dev/sdX
