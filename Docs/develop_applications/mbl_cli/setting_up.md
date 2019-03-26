@@ -25,7 +25,7 @@ npm uninstall mbl-cli -g --save
 
 ### Installation
 
-1. Use pip to install MBL CLI. We recommend installing in a [Python virtual environment](https://www.python.org/dev/peps/pep-0405/). 
+1. Use pip to install MBL CLI. We recommend installing in a [Python virtual environment](https://www.python.org/dev/peps/pep-0405/).
    If for any reason you must install MBL CLI using the 'system' Python, install with the `--user` flag.
 
     ```bash
@@ -36,13 +36,11 @@ npm uninstall mbl-cli -g --save
 
 You can use a USB developer connection to debug and test your applications. The connection will not be interrupted by your development work, including work that disrupts network connectivity.
 
-Before setting up, run `ifconfig` and note the interface names; you will need this information later to determine the name of your device's network interface.
-
-
+Before setting up, run `ifconfig` (or the equivalent command on your OS) and note the interface names; you will need this information later to determine the name of your device's network interface.
 
 ### Connecting a device with a USB gadget network interface
 
-If the device can use the kernel's USB gadget driver (for example, Warp 7), connect the device to the PC using a USB cable. A new network interface is created on the development PC (for example `enp0s2222222a`). 
+If the device can use the kernel's USB gadget driver (for example, Warp 7), connect the device to the PC using a USB cable. A new network interface is created on the development PC (for example `enp0s2222222a`).
 
 ```bash
 $ ifconfig
@@ -50,7 +48,7 @@ enp0s2222222a Link encap:Ethernet  HWaddr xy:11:22:x3:44:xy
           UP BROADCAST MULTICAST  MTU:1500  Metric:1
           RX packets:0 errors:0 dropped:0 overruns:0 frame:0
           TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:1000 
+          collisions:0 txqueuelen:1000
           RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
 
 lo        Link encap:Local Loopback  
@@ -59,7 +57,7 @@ lo        Link encap:Local Loopback
           UP LOOPBACK RUNNING  MTU:65536  Metric:1
           RX packets:52489 errors:0 dropped:0 overruns:0 frame:0
           TX packets:52489 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:1 
+          collisions:0 txqueuelen:1
           RX bytes:59176006 (59.1 MB)  TX bytes:59176006 (59.1 MB)
 
 veth93e055c Link encap:Ethernet  HWaddr be:9e:84:59:53:ac  
@@ -67,7 +65,7 @@ veth93e055c Link encap:Ethernet  HWaddr be:9e:84:59:53:ac
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
           RX packets:386 errors:0 dropped:0 overruns:0 frame:0
           TX packets:575 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:0 
+          collisions:0 txqueuelen:0
           RX bytes:42239 (42.2 KB)  TX bytes:625618 (625.6 KB)
 ```
 
@@ -90,7 +88,7 @@ enx503eaa4e094c Link encap:Ethernet  HWaddr xy:11:22:x3:44:xy
           UP BROADCAST MULTICAST  MTU:1500  Metric:1
           RX packets:0 errors:0 dropped:0 overruns:0 frame:0
           TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:1000 
+          collisions:0 txqueuelen:1000
           RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
 
 lo        Link encap:Local Loopback  
@@ -99,7 +97,7 @@ lo        Link encap:Local Loopback
           UP LOOPBACK RUNNING  MTU:65536  Metric:1
           RX packets:52489 errors:0 dropped:0 overruns:0 frame:0
           TX packets:52489 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:1 
+          collisions:0 txqueuelen:1
           RX bytes:59176006 (59.1 MB)  TX bytes:59176006 (59.1 MB)
 
 veth93e055c Link encap:Ethernet  HWaddr be:9e:84:59:53:ac  
@@ -107,7 +105,7 @@ veth93e055c Link encap:Ethernet  HWaddr be:9e:84:59:53:ac
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
           RX packets:386 errors:0 dropped:0 overruns:0 frame:0
           TX packets:575 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:0 
+          collisions:0 txqueuelen:0
           RX bytes:42239 (42.2 KB)  TX bytes:625618 (625.6 KB)
 ```
 
@@ -141,8 +139,8 @@ veth93e055c Link encap:Ethernet  HWaddr be:9e:84:59:53:ac
       $ sudo nmcli connection add ifname eno0 con-name mbl-ipv4ll type ethernet -- ipv4.method link-local
       Connection 'mbl-ipv4ll' (475ebfb1-d67e-d67e-d67e-475ebfb1dddd) successfully added.
       ```
-   
-<span class="notes">**Note**: If you are setting up managed connections for multiple boards, you must give them unique names; reusing a name will overwrite an existing connection profile.</span> 
+
+<span class="notes">**Note**: If you are setting up managed connections for multiple boards, you must give them unique names; reusing a name will overwrite an existing connection profile.</span>
 
 2. Activate the `mbl-ipv4ll` connection profile:
 
@@ -209,4 +207,3 @@ veth93e055c Link encap:Ethernet  HWaddr be:9e:84:59:53:ac
         collisions:0 txqueuelen:1000
         RX bytes:3176233 (3.1 MB)  TX bytes:915351 (915.3 KB)
     ```
-
