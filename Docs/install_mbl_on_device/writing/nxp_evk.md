@@ -59,12 +59,12 @@
 1. Write the disk image to the SD card device - not a partition on it (replace `/dev/sdX` as explained above):
 
     ```
-    sudo bmaptool copy --nobmap /path/to/artifacts/machine/nxpimx-mbl/images/mbl-image-development/images/mbl-image-development-nxpimx-mbl.wic.gz /dev/sdX
+    sudo bmaptool copy --nobmap /path/to/artifacts/machine/imx8mmevk-mbl/images/mbl-image-development/images/mbl-image-development-imx8mmevk-mbl.wic.gz /dev/sdX
     ```
 
     This action may take some time.
 
-    <span class="tips">**Tip**: Use `--nobmap` for the initial flashing, to ensure your flash is set up correctly. On all subsequent flashings, you can use the `--bmap` option with a bmap file to speed up the process: `sudo bmaptool copy --bmap /path/to/artifacts/machine/nxpimx-mbl/images/mbl-image-development/images/mbl-image-development-nxpimx-mbl.wic.bmap /path/to/artifacts/machine/nxpimx-mbl/images/mbl-image-development/images/mbl-image-development-nxpimx-mbl.wic.gz /dev/sdX`</span>
+    <span class="tips">**Tip**: Use `--nobmap` for the initial flashing, to ensure your flash is set up correctly. On all subsequent flashings, you can use the `--bmap` option with a bmap file to speed up the process: `sudo bmaptool copy --bmap /path/to/artifacts/machine/imx8mmevk-mbl/images/mbl-image-development/images/mbl-image-development-imx8mmevk-mbl.wic.bmap /path/to/artifacts/machine/imx8mmevk-mbl/images/mbl-image-development/images/mbl-image-development-imx8mmevk-mbl.wic.gz /dev/sdX`</span>
 
 1. When `bmaptool` has finished, eject the device:
 

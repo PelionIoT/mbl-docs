@@ -19,7 +19,7 @@ The following examples assume:
 ## NXP 8M Mini EVK
 
 ```
-./mbl-tools/build-mbl/run-me.sh --builddir ./build-nxpimx --outputdir ./artifacts-nxpimx -- --machine nxpimx-mbl --branch mbl-os-0.6
+./mbl-tools/build-mbl/run-me.sh --builddir ./build-nxpimx --outputdir ./artifacts-nxpimx -- --machine imx8mmevk-mbl --branch mbl-os-0.6
 ```
 
 ## Warp7
