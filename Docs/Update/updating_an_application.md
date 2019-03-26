@@ -36,6 +36,10 @@ To install or update an application:
     ```
 
 1. Run `mbl-firmware-update-manager` with the `--skip-reboot` parameter.
+    
+    ```
+    $ mbl-firmware-update-manager -i /path/to/payload.tar --skip-reboot
+    ```
 
     The application is installed.
 
