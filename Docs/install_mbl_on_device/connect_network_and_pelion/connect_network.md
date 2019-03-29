@@ -383,6 +383,8 @@ The activation of ECM mode is only needed once: the change is saved in NV (non-v
 
 1. Check that ECM is working by verifying a valid IP address on the interface and by pinging a website, for example www.google.com:
 
+    <span class="notes">There is a known issue with DNS lookup using the cellular module, which means you have to currently use an IP address (such as 216.58.213.100), instead of using a website domain name look up. If you have access to our repositories on github you can view this [issue](https://github.com/ARMmbed/meta-mbl/issues/468).</span>
+
     ```
     # ifconfig usb0
     usb0  Link encap:Ethernet  HWaddr 46:1C:33:88:26:11  
