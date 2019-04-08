@@ -35,13 +35,16 @@ To install or update an application:
     $ mbl-cli -a 169.254.111.222 shell
     ```
 
-1. Run `mbl-firmware-update-manager` with the `--skip-reboot` parameter.
+1. Run `mbl-firmware-update-manager`.
     
     ```
-    $ mbl-firmware-update-manager -i /path/to/payload.tar --skip-reboot
+    $ mbl-firmware-update-manager /path/to/payload.tar
     ```
 
     The application is installed.
+
+    <span class="notes">**Note:** Use the optional argument `--no-cleanup` if you wish to keep the update package after a successful update.</span>
+
 
 1. The application starts automatically, without a device reboot.
 
