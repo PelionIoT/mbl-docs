@@ -48,7 +48,6 @@ To install or update an application:
 
 1. The application starts automatically, without a device reboot.
 
-<span class="notes">We recommend deleting the old tar files from the `scratch` partition after updates finish.</span>
 
 ## Using the manifest tool
 

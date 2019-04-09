@@ -39,23 +39,20 @@ There are two ways to update an MBL image:
 1. Inside the shell, run the `mbl-firmware-update-manager` script to install the rootfs:
 
    ```
-   $ mbl-firmware-update-manager <full path to TAR file under /scratch> --reboot
+   $ mbl-firmware-update-manager <full path to TAR file under /scratch>
    ```
 
    For example:
 
    ```
-   $ mbl-firmware-update-manager /scratch/payload.tar --reboot
+   $ mbl-firmware-update-manager /scratch/payload.tar
    ```
 
-   The rootfs is updated.
+   The rootfs is installed.
 
-   <span class="notes">**Note:** Use the optional argument `--no-cleanup` if you wish to keep the update package after a successful update.</span>
+1. When prompted, type `y` and press the enter key to reboot the device and switch to the newly installed rootfs.
 
-
-1. The device automatically reboots.
-
-<span class="notes">We recommend deleting the old tar files from the `scratch` partition after updates finish.</span>
+   <span class="notes">**Note:** Use the optional argument `--no-cleanup` if you wish to keep the update package after a successful update. The optional argument `--no-ask` can be used to automatically reboot after the rootfs has been installed. </span>
 
 ## Using the manifest tool
 
