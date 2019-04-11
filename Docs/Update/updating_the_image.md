@@ -39,7 +39,7 @@ There are two ways to update an MBL image:
 1. Inside the shell, run the `mbl-firmware-update-manager` script to install the rootfs:
 
    ```
-   $ mbl-firmware-update-manager /absolute/path/to/tar/file/in/scratch
+   $ mbl-firmware-update-manager /absolute/path/to/payload.tar
    ```
 
    For example:
