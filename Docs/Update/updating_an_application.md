@@ -38,7 +38,7 @@ To install or update an application:
 1. Run `mbl-firmware-update-manager`.
     
     ```
-    $ mbl-firmware-update-manager /path/to/payload.tar
+    $ mbl-firmware-update-manager /absolute/path/to/payload.tar
     ```
 
     The application is installed.
