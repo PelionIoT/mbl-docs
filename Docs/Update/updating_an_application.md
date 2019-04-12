@@ -43,7 +43,7 @@ To install or update an application:
 
     The application is installed.
 
-    <span class="notes">**Note:** Use the optional argument `--keep` if you wish to keep the update package after a successful update.</span>
+    <span class="notes">**Note:** To keep the update package after a successful update, use the optional argument `--keep`.</span>
 
 
 1. The application starts automatically, without a device reboot.
