@@ -50,9 +50,9 @@ There are two ways to update an MBL image:
 
    The rootfs is installed.
 
-1. When prompted, type `y` and press the enter key to reboot the device and switch to the newly installed rootfs.
+1. When prompted, press <kbd>Y</kbd>+<kbd>Enter</kbd> key to reboot the device and switch to the newly installed rootfs.
 
-   <span class="notes">**Note:** Use the optional argument `--keep` if you wish to keep the update package after a successful update. The optional argument `--assume-yes` can be used to automatically reboot after the rootfs has been installed. </span>
+   <span class="notes">**Note:** To keep the update package after a successful update, use the optional argument `--keep`. Use the optional argument `--assume-yes` to automatically reboot after the rootfs has been installed.</span>
 
 ## Using the manifest tool
 
