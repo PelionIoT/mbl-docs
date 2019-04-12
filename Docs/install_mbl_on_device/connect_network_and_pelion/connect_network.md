@@ -18,7 +18,7 @@ If your device is physically connected to an Ethernet network (that must have a 
 
 <span class="tips">**Tip**: We recommend [installing MBL CLI](../develop-apps/setting-up.html) and setting up a USB connection to the device. You can then discover the device and [use a shell](../develop-apps/usage.html#get-shell-access-ssh) to set up the Wi-Fi connection.</span>
 
-<span class="notes">PICO-PI with PICO-IMX7D SoM and NXP 8M Mini EVK devices require the Wi-Fi firmware to be installed separately. Using [MBL CLI](../develop-apps/setting-up.html) and [a remote command](../develop-apps/usage.html#remote-command-execution) run the install script:
+<span class="notes">PICO-PI with PICO-IMX7D SoM and NXP 8M Mini EVK devices require the Wi-Fi firmware to be installed separately. Using [MBL CLI](../develop-apps/setting-up.html) and [use a shell](../develop-apps/usage.html#get-shell-access-ssh) to run the install script:
 **mbl-cli [-a address] shell  /opt/arm/populate_rootfs_qca.sh**
 This will display a EULA that must be accepted to install the firmware.
 After the firmware is installed it is necessary to reboot the device:
