@@ -18,15 +18,6 @@ If your device is physically connected to an Ethernet network (that must have a 
 
 <span class="tips">**Tip**: We recommend [installing MBL CLI](../develop-apps/setting-up.html) and setting up a USB connection to the device. You can then discover the device and [use a shell](../develop-apps/usage.html#get-shell-access-ssh) to set up the Wi-Fi connection.</span>
 
-<span class="notes">PICO-PI with PICO-IMX7D SoM and NXP 8M Mini EVK devices require the Wi-Fi firmware to be installed separately. Using [MBL CLI](../develop-apps/setting-up.html) and [use a shell](../develop-apps/usage.html#get-shell-access-ssh) to run the install script:\r\n
-**mbl-cli [-a address] shell**\r\n  
-**/opt/arm/populate_rootfs_qca.sh**\r\n
-This will display a EULA that must be accepted to install the firmware.
-After the firmware is installed it is necessary to reboot the device:
-**mbl-cli [-a address] shell reboot**
-This process will have to be repeated each time a root filesystem update is performed.</span>
-
-
 Mbed Linux OS (MBL) uses **Connection Manager (ConnMan)** to manage Wi-Fi interfaces and connections. This page briefly reviews ConnMan and then explains how to use it to set up and manage Wi-Fi on MBL devices.
 
 As an MBL developer, use ConnMan for all basic Wi-Fi operations, rather than interacting directly with the `wpa_supplicant` daemon or modifying the `wpa_supplicant.conf` file.
@@ -77,6 +68,20 @@ The folder contains:
     ```
 
 * For advanced connection configurations, you may manually generate service files and place them under `/config/user/connman` (see section [Connecting to a network using service configuration (provisioning) files](#service-configuration-files)). These are also known as *provisioning files*, and their file extensions must be `.config`.
+
+### Install Wi-Fi firmware on PICO-PI with PICO-IMX7D SoM and NXP 8M Mini EVK devices
+
+PICO-PI with PICO-IMX7D SoM and NXP 8M Mini EVK devices require the Wi-Fi firmware to be installed separately. Using [MBL CLI](../develop-apps/setting-up.html) and [use a shell](../develop-apps/usage.html#get-shell-access-ssh) to run the install script:
+'''
+mbl-cli [-a address] shell
+/opt/arm/populate_rootfs_qca.sh
+'''
+This will display a EULA that must be accepted to install the firmware.
+After the firmware is installed it is necessary to reboot the device:
+'''
+mbl-cli [-a address] shell reboot
+'''
+This process will have to be repeated each time a root filesystem update is performed.
 
 ### Enabling Wi-Fi
 
