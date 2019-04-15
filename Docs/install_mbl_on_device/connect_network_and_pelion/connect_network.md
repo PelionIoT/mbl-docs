@@ -71,7 +71,7 @@ The folder contains:
 
 ### Install Wi-Fi firmware on PICO-PI with PICO-IMX7D SoM and NXP 8M Mini EVK devices
 
-PICO-PI with PICO-IMX7D SoM and NXP 8M Mini EVK devices require the Wi-Fi firmware to be installed separately. Using [MBL CLI](../develop-apps/setting-up.html) and [a shell](../develop-apps/usage.html#get-shell-access-ssh) to run the install script:
+PICO-PI with PICO-IMX7D SoM and NXP 8M Mini EVK devices require the Wi-Fi firmware to be installed separately. Use [MBL CLI](../develop-apps/setting-up.html) and [a shell](../develop-apps/usage.html#get-shell-access-ssh) to run the install script:
 
 ```
 mbl-cli [-a address] shell
