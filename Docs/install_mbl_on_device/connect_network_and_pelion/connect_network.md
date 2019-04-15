@@ -79,7 +79,8 @@ mbl-cli [-a address] shell
 ```
 
 This will display a EULA that must be accepted to install the firmware.
-After the firmware is installed it is necessary to reboot the device:
+
+When the firmware is installed, reboot the device:
 
 ```
 mbl-cli [-a address] shell reboot
