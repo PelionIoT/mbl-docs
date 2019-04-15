@@ -86,7 +86,7 @@ When the firmware is installed, reboot the device:
 mbl-cli [-a address] shell reboot
 ```
 
-This process will have to be repeated each time a root filesystem update is performed.
+The Wi-Fi firmware must be reinstalled each time a root filesystem update is performed.
 
 ### Enabling Wi-Fi
 
