@@ -10,6 +10,10 @@ This tutorial covers:
     * [Cellular](#setting-up-a-cellular-connection).
 1. Verifying that your device can connect to your Pelion Device Management account.
 
+## Naming a device
+
+If you have multiple devices, we recommend manually naming them before you connect them to the network and Pelion Device Management. You can use the `hostname` command over your device's serial port.
+
 ## Setting up an Ethernet connection
 
 If your device is physically connected to an Ethernet network (that must have a DHCP server), then it automatically uses that network.
