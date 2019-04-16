@@ -142,7 +142,7 @@ veth93e055c Link encap:Ethernet  HWaddr be:9e:84:59:53:ac
       Connection 'mbl-ipv4ll' (475ebfb1-d67e-d67e-d67e-475ebfb1dddd) successfully added.
       ```
 
-<span class="notes">**Note**: If you are setting up managed connections for multiple boards, you must give them unique names; reusing a name will overwrite an existing connection profile.</span>
+    <span class="notes">**Note**: If you are setting up managed connections for multiple boards, you must give them unique names; reusing a name will overwrite an existing connection profile.</span>
 
 2. Activate the `mbl-ipv4ll` connection profile:
 
