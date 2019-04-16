@@ -57,7 +57,7 @@ $ ./ci/lava/tests/lxc-build-helloworld.sh <arm-arch>
 
 The build produces:
 
-* An IPK file at `./tutorials/helloworld/release/ipk/user-sample-app-package_1.0_any.ipk`
+* An IPK file at `./tutorials/helloworld/release/ipk/user-sample-app-package_1.0_any.ipk`.
 * A Pelion Device Management update payload package at `/tmp/user-sample-app-package_1.0_any.ipk.tar`.
 
 <span class="tips">**Tip**: If you want to clean the build, run: `./tutorials/helloworld/build-<arm-arch> make clean`</span>
