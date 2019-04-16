@@ -47,17 +47,18 @@ To the standard dockcross image we add `opkg-utils` helper scripts that can pack
 | Raspberry Pi 3 | `armv7` |
 | Warp7 | `armv7` |
 
-You can use the built image to generate a short-lived container to compile the application in. Do this by running the container and capturing the output as an executable file.
+You can use the built image to generate a short-lived container to compile the application in. Do this by running the container and capturing the output as an executable file. The Make toolchain is then invoked along with the cross-compilation executable file to build a variant (release or debug) of the Hello World application.
 
-The Make toolchain is then invoked along with the cross-compilation executable file to build a variant (release or debug) of the Hello World application.
-
-To build the application with all of the steps explained above:
+**To build the application with all of the steps explained above:**
 
 ```
 $ ./ci/lava/tests/lxc-build-helloworld.sh <arm-arch>
 ```
 
-The build produces an IPK file at `./tutorials/helloworld/release/ipk/user-sample-app-package_1.0_any.ipk` and a Pelion Device Management update payload package at `/tmp/user-sample-app-package_1.0_any.ipk.tar`.
+The build produces:
+
+* An IPK file at `./tutorials/helloworld/release/ipk/user-sample-app-package_1.0_any.ipk`
+* A Pelion Device Management update payload package at `/tmp/user-sample-app-package_1.0_any.ipk.tar`.
 
 <span class="tips">**Tip**: If you want to clean the build, run: `./tutorials/helloworld/build-<arm-arch> make clean`</span>
 
