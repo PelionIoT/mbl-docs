@@ -10,6 +10,13 @@ This tutorial covers:
     * [Cellular](#setting-up-a-cellular-connection).
 1. Verifying that your device can connect to your Pelion Device Management account.
 
+## Naming a device
+
+If you have multiple devices, we recommend manually naming them before you connect them to the network and Pelion Device Management:
+
+1. Use the `hostname` command over your device's serial port: `hostname <new-hostname>`
+1. Reboot your device or restart avahi-daemon: `systemctl restart avahi-daemon`. This makes the change visible to MBL CLI.
+
 ## Setting up an Ethernet connection
 
 If your device is physically connected to an Ethernet network (that must have a DHCP server), then it automatically uses that network.
