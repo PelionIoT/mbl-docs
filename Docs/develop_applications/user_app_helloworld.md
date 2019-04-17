@@ -4,7 +4,7 @@
 
 This tutorial creates a user application that runs on your MBL device. It is a simple "Hello, World" in C, which prints to standard output (STDOUT). MBL redirects the output to the log file `/var/log/app/user-sample-app-package.log`. This application demonstrates the use of dockercross and MakeFile to build a self-contained application: it requires no access to device resources (not even the runtime library) and no dockerisation.
 
-<span class="notes">**Note:** Your device must already be running an MBL image. Please [follow the tutorial](../first-image/index.html) if you don't have an MBL image yet.</span>
+<span class="notes">**Note:** Your device must already be running an MBL image. Please [follow the instructions](../first-image/index.html) if you don't have an MBL image yet.</span>
 
 ## Source and build mechanisms overview
 

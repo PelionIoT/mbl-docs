@@ -8,7 +8,7 @@ An MBL device can only be updated if the following are available:
 
 * The device is running an MBL image that can connect to a Pelion account. Please [install an image and provision your devices before you continue](../first-image/index.html).
 * The build artefacts for the image to send as the update payload. See the [build tutorial](../first-image/index.html) for instructions.
-* An internet connection on the device. [Follow the tutorial to set up an internet connection](../first-image/connecting-to-a-network-and-pelion-device-management.html).
+* An internet connection on the device. [Follow the instructions to set up an internet connection](../first-image/connecting-to-a-network-and-pelion-device-management.html).
 * The directory in which the manifest tool was initialized, [as reviewed in the development environment setup](../first-image/provisioning-for-pelion-device-management.html).
 
     <span class="notes">This *must* be the directory from which the `update_default_resources.c` file was obtained when you provisioned your device.</span>
