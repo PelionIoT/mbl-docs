@@ -8,6 +8,8 @@ This tutorial creates a user application that runs on your MBL device. It is a s
 
 ## Source and build mechanisms overview
 
+<img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/hello_world.png" width="50%" align="right" />
+
 The application source file, `hello_world.c`, is in [https://github.com/ARMmbed/mbl-core/tree/mbl-os-0.6/tutorials/helloworld/src](https://github.com/ARMmbed/mbl-core/tree/mbl-os-0.6/tutorials/helloworld/src). On the device, the application runs on a target inside an OCI container.
 
 The build commands are defined in a Makefile with three sections:
