@@ -5,6 +5,9 @@ There are two ways to update an MBL application:
 * [Using MBL CLI](#using-mbl-cli).
 * [Using the manifest tool](#using-the-manifest-tool).
 
+
+MBL CLI provides a wrapper around the Device Management firmware update service and manifest tool. This means you can use the same file type (`tar`, containing the `ipk`) for both processes, allowing you to pick the update method independently of your packaging process. It also means that any file that MBL CLI manages to update, the manifest tool should also be able to update, so you can use MBL CLI as a proxy for testing on Device Management.
+
 ## Using MBL CLI
 
 To install or update an application:
@@ -36,7 +39,7 @@ To install or update an application:
     ```
 
 1. Run `mbl-firmware-update-manager`.
-    
+
     ```
     $ mbl-firmware-update-manager /absolute/path/to/payload.tar
     ```
@@ -45,9 +48,7 @@ To install or update an application:
 
     <span class="notes">**Note:** To keep the update package after a successful update, use the optional argument `--keep`.</span>
 
-
 1. The application starts automatically, without a device reboot.
-
 
 ## Using the manifest tool
 
@@ -86,7 +87,6 @@ To install or update an application:
     For a root file system update, the process can take a long time, depending on your file size and network bandwidth.
 
 The system does not reboot after an application update.
-
 
 ## Identifying the running applications
 
