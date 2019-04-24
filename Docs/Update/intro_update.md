@@ -50,4 +50,4 @@ After receiving a payload file containing a `rootfs` update, MBL:
 
 The previously active (now inactive) root file system partition is now ready to receive the next `rootfs` update.
 
-<!--At what point does it validate payloads? Is it different for apps and rootfs? And does it validate that the new rootfs can run? Does it go back to the previous partition if the new one won't boot?-->
+<span class="notes">**Note:** MBL relies on Device Management to validate updates. For more information, [see the Security in firmware update section of the Device Management documentation](https://www.pelion.com/docs/device-management/latest/updating-firmware/security.html).
