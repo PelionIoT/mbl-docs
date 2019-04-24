@@ -24,7 +24,7 @@ We use the existing dockcross Docker image (for the ARMv7 or ARM64 architecture)
 
 To the standard dockcross image we add `opkg-utils` helper scripts that can package the compiled application as an IPK. The Docker files to build the dockcross image for supported architectures are found at [https://github.com/ARMmbed/mbl-core/blob/mbl-os-0.6/tutorials/helloworld/cc-env](https://github.com/ARMmbed/mbl-core/blob/mbl-os-0.6/tutorials/helloworld/cc-env).
 
-<span class="notes">**Note:** For more information, please refer to the [reference about application containers and packages](../references/application-containers-and-packages.html) or the [dockcross documentation on GitHub](https://github.com/dockcross/dockcross).</span>
+For more information, please refer to the [reference about application containers and packages](../references/application-containers-and-packages.html) or the [dockcross documentation on GitHub](https://github.com/dockcross/dockcross).
 
 ## Setting up the repository on the development machine
 
