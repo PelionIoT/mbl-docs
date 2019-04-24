@@ -2,11 +2,13 @@
 
 <span class="notes">**Note**: Mbed Linux OS is currently in limited preview. If you would like access to the code repositories, [please request to join the preview](https://os.mbed.com/linux-os/).</span>
 
-This tutorial creates a user application that runs on your MBL device. It is a simple "Hello, World" in C, which prints to standard output (STDOUT). MBL redirects the output to the log file `/var/log/app/user-sample-app-package.log`. This application demonstrates the use of dockercross and MakeFile to build a self-contained application: it requires no access to device resources (not even the runtime library) and no dockerisation.
+This tutorial creates a user application that runs on your MBL device. It is a simple "Hello, World" in C, which prints to standard output (STDOUT). MBL redirects the output to the log file `/var/log/app/user-sample-app-package.log`. This application demonstrates the use of dockercross and MakeFile to build a self-contained application: it requires no access to device resources (not even the runtime library) and no dockerisation. This is not the only way to work with applications; we chose it because it's simple - using dockcross means we don't need to install anything - and creates a small container, because there are no libraries or support files needed.
 
 <span class="notes">**Note:** Your device must already be running an MBL image. Please [follow the instructions](../first-image/index.html) if you don't have an MBL image yet.</span>
 
 ## Source and build mechanisms overview
+
+<img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/hello_world.png" width="50%" align="right" />
 
 The application source file, `hello_world.c`, is in [https://github.com/ARMmbed/mbl-core/tree/mbl-os-0.6/tutorials/helloworld/src](https://github.com/ARMmbed/mbl-core/tree/mbl-os-0.6/tutorials/helloworld/src). On the device, the application runs on a target inside an OCI container.
 
@@ -22,7 +24,7 @@ We use the existing dockcross Docker image (for the ARMv7 or ARM64 architecture)
 
 To the standard dockcross image we add `opkg-utils` helper scripts that can package the compiled application as an IPK. The Docker files to build the dockcross image for supported architectures are found at [https://github.com/ARMmbed/mbl-core/blob/mbl-os-0.6/tutorials/helloworld/cc-env](https://github.com/ARMmbed/mbl-core/blob/mbl-os-0.6/tutorials/helloworld/cc-env).
 
-<span class="notes">**Note:** For more information, please refer to the [reference about application containers and packages](../references/application-containers-and-packages.html) or the [dockcross documentation on GitHub](https://github.com/dockcross/dockcross).</span>
+For more information, please refer to the [reference about application containers and packages](../references/application-containers-and-packages.html) or the [dockcross documentation on GitHub](https://github.com/dockcross/dockcross).
 
 ## Setting up the repository on the development machine
 
