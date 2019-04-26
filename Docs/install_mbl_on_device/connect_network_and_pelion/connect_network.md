@@ -16,6 +16,8 @@ If your device is physically connected to an Ethernet network (that must have a 
 
 ## Setting up a Wi-Fi connection
 
+<span class="notes">NXP 8M Mini EVK devices do not currently support Wi-Fi.</span>
+
 <span class="tips">**Tip**: We recommend [installing MBL CLI](../develop-apps/setting-up.html) and setting up a USB connection to the device. You can then discover the device and [use a shell](../develop-apps/usage.html#get-shell-access-ssh) to set up the Wi-Fi connection.</span>
 
 Mbed Linux OS (MBL) uses **Connection Manager (ConnMan)** to manage Wi-Fi interfaces and connections. This page briefly reviews ConnMan and then explains how to use it to set up and manage Wi-Fi on MBL devices.
@@ -71,7 +73,7 @@ The folder contains:
 
 ### Install Wi-Fi firmware on PICO-PI with PICO-IMX7D SoM and NXP 8M Mini EVK devices
 
-PICO-PI with PICO-IMX7D SoM and NXP 8M Mini EVK devices require the Wi-Fi firmware to be installed separately. Use [MBL CLI](../develop-apps/setting-up.html) and [a shell](../develop-apps/usage.html#get-shell-access-ssh) to run the install script:
+PICO-PI with PICO-IMX7D SoM devices require the Wi-Fi firmware to be installed separately. Use [MBL CLI](../develop-apps/setting-up.html) and [a shell](../develop-apps/usage.html#get-shell-access-ssh) to run the install script:
 
 ```
 mbl-cli [-a address] shell
