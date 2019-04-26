@@ -25,8 +25,8 @@ A basic comparison of features of the supported board:
 
 | Name | SoC | CPUs | Memory | Storage | Wi-Fi | Ethernet | Bluetooth | USB | Cellular | Security |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| PICO-PI with IMX7D | NXP i.MX7D | Arm 2x Cortex-A7, 1x M4 | 1GB | 8GB eMMC | 802.11 a/b/g/n/ac* | gigabit | 4.1* | gadget, 1x USB-A | via USB module | High Assurance Boot, OPTEE |
-| NXP 8M Mini EVK | NXP i.MX8M mini | Arm 4x Cortex-A53, 1x M4 | 2GB | 16GB eMMC*, SD-card | 802.11 a/b/g/n/ac | gigabit | 4.1* | gadget | - | High Assurance Boot*, OPTEE |
+| PICO-PI with IMX7D | NXP i.MX7D | Arm 2x Cortex-A7, 1x M4 | 1GB | 8GB eMMC | 802.11 a/b/g/n/ac | gigabit | 4.1* | gadget, 1x USB-A | via USB module | High Assurance Boot, OPTEE |
+| NXP 8M Mini EVK | NXP i.MX8M mini | Arm 4x Cortex-A53, 1x M4 | 2GB | 16GB eMMC*, SD-card | 802.11 a/b/g/n/ac* | gigabit | 4.1* | gadget | - | High Assurance Boot*, OPTEE |
 | NXP Warp7 | NXP i.MX7S | Arm 1x Cortex-A7, 1x M4 | 4GB | 8GB eMMC | 802.11 b/g/n | - | 4.1* | gadget | - | High Assurance Boot, OPTEE |
 | Raspberry Pi 3B+ | Broadcom BCM2837B0 | Arm 1x Cortex-A53 | 1GB | SD-card | 802.11 b/g/n/ac | gigabit | 4.2* | 4x USB-A | via USB module | - |
 
