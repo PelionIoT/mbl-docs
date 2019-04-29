@@ -4,7 +4,6 @@ Supported boards:
 
 * TechNexion [PICO-PI-GL baseboard](https://shop.technexion.com/system-on-modules/pico/pico-baseboards/picopigl.html) with a [PICO-IMX7D-10-R10-E08-9377 System-on-Module](https://shop.technexion.com/system-on-modules/pico/pico-modules/pico-imx7d-10-r10-e08-9377.html) (SoM). Referred to as the PICO-PI with IMX7D. You also need one micro-USB cable, and one USB-C cable.
 
-    <span class="notes">This platform does not yet support WiFi communication.</span>
 
 * [NXP i.MX 8M Mini LPDDR4 Evaluation Kit](https://www.nxp.com/support/developer-resources/software-development-tools/i.mx-developer-resources/evaluation-kit-for-the-i.mx-8m-mini-applications-processor:8MMINILPD4-EVK?tid=vanimx8mminievk). Referred to as the NXP 8M Mini EVK. This kit comes with power supply, micro-USB cable and USB-C cable, but you will need a micro-SD card (at least 4GB).
 
@@ -26,7 +25,7 @@ A basic comparison of features of the supported board:
 
 | Name | SoC | CPUs | Memory | Storage | Wi-Fi | Ethernet | Bluetooth | USB | Cellular | Security |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| PICO-PI with IMX7D | NXP i.MX7D | Arm 2x Cortex-A7, 1x M4 | 1GB | 8GB eMMC | 802.11 a/b/g/n/ac* | gigabit | 4.1* | gadget, 1x USB-A | via USB module* | High Assurance Boot, OPTEE |
+| PICO-PI with IMX7D | NXP i.MX7D | Arm 2x Cortex-A7, 1x M4 | 1GB | 8GB eMMC | 802.11 a/b/g/n/ac | gigabit | 4.1* | gadget, 1x USB-A | via USB module | High Assurance Boot, OPTEE |
 | NXP 8M Mini EVK | NXP i.MX8M mini | Arm 4x Cortex-A53, 1x M4 | 2GB | 16GB eMMC*, SD-card | 802.11 a/b/g/n/ac* | gigabit | 4.1* | gadget | - | High Assurance Boot*, OPTEE |
 | NXP Warp7 | NXP i.MX7S | Arm 1x Cortex-A7, 1x M4 | 4GB | 8GB eMMC | 802.11 b/g/n | - | 4.1* | gadget | - | High Assurance Boot, OPTEE |
 | Raspberry Pi 3B+ | Broadcom BCM2837B0 | Arm 1x Cortex-A53 | 1GB | SD-card | 802.11 b/g/n/ac | gigabit | 4.2* | 4x USB-A | via USB module | - |

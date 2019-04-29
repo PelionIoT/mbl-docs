@@ -78,6 +78,25 @@ The folder contains:
 
 * For advanced connection configurations, you may manually generate service files and place them under `/config/user/connman` (see section [Connecting to a network using service configuration (provisioning) files](#service-configuration-files)). These are also known as *provisioning files*, and their file extensions must be `.config`.
 
+### Install Wi-Fi firmware on PICO-PI with PICO-IMX7D SoM devices
+
+PICO-PI with PICO-IMX7D SoM devices require the Wi-Fi firmware to be installed separately. Use [MBL CLI](../develop-apps/setting-up.html) and [a shell](../develop-apps/usage.html#get-shell-access-ssh) to run the install script:
+
+```
+mbl-cli [-a address] shell
+/opt/arm/populate_rootfs_qca.sh
+```
+
+This will display a EULA that must be accepted to install the firmware.
+
+When the firmware is installed, reboot the device:
+
+```
+mbl-cli [-a address] shell reboot
+```
+
+The Wi-Fi firmware must be reinstalled each time a root filesystem update is performed.
+
 ### Enabling Wi-Fi
 
 ConnMan classifies network interfaces by their **technology**, and configurations are generally applied to one or more technologies. Examples of ConnMan's technology classifications are `wifi` and `ethernet`.
