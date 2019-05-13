@@ -37,7 +37,7 @@ End user applications and MBL IoT device applications communicate with the same 
 
 MBL contains the Pelion Device Management Client, which is used to connect to Pelion Device Management. Each device has only one instance of the client, which supports all applications running on that device. Your applications can include other cloud clients, but must not include Pelion Device Management Client.
 
-Applications can communicate with Device Management Client over MBL's D-Bus API. This lets you use the [LwM2M communication protocol provided by Device Management](https://www.pelion.com/docs/device-management/current/introduction/management-services-and-protocols.html).
+Applications can communicate with Device Management Client over MBL's D-Bus API. This lets you use the [LwM2M communication protocol provided by Device Management](https://www.pelion.com/docs/device-management/latest/introduction/management-services-and-protocols.html).
 
 <span class="notes">**Note**: This functionality will be available in a future release of MBL.</span>
 
