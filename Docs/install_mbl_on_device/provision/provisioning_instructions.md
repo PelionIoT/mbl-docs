@@ -12,7 +12,7 @@
     pip install manifest-tool==1.4.8
     ```
  
-* See the Device Management documentation [for more information on installing the manifest-tool](https://cloud.mbed.com/docs/latest/cloud-requirements/manifest-tutorial.html).
+* See the Device Management documentation [for more information on installing the manifest-tool](https://www.pelion.com/docs/device-management/current/cloud-requirements/manifest-tutorial.html).
 
 * <a href="https://os.mbed.com/account/login/" target="_blank">A Pelion Device Management Account</a>.
 
