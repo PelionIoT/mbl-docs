@@ -14,7 +14,7 @@
  
 * See the Device Management documentation [for more information on installing the manifest-tool](https://www.pelion.com/docs/device-management/current/cloud-requirements/manifest-tutorial.html).
 
-* <a href="https://os.mbed.com/account/login/" target="_blank">A Pelion Device Management Account</a>.
+* <a href="https://portal.mbedcloud.com/login">A Pelion Device Management account</a>.
 
 ## Preliminary steps
 
