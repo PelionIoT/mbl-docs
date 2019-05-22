@@ -22,7 +22,7 @@
 
 1. Create an API key for [Pelion Device Management](https://cloud.mbed.com/docs/latest/integrate-web-app/api-keys.html). Be sure to copy the key when prompted - you will need to store it on the device before you begin provisioning.
 
-2. Create an `update_default_resources.c` file with your update authenticity certificate, created with the manifest tool:
+1. Create an `update_default_resources.c` file with your update authenticity certificate, created with the manifest tool:
 
     1. Create an update resources directory, such as `./update-resources`:
 
