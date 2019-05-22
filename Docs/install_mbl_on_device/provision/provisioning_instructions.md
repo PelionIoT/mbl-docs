@@ -6,7 +6,7 @@
 
     <span class="notes">**Note:** If you are running an earlier version (1.x) of MBL CLI, please remove it (and install 2.0).</span>
 
-* The [manifest tool](https://github.com/ARMmbed/manifest-tool). The version of the `manifest-tool` we have tested with is 1.4.8. You should install the manifest-tool in the same virtual environment you created for the MBL CLI in the setting-up steps. 
+* We have used [manifest tool](https://github.com/ARMmbed/manifest-tool) 1.4.8 in our testing. You should install the manifest tool in the same virtual environment you created for MBL CLI. 
     Install with the following command. 
     ```
     pip install manifest-tool==1.4.8
