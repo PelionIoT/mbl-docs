@@ -12,9 +12,9 @@
     pip install manifest-tool==1.4.8
     ```
  
-* See the Device Management documentation [for more information on installing the manifest-tool](https://www.pelion.com/docs/device-management/current/cloud-requirements/manifest-tutorial.html).
+  See the Device Management documentation [for more information on installing the manifest-tool](https://cloud.mbed.com/docs/latest/cloud-requirements/manifest-tutorial.html).
 
-* <a href="https://portal.mbedcloud.com/login">A Pelion Device Management account</a>.
+<a href="https://os.mbed.com/account/login/" target="_blank">A Pelion Device Management Account</a>.
 
 ## Preliminary steps
 
@@ -22,7 +22,7 @@
 
 1. Create an API key for [Pelion Device Management](https://cloud.mbed.com/docs/latest/integrate-web-app/api-keys.html). Be sure to copy the key when prompted - you will need to store it on the device before you begin provisioning.
 
-1. Create an `update_default_resources.c` file with your update authenticity certificate, created with the manifest tool:
+2. Create an `update_default_resources.c` file with your update authenticity certificate, created with the manifest tool:
 
     1. Create an update resources directory, such as `./update-resources`:
 
