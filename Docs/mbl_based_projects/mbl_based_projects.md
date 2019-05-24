@@ -177,7 +177,7 @@ Replace:
 
 ## 5. Modify the distribution
 
-### 5.1. Adding packages to the distribution
+### 5.1. Add packages to the distribution
 
 To add a package to the distribution that already has a recipe available in
 your project, add a line in your image recipe to append the
@@ -193,7 +193,7 @@ IMAGE_INSTALL_append = " bash"
 The `bash` package has a recipe in the `openembedded-core` meta layer that is
 already included in the project.
 
-### 5.2. Adding layers to the distribution
+### 5.2. Add layers to the distribution
 
 To add a package from a layer that isn't already included in the project,
 you first need to add the layer <!--what layer? the layer that includes the package, I presume?-->to the project. You can follow the same procedure as the `meta-mbl-project-example` layer in steps 1 and 2:
@@ -208,7 +208,7 @@ image recipe.
 
 <span class="tips">To find out if a layer providing the package you need already exists, try the [OpenEmbedded Layer Index][oe-layer-index].</span>
 
-### 5.3. Adding your own recipes
+### 5.3. Add your own recipes
 
 If you have software for which there aren't existing BitBake recipes, you can
 add recipes to the `meta-mbl-project-example` layer, and then include the software
