@@ -17,7 +17,7 @@ Linux users require a few other dependencies. Install them using apt-get (this e
 
 ### Uninstalling old versions
 
-If you are running an old version (1.x) of MBL CLI, please remove it and install version 2.0:
+If you are running an old version (1.x) of MBL CLI, please uninstall it and install version 2.0 instead:
 
 ```
 npm uninstall mbl-cli -g --save
@@ -25,7 +25,7 @@ npm uninstall mbl-cli -g --save
 
 ### Installation
 
-1. Use `pip` to install MBL CLI. We recommend installing in a [Python virtual environment](https://www.python.org/dev/peps/pep-0405/).
+1. Use pip to install MBL CLI. We recommend installing in a [Python virtual environment](https://www.python.org/dev/peps/pep-0405/).
    If for any reason you must install MBL CLI using the 'system' Python, install with the `--user` flag.
 
     ```bash
@@ -69,7 +69,7 @@ veth93e055c Link encap:Ethernet  HWaddr be:9e:84:59:53:ac
           RX bytes:42239 (42.2 KB)  TX bytes:625618 (625.6 KB)
 ```
 
-<span class="notes">**Note**: Usually there is no link-local IP address assigned to the interface at this stage. The IPv6/4 addresses is assigned when you set up a managed connection in the [Setting up NetworkManager on Linux](#setting-up-networkmanager-on-linux) section. Even if there is an assigned link-local address, you still need to ensure the connection is managed; the link local address will be periodically revoked and reassigned for an unmanaged connection.</span>
+<span class="notes">**Note**: There is usually no link-local IP address assigned to the interface at this stage. The IPv6/4 addresses are assigned when you set up a managed connection in the [Setting up NetworkManager on Linux](#setting-up-networkmanager-on-linux) section. Even if there is an assigned link-local address, you still need to ensure the connection is managed; the link-local address will be periodically revoked and reassigned for an unmanaged connection.</span>
 
 ### Connecting a device with an Ethernet-to-USB adapter
 
@@ -118,7 +118,7 @@ veth93e055c Link encap:Ethernet  HWaddr be:9e:84:59:53:ac
 
 1. Create a named NetworkManager connection profile for the interface with the `link-local` IPv4 addressing method.
 
-    In this example, use the name `mbl-ipv4ll`. Use the NetworkManager's command line interface:
+    This examples uses the name `mbl-ipv4ll`. Use the NetworkManager's command-line interface:
 
     ```
     $ sudo nmcli connection add ifname <interface-name-on-pc> con-name mbl-ipv4ll type ethernet -- ipv4.method link-local
@@ -140,7 +140,7 @@ veth93e055c Link encap:Ethernet  HWaddr be:9e:84:59:53:ac
       Connection 'mbl-ipv4ll' (475ebfb1-d67e-d67e-d67e-475ebfb1dddd) successfully added.
       ```
 
-    <span class="notes">**Note**: If you are setting up managed connections for multiple boards, you must give them unique names; reusing a name overwrites an existing connection profile.</span>
+    <span class="notes">**Note**: If you are setting up managed connections for multiple boards, you must give them unique names; reusing a name overwrites the existing connection profile.</span>
 
 2. Activate the `mbl-ipv4ll` connection profile:
 

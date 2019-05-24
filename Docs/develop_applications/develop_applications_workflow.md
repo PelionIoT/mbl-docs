@@ -10,7 +10,7 @@ MBL applications are not compiled together with the MBL codebase or with any Pel
 
     1. [Install MBL CLI](../develop-apps/setting-up.html), which you will also use when developing applications.
 
-    <span class="notes">**Note**: If you have MBL CLI 1.x installed, [uninstall it, and install 2.0 instead](../develop-apps/setting-up.html#setting-up-mbl-cli). Use `--version` to check.</span>
+    <span class="notes">**Note**: If you have MBL CLI 1.x installed, [please uninstall it, and install 2.0 instead](../develop-apps/setting-up.html#setting-up-mbl-cli). Use `--version` to check.</span>
 
     1. Set up [a developer (USB) connection to your device](../develop-apps/setting-up.html#setting-up-networking), so you can work with MBL CLI.
 
@@ -25,12 +25,12 @@ MBL applications run as containers from images prepared with Docker. A container
 
 <span class="tips">**Tip:** More information about containers and packages is available in our [Reference section](../references/application-containers-and-packages.html).</span>
 
-There are many ways to create applications that can be packaged in the IPK format so that the MBL application framework can install and run them. Mbed example applications use a Docker cross-compiling tool, [dockcross](https://github.com/dockcross/dockcross), which has a standard image with everything needed to compile C and C++ applications for Linux on ARMv7. Add a layer on top of the standard dockcross image, and that layer includes the tools to create an IPK package (`opkg-utils`). The resulting cross-compilation docker image, referred to here as `mbl-dockcross`, takes a standard MakeFile and builds according to its instructions:
+There are many ways to create applications that can be packaged in the IPK format so that the MBL application framework can install and run them. This example application uses a Docker cross-compiling tool, [dockcross](https://github.com/dockcross/dockcross), which has a standard image with everything needed to compile C and C++ applications for Linux on ARMv7. An additional layer on top of the standard dockcross image includes the tools to create an IPK package (`opkg-utils`). The resulting cross-compilation docker image, referred to here as `mbl-dockcross`, takes a standard MakeFile and builds according to its instructions:
 
 1. Builds the application using `mbl-dockcross` to cross-compile.
-1. Creates an OCI bundle, the container, which combines our built application and our configuration file.
-1. Creates an IPK file. This is the file format the MBL's package manager, which installs applications, can handle.
-1. Put your IPK into a TAR, to match the requirements of the Device Management Update service.
+1. Creates an `.oci` bundle, the container, which combines our built application and our configuration file.
+1. Creates an `.ipk` file. This is the file format the MBL's package manager, which installs applications, can handle.
+1. Put your `.ipk` into a `.tar`, to match the requirements of the Device Management Update service.
 
 The applications in the following tutorials all use a MakeFile and `mbl-dockcross` to cross-compile. They introduce different levels of reliance on Docker and access from the dockerized application to the device:
 
@@ -38,4 +38,4 @@ The applications in the following tutorials all use a MakeFile and `mbl-dockcros
 
 1. The QR scanner Python application (coming soon) uses its `config.json` to access the device's hardware resources and persistent memory.
 
-    This application is Dockerized (built in a Docker container) - because it's a Python application and you have chosen to include the Python runtime environment with it, as well as the OpenCV library to capture camera frames, it cannot be built and converted to an OCI individually (the way we did with the Hello World C application). Instead, it's built and then bundled with all its Python dependencies.
+    This application is Dockerized (built in a Docker container) - because it's a Python application that (by choice) includes the Python runtime environment with it, as well as the OpenCV library to capture camera frames, it cannot be built and converted to an OCI individually (the way the Hello World C application is built). Instead, it's built and then bundled with all its Python dependencies.

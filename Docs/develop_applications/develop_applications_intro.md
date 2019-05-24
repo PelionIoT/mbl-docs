@@ -5,14 +5,14 @@
 When designing applications for IoT devices running Mbed Linux OS (MBL), keep in mind:
 
 * The main goal is to give end users control of the IoT device running your application.
-* **End user applications** (on a phone, the control panel and so on) and MBL IoT **device applications** both communicate with a cloud service linked to a single Pelion Device Management account. They do not communicate directly with each other.
+* **End user applications** (on a phone, control panel and so on) and MBL IoT **device applications** both communicate with a cloud service linked to a single Pelion Device Management account. They do not communicate directly with each other.
 * For mass production, you may need to create an **installer device** that can configure our IoT devices with information that cannot be assumed at the factory stage, such as access to secure Wi-Fi networks.
 
 <span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/applications_map_highlight.png)<span>Application design focuses on connecting the IoT device and the end user's device over an application cloud</span></span>
 
 ## Designing modular applications
 
-You're designing an application on an IoT device that must handle an internet connection, as well as any processing and automation it needs to be useful. You need some general functionality, like connectivity and I/O handling, for every single application you develop. Other functionality needs to match the requirements of the device-specific application. For example, security cameras need to handle video streams and motion sensor alerts, but there is no need for this functionality on other device classes, like heating systems.
+You're designing an application on an IoT device that must handle an internet connection, as well as any processing and automation it needs to be useful. You need some general functionality, like connectivity and input/output handling, for every single application you develop. Other functionality needs to match the requirements of the device-specific application. For example, security cameras need to handle video streams and motion sensor alerts, but there is no need for this functionality on other device classes, like heating systems.
 
 You have three options:
 
@@ -25,7 +25,7 @@ You have three options:
 
 <img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/application_from_layers.png" width="33%" />
 
-**An MBL IoT device can have multiple applications, and one or more of those applications can have multiple base layers**
+**An MBL IoT device can have multiple applications, and one or more of those applications can consist of multiple base layers**
 
 ## Handling application dependencies
 

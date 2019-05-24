@@ -1,8 +1,8 @@
 # Hello world
 
 <span class="notes">**Note**: Mbed Linux OS is currently in limited preview. If you would like access to the code repositories, [please request to join the preview](https://os.mbed.com/linux-os/).</span>
-<!---Is that the right link to contact?--->
-This tutorial creates a user application that runs on your MBL device. It is a simple "Hello, World" in C, which prints to standard output (STDOUT). MBL redirects the output to the log file `/var/log/app/user-sample-app-package.log`. This application demonstrates the use of dockcross and MakeFile to build a self-contained application: it requires no access to device resources (not even the runtime library) and no dockerization. This is not the only way to work with applications; we chose it because it's simple - using dockcross means we don't need to install anything - and creates a small container, because there are no libraries or support files needed.
+
+This tutorial creates a user application that runs on your MBL device. It is a "Hello, World" in C, which prints to standard output (STDOUT). MBL redirects the output to the log file `/var/log/app/user-sample-app-package.log`. This application demonstrates the use of dockcross and MakeFile to build a self-contained application: it requires no access to device resources (not even the runtime library) and no dockerization. This is not the only way to work with applications; we chose it because it's simple - using dockcross means we didn't need to install anything - and creates a small container, because there are no libraries or support files needed.
 
 <span class="notes">**Note:** Your device must already be running an MBL image. Please [follow the instructions](../first-image/index.html) if you don't have an MBL image yet.</span>
 
@@ -40,9 +40,7 @@ For more information, please refer to the [reference about application container
 
 ## Building the application with the cross-compiler
 
-[dockcross](https://github.com/dockcross/dockcross) is a Docker-based cross-compiling toolchain.
-
-Build a new Docker image with dockcross as the starting point, adding the `opkg` utilities. The image is defined in `./tutorials/helloworld/cc-env/<arm-arch>/Dockerfile`, where `<arm-arch>` is the architecture type of the microprocessor on the target device:
+[dockcross](https://github.com/dockcross/dockcross) is a Docker-based cross-compiling toolchain. We build a new Docker image with dockcross as the starting point, adding the `opkg` utilities. The image is defined in `./tutorials/helloworld/cc-env/<arm-arch>/Dockerfile`, where `<arm-arch>` is the architecture type of the microprocessor on the target device:
 
 | Target device | `<arm-arch>` value |
 | --- | --- |
