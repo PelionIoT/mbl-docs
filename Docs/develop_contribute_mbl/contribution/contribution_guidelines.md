@@ -12,7 +12,7 @@ The general workflow for contributions is:
 
 1. In the repository you want to contribute to:
     * Create an issue explaining the changes you want to do.
-    * Once agreed upon in the issue, create a **private** fork and make your changes. See [the GitHub fork guidance](https://help.github.com/articles/working-with-forks/).
+    * Once agreed upon in the issue, create a fork and make your changes. See [the GitHub fork guidance](https://help.github.com/articles/working-with-forks/).
 1. Create a pull request with your changes, See [the GitHub pull request guidance](https://help.github.com/articles/creating-a-pull-request-from-a-fork/).
 
     Pull requests should:
