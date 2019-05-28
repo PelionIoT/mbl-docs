@@ -46,7 +46,12 @@ Layer section of the Yocto Mega Manual][yocto-create-layer], but please note:
 
 * The `BBFILE_PRIORITY` for the new layer should be higher than the `BBFILE_PRIORITY`
   for the `meta-mbl-distro` layer, so that the `meta-mbl-project-example` layer can
-  override recipes and settings from `meta-mbl-distro`.<!--what's the priority of `meta-mbl-distro`? if it's always the same, we can explain it here so people don't have to go check (also - where do they check - there isn't actually a link here to the distro)-->
+  override recipes and settings from `meta-mbl-distro`. `meta-mbl-distro`'s
+  priority can be found in its own `layer.conf` file at
+  `meta-mbl-distro/conf/layer.conf` in the [meta-mbl][meta-mbl] repo. The
+  priority of the `meta-mbl-distro` layer is currently subject to change,
+  so you should check the priority used in the branch on which your project is
+  based.<!--what's the priority of `meta-mbl-distro`? if it's always the same, we can explain it here so people don't have to go check (also - where do they check - there isn't actually a link here to the distro)-->
 * The `LAYERDEPENDS` line declares a dependency on the `meta-mbl-distro` layer.
 
 ## 2. Create a config repository
@@ -78,9 +83,11 @@ BBLAYERS = " \
 
 The new project will use code from many repositories. To make it easy to create
 a work area for the project with all of the repositories cloned to the right
-places<!--why places? won't it be cloned to a single place? or should "work areas" be plural, like the last sentence?-->, you can <!--can or must?-->create a repo manifest file containing information about the
+places within the work area<!--why places? won't it be cloned to a single place? or should "work areas" be plural, like the last sentence?-->, you can <!--can or must?-->create a repo manifest file containing information about the
 project's repos, and then use [Google's git-repo tool][google-git-repo] to
 initialize work areas using that manifest.
+
+MBL's build tools use [Google's git-repo tool][google-git-repo] to initialize work areas, so you must create a manifest repository in order to use them.
 
 1. Create a repository to contain the manifest file, for example a GitHub repo called `mbl-project-manifest-example`.
 1. The new project will be very similar to the MBL project, so you can copy the `default.xml` manifest file from
@@ -196,7 +203,7 @@ already included in the project.
 ### 5.2. Add layers to the distribution
 
 To add a package from a layer that isn't already included in the project,
-you first need to add the layer <!--what layer? the layer that includes the package, I presume?-->to the project. You can follow the same procedure as the `meta-mbl-project-example` layer in steps 1 and 2:
+you first need to add the layer that contains the package <!--what layer? the layer that includes the package, I presume?-->to the project. You can follow the same procedure as the `meta-mbl-project-example` layer in steps 1 and 2:
 
 1. Add the repository containing the layer to your manifest file (in
    `mbl-project-manifest-example`).
@@ -223,6 +230,7 @@ When developing new software to run in your distribution, you may find the
 Yocto SDK tools useful. See [Yocto Project Application Development and the
 Extensible Software Development Kit (eSDK)][yocto-sdk] for more information.
 
+[meta-mbl]: https://github.com/ARMmbed/meta-mbl
 [mbl-config]: https://github.com/ARMmbed/mbl-config
 [mbl-manifest]: https://github.com/ARMmbed/mbl-manifest
 [mbl-tools]: https://github.com/ARMmbed/mbl-tools
