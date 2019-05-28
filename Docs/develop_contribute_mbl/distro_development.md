@@ -170,33 +170,10 @@ To modify the source of an existing component built by OpenEmbedded/Yocto, follo
 
 ### Updating the meta layers sources
 
-Use `repo sync` to update all the layers sources:
+The **build-mbl tool** generates a pinned version of the specified manifest and uses this to perform a build of MBL. This means you cannot perform a `repo sync` command in the build directory to update all the layers sources. Instead, outside interactive mode, issue the **build-mbl tool** command but using the build stage `sync`. This will perform a repo sync and produce a new pinned manifest to use in the build, it will then continue on and perform a full build.
+
+For example (change parameters for `--builddir` and `--machine` as needed):
 
 ```
-user@9c2c89bf20a6:<builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl$ repo sync
-Fetching project openembedded/openembedded-core
-Fetching project armmbed/meta-mbl
-Fetching project Freescale/meta-freescale-3rdparty
-Fetching project armmbed/mbl-config
-Fetching project openembedded/bitbake
-Fetching projects:  20% (2/10)
-Fetching project git/meta-freescale
-Fetching projects:  30% (3/10)
-Fetching project git/meta-raspberrypi
-Fetching projects:  40% (4/10)
-Fetching project git/meta-virtualization
-Fetching projects:  50% (5/10)
-Fetching project openembedded/meta-openembedded
-Fetching projects:  60% (6/10)
-Fetching project openembedded/meta-linaro
-remote: Enumerating objects: 123, done.        
-remote: Counting objects: 100% (123/123), done.        
-remote: Compressing objects: 100% (42/42), done.        
-remote: Total 123 (delta 87), reused 104 (delta 81), pack-reused 0     
-Receiving objects: 100% (123/123), 43.44 KiB | 0 bytes/s, done.
-Resolving deltas: 100% (87/87), completed with 8 local objects.
-Fetching projects:  70% (7/10)
-From ssh://github.com/openembedded/openembedded-core
-   28e631d..b32ec63  master     -> github/master
- + 76e3243...cdbdd11 master-next -> github/master-next  (forced update)
+./mbl-tools/build-mbl/run-me.sh --builddir ./build-warp7 -- --branch mbl-os-0.6 --machine imx7s-warp-mbl sync
 ```
