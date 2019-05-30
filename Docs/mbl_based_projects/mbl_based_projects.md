@@ -9,14 +9,14 @@ This document assumes familiarity with some core Yocto concepts, and is not inte
 ## Solution overview
 
 The steps to create the project are:
-1. Create a new BitBake meta layer called `meta-mbl-project-example`. This
-   layer defines a new image recipe specifying how to build an image based on
-   MBL.
+1. Create a new BitBake meta layer called `meta-mbl-project-example`. In step 4
+   you will add an image recipe to this layer that specifies the packages to be
+   included in the new project.
 2. Create a config repository to hold the project's configuration.
 3. Create a manifest repository to make it easy to download all of the
    repositories required for the project. This will also enable you to use MBL's
    build tools to build the new project.
-4. Add an image recipe to the new layer.
+4. Add an image recipe to the layer created in step 1.
 5. Modify the distribution.
 
 ## 1. Create a new BitBake meta layer
