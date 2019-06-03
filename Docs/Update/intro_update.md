@@ -1,7 +1,5 @@
 # Firmware updates in Mbed Linux OS
 
-<span class="notes">**Note**: Mbed Linux OS is currently in limited preview. If you would like access to the code repositories, [please request to join the preview](https://os.mbed.com/linux-os/).</span>
-
 You can perform a **firmware over the air** (FOTA) update for:
 
 * The MBL root file system.
