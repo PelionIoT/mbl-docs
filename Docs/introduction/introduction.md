@@ -15,7 +15,7 @@ You can develop and build applications in using a variety of standard tools such
   <h3>On this page</h3>
   <ul class="guides-list">
           <ul data-tab-content>
-                <li><a href="#preview">Developer preview features</a></li>
+                <li><a href="#preview">Public preview features</a></li>
                 <li><a href="#design">Design diagram</a></li>
                 <li><a href="#getting-started">Getting started</a></li>
                 <li><a href="#doc-updates">Recently updated documentation</a></li>
@@ -24,9 +24,9 @@ You can develop and build applications in using a variety of standard tools such
 </div>
 </section>
 
-<h2 id="preview">Developer preview features</h2>
+<h2 id="preview">Public preview features</h2>
 
-MBL is currently available as a developer preview to selected users. To request access, [please contact us](https://os.mbed.com/linux-os/).
+MBL is currently available as a public preview.
 
 The preview release provides:
 
@@ -101,4 +101,4 @@ There are two paths to working with MBL:
 * Revised [firmware update tutorials](../update/index.html).
 * A new [reference about partition layout](../references/partition-layout.html).
 
-The [full release note](https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.6/docs/release_note.md) is available to users who have access to our limited preview repository.
+The [full release note](https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.6/docs/release_note.md) is available on our public preview repository.

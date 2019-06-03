@@ -7,7 +7,7 @@ These requirements are for anyone building an MBL image that can connect to Peli
 You need:
 
 * A [Pelion Device Management](https://portal.mbedcloud.com/) account.
-* A GitHub account with access to private Arm Mbed repositories (supplied by Arm to users enrolled in the preview).
+* A GitHub account.
 
 ## Software requirements
 

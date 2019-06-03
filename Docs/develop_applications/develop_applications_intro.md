@@ -1,7 +1,5 @@
 # Developing applications for Mbed Linux OS
 
-<span class="notes">**Note**: Mbed Linux OS is currently in limited preview. If you would like access to the code repositories, [please request to join the preview](https://os.mbed.com/linux-os/).</span>
-
 When designing applications for IoT devices running Mbed Linux OS (MBL), make the following assumptions:
 
 * The main goal is to give end users control of the IoT device running your application.
