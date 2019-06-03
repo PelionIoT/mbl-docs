@@ -171,8 +171,12 @@
                         "path": "Docs/develop_contribute_mbl/develop_contribute_mbl_intro.md"
                     },
                     "sources": [{
-                        "path": "Docs/develop_contribute_mbl/distro_development.md"
-                    }]
+                            "path": "Docs/develop_contribute_mbl/distro_development.md"
+                        },
+                        {
+                            "path": "Docs/mbl_based_projects/mbl_based_projects.md"
+                        }
+                    ]
                 },
                 {
                     "title": "Contribution guidelines",
