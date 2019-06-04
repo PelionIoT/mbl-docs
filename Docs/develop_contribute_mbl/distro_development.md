@@ -170,7 +170,7 @@ To modify the source of an existing component built by OpenEmbedded/Yocto, follo
 
 ### Updating the meta layers sources
 
-The **build-mbl tool** generates a pinned version of the specified manifest and uses this to perform a build of MBL. This means you cannot perform a `repo sync` command in the build directory to update all the layers sources. Instead, outside interactive mode, issue the **build-mbl tool** command but using the build stage `sync`. This will perform a repo sync and produce a new pinned manifest to use in the build, it will then continue on and perform a full build.
+The **build-mbl tool** generates a pinned version of the specified manifest and uses this to perform a build of MBL. This means you cannot perform a `repo sync` command in the build directory to update all the layers sources. Instead, outside interactive mode, issue the **build-mbl tool** with the build stage `sync`. This syncs the repo, produces a new pinned manifest, then performs a full build with that manifest.
 
 For example (change parameters for `--builddir` and `--machine` as needed):
 
