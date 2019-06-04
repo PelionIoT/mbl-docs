@@ -15,8 +15,8 @@ The full list of licenses for a particular build of Mbed Linux OS can be found i
 There are upt o three sets of license manifests (lists of the software and licenses) for every machine:
 
 * `mbl-image-development-<MACHINE>-<DATE>`: the development image licenses.
-* `mbl-image-initramfs-<MACHINE>-<DATE>`: the initramfs licenses (used in both development and production).
-* `mbl-image-production-<MACHINE>-<DATE>`: the production image licenses.
+* `mbl-image-initramfs-<MACHINE>-<DATE>`: the initramfs licenses.
+* `mbl-image-development-<MACHINE>-<DATE>`: the development image licenses.
 
 In each set, there are two files that document the licenses:
 
