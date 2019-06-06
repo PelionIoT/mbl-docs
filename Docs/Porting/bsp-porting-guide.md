@@ -1,7 +1,5 @@
-# <a name="section-1-0"></a> 1.0 Mbed Linux OS BSP Porting Guide
+# <a name="section-1-0"></a> Mbed Linux OS BSP Porting Guide
 
-Copyright © 2019 Arm Limited.
-<!---Copyright notice up top here looks strange--->
 ## <a name="section-1-1"></a> 1.1 Overview
 
 This document is a guide for porting a pre-existing ARM Cortex-A BSP to Mbed Linux OS (MBL), enabling the platform's software stack for security, connection to Pelion Device Management, and firmware update.
@@ -132,7 +130,8 @@ The key BSP system architecture requirements can be summarized as follows:
 ## <a name="section-2-2"></a> 2.2 Boot Flow
 
 <a name="fig2-2"></a>
-![fig2-2](assets/TWC_before_NWC.png "Figure 2.2")
+<!--
+![fig2-2](assets/TWC_before_NWC.png "Figure 2.2")-->
 
 **Figure 2.2: The figure shows a summary form of the secure boot chain flow.**
 
@@ -150,7 +149,8 @@ Soc Boot ROM, the Trusted Firmware (TF), OP-TEE, U-Boot and the Linux kernel.
 ### <a name="section-2-2-1"></a> 2.2.1 AArch32 Boot Flow
 
 <a name="fig2-2-1"></a>
-![fig2-2-1](assets/LAS16-402_slide_16.png "Figure 2.2.1")
+<!--
+![fig2-2-1](assets/LAS16-402_slide_16.png "Figure 2.2.1")-->
 **Figure 2.2.1: Linaro Connect 2016 Presentation LAS16-402 [slide 16][linaro-connect-las16-402-slides] showing the AArch32 secure boot process.**
 
 
@@ -177,7 +177,8 @@ The boot sequence consists of the following events:
 ### <a name="section-2-2-2"></a> 2.2.2 AArch64 Boot Flow
 
 <a name="fig2-2-2"></a>
-![fig2-2-2](assets/LAS16-402_slide_15.png "Figure 2.2.2")
+<!--
+![fig2-2-2](assets/LAS16-402_slide_15.png "Figure 2.2.2")-->
 **Figure 2.2.2: Linaro Connect 2016 Presentation LAS16-402 [slide 15][linaro-connect-las16-402-slides] showing AArch64 secure boot process.**
 
 [Figure 2.2.2](#fig2-2-2) shows the Cortex-v8A AArch64 generic secure boot process which is the starting point for discussing the Raspberry Pi 3 and NXP IMX8 Mini secure boot.
@@ -195,7 +196,10 @@ See the [Basic Signing Flow document](basic-signing-flow.md##-a-name-section-2-1
 ## <a name="section-2-3"></a> 2.3 Partitioning software components into FIP/FIT images
 
 <a name="fig2-3"></a>
-![fig2-3](assets/Image_signing_flow.png "Figure 2.3")
+
+<!--
+![fig2-3](assets/Image_signing_flow.png "Figure 2.3")-->
+
 **Figure 2.3: partitioning of software components.**
 
 [Figure 2.3](#fig2-3) shows the factoring of software components into five binary images:
@@ -228,7 +232,8 @@ For more information please refer to the [Trusted Board Boot Requirements CLIENT
 ## <a name="section-2-4"></a> 2.4 Flash partition layout
 
 <a name="fig2-4"></a>
-![fig2-4](assets/flash_partition_layout.png "Figure 2.4")
+<!--
+![fig2-4](assets/flash_partition_layout.png "Figure 2.4")-->
 **Figure 2.4: The flash partition layout to support update has 2 banks of images.**
 
 [Figure 2.4](#fig2-4) shows the flash partition layout where the function of each of the partitions is described in the table below.
@@ -497,7 +502,9 @@ respectively when the discussion is applicable to all targets.
 This section gives a top down overview of the MBL Yocto meta-layers and the relationships between recipes and configuration files.
 
 <a name="figure-3.7"></a>
-![figure-3.7](assets/mbl_yocto_workspace_layers.png "Figure 3.7")
+
+<!--
+![figure-3.7](assets/mbl_yocto_workspace_layers.png "Figure 3.7")-->
 **Figure 3.7: The Yocto meta layers relevant for BSP development. `meta-mbl` repo entities are shown in blue, `meta-[soc-vendor]`
   in green, `meta-optee` in orange and `openembedded-core` in yellow.**
 
@@ -545,7 +552,9 @@ Beginning with the top layer and working downwards:
 This section describes the main BSP recipe relationships using a UML diagram. The discussion is applicable to all targets.
 
 <a name="figure-4-0"></a>
-![figure-4-0](assets/mbl_machine_config_uml_summary.png "Figure 4.0")
+
+<!--
+![figure-4-0](assets/mbl_machine_config_uml_summary.png "Figure 4.0")-->
 
 **Figure 4.0: The figure shows the important configuration and recipe file relationships. `meta-mbl` repo entities are shown in blue, `meta-[soc-vendor]`
   in green, `meta-optee` in orange and `openembedded-core` in yellow.**
@@ -701,8 +710,10 @@ This section provides detailed discussion of the `openembedded-core` meta layer 
 `linux*.bb` and `linux*.bbappend`.
 
 <a name="figure-7-3"></a>
+
+<!--
 ![figure-7-3](assets/mbl_oecore_kernel_classes_uml.png "Figure 7.3")
-**Figure 7.3: The figure shows the `openembedded-core` `kernel.bbclass` hierarchy including `mbl-fitimage`.**
+**Figure 7.3: The figure shows the `openembedded-core` `kernel.bbclass` hierarchy including `mbl-fitimage`.**-->
 
 [Figure 7.3](#figure-7-3) shows the UML diagram for the `kernel.bbclass` used for generating the Linux kernel, and how it relates to
 `linux*.bb(append)` and `mbl-fitimage.bbclass`. This is a more detailed representation of the `linux*` hierarchy
@@ -729,7 +740,8 @@ shown in [Figure 4.0](#figure-4-0), drawn to include more of the underlying `ope
 ## <a name="section-7-4"></a> 7.4 `kernel-fitimage.bbclass` and `mbl-fitimage.bbclass`
 
 <a name="figure-7-4"></a>
-![figure-7-4](assets/mbl_fit_image.png "Figure 7.4")
+<!--
+![figure-7-4](assets/mbl_fit_image.png "Figure 7.4")-->
 
 **Figure 7.4: The figure shows the `mbl-fitimage.bbclass` class hierarchy.**
 
@@ -920,7 +932,8 @@ This is the starting point for porting ATF to a new platform.
 This section provides a concrete example of the UML diagram shown in [Figure 4.0](#figure-4-0) for the i.MX7 Warp7 target `MACHINE=imx7s-warp-mbl`.
 
 <a name="figure-9-1"></a>
-![figure-9-1](assets/mbl_warp7_uml_details.png "Figure 9.1")
+<!--
+![figure-9-1](assets/mbl_warp7_uml_details.png "Figure 9.1")-->
 
 **Figure 9.1: The UML diagram shows the relationships between the recipes and configuration files for the `imx7s-warp-mbl` target.**
 
