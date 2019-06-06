@@ -35,8 +35,6 @@ configuration.
     BBFILE_COLLECTIONS += "meta-mbl-project-example"
     BBFILE_PATTERN_meta-mbl-project-example := "^${LAYERDIR}/"
 
-    BBFILE_PRIORITY_meta-mbl-project-example = "20"
-
     LAYERSERIES_COMPAT_meta-mbl-project-example = "warrior"
     LAYERDEPENDS_meta-mbl-project-example = "meta-mbl-distro"
     ```
@@ -44,15 +42,14 @@ configuration.
 Most of the lines here are standard and are explained in the [Creating Your Own
 Layer section of the Yocto Mega Manual][yocto-create-layer], but please note:
 
-* The `BBFILE_PRIORITY` for the new layer should be higher than the `BBFILE_PRIORITY`
-  for the `meta-mbl-distro` layer, so that the `meta-mbl-project-example` layer can
-  override recipes and settings from `meta-mbl-distro`. `meta-mbl-distro`'s
-  priority can be found in its own `layer.conf` file at
-  `meta-mbl-distro/conf/layer.conf` in the [meta-mbl][meta-mbl] repo. The
-  priority of the `meta-mbl-distro` layer is currently subject to change,
-  so you should check the priority used in the branch on which your project is
-  based.<!--what's the priority of `meta-mbl-distro`? if it's always the same, we can explain it here so people don't have to go check (also - where do they check - there isn't actually a link here to the distro)-->
-* The `LAYERDEPENDS` line declares a dependency on the `meta-mbl-distro` layer.
+* The [`BBFILE_PRIORITY`][yocto-bbfile-priority] for the new layer should be
+  higher than the `BBFILE_PRIORITY` for the `meta-mbl-distro` layer, so that
+  the `meta-mbl-project-example` layer can override recipes and settings from
+  `meta-mbl-distro`.
+* The [`LAYERDEPENDS`][yocto-layer-depends] line declares a dependency on the
+  `meta-mbl-distro` layer. This enables BitBake to automatically determine that
+  `meta-mbl-project-example`'s `BBFILE_PRIORITY` should be higher than
+  `meta-mbl-distro`'s without you having to hard-code a value.
 
 ## 2. Create a config repository
 
@@ -96,33 +93,33 @@ MBL's build tools use [Google's git-repo tool][google-git-repo] to initialize wo
 
     1. The manifest will contain a line for the config repo that looks something like:
 
-    ```
-    <project name="armmbed/mbl-config" path="conf" remote="github" revision="mbl-os-0.6">
-    ```
+       ```
+       <project name="armmbed/mbl-config" path="conf" remote="github" revision="mbl-os-0.6">
+       ```
 
-    Change this line to refer to a branch of your new config repo instead of `armmbed/mbl-config`. For example:
+       Change this line to refer to a branch of your new config repo instead of `armmbed/mbl-config`. For example:
 
-    ```
-    <project name="your-github-user/mbl-project-config-example" path="conf" remote="github" revision="master">
-    ```
+       ```
+       <project name="your-github-user/mbl-project-config-example" path="conf" remote="github" revision="master">
+       ```
 
-    Replace `your-github-user` with the GitHub user or organization that has your `mbl-project-config-example` repository.
+       Replace `your-github-user` with the GitHub user or organization that has your `mbl-project-config-example` repository.
 
     1. Add a line within the
 
-    ```
-    <manifest>
-    ...
-    </manifest>
-    ```
+       ```
+       <manifest>
+       ...
+       </manifest>
+       ```
 
-    block for your new meta layer. Something like:
+       block for your new meta layer. Something like:
 
-    ```
-    <project name="your-github-user/meta-mbl-project-example" path="layers/meta-mbl-project-example" remote="github" revision="master" />
-    ```
+       ```
+       <project name="your-github-user/meta-mbl-project-example" path="layers/meta-mbl-project-example" remote="github" revision="master" />
+       ```
 
-    Replace `your-github-user` as above.
+       Replace `your-github-user` as above.
 
 1. Create a work area for the new project using [Google's git-repo tool][google-git-repo] by running something like:
 
@@ -237,6 +234,8 @@ Extensible Software Development Kit (eSDK)][yocto-sdk] for more information.
 
 [yocto-docs]: https://www.yoctoproject.org/docs/
 [yocto-concepts]: https://www.yoctoproject.org/docs/latest/mega-manual/mega-manual.html#overview-manual-concepts
+[yocto-bbfile-priority]: https://www.yoctoproject.org/docs/latest/mega-manual/mega-manual.html#var-bb-BBFILE_PRIORITY
+[yocto-layer-depends]: https://www.yoctoproject.org/docs/latest/mega-manual/mega-manual.html#var-bb-LAYERDEPENDS
 [yocto-create-layer]: https://www.yoctoproject.org/docs/latest/mega-manual/mega-manual.html#creating-your-own-layer
 [yocto-recipes]: https://www.yoctoproject.org/docs/1.6/dev-manual/dev-manual.html#new-recipe-writing-a-new-recipe
 [yocto-sdk]: https://www.yoctoproject.org/docs/latest/sdk-manual/sdk-manual.html
