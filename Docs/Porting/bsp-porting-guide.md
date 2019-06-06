@@ -1,57 +1,50 @@
 # <a name="section-1-0"></a> 1.0 Mbed Linux OS BSP Porting Guide
 
 Copyright © 2019 Arm Limited.
-
+<!---Copyright notice up top here looks strange--->
 ## <a name="section-1-1"></a> 1.1 Overview
 
-This document is a guide for porting a pre-existing ARM Cortex-A BSP into the Mbed Linux OS (MBL) distribution,
-thus enabling our platform software stack for security, connection to the mbed Pelion device management and firmware update.
-BSP porting activities are primarily centred on configuring the secure boot software components so
-the right artefacts appear on the right flash partitions for update:
-- **Trusted Firmware for Cortex A (TF-A)**. Trusted Firmware is used to implement the v7A AArch32 and the v8A AArch64 secure boot flows.
-  TF-A artefacts include the second stage bootloader BL2 and the Firmware Image Package (FIP) containing third stage bootloaders
-  BL3x and certificates.
-- **Open Platform Trusted Execution Environment (OP-TEE)**. This is the OS with trusted applications running in the Trustzone secure world and is packaged as BL32 inside the FIP image.
-- **U-Boot**. U-Boot is used as the normal world bootloader for loading the Rich OS. This is packaged as BL33 inside the FIP image.
-- **Linux kernel**. The Linux kernel is used as the normal world Rich OS. The kernel image is packaged with the device tree binaries and
-  initial RAM file system in a Flattened Image Tree (FIT) image.
+This document is a guide for porting a pre-existing ARM Cortex-A BSP to Mbed Linux OS (MBL), enabling the platform's software stack for security, connection to Pelion Device Management, and firmware update.
 
-[Section 1](#section-1-0) provides an introduction to this document including an overview, the pre-requisites before undertaking the
-porting activity and a section defining terminology.
+Porting BSP is primarily related to configuring the secure boot software components, so the correct artifacts appear on the right flash partitions for update:
+- **Trusted Firmware for Cortex A (TF-A)**. Use Trusted Firmware in v7A AArch32 and v8A AArch64 secure boot processes. TF-A artifacts include the second-stage bootloader `BL2`, and the Firmware Image Package (FIP) containing third-stage bootloaders `BL3x` and certificates.
+- **Open Platform Trusted Execution Environment (OP-TEE)**. This is the OS with trusted applications running in the TrustZone secure world, and is packaged as `BL32` in the FIP image. <!---World?--->
+- **U-Boot**. U-Boot is the normal world bootloader for loading Rich OS. This is packaged as `BL33` inside the FIP image.
+- **Linux kernel**. The Linux kernel is the normal world Rich OS. The kernel image is packaged with the device tree binaries and initial RAM file system in a Flattened Image Tree (FIT) image.
 
-[Section 2](#section-2-0) describes the relevant system architecture relating the [AArch32](#fig2-2-1) and [AArch64](#fig2-2-2) secure boot flows, the partitioning
-of build artefacts between BL2, the FIP and FIT images, and the flash partition layout for updating firmware.
+[Section 1](#section-1-0) introduces this document, including an overview, porting prerequisites, and glossary.
 
-[Section 3](#section-3-0) provides a top-down overview of the Yocto meta-layers composed into the MBL development workspaces for BSP development
-including a [software stack diagram](#figure-3.7) showing how recipes from different layers collaborate.
+[Section 2](#section-2-0) describes the relevant system architecture of [AArch32](#fig2-2-1) and [AArch64](#fig2-2-2) secure boot flows, partitioning build artifacts between `BL2`, FIP and FIT images, and the flash partition layout for updating firmware.
 
-[Section 4](#section-4-0) provides an overview of `${MACHINE}.conf`, ATF, OP-TEE, `u-boot` and `linux` recipes inter-relationships
-using a [UML diagram](#figure-4-0).
+[Section 3](#section-3-0) provides a top-down overview of the Yocto metalayers in MBL development workspaces for BSP, including a [software stack diagram](#figure-3.7) showing how recipes from different layers collaborate.
 
-[Section 5](#section-5-0) provides a detailed discussion of the MBL ` ${MACHINE}.conf` and
-community ` ${machine}.conf` machine configuration files.
+[Section 4](#section-4-0) provides an overview of `${MACHINE}.conf`, ATF, OP-TEE, `u-boot` and `linux` recipe relationships using a [UML diagram](#figure-4-0).
 
-[Section 6](#section-6-0) provides a discussion of the `u-boot*.bb` base recipe and the MBL `u-boot*.bbappend` customisation.
+[Section 5](#section-5-0) discusses in detail MBL `${MACHINE}.conf` and
+community `${machine}.conf` machine configuration files.
 
-[Section 7](#section-7-0) provides a discussion of the `linux*.bb` base recipe and the MBL `linux*.bbappend` customisation.
+[Section 6](#section-6-0) discusses the `u-boot*.bb` base recipe and MBL `u-boot*.bbappend` customization.
 
-[Section 8](#section-8-0) provides a discussion of the `atf-${MACHINE}.bb` recipe for building the ARM Trusted Firmware.
+[Section 7](#section-7-0) discusses the `linux*.bb` base recipe and the MBL `linux*.bbappend` customization.
 
-[Section 9](#section-9-0) provides a concrete example for the WaRP7 target of the `${MACHINE}.conf`, ATF, OP-TEE, `u-boot` and `linux` recipe interrelationships
+[Section 8](#section-8-0) discusses the `atf-${MACHINE}.bb` recipe for building ARM Trusted Firmware.
+
+[Section 9](#section-9-0) provides a concrete example for the WaRP7 target of the `${MACHINE}.conf`, ATF, OP-TEE, `u-boot` and `linux` recipe inter-relationships
 using a [UML diagram](#figure-9-1).
 
-[Section 10](#section-10-0) provides a summary of porting tasks.
+[Section 10](#section-10-0) summarizes porting tasks.
 
-[Section 11](#section-11-0) provides a list of supporting references to this document.
+[Section 11](#section-11-0) lists supporting references to this document.
 
 
 ## <a name="section-1-2"></a> 1.2 Prerequisites
 
 MBL uses Yocto, BitBake, `openembedded-core` and third-party meta-layers to compose the development and build workspace.
-[Embedded Linux Systems with the Yocto Project][strief-2016] is highly recommended for preparatory material before
-consulting the [Yocto Mega Manual][yocto-mega-manual-latest], and in particular, reading the
+
+We recommend reading [Embedded Linux Systems with the Yocto Project][strief-2016] before
+consulting the [Yocto Mega Manual][yocto-mega-manual-latest], and reading the
 [Yocto Project Board Support Package (BSP) Developer's Guide][yocto-project-board-support-package-bsp-seveloper-guide-latest].
- 
+
 For porting ATF to your target platform, please consult the [ATF porting guide][atf-doc-plat-porting-guide].
 
 For porting OP-TEE to your target platform, please consult the [OP-TEE documentation][optee-docs].
@@ -60,7 +53,7 @@ For porting OP-TEE to your target platform, please consult the [OP-TEE documenta
 ## <a name="section-1-3"></a> 1.3 Terminology
 
 This section defines terminology used throughout this document.
-
+<!---Markdown table instead?--->
 <a name="Table-1-3"></a>
     Term                Definition
 
@@ -69,13 +62,13 @@ This section defines terminology used throughout this document.
     BL                  Bootloader
     BL1                 1st Stage Boot Loader
     BL2                 2nd Stage Boot Loader. This is based on TF-A running at EL3 when the MMU
-                        is switched off. BL2 loads the FIP image and authenitcates FIP content.
+                        is switched off. BL2 loads the FIP image and authenticates FIP content.
     BL31                3rd Stage Boot Loader - Part 1.
-                          - e.g. Secure Monitor running in EL1-SW.  This stage enables the MMU.
+                          - Secure Monitor running in EL1-SW. This stage enables the Memory Management Unit.
     BL32                3rd Stage Boot Loader - Part 2.
-                          - e.g. OP-TEE, the secure world OS. This typically switches to Normal World.
+                          - OP-TEE, the secure world OS. This typically switches to Normal World.
     BL33                3rd Stage Boot Loader - Part 3.
-                          - e.g. u-boot, the Normal World boot loader.
+                          - u-boot, the Normal World boot loader.
                           - Also referred to as Non-Trusted World Firmware (NT-FW).
 
     DTB                 Device Tree Binary
@@ -83,16 +76,16 @@ This section defines terminology used throughout this document.
     FIP                 Firmware Image Package. This is a "simple filesystem" for
                         managing signed bootchain components.
     FIT                 Flattened Image Tree. This is a Linux Kernel image container for
-                        holding the kernel, kernel DTB and initramfs.
+                        holding the kernel, kernel DTB and `initramfs`.
     Linux               The runtime normal-world kernel.
     MBL                 Mbed Linux OS
     MMU                 Memory Management Unit
-    Noraml World        The non-security operating mode as defined in ARM reference documentation.
+    Normal World        The non-security operating mode as defined in ARM reference documentation.
     NT                  Non-Trusted
     NT-FW               Non-Trusted Firmware Binary (REF1)
-                          - e.g. BL33 u-boot. Runs at EL2-NW
+                          - BL33 u-boot. Runs at EL2-NW.
     NT-FW-CERT          Non-Trusted Firmware Certificate (REF1)
-                          - e.g. u-boot content certificate.
+                          - u-boot content certificate.
     NT-FW-KEY-CERT      Non-Trusted Firmware Certificate (REF1)
     NW                  Normal World (REF2)
     OP-TEE              Open Platform Trusted Execution Environment
@@ -121,18 +114,17 @@ This section defines terminology used throughout this document.
     WIC                 Openembedded Image Creator application.
 
 **Table 1.3: Acronyms.**
-* **REF1:** Term is defined in the TF-A fiptool documentation and source code.
-* **REF2:** Term is defined in the TrustZone documentation.
-
+* **REF1:** Term is defined in TF-A fiptool documentation and source code.
+* **REF2:** Term is defined in TrustZone documentation.
+<!---links?--->
 
 ## <a name="section-2-0"></a> 2.0 System Architecture
 
 ## <a name="section-2-1"></a> 2.1 Introduction
 
-The key BSP system architecture requirements can be summarised as follows:
-- **Security**. Trusted firmware for Cortex-A is employed as it provides a generic solution for authenticating software components.
-- **Firmware Update**. The Pelion device management update service is used to update device firmware. This leads to a flash
-  partition layout where trusted firmware, the kernel, the root file system and applications are independently updatable.
+The key BSP system architecture requirements can be summarized as follows:
+- **Security**. Trusted Firmware for Cortex-A provides a generic solution for authenticating software components.
+- **Firmware Update**. Pelion Device Management update service is used to update device firmware. This leads to a flash partition layout where trusted firmware, the kernel, the root file system and applications are independently updatable.
 - **Reuse**. We're possible, suitable pre-existing solutions and software are reused to leverage
   know-how and speed up time to market.
 
@@ -192,8 +184,8 @@ The boot sequence consists of the following events:
 
 For steps 1-6, the boot flow for AArch64 is the same as the AArch32 boot flow described in the previous section. Thereafter, the boot flow differs slightly:
 
-7. BL31 runs BL32 and then blocks waiting for BL32 to complete initialisation.
-8. BL32 (Secure Payload, OP-TEE) runs and initialises.
+7. BL31 runs BL32 and then blocks waiting for BL32 to complete initialization.
+8. BL32 (Secure Payload, OP-TEE) runs and initializes.
 9. BL31 (SoC AP Firmware, Secure Monitor) resumes and runs BL33 (Normal World Firmware, u-boot). BL31 continues to run in the system.
 10. BL33 orchestrates the loading and running of the Rich OS.
 11. The secure boot chain process has now completed.
@@ -226,7 +218,7 @@ See the [Basic Signing Flow document](basic-signing-flow.md##-a-name-section-2-1
     1. Linux kernel device tree.
     1. `boot.scr`. This is a compiled version of the U-Boot boot script.
     1. The initramfs image.
-    1. [The Verity public key.][android-verified-boot] 
+    1. [The Verity public key.][android-verified-boot]
     1. A configuration block.
 1. **Rootfs Partition**. This image contains the root filesystem.
 1. **Rootfs_hash Partition**. This image contains the Verity hash tree.
@@ -294,7 +286,7 @@ general purpose layers are the same as `raspberrypi3-mbl`.
 
 ## <a name="section-3-2"></a> 3.2 Layers for `raspberrypi3-mbl`
 
-Once an MBL workspace has been created and the environment initialised, the `bblayers*.conf` configured meta-layers can be listed using `bitbake-layers show-layers`.
+Once an MBL workspace has been created and the environment initialized, the `bblayers*.conf` configured meta-layers can be listed using `bitbake-layers show-layers`.
 [Table 3.2.1](#Table-3-2-1) shows the command output for `MACHINE=raspberrypi3-mbl`:
 
 <a name="Table-3-2-1"></a>
@@ -338,13 +330,13 @@ The MBL workspace directory structure shown in [Figure 3.2](#Figure-3-2) makes a
 - The `meta-mbl` repository stores new layers e.g. `meta-mbl-apps`, `meta-mbl-bsp-common` and `meta-mbl-distro`. The intention is that new MBL layers
   are reusable components of related meta-data i.e. a third party  distribution might use MBL secure boot by reusing `meta-mbl-bsp-common` for example. New MBL layers
   have `meta-mbl` at the start of the layer name.
-- The `meta-mbl` repository stores staging layers for customisations of community recipes (e.g. `.bbappend` recipes).
+- The `meta-mbl` repository stores staging layers for customizations of community recipes (e.g. `.bbappend` recipes).
   Staging layers follow the naming convention of appending "`-mbl`" to the community repository e.g.
   `meta-linaro-mbl/meta-optee`, `openembedded-core-mbl/meta`, `meta-raspberrypi-mbl`, and `meta-virtualization-mbl`.
 
 <a name="Figure-3-2"></a>
 - In the staging layers configuration file (layers.conf) the BBFILE_COLLECTIONS variable should append "-mbl" to the upstream layer original value. e.g. for `meta-linaro-mbl/meta-optee/conf/layer.conf`: `BBFILE_COLLECTIONS = "meta-optee-mbl"`, for `openembedded-core-mbl/meta/conf/layer.conf`: `BBFILE_COLLECTIONS = "core-mbl"`, `meta-raspberrypi-mbl/conf/layer.conf`: `BBFILE_COLLECTIONS = "raspberrypi-mbl"` and `meta-virtualization-mbl/conf/layer.conf`: `BBFILE_COLLECTIONS = "virtualization-layer-mbl"`
- 
+
 ```
     <mbl_workspace_root_path>
     └── layers                                  // Directory containing meta-layers at leaf nodes.
@@ -352,7 +344,7 @@ The MBL workspace directory structure shown in [Figure 3.2](#Figure-3-2) makes a
         │   └── meta-optee                      // Community meta-layer for Trusted Exec. Env.
         ├── meta-mbl                            // MBL repo name holding multiple meta-layers.
         │   ├── meta-linaro-mbl                 // MBL staging directory for meta-linaro.
-        │   │   └── meta-optee                  // MBL staging layer for meta-optee customisations.
+        │   │   └── meta-optee                  // MBL staging layer for meta-optee customizations.
         │   ├── meta-mbl-apps                   // MBL layer for MBL applications.
         │   ├── meta-mbl-bsp-common             // MBL layer for common BSP recipes & meta-data.
         │   ├── meta-mbl-distro                 // MBL distribution layer.
@@ -374,7 +366,7 @@ The MBL workspace directory structure shown in [Figure 3.2](#Figure-3-2) makes a
 **Figure 3.2: Workspace `layer` directory hierarchy representation showing `raspberrypi3-mbl` meta-layers.**
 
 
-For the community layer `meta-raspberrypi`, the `meta-mbl` repository contains the MBL staging layer `meta-raspberrypi-mbl` for `.bbappend` customisations to
+For the community layer `meta-raspberrypi`, the `meta-mbl` repository contains the MBL staging layer `meta-raspberrypi-mbl` for `.bbappend` customizations to
 `meta-raspberrypi *.bb` recipes. As `meta-raspberrypi-mbl` contains the `raspberrypi3-mbl.conf` machine configuration file it too is a BSP layer.
 `raspberrypi3-mbl.conf` cannot be upstreamed to `meta-raspberrypi` and therefore has to be maintained independently.
 
@@ -383,16 +375,16 @@ For the community layer `meta-raspberrypi`, the `meta-mbl` repository contains t
 | Layer | Type | Source | Description |
 | --- | --- | --- | --- |
 | openembedded-core/meta                    | General   | Community | Openembedded core recipe library support for building images. |
-| openmebedded-core-mbl/meta                | General   | MBL       | MBL staging layer for `openembedded-core/meta` customisations. |
+| openmebedded-core-mbl/meta                | General   | MBL       | MBL staging layer for `openembedded-core/meta` customizations. |
 | meta-filesystems                          | General   | Community | Filesystem subsystems meta-layer. |
 | meta-freescale                            | BSP       | Community | This is the Freescale NXP maintained BSP layer for i.MX8 target containing `imx8mmevk.conf`. |
-| meta-freescale-mbl                        | BSP       | MBL       | MBL BSP staging layer containing `imx8mmevk-mbl.conf`, `u-boot*.bbappend` and `linux*.bbappend` recipe customisations. |
+| meta-freescale-mbl                        | BSP       | MBL       | MBL BSP staging layer containing `imx8mmevk-mbl.conf`, `u-boot*.bbappend` and `linux*.bbappend` recipe customizations. |
 | meta-freescale-3rdparty                   | BSP       | Community | The Freescale NXP community has established this low-friction alternative for upstreaming third party originated recipes. i.MX7 targets including `imx7s-warp.conf` and `imx7d-pico.conf` are hosted in this layer. |
-| meta-freescale-3rdparty-mbl               | BSP       | MBL       | MBL BSP staging layer containing `imx7*-mbl.conf`, `u-boot*.bbappend` and `linux*.bbappend` recipe customisations. |
-| meta-fsl-bsp-release-mbl/imx/meta-bsp     | BSP       | MBL       | MBL BSP staging layer containing Qualcomm qca9377 firmware installation script and imx8 firmware blobs recipe customisation. |
+| meta-freescale-3rdparty-mbl               | BSP       | MBL       | MBL BSP staging layer containing `imx7*-mbl.conf`, `u-boot*.bbappend` and `linux*.bbappend` recipe customizations. |
+| meta-fsl-bsp-release-mbl/imx/meta-bsp     | BSP       | MBL       | MBL BSP staging layer containing Qualcomm qca9377 firmware installation script and imx8 firmware blobs recipe customization. |
 | meta-fsl-bsp-release/imx/meta-bsp         | BSP       | Community | BSP layer containing Qualcomm qca9377 firmware and kernel module recipes and imx8 firmware blobs used by some NXP targets and qcom qca9377 firmware and kernel modules. |
 | meta-linaro/meta-optee                    | BSP       | Community | Linaro provided layer for OP-TEE |
-| meta-linaro-mbl/meta-optee                | BSP       | MBL       | MBL staging layer for `meta-optee` customisations or related meta-data. |
+| meta-linaro-mbl/meta-optee                | BSP       | MBL       | MBL staging layer for `meta-optee` customizations or related meta-data. |
 | meta-mbl-apps                             | General   | MBL       | MBL applications e.g. `mbl-cloud-client`. |
 | meta-mbl-bsp-common                       | BSP       | MBL       | MBL layer for BSP meta-data commonly used by more than one target BSP. |
 | meta-mbl-distro                           | Distro    | MBL       | MBL distribution layer including image recipes containing `mbl.conf`, `mbl-image*.bb` recipes and `*.wks` files. |
@@ -400,9 +392,9 @@ For the community layer `meta-raspberrypi`, the `meta-mbl` repository contains t
 | meta-oe                                   | General   | Community | Open Embedded layer for distribution tools & applications. |
 | meta-python                               | General   | Community | Layer to build the Python runtime for the target. |
 | meta-raspberrypi                          | BSP       | Community | RaspberryPi provided BSP layer containing `raspberrypi3.conf`. |
-| meta-raspberrypi-mbl                      | BSP       | MBL       | MBL staging layer for `meta-raspberrypi` customisations. |
+| meta-raspberrypi-mbl                      | BSP       | MBL       | MBL staging layer for `meta-raspberrypi` customizations. |
 | meta-virtualization                       | General   | Community | Layer to provide support for constructing OE-based virtualized solutions. |
-| meta-virtualization-mbl                   | General   | MBL       | MBL staging layer for Docker virtualisation customisations. |
+| meta-virtualization-mbl                   | General   | MBL       | MBL staging layer for Docker virtualisation customizations. |
 
 **Table 3.2.2: The table describes each of the meta-layers that appear in the MBL workspace**.
 
@@ -514,16 +506,16 @@ Each layer is shown horizontally across the figure containing a number of recipe
 Beginning with the top layer and working downwards:
 - **`meta-mbl-distro`**. The distribution layer provides the WIC kickstart image layout files `${MACHINE}.wks`.
 - **`meta-[soc-vendor]-mbl`**. The MBL staging layer provides:
-    - The BSP customisation for specific target platforms i.e. it defines `${MACHINE}.conf` files.
-    - The MBL `u-boot*.bbappend` customisation recipes for specifying how u-boot is built.
-    - The MBL `linux*.bbappend`  customisation recipes for specifying how Linux is built.
+    - The BSP customization for specific target platforms i.e. it defines `${MACHINE}.conf` files.
+    - The MBL `u-boot*.bbappend` customization recipes for specifying how u-boot is built.
+    - The MBL `linux*.bbappend`  customization recipes for specifying how Linux is built.
     - The `atf-${MACHINE}.bb` recipe for building ATF. This includes `atf.inc` from the `meta-mbl-bsp-common` layer.
 - **`meta-[soc-vendor]`**. The community layer provides:
     - The BSP support for specific target platforms i.e. it defines `${machine}.conf` files.
-    - The `u-boot*.bb` base recipes and customisations using `u-boot*.bbappend` recipes.
-    - The `linux*.bb` base recipes and customisations using the`linux*.bbappend` recipes.
+    - The `u-boot*.bb` base recipes and customizations using `u-boot*.bbappend` recipes.
+    - The `linux*.bb` base recipes and customizations using the`linux*.bbappend` recipes.
 - **`meta-mbl-bsp-common`**. The MBL layer includes the generic ATF recipe support `atf.inc` included in the target specific `atf-${MACHINE}.bb` recipe.
-- **`meta-linaro-mbl/meta-optee`**. This MBL staging layer provides the `optee*.bbappend` customisation recipes.
+- **`meta-linaro-mbl/meta-optee`**. This MBL staging layer provides the `optee*.bbappend` customization recipes.
 - **`meta-optee`**. The community layer provides:
     - `optee-os.bb` for building the OP-TEE OS.
     - `optee-client.bb` for building the trusted execution client library for the Linux kernel.
@@ -590,16 +582,16 @@ The discussion is applicable to all targets.
 ## <a name="section-5-1"></a> 5.1 `${MACHINE}.conf`: The top level BSP control file
 
 [Figure 4.0](#figure-4-0) illustrates the `${MACHINE}.conf` machine configuration file using a UML class entity with symbols.
-The MBL `meta-[soc-vendor]-mbl ${MACHINE}.conf` file includes the community `meta-[soc-vendor] ${machine}.conf` and customises key symbols to specify
+The MBL `meta-[soc-vendor]-mbl ${MACHINE}.conf` file includes the community `meta-[soc-vendor] ${machine}.conf` and customizes key symbols to specify
 how ATF, OP-TEE, `u-boot` and `linux` will be built and configured. MBL thus uses `${MACHINE}.conf` to override and modify the configuration
  specified configuration in `${machine}.conf`.
 
 The key symbols modified in `${MACHINE}.conf` are as follows:
 - `PREFERRED_PROVIDER_virtual/atf = "atf-${MACHINE}"`. This symbol in `${MACHINE}.conf` specifies
-  which recipe to use for building ATF. The recipe packages bootchain artefacts into the FIP image as specified in [Section 2.3](#section-2-3).
+  which recipe to use for building ATF. The recipe packages bootchain artifacts into the FIP image as specified in [Section 2.3](#section-2-3).
 - `KERNEL_CLASSES = "mbl-fitimage"`. This symbol changes the `kernel.bbclass` processing to inherit the `mbl-fitimage.bbclass`, which
   packages the kernel in a FIT image as specified in [Section 2.3](#section-2-3).
-- `KERNEL_IMAGETYPE = "fitImage"`. This symbol customises `kernel.bbclass` processing to generate a FIT image rather than a zImage, for example.
+- `KERNEL_IMAGETYPE = "fitImage"`. This symbol customizes `kernel.bbclass` processing to generate a FIT image rather than a zImage, for example.
 - `KERNEL_DEVICETREE = "XXX"`. This symbol definition is used to specify additional device trees that can be included in the FIT image.
 - `UBOOT_ENTRYPOINT = "0xabcdefab"`. This symbol specifies the u-boot entry point called by OP-TEE, for example.
 - `UBOOT_DTB_LOADADDRESS = "0xabcdefab"`. This symbol specifies the memory address where the u-boot DTB will be loaded into memory.
@@ -613,7 +605,7 @@ is packaged into a FIT image so the kernel FIT image can be written to a dedicat
 the `linux*`, `kernel.bbclass`, `mbl-fitimage.bbclass` and `kernel-fitimage.bbclass` entities shown in [Figure 4.0](#figure-4-0),
 and by setting the symbols `KERNEL_CLASSES` and `KERNEL_IMAGETYPE`. See section [Section 7.3](#section-7-3) and [Section 7.4](#section-7-4) for more details.
 
-See [Section 9.1](#section-9-1) for details of the `${MACHINE}.conf` file for `imx7s-warp-mbl`. 
+See [Section 9.1](#section-9-1) for details of the `${MACHINE}.conf` file for `imx7s-warp-mbl`.
 
 ## <a name="section-5-2"></a> 5.2 `${machine}.conf`: The community BSP control file
 
@@ -657,14 +649,14 @@ in the recipe. This relationship is expressed in [Figure 4.0](#figure-4-0) by th
 `[soc-family].inc` and the interface symbol attached to `u-boot*.bb`
 
 
-## <a name="section-6-2"></a> 6.2 `u-boot*.bbappend` Customisation Recipe
+## <a name="section-6-2"></a> 6.2 `u-boot*.bbappend` customization Recipe
 
 [Figure 4.0](#figure-4-0) shows the `meta-[soc-vendor]-mbl` `u-boot*.bbappend` recipe, which is used to
-customise the `meta-[soc-vendor]` BSP layer `u-boot*.bb` recipe as required for MBL. Customisation
+customize the `meta-[soc-vendor]` BSP layer `u-boot*.bb` recipe as required for MBL. customization
 typically includes:
 - Setting `SRC_URI` and `SRCREV` to point to a forked and patched version of u-boot used for the target.
 - Applying additional patches stored in `meta-[soc-vendor]-mbl`.
-- Specifying new values of symbols to customise base recipe behaviour.
+- Specifying new values of symbols to customize base recipe behaviour.
 - Handling device trees.
 
 
@@ -686,10 +678,10 @@ in the recipe. This relationship is expressed in [Figure 4.0](#figure-4-0) by th
 `[soc-family].inc` and the interface symbol attached to `linux*.bb`
 
 
-## <a name="section-7-2"></a> 7.2 `linux*.bbappend` Customisation Recipe
+## <a name="section-7-2"></a> 7.2 `linux*.bbappend` customization Recipe
 
 [Figure 4.0](#figure-4-0) shows the `meta-[soc-vendor]-mbl` `linux*.bbappend` recipe, which is used to
-customise the `meta-[soc-vendor]` BSP layer `linux*.bb` recipe as required for MBL.  Customisation
+customize the `meta-[soc-vendor]` BSP layer `linux*.bb` recipe as required for MBL.  customization
 typically includes:
 - Setting `SRC_URI` and `SRCREV` to point to a forked and patched version of the Linux kernel with the required driver support and fixes.
 - Applying additional patches stored in `meta-[soc-vendor]-mbl`.
@@ -699,7 +691,7 @@ typically includes:
   enable verified boot.
 - Setting `INITRAMFS_IMAGE = "mbl-image-initramfs"`, to define the `meta-mbl` recipe for building the initramfs.
 - Setting `KERNEL_EXTRA_ARGS` to specify extra arguments supplied to the kernel.
-- Setting other symbol values to customise base recipe behaviour e.g.
+- Setting other symbol values to customize base recipe behaviour e.g.
   to report the current version of the kernel used by the target.
 
 
@@ -744,21 +736,21 @@ shown in [Figure 4.0](#figure-4-0), drawn to include more of the underlying `ope
 [Figure 7.4](#figure-7-4) shows a UML class diagram annotated with the processing methods used in generating FIT images.
 - **`kernel-fitimage.bbclass`**. The `kernel-fitimage.bbclass` encapsulates the `uboot-mkimage` tool invocation to combine a number of image components
   (e.g. kernel binary and DTB) into a single multi-component image (the FIT image). The class member functions `fitimage_emit_section_xxx()`
-  write FIT image specification metadata sections in the fit-image description file (`fit-image.its`). 
+  write FIT image specification metadata sections in the fit-image description file (`fit-image.its`).
   The `fit_image_assemble()` member function is then used to generate the FIT image according to the `fit-image.its` specification.
-  If `UBOOT_SIGN_ENABLE` is set (as is the case in MBL `${MACHINE}.conf` files), the "assemble" function signs the newly generated image (again using `uboot-mkimage`). 
+  If `UBOOT_SIGN_ENABLE` is set (as is the case in MBL `${MACHINE}.conf` files), the "assemble" function signs the newly generated image (again using `uboot-mkimage`).
   The processing is hooked into the build by the class promoting certain member functions to tasks entry-points.
-  
+
 - **`kernel-uboot.bbclass`**. This class is used to post-process the kernel image using the `objcopy` tool.
 - **`uboot-sign.bbclass`**. This class is not used for signing because `mbl-fitimage.bbclass` processing is used instead.
-- **`mbl-fitimage.bbclass`**. The `mbl-fitimage.bbclass` inherits from `kernel-fitimage.bbclass` and (re-)implements functions to customise
-  the behaviour of the base class. See later in this section for more details. 
-- **`mbl-artefact-names.bbclass`**. This is a utility class used to define standard names for artefacts e.g. `MBL_UBOOT_CMD_FILENAME = "boot.cmd"`
+- **`mbl-fitimage.bbclass`**. The `mbl-fitimage.bbclass` inherits from `kernel-fitimage.bbclass` and (re-)implements functions to customize
+  the behaviour of the base class. See later in this section for more details.
+- **`mbl-artefact-names.bbclass`**. This is a utility class used to define standard names for artifacts e.g. `MBL_UBOOT_CMD_FILENAME = "boot.cmd"`
   defines the `u-boot` boot script file to be `boot.cmd` by default.
 
 
 The `kernel-fitimage.bbclass` member functions of interest are described briefly below:
-- `__anonymous()`. This is an initialisation function for the class that executes after parsing (i.e. the class constructor).
+- `__anonymous()`. This is an initialization function for the class that executes after parsing (i.e. the class constructor).
 - `fitimage_emit_section_setup()`. Helper function to write the setup section in the FIT image `fit-image.its` file.
 - `fitimage_emit_section_ramdisk()`. Helper function to write the initramfs section in the FIT image `fit-image.its` file.
 - `fitimage_emit_section_config()`. Helper function to write the config section in the FIT image `fit-image.its` file.
@@ -806,10 +798,10 @@ following `atf.inc` line:
 
     do_compile[depends] += " virtual/kernel:do_deploy virtual/bootloader:do_deploy optee-os:do_deploy"
 
-This means that the `virtual/bootloader` and `virtual/kernel` artefacts should be deployed
+This means that the `virtual/bootloader` and `virtual/kernel` artifacts should be deployed
 before the `atf.inc do_compile()` method runs, so they are available for the ATF recipe to use.
 Note that `atf.inc` expects the
-`virtual/bootloader`, `virtual/kernel` and `optee*` artefacts on which it depends to be
+`virtual/bootloader`, `virtual/kernel` and `optee*` artifacts on which it depends to be
 deployed to the `DEPLOY_DIR_IMAGE-${DEPLOY_DIR}/images/${MACHINE}/` directory. For the
 `imx7s-warp-mbl` target this directory is:
 
