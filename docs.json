@@ -245,6 +245,16 @@
                     "path": "Docs/refs/partition_layout.md"
                 }
             ]
+        },
+        {
+            "title": "Porting",
+            "description": "",
+            "slug": "porting",
+            "type": "markdown",
+            "sources": [{
+                    "path": "Docs/Porting/bsp-porting-guide.md"
+                }
+            ]
         }
     ]
 }
