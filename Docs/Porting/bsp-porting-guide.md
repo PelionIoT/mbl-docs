@@ -116,7 +116,7 @@ This section defines terminology used throughout this document.
 * **REF2:** Term is defined in TrustZone documentation.
 <!---links?--->
 
-## <a name="section-2-0"></a> 2.0 System Architecture
+# <a name="section-2-0"></a> 2.0 System Architecture
 
 ## <a name="section-2-1"></a> 2.1 Introduction
 
@@ -266,7 +266,7 @@ while the other is the non-active (non-running) partition. A update will write a
 change the Bank/Update state so that the new image comes into service (the non-active bank becomes active, and the active bank
 becomes non-active.
 
-## <a name="section-3-0"></a> 3.0 Overview of MBL Yocto meta-layers
+# <a name="section-3-0"></a> 3.0 Overview of MBL Yocto meta-layers
 
 ## <a name="section-3-1"></a> 3.1 Types of Yocto meta-layers
 
@@ -1108,7 +1108,7 @@ This section provides a summary of the tasks required to integrate a pre-existin
     - Upstream the `foo-bar-mbl.wks` to `https://github.com/ARMmbed/meta-mbl`.
 
 
-## <a name="section-11-0"></a> 11.0 References
+# <a name="section-11-0"></a> 11.0 References
 
 * [ARM Trusted Firmware Platform Porting Guide][atf-doc-plat-porting-guide].
 * [mbed Linux OS Basic Signing Flow][basic-signing-flow.md].
