@@ -6,71 +6,57 @@ This document is a guide for porting an existing ARM Cortex-A board support pack
 
 Porting BSP centres on configuring the secure boot software components, so the correct artifacts appear on the right flash partitions for update:
 
-- **Trusted Firmware for Cortex A (TF-A)**. Use Trusted Firmware in v7A AArch32 and v8A AArch64 secure boot processes. TF-A artifacts include the second-stage bootloader `BL2`, and the Firmware Image Package (FIP) containing third-stage bootloaders `BL3x` and certificates.
-- **Open Platform Trusted Execution Environment (OP-TEE)**. This is the OS with trusted applications running in the TrustZone secure world, and is packaged as `BL32` in the FIP image. <!---World?--->
-- **U-Boot**. U-Boot is the normal world bootloader for loading Rich OS. This is packaged as `BL33` inside the FIP image.
+- **Trusted Firmware for Cortex A (TF-A)**. Use Trusted Firmware in v7A AArch32 and v8A AArch64 secure boot processes. TF-A artifacts include the second-stage boot loader `BL2`, and the Firmware Image Package (FIP) containing third-stage boot loaders `BL3x` and certificates.
+- **Open Platform Trusted Execution Environment (OP-TEE)**. This is the OS with trusted applications running in the TrustZone secure world, and is packaged as `BL32` in the FIP image.
+- **U-Boot**. U-Boot is the normal world boot loader for loading Rich OS. This is packaged as `BL33` inside the FIP image.
 - **Linux kernel**. The Linux kernel is the normal world Rich OS. The kernel image is packaged with the device tree binaries and initial RAM file system in a Flattened Image Tree (FIT) image.
+
+This document's structure follows the work process:
 
 <!--these links won't work, because the content is on different pages-->
 
-[Section 1](#section-1-0) introduces this document, including an overview, porting prerequisites, and glossary.
+* [Section 1](#section-1-0) introduces this document, including an overview, porting prerequisites, and glossary.
 
-[Section 2](#section-2-0) describes the relevant system architecture of [AArch32](#fig2-2-1) and [AArch64](#fig2-2-2) secure boot flows, partitioning build artifacts between `BL2`, FIP and FIT images, and the flash partition layout for updating firmware.
+* [Section 2](#section-2-0) describes the relevant system architecture of [AArch32](#fig2-2-1) and [AArch64](#fig2-2-2) secure boot flows, partitioning build artifacts between `BL2`, FIP and FIT images, and the flash partition layout for updating firmware.
 
-[Section 3](#section-3-0) provides a top-down overview of the Yocto metalayers in MBL development workspaces for BSP, including a [software stack diagram](#figure-3.7) showing how recipes from different layers collaborate.
+* [Section 3](#section-3-0) provides a top-down overview of the Yocto meta-layers in MBL development workspaces for BSP, including a [software stack diagram](#figure-3.7) showing how recipes from different layers collaborate.
 
-[Section 4](#section-4-0) provides an overview of `${MACHINE}.conf`, ATF, OP-TEE, `u-boot` and `linux` recipe relationships using a [UML diagram](#figure-4-0).
+* [Section 4](#section-4-0) provides an overview of `${MACHINE}.conf`, ATF, OP-TEE, `u-boot` and `linux` recipe relationships using a [UML diagram](#figure-4-0).
 
-[Section 5](#section-5-0) discusses in detail MBL `${MACHINE}.conf` and
-community `${machine}.conf` machine configuration files.
+* [Section 5](#section-5-0) discusses, in detail, the MBL `${MACHINE}.conf` and community `${machine}.conf` machine configuration files.
 
-[Section 6](#section-6-0) discusses the `u-boot*.bb` base recipe and MBL `u-boot*.bbappend` customization.
+* [Section 6](#section-6-0) discusses the `u-boot*.bb` base recipe and MBL `u-boot*.bbappend` customization.
 
-[Section 7](#section-7-0) discusses the `linux*.bb` base recipe and the MBL `linux*.bbappend` customization.
+* [Section 7](#section-7-0) discusses the `linux*.bb` base recipe and the MBL `linux*.bbappend` customization.
 
-[Section 8](#section-8-0) discusses the `atf-${MACHINE}.bb` recipe for building ARM Trusted Firmware.
+* [Section 8](#section-8-0) discusses the `atf-${MACHINE}.bb` recipe for building ARM Trusted Firmware.
 
-[Section 9](#section-9-0) provides a concrete example for the WaRP7 target of the `${MACHINE}.conf`, ATF, OP-TEE, `u-boot` and `linux` recipe inter-relationships
-using a [UML diagram](#figure-9-1).
+* [Section 9](#section-9-0) provides a concrete example for the WaRP7 target of the `${MACHINE}.conf`, ATF, OP-TEE, `u-boot` and `linux` recipe inter-relationships using a [UML diagram](#figure-9-1).
 
-[Section 10](#section-10-0) summarizes porting tasks.
+* [Section 10](#section-10-0) summarizes porting tasks.
 
-[Section 11](#section-11-0) lists supporting references to this document.
-
+* [Section 11](#section-11-0) links to supporting references to this document.
 
 ## <a name="section-1-2"></a> 1.2 Prerequisites
 
-MBL uses Yocto, BitBake, `openembedded-core` and third-party meta-layers to compose the development and build workspace.
+MBL uses Yocto, BitBake, `openembedded-core` and third-party meta-layers <!--we have "meta-layers" and "metalayers" in the same page. overall meta-layers seems to be the common spelling, and Yocto went with "meta layer" without even the hyphen, so I went with meta-layer-->to compose the development and build workspace.
 
-We recommend reading [Embedded Linux Systems with the Yocto Project][strief-2016] before
-consulting the [Yocto Mega Manual][yocto-mega-manual-latest], and reading the
-[Yocto Project Board Support Package (BSP) Developer's Guide][yocto-project-board-support-package-bsp-seveloper-guide-latest].
+We recommend reading [Embedded Linux Systems with the Yocto Project][strief-2016] before consulting the [Yocto Mega Manual][yocto-mega-manual-latest], and reading the [Yocto Project Board Support Package (BSP) Developer's Guide][yocto-project-board-support-package-bsp-seveloper-guide-latest].<!--what does "before consulting" mean? is it a "read a, then b, but definetly read both" or is it "check a so you can avoid b"?-->
 
 For porting ATF to your target platform, please consult the [ATF porting guide][atf-doc-plat-porting-guide].
 
 For porting OP-TEE to your target platform, please consult the [OP-TEE documentation][optee-docs].
 
-
 ## <a name="section-1-3"></a> 1.3 Terminology
 
 This section defines terminology used throughout this document.
-
-<!--I want to see if we can get the dictionary formatting working-->
-
-AP
-: Application processor
-
-ATF
-: ARM trusted firmware
-
-
 
 <a name="Table-1-3"></a>
     Term                Definition
 
     AP                  Application Processor
     ATF                 ARM Trusted Firmware
-    BL                  Bootloader
+    BL                  Boot loader
     BL1                 1st Stage Boot Loader
     BL2                 2nd Stage Boot Loader. This is based on TF-A running at EL3 when the MMU
                         is switched off. BL2 loads the FIP image and authenticates FIP content.
@@ -133,92 +119,90 @@ ATF
 
 ## <a name="section-2-1"></a> 2.1 Introduction
 
-The key BSP system architecture requirements can be summarized as follows:
-- **Security**. Trusted Firmware for Cortex-A provides a generic solution for authenticating software components.
-- **Firmware Update**. Pelion Device Management update service is used to update device firmware. This leads to a flash partition layout where trusted firmware, the kernel, the root file system and applications are independently updatable.
-- **Reuse**. We're possible, suitable pre-existing solutions and software are reused to leverage
-  know-how and speed up time to market.
+A summary of the key BSP system architecture requirements:<!--these aren't just the requirements - they're the solutions we offer for those requirements, right?-->
 
+- **Security:** Trusted Firmware for Cortex-A provides a generic solution for authenticating software components.
+- **Firmware Update:** Pelion Device Management update service is used to update device firmware. This leads to a flash partition layout where trusted firmware, the kernel, the root file system and applications are independently updatable.
+- **Reuse:** Where possible, suitable existing solutions and software are reused to leverage know-how and speed up time to market.
+
+<!--how do the topics on this page map to the intro? -->
 
 ## <a name="section-2-2"></a> 2.2 Boot flow
 
 <a name="fig2-2"></a>
 
-![fig2-2](assets/TWC_before_NWC.png "Figure 2.2")
+<span class="images">![fig2-2](assets/TWC_before_NWC.png "Figure 2.2")<span>**Figure 2.2:** A summary form of the secure boot chain flow</span></span>
 
-**Figure 2.2: The figure shows a summary form of the secure boot chain flow.**
+[Figure 2.2](#fig2-2) shows the main entities in the secure bootchain sequence: the Soc Boot ROM, the Trusted Firmware (TF), OP-TEE, U-Boot and the Linux kernel:
 
-[Figure 2.2](#fig2-2) shows the main entities in the secure bootchain sequence, which are the
-Soc Boot ROM, the Trusted Firmware (TF), OP-TEE, U-Boot and the Linux kernel.
-1. After the power is turned on the Soc Boot ROM runs. This is the first stage bootloader (BL1) which is programmed into the chip during manufacture.
-1. BL1 authenticates the second stage bootloader, which is Trusted Firmware for Cortex A (TF-A). TF-A supplies
-    - the second stage bootloader BL2.
-    - part 1 of the third stage boot loader BL31.
+1. After the power is turned on, the Soc Boot ROM runs. This is the first stage boot loader (BL1), which is programmed into the chip during manufacture.
+1. BL1 authenticates the second stage boot loader, which is Trusted Firmware for Cortex A (TF-A). TF-A supplies:
+    - The second stage boot loader BL2.
+    - Part 1 of the third stage boot loader BL31.
 1. BL31 runs OP-TEE, also called BL32.
-1. BL31 runs the normal world bootloader, U-Boot (referred to as BL33).
+1. BL31 runs the normal world boot loader, U-Boot (referred to as BL33).
 1. U-Boot runs the Linux Kernel.
-
 
 ### <a name="section-2-2-1"></a> 2.2.1 AArch32 boot flow
 
 <a name="fig2-2-1"></a>
 
-![fig2-2-1](assets/LAS16-402_slide_16.png "Figure 2.2.1")
-**Figure 2.2.1: Linaro Connect 2016 Presentation LAS16-402 [slide 16][linaro-connect-las16-402-slides] showing the AArch32 secure boot process.**
+<span class="images">![fig2-2-1](assets/LAS16-402_slide_16.png "Figure 2.2.1")<span>**Figure 2.2.1:** Linaro Connect 2016 Presentation LAS16-402 [slide 16][linaro-connect-las16-402-slides] showing the AArch32 secure boot process.</span></span>
 
 
-[Figure 2.2.1](#fig2-2-1) shows the Cortex-v7A AArch32 generic secure boot process which is the starting point for discussing secure boot on the WaRP7.
-The diagram is divided into 4 columns indicating the memory type and
-physical location from which the boot code will run:
+[Figure 2.2.1](#fig2-2-1) shows the Cortex-v7A AArch32 generic secure boot process, which is the starting point for discussing secure boot on the WaRP7.
+
+The diagram is divided into four columns, corresponding to the memory type and physical location from which the boot code runs:
+
 1. The first column shows the software components that execute from secure ROM.
 1. The second column shows the software components that execute from secure on-chip RAM.
 1. The third column shows the software components that execute from secure RAM, which may be on or off the SoC.
 1. The fourth column shows the software components that execute from insecure DRAM, which is off-chip.
 
 The boot sequence consists of the following events:
+
 1. BL1 loads BL2.
 1. BL1 runs BL2 (in this step and all subsequent steps, running a component is preceded by successful authentication of the component).
 1. BL2 loads BL31 (TF-A secure monitor).
 1. BL2 loads BL32 (OP-TEE OS).
 1. BL2 loads BL33 (U-Boot, the normal world boot loader).
 1. BL2 runs  BL31 (TF-A secure monitor)
-1. BL31 runs BL32 (OP-TEE OS). OP-TEE OS modifies the kernel device tree to communicate shared information between OP-TEE OS and the kernel e.g. the address/size of the OP-TEE OS <-> kernel shared memory buffer.
+1. BL31 runs BL32 (OP-TEE OS). OP-TEE OS modifies the kernel device tree to communicate shared information between OP-TEE OS and the kernel, for example the address and size of the OP-TEE OS <-><!--not happy with this symbol; is it common in Linux development?--> kernel shared memory buffer.
 1. BL32 runs U-Boot (change from SW to NW).
 1. BL33 (u-boot) runs kernel.
-1. The secure boot chain process has now completed.
+1. The secure boot chain process has now completed.<!--is that really a step?-->
 
 ### <a name="section-2-2-2"></a> 2.2.2 AArch64 boot flow
 
 <a name="fig2-2-2"></a>
 
-![fig2-2-2](assets/LAS16-402_slide_15.png "Figure 2.2.2")
-**Figure 2.2.2: Linaro Connect 2016 Presentation LAS16-402 [slide 15][linaro-connect-las16-402-slides] showing AArch64 secure boot process.**
+<span class="images">![fig2-2-2](assets/LAS16-402_slide_15.png "Figure 2.2.2")<span>**Figure 2.2.2:** Linaro Connect 2016 Presentation LAS16-402 [slide 15][linaro-connect-las16-402-slides] showing AArch64 secure boot process.</span></span>
 
-[Figure 2.2.2](#fig2-2-2) shows the Cortex-v8A AArch64 generic secure boot process which is the starting point for discussing the Raspberry Pi 3 and NXP IMX8 Mini secure boot.
+[Figure 2.2.2](#fig2-2-2) shows the Cortex-v8A AArch64 generic secure boot process, which is the starting point for discussing the Raspberry Pi 3 and NXP IMX8 Mini secure boot.
 
 For steps 1-6, the boot flow for AArch64 is the same as the AArch32 boot flow described in the previous section. Thereafter, the boot flow differs slightly:
 
-7. BL31 runs BL32 and then blocks waiting for BL32 to complete initialization.
-8. BL32 (Secure Payload, OP-TEE) runs and initializes.
+7. BL31 runs BL32, and then blocks waiting for BL32 to complete initialization.
+8. BL32 (Secure Payload, OP-TEE) runs and initializes.<!--initalizes itself, or something else?-->
 9. BL31 (SoC AP Firmware, Secure Monitor) resumes and runs BL33 (Normal World Firmware, u-boot). BL31 continues to run in the system.
 10. BL33 orchestrates the loading and running of the Rich OS.
-11. The secure boot chain process has now completed.
+11. The secure boot chain process has now completed.<!--is that really a step-->
 
-See the [Basic Signing Flow document](basic-signing-flow.md##-a-name-section-2-1-a-2-1-the-generic-tf-a-secure-boot-chain) for a more detailed description of the AArch64 secure boot flow.
+See the [Basic Signing Flow document](basic-signing-flow.md##-a-name-section-2-1-a-2-1-the-generic-tf-a-secure-boot-chain) for a more detailed description of the AArch64 secure boot flow.<!--we determined this wasn't ready for publishing, so I can't link to the doc on the docs site. Should we remove the link, or link to GitHub?0-->
 
 ## <a name="section-2-3"></a> 2.3 Partitioning software components into FIP/FIT images
 
 <a name="fig2-3"></a>
 
-![fig2-3](assets/Image_signing_flow.png "Figure 2.3")
-
-**Figure 2.3: partitioning of software components.**
+<span class="images">![fig2-3](assets/Image_signing_flow.png "Figure 2.3")<span>**Figure 2.3:** partitioning of software components.</span></span>
 
 [Figure 2.3](#fig2-3) shows the factoring of software components into five binary images:
-1. **SoC Compatible Image**. This image contains the TF-A generated BL2 and the ROTPK and is signed.
-1. **FIP Image**. This image is the TF-A fiptool generated FIP image and conatins many [TBBR-CLIENT
-   defined key and content certificates](#ref-tbbr-client) as well as the BL3x bootchain components.
-  The FIP image contains the following components:
+
+1. **SoC Compatible Image:** This image contains the TF-A generated BL2 and the ROTPK, and is signed.
+1. **FIP Image:** This image is the TF-A fiptool-generated FIP image, and contains many [TBBR-CLIENT-defined key and content certificates](#ref-tbbr-client), as well as the BL3x bootchain components.
+
+    The FIP image contains the following components:
+
     1. TRUSTED-KEY-CERT.
     1. SOC-FW-KEY-CERT1.
     1. TOS-FW-KEY-CERT.
@@ -228,16 +212,16 @@ See the [Basic Signing Flow document](basic-signing-flow.md##-a-name-section-2-1
     1. TOS-FW-CERT.
     1. BL32 (OP-TEE).
     1. BL33 (u-boot).
-    1. u-boot device tree containing the FIT verification public key.
-1. **FIT Image**. `u-boot-mkimage` is used to create the FIT image which contains:
+    1. U-Boot device tree containing the FIT verification public key.
+1. **FIT Image:** `u-boot-mkimage` is used to create the FIT image, which contains:<!--used by what or who?-->
     1. Linux kernel.
     1. Linux kernel device tree.
     1. `boot.scr`. This is a compiled version of the U-Boot boot script.
     1. The initramfs image.
     1. [The Verity public key.][android-verified-boot]
     1. A configuration block.
-1. **Rootfs Partition**. This image contains the root filesystem.
-1. **Rootfs_hash Partition**. This image contains the Verity hash tree.
+1. **Rootfs Partition:** This image contains the root filesystem.
+1. **Rootfs_hash Partition:** This image contains the Verity hash tree.
 
 For more information please refer to the [Trusted Board Boot Requirements CLIENT document](#ref-tbbr-client).
 
@@ -245,38 +229,37 @@ For more information please refer to the [Trusted Board Boot Requirements CLIENT
 
 <a name="fig2-4"></a>
 
-![fig2-4](assets/flash_partition_layout.png "Figure 2.4")
-**Figure 2.4: The flash partition layout to support update has 2 banks of images.**
+<span class="images">![fig2-4](assets/flash_partition_layout.png "Figure 2.4")<span>**Figure 2.4:** The flash partition layout to support update has 2 banks of images.</span></span>
 
-[Figure 2.4](#fig2-4) shows the flash partition layout where the function of each of the partitions is described in the table below.
+[Figure 2.4](#fig2-4) shows the flash partition layout, where the function of each of the partitions is described in the table below.
 
 | Partition | Usage |
 | --- | --- |
 | Bank/Update state | This is a raw partition that is accessible by all boot loaders and the normal device firmware. It holds the non-volatile state that reflects the active bank and whether an update is in progress. It is important that updates to state are robust to power failure. |
-| BL2 | This is a raw partition that holds the TF-A BL2 boot loader. BL2 cannot be updated via the normal firmware update process. |
-| BL3 FIP Image 1 & 2 | FIP Image 1 & 2 Two partitions to hold two versions of the BL31 boot loader and associated components contained within a signed FIP image. |
+| BL2 | This is a raw partition that holds the TF-A BL2 boot loader. BL2 cannot be updated using the normal firmware update process. |
+| BL3 FIP Image 1 & 2 | Two partitions to hold two versions of the BL31 boot loader and associated components contained within a signed FIP image. |
 | Boot FIT Image 1 & 2 | Two partitions to hold two versions of the boot partition. Contains the Linux kernel and device tree. |
-| Rootfs 1 & 2 | Two partitions for the read-only rootfs plus the associated dm-verity hash tree. |
-| Rootfs_Hash 1 & 2 | Partitions for the dm_verity hash trees corresponding to Rootfs 1 & 2. |
-| Config 1 & 2 | Non-volatile configuration data is saved to the active config partition. Two partitions are used to allow an update to modify configuration data while allowing a fallback to the old data if an update fails. In most cases, configuration data is just copied between banks during an update. |
+| Rootfs 1 & 2 | Two partitions for the read-only rootfs and the associated dm-verity hash tree. |
+| Rootfs_Hash 1 & 2 | Partitions for the dm-verity hash trees corresponding to rootfs 1 & 2. |
+| Config 1 & 2 | Non-volatile configuration data is saved to the active config partition. Two partitions are used, to allow an update to modify configuration data while maintaining a fallback to the old data if an update fails. In most cases, configuration data is just copied between banks during an update. |
 | Factory Config | A single partition for configuration data written during the manufacturing process. When manufacturing is complete, the partition is modified to being read-only. |
 | Log | A single partition for log files. |
-| Scratch | /scratch directory mounted to this partition. Used for saving potentially large temporary files such as downloaded firmware files. Note that /tmp is used in a similar manner but it mapped to RAM file system where there will be greater restrictions on file size. |
-| Home | /home directory mounted to this partition. Used for user space application storage. |
+| Scratch | `/scratch` directory mounted to this partition. Used for saving potentially large temporary files such as downloaded firmware files. Note that `/tmp` is used in a similar manner, but is mapped to the RAM file system where there are greater restrictions on file size. |
+| Home | `/home` directory mounted to this partition. Used for user space application storage. |
+
+<!--I think "greater restriction" can be confusing - does it mean I get more or less restricted file sizes?-->
 
 **Table 2.4: Flash partition functional description.**
 
-The flash partitions for the following software components are banked i.e. there are 2 instances present in the system:
+The flash partitions for the following software components are banked (there are two instances present in the system):
+
 - BL3 FIP Image.
 - Boot FIT Image.
-- Rootfs.
+- Rootfs.<!--rootfs doesn't normally have a capital R-->
 - Rootfs_Hash.
 - Config.
 
-The reason for these flash partitions being banked is for the update service. One partition is the active (running partition)
-while the other is the non-active (non-running) partition. A update will write a new image to the non-active partition and then
-change the Bank/Update state so that the new image comes into service (the non-active bank becomes active, and the active bank
-becomes non-active.
+The flash partitions are banked to support the update service: One partition is the active (running partition), while the other is the non-active (non-running) partition. An update writes a new image to the non-active partition, then changes the Bank/Update<!--why is that capitalised?--> state to bring the new image into service (the non-active bank becomes active, and the active bank becomes non-active).
 
 # <a name="section-3-0"></a> 3.0 Overview of MBL Yocto meta-layers
 
@@ -542,10 +525,10 @@ Beginning with the top layer and working downwards:
 - **`openembedded-core-mbl/meta`**. This MBL staging layer provides:
     - `mbl-fitimage.bbclass`, the re-useable class used to generate the FIT packaging of the kernel. See [Section 7.4](#section-7-4) for details.
 - **`openembedded-core`**. This layer contains a library of recipes and classes supporting the creation of Linux distributions.
-    - `u-boot.inc.`, This include file contains the bulk of the symbol definitions and recipe functions for building the u-boot bootloader.
+    - `u-boot.inc.`, This include file contains the bulk of the symbol definitions and recipe functions for building the u-boot boot loader.
       Its included into the `u-boot_${PV}.bb` recipe.
     - `u-boot-sign.bbclass`. This is the class that orchestrates the verified boot signing of FIT images.
-    - `u-boot_${PV}.bb`. This is the top level boilerplate recipe for building the u-boot bootloader. The Package Version variable `${PV}`
+    - `u-boot_${PV}.bb`. This is the top level boilerplate recipe for building the u-boot boot loader. The Package Version variable `${PV}`
       expands to give `u-boot_2018.11.bb`, for example.
     - `u-boot-tools_${PV}.bb`. This is a recipe for building the u-boot `mkimage` tool, for creating and signing FIT images, for example.
       The recipe can be used to build `mkimage` host or target versions.
@@ -581,7 +564,7 @@ a working bootchain. It includes the `${machine}.conf` supplied by the `meta-[so
 For more information on `${MACHINE}.conf`, `${machine}.conf` and `[soc-family].inc` see [Section 5.0](#section-5-0).
 
 The `[soc-family].inc` specifies the u-boot recipe by setting `PREFERRED_PROVIDER_virtual/bootloader = u-boot-XXXX`.
-The `u-boot*.bb` base recipe controls the building of `u-boot` as the bootloader subject to the machine configuration file settings.
+The `u-boot*.bb` base recipe controls the building of `u-boot` as the boot loader subject to the machine configuration file settings.
 For more information on `u-boot*` processing see [Section 6.0](#section-6-0).
 
 The `[soc-family].inc` specifies the Linux kernel recipe by setting `PREFERRED_PROVIDER_virtual/kernel = linux-XXXX`.
@@ -634,10 +617,10 @@ virtual providers (see the section "Using Virtual Providers" in the [Yocto Mega 
 Virtual providers allow the selection of a specific package recipe from amongst
 several providers. For example, consider the case of two `u-boot*` recipes each providing the same package functionality
 by declaring they provide the `virtual/bootloader` symbolic package name:
-- `u-boot-fslc.bb` which declares its ability to build a bootloader by specifying the virtual provider directive `PROVIDES="virtual/bootloader"`.
+- `u-boot-fslc.bb` which declares its ability to build a boot loader by specifying the virtual provider directive `PROVIDES="virtual/bootloader"`.
 - `u-boot-imx.bb` which also declares the virtual provider directive `PROVIDES="virtual/bootloader"`.
 
-A `${machine}.conf` (by including `[soc-family].inc`) selects a specific bootloader package recipe by setting the `PREFERRED_PROVIDER_virtual/bootloader`
+A `${machine}.conf` (by including `[soc-family].inc`) selects a specific boot loader package recipe by setting the `PREFERRED_PROVIDER_virtual/bootloader`
 symbol to the actual recipe (package) name:
 
     PREFERRED_PROVIDER_virtual/bootloader="u-boot-fslc"
@@ -661,9 +644,9 @@ The discussion is applicable to all targets.
 ## <a name="section-6-1"></a> 6.1 `u-boot*.bb`: The top level `virtual/bootloader` control recipe
 
 [Figure 4.0](#figure-4-0) shows the `meta-[soc-vendor]` `u-boot*.bb` recipe which is used to
-build the bootloader. As discussed in [Section 5.2](#section-5-2), the `[soc-family].inc` defines
-`PREFERRED_PROVIDER_virtual/bootloader = u-boot-XXXX` to specify the bootloader recipe.
-The nominated bootloader recipe `u-boot-XXXX` (typically present in the `meta-[soc-vendor]` BSP layer)
+build the boot loader. As discussed in [Section 5.2](#section-5-2), the `[soc-family].inc` defines
+`PREFERRED_PROVIDER_virtual/bootloader = u-boot-XXXX` to specify the boot loader recipe.
+The nominated boot loader recipe `u-boot-XXXX` (typically present in the `meta-[soc-vendor]` BSP layer)
 expresses its capability of being a `virtual/bootloader` provider by including `PROVIDES=virtual/bootloader`
 in the recipe. This relationship is expressed in [Figure 4.0](#figure-4-0) by the dotted-line arrow between
 `[soc-family].inc` and the interface symbol attached to `u-boot*.bb`
@@ -1122,7 +1105,7 @@ This section provides a summary of the tasks required to integrate a pre-existin
 # <a name="section-11-0"></a> 11.0 References
 
 * [ARM Trusted Firmware Platform Porting Guide][atf-doc-plat-porting-guide].
-* [mbed Linux OS Basic Signing Flow][basic-signing-flow.md].
+<!--* [Mbed Linux OS Basic Signing Flow][basic-signing-flow.md]. removing this, since we said it's not ready to be published-->
 * [OP-TEE Documentation][optee-docs]
 * [Embedded Linux Systems with the Yocto Project (Pearson Open Source Software Development Series) 1st Edition, Rudolf J. Streif,  ISBN-13: 978-0133443240 ISBN-10: 0133443248][strief-2016].
 * [Linaro Connect 2016 Presentation LAS16-402 showing boot flow diagrams][linaro-connect-las16-402-slides].
