@@ -3,7 +3,7 @@
     "split_pages_on": "h1",
     "books": [{
             "title": "Arm Mbed Linux OS",
-            "description": "Introduction",
+            "description": "Introduction to Mbed Linux OS and its docs",
             "slug": "welcome",
             "type": "markdown",
             "chapters": [{
@@ -24,7 +24,7 @@
         },
         {
             "title": "Installing MBL on a device",
-            "description": "",
+            "description": "How to get a working image of Mbed Linux OS on a new device",
             "slug": "first-image",
             "type": "markdown",
             "chapters": [{
@@ -119,7 +119,7 @@
         },
         {
             "title": "Developing applications",
-            "description": "",
+            "description": "Developing applications that work on a device running Mbed Linux OS",
             "slug": "develop-apps",
             "type": "markdown",
             "chapters": [{
@@ -162,7 +162,7 @@
         },
         {
             "title": "Developing MBL",
-            "description": "",
+            "description": "Change and contribute to Mbed Linux OS",
             "slug": "develop-mbl",
             "type": "markdown",
             "chapters": [{
@@ -199,7 +199,7 @@
         },
         {
             "title": "Updating images and applications",
-            "description": "",
+            "description": "Software update for Mbed Linux OS devices",
             "slug": "update",
             "type": "markdown",
             "chapters": [{
@@ -232,7 +232,7 @@
         },
         {
             "title": "References",
-            "description": "",
+            "description": "Reference information for Mbed Linux OS",
             "slug": "references",
             "type": "markdown",
             "sources": [{
