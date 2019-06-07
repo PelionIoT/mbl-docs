@@ -251,10 +251,12 @@
             "description": "",
             "slug": "porting",
             "type": "markdown",
-            "sources": [{
+            "chapters": [{
+                "title": "Board support package porting",
+                "sources": [{
                     "path": "Docs/Porting/bsp-porting-guide.md"
-                }
-            ]
+                }]
+            }]
         }
     ]
 }

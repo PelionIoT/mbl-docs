@@ -11,6 +11,8 @@ Porting BSP centres on configuring the secure boot software components, so the c
 - **U-Boot**. U-Boot is the normal world bootloader for loading Rich OS. This is packaged as `BL33` inside the FIP image.
 - **Linux kernel**. The Linux kernel is the normal world Rich OS. The kernel image is packaged with the device tree binaries and initial RAM file system in a Flattened Image Tree (FIT) image.
 
+<!--these links won't work, because the content is on different pages-->
+
 [Section 1](#section-1-0) introduces this document, including an overview, porting prerequisites, and glossary.
 
 [Section 2](#section-2-0) describes the relevant system architecture of [AArch32](#fig2-2-1) and [AArch64](#fig2-2-2) secure boot flows, partitioning build artifacts between `BL2`, FIP and FIT images, and the flash partition layout for updating firmware.
@@ -52,7 +54,17 @@ For porting OP-TEE to your target platform, please consult the [OP-TEE documenta
 ## <a name="section-1-3"></a> 1.3 Terminology
 
 This section defines terminology used throughout this document.
-<!---Markdown table instead?--->
+
+<!--I want to see if we can get the dictionary formatting working-->
+
+AP
+: Application processor
+
+ATF
+: ARM trusted firmware
+
+
+
 <a name="Table-1-3"></a>
     Term                Definition
 
