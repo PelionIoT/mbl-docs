@@ -1,4 +1,4 @@
-# <a name="section-1-0"></a> Mbed Linux OS BSP porting guide
+# <a name="section-1-0"></a> 1.0 Mbed Linux OS BSP porting guide
 
 ## <a name="section-1-1"></a> 1.1 Overview
 
@@ -15,27 +15,27 @@ This document's structure follows the work process:
 
 <!--these links won't work, because the content is on different pages-->
 
-* [Section 1](#section-1-0) introduces this document, including an overview, porting prerequisites, and glossary.
+* Section 1 introduces this document, including an overview, porting prerequisites, and glossary.
 
-* [Section 2](#section-2-0) describes the relevant system architecture of [AArch32](#fig2-2-1) and [AArch64](#fig2-2-2) secure boot flows, partitioning build artifacts between `BL2`, FIP and FIT images, and the flash partition layout for updating firmware.
+* [Section 2](../porting/2-0-system-architecture.html) describes the relevant system architecture of [AArch32](#fig2-2-1) and [AArch64](#fig2-2-2) secure boot flows, partitioning build artifacts between `BL2`, FIP and FIT images, and the flash partition layout for updating firmware.
 
-* [Section 3](#section-3-0) provides a top-down overview of the Yocto meta-layers in MBL development workspaces for BSP, including a [software stack diagram](#figure-3.7) showing how recipes from different layers collaborate.
+* [Section 3](../porting/3-0-overview-of-mbl-yocto-meta-layers.html) provides a top-down overview of the Yocto meta-layers in MBL development workspaces for BSP, including a [software stack diagram](#figure-3.7) showing how recipes from different layers collaborate.
 
-* [Section 4](#section-4-0) provides an overview of `${MACHINE}.conf`, ATF, OP-TEE, `u-boot` and `linux` recipe relationships using a [UML diagram](#figure-4-0).
+* [Section 4](../porting/4-0-bsp-recipe-relationships.html) provides an overview of `${MACHINE}.conf`, ATF, OP-TEE, `u-boot` and `linux` recipe relationships using a [UML diagram](#figure-4-0).
 
-* [Section 5](#section-5-0) discusses, in detail, the MBL `${MACHINE}.conf` and community `${machine}.conf` machine configuration files.
+* [Section 5](../porting/5-0-machine-configuration-files.html) discusses, in detail, the MBL `${MACHINE}.conf` and community `${machine}.conf` machine configuration files.
 
-* [Section 6](#section-6-0) discusses the `u-boot*.bb` base recipe and MBL `u-boot*.bbappend` customization.
+* [Section 6](../porting/6-0-u-boot.html) discusses the `u-boot*.bb` base recipe and MBL `u-boot*.bbappend` customization.
 
-* [Section 7](#section-7-0) discusses the `linux*.bb` base recipe and the MBL `linux*.bbappend` customization.
+* [Section 7](../porting/7-0-linux.html) discusses the `linux*.bb` base recipe and the MBL `linux*.bbappend` customization.
 
-* [Section 8](#section-8-0) discusses the `atf-${MACHINE}.bb` recipe for building ARM Trusted Firmware.
+* [Section 8](../porting/8-0-atf-machine-bb.html) discusses the `atf-${MACHINE}.bb` recipe for building ARM Trusted Firmware.
 
-* [Section 9](#section-9-0) provides a concrete example for the WaRP7 target of the `${MACHINE}.conf`, ATF, OP-TEE, `u-boot` and `linux` recipe inter-relationships using a [UML diagram](#figure-9-1).
+* [Section 9](../porting/9-0-example-imx7s-warp-mbl-bsp-recipe-package-relationships.html) provides a concrete example for the WaRP7 target of the `${MACHINE}.conf`, ATF, OP-TEE, `u-boot` and `linux` recipe inter-relationships using a [UML diagram](#figure-9-1).
 
-* [Section 10](#section-10-0) summarizes porting tasks.
+* [Section 10](../porting/10-0-summary-of-bsp-porting-tasks.html) summarizes porting tasks.
 
-* [Section 11](#section-11-0) links to supporting references to this document.
+* [Section 11](../porting/11-0-references.html) links to supporting references to this document.
 
 ## <a name="section-1-2"></a> 1.2 Prerequisites
 
@@ -259,83 +259,83 @@ The flash partitions for the following software components are banked (there are
 - Rootfs_Hash.
 - Config.
 
-The flash partitions are banked to support the update service: One partition is the active (running partition), while the other is the non-active (non-running) partition. An update writes a new image to the non-active partition, then changes the Bank/Update<!--why is that capitalised?--> state to bring the new image into service (the non-active bank becomes active, and the active bank becomes non-active).
+The flash partitions are banked to support the update service: One partition is the active (running partition), while the other is the non-active (non-running) partition. An update writes a new image to the non-active partition, then changes the Bank/Update<!--why is that capitalised? in the table, too--> state to bring the new image into service (the non-active bank becomes active, and the active bank becomes non-active).
 
 # <a name="section-3-0"></a> 3.0 Overview of MBL Yocto meta-layers
 
 ## <a name="section-3-1"></a> 3.1 Types of Yocto meta-layers
 
 The MBL workspace contains Yocto community and MBL meta-layers needed to build MBL images. The Yocto project classifies layers into one of three types:
-- BSP layers. The layer contains the machine configuration file for a target platform, or contains metadata relating to target specific board support packages.
-  `meta-raspberrypi` is an example of a BSP layer.
-- Distro layers. The layer contains the configuration file (`mbl.conf`) for the distribution (e.g. `meta-mbl-distro`).
-- General purpose layers. The layer contains metadata and recipes for applications (e.g. `meta-mbl-apps`).
 
-In addition to the above, MBL introduces the notion of a *staging layer*.
-The purpose of a staging layer is to provide a logical place where MBL originated `.bb` and `.bbappend` recipes relating to a community
-layer can be stored prior to upstreaming, or in the case where the meta-data cannot be upstreamed, maintained for the MBL distribution.
+- **BSP layers**, which contain the machine configuration file for a target platform, or metadata relating to target-specific board support packages (for example, `meta-raspberrypi`).
+- **Distro layers**, which contain the configuration file (`mbl.conf`) for the distribution (for example, `meta-mbl-distro`).
+- **General purpose layers**, which contain metadata and recipes for applications (for example, `meta-mbl-apps`).
 
-As a way of introducing and describing the community and MBL meta-layers used in MBL, [Section 3.2](#section-3-2) describes the concrete example of layers used in
-the `raspberrypi3-mbl` workspace. The distribution and general purpose layers are briefly mentioned whereas BSP layers are described in more detail.
+MBL introduces the additional **staging layer**. The staging layer provides a logical place where MBL-originated `.bb` and `.bbappend` recipes relating to a community layer can be stored prior to upstreaming, or - if the meta-data cannot be upstreamed - maintained for the MBL distribution.
 
-The subsequent sections describe the BSP meta-layers used in the remaining target platforms.
-[Section 3.3](#section-3-3) discusses the BSP layer for `imx7d-pico-mbl`, [Section 3.4](#section-3-4) for `imx7s-warp-mbl`
-and [Section 3.5](#section-3-5) for `imx8mmevk-mbl`. For these platforms the distribution and
-general purpose layers are the same as `raspberrypi3-mbl`.
+To introduce the community and MBL meta-layers used in MBL, [Section 3.2](#section-3-2) offers a concrete example of layers used in the `raspberrypi3-mbl` workspace. The distribution and general purpose layers are only briefly mentioned, whereas BSP layers are described in more detail.
 
+The subsequent sections describe the BSP meta-layers used in the remaining target platforms: [Section 3.3](#section-3-3) for `imx7d-pico-mbl`, [Section 3.4](#section-3-4) for `imx7s-warp-mbl` and [Section 3.5](#section-3-5) for `imx8mmevk-mbl`. For all three platforms, the distribution and general purpose layers are the same as `raspberrypi3-mbl`.
 
 ## <a name="section-3-2"></a> 3.2 Layers for `raspberrypi3-mbl`
 
-Once an MBL workspace has been created and the environment initialized, the `bblayers*.conf` configured meta-layers can be listed using `bitbake-layers show-layers`.
+Once you've created an MBL workspace and intialized the environment, you can list the `bblayers*.conf` configured meta-layers using `bitbake-layers show-layers`.
+
 [Table 3.2.1](#Table-3-2-1) shows the command output for `MACHINE=raspberrypi3-mbl`:
 
 <a name="Table-3-2-1"></a>
 
-    layer                   path                                              priority
-    ==================================================================================
-    meta-mbl-distro         <ws>/layers/meta-mbl/meta-mbl-distro                    10
-    meta-mbl-apps           <ws>/layers/meta-mbl/meta-mbl-apps                      7
-    meta-filesystems        <ws>/layers/meta-openembedded/meta-filesystems          6
-    meta-networking         <ws>/layers/meta-openembedded/meta-networking           5
-    meta-oe                 <ws>/layers/meta-openembedded/meta-oe                   6
-    meta-python             <ws>/layers/meta-openembedded/meta-python               7
-    meta-virtualization-mbl <ws>/layers/meta-mbl/meta-virtualization-mbl            9
-    meta-virtualization     <ws>/layers/meta-virtualization                         8
-    meta-mbl-bsp-common     <ws>/layers/meta-mbl/meta-mbl-bsp-common                10
-    meta-raspberrypi-mbl    <ws>/layers/meta-mbl/meta-raspberrypi-mbl               11
-    meta-raspberrypi        <ws>/layers/meta-raspberrypi                            9
-    meta-optee              <ws>/layers/meta-mbl/meta-linaro-mbl/meta-optee         9
-    meta-optee              <ws>/layers/meta-linaro/meta-optee                      8
-    meta                    <ws>/layers/meta-mbl/openembedded-core-mbl/meta         6
-    meta                    <ws>/layers/openembedded-core/meta                      5
+| Layer | Path | Priority |
+| --- | --- | --- |
+| meta-mbl-distro |  <ws>/layers/meta-mbl/meta-mbl-distro | 10 |
+| meta-mbl-apps | <ws>/layers/meta-mbl/meta-mbl-apps | 7 |
+| meta-filesystems | <ws>/layers/meta-openembedded/meta-filesystems | 6 |
+| meta-networking | <ws>/layers/meta-openembedded/meta-networking | 5 |
+| meta-oe | <ws>/layers/meta-openembedded/meta-oe | 6 |
+| meta-python | <ws>/layers/meta-openembedded/meta-python | 7 |
+| meta-virtualization-mbl | <ws>/layers/meta-mbl/meta-virtualization-mbl | 9 |
+| meta-virtualization | <ws>/layers/meta-virtualization | 8 |
+| meta-mbl-bsp-common | <ws>/layers/meta-mbl/meta-mbl-bsp-common | 10 |
+| meta-raspberrypi-mbl | <ws>/layers/meta-mbl/meta-raspberrypi-mbl | 11 |
+| meta-raspberrypi | <ws>/layers/meta-raspberrypi | 9 |
+| meta-optee | <ws>/layers/meta-mbl/meta-linaro-mbl/meta-optee | 9 |
+| meta-optee | <ws>/layers/meta-linaro/meta-optee | 8 |
+| meta | <ws>/layers/meta-mbl/openembedded-core-mbl/meta | 6 |
+| meta | <ws>/layers/openembedded-core/meta | 5 |
 
-**Table 3.2.1: The table shows the output of `bitbake-layers show-layers` for `MACHINE=raspberrypi3-mbl`**.
+**Table 3.2.1:** Output of `bitbake-layers show-layers` for `MACHINE=raspberrypi3-mbl`.
 
-Note the command output has been slightly modified for presentation purposes (e.g. the full path to the MBL workspace path has been shortened to `<ws>`).
-- The first column shows the meta-layer name which is also the name of the workspace directory containing the layer.
-- The second column shows the path to the meta-layer. The layout of the layers is more clearly explained by the
-  directory hierarchy shown in [Figure 3.2](#Figure-3-2).
-- The third column shows the priority of the layer, which controls the BitBake layer processing order. Layers with a higher priority number
-  are processed after lower numbers so the settings in the higher priority number layer take precedence.
+Note that the command output has been slightly modified for presentation purposes (for example, the full path to the MBL workspace path has been shortened to `<ws>`).
 
+- The first column shows the meta-layer name, which is also the name of the workspace directory containing the layer.
+- The second column shows the path to the meta-layer. The layout of the layers is more clearly explained by the directory hierarchy shown in [Figure 3.2](#Figure-3-2).
+- The third column shows the priority of the layer, which controls the BitBake layer processing order. Layers with a higher priority number are processed after lower numbers, so the settings in the higher priority number layer take precedence.
 
 The MBL workspace directory structure shown in [Figure 3.2](#Figure-3-2) makes a number of points clear:
-- The community often makes available multiple meta-layers in a single repository e.g. the `meta-openembedded` repository contains
-  multiple layers (`meta-filesystems`, `meta-networking`, `meta-oe` and `meta-python`). In this case, the `meta-openembedded`
-  repository name appears as a subdirectory of `layers` and the meta-layers are subdirectories of `meta-openembedded`.
-  The point to observe here is that if multiple layers are provided by a repository then both the repository
-  name and the layer name are preserved in the workspace. Other examples include `meta-linaro/meta-optee` and `openembedded-core/meta`.
-  Otherwise the meta-layer appears directly under `layers` (e.g. `meta-raspberrypi` and `meta-virtualisation`).
+
+- The community often stores multiple meta-layers in a single repository. For example, the `meta-openembedded` repository contains the layers `meta-filesystems`, `meta-networking`, `meta-oe` and `meta-python`. In this case, the `meta-openembedded` repository name appears as a subdirectory of `layers`, and the meta-layers are subdirectories of `meta-openembedded`.
+
+  The point to observe here is that if multiple layers are provided by a repository, then both the repository name and the layer name are preserved in the workspace (other examples include `meta-linaro/meta-optee` and `openembedded-core/meta`). Otherwise, the meta-layer appears directly under `layers` (for example, `meta-raspberrypi` and `meta-virtualisation`).
+
 - Like the community, MBL stores multiple layers in the `meta-mbl` repository. The workspace `layers/meta-mbl` directory stores multiple layers.
-- The `meta-mbl` repository stores new layers e.g. `meta-mbl-apps`, `meta-mbl-bsp-common` and `meta-mbl-distro`. The intention is that new MBL layers
-  are reusable components of related meta-data i.e. a third party  distribution might use MBL secure boot by reusing `meta-mbl-bsp-common` for example. New MBL layers
-  have `meta-mbl` at the start of the layer name.
-- The `meta-mbl` repository stores staging layers for customizations of community recipes (e.g. `.bbappend` recipes).
-  Staging layers follow the naming convention of appending "`-mbl`" to the community repository e.g.
-  `meta-linaro-mbl/meta-optee`, `openembedded-core-mbl/meta`, `meta-raspberrypi-mbl`, and `meta-virtualization-mbl`.
+
+- The `meta-mbl` repository stores new layers, for example `meta-mbl-apps`, `meta-mbl-bsp-common` and `meta-mbl-distro`. The new MBL layers are therefore reusable components of related meta-data. For example, a third party  distribution can use MBL secure boot by reusing `meta-mbl-bsp-common`.
+
+    New MBL layers have `meta-mbl` at the start of the layer name.
+
+- The `meta-mbl` repository stores staging layers for customizations of community recipes (such as `.bbappend` recipes).
+
+  Staging layers follow the naming convention of appending "`-mbl`" to the community repository. For example, `meta-linaro-mbl/meta-optee`, `openembedded-core-mbl/meta`, `meta-raspberrypi-mbl`, and `meta-virtualization-mbl`.
+
+
+- In the staging layers configuration file (`layers.conf`) the `BBFILE_COLLECTIONS` variable should append "-mbl" to the upstream layer original value. For example:
+
+    - For `meta-linaro-mbl/meta-optee/conf/layer.conf`: `BBFILE_COLLECTIONS = "meta-optee-mbl"`
+    - For `openembedded-core-mbl/meta/conf/layer.conf`: `BBFILE_COLLECTIONS = "core-mbl"`
+    - For `meta-raspberrypi-mbl/conf/layer.conf`: `BBFILE_COLLECTIONS = "raspberrypi-mbl"`
+    - For `meta-virtualization-mbl/conf/layer.conf`: `BBFILE_COLLECTIONS = "virtualization-layer-mbl"`
 
 <a name="Figure-3-2"></a>
-- In the staging layers configuration file (layers.conf) the BBFILE_COLLECTIONS variable should append "-mbl" to the upstream layer original value. e.g. for `meta-linaro-mbl/meta-optee/conf/layer.conf`: `BBFILE_COLLECTIONS = "meta-optee-mbl"`, for `openembedded-core-mbl/meta/conf/layer.conf`: `BBFILE_COLLECTIONS = "core-mbl"`, `meta-raspberrypi-mbl/conf/layer.conf`: `BBFILE_COLLECTIONS = "raspberrypi-mbl"` and `meta-virtualization-mbl/conf/layer.conf`: `BBFILE_COLLECTIONS = "virtualization-layer-mbl"`
 
 ```
     <mbl_workspace_root_path>
@@ -363,12 +363,13 @@ The MBL workspace directory structure shown in [Figure 3.2](#Figure-3-2) makes a
             └── meta                            // Community meta-layer for building Linux distributions.
 ```
 
-**Figure 3.2: Workspace `layer` directory hierarchy representation showing `raspberrypi3-mbl` meta-layers.**
+**Figure 3.2:** Workspace `layer` directory hierarchy representation showing `raspberrypi3-mbl` meta-layers.
 
+For the community layer `meta-raspberrypi`, the `meta-mbl` repository contains the MBL staging layer `meta-raspberrypi-mbl` for `.bbappend` customizations of
+`meta-raspberrypi *.bb` recipes. Because `meta-raspberrypi-mbl` contains the `raspberrypi3-mbl.conf` machine configuration file, it too is a BSP layer.
+`raspberrypi3-mbl.conf` cannot be upstreamed to `meta-raspberrypi`, and therefore has to be maintained independently.
 
-For the community layer `meta-raspberrypi`, the `meta-mbl` repository contains the MBL staging layer `meta-raspberrypi-mbl` for `.bbappend` customizations to
-`meta-raspberrypi *.bb` recipes. As `meta-raspberrypi-mbl` contains the `raspberrypi3-mbl.conf` machine configuration file it too is a BSP layer.
-`raspberrypi3-mbl.conf` cannot be upstreamed to `meta-raspberrypi` and therefore has to be maintained independently.
+[Table 3.2.2](#Table-3-2-2) summarises the layers that appear in the MBL workspace.
 
 <a name="Table-3-2-2"></a>
 
@@ -385,96 +386,90 @@ For the community layer `meta-raspberrypi`, the `meta-mbl` repository contains t
 | meta-fsl-bsp-release/imx/meta-bsp         | BSP       | Community | BSP layer containing Qualcomm qca9377 firmware and kernel module recipes and imx8 firmware blobs used by some NXP targets and qcom qca9377 firmware and kernel modules. |
 | meta-linaro/meta-optee                    | BSP       | Community | Linaro provided layer for OP-TEE |
 | meta-linaro-mbl/meta-optee                | BSP       | MBL       | MBL staging layer for `meta-optee` customizations or related meta-data. |
-| meta-mbl-apps                             | General   | MBL       | MBL applications e.g. `mbl-cloud-client`. |
+| meta-mbl-apps                             | General   | MBL       | MBL applications such as `mbl-cloud-client`. |
 | meta-mbl-bsp-common                       | BSP       | MBL       | MBL layer for BSP meta-data commonly used by more than one target BSP. |
 | meta-mbl-distro                           | Distro    | MBL       | MBL distribution layer including image recipes containing `mbl.conf`, `mbl-image*.bb` recipes and `*.wks` files. |
 | meta-networking                           | General   | Community | Networking subsystems meta-layer. |
-| meta-oe                                   | General   | Community | Open Embedded layer for distribution tools & applications. |
+| meta-oe                                   | General   | Community | Open Embedded layer for distribution tools and applications. |
 | meta-python                               | General   | Community | Layer to build the Python runtime for the target. |
-| meta-raspberrypi                          | BSP       | Community | RaspberryPi provided BSP layer containing `raspberrypi3.conf`. |
+| meta-raspberrypi                          | BSP       | Community | Raspberry Pi provided BSP layer containing `raspberrypi3.conf`. |
 | meta-raspberrypi-mbl                      | BSP       | MBL       | MBL staging layer for `meta-raspberrypi` customizations. |
 | meta-virtualization                       | General   | Community | Layer to provide support for constructing OE-based virtualized solutions. |
 | meta-virtualization-mbl                   | General   | MBL       | MBL staging layer for Docker virtualisation customizations. |
 
-**Table 3.2.2: The table describes each of the meta-layers that appear in the MBL workspace**.
+**Table 3.2.2:** All the meta-layers in the MBL workspace.
 
-The layers that appear in a workspace are summarised in [Table 3.2.2](#Table-3-2-2).
-Note that an MBL workspace contains all of the meta-layers listed in Table 3.2.2, but the `bblayers*.conf` files configure BitBake
-to only use the meta-layers needed for the current target and ignore the rest. This is achieved by:
+Note that an MBL workspace contains all of the meta-layers listed in Table 3.2.2, but the `bblayers*.conf` files configure BitBake to only use the meta-layers needed for the current target and ignore the rest. This is achieved by:
 - `bblayers.conf` only specifying the layers common to all targets.
-- `bblayers.conf` including a target specific file `bblayers_${MACHINE}.conf`. `bblayers_${MACHINE}.conf` specifies the
-  target specific layers.
-
+- `bblayers.conf` including a target specific file `bblayers_${MACHINE}.conf`, which specifies the target-specific layers.<!--I may be misparsing this sentence. Does bbylayers.conf **include** the target specific file? -->
 
 ## <a name="section-3-3"></a> 3.3 BSP meta-layers for `imx7d-pico-mbl`
 
-[Table 3.3.1](#Table-3-3-1) shows the BSP layers for `imx7d-pico-mbl` configured in `bblayers_imx7d-pico-mbl.conf`. The full set of layers used by `imx7d-pico-mbl`
-is the set of layers obtained by replacing the `meta-raspberrypi*` BSP layers in [Table 3.2.1](#Table-3-2-1) with the BSP layers in [Table 3.3.1](#Table-3-3-1) below.
-Refer to [Section 3.2](#section-3-2) for more details of the layers.
+[Table 3.3.1](#Table-3-3-1) shows the BSP layers for `imx7d-pico-mbl` configured in `bblayers_imx7d-pico-mbl.conf`. The full set of layers used by `imx7d-pico-mbl` is the set of layers obtained by replacing the `meta-raspberrypi*` BSP layers in [Table 3.2.1](#Table-3-2-1) with the BSP layers in [Table 3.3.1](#Table-3-3-1) below.
+
+Refer to [Section 3.2](#section-3-2) for details of the layers.
 
 <a name="Table-3-3-1"></a>
 
-    layer                       path                                                        priority
-    ================================================================================================
-    meta-freescale-mbl          <ws>/layers/meta-mbl/meta-freescale-mbl                     11
-    meta-freescale              <ws>/layers/meta-freescale                                  5
-    meta-freescale-3rdparty-mbl <ws>/layers/meta-mbl/meta-freescale-3rdparty-mbl            11
-    meta-freescale-3rdparty     <ws>/layers/meta-freescale-3rdparty                         4
-    meta-bsp                    <ws>/layers/meta-mbl/meta-fsl-bsp-release-mbl/imx/meta-bsp  9
-    meta-bsp                    <ws>/layers/meta-fsl-bsp-release/imx/meta-bsp               8
+| Layer | Path | Priority |
+| --- | --- | --- |
+| meta-freescale-mbl | <ws>/layers/meta-mbl/meta-freescale-mbl | 11 |
+| meta-freescale | <ws>/layers/meta-freescale | 5 |
+| meta-freescale-3rdparty-mbl | <ws>/layers/meta-mbl/meta-freescale-3rdparty-mbl | 11 |
+| meta-freescale-3rdparty | <ws>/layers/meta-freescale-3rdparty | 4 |
+| meta-bsp | <ws>/layers/meta-mbl/meta-fsl-bsp-release-mbl/imx/meta-bsp  | 9 |
+| meta-bsp | <ws>/layers/meta-fsl-bsp-release/imx/meta-bsp | 8 |
 
-**Table 3.3.1: The table shows the BSP layers output from `bitbake-layers show-layers` for `MACHINE=imx7d-pico-mbl`**.
-
+**Table 3.3.1:** The BSP layers output from `bitbake-layers show-layers` for `MACHINE=imx7d-pico-mbl`.
 
 ## <a name="section-3-4"></a> 3.4 BSP meta-layers for `imx7s-warp-mbl`
 
-[Table 3.4.1](#Table-3-4-1) shows the BSP layers for `imx7s-warp-mbl` configured in `bblayers_imx7s-warp-mbl.conf`. The full set of layers used by `imx7s-warp-mbl`
-is the set of layers obtained by replacing the `meta-raspberrypi*` BSP layers in [Table 3.2.1](#Table-3-2-1) with the BSP layers in [Table 3.4.1](#Table-3-4-1) below.
-Refer to [Section 3.2](#section-3-2) for more details of the layers.
+[Table 3.4.1](#Table-3-4-1) shows the BSP layers for `imx7s-warp-mbl` configured in `bblayers_imx7s-warp-mbl.conf`. The full set of layers used by `imx7s-warp-mbl` is the set of layers obtained by replacing the `meta-raspberrypi*` BSP layers in [Table 3.2.1](#Table-3-2-1) with the BSP layers in [Table 3.4.1](#Table-3-4-1) below.
+
+Refer to [Section 3.2](#section-3-2) for details of the layers.
 
 <a name="Table-3-4-1"></a>
 
-    layer                   path                                                    priority
-    ========================================================================================
-    meta-freescale-mbl          <ws>/layers/meta-mbl/meta-freescale-mbl             11
-    meta-freescale              <ws>/layers/meta-freescale                          5
-    meta-freescale-3rdparty-mbl <ws>/layers/meta-mbl/meta-freescale-3rdparty-mbl    11
-    meta-freescale-3rdparty     <ws>/layers/meta-freescale-3rdparty                 4
+| Layer | Path | Priority |
+| --- | --- | --- |
+| meta-freescale-mbl | <ws>/layers/meta-mbl/meta-freescale-mbl | 11 |
+| meta-freescale | <ws>/layers/meta-freescale  | 5 |
+| meta-freescale-3rdparty-mbl | <ws>/layers/meta-mbl/meta-freescale-3rdparty-mbl | 11 |
+| meta-freescale-3rdparty | <ws>/layers/meta-freescale-3rdparty | 4 |
 
-**Table 3.4.1: The table shows the BSP layers output from `bitbake-layers show-layers` for `MACHINE=imx7s-warp-mbl`**.
-
+**Table 3.4.1:** The BSP layers output from `bitbake-layers show-layers` for `MACHINE=imx7s-warp-mbl`.
 
 ## <a name="section-3-5"></a> 3.5 BSP meta-layers for `imx8mmevk-mbl`
 
-[Table 3.5.1](#Table-3-5-1) shows the BSP layers for `imx8mmevk-mbl` configured in `bblayers_imx8mmevk-mbl.conf`. The full set of layers used by `imx8mmevk-mbl`
-is the set of layers obtained by replacing the `meta-raspberrypi*` BSP layers in [Table 3.2.1](#Table-3-2-1) with the BSP layers in [Table 3.5.1](#Table-3-5-1) below.
-Refer to [Section 3.2](#section-3-2) for more details of the layers.
+[Table 3.5.1](#Table-3-5-1) shows the BSP layers for `imx8mmevk-mbl` configured in `bblayers_imx8mmevk-mbl.conf`. The full set of layers used by `imx8mmevk-mbl` is the set of layers obtained by replacing the `meta-raspberrypi*` BSP layers in [Table 3.2.1](#Table-3-2-1) with the BSP layers in [Table 3.5.1](#Table-3-5-1) below.
+
+Refer to [Section 3.2](#section-3-2) for details of the layers.
 
 <a name="Table-3-5-1"></a>
 
-    layer                    path                                                        priority
-    =============================================================================================
-    meta-freescale-mbl       <ws>/layers/meta-mbl/meta-freescale-mbl                     11
-    meta-freescale           <ws>/layers/meta-freescale                                  5
-    meta-bsp                 <ws>/layers/meta-mbl/meta-fsl-bsp-release-mbl/imx/meta-bsp  9
-    meta-bsp                 <ws>/layers/meta-fsl-bsp-release/imx/meta-bsp               8
+| Layer | Path | Priority |
+| --- | --- | --- |
+| meta-freescale-mbl | <ws>/layers/meta-mbl/meta-freescale-mbl | 11 |
+| meta-freescale | <ws>/layers/meta-freescale | 5 |
+| meta-bsp | <ws>/layers/meta-mbl/meta-fsl-bsp-release-mbl/imx/meta-bsp | 9 |
+| meta-bsp | <ws>/layers/meta-fsl-bsp-release/imx/meta-bsp | 8 |
 
-**Table 3.5.1: The table shows the BSP layers output from `bitbake-layers show-layers` for `MACHINE=imx8mmevk-mbl`**.
-
+**Table 3.5.1:** The BSP layers output from `bitbake-layers show-layers` for `MACHINE=imx8mmevk-mbl`.
 
 ## <a name="section-3-6"></a> 3.6 Example machine configuration files
 
-`meta-raspberrypi` and `meta-raspberrypi-mbl` are examples of BSP layers for RaspberryPi.
-`meta-freescale` and `meta-freescale-mbl` are  BSP layers for the Freescale NXP i.MX8 Mini.
-In this document, such BSP layers are often referred to as `meta-[soc-vendor]` and `meta-[soc-vendor]-mbl`
-respectively when the discussion is applicable to all targets.
+In this document, BSP layers are often referred to as `meta-[soc-vendor]` and `meta-[soc-vendor]-mbl`, respectively, when the discussion is applicable to all targets. Specific layer reference examples are:
 
-[Table 3.6](#Table-3-6) shows the relationship between the target machine configuration files and the containing meta-layers.
+- `meta-raspberrypi` and `meta-raspberrypi-mbl`, BSP layers for RaspberryPi.
+- `meta-freescale` and `meta-freescale-mbl`, BSP layers for the Freescale NXP i.MX8 Mini.
+
+[Table 3.6](#Table-3-6) shows the relationship between the target machine configuration files and the containing meta-layers:
+
 - The first column defines the MACHINE identifier.
-- The second column reports the name of the `${MACHINE}.conf` file contained in the `meta-[soc-vendor]-mbl` MBL staging layer.
-- The third column reports the name of the `${machine}.conf` file contained in the `meta-[soc-vendor]` community layer.
-- The forth column reports the meta-layers used to hold the machine configuration files. `meta-freescale(-3rdparty)(-mbl)` denotes
-  four layers:
+- The second column provides the name of the `${MACHINE}.conf` file contained in the `meta-[soc-vendor]-mbl` MBL staging layer.
+- The third column provides the name of the `${machine}.conf` file contained in the `meta-[soc-vendor]` community layer.
+- The forth column provides the meta-layers that hold the machine configuration files. `meta-freescale(-3rdparty)(-mbl)` denotes four layers:
+
     - `meta-freescale`, `meta-[soc-vendor]` community layer.
     - `meta-freescale-mbl`, MBL staging layer.
     - `meta-freescale-3rdparty`, `meta-[soc-vendor]` community layer.
@@ -489,52 +484,50 @@ respectively when the discussion is applicable to all targets.
 | `raspberrypi3-mbl` | `raspberrypi3-mbl.conf` | `raspberrypi3.conf` | `meta-raspberrypi(-mbl)` |
 | `imx7d-pico-mbl` | `imx7d-pico-mbl.conf` | `imx7d-pico.conf` | `meta-freescale(-3rdparty)(-mbl)` |
 
-**Table 3.6: The table shows the correspondence between `${MACHINE}.conf`, `${machine}.conf` and the associated meta-layers**.
-
+**Table 3.6:** `${MACHINE}.conf`, `${machine}.conf` and the associated meta-layers.
 
 ## <a name="section-3-7"></a> 3.7 Yocto BSP recipe software architecture
 
-This section gives a top down overview of the MBL Yocto meta-layers and the relationships between recipes and configuration files.
+This section gives a top-down overview of the MBL Yocto meta-layers and the relationships between recipes and configuration files.
 
 <a name="figure-3.7"></a>
 
+<span class="images">![figure-3.7](assets/mbl_yocto_workspace_layers.png)<span>**Figure 3.7:** The Yocto meta layers relevant for BSP development. `meta-mbl` repo entities are shown in blue, `meta-[soc-vendor]` in green, `meta-optee` in orange and `openembedded-core` in yellow.</span></span>
 
-![figure-3.7](assets/mbl_yocto_workspace_layers.png "Figure 3.7")
-**Figure 3.7: The Yocto meta layers relevant for BSP development. `meta-mbl` repo entities are shown in blue, `meta-[soc-vendor]`
-  in green, `meta-optee` in orange and `openembedded-core` in yellow.**
+[Figure 3.7](#figure-3.7) shows the Yocto layers composed into<!--composed into sounds wrong. is it a standard phrase? google didn't suggest it was--> the MBL development workspace related to BSP development.
 
-[Figure 3.7](#figure-3.7) shows the Yocto layers composed into the MBL development workspace related to BSP development.
-Each layer is shown horizontally across the figure containing a number of recipe packages and configuration files.
-Beginning with the top layer and working downwards:
+Each layer is shown horizontally, containing a number of recipe packages and configuration files. Beginning with the top layer and working downwards:
+
 - **`meta-mbl-distro`**. The distribution layer provides the WIC kickstart image layout files `${MACHINE}.wks`.
 - **`meta-[soc-vendor]-mbl`**. The MBL staging layer provides:
-    - The BSP customization for specific target platforms i.e. it defines `${MACHINE}.conf` files.
-    - The MBL `u-boot*.bbappend` customization recipes for specifying how u-boot is built.
+    - The BSP customization for specific target platforms. That is, it defines `${MACHINE}.conf` files.
+    - The MBL `u-boot*.bbappend` customization recipes for specifying how U-Boot is built.
     - The MBL `linux*.bbappend`  customization recipes for specifying how Linux is built.
-    - The `atf-${MACHINE}.bb` recipe for building ATF. This includes `atf.inc` from the `meta-mbl-bsp-common` layer.
+    - The `atf-${MACHINE}.bb` recipe for building ATF<!--why are the two recipes above "specifying how... is built" and this one is "for building"?-->. This includes `atf.inc` from the `meta-mbl-bsp-common` layer.
 - **`meta-[soc-vendor]`**. The community layer provides:
-    - The BSP support for specific target platforms i.e. it defines `${machine}.conf` files.
-    - The `u-boot*.bb` base recipes and customizations using `u-boot*.bbappend` recipes.
+    - The BSP support for specific target platforms. That is, it defines `${machine}.conf` files.
+    - The `u-boot*.bb` base recipes and customizations using the `u-boot*.bbappend` recipes.
     - The `linux*.bb` base recipes and customizations using the`linux*.bbappend` recipes.
-- **`meta-mbl-bsp-common`**. The MBL layer includes the generic ATF recipe support `atf.inc` included in the target specific `atf-${MACHINE}.bb` recipe.
+- **`meta-mbl-bsp-common`**. The MBL layer includes the generic ATF recipe support `atf.inc`, included in the target-specific `atf-${MACHINE}.bb` recipe.<!--there are two includes here? is there a sequence?-->
 - **`meta-linaro-mbl/meta-optee`**. This MBL staging layer provides the `optee*.bbappend` customization recipes.
 - **`meta-optee`**. The community layer provides:
     - `optee-os.bb` for building the OP-TEE OS.
     - `optee-client.bb` for building the trusted execution client library for the Linux kernel.
     - `optee-test.bb` for building the OP-TEE test framework and tests.
 - **`openembedded-core-mbl/meta`**. This MBL staging layer provides:
-    - `mbl-fitimage.bbclass`, the re-useable class used to generate the FIT packaging of the kernel. See [Section 7.4](#section-7-4) for details.
-- **`openembedded-core`**. This layer contains a library of recipes and classes supporting the creation of Linux distributions.
-    - `u-boot.inc.`, This include file contains the bulk of the symbol definitions and recipe functions for building the u-boot boot loader.
-      Its included into the `u-boot_${PV}.bb` recipe.
-    - `u-boot-sign.bbclass`. This is the class that orchestrates the verified boot signing of FIT images.
-    - `u-boot_${PV}.bb`. This is the top level boilerplate recipe for building the u-boot boot loader. The Package Version variable `${PV}`
-      expands to give `u-boot_2018.11.bb`, for example.
-    - `u-boot-tools_${PV}.bb`. This is a recipe for building the u-boot `mkimage` tool, for creating and signing FIT images, for example.
-      The recipe can be used to build `mkimage` host or target versions.
-    - `u-boot-fw_utils_{PV}.bb`. This is a recipe for building the u-boot `fw_printenv/fw_setenv/etc` firmware tools for managing the u-boot
-      environment. The recipe can build host or target binaries.
-    - `u-boot-common_${PV}.inc`. This contains common symbol definitions used by multiple `u-boot*` recipes.
+    - `mbl-fitimage.bbclass`, the reuseable class used to generate the FIT packaging of the kernel. See [Section 7.4](#section-7-4) for details.
+- **`openembedded-core`**. This layer contains a library of recipes and classes supporting the creation of Linux distributions:
+    - `u-boot.inc.`. This `include` file contains the bulk of the symbol definitions and recipe functions for building the U-Boot boot loader. It's included into the `u-boot_${PV}.bb` recipe.
+    - `u-boot-sign.bbclass`. The class that orchestrates the verified boot signing of FIT images.
+    - `u-boot_${PV}.bb`. The top level boilerplate recipe for building the U-Boot boot loader. The Package Version variable `${PV}` expands to give `u-boot_2018.11.bb`, for example.
+    - `u-boot-tools_${PV}.bb`. A recipe for building the U-Boot `mkimage` tool, which can, for example, create and sign FIT images.
+
+      The recipe can build either `mkimage` host or target versions.<!--this list includes both "the recipe can build" and "the recipe can be used to build". Do recipes build?-->
+    - `u-boot-fw_utils_{PV}.bb`. A recipe for building the U-Boot `fw_printenv/fw_setenv/etc` firmware tools for managing the U-Boot environment.
+
+        The recipe can build either host or target binaries.
+    - `u-boot-common_${PV}.inc`. This `include` file contains common symbol definitions used by multiple `u-boot*` recipes.
+    
       It's included into the `u-boot_${PV}.bb` recipe.
     - `kernel-fitimge.bbclass`. See [Section 7.4](#section-7-4) for details.
     - `kernel-devicetree.bbclass`. See [Section 7.3](#section-7-3) for details.
