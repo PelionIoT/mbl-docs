@@ -271,7 +271,7 @@ The MBL workspace contains Yocto community and MBL meta-layers needed to build M
 - **Distro layers**, which contain the configuration file (`mbl.conf`) for the distribution (for example, `meta-mbl-distro`).
 - **General purpose layers**, which contain metadata and recipes for applications (for example, `meta-mbl-apps`).
 
-MBL introduces the additional **staging layer**. The staging layer provides a logical place where MBL-originated `.bb` and `.bbappend` recipes relating to a community layer can be stored prior to upstreaming, or - if the meta-data cannot be upstreamed - maintained for the MBL distribution.
+MBL introduces the additional **staging layer**. The staging layer provides a logical place where MBL-originated `.bb` and `.bbappend` recipes relating to a community layer can be stored prior to upstreaming, or if the meta-data cannot be upstreamed, maintained for the MBL distribution.
 
 To introduce the community and MBL meta-layers used in MBL, [Section 3.2](#section-3-2) offers a concrete example of layers used in the `raspberrypi3-mbl` workspace. The distribution and general purpose layers are only briefly mentioned, whereas BSP layers are described in more detail.
 
@@ -279,7 +279,7 @@ The subsequent sections describe the BSP meta-layers used in the remaining targe
 
 ## <a name="section-3-2"></a> 3.2 Layers for `raspberrypi3-mbl`
 
-Once you've created an MBL workspace and intialized the environment, you can list the `bblayers*.conf` configured meta-layers using `bitbake-layers show-layers`.
+Once you've created an MBL workspace and initialized the environment, you can list the `bblayers*.conf` configured meta-layers using `bitbake-layers show-layers`.
 
 [Table 3.2.1](#Table-3-2-1) shows the command output for `MACHINE=raspberrypi3-mbl`:
 
@@ -366,10 +366,10 @@ The MBL workspace directory structure shown in [Figure 3.2](#Figure-3-2) makes a
 **Figure 3.2:** Workspace `layer` directory hierarchy representation showing `raspberrypi3-mbl` meta-layers.
 
 For the community layer `meta-raspberrypi`, the `meta-mbl` repository contains the MBL staging layer `meta-raspberrypi-mbl` for `.bbappend` customizations of
-`meta-raspberrypi *.bb` recipes. Because `meta-raspberrypi-mbl` contains the `raspberrypi3-mbl.conf` machine configuration file, it too is a BSP layer.
+`meta-raspberrypi *.bb` recipes. Because `meta-raspberrypi-mbl` contains the `raspberrypi3-mbl.conf` machine configuration file, it is also a BSP layer.
 `raspberrypi3-mbl.conf` cannot be upstreamed to `meta-raspberrypi`, and therefore has to be maintained independently.
 
-[Table 3.2.2](#Table-3-2-2) summarises the layers that appear in the MBL workspace.
+[Table 3.2.2](#Table-3-2-2) summarizes the layers that appear in the MBL workspace.
 
 <a name="Table-3-2-2"></a>
 
@@ -395,13 +395,13 @@ For the community layer `meta-raspberrypi`, the `meta-mbl` repository contains t
 | meta-raspberrypi                          | BSP       | Community | Raspberry Pi provided BSP layer containing `raspberrypi3.conf`. |
 | meta-raspberrypi-mbl                      | BSP       | MBL       | MBL staging layer for `meta-raspberrypi` customizations. |
 | meta-virtualization                       | General   | Community | Layer to provide support for constructing OE-based virtualized solutions. |
-| meta-virtualization-mbl                   | General   | MBL       | MBL staging layer for Docker virtualisation customizations. |
+| meta-virtualization-mbl                   | General   | MBL       | MBL staging layer for Docker virtualization customizations. |
 
 **Table 3.2.2:** All the meta-layers in the MBL workspace.
 
 Note that an MBL workspace contains all of the meta-layers listed in Table 3.2.2, but the `bblayers*.conf` files configure BitBake to only use the meta-layers needed for the current target and ignore the rest. This is achieved by:
 - `bblayers.conf` only specifying the layers common to all targets.
-- `bblayers.conf` including a target specific file `bblayers_${MACHINE}.conf`, which specifies the target-specific layers.<!--I may be misparsing this sentence. Does bbylayers.conf **include** the target specific file? -->
+- `bblayers.conf` including a target-specific file `bblayers_${MACHINE}.conf`, which specifies the target-specific layers.<!--I may be misparsing this sentence. Does bbylayers.conf **include** the target specific file? -->
 
 ## <a name="section-3-3"></a> 3.3 BSP meta-layers for `imx7d-pico-mbl`
 
@@ -527,7 +527,7 @@ Each layer is shown horizontally, containing a number of recipe packages and con
 
         The recipe can build either host or target binaries.
     - `u-boot-common_${PV}.inc`. This `include` file contains common symbol definitions used by multiple `u-boot*` recipes.
-    
+
       It's included into the `u-boot_${PV}.bb` recipe.
     - `kernel-fitimge.bbclass`. See [Section 7.4](#section-7-4) for details.
     - `kernel-devicetree.bbclass`. See [Section 7.3](#section-7-3) for details.
