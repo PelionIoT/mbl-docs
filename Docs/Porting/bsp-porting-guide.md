@@ -57,15 +57,15 @@ This section defines terminology used throughout this document.
     AP                  Application Processor
     ATF                 ARM Trusted Firmware
     BL                  Boot loader
-    BL1                 1st Stage Boot Loader
+    BL1                 1st Stage Boot Loader <!---Should this be first-stage bootloader, and so on?--->
     BL2                 2nd Stage Boot Loader. This is based on TF-A running at EL3 when the MMU
                         is switched off. BL2 loads the FIP image and authenticates FIP content.
     BL31                3rd Stage Boot Loader - Part 1.
                           - Secure Monitor running in EL1-SW. This stage enables the Memory Management Unit.
     BL32                3rd Stage Boot Loader - Part 2.
-                          - OP-TEE, the secure world OS. This typically switches to Normal World.
+                          - OP-TEE, the secure world OS. This typically switches to Normal World. <!---Why capitalized?--->
     BL33                3rd Stage Boot Loader - Part 3.
-                          - u-boot, the Normal World boot loader. <!---why capitalized here?--->
+                          - u-boot, the Normal World boot loader. <!---why u-boot not capitalized here?--->
                           - Also referred to as Non-Trusted World Firmware (NT-FW).
 
     DTB                 Device Tree Binary
@@ -259,7 +259,7 @@ The flash partitions for the following software components are banked (there are
 - Rootfs_Hash.
 - Config.
 
-The flash partitions are banked to support the update service: One partition is the active (running partition), while the other is the non-active (non-running) partition. An update writes a new image to the non-active partition, then changes the Bank/Update<!--why is that capitalised? in the table, too--> state to bring the new image into service (the non-active bank becomes active, and the active bank becomes non-active).
+The flash partitions are banked to support the update service: One partition is the active (running partition), while the other is the non-active <!---not inactive?--->(non-running) partition. An update writes a new image to the non-active partition, then changes the Bank/Update<!--why is that capitalised? in the table, too--> state to bring the new image into service (the non-active bank becomes active, and the active bank becomes non-active).
 
 # <a name="section-3-0"></a> 3.0 Overview of MBL Yocto meta-layers
 
@@ -311,7 +311,7 @@ Note that the command output has been slightly modified for presentation purpose
 - The second column shows the path to the meta-layer. The layout of the layers is more clearly explained by the directory hierarchy shown in [Figure 3.2](#Figure-3-2).
 - The third column shows the priority of the layer, which controls the BitBake layer processing order. Layers with a higher priority number are processed after lower numbers, so the settings in the higher priority number layer take precedence.
 
-The MBL workspace directory structure shown in [Figure 3.2](#Figure-3-2) makes a number of points clear:
+The MBL workspace directory structure in [Figure 3.2](#Figure-3-2) shows:
 
 - The community often stores multiple meta-layers in a single repository. For example, the `meta-openembedded` repository contains the layers `meta-filesystems`, `meta-networking`, `meta-oe` and `meta-python`. In this case, the `meta-openembedded` repository name appears as a subdirectory of `layers`, and the meta-layers are subdirectories of `meta-openembedded`.
 
@@ -319,17 +319,15 @@ The MBL workspace directory structure shown in [Figure 3.2](#Figure-3-2) makes a
 
 - Like the community, MBL stores multiple layers in the `meta-mbl` repository. The workspace `layers/meta-mbl` directory stores multiple layers.
 
-- The `meta-mbl` repository stores new layers, for example `meta-mbl-apps`, `meta-mbl-bsp-common` and `meta-mbl-distro`. The new MBL layers are therefore reusable components of related meta-data. For example, a third party  distribution can use MBL secure boot by reusing `meta-mbl-bsp-common`.
+- The `meta-mbl` repository stores new layers, for example, `meta-mbl-apps`, `meta-mbl-bsp-common` and `meta-mbl-distro`. The new MBL layers are reusable components of related meta-data. A third-party distribution can use MBL secure boot by reusing `meta-mbl-bsp-common`.
 
-    New MBL layers have `meta-mbl` at the start of the layer name.
+- New MBL layers have `meta-mbl` at the start of the layer name.
 
 - The `meta-mbl` repository stores staging layers for customizations of community recipes (such as `.bbappend` recipes).
 
-  Staging layers follow the naming convention of appending "`-mbl`" to the community repository. For example, `meta-linaro-mbl/meta-optee`, `openembedded-core-mbl/meta`, `meta-raspberrypi-mbl`, and `meta-virtualization-mbl`.
+- Staging layers follow the naming convention of appending "`-mbl`" to the community repository. For example, `meta-linaro-mbl/meta-optee`, `openembedded-core-mbl/meta`, `meta-raspberrypi-mbl`, and `meta-virtualization-mbl`.
 
-
-- In the staging layers configuration file (`layers.conf`) the `BBFILE_COLLECTIONS` variable should append "-mbl" to the upstream layer original value. For example:
-
+- In the staging layers configuration file (`layers.conf`) the `BBFILE_COLLECTIONS` variable should append `-mbl` to the upstream layer original value. For example:
     - For `meta-linaro-mbl/meta-optee/conf/layer.conf`: `BBFILE_COLLECTIONS = "meta-optee-mbl"`
     - For `openembedded-core-mbl/meta/conf/layer.conf`: `BBFILE_COLLECTIONS = "core-mbl"`
     - For `meta-raspberrypi-mbl/conf/layer.conf`: `BBFILE_COLLECTIONS = "raspberrypi-mbl"`
@@ -378,13 +376,13 @@ For the community layer `meta-raspberrypi`, the `meta-mbl` repository contains t
 | openembedded-core/meta                    | General   | Community | Openembedded core recipe library support for building images. |
 | openmebedded-core-mbl/meta                | General   | MBL       | MBL staging layer for `openembedded-core/meta` customizations. |
 | meta-filesystems                          | General   | Community | Filesystem subsystems meta-layer. |
-| meta-freescale                            | BSP       | Community | This is the Freescale NXP maintained BSP layer for i.MX8 target containing `imx8mmevk.conf`. |
+| meta-freescale                            | BSP       | Community | Freescale NXP-maintained BSP layer for i.MX8 target containing `imx8mmevk.conf`. |
 | meta-freescale-mbl                        | BSP       | MBL       | MBL BSP staging layer containing `imx8mmevk-mbl.conf`, `u-boot*.bbappend` and `linux*.bbappend` recipe customizations. |
 | meta-freescale-3rdparty                   | BSP       | Community | The Freescale NXP community has established this low-friction alternative for upstreaming third party originated recipes. i.MX7 targets including `imx7s-warp.conf` and `imx7d-pico.conf` are hosted in this layer. |
 | meta-freescale-3rdparty-mbl               | BSP       | MBL       | MBL BSP staging layer containing `imx7*-mbl.conf`, `u-boot*.bbappend` and `linux*.bbappend` recipe customizations. |
 | meta-fsl-bsp-release-mbl/imx/meta-bsp     | BSP       | MBL       | MBL BSP staging layer containing Qualcomm qca9377 firmware installation script and imx8 firmware blobs recipe customization. |
 | meta-fsl-bsp-release/imx/meta-bsp         | BSP       | Community | BSP layer containing Qualcomm qca9377 firmware and kernel module recipes and imx8 firmware blobs used by some NXP targets and qcom qca9377 firmware and kernel modules. |
-| meta-linaro/meta-optee                    | BSP       | Community | Linaro provided layer for OP-TEE |
+| meta-linaro/meta-optee                    | BSP       | Community | Linaro-provided layer for OP-TEE |
 | meta-linaro-mbl/meta-optee                | BSP       | MBL       | MBL staging layer for `meta-optee` customizations or related meta-data. |
 | meta-mbl-apps                             | General   | MBL       | MBL applications such as `mbl-cloud-client`. |
 | meta-mbl-bsp-common                       | BSP       | MBL       | MBL layer for BSP meta-data commonly used by more than one target BSP. |
@@ -628,13 +626,9 @@ The discussion is applicable to all targets.
 
 ## <a name="section-6-1"></a> 6.1 `u-boot*.bb`: The top level `virtual/bootloader` control recipe
 
-[Figure 4.0](#figure-4-0) shows the `meta-[soc-vendor]` `u-boot*.bb` recipe used to
-build the boot loader. As discussed in [Section 5.2](#section-5-2), the `[soc-family].inc` defines
-`PREFERRED_PROVIDER_virtual/bootloader = u-boot-XXXX` to specify the boot loader recipe.
-The nominated boot loader recipe `u-boot-XXXX` (typically present in the `meta-[soc-vendor]` BSP layer)
-expresses its capability of being a `virtual/bootloader` provider by including `PROVIDES=virtual/bootloader`
-in the recipe. This relationship is expressed in [Figure 4.0](#figure-4-0) by the dotted-line arrow between
-`[soc-family].inc` and the interface symbol attached to `u-boot*.bb`
+[Figure 4.0](#figure-4-0) shows the `meta-[soc-vendor]` `u-boot*.bb` recipe used to build the boot loader. As discussed in [Section 5.2](#section-5-2), the `[soc-family].inc` defines
+`PREFERRED_PROVIDER_virtual/bootloader = u-boot-XXXX` to specify the boot loader recipe. The nominated boot loader recipe `u-boot-XXXX` (typically present in the `meta-[soc-vendor]` BSP layer)
+expresses its capability of being a `virtual/bootloader` provider by including `PROVIDES=virtual/bootloader` in the recipe. This relationship is expressed in [Figure 4.0](#figure-4-0) by the dotted-line arrow between `[soc-family].inc` and the interface symbol attached to `u-boot*.bb`.
 
 ## <a name="section-6-2"></a> 6.2 `u-boot*.bbappend` customization recipe
 
@@ -697,10 +691,8 @@ shown in [Figure 4.0](#figure-4-0), drawn to include more of the underlying `ope
 - **`kernel-uimage`**. `KERNEL_CLASSES` defaults to `kernel-uimage` if unspecified, resulting in `kernel.bbclass` generating a uImage binary.
 - **`kernel-arch`**. `kernel.bbclass` inherits from `kernel-arch.bbclass` to set the `ARCH` environment variable from `TARGET_ARCH`for building the Linux kernel.
 - **`kernel-devicetree`**. `kernel.bbclass` inherits from `kernel-devicetree.bbclass` to generate the kernel device tree, deploying it to `DEPLOY_DIR_IMAGE`
-- **`mbl-fitimage`**.`kernel.bbclass` is made to inherit from `mbl-fitimage.bbclass` by setting `KERNEL_CLASSES="mbl-fitimage"` in `${MACHINE}.conf`
-  (see [Figure 4.0](#figure-4-0), [Section 3.7](#section-3-7), and the next section for more details). Therefore, MBL does not use `kernel-uimage.bbclass`.
-- **`kernel-fitimage`**. This is the base class for `mbl-fitimage.bbclass`, and is responsible for generating the FIT image according to
-  configuration symbol settings.
+- **`mbl-fitimage`**.`kernel.bbclass` is made to inherit from `mbl-fitimage.bbclass` by setting `KERNEL_CLASSES="mbl-fitimage"` in `${MACHINE}.conf` (see [Figure 4.0](#figure-4-0), [Section 3.7](#section-3-7), and the next section for more details). Therefore, MBL does not use `kernel-uimage.bbclass`.
+- **`kernel-fitimage`**. This is the base class for `mbl-fitimage.bbclass`, and is responsible for generating the FIT image according to configuration symbol settings.
 
 ## <a name="section-7-4"></a> 7.4 `kernel-fitimage.bbclass` and `mbl-fitimage.bbclass`
 
