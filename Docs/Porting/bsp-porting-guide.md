@@ -692,16 +692,13 @@ shown in [Figure 4.0](#figure-4-0), drawn to include more of the underlying `ope
 - **`linux*`**. This entity represents the `meta-[soc-vendor]` provided recipe for building the kernel. The recipe
   contains the line `inherit kernel` to inherit the `kernel.bblass` functionality.
 - **`kernel`**.The `kernel.bbclass` implements the creation of the Linux kernel image (uImage by default).
-  As can be seen from the diagram, the class hierarchy is not well composed because `kernel.bbclass` inherits
-  from image specific base classes (e.g. `kernel-uimage.bbclass`) rather than image specific classes being specialized from a general purpose base class.
-  However, this is a recognized problem and is a result of having to maintain backwards compatibility with an existing code base of working recipes.
-  The general principal is that the infrastructure for generating kernel images has been partitioned into several logical parts coordinated through `kernel.bbclass`.
+  As can be seen from the diagram, the class hierarchy is not well composed because `kernel.bbclass` inherits from image specific base classes (e.g. `kernel-uimage.bbclass`) rather than image specific classes being specialized from a general purpose base class. However, this is a recognized problem and is a result of having to maintain backwards compatibility with an existing code base of working recipes. The general principal is that the infrastructure for generating kernel images has been partitioned into several logical parts coordinated through `kernel.bbclass`.
 - **`linux-kernel-base`**. The `linux-kernel-base.class` provides helper functions to `kernel.bbclass` including extracting the Linux kernel version from `linux/version.h`.
 - **`kernel-uimage`**. `KERNEL_CLASSES` defaults to `kernel-uimage` if unspecified, resulting in `kernel.bbclass` generating a uImage binary.
 - **`kernel-arch`**. `kernel.bbclass` inherits from `kernel-arch.bbclass` to set the `ARCH` environment variable from `TARGET_ARCH`for building the Linux kernel.
 - **`kernel-devicetree`**. `kernel.bbclass` inherits from `kernel-devicetree.bbclass` to generate the kernel device tree, deploying it to `DEPLOY_DIR_IMAGE`
 - **`mbl-fitimage`**.`kernel.bbclass` is made to inherit from `mbl-fitimage.bbclass` by setting `KERNEL_CLASSES="mbl-fitimage"` in `${MACHINE}.conf`
-  (see [Figure 4.0](#figure-4-0), [Section 3.7](#section-3-7) and the next section for more details). Therefore, MBL does not use `kernel-uimage.bbclass`.
+  (see [Figure 4.0](#figure-4-0), [Section 3.7](#section-3-7), and the next section for more details). Therefore, MBL does not use `kernel-uimage.bbclass`.
 - **`kernel-fitimage`**. This is the base class for `mbl-fitimage.bbclass`, and is responsible for generating the FIT image according to
   configuration symbol settings.
 
@@ -715,38 +712,37 @@ shown in [Figure 4.0](#figure-4-0), drawn to include more of the underlying `ope
 
 [Figure 7.4](#figure-7-4) shows a UML class diagram annotated with the processing methods used in generating FIT images.
 - **`kernel-fitimage.bbclass`**. The `kernel-fitimage.bbclass` encapsulates the `uboot-mkimage` tool invocation to combine a number of image components
-  (e.g. kernel binary and DTB) into a single multi-component image (the FIT image). The class member functions `fitimage_emit_section_xxx()`
+  (such as kernel binary and DTB) into a single multi-component image (the FIT image). The class member functions `fitimage_emit_section_xxx()`
   write FIT image specification metadata sections in the fit-image description file (`fit-image.its`).
   The `fit_image_assemble()` member function is then used to generate the FIT image according to the `fit-image.its` specification.
-  If `UBOOT_SIGN_ENABLE` is set (as is the case in MBL `${MACHINE}.conf` files), the "assemble" function signs the newly generated image (again using `uboot-mkimage`).
-  The processing is hooked into the build by the class promoting certain member functions to tasks entry-points.
+  If `UBOOT_SIGN_ENABLE` is set (as is the case in MBL `${MACHINE}.conf` files), the `assemble` function signs the newly generated image (again using `uboot-mkimage`).
+  The processing is hooked into the build by the class promoting certain member functions to tasks entry-points. <!---I can't parse this sentence--->
 
 - **`kernel-uboot.bbclass`**. This class is used to post-process the kernel image using the `objcopy` tool.
 - **`uboot-sign.bbclass`**. This class is not used for signing because `mbl-fitimage.bbclass` processing is used instead.
 - **`mbl-fitimage.bbclass`**. The `mbl-fitimage.bbclass` inherits from `kernel-fitimage.bbclass` and (re-)implements functions to customize
   the behaviour of the base class. See later in this section for more details.
-- **`mbl-artefact-names.bbclass`**. This is a utility class used to define standard names for artifacts e.g. `MBL_UBOOT_CMD_FILENAME = "boot.cmd"`
+- **`mbl-artefact-names.bbclass`**. This is a utility class used to define standard names for artifacts, for example, `MBL_UBOOT_CMD_FILENAME = "boot.cmd"`
   defines the `u-boot` boot script file to be `boot.cmd` by default.
 
 
-The `kernel-fitimage.bbclass` member functions of interest are described briefly below:
-- `__anonymous()`. This is an initialization function for the class that executes after parsing (i.e. the class constructor).
+The `kernel-fitimage.bbclass` member functions are:
+- `__anonymous()`. This is an initialization function for the class that executes after parsing (the class constructor).
 - `fitimage_emit_section_setup()`. Helper function to write the setup section in the FIT image `fit-image.its` file.
 - `fitimage_emit_section_ramdisk()`. Helper function to write the initramfs section in the FIT image `fit-image.its` file.
 - `fitimage_emit_section_config()`. Helper function to write the config section in the FIT image `fit-image.its` file.
 - `fitimage_emit_section_dtb()`. Helper function to write the device tree binary section in the FIT image `fit-image.its` file.
 - `fitimage_emit_section_kernel()`. Helper function to write the kernel section in the FIT image `fit-image.its` file.
 - `fitimage_emit_section_maint()`. Helper function to write the main section in the FIT image `fit-image.its` file.
-- `fitimage_assemble()`. This function orchestrates the n-step procedure for writing the `fit-image.its` file by
-  (depending on configuration) invoking the appropriate `fitimage_emit_section_xxx()` helper functions, creating the FIT image, and then signing the image.
-- `do_assemble_fitimage()`. The class promotes this function to be a task entrypoint for the build process to create a FIT image (without initramfs).
-- `do_assemble_fitimage_initramfs()`. The class promotes this function to be a task entrypoint for the build process to create a FIT image including initramfs.
+- `fitimage_assemble()`. Orchestrates the n-step procedure for writing the `fit-image.its` file by, depending on configuration, invoking the appropriate `fitimage_emit_section_xxx()` helper functions, creating the FIT image, and then signing the image.
+- `do_assemble_fitimage()`. The class promotes this function to be a task entrypoint for the build process to create a FIT image, without initramfs.
+- `do_assemble_fitimage_initramfs()`. The class promotes this function to be a task entrypoint for the build process to create a FIT image, including initramfs.
 
 The key `${MACHINE}.conf` symbols controlling FIT image creation are as follows:
 
 - `KERNEL_CLASSES`. Setting this symbol to `"mbl-fitimage"` results in the inclusion of `mbl-fitimage.bbclass` in the `kernel.bbclass` hierarchy as
   shown in [Figure 7.3](#figure-7-3). The processing is then hooked into the build.
-- `UBOOT_SIGN_ENABLE`. Setting this symbol results in the signing headers being added to the FIT image, as per the MBL requirements.
+- `UBOOT_SIGN_ENABLE`. Setting this symbol results adds signing headers to the FIT image, according to MBL requirements.
 
 The `mbl-fitimage.bbclass` member functions of interest are described briefly below:
 - `fitimage_emit_section_boot_script()`. Helper function to write the boot script `fit-image.its` section, which incorporates the u-boot <!---we've spelled this differently above---> `boot.cmd` file into the FIT image as the `boot.scr`.
@@ -755,43 +751,36 @@ The `mbl-fitimage.bbclass` member functions of interest are described briefly be
 `fitimage_emit_section_boot_script()` and `fitimage_emit_section_boot_config()` functions to add the `boot.scr`
 and boot configuration to the FIT image.
 
-
 # <a name="section-8-0"></a> 8.0 `atf-${MACHINE}.bb`
 
 This section describes `the atf-${MACHINE}.bb`, `atf.inc` and `optee-os.bb` entities in the UML diagram [Figure 4.0](#figure-4-0).
 The discussion is applicable to all targets.
 
-
 ## <a name="section-8-1"></a> 8.1 `meta-[soc-vendor]-mbl` ATF recipes
 
 In [Figure 4.0](#figure-4-0) the `meta-[soc-vendor]-mbl` machine configuration file `${MACHINE}.conf` orchestrates ATF creation by
 specifying `PREFERRED_PROVIDER_virtual/atf = "atf-${MACHINE}"`. `atf-${MACHINE}.bb` includes `atf.inc` to create dependencies
-on u-boot and the kernel recipes. ATF is dependent on u-boot and the Linux kernel for the following reasons:
+on u-boot and the kernel recipes.
+
+ATF is dependent on u-boot and the Linux kernel because:
 - ATF packages `u-boot` into the FIP image with other ATF build artifacts.
 - ATF packages the `u-boot` device tree including the FIT verification key into the FIP image.
 - ATF may need to co-ordinate the location of shared memory buffers used for
   OP-TEE-Linux kernel inter-communication using overlays. ATF packages OP-TEE in the FIP image, whereas the kernel is packaged
   into the FIT image by `mbl-fitimage`.
+<!---Do we need to know why, rather than just _that_ it is dependent?--->
 
-The `atf.inc` dependency on the `virtual/bootloader` and `virtual/kernel` providers is created with the
-following `atf.inc` line:
+The `atf.inc` dependency on the `virtual/bootloader` and `virtual/kernel` providers is created with:
 
     do_compile[depends] += " virtual/kernel:do_deploy virtual/bootloader:do_deploy optee-os:do_deploy"
 
 This means that the `virtual/bootloader` and `virtual/kernel` artifacts should be deployed
 before the `atf.inc do_compile()` method runs, so they are available for the ATF recipe to use.
-Note that `atf.inc` expects the
-`virtual/bootloader`, `virtual/kernel` and `optee*` artifacts on which it depends to be
-deployed to the `DEPLOY_DIR_IMAGE-${DEPLOY_DIR}/images/${MACHINE}/` directory. For the
-`imx7s-warp-mbl` target this directory is:
 
-    <workspace_root>/build-mbl/tmp-mbl-glibc/deploy/images/imx7s-warp-mbl
+<span class="notes">**Note:** `atf.inc` expects the `virtual/bootloader`, `virtual/kernel` and `optee*` artifacts on which it depends to be deployed to the `DEPLOY_DIR_IMAGE-${DEPLOY_DIR}/images/${MACHINE}/` directory. For the `imx7s-warp-mbl` target this directory is: `<workspace_root>/build-mbl/tmp-mbl-glibc/deploy/images/imx7s-warp-mbl`</span>
 
-
-If required, ATF generates a ROT key pair used for signing artifacts. The ROT private key
-is also stored in the above directory. For more details about ATF root of trust key generation
+If required, ATF generates a ROT key pair used for signing artifacts. The ROT private key is also stored in the above directory. For more details about ATF root of trust key generation
 and signing, see the [Mbed Linux OS Basic Signing Flow][basic-signing-flow.md].
-
 
 ## <a name="section-8-2"></a> 8.2 Details of the `meta-[soc-vendor]-mbl` ATF `atf-${MACHINE}.bb` recipe
 
@@ -802,7 +791,7 @@ and signing, see the [Mbed Linux OS Basic Signing Flow][basic-signing-flow.md].
 | NXP Warp7 | [warp7.rst][atf-doc-plat-warp7-rst] |
 | NXP IMX8 Mini | [imx8.rst][atf-doc-plat-imx8-rst] |
 | Raspberry Pi 3 | [rpi3.rst][atf-doc-plat-rpi3-rst] |
-| Technexion Pico Pi | Not Available |
+| Technexion Pico Pi | Not available |
 
 **Table 8.2: The table shows the available ATF target documents available**.
 
@@ -819,8 +808,8 @@ As an example, the ATF imx platform support is available here in the repository:
     ./plat/imx/imx8qx
     ./plat/imx/imx8qm
 
-One file of particular interest is `plat/imx/imx7/warp7/warp7_io_storage.c` which defines the `plat_io_policy` descriptor for `imx7s-warp-mbl`:
-
+One file of particular interest is `plat/imx/imx7/warp7/warp7_io_storage.c`, which defines the `plat_io_policy` descriptor for `imx7s-warp-mbl`:
+```
     static const struct plat_io_policy policies[] = {
     #ifndef WARP7_FIP_MMAP
         [FIP_IMAGE_ID] = {
@@ -888,12 +877,10 @@ One file of particular interest is `plat/imx/imx7/warp7/warp7_io_storage.c` whic
         },
     #endif /* TRUSTED_BOARD_BOOT */
     };
-
+```
 This is the starting point for porting ATF to a new platform.
 
-
 # <a name="section-9-0"></a> 9.0 Example: `imx7s-warp-mbl` BSP recipe/package relationships
-
 
 ## <a name="section-9-1"></a> 9.1 Example: `imx7s-warp-mbl` recipe/package UML diagram
 
@@ -905,8 +892,9 @@ This section provides a concrete example of the UML diagram shown in [Figure 4.0
 
 **Figure 9.1: The UML diagram shows the relationships between the recipes and configuration files for the `imx7s-warp-mbl` target.**
 
-[Figure 9.1](#figure-9-1) shows the `imx7s-warp-mbl` realisation of recipes and configuration files shown in [Figure 4.0](#figure-4-0).
-This section will discuss the `meta-freescale` and `meta-freescale-3rdparty` entities shown in green.
+[Figure 9.1](#figure-9-1) shows the `imx7s-warp-mbl` realization of recipes and configuration files shown in [Figure 4.0](#figure-4-0).
+
+This section will discuss the `meta-freescale` and `meta-freescale-3rdparty` entities shown in green: <!---green in the above figure?--->
 - **`imx7s-warp-mbl.conf`**. This is `meta-[soc-vendor]-mbl=meta-freescale-3rdparty-mbl` machine configuration file for the target.
     - `KERNEL_CLASSES  = "mbl-fitimage"`. The `mbl-fitimage.bbclass` is inherited into `kernel.bbclass` processing by defining this symbol to include `mbl-fitimage`.
     - `KERNEL_IMAGETYPE = "fitImage"`. The kernel is packages in a FIT image by specifying `"fitImage"`
@@ -925,19 +913,19 @@ This section will discuss the `meta-freescale` and `meta-freescale-3rdparty` ent
     - `PREFERRED_PROVIDER_virtual/bootloader="u-boot-fslc"`.
     - `PREFERRED_PROVIDER_virtual/kernel="linux-fslc"`.
 - **`linux-fslc_${PV}.bb`**. This is the Freescale NXP community maintained mainline Linux kernel BSP recipe with backported features and fixes.
-  The package version symbol `${PV}` is periodically updated to the next Linux kernel stable release version e.g. 4.9, 4.14, 4.19.
+  The package version symbol `${PV}` is periodically updated to the next Linux kernel stable release version, for example, 4.9, 4.14, 4.19.
 - **`linux-fslc.inc`**. This is a common include file for `linux-fslc*` recipes which specifies a Linux kernel default config, common dependencies
   and the inclusion of the `imx-base.inc` include file.
 - **`linux-imx.inc`**. This  is the common include file for IMX SoCs which encapsulates the interface to the `openembedded-core .bbclasses`, including
   `kernel.bbclass`.
-- **`u-boot-fslc_${PV}.bb`**. This is the Freescale NXP community maintained mainline `u-boot` BSP recipe with backported features and fixes.
-  The package version symbol `${PV}` is periodically updated to the next u-boot stable release version e.g. 2018.07, 2018.11.
+- **`u-boot-fslc_${PV}.bb`**. This is the Freescale NXP community maintained mainline u-boot BSP recipe with backported features and fixes.
+  The package version symbol `${PV}` is periodically updated to the next u-boot stable release version, for example, 2018.07, 2018.11.
 
 
 ## <a name="section-9.2"></a> 9.2 `imx7s-warp-mbl` recipe dependency graph
 
 This section presents a recipe and machine configuration file dependency graph for the `imx7s-warp-mbl`
-target as an alternative way of visualising the information shown in [Figure 9.1](#figure-9-1).
+target as an alternative way of visualizing the information shown in [Figure 9.1](#figure-9-1).
 
 <a name="figure-9-2"></a>
 ```
@@ -1031,33 +1019,33 @@ MACHINE=imx7s-warp-mbl
 # <a name="section-10-0"></a> 10.0 Summary of BSP porting tasks
 
 This section provides a summary of the tasks required to integrate a pre-existing BSP for the new target `foo-bar` into MBL.
-
-- Add the pre-existing `meta-[soc-vendor]` layer to `bblayers.conf` if required.
-  This layer should contain the `${machine}.conf` file called `foo-bar.conf` for the new target.
-- Create the `u-boot*.bbappend` file.
+<!---style guide says not to use foo-bar. Do we have an actual specific target to use as an example?--->
+- Add the pre-existing `meta-[soc-vendor]` layer to `bblayers.conf` if required:
+    - This layer should contain the `${machine}.conf` file called `foo-bar.conf` for the new target.
+- Create the `u-boot*.bbappend` file:
     - Resolve licensing issues.
     - Upstream the u-boot `foo-bar` port to `git://git.linaro.org/landing-teams/working/mbl/u-boot.git`.
     - Set `SRCREV` and `SRC_URI` for ported u-boot.
     - Apply patches.
     - Fix DTB issues.
     - Upstream the `u-boot*.bbappend` recipe and associated files to `https://github.com/ARMmbed/meta-mbl`.
-- Create the `linux*.bbappend` file.
+- Create the `linux*.bbappend` file:
     - Resolve licensing issues.
     - Upstream the Linux kernel `foo-bar` port to `git://git.linaro.org/landing-teams/working/mbl/linux.git`.
     - Set `SRCREV` and `SRC_URI` for ported Linux kernel.
     - Define default kernel configuration.
     - Merge required config to build with all required options.
     - Set `INITRAMFS_IMAGE = "mbl-image-initramfs"`.
-- Manage Linux firmware files.
+- Manage Linux firmware files:
     - Resolve licensing issues.
     - Upstream the linux-firmware binary files to `git://git.linaro.org/landing-teams/working/mbl/linux-firmware.git`.
     - Modify `meta-mbl/openembedded-core-mbl/meta/recipes-kernel/linux-firmware/linux-firmware_%.bbappend` as required.
     - Upstream modified `linux-firmware_%.bbappend` recipe to `https://github.com/ARMmbed/meta-mbl`.
-- Create the `optee-os.bbappend` recipe for building OP-TEE for the new target.
+- Create the `optee-os.bbappend` recipe for building OP-TEE for the new target:
     - Resolve licensing issues.
     - Upstream the OP-TEE `foo-bar` port to `git://git.linaro.org/landing-teams/working/mbl/optee_os.git`.
     - Upstream the `optee-os.bbappend` recipe and associated files to `https://github.com/ARMmbed/meta-mbl`.
-- Create the `atf-foo-bar-mbl.bb` recipe for building ATF for the new target.
+- Create the `atf-foo-bar-mbl.bb` recipe for building ATF for the new target:
     - Resolve licensing issues.
     - Upstream the ATF `foo-bar` port to `git://git.linaro.org/landing-teams/working/mbl/arm-trusted-firmware.git` or to
       `https://github.com/ARM-software/arm-trusted-firmware`.
@@ -1074,7 +1062,7 @@ This section provides a summary of the tasks required to integrate a pre-existin
     - Define `WKS_FILE=${MACHINE}.wks`.
     - Upstream the `foo-bar-mbl.conf` machine configuration file to `https://github.com/ARMmbed/meta-mbl`.
     - Upstream the `foo-bar-mbl.wks` to `https://github.com/ARMmbed/meta-mbl`.
-
+<!---are these addresses staying the same? meta-mbl is a private repo, is it not?--->
 
 # <a name="section-11-0"></a> 11.0 References
 
