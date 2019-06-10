@@ -2,16 +2,16 @@
 
 <span class="tips">**Tip**: If you downloaded an evaluation image, you can skip the build stage [and go directly to writing](../first-image/writing-an-image-to-supported-boards.html).</span>
 
-Please note that each release has its own branch. Throughout this guide, the release branch is assumed to be `mbl-os-0.6`.
+Please note that each release has its own branch. Throughout this guide, the release branch is assumed to be `mbl-os-0.7`.
 
 ## Prerequisite: setting up the build scripts
 
 <span class="notes">**Note**: You need to use an SSH agent to build. For usage, see [the GitHub SSH documentation](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).</span>
 
-If you haven't already done so, check out the relevant branch from the `mbl-tools` repository (in this example, we use `mbl-os-0.6`):
+If you haven't already done so, check out the relevant branch from the `mbl-tools` repository (in this example, we use `mbl-os-0.7`):
 
 ```
-$ git clone git@github.com:ARMmbed/mbl-tools.git --branch mbl-os-0.6
+$ git clone git@github.com:ARMmbed/mbl-tools.git --branch mbl-os-0.7
 ```
 
 The repository includes the `run-me.sh` script, which:

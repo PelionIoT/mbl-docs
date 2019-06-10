@@ -11,7 +11,7 @@ Using MBL requires the following:
 
 ## Evaluation images
 
-[MBL evaluation images for the 0.6 release are on GitHub](https://github.com/ARMmbed/mbl-manifest/releases/tag/mbl-os-0.6.0)
+[MBL evaluation images for the 0.7 release are on GitHub](https://github.com/ARMmbed/mbl-manifest/releases/tag/mbl-os-0.7.0)
 
 ## Archive content
 

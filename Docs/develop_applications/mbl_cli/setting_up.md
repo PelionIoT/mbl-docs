@@ -29,7 +29,7 @@ npm uninstall mbl-cli -g --save
    If for any reason you must install MBL CLI using the 'system' Python, install with the `--user` flag.
 
     ```bash
-    pip install --user git+ssh://git@github.com/armmbed/mbl-cli.git@mbl-os-0.6
+    pip install --user git+ssh://git@github.com/armmbed/mbl-cli.git@mbl-os-0.7
     ```
 
 ## Setting up a developer connection over USB

@@ -101,4 +101,4 @@ There are two paths to working with MBL:
 * Revised [firmware update tutorials](../update/index.html).
 * A new [reference about partition layout](../references/partition-layout.html).
 
-The [full release note](https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.6/docs/release_note.md) is available on our public preview repository.
+The [full release note](https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.7/docs/release_note.md) is available on our public preview repository.
