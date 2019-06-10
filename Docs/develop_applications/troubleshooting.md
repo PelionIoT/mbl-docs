@@ -27,7 +27,7 @@ There are several ways to configure network access for an application. We'll rev
 
 * Use a device network stack. Note that this requires [removing the network namespace from the `config.json`](https://github.com/opencontainers/runtime-spec/blob/master/config-linux.md#namespaces).
 
-If yu need to extend other capabilities, see:
+If you need to extend other capabilities, see:
 
 * [Capability setting](https://github.com/opencontainers/runtime-spec/blob/master/config.md#linux-process)
 * [A list of `CAP_NET_*` settings] http://man7.org/linux/man-pages/man7/capabilities.7.html
