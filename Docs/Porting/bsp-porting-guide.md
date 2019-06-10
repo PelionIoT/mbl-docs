@@ -600,7 +600,7 @@ See [Section 9.1](#section-9-1) for details on the `${MACHINE}.conf` file for `i
 ## <a name="section-5-2"></a> 5.2 `${machine}.conf`: The community BSP control file
 
 The `meta-[soc-vendor]` machine configuration files `${machine}.conf` orchestrate u-boot and kernel creation using
-virtual providers (see the section "Using Virtual Providers" in the [Yocto Mega Manual][yocto-mega-manual-latest]).<!---What's this link type?---> Virtual providers allow the selection of a specific package recipe from among several providers. For example, consider the case of two `u-boot*` recipes each providing the same package functionality
+virtual providers (see the section "Using Virtual Providers" in the [Yocto Mega Manual][yocto-mega-manual-latest]). Virtual providers allow the selection of a specific package recipe from among several providers. For example, consider the case of two `u-boot*` recipes each providing the same package functionality
 by declaring they provide the `virtual/bootloader` symbolic package name:
 - `u-boot-fslc.bb` declares its ability to build a boot loader by specifying the virtual provider directive `PROVIDES="virtual/bootloader"`.
 - `u-boot-imx.bb` declares the virtual provider directive `PROVIDES="virtual/bootloader"`.
