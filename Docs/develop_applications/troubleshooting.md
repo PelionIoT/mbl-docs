@@ -102,7 +102,7 @@ To use opkg:
     opkg-build -Z "xz" -g root -o root
     ```
 
-<span class="notes">**Note:** Prepend the command with `build-armv7` or `build-arm64` when using the Hello World tool. For example `build-armv7 opkg-build -Z "xz" -g root -o root`</span>
+    <span class="notes">**Note:** Prepend the command with `build-armv7` or `build-arm64` when using the Hello World tool. For example `build-armv7 opkg-build -Z "xz" -g root -o root`</span>
 
 ## How can I debug container issues?
 
