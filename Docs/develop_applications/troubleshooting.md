@@ -39,7 +39,7 @@ There are several ways to configure network access for an application. We'll rev
 If you need to extend other capabilities, see:
 
 * [Capability setting](https://github.com/opencontainers/runtime-spec/blob/master/config.md#linux-process)
-* [A list of `CAP_NET_*` settings] http://man7.org/linux/man-pages/man7/capabilities.7.html
+* [A list of `CAP_NET_*` settings](http://man7.org/linux/man-pages/man7/capabilities.7.html)
 
 Here is an example of the changes we made to the Hello World `config.json` to allow pinging through the device network:
 
