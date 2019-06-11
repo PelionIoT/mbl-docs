@@ -49,7 +49,7 @@ For porting OP-TEE to your target platform, please consult the [OP-TEE documenta
 
 This section defines terminology used throughout this document.
 
-**Table 1.3: Acronyms.**
+**Table 1.3: Acronyms and Terminology**
 * **REF1:** Term is defined in TF-A fiptool documentation and source code.
 * **REF2:** Term is defined in TrustZone documentation.
 
