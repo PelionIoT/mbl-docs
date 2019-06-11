@@ -157,6 +157,13 @@
                         "path": "Docs/develop_applications/user_app_helloworld.md"
                     },
                     "sources": []
+                },
+                {
+                    "title": "Frequently asked questions",
+                    "intro": {
+                        "path": "Docs/develop_applications/troubleshooting.md"
+                    },
+                    "sources": []
                 }
             ]
         },
