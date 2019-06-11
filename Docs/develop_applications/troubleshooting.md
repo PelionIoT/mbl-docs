@@ -25,6 +25,38 @@ If your development environment can't run Docker, you can try another container 
 
 <span class="notes">**Note** We have not tested these solutions ourselves.</span>.
 
+## How can I package my container into an `ipkg`?
+
+You must use the [opkg build tool](https://www.yoctoproject.org/software-item/opkg/) to produce a package suitable for installation on MBL.
+
+You can either:
+
+* Download and install a version [directly from Yocto](http://downloads.yoctoproject.org/releases/opkg/)
+* Use the version that we use in our [Hello World tutorial](../develop-apps/hello-world-application.html). After you build Hello World, you can find a script called `build-armv7` or `build-arm64` in the `helloworld` directory. These scripts invoke a Docker container that contains the `opkg-build` tool.
+
+To use opkg:
+
+1. Create a `control` file in a directory called `CONTROL` that describes the package. For example:
+
+    ```
+    Package: my-package
+    Version: 1.0
+    Architecture: any
+    Maintainer: myemail@company.com
+    Section: base
+    Priority: optional
+    Description: This package includes my application.
+    ```
+
+    Another example of this control file is included in the Hello World application. [Debian documentation has more information about the control file fields](https://www.debian.org/doc/debian-policy/ch-controlfields.html).
+
+1. To build the package: In the directory that contains your `root` rootfs directory and your `CONTROL` directory, run:
+
+    ```
+    opkg-build -Z "xz" -g root -o root
+    ```
+
+<span class="notes">**Note:** Prepend the command with `build-armv7` or `build-arm64` when using the Hello World tool. For example `build-armv7 opkg-build -Z "xz" -g root -o root`</span>
 ## How can I give my container access to the network?
 
 There are several ways to configure network access for an application. We'll review two:
