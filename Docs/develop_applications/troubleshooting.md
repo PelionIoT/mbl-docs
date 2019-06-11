@@ -17,11 +17,13 @@ If you experience issues running your containerized application on your MBL devi
 
 ## How can I create a container?
 
-You can create an OCI container from a docker container. The [OCI documentation](https://github.com/opencontainers/runc#creating-an-oci-bundle) explains how to export a docker container as a bare rootfs directory.
+You can create an OCI container from a Docker container. The [OCI documentation](https://github.com/opencontainers/runc#creating-an-oci-bundle) explains how to export a Docker container as a bare rootfs directory.
 
-## Can I containerize applications if I can't use Docker?
+## Can I create containers without using Docker?
 
-If your development environment can't run Docker, you can try another container engine such as Podman. Note that we have not tested these solutions ourselves.
+If your development environment can't run Docker, you can try another container engine such as [Podman](https://podman.io/).
+
+<span class="notes">**Note** We have not tested these solutions ourselves.</span.
 
 ## How can I give my container access to the network?
 
