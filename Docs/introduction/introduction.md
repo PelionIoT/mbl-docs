@@ -33,7 +33,7 @@ The preview release provides:
 * An OpenEmbedded-based OS distribution, enabling extensibility and support for the latest updates and features.
 * Support for [four development boards](../first-image/hardware.html) with:
     * A Board Support Platform (BSP) porting guide for additional platforms.
-    * A BSP organization that helps porting and reuse by matching the staging and upstream layers (added in 0.7).
+    * A BSP organization that helps porting and reuse by having staging layers that match the upstream layers (added in 0.7).
 * Hardware and software-based isolation mechanisms for security:
     * Dedicated hardware within most Cortex-A devices enforces the most secure isolation boundary. This technology, called TrustZone, allows the most sensitive code and data to run within a so-called **Secure World**. MBL includes a trusted operating system for this Secure World called **Open Source Trusted Execution Environment** (OP-TEE) - an operating system within an operating system. It is loaded by the Trusted Firmware and typically used to protect cryptographic keys and other sensitive data assets.
     * Secure boot methodology based on Linaro's Trusted Firmware A for both the ARMv7-A and ARMv8-A platforms. Trusted Firmware is a minimal secure bootloader that runs when a Cortex-A microprocessor is executing in TrustZone's "secure world" mode.
