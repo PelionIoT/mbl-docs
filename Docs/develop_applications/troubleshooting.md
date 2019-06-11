@@ -15,7 +15,7 @@ If your development environment can't run Docker, you can try another container 
 - [General information about container configuration](https://github.com/opencontainers/runtime-spec/blob/master/config.md)
 - [Linux-specific information](https://github.com/opencontainers/runtime-spec/blob/master/config-linux.md)
 
-## How can I give my container access to the network?
+## How can I give my container network access?
 
 There are several ways to configure network access for an application. We'll review two:
 
