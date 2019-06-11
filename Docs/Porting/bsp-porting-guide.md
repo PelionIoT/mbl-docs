@@ -118,7 +118,7 @@ This section defines terminology used throughout this document.
 
 ## <a name="section-2-1"></a> 2.1 Introduction
 
-A summary of the key BSP system architecture requirements:<!--these aren't just the requirements - they're the solutions we offer for those requirements, right?-->
+A summary of the key BSP system architecture:
 
 - **Security:** Trusted Firmware for Cortex-A provides a generic solution for authenticating software components.
 - **Firmware Update:** Pelion Device Management update service is used to update device firmware. This leads to a flash partition layout where trusted firmware, the kernel, the root file system and applications are independently updatable.
@@ -134,7 +134,7 @@ A summary of the key BSP system architecture requirements:<!--these aren't just 
 
 [Figure 2.2](#fig2-2) shows the main entities in the secure bootchain sequence: the Soc Boot ROM, the Trusted Firmware (TF), OP-TEE, U-Boot and the Linux kernel:
 
-1. After the power is turned on, the Soc Boot ROM runs. This is the first stage bootloader (BL1), which is programmed into the chip during manufacture.
+1. After the power is turned on, the Soc Boot ROM runs. This is the first-stage bootloader (BL1), which is programmed into the chip during manufacture.
 1. BL1 authenticates the second stage bootloader, which is Trusted Firmware for Cortex-A (TF-A). TF-A supplies:
     - The second stage bootloader BL2.
     - Part 1 of the third stage bootloader BL31.
@@ -720,14 +720,14 @@ shown in [Figure 4.0](../develop-mbl/4-0-bsp-recipe-relationships.html#figure-4-
 The `kernel-fitimage.bbclass` member functions are:
 - `__anonymous()`. This is an initialization function for the class that executes after parsing (the class constructor).
 - `fitimage_emit_section_setup()`. Helper function to write the setup section in the FIT image `fit-image.its` file.
-- `fitimage_emit_section_ramdisk()`. Helper function to write the initramfs section in the FIT image `fit-image.its` file.
+- `fitimage_emit_section_ramdisk()`. Helper function to write the `initramfs` section in the FIT image `fit-image.its` file.
 - `fitimage_emit_section_config()`. Helper function to write the config section in the FIT image `fit-image.its` file.
 - `fitimage_emit_section_dtb()`. Helper function to write the device tree binary section in the FIT image `fit-image.its` file.
 - `fitimage_emit_section_kernel()`. Helper function to write the kernel section in the FIT image `fit-image.its` file.
 - `fitimage_emit_section_maint()`. Helper function to write the main section in the FIT image `fit-image.its` file.
 - `fitimage_assemble()`. Orchestrates the n-step procedure for writing the `fit-image.its` file by, depending on configuration, invoking the appropriate `fitimage_emit_section_xxx()` helper functions, creating the FIT image, and then signing the image.
-- `do_assemble_fitimage()`. The class promotes this function to be a task entrypoint for the build process to create a FIT image, without initramfs.
-- `do_assemble_fitimage_initramfs()`. The class promotes this function to be a task entrypoint for the build process to create a FIT image, including initramfs.
+- `do_assemble_fitimage()`. The class promotes this function to be a task entry point for the build process to create a FIT image, without `initramfs`.
+- `do_assemble_fitimage_initramfs()`. The class promotes this function to be a task entry point for the build process to create a FIT image, including `initramfs`.
 
 The key `${MACHINE}.conf` symbols controlling FIT image creation are as follows:
 
@@ -736,7 +736,7 @@ The key `${MACHINE}.conf` symbols controlling FIT image creation are as follows:
 - `UBOOT_SIGN_ENABLE`. Setting this symbol results adds signing headers to the FIT image, according to MBL requirements.
 
 The `mbl-fitimage.bbclass` member functions of interest are described briefly below:
-- `fitimage_emit_section_boot_script()`. Helper function to write the boot script `fit-image.its` section, which incorporates the U-Boot <!---we've spelled this differently above---> `boot.cmd` file into the FIT image as the `boot.scr`.
+- `fitimage_emit_section_boot_script()`. Helper function to write the boot script `fit-image.its` section, which incorporates the U-Boot `boot.cmd` file into the FIT image as the `boot.scr`.
 - `fitimage_emit_section_config()`. This writes a modified form of the config to include the new `boot.scr` boot script section.
 - `fitimage_assemble()`. This is a modified version of `kernel-fitimage.bbclass::fitimage_assemble()` to invoke the
 `fitimage_emit_section_boot_script()` and `fitimage_emit_section_boot_config()` functions to add the `boot.scr`
@@ -759,7 +759,6 @@ ATF is dependent on U-Boot and the Linux kernel because:
 - ATF may need to co-ordinate the location of shared memory buffers used for
   OP-TEE-Linux kernel inter-communication using overlays. ATF packages OP-TEE in the FIP image, whereas the kernel is packaged
   into the FIT image by `mbl-fitimage`.
-<!---Do we need to know why, rather than just _that_ it is dependent?--->
 
 The `atf.inc` dependency on the `virtual/bootloader` and `virtual/kernel` providers is created with:
 
@@ -895,7 +894,7 @@ This section will discuss the `meta-freescale` and `meta-freescale-3rdparty` ent
     - `UBOOT_CONFIG[sd] = ""`
     - `UBOOT_SUFFIX = "bin"`. This is used to enable U-Boot verified boot. See `uboot-sign.bbclass` for more information.
     - `UBOOT_BINARY = "u-boot.${UBOOT_SUFFIX}"`. This is the U-Boot binary name.
-    - `UBOOT_ENTRYPOINT = "0x80800000"`. This is the U-Boot binary entrypoint.
+    - `UBOOT_ENTRYPOINT = "0x80800000"`. This is the U-Boot binary entry point.
     - `UBOOT_DTB_LOADADDRESS = "0x83000000"`. This is the location where the U-Boot DTD is loaded into memory.
     - `UBOOT_IMAGE = "mbl-u-boot.bin"` This is the name of the U-Boot image.
     - `UBOOT_SIGN_ENABLE = "1"`. This enables verified boot signing.
