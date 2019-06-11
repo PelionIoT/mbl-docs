@@ -6,10 +6,10 @@ This document details how to port an existing ARM Cortex-A board support package
 
 Porting BSP centers on configuring the secure boot software components, so the correct artifacts appear on the right flash partitions for update:
 
-- **Trusted Firmware for Cortex-A (TF-A)**. Use Trusted Firmware in v7A AArch32 and v8A AArch64 secure boot processes. TF-A artifacts include the second-stage bootloader `BL2`, and the Firmware Image Package (FIP) containing third-stage bootloaders `BL3x` and certificates.
-- **Open Platform Trusted Execution Environment (OP-TEE)**. This is the OS with trusted applications running in the TrustZone secure world, and is packaged as `BL32` in the FIP image.
-- **U-Boot**. U-Boot is the Normal world bootloader for loading Rich OS. This is packaged as `BL33` inside the FIP image.
-- **Linux kernel**. The Linux kernel is the Normal world Rich OS. The kernel image is packaged with the device tree binaries and initial RAM file system in a Flattened Image Tree (FIT) image.
+- **Trusted Firmware for Cortex-A (TF-A)**: Use Trusted Firmware in v7A AArch32 and v8A AArch64 secure boot processes. TF-A artifacts include the second-stage boot loader  BL2, and the Firmware Image Package (FIP) containing third-stage boot loaders BL3x and certificates.
+- **Open Platform Trusted Execution Environment (OP-TEE)**: This is the OS with trusted applications running in the TrustZone secure world, and is packaged as BL32 in the FIP image.
+- **U-Boot**: U-Boot is the Normal world boot loader for loading Rich OS. This is packaged as BL33 inside the FIP image.
+- **Linux kernel**: The Linux kernel is the Normal world Rich OS. The kernel image is packaged with the device tree binaries and initial RAM file system in a Flattened Image Tree (FIT) image.
 
 This document's structure follows the work process:
 
@@ -56,7 +56,7 @@ This section defines terminology used throughout this document.
 <a name="Table-1-3"></a>
 
     Term                Definition
-
+    ----                ----------
     AP                  Application processor
     ATF                 Arm Trusted Firmware
     BL                  Bootloader
@@ -112,8 +112,6 @@ This section defines terminology used throughout this document.
                           - Contains the non-trusted world public key.
     WIC                 Openembedded Image Creator application.
 
-
-
 # <a name="section-2-0"></a> 2.0 System architecture
 
 ## <a name="section-2-1"></a> 2.1 Introduction
@@ -124,20 +122,18 @@ A summary of the key BSP system architecture:
 - **Firmware Update:** Pelion Device Management update service is used to update device firmware. This leads to a flash partition layout where trusted firmware, the kernel, the root file system and applications are independently updatable.
 - **Reuse:** Where possible, suitable existing solutions and software are reused to leverage know-how and speed up time to market.
 
-<!--how do the topics on this page map to the intro? -->
-
 ## <a name="section-2-2"></a> 2.2 Boot flow
 
 <a name="fig2-2"></a>
 
-<span class="images">![fig2-2](assets/TWC_before_NWC.png "Figure 2.2")<span>**Figure 2.2:** A summary form of the secure boot chain flow</span></span>
+<span class="images">![fig2-2](assets/TWC_before_NWC.png "Figure 2.2")<span><br>**Figure 2.2:** A summary form of the secure boot chain flow</span></span>
 
 [Figure 2.2](#fig2-2) shows the main entities in the secure bootchain sequence: the Soc Boot ROM, the Trusted Firmware (TF), OP-TEE, U-Boot and the Linux kernel:
 
-1. After the power is turned on, the Soc Boot ROM runs. This is the first-stage bootloader (BL1), which is programmed into the chip during manufacture.
+1. After the power is turned on, the Soc Boot ROM runs. This is the first-stage boot loader (BL1), which is programmed into the chip during manufacture.
 1. BL1 authenticates the second-stage bootloader, which is Trusted Firmware for Cortex-A (TF-A). TF-A supplies:
-    - The second-stage bootloader BL2.
-    - Part 1 of the third-stage bootloader BL31.
+    - The second-stage boot loader BL2.
+    - Part 1 of the third-stage boot loader BL31.
 1. BL31 runs OP-TEE, also called BL32.
 1. BL31 runs the Normal world bootloader, U-Boot (referred to as BL33).
 1. U-Boot runs the Linux Kernel.
@@ -236,7 +232,7 @@ For more information please refer to the [Trusted Board Boot Requirements CLIENT
 | --- | --- |
 | Bank/Update state | This is a raw partition that is accessible by all bootloaders and the normal device firmware. It holds the non-volatile state that reflects the active bank and whether an update is in progress. It is important that updates to state are robust to power failure. |
 | BL2 | This is a raw partition that holds the TF-A BL2 bootloader. BL2 cannot be updated using the normal firmware update process. |
-| BL3 FIP Image 1 & 2 | Two partitions to hold two versions of the BL31 bootloader and associated components contained within a signed FIP image. |
+| BL3 FIP Image 1 & 2 | Two partitions to hold two versions of the BL31 boot loader and associated components contained within a signed FIP image. |
 | Boot FIT Image 1 & 2 | Two partitions to hold two versions of the boot partition. Contains the Linux kernel and device tree. |
 | Rootfs 1 & 2 | Two partitions for the read-only rootfs and the associated dm-verity hash tree. |
 | Rootfs_Hash 1 & 2 | Partitions for the dm-verity hash trees corresponding to rootfs 1 & 2. |
@@ -601,10 +597,10 @@ See [Section 9.1](../develop-mbl/9-0-example-imx7s-warp-mbl-bsp-recipe-package-r
 The `meta-[soc-vendor]` machine configuration files `${machine}.conf` orchestrate U-Boot and kernel creation using
 virtual providers (see the section "Using Virtual Providers" in the [Yocto Mega Manual][yocto-mega-manual-latest]). Virtual providers allow the selection of a specific package recipe from among several providers. For example, consider the case of two `u-boot*` recipes each providing the same package functionality
 by declaring they provide the `virtual/bootloader` symbolic package name:
-- `u-boot-fslc.bb` declares its ability to build a bootloader by specifying the virtual provider directive `PROVIDES="virtual/bootloader"`.
+- `u-boot-fslc.bb` declares its ability to build a boot loader by specifying the virtual provider directive `PROVIDES="virtual/bootloader"`.
 - `u-boot-imx.bb` declares the virtual provider directive `PROVIDES="virtual/bootloader"`.
 
-A `${machine}.conf` (by including `[soc-family].inc`) selects a specific bootloader package recipe by setting the `PREFERRED_PROVIDER_virtual/bootloader`
+A `${machine}.conf` (by including `[soc-family].inc`) selects a specific boot loader package recipe by setting the `PREFERRED_PROVIDER_virtual/bootloader`
 symbol to the actual recipe (package) name:
 
     PREFERRED_PROVIDER_virtual/bootloader="u-boot-fslc"
@@ -626,7 +622,7 @@ The discussion is applicable to all targets.
 ## <a name="section-6-1"></a> 6.1 `u-boot*.bb`: The top level `virtual/bootloader` control recipe
 
 [Figure 4.0](../develop-mbl/4-0-bsp-recipe-relationships.html#figure-4-0) shows the `meta-[soc-vendor]` `u-boot*.bb` recipe used to build the bootloader. As discussed in [Section 5.2](../develop-mbl/5-0-machine-configuration-files.html#5-2-machine-conf-the-community-bsp-control-file), the `[soc-family].inc` defines
-`PREFERRED_PROVIDER_virtual/bootloader = u-boot-XXXX` to specify the bootloader recipe. The nominated bootloader recipe `u-boot-XXXX` (typically present in the `meta-[soc-vendor]` BSP layer)
+`PREFERRED_PROVIDER_virtual/bootloader = u-boot-XXXX` to specify the boot loader recipe. The nominated boot loader recipe `u-boot-XXXX` (typically present in the `meta-[soc-vendor]` BSP layer)
 expresses its capability of being a `virtual/bootloader` provider by including `PROVIDES=virtual/bootloader` in the recipe. This relationship is expressed in [Figure 4.0](../develop-mbl/4-0-bsp-recipe-relationships.html#figure-4-0) by the dotted-line arrow between `[soc-family].inc` and the interface symbol attached to `u-boot*.bb`.
 
 ## <a name="section-6-2"></a> 6.2 `u-boot*.bbappend` customization recipe
@@ -941,7 +937,7 @@ MACHINE=imx7s-warp-mbl
           KERNEL_DEVICETREE = "imx7s-warp.dtb"
           |
           \-> imx-base.inc                                                                            (9)
-                # bootloader recipe config
+                # boot loader  recipe config
                 PREFERRED_PROVIDER_u-boot ??= "u-boot-fslc"                                           (10)
                 PREFERRED_PROVIDER_virtual/bootloader ??= "u-boot-fslc"                               (11)
                     \-> u-boot-fslc_XXXX.YY.bb                                                        (12)
