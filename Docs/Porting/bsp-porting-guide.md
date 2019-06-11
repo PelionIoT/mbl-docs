@@ -513,7 +513,7 @@ Each layer is shown horizontally, containing a number of recipe packages and con
     - `optee-client.bb` for building the trusted execution client library for the Linux kernel.
     - `optee-test.bb` for building the OP-TEE test framework and tests.
 - **`openembedded-core-mbl/meta`**. This MBL staging layer provides:
-    - `mbl-fitimage.bbclass`, a reusable class used to generate the kernel FIT packaging. See [Section 7.4](#section-7-4) for details.
+    - `mbl-fitimage.bbclass`, a reusable class used to generate the kernel FIT packaging. See [Section 7.4](../develop-mbl/7-0-linux.html#7-4-kernel-fitimage-bbclass-and-mbl-fitimage-bbclass) for details.
 - **`openembedded-core`**. This layer contains a library of recipes and classes supporting the creation of Linux distributions:
     - `u-boot.inc.`. This `include` file contains the bulk of the symbol definitions and recipe functions for building the U-Boot boot loader. It's included into the `u-boot_${PV}.bb` recipe.
     - `u-boot-sign.bbclass`. The class that orchestrates verified boot signing of FIT images.
@@ -527,11 +527,11 @@ Each layer is shown horizontally, containing a number of recipe packages and con
     - `u-boot-common_${PV}.inc`. This `include` file contains common symbol definitions used by multiple `u-boot*` recipes.
 
       It's included into the `u-boot_${PV}.bb` recipe.
-    - `kernel-fitimge.bbclass`. See [Section 7.4](#section-7-4) for details.
-    - `kernel-devicetree.bbclass`. See [Section 7.3](#section-7-3) for details.
-    - `kernel-uimage.bbclass`. See [Section 7.3](#section-7-3) for details.
-    - `kernel-module-split.bbclass`. See [Section 7.3](#section-7-3) for details.
-    - `kernel-uboot.bbclass`. See [Section 7.4](#section-7-4) for details.
+    - `kernel-fitimge.bbclass`. See [Section 7.4](../develop-mbl/7-0-linux.html#7-4-kernel-fitimage-bbclass-and-mbl-fitimage-bbclass) for details.
+    - `kernel-devicetree.bbclass`. See [Section 7.3](../develop-mbl/7-0-linux.html#7-3-kernel-bbclass-openembedded-core-support) for details.
+    - `kernel-uimage.bbclass`. See [Section 7.3](../develop-mbl/7-0-linux.html#7-3-kernel-bbclass-openembedded-core-support) for details.
+    - `kernel-module-split.bbclass`. See [Section 7.3](../develop-mbl/7-0-linux.html#7-3-kernel-bbclass-openembedded-core-support) for details.
+    - `kernel-uboot.bbclass`. See [Section 7.4](../develop-mbl/7-0-linux.html#7-4-kernel-fitimage-bbclass-and-mbl-fitimage-bbclass) for details.
 
 # <a name="section-4-0"></a> 4.0 BSP recipe relationships
 
@@ -552,50 +552,50 @@ Note that an entity's color indicates the layer in which it resides and follows 
 
 The `${MACHINE}.conf` is the top level control file specifying how the key boot components (ATF, OP-TEE, u-boot and Linux) form
 a working bootchain. It includes the `${machine}.conf` supplied by the `meta-[soc-vendor]` BSP layer, which in turn includes `[soc-family].inc`.
-For more information on `${MACHINE}.conf`, `${machine}.conf` and `[soc-family].inc`, see [Section 5.0](#section-5-0). <!---More double include here--->
+For more information on `${MACHINE}.conf`, `${machine}.conf` and `[soc-family].inc`, see [Section 5.0](../develop-mbl/5-0-machine-configuration-files.html). <!---More double include here--->
 
 The `[soc-family].inc` specifies the u-boot recipe by setting `PREFERRED_PROVIDER_virtual/bootloader = u-boot-XXXX`.
 The `u-boot*.bb` base recipe controls building `u-boot` as the boot loader, subject to machine configuration file settings.
-For more information on `u-boot*` processing, see [Section 6.0](#section-6-0).
+For more information on `u-boot*` processing, see [Section 6.0](../develop-mbl/6-0-u-boot.html).
 
 The `[soc-family].inc` specifies the Linux kernel recipe by setting `PREFERRED_PROVIDER_virtual/kernel = linux-XXXX`.
 The `linux*.bb` base recipe controls building `linux` as the kernel, subject to machine configuration file settings.
-For more information on `linux*` processing, see [Section 7.0](#section-7-0).
+For more information on `linux*` processing, see [Section 7.0](../develop-mbl/7-0-linux.html).
 
 The `atf-${MACHINE}.bb` is the target specific ATF recipe that controls how the ATF components of the bootchain are built and packaged.
 `atf-${MACHINE}.bb` uses `atf.inc`, which encapsulates the generic ATF processing common to all targets. `atf.inc` uses `optee-os.bb`, which builds
-the OP-TEE component. For more information on `atf-${MACHINE}.bb`, `atf.inc`  and `optee-os.bb` processing, see [Section 8.0](#section-8-0).
+the OP-TEE component. For more information on `atf-${MACHINE}.bb`, `atf.inc`  and `optee-os.bb` processing, see [Section 8.0](../develop-mbl/8-0-atf-machine-bb.html).
 
 # <a name="section-5-0"></a> 5.0 Machine configuration files
 
-This section describes the `${MACHINE}.conf`, `${machine}.conf` and `[soc-family].inc` entities in the BSP recipe relationship UML diagram ([Figure 4.0](#figure-4-0)).
+This section describes the `${MACHINE}.conf`, `${machine}.conf` and `[soc-family].inc` entities in the BSP recipe relationship UML diagram ([Figure 4.0](../develop-mbl/4-0-bsp-recipe-relationships.html#figure-4-0)).
 The discussion is applicable to all targets.
 
 ## <a name="section-5-1"></a> 5.1 `${MACHINE}.conf`: The top level BSP control file
 
-[Figure 4.0](#figure-4-0) illustrates the `${MACHINE}.conf` machine configuration file using a UML class entity with symbols.
+[Figure 4.0](../develop-mbl/4-0-bsp-recipe-relationships.html#figure-4-0) illustrates the `${MACHINE}.conf` machine configuration file using a UML class entity with symbols.
 The MBL `meta-[soc-vendor]-mbl ${MACHINE}.conf` file includes the community `meta-[soc-vendor] ${machine}.conf` and customizes key symbols to specify
 how ATF, OP-TEE, `u-boot` and `linux` will be built and configured. MBL uses `${MACHINE}.conf` to override and modify the configuration
  specified configuration in `${machine}.conf`.
 
 The key symbols modified in `${MACHINE}.conf` are as follows:
-- `PREFERRED_PROVIDER_virtual/atf = "atf-${MACHINE}"`. This symbol in `${MACHINE}.conf` specifies which recipe to use to build ATF. The recipe packages bootchain artifacts into the FIP image as specified in [Section 2.3](#section-2-3).
+- `PREFERRED_PROVIDER_virtual/atf = "atf-${MACHINE}"`. This symbol in `${MACHINE}.conf` specifies which recipe to use to build ATF. The recipe packages bootchain artifacts into the FIP image as specified in [Section 2.3](../develop-mbl/2-0-system-architecture.html#2-3-partitioning-software-components-into-fip-fit-images).
 - `KERNEL_CLASSES = "mbl-fitimage"`. This symbol changes the `kernel.bbclass` processing to inherit the `mbl-fitimage.bbclass`, which
-  packages the kernel in a FIT image as specified in [Section 2.3](#section-2-3).
+  packages the kernel in a FIT image as specified in [Section 2.3](../develop-mbl/2-0-system-architecture.html#2-3-partitioning-software-components-into-fip-fit-images).
 - `KERNEL_IMAGETYPE = "fitImage"`. This symbol customizes `kernel.bbclass` processing to generate a FIT image rather than a zImage, for example.
 - `KERNEL_DEVICETREE = "XXX"`. This symbol definition is used to specify additional device trees that can be included in the FIT image.
 - `UBOOT_ENTRYPOINT = "0xabcdefab"`. This symbol specifies the u-boot entry point called by OP-TEE, for example.
 - `UBOOT_DTB_LOADADDRESS = "0xabcdefab"`. This symbol specifies the memory address where the u-boot DTB will be loaded into memory.
 - `UBOOT_SIGN_ENABLE = "1"`. This symbol enables FIT image signing of subcomponents by `u-boot-mkimage`.
 - `WKS_FILE = "${MACHINE}.wks"`. This symbol specifies which the WIC kickstart file defining the target partition layout.
-   See "Creating Partitioned Images Using Wic" in [Yocto Mega Manual][yocto-mega-manual-latest] and [Section 2.4](#section-2-4) for more details.
+   See "Creating Partitioned Images Using Wic" in [Yocto Mega Manual][yocto-mega-manual-latest] and [Section 2.4](../develop-mbl/2-0-system-architecture.html#2-4-flash-partition-layout) for more details.
 
-[Section 2.3 Partitioning software components into FIP/FIT image](#section-2-3) specifies that the Linux kernel image
-is packaged into a FIT image so the kernel FIT image can be written to a [dedicated partition](#section-2-4) and independently updated. FIT image generation is achieved using
-the `linux*`, `kernel.bbclass`, `mbl-fitimage.bbclass` and `kernel-fitimage.bbclass` entities shown in [Figure 4.0](#figure-4-0),
-and by setting the symbols `KERNEL_CLASSES` and `KERNEL_IMAGETYPE`. See [Section 7.3](#section-7-3) and [Section 7.4](#section-7-4) for more details.
+[Section 2.3 Partitioning software components into FIP/FIT image](../develop-mbl/2-0-system-architecture.html#2-3-partitioning-software-components-into-fip-fit-images) specifies that the Linux kernel image
+is packaged into a FIT image so the kernel FIT image can be written to a [dedicated partition](../develop-mbl/2-0-system-architecture.html#2-4-flash-partition-layout) and independently updated. FIT image generation is achieved using
+the `linux*`, `kernel.bbclass`, `mbl-fitimage.bbclass` and `kernel-fitimage.bbclass` entities shown in [Figure 4.0](../develop-mbl/4-0-bsp-recipe-relationships.html),
+and by setting the symbols `KERNEL_CLASSES` and `KERNEL_IMAGETYPE`. See [Section 7.3](../develop-mbl/7-0-linux.html#7-3-kernel-bbclass-openembedded-core-support) and [Section 7.4](../develop-mbl/7-0-linux.html#7-4-kernel-fitimage-bbclass-and-mbl-fitimage-bbclass) for more details.
 
-See [Section 9.1](#section-9-1) for details on the `${MACHINE}.conf` file for `imx7s-warp-mbl`.
+See [Section 9.1](../develop-mbl/9-0-example-imx7s-warp-mbl-bsp-recipe-package-relationships.html#9-1-example-imx7s-warp-mbl-recipe-package-uml-diagram) for details on the `${MACHINE}.conf` file for `imx7s-warp-mbl`.
 
 ## <a name="section-5-2"></a> 5.2 `${machine}.conf`: The community BSP control file
 
