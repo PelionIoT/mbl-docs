@@ -4,11 +4,11 @@
 
 This document is a guide for porting an existing ARM Cortex-A board support package (BSP) to Mbed Linux OS (MBL), enabling the platform's software stack for security, connection to Pelion Device Management, and firmware update.
 
-Porting BSP centres on configuring the secure boot software components, so the correct artifacts appear on the right flash partitions for update:
+Porting BSP centers on configuring the secure boot software components, so the correct artifacts appear on the right flash partitions for update:
 
 - **Trusted Firmware for Cortex-A (TF-A)**. Use Trusted Firmware in v7A AArch32 and v8A AArch64 secure boot processes. TF-A artifacts include the second-stage bootloader `BL2`, and the Firmware Image Package (FIP) containing third-stage bootloaders `BL3x` and certificates.
 - **Open Platform Trusted Execution Environment (OP-TEE)**. This is the OS with trusted applications running in the TrustZone secure world, and is packaged as `BL32` in the FIP image.
-- **U-Boot**. U-Boot is the normal world bootloader for loading Rich OS. This is packaged as `BL33` inside the FIP image.
+- **U-Boot**. U-Boot is the Normal world bootloader for loading Rich OS. This is packaged as `BL33` inside the FIP image.
 - **Linux kernel**. The Linux kernel is the Normal world Rich OS. The kernel image is packaged with the device tree binaries and initial RAM file system in a Flattened Image Tree (FIT) image.
 
 This document's structure follows the work process:
@@ -135,11 +135,11 @@ A summary of the key BSP system architecture:
 [Figure 2.2](#fig2-2) shows the main entities in the secure bootchain sequence: the Soc Boot ROM, the Trusted Firmware (TF), OP-TEE, U-Boot and the Linux kernel:
 
 1. After the power is turned on, the Soc Boot ROM runs. This is the first-stage bootloader (BL1), which is programmed into the chip during manufacture.
-1. BL1 authenticates the second stage bootloader, which is Trusted Firmware for Cortex-A (TF-A). TF-A supplies:
-    - The second stage bootloader BL2.
-    - Part 1 of the third stage bootloader BL31.
+1. BL1 authenticates the second-stage bootloader, which is Trusted Firmware for Cortex-A (TF-A). TF-A supplies:
+    - The second-stage bootloader BL2.
+    - Part 1 of the third-stage bootloader BL31.
 1. BL31 runs OP-TEE, also called BL32.
-1. BL31 runs the normal world bootloader, U-Boot (referred to as BL33).
+1. BL31 runs the Normal world bootloader, U-Boot (referred to as BL33).
 1. U-Boot runs the Linux Kernel.
 
 ### <a name="section-2-2-1"></a> 2.2.1 AArch32 boot flow
@@ -164,7 +164,7 @@ The boot sequence consists of the following events:
 1. BL1 runs BL2 (in this step and all subsequent steps, running a component is preceded by successful authentication of the component).
 1. BL2 loads BL31 (TF-A secure monitor).
 1. BL2 loads BL32 (OP-TEE OS).
-1. BL2 loads BL33 (U-Boot, the normal world bootloader).
+1. BL2 loads BL33 (U-Boot, the Normal world bootloader).
 1. BL2 runs  BL31 (TF-A secure monitor)
 1. BL31 runs BL32 (OP-TEE OS). OP-TEE OS modifies the kernel device tree to communicate shared information between OP-TEE OS and the kernel, for example the address and size of the OP-TEE OS <-><!--not happy with this symbol; is it common in Linux development?--> kernel shared memory buffer.
 1. BL32 runs U-Boot (change from SW to NW).
