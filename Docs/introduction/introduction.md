@@ -31,7 +31,9 @@ MBL is currently available as a public preview.
 The preview release provides:
 
 * An OpenEmbedded-based OS distribution, enabling extensibility and support for the latest updates and features.
-* Support for [four development boards](../first-image/hardware.html) (two added for 0.6).
+* Support for [four development boards](../first-image/hardware.html) with:
+    * A Board Support Platform (BSP) porting guide for additional platforms.
+    * A BSP organization that helps porting and reuse by having staging layers that match the upstream layers (added in 0.7).
 * Hardware and software-based isolation mechanisms for security:
     * Dedicated hardware within most Cortex-A devices enforces the most secure isolation boundary. This technology, called TrustZone, allows the most sensitive code and data to run within a so-called **Secure World**. MBL includes a trusted operating system for this Secure World called **Open Source Trusted Execution Environment** (OP-TEE) - an operating system within an operating system. It is loaded by the Trusted Firmware and typically used to protect cryptographic keys and other sensitive data assets.
     * Secure boot methodology based on Linaro's Trusted Firmware A for both the ARMv7-A and ARMv8-A platforms. Trusted Firmware is a minimal secure bootloader that runs when a Cortex-A microprocessor is executing in TrustZone's "secure world" mode.
@@ -39,7 +41,7 @@ The preview release provides:
 * Support for a developer connection to the IoT device (over USB), to develop without disrupting the production networking options.
 * A developer command-line tool - MBL CLI - to facilitate:
     * Discovery, setup and local update of development devices.
-    * First-time provisioning of device and update credentials to the IoT device (added in 0.6).
+    * First-time provisioning of device credentials and update credentials to the IoT device.
 * A lightweight, feature rich connection manager for Ethernet and Wi-Fi connections.
 * The integration with Pelion Device Management services offers:
     * Support for the Device Management Client for in-field provisioning and over-the-air device configuration.
@@ -85,21 +87,20 @@ There are two paths to working with MBL:
     1. Please [build MBL locally so you can test](../first-image/index.html).
     1. Review our [contribution guide](../develop-mbl/index.html).
     1. Use [our update tutorial](../update/index.html) to send image firmware updates over the air.
+    1. [Have a look at the example project to create your own distro based on MBL](../develop-mbl/example-project-based-on-mbed-linux-os.html).
 
 1. If you are an **application developer** interested in building applications for devices that run MBL:
     1. We recommend [using an evaluation image](../first-image/downloading-an-evaluation-image.html).
-    1. Review our [development guide](../develop-apps/index.html), our [command-line interface MBL CLI](../develop-apps/the-mbl-command-line-interface.html) and our [Hello World application](../develop-apps/hello-world-application.html).
+    1. Review our [development guide](../develop-apps/index.html), our [command-line interface MBL CLI](../develop-apps/the-mbl-command-line-interface.html) and our [Hello World application](../develop-apps/hello-world-application.html). If you have questions, try [our new FAQ](../develop-apps/frequently-asked-questions.html).
     1. [Use our update tutorial](../update/index.html) to send application firmware updates over the air.
 
 <h2 id="doc-updates">Recently updated documentation</h2>
 
-* A porting guide for [board support packages](../develop-mbl/board-support-package-porting.html)
+* A new guide for [creating projects based on MBL](../develop-mbl/example-project-based-on-mbed-linux-os.html).
+* A porting guide for [board support packages](../develop-mbl/board-support-package-porting.html).
+* An FAQ for [application development](../develop-apps/frequently-asked-questions.html).
 * A standalone guide [for writing images to devices](../first-image/index.html), including evaluation images, new board support and cellular connections for version 0.6.
 * A new [provisioning guide](../first-image/provisioning-for-pelion-device-management.html).
 * Instructions for [removing the old version of MBL CLI](../develop-apps/setting-up.html#setting-up-mbl-cli).
-* A new [guide for application developers](../develop-apps/index.html).
-* New [information for MBL development](../develop-mbl/index.html), including tool reviews for incremental builds, [contribution guidelines and code style guides](../develop-mbl/contribution-guidelines.html).
-* Revised [firmware update tutorials](../update/index.html).
-* A new [reference about partition layout](../references/partition-layout.html).
 
 The [full release note](https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.7/docs/release_note.md) is available on our public preview repository.
