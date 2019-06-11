@@ -23,7 +23,7 @@ You can create an OCI container from a Docker container. The [OCI documentation]
 
 If your development environment can't run Docker, you can try another container engine such as [Podman](https://podman.io/).
 
-<span class="notes">**Note** We have not tested these solutions ourselves.</span.
+<span class="notes">**Note** We have not tested these solutions ourselves.</span>.
 
 ## How can I give my container access to the network?
 
