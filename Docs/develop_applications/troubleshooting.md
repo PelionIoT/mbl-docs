@@ -15,6 +15,10 @@ If you experience issues running your containerized application on your MBL devi
 
 - Review the application logs in `/var/log/app/user-sample-app-package.log`, where `user-sample-app-package` is the name of your app.
 
+## How can I create a container?
+
+You can create an OCI container from a docker container. The [OCI documentation](https://github.com/opencontainers/runc#creating-an-oci-bundle) explains how to export a docker container as a bare rootfs directory.
+
 ## Can I containerize applications if I can't use Docker?
 
 If your development environment can't run Docker, you can try another container engine such as Podman. Note that we have not tested these solutions ourselves.
