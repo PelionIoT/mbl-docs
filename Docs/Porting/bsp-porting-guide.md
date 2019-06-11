@@ -2,7 +2,7 @@
 
 ## <a name="section-1-1"></a> 1.1 Overview
 
-This document is a guide for porting an existing ARM Cortex-A board support package (BSP) to Mbed Linux OS (MBL), enabling the platform's software stack for security, connection to Pelion Device Management, and firmware update.
+This document details how to port an existing ARM Cortex-A board support package (BSP) to Mbed Linux OS (MBL), enabling the platform's software stack for security, connection to Pelion Device Management, and firmware update.
 
 Porting BSP centers on configuring the secure boot software components, so the correct artifacts appear on the right flash partitions for update:
 
@@ -166,7 +166,7 @@ The boot sequence consists of the following events:
 1. BL2 loads BL32 (OP-TEE OS).
 1. BL2 loads BL33 (U-Boot, the Normal world bootloader).
 1. BL2 runs  BL31 (TF-A secure monitor)
-1. BL31 runs BL32 (OP-TEE OS). OP-TEE OS modifies the kernel device tree to communicate shared information between OP-TEE OS and the kernel, for example the address and size of the OP-TEE OS <-><!--not happy with this symbol; is it common in Linux development?--> kernel shared memory buffer.
+1. BL31 runs BL32 (OP-TEE OS). OP-TEE OS modifies the kernel device tree to communicate shared information between OP-TEE OS and the kernel, for example the address and size of the shared memory buffer that is used OP-TEE OS and the kernel.
 1. BL32 runs U-Boot (change from SW to NW).
 1. BL33 (u-boot) runs kernel.
 1. The secure boot chain process has now completed.<!--is that really a step?-->
@@ -302,7 +302,7 @@ Once you've created an MBL workspace and initialized the environment, you can li
 | meta | <ws>/layers/meta-mbl/openembedded-core-mbl/meta | 6 |
 | meta | <ws>/layers/openembedded-core/meta | 5 |
 
-**Table 3.2.1:** Output of `bitbake-layers show-layers` for `MACHINE=raspberrypi3-mbl`.
+**Table 3.2.1:** Output of `bitbake-layers show-layers` for `MACHINE=raspberrypi3-mbl` in table form.
 
 Note that the command output has been slightly modified for presentation purposes (for example, the full path to the MBL workspace path has been shortened to `<ws>`).
 
@@ -324,7 +324,7 @@ The MBL workspace directory structure in [Figure 3.2](#Figure-3-2) shows:
 
 - The `meta-mbl` repository stores staging layers for customizations of community recipes (such as `.bbappend` recipes).
 
-- Staging layers follow the naming convention of appending "`-mbl`" to the community repository. For example, `meta-linaro-mbl/meta-optee`, `openembedded-core-mbl/meta`, `meta-raspberrypi-mbl`, and `meta-virtualization-mbl`.
+- Staging layers follow the naming convention of appending `-mbl` to the community repository. For example, `meta-linaro-mbl/meta-optee`, `openembedded-core-mbl/meta`, `meta-raspberrypi-mbl`, and `meta-virtualization-mbl`.
 
 - In the staging layers configuration file (`layers.conf`) the `BBFILE_COLLECTIONS` variable should append `-mbl` to the upstream layer original value. For example:
     - For `meta-linaro-mbl/meta-optee/conf/layer.conf`: `BBFILE_COLLECTIONS = "meta-optee-mbl"`
@@ -417,7 +417,7 @@ Refer to [Section 3.2](#section-3-2) for details of the layers.
 | meta-bsp | <ws>/layers/meta-mbl/meta-fsl-bsp-release-mbl/imx/meta-bsp  | 9 |
 | meta-bsp | <ws>/layers/meta-fsl-bsp-release/imx/meta-bsp | 8 |
 
-**Table 3.3.1:** The BSP layers output from `bitbake-layers show-layers` for `MACHINE=imx7d-pico-mbl`.
+**Table 3.3.1:** The BSP layers output from `bitbake-layers show-layers` for `MACHINE=imx7d-pico-mbl` in table form.
 
 ## <a name="section-3-4"></a> 3.4 BSP meta-layers for `imx7s-warp-mbl`
 
@@ -434,7 +434,7 @@ Refer to [Section 3.2](#section-3-2) for details of the layers.
 | meta-freescale-3rdparty-mbl | <ws>/layers/meta-mbl/meta-freescale-3rdparty-mbl | 11 |
 | meta-freescale-3rdparty | <ws>/layers/meta-freescale-3rdparty | 4 |
 
-**Table 3.4.1:** The BSP layers output from `bitbake-layers show-layers` for `MACHINE=imx7s-warp-mbl`.
+**Table 3.4.1:** The BSP layers output from `bitbake-layers show-layers` for `MACHINE=imx7s-warp-mbl` in table form.
 
 ## <a name="section-3-5"></a> 3.5 BSP meta-layers for `imx8mmevk-mbl`
 
@@ -451,7 +451,7 @@ Refer to [Section 3.2](#section-3-2) for details of the layers.
 | meta-bsp | <ws>/layers/meta-mbl/meta-fsl-bsp-release-mbl/imx/meta-bsp | 9 |
 | meta-bsp | <ws>/layers/meta-fsl-bsp-release/imx/meta-bsp | 8 |
 
-**Table 3.5.1:** The BSP layers output from `bitbake-layers show-layers` for `MACHINE=imx8mmevk-mbl`.
+**Table 3.5.1:** The BSP layers output from `bitbake-layers show-layers` for `MACHINE=imx8mmevk-mbl` in table form.
 
 ## <a name="section-3-6"></a> 3.6 Example machine configuration files
 
@@ -491,7 +491,7 @@ This section gives a top-down overview of the MBL Yocto meta-layers and the rela
 
 <span class="images">![figure-3.7](assets/mbl_yocto_workspace_layers.png)<span>**Figure 3.7:** The Yocto meta-layers relevant for BSP development. `meta-mbl` repo entities are shown in blue, `meta-[soc-vendor]` in green, `meta-optee` in orange and `openembedded-core` in yellow.</span></span>
 
-[Figure 3.7](#figure-3.7) shows the Yocto layers composed into<!--composed into sounds wrong. is it a standard phrase? google didn't suggest it was--> the MBL development workspace related to BSP development. <!---Perhaps 'as part'?--->
+The MBL development workspace is composed of the Yocto layers related to BSP development as shown in [Figure 3.7](#figure-3.7).
 
 Each layer is shown horizontally, containing a number of recipe packages and configuration files. Beginning with the top layer and working downwards:
 
@@ -505,7 +505,7 @@ Each layer is shown horizontally, containing a number of recipe packages and con
     - The BSP support for specific target platforms. That is, it defines `${machine}.conf` files.
     - The `u-boot*.bb` base recipes and customizations using the `u-boot*.bbappend` recipes.
     - The `linux*.bb` base recipes and customizations using the`linux*.bbappend` recipes.
-- **`meta-mbl-bsp-common`**. The MBL layer includes the generic ATF recipe support `atf.inc`, included in the target-specific `atf-${MACHINE}.bb` recipe.<!--there are two includes here? is there a sequence?-->  <!---Is one part of or dependent on the other?--->
+- **`meta-mbl-bsp-common`**. This MBL layer contains the generic ATF recipe support `atf.inc` which is used by the target-specific `atf-${MACHINE}.bb` recipe.
 - **`meta-linaro-mbl/meta-optee`**. This MBL staging layer provides the `optee*.bbappend` customization recipes.
 - **`meta-optee`**. The community layer provides:
     - `optee-os.bb` for building the OP-TEE OS.
@@ -717,7 +717,7 @@ shown in [Figure 4.0](../develop-mbl/4-0-bsp-recipe-relationships.html#figure-4-
   defines the U-Boot boot script file to be `boot.cmd` by default.
 
 
-The `kernel-fitimage.bbclass` member functions are:
+The main `kernel-fitimage.bbclass` member functions are:
 - `__anonymous()`. This is an initialization function for the class that executes after parsing (the class constructor).
 - `fitimage_emit_section_setup()`. Helper function to write the setup section in the FIT image `fit-image.its` file.
 - `fitimage_emit_section_ramdisk()`. Helper function to write the `initramfs` section in the FIT image `fit-image.its` file.
@@ -733,7 +733,7 @@ The key `${MACHINE}.conf` symbols controlling FIT image creation are as follows:
 
 - `KERNEL_CLASSES`. Setting this symbol to `"mbl-fitimage"` results in the inclusion of `mbl-fitimage.bbclass` in the `kernel.bbclass` hierarchy as
   shown in [Figure 7.3](#figure-7-3). The processing is then hooked into the build.
-- `UBOOT_SIGN_ENABLE`. Setting this symbol results adds signing headers to the FIT image, according to MBL requirements.
+- `UBOOT_SIGN_ENABLE`. Setting this symbol adds signing headers to the FIT image, according to MBL requirements.
 
 The `mbl-fitimage.bbclass` member functions of interest are described briefly below:
 - `fitimage_emit_section_boot_script()`. Helper function to write the boot script `fit-image.its` section, which incorporates the U-Boot `boot.cmd` file into the FIT image as the `boot.scr`.
@@ -760,7 +760,7 @@ ATF is dependent on U-Boot and the Linux kernel because:
   OP-TEE-Linux kernel inter-communication using overlays. ATF packages OP-TEE in the FIP image, whereas the kernel is packaged
   into the FIT image by `mbl-fitimage`.
 
-The `atf.inc` dependency on the `virtual/bootloader` and `virtual/kernel` providers is created with:
+The `atf.inc` dependency on the `virtual/bootloader` and `virtual/kernel` providers is created with a line in `atf.inc`:
 
     do_compile[depends] += " virtual/kernel:do_deploy virtual/bootloader:do_deploy optee-os:do_deploy"
 
