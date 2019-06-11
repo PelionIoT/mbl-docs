@@ -1,4 +1,4 @@
-# Troubleshooting
+# Frequently asked questions
 
 ## Where can I find more information about container configuration?
 
@@ -9,7 +9,10 @@
 
 If you experience issues running your containerized application on your MBL device, you can:
 
-- To investigate issues with the rootfs or `config.json`: edit them, then run the application using the device's application lifecycle script (which you can install from)<!--how do I install it?-->: `mbl-app-lifecycle-manager -v run user-sample-app-package`
+- To investigate issues with the rootfs or `config.json`: edit them, then run the application using the device's application lifecycle script (which you can run with the [MBL CLI shell](../develop-apps/usage.html#remote-command-execution)):
+
+    `mbl-app-lifecycle-manager -v run user-sample-app-package`
+
 - Review the application logs in `/var/log/app/user-sample-app-package.log`, where `user-sample-app-package` is the name of your app.
 
 ## Can I containerize applications if I can't use Docker?
