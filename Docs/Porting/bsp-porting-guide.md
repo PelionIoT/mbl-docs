@@ -8,8 +8,8 @@ Porting a BSP centers on configuring the secure boot software components, so the
 
 - **Trusted Firmware for Cortex-A (TF-A)**: Use Trusted Firmware in v7A AArch32 and v8A AArch64 secure boot processes. TF-A artifacts include the second-stage boot loader  BL2, and the Firmware Image Package (FIP) containing third-stage boot loaders BL3x and certificates.
 - **Open Platform Trusted Execution Environment (OP-TEE)**: This is the OS with trusted applications running in the TrustZone secure world, and is packaged as BL32 in the FIP image.
-- **U-Boot**: U-Boot is the Normal world boot loader for loading Rich OS. This is packaged as BL33 inside the FIP image.
-- **Linux kernel**: The Linux kernel is the Normal world Rich OS. The kernel image is packaged with the device tree binaries and initial RAM file system in a Flattened Image Tree (FIT) image.
+- **U-Boot**: U-Boot is the Normal world boot loader for loading a Rich OS. This is packaged as BL33 inside the FIP image.
+- **Linux kernel**: The Linux kernel is the Normal world Rich OS kernel. The kernel image is packaged with the device tree binaries and initial RAM file system in a Flattened Image Tree (FIT) image.
 
 This document's structure follows the work process:
 
@@ -17,7 +17,7 @@ This document's structure follows the work process:
 
 * [Section 2](../develop-mbl/2-0-system-architecture.html) describes the relevant system architecture of [AArch32](#fig2-2-1) and [AArch64](#fig2-2-2) secure boot flows, partitioning build artifacts between `BL2`, FIP and FIT images, and the flash partition layout for updating firmware.
 
-* [Section 3](../develop-mbl/3-0-overview-of-mbl-yocto-meta-layers.html) provides a top-down overview of the Yocto meta-layers in MBL development workspaces for BSP, including a [software stack diagram](#figure-3.7) showing how recipes from different layers collaborate.
+* [Section 3](../develop-mbl/3-0-overview-of-mbl-yocto-meta-layers.html) provides a top-down overview of the Yocto meta-layers in an MBL workspace for BSP development, including a [software stack diagram](#figure-3.7) showing how recipes from different layers collaborate.
 
 * [Section 4](../develop-mbl/4-0-bsp-recipe-relationships.html) provides an overview of `${MACHINE}.conf`, ATF, OP-TEE, U-Boot and `linux` recipe relationships using a [UML diagram](../develop-mbl/4-0-bsp-recipe-relationships.html#figure-4-0).
 
@@ -64,11 +64,11 @@ This section defines terminology used throughout this document.
     BL2                 Second-stage bootloader. This is based on TF-A running at EL3 when the Memory Management Unit (MMU)
                         is switched off. BL2 loads the FIP image and authenticates FIP content.
     BL31                Third-stage bootloader, part one:
-                          - Secure Monitor running in EL1-SW. This stage enables the MMU.
+                          - For example, Secure Monitor running in EL1-SW. This stage enables the MMU.
     BL32                Third-stage bootloader, part two:
-                          - OP-TEE, the secure world OS. This typically switches to Normal world.
+                          - For example, OP-TEE, the secure world OS. This typically switches to Normal world.
     BL33                Third-stage bootloader, part three:
-                          - U-Boot, the Normal world bootloader.
+                          - For example, U-Boot, the Normal world bootloader.
                           - Also referred to as non-trusted world firmware (NT-FW).
     DTB                 Device tree binary
     EL                  Execution level
@@ -241,7 +241,7 @@ For more information, please refer to the [Trusted Board Boot Requirements CLIEN
 | Config 1 & 2 | Non-volatile configuration data is saved to the active config partition. Two partitions are used, to allow an update to modify configuration data while maintaining a fallback to the old data if an update fails. In most cases, configuration data is just copied between banks during an update. |
 | Factory Config | A single partition for configuration data written during the manufacturing process. When manufacturing is complete, the partition is modified to being read-only. |
 | Log | A single partition for log files. |
-| Scratch | `/scratch` directory mounted to this partition. Used for saving potentially large temporary files such as downloaded firmware files. Note that `/tmp` is used in a similar manner, but is mapped to the RAM file system where there are greater restrictions on file size. |
+| Scratch | `/scratch` directory mounted to this partition. Used for saving potentially large temporary files such as downloaded firmware files. Note that `/tmp` is used in a similar manner, but is mapped to the RAM file system where there is less file storage available. |
 | Home | `/home` directory mounted to this partition. Used for user space application storage. |
 
 
@@ -606,7 +606,7 @@ symbol to the actual recipe (package) name:
 
     PREFERRED_PROVIDER_virtual/bootloader="u-boot-fslc"
 
-[Figure 4.0](../develop-mbl/4-0-bsp-recipe-relationships.html#figure-4-0) shows the `[soc-family].inc` recipe included by `${machine}.conf`
+[Figure 4.0](../develop-mbl/4-0-bsp-recipe-relationships.html#figure-4-0) shows it is the `[soc-family].inc` recipe included by `${machine}.conf`
 that specifies the virtual providers for the U-Boot and kernel components.
 `[soc-family].inc` is an include file containing target SoC symbol definitions common to a family of processors, and may be used in
 more than one `${machine}.conf`. For example:
