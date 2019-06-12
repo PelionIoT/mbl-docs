@@ -185,7 +185,7 @@ For steps 1-6, the boot flow for AArch64 is the same as the AArch32 boot flow de
 
 The secure boot chain process is now complete.
 
-See the [Basic Signing Flow document](basic-signing-flow.md##-a-name-section-2-1-a-2-1-the-generic-tf-a-secure-boot-chain) for a more detailed description of the AArch64 secure boot flow.
+See the [Basic Signing Flow document](https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.7/docs/basic-signing-flow.md#-a-name-section-2-1-a-2-1-the-generic-tf-a-secure-boot-chain) for a more detailed description of the AArch64 secure boot flow.
 
 ## <a name="section-2-3"></a> 2.3 Partitioning software components into FIP/FIT images
 
@@ -267,7 +267,7 @@ The MBL workspace contains Yocto community and MBL meta-layers needed to build M
 - **Distro layers**, which contain the configuration file (`mbl.conf`) for the distribution (for example, `meta-mbl-distro`).
 - **General purpose layers**, which contain metadata and recipes for applications (for example, `meta-mbl-apps`).
 
-MBL introduces the additional **staging layer**. The staging layer provides a logical place where MBL-originated `.bb` and `.bbappend` recipes relating to a community layer can be stored prior to upstreaming, or if the meta-data cannot be upstreamed, maintained for the MBL distribution.
+MBL introduces the additional **staging layer**. The staging layer provides a logical place where MBL-originated `.bb` and `.bbappend` recipes relating to a community layer can be stored prior to upstreaming, or if the metadata cannot be upstreamed, maintained for the MBL distribution.
 
 To introduce the community and MBL meta-layers used in MBL, [Section 3.2](#section-3-2) offers a concrete example of layers used in the `raspberrypi3-mbl` workspace. The distribution and general purpose layers are only briefly mentioned, whereas BSP layers are described in more detail.
 
@@ -767,7 +767,7 @@ before the `atf.inc do_compile()` method runs, so they are available for the ATF
 <span class="notes">**Note:** `atf.inc` expects the `virtual/bootloader`, `virtual/kernel` and `optee*` artifacts on which it depends to be deployed to the `DEPLOY_DIR_IMAGE-${DEPLOY_DIR}/images/${MACHINE}/` directory. For the `imx7s-warp-mbl` target this directory is: `<workspace_root>/build-mbl/tmp-mbl-glibc/deploy/images/imx7s-warp-mbl`</span>
 
 If required, ATF generates a ROT key pair used for signing artifacts. The ROT private key is also stored in the above directory. For more details about ATF root of trust key generation
-and signing, see the [Mbed Linux OS Basic Signing Flow][basic-signing-flow.md].
+and signing, see the [Mbed Linux OS Basic Signing Flow][https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.7/docs/basic-signing-flow.md].
 
 ## <a name="section-8-2"></a> 8.2 Details of the `meta-[soc-vendor]-mbl` ATF `atf-${MACHINE}.bb` recipe
 
@@ -1068,7 +1068,7 @@ This section provides a summary of the tasks required to integrate a pre-existin
 [atf-doc-plat-imx8-rst]:https://github.com/ARM-software/arm-trusted-firmware/blob/master/docs/plat/imx8.rst
 [atf-doc-plat-rpi3-rst]:https://github.com/ARM-software/arm-trusted-firmware/blob/master/docs/plat/rpi3.rst
 [atf-doc-plat-porting-guide]:https://github.com/ARM-software/arm-trusted-firmware/blob/master/docs/getting_started/porting-guide.rst
-[basic-signing-flow.md]:./basic-signing-flow.md
+[basic-signing-flow.md]:https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.7/docs/basic-signing-flow.md
 [linaro-connect-las16-402-slides]:https://connect.linaro.org/resources/las16/las16-402/
 [meta-linaro]:https://git.linaro.org/openembedded/meta-linaro.git/tree/
 [meta-mbl]:https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.7
