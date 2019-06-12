@@ -69,7 +69,7 @@ This section defines terminology used throughout this document.
                           - For example, OP-TEE, the secure world OS. This typically switches to Normal world.
     BL33                Third-stage bootloader, part three:
                           - For example, U-Boot, the Normal world bootloader.
-                          - Also referred to as non-trusted world firmware (NT-FW).
+                          - Also referred to as Non-Trusted world firmware (NT-FW).
     DTB                 Device tree binary
     EL                  Execution level
     FIP                 Firmware image package. This is a "simple filesystem" for
@@ -185,7 +185,7 @@ For steps 1-6, the boot flow for AArch64 is the same as the AArch32 boot flow de
 
 The secure boot chain process is now complete.
 
-See the [Basic Signing Flow document](basic-signing-flow.md##-a-name-section-2-1-a-2-1-the-generic-tf-a-secure-boot-chain) for a more detailed description of the AArch64 secure boot flow.<!--we determined this wasn't ready for publishing, so I can't link to the doc on the docs site. Should we remove the link, or link to GitHub?0-->
+See the [Basic Signing Flow document](basic-signing-flow.md##-a-name-section-2-1-a-2-1-the-generic-tf-a-secure-boot-chain) for a more detailed description of the AArch64 secure boot flow.
 
 ## <a name="section-2-3"></a> 2.3 Partitioning software components into FIP/FIT images
 
@@ -542,13 +542,13 @@ This section describes the main BSP recipe relationships using a UML diagram. Th
 
 
 [Figure 4.0](../develop-mbl/4-0-bsp-recipe-relationships.html#figure-4-0) illustrates the key relationships between important recipe and configuration packages in a UML diagram.
-The model captures an abstract understanding of how the different recipe components fit together to control the MBL build for any target. 
+The model captures an abstract understanding of how the different recipe components fit together to control the MBL build for any target.
 
 Note that an entity's color indicates the layer in which it resides and follows the same color coding used in [Figure 3.7](#figure-3.7).
 
 The `${MACHINE}.conf` is the top level control file specifying how the key boot components (ATF, OP-TEE, U-Boot and Linux) form
 a working bootchain. It includes the `${machine}.conf` supplied by the `meta-[soc-vendor]` BSP layer, which in turn includes `[soc-family].inc`.
-For more information on `${MACHINE}.conf`, `${machine}.conf` and `[soc-family].inc`, see [Section 5.0](../develop-mbl/5-0-machine-configuration-files.html). 
+For more information on `${MACHINE}.conf`, `${machine}.conf` and `[soc-family].inc`, see [Section 5.0](../develop-mbl/5-0-machine-configuration-files.html).
 
 The `[soc-family].inc` specifies the U-Boot recipe by setting `PREFERRED_PROVIDER_virtual/bootloader = u-boot-XXXX`.
 The `u-boot*.bb` base recipe controls building U-Boot as the bootloader, subject to machine configuration file settings.
@@ -581,9 +581,9 @@ The key symbols modified in `${MACHINE}.conf` are as follows:
 - `KERNEL_IMAGETYPE = "fitImage"`. This symbol customizes `kernel.bbclass` processing to generate a FIT image rather than a zImage, for example.
 - `KERNEL_DEVICETREE = "XXX"`. This symbol definition is used to specify additional device trees that can be included in the FIT image.
 - `UBOOT_ENTRYPOINT = "0xabcdefab"`. This symbol specifies the U-Boot entry point called by OP-TEE, for example.
-- `UBOOT_DTB_LOADADDRESS = "0xabcdefab"`. This symbol specifies the memory address where the U-Boot DTB will be loaded into memory.
+- `UBOOT_DTB_LOADADDRESS = "0xabcdefab"`. This symbol specifies the memory address where the U-Boot DTB is loaded into memory.
 - `UBOOT_SIGN_ENABLE = "1"`. This symbol enables FIT image signing of subcomponents by `u-boot-mkimage`.
-- `WKS_FILE = "${MACHINE}.wks"`. This symbol specifies which the WIC kickstart file defining the target partition layout.
+- `WKS_FILE = "${MACHINE}.wks"`. This symbol specifies the WIC kickstart file defining the target partition layout.
    See "Creating Partitioned Images Using Wic" in [Yocto Mega Manual][yocto-mega-manual-latest] and [Section 2.4](../develop-mbl/2-0-system-architecture.html#2-4-flash-partition-layout) for more details.
 
 [Section 2.3 Partitioning software components into FIP/FIT image](../develop-mbl/2-0-system-architecture.html#2-3-partitioning-software-components-into-fip-fit-images) specifies that the Linux kernel image
@@ -704,7 +704,7 @@ shown in [Figure 4.0](../develop-mbl/4-0-bsp-recipe-relationships.html#figure-4-
   write FIT image specification metadata sections in the fit-image description file (`fit-image.its`).
   The `fit_image_assemble()` member function is then used to generate the FIT image according to the `fit-image.its` specification.
   If `UBOOT_SIGN_ENABLE` is set (as is the case in MBL `${MACHINE}.conf` files), the `assemble` function signs the newly generated image (again using `uboot-mkimage`).
-  Processing is hooked into the build by the class promoting certain member functions to task entry points. 
+  Processing is hooked into the build by the class promoting certain member functions to task entry points.
 
 - **`kernel-uboot.bbclass`**. This class is used to post-process the kernel image using the `objcopy` tool.
 - **`uboot-sign.bbclass`**. This class is not used for signing because `mbl-fitimage.bbclass` processing is used instead.
@@ -767,7 +767,7 @@ before the `atf.inc do_compile()` method runs, so they are available for the ATF
 <span class="notes">**Note:** `atf.inc` expects the `virtual/bootloader`, `virtual/kernel` and `optee*` artifacts on which it depends to be deployed to the `DEPLOY_DIR_IMAGE-${DEPLOY_DIR}/images/${MACHINE}/` directory. For the `imx7s-warp-mbl` target this directory is: `<workspace_root>/build-mbl/tmp-mbl-glibc/deploy/images/imx7s-warp-mbl`</span>
 
 If required, ATF generates a ROT key pair used for signing artifacts. The ROT private key is also stored in the above directory. For more details about ATF root of trust key generation
-and signing, see the [Mbed Linux OS Basic Signing Flow][basic-signing-flow.md].<!--this won't lead anywhere - it's not published, and this link is realtive to the MBL code repo-->
+and signing, see the [Mbed Linux OS Basic Signing Flow][basic-signing-flow.md].
 
 ## <a name="section-8-2"></a> 8.2 Details of the `meta-[soc-vendor]-mbl` ATF `atf-${MACHINE}.bb` recipe
 
@@ -895,15 +895,15 @@ This section will discuss the `meta-freescale` and `meta-freescale-3rdparty` ent
     - `UBOOT_DTB_LOADADDRESS = "0x83000000"`. This is the location where the U-Boot DTD is loaded into memory.
     - `UBOOT_IMAGE = "mbl-u-boot.bin"` This is the name of the U-Boot image.
     - `UBOOT_SIGN_ENABLE = "1"`. This enables verified boot signing.
-- **`imx7s-warp.conf`**. This is the `meta-[soc-vendor]=meta-freescale-3rdparty` machine configuration file which provides the base BSP support for the NXP Warp7 target.
+- **`imx7s-warp.conf`**. This is the `meta-[soc-vendor]=meta-freescale-3rdparty` machine configuration file that provides the base BSP support for the NXP Warp7 target.
 - **`imx-base.inc`<a name="soc-family-inc-imxbase.inc"></a>**. This is an example of the `[soc-family].inc` file and gives the virtual provider definitions:
     - `PREFERRED_PROVIDER_virtual/bootloader="u-boot-fslc"`.
     - `PREFERRED_PROVIDER_virtual/kernel="linux-fslc"`.
 - **`linux-fslc_${PV}.bb`**. This is the Freescale NXP community maintained mainline Linux kernel BSP recipe with backported features and fixes.
   The package version symbol `${PV}` is periodically updated to the next Linux kernel stable release version, for example, 4.9, 4.14, 4.19.
-- **`linux-fslc.inc`**. This is a common include file for `linux-fslc*` recipes which specifies a Linux kernel default config, common dependencies
+- **`linux-fslc.inc`**. This is a common include file for `linux-fslc*` recipes that specifies a Linux kernel default config, common dependencies
   and the inclusion of the `imx-base.inc` include file.
-- **`linux-imx.inc`**. This  is the common include file for IMX SoCs which encapsulates the interface to the `openembedded-core .bbclasses`, including
+- **`linux-imx.inc`**. This is the common include file for IMX SoCs that encapsulates the interface to the `openembedded-core .bbclasses`, including
   `kernel.bbclass`.
 - **`u-boot-fslc_${PV}.bb`**. This is the Freescale NXP community maintained mainline U-Boot BSP recipe with backported features and fixes.
   The package version symbol `${PV}` is periodically updated to the next U-Boot stable release version, for example, 2018.07, 2018.11.
@@ -1015,7 +1015,7 @@ This section provides a summary of the tasks required to integrate a pre-existin
     - Set `SRCREV` and `SRC_URI` for ported U-Boot.
     - Apply patches.
     - Fix DTB issues.
-    - Upstream the `u-boot*.bbappend` recipe and associated files to `https://github.com/ARMmbed/meta-mbl`.
+    - Upstream the `u-boot*.bbappend` recipe and associated files to `https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.7`.
 - Create the `linux*.bbappend` file:
     - Resolve licensing issues.
     - Upstream the Linux kernel `new-target` port to `git://git.linaro.org/landing-teams/working/mbl/linux.git`.
@@ -1027,16 +1027,16 @@ This section provides a summary of the tasks required to integrate a pre-existin
     - Resolve licensing issues.
     - Upstream the linux-firmware binary files to `git://git.linaro.org/landing-teams/working/mbl/linux-firmware.git`.
     - Modify `meta-mbl/openembedded-core-mbl/meta/recipes-kernel/linux-firmware/linux-firmware_%.bbappend` as required.
-    - Upstream modified `linux-firmware_%.bbappend` recipe to `https://github.com/ARMmbed/meta-mbl`.
+    - Upstream modified `linux-firmware_%.bbappend` recipe to `https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.7`.
 - Create the `optee-os.bbappend` recipe for building OP-TEE for the new target:
     - Resolve licensing issues.
     - Upstream the OP-TEE `new-target` port to `git://git.linaro.org/landing-teams/working/mbl/optee_os.git`.
-    - Upstream the `optee-os.bbappend` recipe and associated files to `https://github.com/ARMmbed/meta-mbl`.
+    - Upstream the `optee-os.bbappend` recipe and associated files to `https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.7`.
 - Create the `atf-new-target-mbl.bb` recipe for building ATF for the new target:
     - Resolve licensing issues.
     - Upstream the ATF `new-target` port to `git://git.linaro.org/landing-teams/working/mbl/arm-trusted-firmware.git` or to
       `https://github.com/ARM-software/arm-trusted-firmware`.
-    - Upstream modified `atf-new-target-mbl.bb` recipe to `https://github.com/ARMmbed/meta-mbl`.
+    - Upstream modified `atf-new-target-mbl.bb` recipe to `https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.7`.
 - Create the ${MACHINE}.conf` file called `new-target-mbl.conf`:
     - Resolve licensing issues.
     - Define `PREFERRED_PROVIDER_virtual/atf = "atf-${MACHINE}`
@@ -1047,13 +1047,13 @@ This section provides a summary of the tasks required to integrate a pre-existin
     - Define `UBOOT_DTB_LOADADDRESS = "0xabcdefab"` as required.
     - Define `UBOOT_SIGN_ENABLE = "1"`
     - Define `WKS_FILE=${MACHINE}.wks`.
-    - Upstream the `new-target-mbl.conf` machine configuration file to `https://github.com/ARMmbed/meta-mbl`.
-    - Upstream the `new-target-mbl.wks` to `https://github.com/ARMmbed/meta-mbl/`.
+    - Upstream the `new-target-mbl.conf` machine configuration file to `https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.7`.
+    - Upstream the `new-target-mbl.wks` to `https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.7`.
 
 # <a name="section-11-0"></a> 11.0 References
 
 * [ARM Trusted Firmware Platform Porting Guide][atf-doc-plat-porting-guide].
-<!--* [Mbed Linux OS Basic Signing Flow][basic-signing-flow.md]. removing this, since we said it's not ready to be published-->
+* [Mbed Linux OS Basic Signing Flow][https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.7/docs/basic-signing-flow.md].
 * [OP-TEE documentation][optee-docs]
 * [Embedded Linux Systems with the Yocto Project (Pearson Open Source Software Development Series) 1st Edition, Rudolf J. Streif,  ISBN-13: 978-0133443240 ISBN-10: 0133443248][strief-2016].
 * [Linaro Connect 2016 Presentation LAS16-402 showing boot flow diagrams][linaro-connect-las16-402-slides].
@@ -1071,7 +1071,7 @@ This section provides a summary of the tasks required to integrate a pre-existin
 [basic-signing-flow.md]:./basic-signing-flow.md
 [linaro-connect-las16-402-slides]:https://connect.linaro.org/resources/las16/las16-402/
 [meta-linaro]:https://git.linaro.org/openembedded/meta-linaro.git/tree/
-[meta-mbl]:https://github.com/armmbed/meta-mbl
+[meta-mbl]:https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.7
 [meta-openembedded]:https://github.com/openembedded/meta-openembedded
 [meta-raspberrypi]:http://git.yoctoproject.org/cgit/cgit.cgi/meta-raspberrypi/
 [meta-virtualization]:http://git.yoctoproject.org/cgit/cgit.cgi/meta-virtualization/
