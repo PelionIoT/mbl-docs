@@ -4,7 +4,7 @@
 
 This document details how to port an existing ARM Cortex-A board support package (BSP) to Mbed Linux OS (MBL), enabling the platform's software stack for security, connection to Pelion Device Management, and firmware update.
 
-Porting BSP centers on configuring the secure boot software components, so the correct artifacts appear on the right flash partitions for update:
+Porting a BSP centers on configuring the secure boot software components, so the correct artifacts appear on the right flash partitions for update:
 
 - **Trusted Firmware for Cortex-A (TF-A)**: Use Trusted Firmware in v7A AArch32 and v8A AArch64 secure boot processes. TF-A artifacts include the second-stage boot loader  BL2, and the Firmware Image Package (FIP) containing third-stage boot loaders BL3x and certificates.
 - **Open Platform Trusted Execution Environment (OP-TEE)**: This is the OS with trusted applications running in the TrustZone secure world, and is packaged as BL32 in the FIP image.
@@ -119,7 +119,7 @@ This section defines terminology used throughout this document.
 A summary of the key BSP system architecture:
 
 - **Security:** Trusted Firmware for Cortex-A provides a generic solution for authenticating software components.
-- **Firmware Update:** Pelion Device Management update service is used to update device firmware. This leads to a flash partition layout where trusted firmware, the kernel, the root file system and applications are independently updatable.
+- **Firmware Update:** Pelion Device Management Update service is used to update device firmware. This leads to a flash partition layout where trusted firmware, kernel, root file system and applications are independently updatable.
 - **Reuse:** Where possible, suitable existing solutions and software are reused to leverage know-how and speed up time to market.
 
 ## <a name="section-2-2"></a> 2.2 Boot flow
@@ -128,7 +128,7 @@ A summary of the key BSP system architecture:
 
 <span class="images">![fig2-2](assets/TWC_before_NWC.png "Figure 2.2")<span><br>**Figure 2.2:** A summary form of the secure boot chain flow</span></span>
 
-[Figure 2.2](#fig2-2) shows the main entities in the secure bootchain sequence: the Soc Boot ROM, the Trusted Firmware (TF), OP-TEE, U-Boot and the Linux kernel:
+[Figure 2.2](#fig2-2) shows the main entities in the secure bootchain sequence: Soc Boot ROM, Trusted Firmware (TF), OP-TEE, U-Boot and Linux kernel:
 
 1. After the power is turned on, the Soc Boot ROM runs. This is the first-stage boot loader (BL1), which is programmed into the chip during manufacture.
 1. BL1 authenticates the second-stage bootloader, which is Trusted Firmware for Cortex-A (TF-A). TF-A supplies:
@@ -165,7 +165,8 @@ The boot sequence consists of the following events:
 1. BL31 runs BL32 (OP-TEE OS). OP-TEE OS modifies the kernel device tree to communicate shared information between OP-TEE OS and the kernel, for example the address and size of the shared memory buffer that is used OP-TEE OS and the kernel.
 1. BL32 runs U-Boot (change from SW to NW).
 1. BL33 (u-boot) runs kernel.
-1. The secure boot chain process has now completed.<!--is that really a step?-->
+
+The secure boot chain process is now complete.
 
 ### <a name="section-2-2-2"></a> 2.2.2 AArch64 boot flow
 
@@ -178,10 +179,11 @@ The boot sequence consists of the following events:
 For steps 1-6, the boot flow for AArch64 is the same as the AArch32 boot flow described in the previous section. Thereafter, the boot flow differs slightly:
 
 7. BL31 runs BL32, and then blocks waiting for BL32 to complete initialization.
-8. BL32 (Secure Payload, OP-TEE) runs and initializes.<!--initalizes itself, or something else?-->
+8. BL32 (Secure Payload, OP-TEE) runs and initializes.
 9. BL31 (SoC AP Firmware, Secure Monitor) resumes and runs BL33 (Normal World Firmware, U-Boot). BL31 continues to run in the system.
 10. BL33 orchestrates the loading and running of the Rich OS.
-11. The secure boot chain process has now completed.<!--is that really a step-->
+
+The secure boot chain process is now complete.
 
 See the [Basic Signing Flow document](basic-signing-flow.md##-a-name-section-2-1-a-2-1-the-generic-tf-a-secure-boot-chain) for a more detailed description of the AArch64 secure boot flow.<!--we determined this wasn't ready for publishing, so I can't link to the doc on the docs site. Should we remove the link, or link to GitHub?0-->
 
@@ -208,7 +210,7 @@ See the [Basic Signing Flow document](basic-signing-flow.md##-a-name-section-2-1
     1. BL32 (OP-TEE).
     1. BL33 (u-boot).
     1. U-Boot device tree containing the FIT verification public key.
-1. **FIT Image:** `u-boot-mkimage` is used to create the FIT image, which contains:<!--used by what or who?-->
+1. **FIT Image:** Use `u-boot-mkimage` to create the FIT image, which contains:
     1. Linux kernel.
     1. Linux kernel device tree.
     1. `boot.scr`. This is a compiled version of the U-Boot boot script.
@@ -218,7 +220,7 @@ See the [Basic Signing Flow document](basic-signing-flow.md##-a-name-section-2-1
 1. **Rootfs Partition:** This image contains the root filesystem.
 1. **Rootfs_hash Partition:** This image contains the Verity hash tree.
 
-For more information please refer to the [Trusted Board Boot Requirements CLIENT document](#ref-tbbr-client).
+For more information, please refer to the [Trusted Board Boot Requirements CLIENT document](#ref-tbbr-client).
 
 ## <a name="section-2-4"></a> 2.4 Flash partition layout
 
@@ -226,7 +228,7 @@ For more information please refer to the [Trusted Board Boot Requirements CLIENT
 
 <span class="images">![fig2-4](assets/flash_partition_layout.png "Figure 2.4")<span>**Figure 2.4:** The flash partition layout to support update has 2 banks of images.</span></span>
 
-[Figure 2.4](#fig2-4) shows the flash partition layout, where the function of each of the partitions is described in the table below.
+[Figure 2.4](#fig2-4) shows the flash partition layout, and the function of each partition is described in the table below.
 
 | Partition | Usage |
 | --- | --- |
@@ -242,7 +244,6 @@ For more information please refer to the [Trusted Board Boot Requirements CLIENT
 | Scratch | `/scratch` directory mounted to this partition. Used for saving potentially large temporary files such as downloaded firmware files. Note that `/tmp` is used in a similar manner, but is mapped to the RAM file system where there are greater restrictions on file size. |
 | Home | `/home` directory mounted to this partition. Used for user space application storage. |
 
-<!--I think "greater restriction" can be confusing - does it mean I get more or less restricted file sizes?-->
 
 **Table 2.4: Flash partition functional description.**
 
@@ -250,7 +251,7 @@ The flash partitions for the following software components are banked (there are
 
 - BL3 FIP Image.
 - Boot FIT Image.
-- Rootfs.<!--rootfs doesn't normally have a capital R-->
+- Rootfs.
 - Rootfs_Hash.
 - Config.
 
@@ -515,7 +516,7 @@ Each layer is shown horizontally, containing a number of recipe packages and con
     - `u-boot_${PV}.bb`. The top level boilerplate recipe for building the U-Boot bootloader. The package version variable `${PV}` expands to give `u-boot_2018.11.bb`, for example.
     - `u-boot-tools_${PV}.bb`. A recipe for building the U-Boot `mkimage` tool, which can, for example, create and sign FIT images.
 
-      The recipe can build either `mkimage` host or target versions.<!--this list includes both "the recipe can build" and "the recipe can be used to build". Do recipes build?-->
+      You can use the recipe to build either `mkimage` host or target versions.
     - `u-boot-fw_utils_{PV}.bb`. A recipe for building the U-Boot `fw_printenv/fw_setenv/etc` firmware tools for managing the U-Boot environment.
 
         The recipe can build either host or target binaries.
@@ -541,13 +542,13 @@ This section describes the main BSP recipe relationships using a UML diagram. Th
 
 
 [Figure 4.0](../develop-mbl/4-0-bsp-recipe-relationships.html#figure-4-0) illustrates the key relationships between important recipe and configuration packages in a UML diagram.
-The model captures an abstract understanding of how the different recipe components fit together to control the MBL build for any target. <!---Target platform is redundant according to the way we use both words elsewhere in the docs. Which should we go with?--->
+The model captures an abstract understanding of how the different recipe components fit together to control the MBL build for any target. 
 
 Note that an entity's color indicates the layer in which it resides and follows the same color coding used in [Figure 3.7](#figure-3.7).
 
 The `${MACHINE}.conf` is the top level control file specifying how the key boot components (ATF, OP-TEE, U-Boot and Linux) form
 a working bootchain. It includes the `${machine}.conf` supplied by the `meta-[soc-vendor]` BSP layer, which in turn includes `[soc-family].inc`.
-For more information on `${MACHINE}.conf`, `${machine}.conf` and `[soc-family].inc`, see [Section 5.0](../develop-mbl/5-0-machine-configuration-files.html). <!---More double include here--->
+For more information on `${MACHINE}.conf`, `${machine}.conf` and `[soc-family].inc`, see [Section 5.0](../develop-mbl/5-0-machine-configuration-files.html). 
 
 The `[soc-family].inc` specifies the U-Boot recipe by setting `PREFERRED_PROVIDER_virtual/bootloader = u-boot-XXXX`.
 The `u-boot*.bb` base recipe controls building U-Boot as the bootloader, subject to machine configuration file settings.
@@ -703,7 +704,7 @@ shown in [Figure 4.0](../develop-mbl/4-0-bsp-recipe-relationships.html#figure-4-
   write FIT image specification metadata sections in the fit-image description file (`fit-image.its`).
   The `fit_image_assemble()` member function is then used to generate the FIT image according to the `fit-image.its` specification.
   If `UBOOT_SIGN_ENABLE` is set (as is the case in MBL `${MACHINE}.conf` files), the `assemble` function signs the newly generated image (again using `uboot-mkimage`).
-  The processing is hooked into the build by the class promoting certain member functions to tasks entry-points. <!---I can't parse this sentence--->
+  Processing is hooked into the build by the class promoting certain member functions to task entry points. 
 
 - **`kernel-uboot.bbclass`**. This class is used to post-process the kernel image using the `objcopy` tool.
 - **`uboot-sign.bbclass`**. This class is not used for signing because `mbl-fitimage.bbclass` processing is used instead.
