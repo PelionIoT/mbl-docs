@@ -39,7 +39,7 @@ This document's structure follows the work process:
 
 MBL uses Yocto, BitBake, `openembedded-core` and third-party meta-layers to compose the development and build workspace.
 
-We recommend reading [Embedded Linux Systems with the Yocto Project][strief-2016] first, then the [Yocto Mega Manual][yocto-mega-manual-latest], as well as the [Yocto Project Board Support Package (BSP) Developer's Guide][yocto-project-board-support-package-bsp-seveloper-guide-latest].
+We recommend reading [Embedded Linux Systems with the Yocto Project][strief-2016] first, then the [Yocto Mega Manual][yocto-mega-manual-latest], as well as the [Yocto Project Board Support Package (BSP) Developer's Guide][yocto-project-board-support-package-bsp-developer-guide-latest].
 
 For porting ATF to your target platform, please consult the [ATF porting guide][atf-doc-plat-porting-guide].
 
@@ -185,7 +185,7 @@ For steps 1-6, the boot flow for AArch64 is the same as the AArch32 boot flow de
 
 The secure boot chain process is now complete.
 
-See the [Basic Signing Flow document](https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.7/docs/basic-signing-flow.md#-a-name-section-2-1-a-2-1-the-generic-tf-a-secure-boot-chain) for a more detailed description of the AArch64 secure boot flow.
+See the [Basic Signing Flow document][basic-signing-flow] for a more detailed description of the AArch64 secure boot flow.
 
 ## <a name="section-2-3"></a> 2.3 Partitioning software components into FIP/FIT images
 
@@ -395,7 +395,7 @@ For the community layer `meta-raspberrypi`, the `meta-mbl` repository contains t
 
 Note that an MBL workspace contains all of the meta-layers listed in Table 3.2.2, but the `bblayers*.conf` files configure BitBake to only use the meta-layers needed for the current target and ignore the rest. This is achieved by:
 - `bblayers.conf` only specifying the layers common to all targets.
-- `bblayers.conf` including a target-specific file `bblayers_${MACHINE}.conf`, which specifies the target-specific layers.<!--I may be misparsing this sentence. Does bbylayers.conf **include** the target specific file? -->
+- `bblayers.conf` including a target-specific file `bblayers_${MACHINE}.conf`, which specifies the target-specific layers.
 
 ## <a name="section-3-3"></a> 3.3 BSP meta-layers for `imx7d-pico-mbl`
 
@@ -613,7 +613,7 @@ more than one `${machine}.conf`. For example:
 - `[soc-family].inc` specifies the U-Boot recipe by setting `PREFERRED_PROVIDER_virtual/bootloader = u-boot-XXXX`.
 - `[soc-family].inc` specifies the Linux kernel recipe by setting `PREFERRED_PROVIDER_virtual/kernel = linux-XXXX`.
 
-See [`imx-base.inc`](#soc-family-inc-imxbase.inc) for an example of the `[soc-family].inc` recipe.
+See [imx-base.inc](#soc-family-inc-imxbase.inc) for an example of the `[soc-family].inc` recipe.
 
 # <a name="section-6-0"></a> 6.0 `u-boot*`
 
@@ -767,7 +767,7 @@ before the `atf.inc do_compile()` method runs, so they are available for the ATF
 <span class="notes">**Note:** `atf.inc` expects the `virtual/bootloader`, `virtual/kernel` and `optee*` artifacts on which it depends to be deployed to the `DEPLOY_DIR_IMAGE-${DEPLOY_DIR}/images/${MACHINE}/` directory. For the `imx7s-warp-mbl` target this directory is: `<workspace_root>/build-mbl/tmp-mbl-glibc/deploy/images/imx7s-warp-mbl`</span>
 
 If required, ATF generates a ROT key pair used for signing artifacts. The ROT private key is also stored in the above directory. For more details about ATF root of trust key generation
-and signing, see the [Mbed Linux OS Basic Signing Flow][https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.7/docs/basic-signing-flow.md].
+and signing, see the [Mbed Linux OS Basic Signing Flow][basic-signing-flow].
 
 ## <a name="section-8-2"></a> 8.2 Details of the `meta-[soc-vendor]-mbl` ATF `atf-${MACHINE}.bb` recipe
 
@@ -1015,7 +1015,7 @@ This section provides a summary of the tasks required to integrate a pre-existin
     - Set `SRCREV` and `SRC_URI` for ported U-Boot.
     - Apply patches.
     - Fix DTB issues.
-    - Upstream the `u-boot*.bbappend` recipe and associated files to `https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.7`.
+    - Upstream the `u-boot*.bbappend` recipe and associated files to `https://github.com/ARMmbed/meta-mbl`.
 - Create the `linux*.bbappend` file:
     - Resolve licensing issues.
     - Upstream the Linux kernel `new-target` port to `git://git.linaro.org/landing-teams/working/mbl/linux.git`.
@@ -1027,16 +1027,16 @@ This section provides a summary of the tasks required to integrate a pre-existin
     - Resolve licensing issues.
     - Upstream the linux-firmware binary files to `git://git.linaro.org/landing-teams/working/mbl/linux-firmware.git`.
     - Modify `meta-mbl/openembedded-core-mbl/meta/recipes-kernel/linux-firmware/linux-firmware_%.bbappend` as required.
-    - Upstream modified `linux-firmware_%.bbappend` recipe to `https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.7`.
+    - Upstream modified `linux-firmware_%.bbappend` recipe to `https://github.com/ARMmbed/meta-mbl`.
 - Create the `optee-os.bbappend` recipe for building OP-TEE for the new target:
     - Resolve licensing issues.
     - Upstream the OP-TEE `new-target` port to `git://git.linaro.org/landing-teams/working/mbl/optee_os.git`.
-    - Upstream the `optee-os.bbappend` recipe and associated files to `https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.7`.
+    - Upstream the `optee-os.bbappend` recipe and associated files to `https://github.com/ARMmbed/meta-mbl`.
 - Create the `atf-new-target-mbl.bb` recipe for building ATF for the new target:
     - Resolve licensing issues.
     - Upstream the ATF `new-target` port to `git://git.linaro.org/landing-teams/working/mbl/arm-trusted-firmware.git` or to
       `https://github.com/ARM-software/arm-trusted-firmware`.
-    - Upstream modified `atf-new-target-mbl.bb` recipe to `https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.7`.
+    - Upstream modified `atf-new-target-mbl.bb` recipe to `https://github.com/ARMmbed/meta-mbl`.
 - Create the ${MACHINE}.conf` file called `new-target-mbl.conf`:
     - Resolve licensing issues.
     - Define `PREFERRED_PROVIDER_virtual/atf = "atf-${MACHINE}`
@@ -1047,19 +1047,19 @@ This section provides a summary of the tasks required to integrate a pre-existin
     - Define `UBOOT_DTB_LOADADDRESS = "0xabcdefab"` as required.
     - Define `UBOOT_SIGN_ENABLE = "1"`
     - Define `WKS_FILE=${MACHINE}.wks`.
-    - Upstream the `new-target-mbl.conf` machine configuration file to `https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.7`.
-    - Upstream the `new-target-mbl.wks` to `https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.7`.
+    - Upstream the `new-target-mbl.conf` machine configuration file to `https://github.com/ARMmbed/meta-mbl`.
+    - Upstream the `new-target-mbl.wks` to `https://github.com/ARMmbed/meta-mbl`.
 
 # <a name="section-11-0"></a> 11.0 References
 
 * [ARM Trusted Firmware Platform Porting Guide][atf-doc-plat-porting-guide].
-* [Mbed Linux OS Basic Signing Flow][https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.7/docs/basic-signing-flow.md].
+* [Mbed Linux OS Basic Signing Flow][basic-signing-flow].
 * [OP-TEE documentation][optee-docs]
 * [Embedded Linux Systems with the Yocto Project (Pearson Open Source Software Development Series) 1st Edition, Rudolf J. Streif,  ISBN-13: 978-0133443240 ISBN-10: 0133443248][strief-2016].
 * [Linaro Connect 2016 Presentation LAS16-402 showing boot flow diagrams][linaro-connect-las16-402-slides].
 * <a name="ref-tbbr-client"></a> Trusted Board Boot Requirements CLIENT (TBBR-CLIENT), Document number: ARM DEN0006C-1, Copyright ARM Limited 2011-2015.
 * [U-Boot documentation][u-boot].
-* [Yocto Project Board Support Package (BSP) Developer's Guide][yocto-project-board-support-package-bsp-seveloper-guide-latest]
+* [Yocto Project Board Support Package (BSP) Developer's Guide][yocto-project-board-support-package-bsp-developer-guide-latest]
 * [Yocto Mega Manual][yocto-mega-manual-latest].
 
 
@@ -1068,7 +1068,7 @@ This section provides a summary of the tasks required to integrate a pre-existin
 [atf-doc-plat-imx8-rst]:https://github.com/ARM-software/arm-trusted-firmware/blob/master/docs/plat/imx8.rst
 [atf-doc-plat-rpi3-rst]:https://github.com/ARM-software/arm-trusted-firmware/blob/master/docs/plat/rpi3.rst
 [atf-doc-plat-porting-guide]:https://github.com/ARM-software/arm-trusted-firmware/blob/master/docs/getting_started/porting-guide.rst
-[basic-signing-flow.md]:https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.7/docs/basic-signing-flow.md
+[basic-signing-flow]:https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.7/docs/basic-signing-flow.md
 [linaro-connect-las16-402-slides]:https://connect.linaro.org/resources/las16/las16-402/
 [meta-linaro]:https://git.linaro.org/openembedded/meta-linaro.git/tree/
 [meta-mbl]:https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.7
@@ -1080,4 +1080,4 @@ This section provides a summary of the tasks required to integrate a pre-existin
 [strief-2016]:http://book.yoctoprojectbook.com/
 [u-boot]:https://www.denx.de/wiki/view/DULG/UBootCmdGroupExec#Section_5.9.4.2.
 [yocto-mega-manual-latest]:https://www.yoctoproject.org/docs/latest/mega-manual/mega-manual.html
-[yocto-project-board-support-package-bsp-seveloper-guide-latest]:https://www.yoctoproject.org/docs/latest/bsp-guide/bsp-guide.html
+[yocto-project-board-support-package-bsp-developer-guide-latest]:https://www.yoctoproject.org/docs/latest/bsp-guide/bsp-guide.html
