@@ -187,7 +187,6 @@
                 },
                 {
                     "title": "Contribution guidelines",
-
                     "sources": [{
                             "path": "Docs/develop_contribute_mbl/contribution/contribution_guidelines.md"
                         },
@@ -201,6 +200,12 @@
                             "path": "Docs/develop_contribute_mbl/contribution/coding_style_guide_pytest.md"
                         }
                     ]
+                },
+                {
+                    "title": "Board support package porting",
+                    "sources": [{
+                        "path": "Docs/Porting/bsp-porting-guide.md"
+                    }]
                 }
             ]
         },
