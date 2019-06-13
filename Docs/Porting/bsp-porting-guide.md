@@ -516,13 +516,13 @@ Each layer is shown horizontally, containing a number of recipe packages and con
     - `u-boot_${PV}.bb`. The top level boilerplate recipe for building the U-Boot bootloader. The package version variable `${PV}` expands to give `u-boot_2018.11.bb`, for example.
     - `u-boot-tools_${PV}.bb`. A recipe for building the U-Boot `mkimage` tool, which can, for example, create and sign FIT images.
 
-      You can use the recipe to build either `mkimage` host or target versions.
+      You can use the recipe to build either `mkimage` host or target versions:
+
     - `u-boot-fw_utils_{PV}.bb`. A recipe for building the U-Boot `fw_printenv/fw_setenv/etc` firmware tools for managing the U-Boot environment.
 
-        The recipe can build either host or target binaries.
-    - `u-boot-common_${PV}.inc`. This `include` file contains common symbol definitions used by multiple `u-boot*` recipes.
+      The recipe can build either host or target binaries:
 
-      It's included into the `u-boot_${PV}.bb` recipe.
+    - `u-boot-common_${PV}.inc`. This `include` file contains common symbol definitions used by multiple `u-boot*` recipes. It is included in the `u-boot_${PV}.bb` recipe.
     - `kernel-fitimge.bbclass`. See [Section 7.4](../develop-mbl/7-0-linux.html#7-4-kernel-fitimage-bbclass-and-mbl-fitimage-bbclass) for details.
     - `kernel-devicetree.bbclass`. See [Section 7.3](../develop-mbl/7-0-linux.html#7-3-kernel-bbclass-openembedded-core-support) for details.
     - `kernel-uimage.bbclass`. See [Section 7.3](../develop-mbl/7-0-linux.html#7-3-kernel-bbclass-openembedded-core-support) for details.
@@ -540,39 +540,27 @@ This section describes the main BSP recipe relationships using a UML diagram. Th
 **Figure 4.0: The figure shows important configuration and recipe file relationships. `meta-mbl` repo entities are shown in blue, `meta-[soc-vendor]`
   in green, `meta-optee` in orange and `openembedded-core` in yellow.**
 
-
 [Figure 4.0](../develop-mbl/4-0-bsp-recipe-relationships.html#figure-4-0) illustrates the key relationships between important recipe and configuration packages in a UML diagram.
 The model captures an abstract understanding of how the different recipe components fit together to control the MBL build for any target.
 
 Note that an entity's color indicates the layer in which it resides and follows the same color coding used in [Figure 3.7](#figure-3.7).
 
-The `${MACHINE}.conf` is the top level control file specifying how the key boot components (ATF, OP-TEE, U-Boot and Linux) form
-a working bootchain. It includes the `${machine}.conf` supplied by the `meta-[soc-vendor]` BSP layer, which in turn includes `[soc-family].inc`.
-For more information on `${MACHINE}.conf`, `${machine}.conf` and `[soc-family].inc`, see [Section 5.0](../develop-mbl/5-0-machine-configuration-files.html).
+The `${MACHINE}.conf` is the top level control file specifying how the key boot components (ATF, OP-TEE, U-Boot and Linux) form a working bootchain. It includes the `${machine}.conf` supplied by the `meta-[soc-vendor]` BSP layer, which in turn includes `[soc-family].inc`. For more information on `${MACHINE}.conf`, `${machine}.conf` and `[soc-family].inc`, see [Section 5.0](../develop-mbl/5-0-machine-configuration-files.html).
 
-The `[soc-family].inc` specifies the U-Boot recipe by setting `PREFERRED_PROVIDER_virtual/bootloader = u-boot-XXXX`.
-The `u-boot*.bb` base recipe controls building U-Boot as the bootloader, subject to machine configuration file settings.
-For more information on `u-boot*` processing, see [Section 6.0](../develop-mbl/6-0-u-boot.html).
+The `[soc-family].inc` specifies the U-Boot recipe by setting `PREFERRED_PROVIDER_virtual/bootloader = u-boot-XXXX`. The `u-boot*.bb` base recipe controls building U-Boot as the bootloader, subject to machine configuration file settings. For more information on `u-boot*` processing, see [Section 6.0](../develop-mbl/6-0-u-boot.html).
 
-The `[soc-family].inc` specifies the Linux kernel recipe by setting `PREFERRED_PROVIDER_virtual/kernel = linux-XXXX`.
-The `linux*.bb` base recipe controls building `linux` as the kernel, subject to machine configuration file settings.
-For more information on `linux*` processing, see [Section 7.0](../develop-mbl/7-0-linux.html).
+The `[soc-family].inc` specifies the Linux kernel recipe by setting `PREFERRED_PROVIDER_virtual/kernel = linux-XXXX`. The `linux*.bb` base recipe controls building `linux` as the kernel, subject to machine configuration file settings. For more information on `linux*` processing, see [Section 7.0](../develop-mbl/7-0-linux.html).
 
-The `atf-${MACHINE}.bb` is the target specific ATF recipe that controls how the ATF components of the bootchain are built and packaged.
-`atf-${MACHINE}.bb` uses `atf.inc`, which encapsulates the generic ATF processing common to all targets. `atf.inc` uses `optee-os.bb`, which builds
-the OP-TEE component. For more information on `atf-${MACHINE}.bb`, `atf.inc`  and `optee-os.bb` processing, see [Section 8.0](../develop-mbl/8-0-atf-machine-bb.html).
+The `atf-${MACHINE}.bb` is the target specific ATF recipe that controls how the ATF components of the bootchain are built and packaged. `atf-${MACHINE}.bb` uses `atf.inc`, which encapsulates the generic ATF processing common to all targets. `atf.inc` uses `optee-os.bb`, which builds the OP-TEE component. For more information on `atf-${MACHINE}.bb`, `atf.inc`  and `optee-os.bb` processing, see [Section 8.0](../develop-mbl/8-0-atf-machine-bb.html).
 
 # <a name="section-5-0"></a> 5.0 Machine configuration files
 
-This section describes the `${MACHINE}.conf`, `${machine}.conf` and `[soc-family].inc` entities in the BSP recipe relationship UML diagram ([Figure 4.0](../develop-mbl/4-0-bsp-recipe-relationships.html#figure-4-0)).
-The discussion is applicable to all targets.
+This section describes the `${MACHINE}.conf`, `${machine}.conf` and `[soc-family].inc` entities in the BSP recipe relationship UML diagram ([Figure 4.0](../develop-mbl/4-0-bsp-recipe-relationships.html#figure-4-0)). The discussion is applicable to all targets.
 
 ## <a name="section-5-1"></a> 5.1 `${MACHINE}.conf`: The top level BSP control file
 
 [Figure 4.0](../develop-mbl/4-0-bsp-recipe-relationships.html#figure-4-0) illustrates the `${MACHINE}.conf` machine configuration file using a UML class entity with symbols.
-The MBL `meta-[soc-vendor]-mbl ${MACHINE}.conf` file includes the community `meta-[soc-vendor] ${machine}.conf` and customizes key symbols to specify
-how ATF, OP-TEE, U-Boot and `linux` will be built and configured. MBL uses `${MACHINE}.conf` to override and modify the configuration
- specified configuration in `${machine}.conf`.
+The MBL `meta-[soc-vendor]-mbl ${MACHINE}.conf` file includes the community `meta-[soc-vendor] ${machine}.conf` and customizes key symbols to specify how ATF, OP-TEE, U-Boot and `linux` will be built and configured. MBL uses `${MACHINE}.conf` to override and modify the configuration specified configuration in `${machine}.conf`.
 
 The key symbols modified in `${MACHINE}.conf` are as follows:
 - `PREFERRED_PROVIDER_virtual/atf = "atf-${MACHINE}"`. This symbol in `${MACHINE}.conf` specifies which recipe to use to build ATF. The recipe packages bootchain artifacts into the FIP image as specified in [Section 2.3](../develop-mbl/2-0-system-architecture.html#2-3-partitioning-software-components-into-fip-fit-images).
@@ -586,17 +574,14 @@ The key symbols modified in `${MACHINE}.conf` are as follows:
 - `WKS_FILE = "${MACHINE}.wks"`. This symbol specifies the WIC kickstart file defining the target partition layout.
    See "Creating Partitioned Images Using Wic" in [Yocto Mega Manual][yocto-mega-manual-latest] and [Section 2.4](../develop-mbl/2-0-system-architecture.html#2-4-flash-partition-layout) for more details.
 
-[Section 2.3 Partitioning software components into FIP/FIT image](../develop-mbl/2-0-system-architecture.html#2-3-partitioning-software-components-into-fip-fit-images) specifies that the Linux kernel image
-is packaged into a FIT image so the kernel FIT image can be written to a [dedicated partition](../develop-mbl/2-0-system-architecture.html#2-4-flash-partition-layout) and independently updated. FIT image generation is achieved using
-the `linux*`, `kernel.bbclass`, `mbl-fitimage.bbclass` and `kernel-fitimage.bbclass` entities shown in [Figure 4.0](../develop-mbl/4-0-bsp-recipe-relationships.html),
+[Section 2.3 Partitioning software components into FIP/FIT image](../develop-mbl/2-0-system-architecture.html#2-3-partitioning-software-components-into-fip-fit-images) specifies that the Linux kernel image is packaged into a FIT image so the kernel FIT image can be written to a [dedicated partition](../develop-mbl/2-0-system-architecture.html#2-4-flash-partition-layout) and independently updated. FIT image generation is achieved using the `linux*`, `kernel.bbclass`, `mbl-fitimage.bbclass` and `kernel-fitimage.bbclass` entities shown in [Figure 4.0](../develop-mbl/4-0-bsp-recipe-relationships.html),
 and by setting the symbols `KERNEL_CLASSES` and `KERNEL_IMAGETYPE`. See [Section 7.3](../develop-mbl/7-0-linux.html#7-3-kernel-bbclass-openembedded-core-support) and [Section 7.4](../develop-mbl/7-0-linux.html#7-4-kernel-fitimage-bbclass-and-mbl-fitimage-bbclass) for more details.
 
 See [Section 9.1](../develop-mbl/9-0-example-imx7s-warp-mbl-bsp-recipe-package-relationships.html#9-1-example-imx7s-warp-mbl-recipe-package-uml-diagram) for details on the `${MACHINE}.conf` file for `imx7s-warp-mbl`.
 
 ## <a name="section-5-2"></a> 5.2 `${machine}.conf`: The community BSP control file
 
-The `meta-[soc-vendor]` machine configuration files `${machine}.conf` orchestrate U-Boot and kernel creation using
-virtual providers (see the section "Using Virtual Providers" in the [Yocto Mega Manual][yocto-mega-manual-latest]). Virtual providers allow the selection of a specific package recipe from among several providers. For example, consider the case of two `u-boot*` recipes each providing the same package functionality
+The `meta-[soc-vendor]` machine configuration files `${machine}.conf` orchestrate U-Boot and kernel creation using virtual providers (see the section "Using Virtual Providers" in the [Yocto Mega Manual][yocto-mega-manual-latest]). Virtual providers allow the selection of a specific package recipe from among several providers. For example, consider the case of two `u-boot*` recipes each providing the same package functionality
 by declaring they provide the `virtual/bootloader` symbolic package name:
 - `u-boot-fslc.bb` declares its ability to build a boot loader by specifying the virtual provider directive `PROVIDES="virtual/bootloader"`.
 - `u-boot-imx.bb` declares the virtual provider directive `PROVIDES="virtual/bootloader"`.
@@ -607,7 +592,7 @@ symbol to the actual recipe (package) name:
     PREFERRED_PROVIDER_virtual/bootloader="u-boot-fslc"
 
 [Figure 4.0](../develop-mbl/4-0-bsp-recipe-relationships.html#figure-4-0) shows it is the `[soc-family].inc` recipe included by `${machine}.conf`
-that specifies the virtual providers for the U-Boot and kernel components.
+that specifies the virtual providers for the U-Boot and kernel components:
 `[soc-family].inc` is an include file containing target SoC symbol definitions common to a family of processors, and may be used in
 more than one `${machine}.conf`. For example:
 - `[soc-family].inc` specifies the U-Boot recipe by setting `PREFERRED_PROVIDER_virtual/bootloader = u-boot-XXXX`.
@@ -622,15 +607,12 @@ The discussion is applicable to all targets.
 
 ## <a name="section-6-1"></a> 6.1 `u-boot*.bb`: The top level `virtual/bootloader` control recipe
 
-[Figure 4.0](../develop-mbl/4-0-bsp-recipe-relationships.html#figure-4-0) shows the `meta-[soc-vendor]` `u-boot*.bb` recipe used to build the bootloader. As discussed in [Section 5.2](../develop-mbl/5-0-machine-configuration-files.html#5-2-machine-conf-the-community-bsp-control-file), the `[soc-family].inc` defines
-`PREFERRED_PROVIDER_virtual/bootloader = u-boot-XXXX` to specify the boot loader recipe. The nominated boot loader recipe `u-boot-XXXX` (typically present in the `meta-[soc-vendor]` BSP layer)
-expresses its capability of being a `virtual/bootloader` provider by including `PROVIDES=virtual/bootloader` in the recipe. This relationship is expressed in [Figure 4.0](../develop-mbl/4-0-bsp-recipe-relationships.html#figure-4-0) by the dotted-line arrow between `[soc-family].inc` and the interface symbol attached to `u-boot*.bb`.
+[Figure 4.0](../develop-mbl/4-0-bsp-recipe-relationships.html#figure-4-0) shows the `meta-[soc-vendor]` `u-boot*.bb` recipe used to build the bootloader. As discussed in [Section 5.2](../develop-mbl/5-0-machine-configuration-files.html#5-2-machine-conf-the-community-bsp-control-file), the `[soc-family].inc` defines `PREFERRED_PROVIDER_virtual/bootloader = u-boot-XXXX` to specify the boot loader recipe. The nominated boot loader recipe `u-boot-XXXX` (typically present in the `meta-[soc-vendor]` BSP layer) expresses its capability of being a `virtual/bootloader` provider by including `PROVIDES=virtual/bootloader` in the recipe. This relationship is expressed in [Figure 4.0](../develop-mbl/4-0-bsp-recipe-relationships.html#figure-4-0) by the dotted-line arrow between `[soc-family].inc` and the interface symbol attached to `u-boot*.bb`.
 
 ## <a name="section-6-2"></a> 6.2 `u-boot*.bbappend` customization recipe
 
 [Figure 4.0](../develop-mbl/4-0-bsp-recipe-relationships.html#figure-4-0) shows the `meta-[soc-vendor]-mbl` `u-boot*.bbappend` recipe used to
-customize the `meta-[soc-vendor]` BSP layer `u-boot*.bb` recipe as required for MBL. Customization
-typically includes:
+customize the `meta-[soc-vendor]` BSP layer `u-boot*.bb` recipe as required for MBL. Customization typically involves:
 - Setting `SRC_URI` and `SRCREV` to point to a forked and patched version of U-Boot used for the target.
 - Applying additional patches stored in `meta-[soc-vendor]-mbl`.
 - Specifying new values of symbols to customize base recipe behavior.
@@ -643,31 +625,27 @@ The discussion is applicable to all targets.
 
 ## <a name="section-7-1"></a> 7.1 `linux*.bb`: The top level `virtual/kernel` control recipe
 
-[Figure 4.0](../develop-mbl/4-0-bsp-recipe-relationships.html#figure-4-0) shows the `meta-[soc-vendor]` `linux*.bb` base recipe used to
-build the Linux kernel.
+[Figure 4.0](../develop-mbl/4-0-bsp-recipe-relationships.html#figure-4-0) shows the `meta-[soc-vendor]` `linux*.bb` base recipe used to build the Linux kernel.
 
 As discussed in [Section 5.2](../develop-mbl/5-0-machine-configuration-files.html#5-2-machine-conf-the-community-bsp-control-file), the `[soc-family].inc` defines `PREFERRED_PROVIDER_virtual/kernel = linux-XXX` to specify the kernel recipe.
 
-The nominated linux recipe `linux-XXXX` (typically present in the `meta-[soc-vendor]` BSP layer) expresses its capability of being a `virtual/kernel` provider by including `PROVIDES=virtual/kernel`
-in the recipe. This relationship is expressed in [Figure 4.0]() by the dotted-line arrow between `[soc-family].inc` and the interface symbol attached to `linux*.bb`.
+The nominated Linux recipe `linux-XXXX` (typically present in the `meta-[soc-vendor]` BSP layer) expresses its capability of being a `virtual/kernel` provider by including `PROVIDES=virtual/kernel`
+in the recipe. This relationship is expressed in [Figure 4.0](#figure-4-0) by the dotted-line arrow between `[soc-family].inc` and the interface symbol attached to `linux*.bb`.
 
 ## <a name="section-7-2"></a> 7.2 `linux*.bbappend` customization recipe
 
-[Figure 4.0](../develop-mbl/4-0-bsp-recipe-relationships.html#figure-4-0) shows the `meta-[soc-vendor]-mbl` `linux*.bbappend` recipe used to
-customize the `meta-[soc-vendor]` BSP layer `linux*.bb` recipe as required for MBL. Customization
-typically includes:
+[Figure 4.0](../develop-mbl/4-0-bsp-recipe-relationships.html#figure-4-0) shows the `meta-[soc-vendor]-mbl` `linux*.bbappend` recipe used to customize the `meta-[soc-vendor]` BSP layer `linux*.bb` recipe as required for MBL. Customization typically includes:
 - Setting `SRC_URI` and `SRCREV` to point to a forked and patched version of the Linux kernel with the required driver support and fixes.
 - Applying additional patches stored in `meta-[soc-vendor]-mbl`.
 - Specifying the default kernel configuration file to use using the `KBUILD_DEFCONFIG_<machine>` directive, for example, `KBUILD_DEFCONFIG_imx7s-warp-mbl ?= "warp7_mbl_defconfig"`.
-- Merging kernel configuration fragments into the Linux configuration file to enable MBL required kernel configuration, for example, to enable verified boot.
+- Merging kernel configuration fragments into the Linux configuration file to enable MBL-required kernel configuration, for example, to enable verified boot.
 - Setting `INITRAMFS_IMAGE = "mbl-image-initramfs"`, to define the `meta-mbl` recipe for building `initramfs`.
 - Setting `KERNEL_EXTRA_ARGS` to specify extra arguments supplied to the kernel.
 - Setting other symbol values to customize base recipe behavior, for example, to report the current version of the kernel used by the target.
 
 ## <a name="section-7-3"></a> 7.3 `kernel.bbclass` `openembedded-core` support
 
-This section provides detailed discussion of the `openembedded-core` meta-layer that provides support classes and recipes used by
-`linux*.bb` and `linux*.bbappend`.
+This section provides detailed discussion of the `openembedded-core` meta-layer that provides support classes and recipes used by `linux*.bb` and `linux*.bbappend`.
 
 <a name="figure-7-3"></a>
 
@@ -675,12 +653,9 @@ This section provides detailed discussion of the `openembedded-core` meta-layer 
 ![figure-7-3](assets/mbl_oecore_kernel_classes_uml.png "Figure 7.3")
 **Figure 7.3: The figure shows the `openembedded-core` `kernel.bbclass` hierarchy, including `mbl-fitimage`.**
 
-[Figure 7.3](#figure-7-3) shows the UML diagram for the `kernel.bbclass` used to generate the Linux kernel, and how it relates to
-`linux*.bb(append)` and `mbl-fitimage.bbclass`. This is a more detailed representation of the `linux*` hierarchy
-shown in [Figure 4.0](../develop-mbl/4-0-bsp-recipe-relationships.html#figure-4-0), drawn to include more of the underlying `openembedded-core` support for building the kernel.
+[Figure 7.3](#figure-7-3) shows the UML diagram for the `kernel.bbclass` used to generate the Linux kernel, and how it relates to `linux*.bb(append)` and `mbl-fitimage.bbclass`. This is a more detailed representation of the `linux*` hierarchy shown in [Figure 4.0](../develop-mbl/4-0-bsp-recipe-relationships.html#figure-4-0), drawn to include more of the underlying `openembedded-core` support for building the kernel.
 
-- **`linux*`**. This entity represents the `meta-[soc-vendor]` provided recipe for building the kernel. The recipe
-  contains the line `inherit kernel` to inherit the `kernel.bblass` functionality.
+- **`linux*`**. This entity represents the `meta-[soc-vendor]` provided recipe for building the kernel. The recipe contains the line `inherit kernel` to inherit the `kernel.bblass` functionality.
 - **`kernel`**.The `kernel.bbclass` implements the creation of the Linux kernel image (uImage by default).
   As can be seen from the diagram, the class hierarchy is not well composed because `kernel.bbclass` inherits from image specific base classes (such as `kernel-uimage.bbclass`), rather than image specific classes being specialized from a general purpose base class. However, this is a recognized problem and is a result of having to maintain backwards compatibility with an existing code base of working recipes. The general principal is that the infrastructure for generating kernel images has been partitioned into several logical parts coordinated through `kernel.bbclass`.
 - **`linux-kernel-base`**. The `linux-kernel-base.class` provides helper functions to `kernel.bbclass` including extracting the Linux kernel version from `linux/version.h`.
