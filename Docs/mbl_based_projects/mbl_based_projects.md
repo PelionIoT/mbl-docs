@@ -3,8 +3,8 @@
 Mbed Linux OS (MBL) is Yocto-based, so you can use standard Yocto tools and
 approaches to develop projects based on MBL. This document creates a minimal MBL-based project, illustrating an approach that adds packages to the distribution, with and without pre-existing BitBake recipes.
 
-This document assumes familiarity with some core Yocto concepts, and is not intended to replace the [Yocto documentation][yocto-docs]. Please see the
-[Yocto Project Concepts section of the Yocto Mega Manual][yocto-concepts] for an introduction to the core concepts.
+This document assumes familiarity with Yocto concepts and BitBake syntax. It is
+not intended to replace the [Yocto documentation][yocto-docs].
 
 ## Solution overview
 
@@ -253,7 +253,6 @@ Extensible Software Development Kit (eSDK)][yocto-sdk] for more information.
 [mbl-tools]: https://github.com/ARMmbed/mbl-tools
 
 [yocto-docs]: https://www.yoctoproject.org/docs/
-[yocto-concepts]: https://www.yoctoproject.org/docs/latest/mega-manual/mega-manual.html#overview-manual-concepts
 [yocto-bbfile-priority]: https://www.yoctoproject.org/docs/latest/mega-manual/mega-manual.html#var-bb-BBFILE_PRIORITY
 [yocto-layer-depends]: https://www.yoctoproject.org/docs/latest/mega-manual/mega-manual.html#var-bb-LAYERDEPENDS
 [yocto-layerseries-compat]: https://www.yoctoproject.org/docs/latest/mega-manual/mega-manual.html#var-LAYERSERIES_COMPAT
