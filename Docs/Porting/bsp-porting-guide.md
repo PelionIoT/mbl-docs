@@ -13,11 +13,11 @@ Porting a BSP centers on configuring the secure boot software components, so the
 
 This document's structure follows the work process:
 
-* Section 1 introduces this document, including an overview, porting prerequisites, and glossary.
+* Section 1 introduces this guide, including an overview, porting prerequisites, and glossary.
 
-* [Section 2](../develop-mbl/2-0-system-architecture.html) describes the relevant system architecture of [AArch32](#fig2-2-1) and [AArch64](#fig2-2-2) secure boot flows, partitioning build artifacts between `BL2`, FIP and FIT images, and the flash partition layout for updating firmware.
+* [Section 2](../develop-mbl/2-0-system-architecture.html) describes the relevant system architecture of [AArch32](../develop-mbl/2-0-system-architecture.html#fig2-2-1) and [AArch64](../develop-mbl/2-0-system-architecture.html#fig2-2-2) secure boot flows, partitioning build artifacts between `BL2`, FIP and FIT images, and the flash partition layout for updating firmware.
 
-* [Section 3](../develop-mbl/3-0-overview-of-mbl-yocto-meta-layers.html) provides a top-down overview of the Yocto meta-layers in an MBL workspace for BSP development, including a [software stack diagram](#figure-3.7) showing how recipes from different layers collaborate.
+* [Section 3](../develop-mbl/3-0-overview-of-mbl-yocto-meta-layers.html) provides a top-down overview of the Yocto meta-layers in an MBL workspace for BSP development, including a [software stack diagram](../develop-mbl/3-0-overview-of-mbl-yocto-meta-layers.html#figure-3.7) showing how recipes from different layers collaborate.
 
 * [Section 4](../develop-mbl/4-0-bsp-recipe-relationships.html) provides an overview of `${MACHINE}.conf`, ATF, OP-TEE, U-Boot and `linux` recipe relationships using a [UML diagram](../develop-mbl/4-0-bsp-recipe-relationships.html#figure-4-0).
 
@@ -29,7 +29,7 @@ This document's structure follows the work process:
 
 * [Section 8](../develop-mbl/8-0-atf-machine-bb.html) discusses the `atf-${MACHINE}.bb` recipe for building ARM Trusted Firmware.
 
-* [Section 9](../develop-mbl/9-0-example-imx7s-warp-mbl-bsp-recipe-package-relationships.html) provides a concrete example for the WaRP7 target of the `${MACHINE}.conf`, ATF, OP-TEE, U-Boot and `linux` recipe inter-relationships using a [UML diagram](#figure-9-1).
+* [Section 9](../develop-mbl/9-0-example-imx7s-warp-mbl-bsp-recipe-package-relationships.html) provides a concrete example for the WaRP7 target of the `${MACHINE}.conf`, ATF, OP-TEE, U-Boot and `linux` recipe inter-relationships using a [UML diagram](../develop-mbl/9-0-example-imx7s-warp-mbl-bsp-recipe-package-relationships.html#figure-9-1).
 
 * [Section 10](../develop-mbl/10-0-summary-of-bsp-porting-tasks.html) summarizes porting tasks.
 
