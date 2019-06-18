@@ -121,15 +121,6 @@ MBL's build tools use [Google's git-repo tool][google-git-repo] to initialize wo
 
        Replace `your-github-user` as above.
 
-1. Create a work area for the new project using [Google's git-repo tool][google-git-repo] by running something like:
-
-    ```
-    repo init -u ssh://git@github.com/your-github-user/mbl-project-manifest-example
-    repo sync
-    ```
-
-    Replace `your-github-user` with your GitHub username or organization.
-
 1. Use [MBL's build tools][mbl-tools] to build the project. Use the `--url` option in `build.sh` to specify your
 manifest repository (so that it doesn't use the default repo, [mbl-manifest][mbl-manifest]).
 
@@ -145,6 +136,13 @@ manifest repository (so that it doesn't use the default repo, [mbl-manifest][mbl
     * `/path/to/output` with a directory to contain build artifacts.
     * `imx7s-warp-mbl` with the name of your target machine.
     * `your-github-user` with your GitHub username or organization.
+
+    If you want to initialize a work area for your project without doing a build you can use [Google's git-repo tool][google-git-repo] directly by running something like:
+    ```
+    repo init -u ssh://git@github.com/your-github-user/mbl-project-manifest-example
+    repo sync
+    ```
+    Replace `your-github-user` with your GitHub username or organization.
 
 ## 4. Add an image recipe
 
