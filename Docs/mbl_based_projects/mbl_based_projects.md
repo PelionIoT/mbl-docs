@@ -3,8 +3,8 @@
 Mbed Linux OS (MBL) is Yocto-based, so you can use standard Yocto tools and
 approaches to develop projects based on MBL. This document creates a minimal MBL-based project, illustrating an approach that adds packages to the distribution, with and without pre-existing BitBake recipes.
 
-This document assumes familiarity with some core Yocto concepts, and is not intended to replace the [Yocto documentation][yocto-docs]. Please see the
-[Yocto Project Concepts section of the Yocto Mega Manual][yocto-concepts] for an introduction to the core concepts.
+This document assumes familiarity with Yocto concepts and BitBake syntax. It is
+not intended to replace the [Yocto documentation][yocto-docs].
 
 ## Solution overview
 
@@ -42,6 +42,12 @@ configuration.
 Most of the lines here are standard and are explained in the [Creating Your Own
 Layer section of the Yocto Mega Manual][yocto-create-layer], but please note:
 
+* The [`LAYERSERIES_COMPAT`][yocto-layerseries-compat] line specifies the
+  versions of OpenEmbedded-Core that your layer is compatible with. The value
+  should probably match the value in the `LAYERSERIES_COMPAT` line in
+  `meta-mbl-distro`'s layer.conf, which can be found in [`meta-mbl`][meta-mbl]
+  at `meta-mbl-distro/conf/layer.conf`. Make sure you check the branch or tag
+  of `meta-mbl` on which you are basing your project.
 * The [`BBFILE_PRIORITY`][yocto-bbfile-priority] for the new layer should be
   higher than the `BBFILE_PRIORITY` for the `meta-mbl-distro` layer, so that
   the `meta-mbl-project-example` layer can override recipes and settings from
@@ -59,7 +65,8 @@ we'll assume your fork is called `mbl-project-config-example`.
 
 To add your new layer to the project, edit the `BBLAYERS` variable in the `bblayers.conf` file. The value
 of the `BBLAYERS` variable is the list of layers to include in the
-project. Add your layer to that list.
+project. Add your layer to that list. Make sure you edit the file from the
+branch or tag of mbl-config on which you are basing your project.
 
 For example, after adding `meta-mbl-project-example`, the `BBLAYERS` variable definition might look like:
 
@@ -103,7 +110,10 @@ MBL's build tools use [Google's git-repo tool][google-git-repo] to initialize wo
        <project name="your-github-user/mbl-project-config-example" path="conf" remote="github" revision="master">
        ```
 
-       Replace `your-github-user` with the GitHub user or organization that has your `mbl-project-config-example` repository.
+       Replace:
+       * `your-github-user` with the GitHub user or organization that has your `mbl-project-config-example` repository.
+       * `master` with the branch or tag of `mbl-project-config-example`
+         containing the `bblayers.conf` you created in step 2.
 
     1. Add a line within the
 
@@ -119,16 +129,10 @@ MBL's build tools use [Google's git-repo tool][google-git-repo] to initialize wo
        <project name="your-github-user/meta-mbl-project-example" path="layers/meta-mbl-project-example" remote="github" revision="master" />
        ```
 
-       Replace `your-github-user` as above.
-
-1. Create a work area for the new project using [Google's git-repo tool][google-git-repo] by running something like:
-
-    ```
-    repo init -u ssh://git@github.com/your-github-user/mbl-project-manifest-example
-    repo sync
-    ```
-
-    Replace `your-github-user` with your GitHub username or organization.
+       Replace:
+       * `your-github-user` as above.
+       * `master` with the branch or tag of `meta-mbl-project-example` that
+         contains the `layer.conf` you created in step 1.
 
 1. Use [MBL's build tools][mbl-tools] to build the project. Use the `--url` option in `build.sh` to specify your
 manifest repository (so that it doesn't use the default repo, [mbl-manifest][mbl-manifest]).
@@ -145,6 +149,20 @@ manifest repository (so that it doesn't use the default repo, [mbl-manifest][mbl
     * `/path/to/output` with a directory to contain build artifacts.
     * `imx7s-warp-mbl` with the name of your target machine.
     * `your-github-user` with your GitHub username or organization.
+    * `master` with the branch or tag of `mbl-project-manifest-example`
+      containing `default.xml`.
+
+    If you want to initialize a work area for your project without doing a
+    build you can use [Google's git-repo tool][google-git-repo] directly by
+    running something like:
+    ```
+    repo init -u ssh://git@github.com/your-github-user/mbl-project-manifest-example -b master
+    repo sync
+    ```
+    Replace:
+    * `your-github-user` with your GitHub username or organization.
+    * `master` with the branch or tag of `mbl-project-manifest-example`
+      containing `default.xml`.
 
 ## 4. Add an image recipe
 
@@ -178,14 +196,17 @@ Replace:
 * `/path/to/output` with a directory to contain build artifacts.
 * `imx7s-warp-mbl` with the name of your target machine.
 * `your-github-user` with your GitHub username or organization.
+* `master` with the branch or tag of `mbl-project-manifest-example` containing
+  `default.xml`.
 
 ## 5. Modify the distribution
 
 ### 5.1. Add packages to the distribution
 
 To add a package to the distribution that already has a recipe available in
-your project, add a line in your image recipe to append the
-package name to the `IMAGE_INSTALL` variable.
+your project, add a line in your image recipe
+(`recipes-core/images/mbl-image-example.bb` in `meta-mbl-project-example`) to
+append the package name to the `IMAGE_INSTALL` variable.
 
 For example, to add the `bash` package to the distribution, add the following line:
 
@@ -233,9 +254,9 @@ Extensible Software Development Kit (eSDK)][yocto-sdk] for more information.
 [mbl-tools]: https://github.com/ARMmbed/mbl-tools
 
 [yocto-docs]: https://www.yoctoproject.org/docs/
-[yocto-concepts]: https://www.yoctoproject.org/docs/latest/mega-manual/mega-manual.html#overview-manual-concepts
 [yocto-bbfile-priority]: https://www.yoctoproject.org/docs/latest/mega-manual/mega-manual.html#var-bb-BBFILE_PRIORITY
 [yocto-layer-depends]: https://www.yoctoproject.org/docs/latest/mega-manual/mega-manual.html#var-bb-LAYERDEPENDS
+[yocto-layerseries-compat]: https://www.yoctoproject.org/docs/latest/mega-manual/mega-manual.html#var-LAYERSERIES_COMPAT
 [yocto-create-layer]: https://www.yoctoproject.org/docs/latest/mega-manual/mega-manual.html#creating-your-own-layer
 [yocto-recipes]: https://www.yoctoproject.org/docs/1.6/dev-manual/dev-manual.html#new-recipe-writing-a-new-recipe
 [yocto-sdk]: https://www.yoctoproject.org/docs/latest/sdk-manual/sdk-manual.html
