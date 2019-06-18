@@ -204,8 +204,9 @@ Replace:
 ### 5.1. Add packages to the distribution
 
 To add a package to the distribution that already has a recipe available in
-your project, add a line in your image recipe to append the
-package name to the `IMAGE_INSTALL` variable.
+your project, add a line in your image recipe
+(`recipes-core/images/mbl-image-example.bb` in `meta-mbl-project-example`) to
+append the package name to the `IMAGE_INSTALL` variable.
 
 For example, to add the `bash` package to the distribution, add the following line:
 
