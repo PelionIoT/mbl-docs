@@ -6,8 +6,6 @@ Supported boards:
 
 * [NXP i.MX 8M Mini LPDDR4 Evaluation Kit](https://www.nxp.com/support/developer-resources/software-development-tools/i.mx-developer-resources/evaluation-kit-for-the-i.mx-8m-mini-applications-processor:8MMINILPD4-EVK?tid=vanimx8mminievk). Referred to as the NXP 8M Mini EVK. This kit comes with power supply, micro-USB cable and USB-C cable, but you will need a micro-SD card (at least 4GB).
 
-    <span class="notes">This platform is still in development and is only partially supported at the moment. The boot partitioning has not been finished and Wi-Fi communication is not working yet.</span>
-
 * [NXP Warp7](https://www.nxp.com/support/developer-resources/nxp-designs/warp7-next-generation-iot-and-wearable-development-platform:WARP7). You also need two micro-USB cables.
 * [Raspberry Pi 3 models B or B+](https://www.raspberrypi.org/products/), with:
     * A micro-SD card (at least 4GB).
