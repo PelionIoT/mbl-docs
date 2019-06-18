@@ -13,7 +13,7 @@ Porting a BSP centers on configuring the secure boot software components, so the
 
 This document's structure follows the work process:
 
-* Section 1 introduces this document, including an overview, porting prerequisites, and glossary.
+* Section 1 introduces this guide, including an overview, porting prerequisites, and glossary.
 
 * [Section 2](../develop-mbl/2-0-system-architecture.html) describes the relevant system architecture of [AArch32](../develop-mbl/2-0-system-architecture.html#fig2-2-1) and [AArch64](../develop-mbl/2-0-system-architecture.html#fig2-2-2) secure boot flows, partitioning build artifacts between `BL2`, FIP and FIT images, and the flash partition layout for updating firmware.
 
