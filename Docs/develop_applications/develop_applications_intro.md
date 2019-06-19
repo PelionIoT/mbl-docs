@@ -19,9 +19,8 @@ You have three options:
     * Create smaller applications that provide one microservice each, and install these applications together with a very lean device-specific application.
     * Create base layers that provide one functionality each, and use them together in all your applications. Each application adds its own device-specific layer to these base layers.
 
-<img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/multi_apps.png" width="33%" align="left" />
-
-<img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/application_from_layers.png" width="33%" />
+<span class="images">![](../Figures/multi_apps.png)<span>Multiple applications</span></span>    
+<span class="images">![](../Figures/application_from_layers.png)<span>Application with multiple layers</span></span>    
 
 **An MBL IoT device can have multiple applications, and one or more of those applications can consist of multiple base layers**
 
