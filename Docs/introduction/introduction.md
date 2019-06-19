@@ -99,7 +99,7 @@ There are two paths to working with MBL:
 * A new guide for [creating projects based on MBL](../develop-mbl/example-project-based-on-mbed-linux-os.html).
 * A porting guide for [board support packages](../develop-mbl/board-support-package-porting.html).
 * An FAQ for [application development](../develop-apps/frequently-asked-questions.html).
-* A standalone guide [for writing images to devices](../first-image/index.html), including evaluation images, new board support and cellular connections for version 0.6.
+* A standalone guide [for writing images to devices](../first-image/index.html), including evaluation images, new board support and cellular connections for versions 0.6 and newer.
 * A new [provisioning guide](../first-image/provisioning-for-pelion-device-management.html).
 * Instructions for [removing the old version of MBL CLI](../develop-apps/setting-up.html#setting-up-mbl-cli).
 
