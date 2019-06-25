@@ -14,7 +14,7 @@ Supported boards:
 
          An optional second USB network adaptor if you want to convert back to USB (to connect to your PC over USB rather than network).
 
-    <span class="warnings">**Warning:** We advise you use Raspberry Pi 3 for development only. It is not suitable for production as it does not provide a secure boot flow or security features required for a Trusted Execution Environment (TEE).</span>
+    <span class="notes">**Note:** We advise you use Raspberry Pi 3 for development only. It is not suitable for production as it does not provide a secure boot flow or security features required for a Trusted Execution Environment (TEE).</span>
 
 ## Hardware features
 
