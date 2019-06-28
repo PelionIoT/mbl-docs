@@ -1,6 +1,6 @@
-## Preparing Device Management sources
+# Preparing Device Management sources
 
-### Downloading Device Management developer credentials
+## Downloading Device Management developer credentials
 
 MBL handles Device Management connectivity on behalf of the device, rather than relying on the user application to do it. This means you need to add your Device Management credentials to the working directory MBL builds from. For development environments, Pelion offers a *developer certificate* for quick connection:
 
@@ -10,7 +10,7 @@ MBL handles Device Management connectivity on behalf of the device, rather than 
 
 <span class="notes">**Note:** These instructions use the developer workflow and certificates as connectivity credentials. Do not use these credentials for production devices.</span>
 
-### Creating an update resources file
+## Creating an update resources file
 
 MBL and Device Management support over-the-air updates for devices, which you can do [in a later tutorial in this sequence](../getting-started/tutorial-updating-mbl-devices-and-applications.html). For a device to be updatable, it needs to include some update resources (such as credentials) in the original image.
 
@@ -39,13 +39,13 @@ MBL and Device Management support over-the-air updates for devices, which you ca
 
     You will use this file in the build process later.
 
-## Building an MBL image
+# Building an MBL image
 
 <span class="notes">**Note**: Mbed Linux OS is currently in limited preview. If you would like access to the code repositories, [please request to join the preview](https://os.mbed.com/linux-os/).</span>
 
 Please note that each release has its own branch. Throughout this guide, the release branch is assumed to be `mbl-os-0.5`.
 
-### Building scripts
+## Building scripts
 
 <span class="notes">**Note**: You need to use an SSH agent to build. For usage, see [the GitHub SSH documentation](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).</span>
 
@@ -104,7 +104,7 @@ The following build options are not mandatory, but you may find that they improv
 | `--downloaddir` | Cache downloaded artifacts between successive builds (do not use cacheing for parallel builds). For example, if you've created `mkdir /path/to/downloads`, the downloaddir will be `./mbl-tools/build-mbl/run-me.sh --downloaddir /path/to/downloads` |
 | `--external-manifest` | You can build using a pinned manifest, which is an encapsulation created by a build and containing enough information to allow an exact rebuild. The manifest is created in your output directory (`outputdir`). To use it to rebuild, run `./mbl-tools/build-mbl/run-me.sh --external-manifest /path/to/pinned-manifest.xml` |
 
-### Build examples
+## Build examples
 
 The following examples assume:
 
@@ -113,19 +113,19 @@ The following examples assume:
 * You have an output directory for your machine, for example `./artifacts-warp7` or `./artifacts-rpi3`.
 * You have an [SSH agent](../getting-started/development-environment.html). For usage, see [the GitHub SSH documentation](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).
 
-#### Warp7 device
+### Warp7 device
 
 ```
 ./mbl-tools/build-mbl/run-me.sh --inject-mcc ./cloud-credentials/mbed_cloud_dev_credentials.c --inject-mcc ./update-resources/update_default_resources.c --builddir ./build-warp7 --outputdir ./artifacts-warp7 -- --machine imx7s-warp-mbl --branch mbl-os-0.5
 ```
 
-#### Raspberry Pi 3 device
+### Raspberry Pi 3 device
 
 ```
 ./mbl-tools/build-mbl/run-me.sh --inject-mcc ./cloud-credentials/mbed_cloud_dev_credentials.c --inject-mcc ./update-resources/update_default_resources.c --builddir ./build-rpi3 --outputdir ./artifacts-rpi3 -- --machine raspberrypi3-mbl --branch mbl-os-0.5
 ```
 
-### Building outputs
+## Building outputs
 
 The build process creates the following files:
 
@@ -144,14 +144,14 @@ The process also creates release images, which don't contain packages for testin
 | Root file system archive | `/path/to/artifacts/machine/<MACHINE>/images/mbl-console-image/images/mbl-console-image-<MACHINE>.tar.xz` |
 
 
-## Writing and booting the disk image
+# Writing and booting the disk image
 
 This section contains instructions for writing the full disk image to a:
 
 * Warp7 device.
 * Raspberry Pi 3 device.
 
-### Warp7 devices
+## Warp7 devices
 
 To write your disk image to the Warp7's flash device, you must first access the Warp7's serial console. To do this:
 
@@ -269,7 +269,7 @@ To write your disk image to the Warp7's flash device, you must first access the 
 
     The device now boots into MBL.
 
-### Raspberry Pi 3 devices
+## Raspberry Pi 3 devices
 
 1. Connect a micro-SD card to your PC. You now see:
 
@@ -330,6 +330,6 @@ To write your disk image to the Warp7's flash device, you must first access the 
 
     The device now boots into MBL.
 
-### Logging in to MBL
+## Logging in to MBL
 
 To log in to MBL, wait for a login prompt, and then enter the username `root`. You will not be prompted for a password.

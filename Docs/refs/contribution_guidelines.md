@@ -1,10 +1,10 @@
-## Contribution guidelines
+# Contribution guidelines
 
 Mbed Linux OS (MBL) is currently a developer preview release. It is undergoing significant changes and improvements to meet the product vision.
 
 We would be very happy to hear from you through our [support email](mailto:support@mbed.com). You can also raise a GitHub issue, but we are not expecting contributions during this period. If you do want to contribute to our projects, then please follow these contribution guidelines - all contributions to MBL must meet them.
 
-### Design and coding style
+## Design and coding style
 
 Be consistent with your changes. We will share a full set of software design principles and coding style after the developer preview, but some of the main principles are:
 
@@ -14,7 +14,7 @@ Be consistent with your changes. We will share a full set of software design pri
   * Automated check scripts in our `mbl-tools` repository: [https://github.com/ARMmbed/mbl-tools/tree/mbl-os-0.5/ci/sanity-check](https://github.com/ARMmbed/mbl-tools/tree/mbl-os-0.5/ci/sanity-check).
 * C++ coding style: Internal style guide at this time.
 
-### Contributions guidance
+## Contributions guidance
 
 <span class="notes">**Note**: At this stage of development, we are not expecting large contributions. See above for details.</span>
 
@@ -34,11 +34,11 @@ The general workflow for contributions is:
         The names in the `Signed-off-by:` and `Author:` lines must match. If anyone else contributes to the commit, they must also add their own `Signed-off-by:` line. By adding this line, you certify that your contribution was made under the terms of the [Developer Certificate of Origin (DCO)](https://developercertificate.org).
 * The Mbed Linux OS maintainers will review and merge the pull request.
 
-### Licenses
+## Licenses
 
 We follow an "inbound license = outbound license" approach, where contributions will be accepted under the same license(s) as specified in the repository, so you need to comply with the licenses for the repository that you are contributing to. Please see the `LICENSE.md` file in the root of the repository for more information.
 
-### Access to the ARMmbed organization
+## Access to the ARMmbed organization
 
 You might require direct access to the ARMmbed organization for one of the following reasons:
 

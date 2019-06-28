@@ -1,4 +1,4 @@
-## References
+# References
 
 The Mbed Linux OS references review concepts, designs and other background information about Mbed Linux OS:
 

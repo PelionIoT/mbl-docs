@@ -1,4 +1,4 @@
-## Application containers and packages
+# Application containers and packages
 
 <span class="notes">The developer preview version of Mbed Linux OS (MBL) implements only some of the features reviewed in this document.</span>
 
@@ -6,7 +6,7 @@ Like mobile and desktop operating systems, MBL has a framework for user applicat
 
 The application framework promotes runtime and toolchain interoperability between MBL and other Linux distributions by relying on the Open Container Initiative (OCI) and the Open PacKaGe management (OPKG) formats. The OCI runtime format is based on the Docker runtime format, and the [specification](https://github.com/opencontainers/runtime-spec) details the contents of the runtime bundle. Using an open packaging standard also reassures adopters that they are not locked into a particular container technology.
 
-### Application isolation
+## Application isolation
 
 To protect an IoT device, application software should be isolated from other device software. This prevents a malicious or defective application from undermining device integrity. Isolation methods provide:
 
@@ -22,7 +22,7 @@ MBL uses the Linux kernel's isolation mechanisms as the basis of application iso
 * **Namespace isolation**: partitions resources such as process IDs, file names and names associated with network access.
 * **Cgroups**: Limits and isolates the resources (CPU, memory, file storage and network bandwidth) used by a group of processes.
 
-### Application packaging
+## Application packaging
 
 To deploy and run an application on a device, the application and associated components need to be packaged, via the OPKG package manager, to form an application image. This requires:
 
@@ -40,7 +40,7 @@ To deploy and run an application on a device, the application and associated com
     * Commands and arguments.
     * Environment variables.
 
-### Application container runtime
+## Application container runtime
 
 MBL can unpack and run an application runtime bundle, implementing all necessary isolation methods. The OCI runtime component is compatible with the application runtime bundle, and comprises the following:
 
@@ -72,7 +72,7 @@ We recommend using an application runtime bundle that is as simple as possible, 
 
 To meet all of these requirements, MBL uses an [OCI-compliant runtime called runC](https://github.com/opencontainers/runc). It was donated by Docker, and forms the low-level container runtime used by Docker Daemon.
 
-### Application update
+## Application update
 
 Over the lifetime of an IoT device, application images may need to be updated, either as part of a bigger package of updates or individually. MBL application updates are delivered using the Device Management Update service. The container runtime is controlled by an MBL specific component, which coordinates the application update process.
 

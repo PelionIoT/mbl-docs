@@ -1,5 +1,6 @@
 {
     "product_name": "Mbed Linux OS",
+    "split_pages_on": "h1",
     "books": [
         {
             "title": "Arm Mbed Linux OS",

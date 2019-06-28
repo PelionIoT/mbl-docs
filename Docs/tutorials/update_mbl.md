@@ -1,4 +1,4 @@
-## Updating Mbed Linux OS
+# Updating Mbed Linux OS
 
 <span class="notes">**Note**: Mbed Linux OS is currently in limited preview. If you would like access to the code repositories, [please request to join the preview](https://os.mbed.com/linux-os/).</span>
 
@@ -7,7 +7,7 @@ You can perform a firmware over the air (FOTA) update for the following componen
 * The root file system.
 * An application.
 
-### How software is updated
+## How software is updated
 
 Send software updates to MBL devices using Pelion Device Management Portal. The update process begins when Device Management sends the device a request with a manifest. If the device accepts the request, Device Management sends a payload file containing an update for one or more MBL component.
 
@@ -20,7 +20,7 @@ Currently, MBL does **not** support updating both an application and a root file
 
 <span class="tips">**Tip:** Refer to the Pelion Device Management documentation for a [full review of the update process](https://cloud.mbed.com/docs/latest/updating-firmware/index.html).</span>
 
-#### Application updates
+### Application updates
 
 After receiving a payload file containing application updates, for each application update, MBL:
 
@@ -29,7 +29,7 @@ After receiving a payload file containing application updates, for each applicat
 * Installs the application update from the payload file.
 * Starts the updated application.
 
-#### Root file system updates
+### Root file system updates
 
 To support `rootfs` updates, MBL devices have two root partitions called:
 
@@ -45,7 +45,7 @@ After receiving a payload file containing a `rootfs` update, MBL:
 
 The previously active (now inactive) root file system partition is now ready to receive the next `rootfs` update.
 
-### Prerequisites
+## Prerequisites
 
 An MBL device can only be updated if the followings are available:
 
@@ -58,7 +58,7 @@ An MBL device can only be updated if the followings are available:
 
 * A Pelion API key, to use the manifest tool from the command line. Follow the instructions in the [requirements section](..//getting-started/api-keys.html) to obtain an API key (when prompted to select a group to set the API key access level, select **Developers**). Make a note of the API key to use it later; for security reasons, the portal will not display it again.
 
-### Workflow
+## Workflow
 
 1. Create an update payload file:
     * **For an application**: Make a `tar` file containing the `.ipk` files for the applications to update.
@@ -109,7 +109,7 @@ An MBL device can only be updated if the followings are available:
 
     For a root file system update, the process can take a long time, depending on your file size and network bandwidth.
 
-#### Additional notes
+### Additional notes
 
 * You can monitor the update payload **download** progress by tailing the `mbl-cloud-client` log file:
 
@@ -126,7 +126,7 @@ An MBL device can only be updated if the followings are available:
 
 * The system does not reboot after an application update.
 
-### Identifying the active root file system partition
+## Identifying the active root file system partition
 
 To verify that a root system update succeeded, you can check which root file system partition is active before and after the update. If the update succeeded, the active partition changes.
 
@@ -146,7 +146,7 @@ rootfs1
 root@mbed-linux-os-1234:~#
 ```
 
-### Identifying the running applications
+## Identifying the running applications
 
 You can use `runc list` to list all the active applications and their status.
 

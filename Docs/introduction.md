@@ -1,4 +1,4 @@
-## Arm Mbed Linux OS
+# Arm Mbed Linux OS
 
 <img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/OS_v_MBL.png" width="25%" align="right" />
 
@@ -10,7 +10,7 @@ Because MBL is aimed specifically at IoT devices, it places a major emphasis on 
 
 You can develop and build applications in using a variety of standard tools such as C cross-compilation, Python or Node.js. Applications are then packaged and deployed to MBL in an application container.
 
-### Developer preview features
+## Developer preview features
 
 MBL is currently available as a developer preview to selected users. To request access, [please contact us](https://os.mbed.com/linux-os/).
 
@@ -31,7 +31,7 @@ The preview release provides:
     * Access control at the account level.
     * Over-the-air, digitally signed and verified updates for applications and the root file system. MBL uses updates to send new features and security patches to deployed devices, fixing vulnerabilities before they're exploited.
 
-### Design diagram
+## Design diagram
 
 The following diagram illustrates the components and services that MBL provides:
 
@@ -59,7 +59,7 @@ The **Device Management Services** are integrated user-space agents that connect
 
 * Trusted Execution Environment and OP-TEE run security-sensitive applications within the isolated environment provided by Arm TrustZone.
 
-### Get started
+## Get started
 
 There are two paths to working with MBL:
 
@@ -71,6 +71,6 @@ There are two paths to working with MBL:
     1. Try our [example application](../getting-started/tutorial-user-application.html), or start writing your own application using the Linux APIs.
     1. You can also [use our update example](../getting-started/tutorial-updating-mbl-devices-and-applications.html) to send firmware updates over the air.
 
-### Licensing
+## Licensing
 
 Both MBL and our test suites will be open source, helping you automate product testing in a modern continuous integration pipeline. For more information, please see the [Contributing section in the MBL source](https://github.com/ARMmbed/meta-mbl/blob/master/CONTRIBUTING.md).

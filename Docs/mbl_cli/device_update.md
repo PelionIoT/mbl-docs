@@ -1,4 +1,4 @@
-## Device update
+# Device update
 
 You can update the device's root file system (rootfs) and applications. Update of boot loaders, the Linux kernel and other components will be supported in later versions.
 
@@ -24,7 +24,7 @@ optional arguments:
  -v, --verbose         Increase output verbosity (default: False)
 ```
 
-### Rootfs update
+## Rootfs update
 
 To update the rootfs:
 
@@ -72,7 +72,7 @@ To update the rootfs:
 
 <span class="notes">We recommend deleting the old tar files from the `scratch` partition after updates finish.</span>
 
-### Update an application
+## Update an application
 
 You can update each application independently of any others.
 

@@ -1,4 +1,4 @@
-## Getting started with Mbed Linux OS (MBL)
+# Getting started with Mbed Linux OS (MBL)
 
 To get started with MBL, follow these tutorials in sequence:
 
