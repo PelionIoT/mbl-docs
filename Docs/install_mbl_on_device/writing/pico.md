@@ -33,7 +33,7 @@ There are two processes for writing to the PICO-PI:
 
    You'll need to refer to this output in the following steps, so save it for reference.
 
-1. Set the PICO-PI into serial download mode by changing the boot configuration jumper settings depending on the System on Module (SoM) you are using.
+1. Set the PICO-PI to serial download mode by changing the boot configuration jumper settings (the exact setting depends on the System on Module (SoM) you are using).
 
 | PICO-IMX7D | PICO-IMX6UL |
 | ---------- | ----------- |
