@@ -80,7 +80,7 @@ The folder contains:
 
 <span class="notes">**Note:** This step is only needed when using the evaluation images. If you have built your own version of Mbed Linux OS, then the Wi-Fi firmware is included by default.</span>
 
-If you are using an evaluation image, then PICO-PI with PICO-IMX7D or PICO-IMX6UL SoM or NXP 8M Mini EVK devices require the Wi-Fi firmware to be installed separately. Use [MBL CLI](../develop-apps/setting-up.html) and [a shell](../develop-apps/usage.html#get-shell-access-ssh) to run the install script:
+If you are using an evaluation image for PICO-PI with PICO-IMX7D, PICO-IMX6UL SoM, or NXP 8M Mini EVK devices, they require you to install the Wi-Fi firmware separately. Use [MBL CLI](../develop-apps/setting-up.html) and [a shell](../develop-apps/usage.html#get-shell-access-ssh) to run the install script:
 
 ```
 mbl-cli [-a address] shell
