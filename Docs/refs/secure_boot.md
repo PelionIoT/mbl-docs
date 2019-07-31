@@ -34,7 +34,6 @@ This document uses the following terminology:
 
 ### References
 
-* REF1: DM Verity project: [https://gitlab.com/cryptsetup/cryptsetup/wikis/DMVerity](https://gitlab.com/cryptsetup/cryptsetup/wikis/DMVerity)
 * REF2: Trusted Base System Architecture CLIENT2 (TBSA-CLIENT2), Document number: ARM DEN 0021A-6, Copyright ARM Limited 2011-2013
 * REF3: Trusted Board Boot Requirements CLIENT (TBBR-CLIENT), Document number: ARM DEN0006C-1, Copyright ARM Limited 2011-2015
 * REF4: mkimage tool source code: [https://github.com/lentinj/u-boot/blob/master/tools/mkimage.c](https://github.com/lentinj/u-boot/blob/master/tools/mkimage.c)
@@ -55,7 +54,6 @@ This is a summary of the MBL secure boot's requirements and recommendations:
 * Use U-Boot to verify the Linux kernel, device tree and normal world boot script using Verified Boot, as used in Chrome OS.
 * The TEE must be initialized early on in the boot sequence to reduce the probability of its integrity being compromised.
 * Boot time verification can be limited to verifying all steps up to and including the Linux Kernel. Other software components must also be verified, but not necessarily during the boot process; to avoid significantly impacting boot time, software components held in the root file system or other mounted read-only file systems may be verified on-demand (as and when files are accessed).
-* dm-verity (REF1) will be used to check the integrity of the read-only root FS.
 * Only allow development images to run on development devices; it must not be possible to run a development image on a production device.
 
 ## Trusted Firmware
@@ -143,12 +141,6 @@ An IoT device is unlikely to include TPM hardware; it will instead rely on a tru
 
 For all of these, the trusted application must have an application interface through which it can provide and increase counter values.
 
-## Integrity checking with dm-verity
-
-The boot flow described above provides secure verification of all components in the boot chain, up to and including the Linux kernel. It does not verify the read-only root file system or any other mounted file system that may hold executables or configuration data. Checking the integrity of read-only files requires an additional solution: dm-verity.
-
-Verified Boot, used in Chrome OS, relies on integrity checking of read-only block devices, performed before blocks are read. This in turn relies on the dm-verity kernel feature (REF1), which provides transparent checking of block devices. The dm-verity feature scans block devices on demand, and checks that block hashes match the expected hash (generated when the image file was created). If it detects a mismatch, it stops both the kernel and the user space from accessing the block. Use of block level integrity checking requires block-oriented firmware updates of a read-only device to ensure that block content hashes over the whole block device match the expected hashes.
-
 ## Image signing
 
 <!--to do: crosslink to image signing when it's published-->
@@ -163,8 +155,7 @@ The following diagram illustrates how image signing tools sign different boot co
 1. The fiptool that is provided by Trusted Firmware populates the keys into the FIP image for the trusted boot components.
 1. The image is signed using the trusted boot flow RoT key.
 1. mkimage adds the keys for the normal world components to the FIP image, and the components are signed using the keys from the FIP image.
-1. The root file system (rootfs) contains the keys for the IoT applications and TEE applications. rootfs is verified by dm-verity rather than being signed.
-1. A signing tool signs the dm-verity hash tree using the key from the FIT image.
+1. The root file system (rootfs) contains the keys for the IoT applications and TEE applications.
 
 ## Operation on open and closed devices
 

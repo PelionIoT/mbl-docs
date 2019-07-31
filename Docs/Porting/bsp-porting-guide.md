@@ -193,7 +193,7 @@ See the [Basic Signing Flow document][basic-signing-flow] for a more detailed de
 
 <span class="images">![fig2-3](assets/Image_signing_flow.png "Figure 2.3")<span>**Figure 2.3:** partitioning of software components.</span></span>
 
-[Figure 2.3](#fig2-3) shows the factoring of software components into five binary images:
+[Figure 2.3](#fig2-3) shows the factoring of software components into four binary images:
 
 1. **SoC Compatible Image:** This image contains the TF-A generated BL2 and the ROTPK, and is signed.
 1. **FIP Image:** This image is the TF-A fiptool-generated FIP image, and contains many [TBBR-CLIENT-defined key and content certificates](#ref-tbbr-client), as well as the BL3x bootchain components.
@@ -215,47 +215,14 @@ See the [Basic Signing Flow document][basic-signing-flow] for a more detailed de
     1. Linux kernel device tree.
     1. `boot.scr`. This is a compiled version of the U-Boot boot script.
     1. The initramfs image.
-    1. [The Verity public key.][android-verified-boot]
     1. A configuration block.
 1. **Rootfs Partition:** This image contains the root filesystem.
-1. **Rootfs_hash Partition:** This image contains the Verity hash tree.
 
 For more information, please refer to the [Trusted Board Boot Requirements CLIENT document](#ref-tbbr-client).
 
 ## <a name="section-2-4"></a> 2.4 Flash partition layout
-
-<a name="fig2-4"></a>
-
-<span class="images">![fig2-4](assets/flash_partition_layout.png "Figure 2.4")<span>**Figure 2.4:** The flash partition layout to support update has 2 banks of images.</span></span>
-
-[Figure 2.4](#fig2-4) shows the flash partition layout, and the function of each partition is described in the table below.
-
-| Partition | Usage |
-| --- | --- |
-| Bank/Update state | This is a raw partition that is accessible by all bootloaders and the normal device firmware. It holds the non-volatile state that reflects the active bank and whether an update is in progress. It is important that updates to state are robust to power failure. |
-| BL2 | This is a raw partition that holds the TF-A BL2 bootloader. BL2 cannot be updated using the normal firmware update process. |
-| BL3 FIP Image 1 & 2 | Two partitions to hold two versions of the BL31 boot loader and associated components contained within a signed FIP image. |
-| Boot FIT Image 1 & 2 | Two partitions to hold two versions of the boot partition. Contains the Linux kernel and device tree. |
-| Rootfs 1 & 2 | Two partitions for the read-only rootfs and the associated dm-verity hash tree. |
-| Rootfs_Hash 1 & 2 | Partitions for the dm-verity hash trees corresponding to rootfs 1 & 2. |
-| Config 1 & 2 | Non-volatile configuration data is saved to the active config partition. Two partitions are used, to allow an update to modify configuration data while maintaining a fallback to the old data if an update fails. In most cases, configuration data is just copied between banks during an update. |
-| Factory Config | A single partition for configuration data written during the manufacturing process. When manufacturing is complete, the partition is modified to being read-only. |
-| Log | A single partition for log files. |
-| Scratch | `/scratch` directory mounted to this partition. Used for saving potentially large temporary files such as downloaded firmware files. Note that `/tmp` is used in a similar manner, but is mapped to the RAM file system where there is less file storage available. |
-| Home | `/home` directory mounted to this partition. Used for user space application storage. |
-
-
-**Table 2.4: Flash partition functional description.**
-
-The flash partitions for the following software components are banked (there are two instances present in the system):
-
-- BL3 FIP Image.
-- Boot FIT Image.
-- Rootfs.
-- Rootfs_Hash.
-- Config.
-
-The flash partitions are banked to support the update service: One partition is the active (running partition), while the other is the inactive (non-running) partition. An update writes a new image to the inactive partition, then changes the bank/update state to bring the new image into service (the inactive bank becomes active, and the active bank becomes inactive).
+See our [Partition Layout](../refs/partition_layout.md) document for information about partition layouts.
+<!-- TODO: Update link to partition_layout.md -->
 
 # <a name="section-3-0"></a> 3.0 Overview of MBL Yocto meta-layers
 
@@ -382,7 +349,7 @@ For the community layer `meta-raspberrypi`, the `meta-mbl` repository contains t
 | meta-linaro-mbl/meta-optee                | BSP       | MBL       | MBL staging layer for `meta-optee` customizations or related meta-data. |
 | meta-mbl-apps                             | General   | MBL       | MBL applications such as `mbl-cloud-client`. |
 | meta-mbl-bsp-common                       | BSP       | MBL       | MBL layer for BSP meta-data commonly used by more than one target BSP. |
-| meta-mbl-distro                           | Distro    | MBL       | MBL distribution layer including image recipes containing `mbl.conf`, `mbl-image*.bb` recipes and `*.wks` files. |
+| meta-mbl-distro                           | Distro    | MBL       | MBL distribution layer containing `mbl.conf`, `mbl-image*.bb` recipes, `mbl-partitions.bbclass` and `mbl.wks.in`. |
 | meta-networking                           | General   | Community | Networking subsystems meta-layer. |
 | meta-oe                                   | General   | Community | Open Embedded layer for distribution tools and applications. |
 | meta-python                               | General   | Community | Layer to build the Python runtime for the target. |
@@ -492,7 +459,9 @@ The MBL development workspace is composed of the Yocto layers related to BSP dev
 
 Each layer is shown horizontally, containing a number of recipe packages and configuration files. Beginning with the top layer and working downwards:
 
-- **`meta-mbl-distro`**. The distribution layer provides the WIC kickstart image layout files `${MACHINE}.wks`.
+- **`meta-mbl-distro`**. The distribution layer provides:
+    - The parameterized WIC kickstart image layout file `mbl.wks.in`.
+    - `mbl-partitions.bbclass`, a class to process the parameters used in `mbl.wks.in`.
 - **`meta-[soc-vendor]-mbl`**. The MBL staging layer provides:
     - The BSP customization for specific target platforms by defining `${MACHINE}.conf` files.
     - The MBL `u-boot*.bbappend` customization recipes to build U-Boot.
@@ -523,7 +492,7 @@ Each layer is shown horizontally, containing a number of recipe packages and con
       The recipe can build either host or target binaries:
 
     - `u-boot-common_${PV}.inc`. This `include` file contains common symbol definitions used by multiple `u-boot*` recipes. It is included in the `u-boot_${PV}.bb` recipe.
-    - `kernel-fitimge.bbclass`. See [Section 7.4](../develop-mbl/7-0-linux.html#7-4-kernel-fitimage-bbclass-and-mbl-fitimage-bbclass) for details.
+    - `kernel-fitimage.bbclass`. See [Section 7.4](../develop-mbl/7-0-linux.html#7-4-kernel-fitimage-bbclass-and-mbl-fitimage-bbclass) for details.
     - `kernel-devicetree.bbclass`. See [Section 7.3](../develop-mbl/7-0-linux.html#7-3-kernel-bbclass-openembedded-core-support) for details.
     - `kernel-uimage.bbclass`. See [Section 7.3](../develop-mbl/7-0-linux.html#7-3-kernel-bbclass-openembedded-core-support) for details.
     - `kernel-module-split.bbclass`. See [Section 7.3](../develop-mbl/7-0-linux.html#7-3-kernel-bbclass-openembedded-core-support) for details.
@@ -571,8 +540,7 @@ The key symbols modified in `${MACHINE}.conf` are as follows:
 - `UBOOT_ENTRYPOINT = "0xabcdefab"`. This symbol specifies the U-Boot entry point called by OP-TEE, for example.
 - `UBOOT_DTB_LOADADDRESS = "0xabcdefab"`. This symbol specifies the memory address where the U-Boot DTB is loaded into memory.
 - `UBOOT_SIGN_ENABLE = "1"`. This symbol enables FIT image signing of subcomponents by `u-boot-mkimage`.
-- `WKS_FILE = "${MACHINE}.wks"`. This symbol specifies the WIC kickstart file defining the target partition layout.
-   See "Creating Partitioned Images Using Wic" in [Yocto Mega Manual][yocto-mega-manual-latest] and [Section 2.4](../develop-mbl/2-0-system-architecture.html#2-4-flash-partition-layout) for more details.
+- `MBL_WKS_BOOTLOADERxxx = "xxx"`. These symbols are used to set the offsets, sizes and filenames of bootloaders used in `mbl.wks.in`. See `meta-mbl/meta-mbl-distro/classes/mbl-partitions.bbclass` for details.
 
 [Section 2.3 Partitioning software components into FIP/FIT image](../develop-mbl/2-0-system-architecture.html#2-3-partitioning-software-components-into-fip-fit-images) specifies that the Linux kernel image is packaged into a FIT image so the kernel FIT image can be written to a [dedicated partition](../develop-mbl/2-0-system-architecture.html#2-4-flash-partition-layout) and independently updated. FIT image generation is achieved using the `linux*`, `kernel.bbclass`, `mbl-fitimage.bbclass` and `kernel-fitimage.bbclass` entities shown in [Figure 4.0](../develop-mbl/4-0-bsp-recipe-relationships.html),
 and by setting the symbols `KERNEL_CLASSES` and `KERNEL_IMAGETYPE`. See [Section 7.3](../develop-mbl/7-0-linux.html#7-3-kernel-bbclass-openembedded-core-support) and [Section 7.4](../develop-mbl/7-0-linux.html#7-4-kernel-fitimage-bbclass-and-mbl-fitimage-bbclass) for more details.
@@ -870,6 +838,13 @@ This section will discuss the `meta-freescale` and `meta-freescale-3rdparty` ent
     - `UBOOT_DTB_LOADADDRESS = "0x83000000"`. This is the location where the U-Boot DTD is loaded into memory.
     - `UBOOT_IMAGE = "mbl-u-boot.bin"` This is the name of the U-Boot image.
     - `UBOOT_SIGN_ENABLE = "1"`. This enables verified boot signing.
+    - `MBL_WKS_BOOTLOADER1_FILENAME = "bl2.bin.imx"`. This sets the file that WIC uses to populate the BL2 section of the flash partition layout.
+    - `MBL_WKS_BOOTLOADER1_OFFSET_BANK1_KiB = "1"`. This sets the offset of the BL2 section of the flash partition layout.
+    - `MBL_WKS_BOOTLOADER1_SIZE_KiB = "1023"`. This sets the size allocated for the BL2 section of the flash partition layout.
+    - `MBL_WKS_BOOTLOADER2_OFFSET_BANK1_KiB = "1024"`. This sets the offset of the first BL3 FIP bank in the flash partition layout.
+    - `MBL_WKS_BOOTLOADER2_ALIGN_KiB = "1024"`. This sets the alignment used for the BL3 FIP banks in the flash partition layout.
+    - `MBL_WKS_BOOTLOADER2_SIZE_KiB = "1024"`. This sets the size allocated for each BL3 FIP bank in the flash partition layout.
+    - `MBL_FLASH_ERASE_BLOCK_SIZE_KiB = "6144"`. This is used to determine the default alignment of partitions in the flash partition layout.
 - **`imx7s-warp.conf`**. This is the `meta-[soc-vendor]=meta-freescale-3rdparty` machine configuration file that provides the base BSP support for the NXP Warp7 target.
 - **`imx-base.inc`<a name="soc-family-inc-imxbase.inc"></a>**. This is an example of the `[soc-family].inc` file and gives the virtual provider definitions:
     - `PREFERRED_PROVIDER_virtual/bootloader="u-boot-fslc"`.
@@ -899,7 +874,7 @@ MACHINE=imx7s-warp-mbl
       KERNEL_CLASSES  = "mbl-fitimage"                                                                (3)
       KERNEL_IMAGETYPE = "fitImage"
       UBOOT_XXX config                                                                                (4)
-      WKS_XXX config                                                                                  (5)
+      MBL_WKS_BOOTLOADERxxx config                                                                   (5)
       IMAGE_BOOT_FILES config
       PREFERRED_PROVIDER_virtual/atf = "atf-${MACHINE}"                                               (6)
       |   \-> atf-imx7s-warp-mbl.bb
@@ -952,7 +927,7 @@ MACHINE=imx7s-warp-mbl
 - **(3)**. See (19).
 - **(4)**. The UBOOT_XXX symbols control U-Boot image generation, and the signing of FIT image
     components by the uboot-mkimage tool.
-- **(5)**. This specifies the WIC WKS kickstart file for the flash partition geometry.
+- **(5)**. This specifies bootloader offsets and sizes used to determine the flash partition geometry.
 - **(6)**. This specifies `atf-imx7s-warp-mbl.bb` is to be used as the `virtual/atf` provider.
 - **(7)**. `meta-freescale-3rdparty/conf/machine/imx7s-warp.conf` is the `meta-[soc-vendor] ${machine}.conf` configuration file for `imx7s-warp-mbl`.
 - **(8)**. `use-mainline-bsp` is used to configure `linux-fslc*`. See (15).
@@ -1021,9 +996,8 @@ This section provides a summary of the tasks required to integrate a pre-existin
     - Define `UBOOT_ENTRYPOINT = "0xabcdefab"` as required.
     - Define `UBOOT_DTB_LOADADDRESS = "0xabcdefab"` as required.
     - Define `UBOOT_SIGN_ENABLE = "1"`
-    - Define `WKS_FILE=${MACHINE}.wks`.
+    - Define `MBL_WKS_BOOTLOADERxxx` variables as required.
     - Upstream the `new-target-mbl.conf` machine configuration file to `https://github.com/ARMmbed/meta-mbl`.
-    - Upstream the `new-target-mbl.wks` to `https://github.com/ARMmbed/meta-mbl`.
 
 # <a name="section-11-0"></a> 11.0 References
 
