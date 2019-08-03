@@ -17,16 +17,16 @@ The following examples assume:
 ./mbl-tools/build-mbl/run-me.sh --builddir ./build-pico7 --outputdir ./artifacts-pico7 -- --machine imx7d-pico-mbl --branch mbl-os-0.7
 ```
 
-## NXP 8M Mini EVK
-
-```
-./mbl-tools/build-mbl/run-me.sh --builddir ./build-nxpimx --outputdir ./artifacts-nxpimx -- --machine imx8mmevk-mbl --branch mbl-os-0.7
-```
-
 ## PICO-PI with IMX6UL
 
 ```
 ./mbl-tools/build-mbl/run-me.sh --builddir ./build-pico6 --outputdir ./artifacts-pico6 -- --machine imx6ul-pico-mbl --branch mbl-os-0.7
+```
+
+## NXP 8M Mini EVK
+
+```
+./mbl-tools/build-mbl/run-me.sh --builddir ./build-nxpimx --outputdir ./artifacts-nxpimx -- --machine imx8mmevk-mbl --branch mbl-os-0.7
 ```
 
 ## Warp7
