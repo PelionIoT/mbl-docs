@@ -52,7 +52,7 @@ You can use the built image to generate a short-lived container to compile the a
 **To build the application with all of the steps explained above:**
 
 ```
-$ ./ci/lava/tests/lxc-build-helloworld.sh <arm-arch>
+$ ./ci/lava/tests/build-helloworld.sh <arm-arch>
 ```
 
 The build produces:
