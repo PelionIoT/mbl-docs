@@ -40,19 +40,19 @@ For more information, please refer to the [reference about application container
 
 [dockcross](https://github.com/dockcross/dockcross) is a Docker-based cross-compiling toolchain. We build a new Docker image with dockcross as the starting point, adding the `opkg` utilities. The image is defined in `./tutorials/helloworld/cc-env/<arm-arch>/Dockerfile`, where `<arm-arch>` is the architecture type of the microprocessor on the target device:
 
-| Target device | `<arm-arch>` value |
-| --- | --- |
-| NXP 8M Mini EVK | `arm64` |
-| PICO-PI with IMX7D | `armv7` |
-| Raspberry Pi 3 | `armv7` |
-| Warp7 | `armv7` |
+| Target device | `<arm-arch>` value | `<device-name>` value |
+| --- | --- | --- |
+| NXP 8M Mini EVK | `arm64` | `imx8mmevk-mbl` |
+| PICO-PI with IMX7D | `armv7` | `imx7d-pico-mbl` |
+| Raspberry Pi 3 | `armv7` | `bcm2837-rpi-3-b-32 or bcm2837-rpi-3-b-plus-32` |
+| Warp7 | `armv7` | `imx7s-warp-mbl` |
 
 You can use the built image to generate a short-lived container to compile the application in. Do this by running the container and capturing the output as an executable file. The Make toolchain is then invoked along with the cross-compilation executable file to build a variant (release or debug) of the Hello World application.
 
 **To build the application with all of the steps explained above:**
 
 ```
-$ ./ci/lava/tests/build-helloworld.sh <arm-arch>
+$ ./ci/lava/tests/build-helloworld.sh <device-name>
 ```
 
 The build produces:
