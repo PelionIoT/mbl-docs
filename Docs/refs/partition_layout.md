@@ -96,7 +96,7 @@ A script inside the `initramfs` checks which root partition is currently active;
 
 ## Future plans
 
-Four high-level requirements drive the plan for MBL's flash memory partition layout:
+The following high-level requirements drive the plan for MBL's flash memory partition layout:
 
 * Use cases for device firmware update.
 * Use cases for application management.
