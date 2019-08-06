@@ -187,8 +187,7 @@ For more information, please refer to the [Trusted Board Boot Requirements CLIEN
 
 ## Flash partition layout
 
-See our [Partition Layout](../refs/partition_layout.md) document for information about partition layouts.
-<!-- TODO: Update link to partition_layout.md -->
+See our [Partition Layout](../refs/partition-layout.html) document for information about partition layouts.
 
 <h1 id="bsp-yocto">Overview of MBL Yocto layers</h1>
 
