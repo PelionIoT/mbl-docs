@@ -44,6 +44,7 @@ For more information, please refer to the [reference about application container
 | --- | --- |
 | NXP 8M Mini EVK | `arm64` |
 | PICO-PI with IMX7D | `armv7` |
+| PICO-PI with IMX6UL | `armv7` |
 | Raspberry Pi 3 | `armv7` |
 | Warp7 | `armv7` |
 

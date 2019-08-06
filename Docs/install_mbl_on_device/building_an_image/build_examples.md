@@ -3,17 +3,24 @@
 The following examples assume:
 
 * You have an output directory for your machine, for example:
+    * `./artifacts-pico7`
+    * `./artifacts-nxpimx`
+    * `./artifacts-pico6`
     * `./artifacts-warp7`
     * `./artifacts-rpi3`
-    * `./artifacts-evk`
-    * `./artifacts-nxpimx`
 * You have an [SSH agent](../first-image/development-environment.html). For usage, see [the GitHub SSH documentation](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).
 
 
 ## PICO-PI with IMX7D
 
 ```
-./mbl-tools/build-mbl/run-me.sh --builddir ./build-pico --outputdir ./artifacts-pico -- --machine imx7d-pico-mbl --branch mbl-os-0.7
+./mbl-tools/build-mbl/run-me.sh --builddir ./build-pico7 --outputdir ./artifacts-pico7 -- --machine imx7d-pico-mbl --branch mbl-os-0.7
+```
+
+## PICO-PI with IMX6UL
+
+```
+./mbl-tools/build-mbl/run-me.sh --builddir ./build-pico6 --outputdir ./artifacts-pico6 -- --machine imx6ul-pico-mbl --branch mbl-os-0.7
 ```
 
 ## NXP 8M Mini EVK

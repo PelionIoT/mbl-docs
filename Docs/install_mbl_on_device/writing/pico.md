@@ -1,4 +1,4 @@
-# PICO-PI baseboard with the PICO-IMX7D SoM
+# PICO-PI baseboard with the PICO-IMX7D or PICO-IMX6UL SoM
 
 There are two processes for writing to the PICO-PI:
 
@@ -7,9 +7,7 @@ There are two processes for writing to the PICO-PI:
 
 ## Writing the first image
 
-
 <span class="notes">This assumes you have already assembled your baseboard and SoM. These first-time instructions are distilled from [information from TechNexion](https://www.technexion.com/support/knowledgebase/loading-bootable-software-images-onto-the-emmc-of-picosom-on-pico-pi/). These instructions can also be used to recover the board if it cannot boot into u-boot.</span>
-
 
 1. Check the current block storage devices on your PC:
 
@@ -33,9 +31,11 @@ There are two processes for writing to the PICO-PI:
 
    You'll need to refer to this output in the following steps, so save it for reference.
 
-1. Set the PICO-PI into serial download mode by changing the boot configuration jumper settings.
+1. Set the PICO-PI to serial download mode by changing the boot configuration jumper settings (the exact setting depends on the System on Module (SoM) you are using).
 
-   <img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/pico7-serial-download.jpg" width="25%" align="middle" />
+| PICO-IMX7D | PICO-IMX6UL |
+| ---------- | ----------- |
+| <img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/pico7-serial-download.jpg" width="25%" align="middle" /> | <img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/pico6-serial-download.jpg" width="25%" align="middle" /> |
 
 1. Connect both the PICO-PI USB-C socket and the micro-USB socket to your PC.
 
@@ -57,14 +57,25 @@ There are two processes for writing to the PICO-PI:
 
 1. Run the USB OTG (on the go) image loader, using the following commands on Linux:
 
+   a. For SoM PICO-IMX7D:
+
     ```
     cd pico-imx6-imx6ul-imx7_otg-installer_20171101
     sudo linux/imx_usb pico-imx7d_bootbomb_20170112.imx
     ```
 
+   b. For SoM PICO-IMX6UL:
+
+    ```
+    cd pico-imx6-imx6ul-imx7_otg-installer_20171101
+    sudo linux/imx_usb pico-imx6ul_bootbomb_20160510.imx
+    ```
+
+   For both:
+
     <span class="notes">Make sure you run the command as root using sudo otherwise the `imx_usb` loader will report `main:Could not open device vid=0x... pid=0x... err=-3`</span>
 
-    You should see output on the PC that ends with:
+    You should see output on the PC that ends with something similar to the following:
 
     ```
     loading binary file(pico-imx7d_bootbomb_20170112.imx) to 877ff400, skip=0, fsize=259c00 type=aa
@@ -114,11 +125,19 @@ There are two processes for writing to the PICO-PI:
 
 1. From a Linux prompt, write the disk image to the PICO-PI's USB mass storage - not a partition on it (replace `/dev/sdX` as explained above)::
 
+   a. For SoM PICO-IMX7D:
+
     ```
     sudo bmaptool copy --nobmap /path/to/artifacts/machine/imx7d-pico-mbl/images/mbl-image-development/images/mbl-image-development-imx7d-pico-mbl.wic.gz /dev/sdX
     ```
 
-    This action may take some time.
+   b. For SoM PICO-IMX6UL:
+
+    ```
+    sudo bmaptool copy --nobmap /path/to/artifacts/machine/imx7d-pico-mbl/images/mbl-image-development/images/mbl-image-development-imx7d-pico-mbl.wic.gz /dev/sdX
+    ```
+
+   For both: This action may take some time.
 
     <span class="tips">**Tip**: Use `--nobmap` for the initial flashing, to ensure your flash is set up correctly. On all subsequent flashings, you can use the `--bmap` option with a bmap file to speed up the process: `sudo bmaptool copy --bmap /path/to/artifacts/machine/imx7d-pico-mbl/images/mbl-image-development/images/mbl-image-development-imx7d-pico-mbl.wic.bmap /path/to/artifacts/machine/imx7d-pico-mbl/images/mbl-image-development/images/mbl-image-development-imx7d-pico-mbl.wic.gz /dev/sdX`</span>
 
@@ -128,9 +147,12 @@ There are two processes for writing to the PICO-PI:
     sudo eject /dev/sdX
     ```
 
-1. Unplug both USB cables from the PICO-PI, and set the boot configuration jumper settings to boot from the on board EMMC flash.
+1. Unplug both USB cables from the PICO-PI, and set the boot configuration jumper settings to boot from the on board EMMC flash, depending on the SoM you are using:
 
-    <img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/pico7-flash-boot.jpg" width="25%" align="middle" />
+| PICO-IMX7D | PICO-IMX6UL |
+| ---------- | ----------- |
+| <img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/pico7-flash-boot.jpg" width="25%" align="middle" /> | <img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/pico6-flash-boot.jpg" width="25%" align="middle" /> |
+
 
 1. Connect both the PICO-PI USB-C socket and the micro-USB socket back to your PC.
 
@@ -222,11 +244,19 @@ There are two processes for writing to the PICO-PI:
 
 1. From a Linux prompt, write the disk image to the PICO-PI's USB mass storage - not a partition on it (replace `/dev/sdX` as explained above):
 
+   a. For SoM PICO-IMX7D:
+
     ```
     sudo bmaptool copy --bmap /path/to/artifacts/machine/imx7d-pico-mbl/images/mbl-image-development/images/mbl-image-development-imx7d-pico-mbl.wic.bmap /path/to/artifacts/machine/imx7d-pico-mbl/images/mbl-image-development/images/mbl-image-development-imx7d-pico-mbl.wic.gz /dev/sdX
     ```
 
-    This action may take some time.
+   b. For SoM PICO-IMX6UL:
+
+    ```
+    sudo bmaptool copy --bmap /path/to/artifacts/machine/imx6ul-pico-mbl/images/mbl-image-development/images/mbl-image-development-imx6ul-pico-mbl.wic.bmap /path/to/artifacts/machine/imx6ul-pico-mbl/images/mbl-image-development/images/mbl-image-development-imx6ul-pico-mbl.wic.gz /dev/sdX
+    ```
+
+   For both: This action may take some time.
 
 
 1. When `bmaptool` has finished, eject the device:

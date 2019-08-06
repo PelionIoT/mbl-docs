@@ -16,7 +16,7 @@ The following build options are mandatory:
 | Name | Option Type | Information |
 | --- | --- | --- |
 | `--branch` | build.sh | Select the MBL branch to build. For example, to build the branch `mbl-os-0.7`: <br>`./mbl-tools/build-mbl/run-me.sh -- --branch mbl-os-0.7 --machine raspberrypi3-mbl` |
-| `--machine` | build.sh | Select the target device. <br>The options are [**PICO-PI with IMX7D**, `imx7d-pico-mbl`], [**NXP 8M Mini EVK**, `imx8mmevk-mbl`], [**Warp7**, `imx7s-warp-mbl`] and [**Raspberry Pi 3**, `raspberrypi3-mbl`]. <br>Example: `./mbl-tools/build-mbl/run-me.sh -- --machine <MACHINE>` |
+| `--machine` | build.sh | Select the target device. <br>The options are [**PICO-PI with IMX7D**, `imx7d-pico-mbl`], [**NXP 8M Mini EVK**, `imx8mmevk-mbl`], [**PICO-PI with IMX6UL**, `imx6ul-pico-mbl`], [**Warp7**, `imx7s-warp-mbl`] and [**Raspberry Pi 3**, `raspberrypi3-mbl`]. <br>Example: `./mbl-tools/build-mbl/run-me.sh -- --machine <MACHINE>` |
 | `--builddir` | run-me.sh | Create a build directory. This option is for `run-me.sh`. <br>You must use a different build directory for every device (machine), and we recommend including the device's name in the directory's name. <br>Note that this directory includes all other artifacts, such as build and error logs. For example, if you've created `mkdir /path/to/my-build-dir`, the builddir will be `./mbl-tools/build-mbl/run-me.sh --builddir /path/to/my-build-dir` |
 | `--outputdir` | run-me.sh | Specify the output directory for all build artifacts (pinned manifest, target specific images etc). <br>For example, if you're created `mkdir /path/to/artifacts`, the outpudir will be `./mbl-tools/build-mbl/run-me.sh --outputdir /path/to/artifacts` |
 
