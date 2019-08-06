@@ -169,7 +169,7 @@ The secure boot chain process is now complete.
 
 See the [Basic Signing Flow document][basic-signing-flow] for a more detailed description of the AArch64 secure boot flow.
 
-## Partitioning software components into FIP or FIT images
+## Partitioning software components into FIP and FIT images
 
 <a name="fig2-2"></a>
 
