@@ -452,7 +452,7 @@ Each layer is shown horizontally, containing a number of recipe packages and con
       - `u-boot-common_${PV}.inc`. This `include` file contains common symbol definitions used by multiple `u-boot*` recipes. It is included in the `u-boot_${PV}.bb` recipe.
       - `kernel-fitimage.bbclass`. See [linux*](../develop-mbl/bsp-linux.html#kernel-fitimage-bbclass-and-mbl-fitimage-bbclass) for details.
       - `kernel-devicetree.bbclass`. See [linux*](../develop-mbl/bsp-linux.html#kernel-bbclass-openembedded-core-support) for details.
-      - `kernel-uimage.bbclass`. See [linx*](../develop-mbl/bsp-linux.html#kernel-bbclass-openembedded-core-support) for details.
+      - `kernel-uimage.bbclass`. See [linux*](../develop-mbl/bsp-linux.html#kernel-bbclass-openembedded-core-support) for details.
       - `kernel-module-split.bbclass`. See [linux*](../develop-mbl/bsp-linux.html#kernel-bbclass-openembedded-core-support) for details.
       - `kernel-uboot.bbclass`. See [linux*](../develop-mbl/bsp-linux.html#kernel-fitimage-bbclass-and-mbl-fitimage-bbclass) for details.
 
