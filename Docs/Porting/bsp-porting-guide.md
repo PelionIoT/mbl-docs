@@ -634,7 +634,7 @@ The `mbl-fitimage.bbclass` member functions of interest are described briefly be
 
 <h1 id="bsp-atf">atf-${MACHINE}.bb</h1>
 
-This section describes `the atf-${MACHINE}.bb`, `atf.inc` and `optee-os.bb` entities in the UML diagram [Figure 4.0](../develop-mbl/bsp-recipe.html#figure-4-0).
+This section describes the `atf-${MACHINE}.bb`, `atf.inc` and `optee-os.bb` entities in the UML diagram [Figure 4.0](../develop-mbl/bsp-recipe.html#figure-4-0).
 
 The discussion is applicable to all targets.
 
