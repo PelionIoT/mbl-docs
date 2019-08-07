@@ -94,7 +94,7 @@ A summary of the key BSP system architecture:
 
 - **Security:** Trusted Firmware for Cortex-A provides a generic solution for authenticating software components.
 - **Firmware Update:** Pelion Device Management Update service is used to update device firmware. This leads to a flash partition layout where trusted firmware, kernel, root file system and applications are independently updatable.
-- **Reuse:** Where possible, suitable existing solutions and software are reused to leverage know-how and speed up time to market.
+- **Reuse:** Where possible, suitable existing solutions and software are reused.
 
 ## Boot flow
 
