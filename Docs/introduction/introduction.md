@@ -103,4 +103,4 @@ There are two paths to working with MBL:
 * A new [provisioning guide](../first-image/provisioning-for-pelion-device-management.html).
 * Instructions for [removing the old version of MBL CLI](../develop-apps/setting-up.html#setting-up-mbl-cli).
 
-The [full release note](https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.7/docs/release_note.md) is available on our public preview repository.
+The [full release note](https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.8/docs/release_note.md) is available on our public preview repository.
