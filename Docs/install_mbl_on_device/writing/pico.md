@@ -35,7 +35,7 @@ There are two processes for writing to the PICO-PI:
 
 | PICO-IMX7D | PICO-IMX6UL |
 | ---------- | ----------- |
-| <img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/pico7-serial-download.jpg" width="25%" align="middle" /> | <img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/pico6-serial-download.jpg" width="25%" align="middle" /> |
+| <img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/pico7-serial-download.jpg" width="25%" align="middle" /> | <img src="../../Figures/pico6-serial-download.jpg" width="25%" align="middle" /> |
 
 1. Connect both the PICO-PI USB-C socket and the micro-USB socket to your PC.
 
@@ -151,7 +151,7 @@ There are two processes for writing to the PICO-PI:
 
 | PICO-IMX7D | PICO-IMX6UL |
 | ---------- | ----------- |
-| <img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/pico7-flash-boot.jpg" width="25%" align="middle" /> | <img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/pico6-flash-boot.jpg" width="25%" align="middle" /> |
+| <img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/pico7-flash-boot.jpg" width="25%" align="middle" /> | <img src="../../Figures/pico6-flash-boot.jpg" width="25%" align="middle" /> |
 
 
 1. Connect both the PICO-PI USB-C socket and the micro-USB socket back to your PC.
