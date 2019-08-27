@@ -28,5 +28,5 @@ To invoke the `run-me.sh` help menu, use:
 To invoke the `build.sh` help menu, use:
 
 ```
-./mbl-tools/build-mbl/run-me.sh -- -h
+./mbl-tools/build-mbl/run-me.sh --builddir /path/to/builddir -- -h
 ```
