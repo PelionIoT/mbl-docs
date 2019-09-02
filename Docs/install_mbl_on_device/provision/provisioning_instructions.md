@@ -1,6 +1,6 @@
-# Provisioning instructions
+## Provisioning instructions
 
-## Prerequisites
+### Prerequisites
 
 * MBL CLI and a developer connection. Please see [installation and developer connection instructions](../develop-apps/setting-up.html).
 
@@ -16,9 +16,9 @@
 
 <a href="https://os.mbed.com/account/login/" target="_blank">A Pelion Device Management Account</a>.
 
-## Preliminary steps
+### Preliminary steps
 
-### Mandatory: API key and update authenticity certificate
+#### Mandatory: API key and update authenticity certificate
 
 1. Create an API key for [Pelion Device Management](https://cloud.mbed.com/docs/latest/integrate-web-app/api-keys.html). Be sure to copy the key when prompted - you will need to store it on the device before you begin provisioning.
 
@@ -45,7 +45,7 @@
         * `<domain>` is your company's domain, like `arm.com`.
         * `<device class>` is a unique identifier for the device class. If you're in development (using developer credentials), you can use `dev-device`.
 
-### Optional: persistent storage locations
+#### Optional: persistent storage locations
 
 <span class="notes">**Note**: MBL CLI sets up defaults automatically; this manual step is optional, but if you chose to perform it, it should be done before any other provisioning steps.</span>
 
@@ -74,7 +74,7 @@ To specify a storage location, create a config file `~/.mbl-stores.json` with th
 
 If, on first use, you do not create your own `~/.mbl-stores.json`, it will be automatically created and populated with the default values.
 
-## Provisioning instructions
+### Provisioning
 
 To provision your device:
 
