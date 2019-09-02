@@ -1,4 +1,4 @@
-# Provisioning your device
+# Provisioning instructions
 
 ## Prerequisites
 
@@ -6,12 +6,12 @@
 
     <span class="notes">**Note:** If you are running an earlier version (1.x) of MBL CLI, please remove it (and install 2.0).</span>
 
-* We have used [manifest tool](https://github.com/ARMmbed/manifest-tool) 1.4.8 in our testing. You should install the manifest tool in the same virtual environment you created for MBL CLI. 
-    Install the manifest tool: 
+* We have used [manifest tool](https://github.com/ARMmbed/manifest-tool) 1.4.8 in our testing. You should install the manifest tool in the same virtual environment you created for MBL CLI.
+    Install the manifest tool:
     ```
     pip install manifest-tool==1.4.8
     ```
- 
+
   See the Device Management documentation [for more information on installing the manifest-tool](https://cloud.mbed.com/docs/latest/cloud-requirements/manifest-tutorial.html).
 
 <a href="https://os.mbed.com/account/login/" target="_blank">A Pelion Device Management Account</a>.
