@@ -97,9 +97,10 @@
                 },
                 {
                     "title": "Provisioning for Pelion Device Management",
-                    "sources": [{
+                    "intro": {
                             "path": "Docs/install_mbl_on_device/provision/provision_intro.md"
                         },
+                    "sources": [
                         {
                             "path": "Docs/install_mbl_on_device/provision/provisioning_instructions.md"
                         }
