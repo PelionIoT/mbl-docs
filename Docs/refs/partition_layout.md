@@ -20,7 +20,7 @@ MBL images contain several types of partition:
 
 ## Partition alignment
 
-In order to reduce the risk that writes to a partition have an effect on other
+In order to reduce the risk of writes to a single partition having an effect on other
 partitions, we aim to ensure that partitions do not share flash erase blocks
 (areas of flash that can only be erased in their entirety, not in part). We
 therefore, align partitions to flash erase block boundaries where possible.
