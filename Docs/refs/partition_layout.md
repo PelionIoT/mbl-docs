@@ -18,26 +18,6 @@ MBL images contain several types of partition:
   contains data that needs to be accessible to an early bootloader that does
   not have file system drivers.
 
-## Partition alignment
-
-In order to reduce the risk of writes to a single partition having an effect on other
-partitions, we aim to ensure that partitions do not share flash erase blocks
-(areas of flash that can only be erased in their entirety, not in part). We
-therefore, align partitions to flash erase block boundaries where possible.
-
-## MBRs and EBRs
-
-In addition to the actual partitions, the flash device will also contain a
-master boot record (MBR) and, for each logical partition, an extended boot
-record (EBR). We must take care to ensure that the MBR and EBRs are not
-corrupted during device operation, so they must not share flash erase blocks
-with data that might be modified. The MBR takes up the first 512B sector of the
-storage and it is acceptable for the MBR to share a flash erase block with e.g.
-TF-A BL2 because we will not support robust update of BL2. Each EBR takes up
-512B and is typically placed immediately before the logical partition it
-describes.  We must therefore allocate an extra flash erase block for an EBR
-before every logical partition.
-
 ## General layout
 
 The partition layout for every board includes at least the following partitions:
@@ -225,6 +205,27 @@ In summary, requirements that influence the flash layout are:
 | A firmware update involving multiple components may extend across power failures. |	Nonvolatile state must be held reflecting the presence of a component update. Only when all components are installed can the entire update be viewed as complete. |
 | Data saved in flash memory that does not need to be modified in normal device operation should be write-protected. |	Some partitions should be created or modified to be read-only. Factory data written during the manufacturing process should be saved in a partition that is modified to read-only when a device boots after its lifecycle state has been modified to 'manufacture complete'. |
 | A device should support the restore to factory use case. | To allow the user configuration to be deleted without deleting the factory configuration, the two types of data should be kept separate. |
+
+### Partition alignment
+
+In order to reduce the risk of writes to a single partition having an effect on other
+partitions, we aim to ensure that partitions do not share flash erase blocks
+(areas of flash that can only be erased in their entirety, not in part). We
+therefore, align partitions to flash erase block boundaries where possible.
+
+### MBRs and EBRs
+
+In addition to the actual partitions, the flash device will also contain a
+master boot record (MBR) and, for each logical partition, an extended boot
+record (EBR). We must take care to ensure that the MBR and EBRs are not
+corrupted during device operation, so they must not share flash erase blocks
+with data that might be modified. The MBR takes up the first 512B sector of the
+storage and it is acceptable for the MBR to share a flash erase block with e.g.
+TF-A BL2 because we will not support robust update of BL2. Each EBR takes up
+512B and is typically placed immediately before the logical partition it
+describes.  We must therefore allocate an extra flash erase block for an EBR
+before every logical partition.
+
 
 ### Firmware update
 
