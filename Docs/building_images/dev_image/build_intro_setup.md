@@ -22,11 +22,11 @@ The repository includes the `run-me.sh` script, which:
 To invoke the `run-me.sh` help menu, use:
 
 ```
-./mbl-tools/build-mbl/run-me.sh -h
+./mbl-tools/build/run-me.sh -h
 ```
 
 To invoke the `build.sh` help menu, use:
 
 ```
-./mbl-tools/build-mbl/run-me.sh --builddir /path/to/builddir -- -h
+./mbl-tools/build/run-me.sh --builddir /path/to/builddir -- -h
 ```

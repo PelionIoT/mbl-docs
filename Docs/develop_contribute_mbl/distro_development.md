@@ -17,7 +17,7 @@ To point to a custom manifest, you need to pass at least the options `--branch` 
 For example (change parameters for `--builddir` and `--machine` as needed):
 
 ```
-./mbl-tools/build-mbl/run-me.sh --builddir ./build-warp7 -- --machine imx7s-warp-mbl --branch mbl-os-0.8 --url git@github.com:your-github-account/mbl-manifest.git
+./mbl-tools/build/run-me.sh --builddir ./build-warp7 -- --machine imx7s-warp-mbl --branch mbl-os-0.8 --url git@github.com:your-github-account/mbl-manifest.git
 ```
 
 <span class="notes">**Notes**: The `--url` must be in [the **Clone with SSH** format](https://git-scm.com/docs/git-clone#_git_urls_a_id_urls_a). We don't recommend using the `--outputdir` option with interactive mode, as any builds done during interactive mode will not update the output directory contents.</span>
@@ -33,7 +33,7 @@ You need to run the **build-mbl tool** in interactive mode: an interactive shell
 1. To run build-mbl in interactive mode (change parameters for `--builddir` and `--machine` as needed):
 
     ```
-    ./mbl-tools/build-mbl/run-me.sh --builddir ./build-warp7 -- --branch mbl-os-0.8 --machine imx7s-warp-mbl interactive
+    ./mbl-tools/build/run-me.sh --builddir ./build-warp7 -- --branch mbl-os-0.8 --machine imx7s-warp-mbl interactive
     ```
 
     <span class="tips">Unlike the build mode, the interactive mode only supports one `--machine` option at a time.</span>
@@ -49,7 +49,7 @@ To exit the interactive mode, press <kbd>Ctrl</kbd>+<kbd>D</kbd> or type `exit` 
 <span class="notes">**Note**: To perform a full build after exiting interactive mode, you must provide the `build` stage as follows (change parameters for `--builddir` and `--machine` as needed):</span>
 
 ```
-./mbl-tools/build-mbl/run-me.sh --builddir ./build-warp7 -- --branch mbl-os-0.8 --machine imx7s-warp-mbl build
+./mbl-tools/build/run-me.sh --builddir ./build-warp7 -- --branch mbl-os-0.8 --machine imx7s-warp-mbl build
 ```
 
 ## Examples of interactive mode commands
@@ -175,5 +175,5 @@ The **build-mbl tool** generates a pinned version of the specified manifest and 
 For example (change parameters for `--builddir` and `--machine` as needed):
 
 ```
-./mbl-tools/build-mbl/run-me.sh --builddir ./build-warp7 -- --branch mbl-os-0.8 --machine imx7s-warp-mbl sync
+./mbl-tools/build/run-me.sh --builddir ./build-warp7 -- --branch mbl-os-0.8 --machine imx7s-warp-mbl sync
 ```
