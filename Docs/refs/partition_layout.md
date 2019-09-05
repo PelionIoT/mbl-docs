@@ -235,7 +235,8 @@ Notes:
    different bootloaders, or you can manually set the values of the `OFFSET`
    variables.
 
-For the full details, see `meta-mbl-distro/classes/mbl-partitions.bbclass` in
+For the full details, see
+[`meta-mbl-distro/classes/mbl-partitions.bbclass`][mbl-partitions-bbclass] in
 [meta-mbl][meta-mbl], making sure that you select the branch or tag on which
 your project is based.
 
@@ -296,5 +297,6 @@ There are also two partitions for each of:
 
 This is to allow robust update of these components in the future.
 
-[meta-mbl]: https://github.com/ARMmbed/meta-mbl
+[meta-mbl]: https://github.com/ARMmbed/meta-mbl/tree/mbl-os-0.9
 [deploy-dir-image]: https://www.yoctoproject.org/docs/latest/mega-manual/mega-manual.html#var-DEPLOY_DIR_IMAGE
+[mbl-partitions-bbclass]: https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.9/meta-mbl-distro/classes/mbl-partitions.bbclass
