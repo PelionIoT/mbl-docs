@@ -67,7 +67,7 @@ There are two ways to update an MBL image:
 
     <span class="notes">**Note:** The file inside the update payload must be named `rootfs.tar.xz` and must be in the tar's root directory, not a subdirectory.</span>
 
-    For example, to create an update payload file at `/tmp/payload.tar` containing a Warp7 root file system image `tar` file with the path `build-mbl/tmp-mbl-glibc/deploy/images/imx7s-warp-mbl/mbl-image-production-imx7s-warp-mbl.tar.xz`, run:
+    For example, to create an update payload file at `/tmp/payload.tar` containing a Warp7 root file system image `tar` file with the path `build-mbl-development/tmp/deploy/images/imx7s-warp-mbl/mbl-image-production-imx7s-warp-mbl.tar.xz`, run:
 
     ```
     user01@dev-machine:~$ tar -cf /tmp/payload.tar -C /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-image-development/images '--transform=s/.*/rootfs.tar.xz/' --dereference mbl-image-development-imx7s-warp-mbl.tar.xz

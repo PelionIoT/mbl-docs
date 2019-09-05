@@ -8,7 +8,7 @@ The source code for Mbed Linux OS that Arm provides is open source and follows t
 
 The Mbed Linux OS distribution is made up of an aggregation of Open Source Software under many different licenses. The OpenEmbedded build framework that Mbed Linux OS uses outputs a list of the licenses from the build recipes used to create the distribution.
 
-The full list of licenses for a particular build of Mbed Linux OS can be found in either the OpenEmbedded builds deploy directory (for example, `build-mbl/tmp-mbl-glibc/deploy/licenses`) or, if you have used the docker builds artifacts option, in the `licenses.tar.gz` archive in the `artifacts` directory.
+The full list of licenses for a particular build of Mbed Linux OS can be found in either the OpenEmbedded builds deploy directory (for example, `build-mbl-development/tmp/deploy/licenses`) or, if you have used the docker builds artifacts option, in the `licenses.tar.gz` archive in the `artifacts` directory.
 
 <span class="notes">The full source code should be made available for a binary build, because some software licenses do not contain specific copyright declarations; instead, the copyrights can be found in the respective source code for that software.</span>
 

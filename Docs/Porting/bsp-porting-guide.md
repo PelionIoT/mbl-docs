@@ -656,7 +656,7 @@ do_compile[depends] += " virtual/kernel:do_deploy virtual/bootloader:do_deploy o
 
 This means the `virtual/bootloader` and `virtual/kernel` artifacts should be deployed before the `atf.inc do_compile()` method runs, so they are available for the ATF recipe to use.
 
-<span class="notes">**Note:** `atf.inc` expects the `virtual/bootloader`, `virtual/kernel` and `optee*` artifacts on which it depends to be deployed to the `DEPLOY_DIR_IMAGE-${DEPLOY_DIR}/images/${MACHINE}/` directory. For the `imx7s-warp-mbl` target, this directory is: `<workspace_root>/build-mbl/tmp-mbl-glibc/deploy/images/imx7s-warp-mbl`.</span>
+<span class="notes">**Note:** `atf.inc` expects the `virtual/bootloader`, `virtual/kernel` and `optee*` artifacts on which it depends to be deployed to the `DEPLOY_DIR_IMAGE-${DEPLOY_DIR}/images/${MACHINE}/` directory. For the `imx7s-warp-mbl` target, this directory is: `<workspace_root>/build-mbl-development/tmp/deploy/images/imx7s-warp-mbl`.</span>
 
 If required, ATF generates an ROT key pair used for signing artifacts. The ROT private key is also stored in the above directory. For more details about ATF ROT key generation and signing, see the [Mbed Linux OS Basic Signing Flow][basic-signing-flow].
 

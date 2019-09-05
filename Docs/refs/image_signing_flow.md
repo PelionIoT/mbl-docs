@@ -49,7 +49,7 @@
 </tr>
 <tr>
 <td>DEPLOY_DIR</td>
-<td>Yocto symbol for the MBL build deploy directory: <code>&lt;src_root&gt;/build-mbl/tmp-mbl-glibc/deploy</code></td>
+<td>Yocto symbol for the MBL build deploy directory: <code>&lt;src_root&gt;/build-mbl-development/tmp/deploy</code></td>
 </tr>
 <tr>
 <td>DEPLOY_DIR_IMAGE</td>
