@@ -84,7 +84,7 @@
                         {
                             "title": "Building a production image",
                             "intro": {
-                                "path": "Docs/building_images/dev_image/3_prod.md"
+                                "path": "Docs/building_images/3_prod.md"
                             },
                             "sources": []
                         },
