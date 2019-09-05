@@ -34,10 +34,11 @@ There are many ways to create applications that can be packaged in the IPK forma
 
 We then put our IPK into a TAR, to match the requirements of the Device Management Update service.
 
-The applications in the following tutorials all use a MakeFile and mbl-dockcross to cross-compile. They introduce different levels of reliance on Docker and access from the dockerized application to the device:
+The **Hello World C** application is entirely self contained. It has just one file to build - `hello_world.c` - and a `config.json` defining how to run the application on the device. The `config.json` doesn't give the application any special access to the device's software or hardware resources; the application doesn't even use the device's C runtime library, as it is statically compiled. It uses a MakeFile and `mbl-dockcross` to cross-compile.
 
-1. The Hello World C application is entirely self contained. It has just one file to build - `hello_world.c` - and a `config.json` defining how to run the application on the device. The `config.json` doesn't give the application any special access to the device's software or hardware resources; the application doesn't even use the device's C runtime library, as it is statically compiled.
+<span class="tips">More information about containers is available in the [application FAQ](../develop-apps/frequently-asked-questions.html).</span>
 
-1. The QR scanner Python application (coming soon) uses its `config.json` to access the device's hardware resources and persistent memory.
+<!--1. The QR scanner Python application (coming soon) uses its `config.json` to access the device's hardware resources and persistent memory.
 
-    This application is Dockerized (built in a Docker container) - because it's a Python application and we have chosen to include the Python runtime environment with it, as well as the OpenCV library to capture camera frames, it cannot be built and converted to an OCI individually (the way we did with the Hello World C application). Instead, it's built and then bundled with all its Python dependencies.
+    This application is Dockerized (built in a Docker container) - because it's a Python application that (by choice) includes the Python runtime environment with it, as well as the OpenCV library to capture camera frames, it cannot be built and converted to an OCI individually (the way the Hello World C application is built). Instead, it's built and then bundled with all its Python dependencies.
+-->
