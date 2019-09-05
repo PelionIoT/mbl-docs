@@ -43,8 +43,8 @@ layout.
 
 | Label/Name        | Number of banks | Partition type | File system type | Notes |
 |-------------------|-----------------|----------------|------------------|-------|
-| Bootloader slot 1 | 1               | Raw            | -                | Typically contains the first code that the board's boot ROM loads, which is usually TF-A BL2. |
-| Bootloader slot 2 | 2               | Raw            | -                | Typically contains a FIP image containing TF-A BL3, OP-TEE and U-Boot. |
+| Bootloader slot 1 | 1               | Raw            | -                | Typically contains bootloader component 1, the first code that the board's boot ROM loads |
+| Bootloader slot 2 | 2               | Raw            | -                | Typically contains bootloader component 2 |
 | blfs              | 1               | Primary        | vfat             | Typically only used on boards where the boot ROM loads code from a file system rather than raw storage (e.g. Raspberry Pi 3). |
 
 
@@ -58,10 +58,10 @@ Consider using/updating that script before making changes manually.
 -->
 | Number | Label/Name                 | Offset  | Size   | Partition type | File system type | Notes |
 | ------ | ----------                 | ------  | ----   | -------------- | ---------------- | ----- |
-| -      | Bootloader slot 2 (Bank 1) | 16MiB   | 16MiB  | Raw            | -                | FIP image containing TF-A BL3, OP-TEE and U-Boot |
+| -      | Bootloader slot 2 (Bank 1) | 16MiB   | 16MiB  | Raw            | -                | Contains bootloader component 2 |
 | -      | Bootloader slot 2 (Bank 2) | 32MiB   | 16MiB  | Raw            | -                | Unused |
 | -      | Bank/Update state          | 64MiB   | 128MiB | Raw            | -                | Unused |
-| 1      | blfs                       | 192MiB  | 48MiB  | Primary        | vfat             | Video Core firmware, TF-A BL2, FIT image containing kernel, device tree and U-Boot script |
+| 1      | blfs                       | 192MiB  | 48MiB  | Primary        | vfat             | Contains bootloader component 1 and the kernel |
 | 2      | boot1                      | 240MiB  | 128MiB | Primary        | vfat             | Unused |
 | 3      | boot2                      | 368MiB  | 128MiB | Primary        | vfat             | Unused |
 | 4      | -                          | -       | -      | Extended       | -                | - |
@@ -83,11 +83,11 @@ Consider using/updating that script before making changes manually.
 -->
 | Number | Label/Name                 | Offset  | Size   | Partition type | File system type | Notes |
 | ------ | ----------                 | ------  | ----   | -------------- | ---------------- | ----- |
-| -      | Bootloader slot 1          | 1KiB    | 4MiB   | Raw            | -                | TF-A BL2 |
-| -      | Bootloader slot 2 (Bank 1) | 6MiB    | 16MiB  | Raw            | -                | FIP image containing TF-A BL3, OP-TEE and U-Boot |
+| -      | Bootloader slot 1          | 1KiB    | 4MiB   | Raw            | -                | Contains bootloader component 1 |
+| -      | Bootloader slot 2 (Bank 1) | 6MiB    | 16MiB  | Raw            | -                | Contains bootloader component 2 |
 | -      | Bootloader slot 2 (Bank 2) | 24MiB   | 16MiB  | Raw            | -                | Unused |
 | -      | Bank/Update state          | 64MiB   | 128MiB | Raw            | -                | Unused |
-| 1      | boot1                      | 192MiB  | 128MiB | Primary        | vfat             | FIT image containing kernel, device tree and U-Boot script |
+| 1      | boot1                      | 192MiB  | 128MiB | Primary        | vfat             | Contains the kernel |
 | 2      | boot2                      | 324MiB  | 128MiB | Primary        | vfat             | Unused |
 | 3      | rootfs1                    | 456MiB  | 512MiB | Primary        | ext4             | - |
 | 4      | -                          | -       | -      | Extended       | -                | - |
@@ -108,11 +108,11 @@ Consider using/updating that script before making changes manually.
 -->
 | Number | Label/Name                 | Offset    | Size   | Partition type | File system type | Notes |
 | ------ | ----------                 | ------    | ----   | -------------- | ---------------- | ----- |
-| -      | Bootloader slot 1          | 1KiB      | 4MiB   | Raw            | -                | TF-A BL2 |
-| -      | Bootloader slot 2 (Bank 1) | 4.5MiB    | 16MiB  | Raw            | -                | FIP image containing TF-A BL3, OP-TEE and U-Boot |
+| -      | Bootloader slot 1          | 1KiB      | 4MiB   | Raw            | -                | Contains bootloader component 1 |
+| -      | Bootloader slot 2 (Bank 1) | 4.5MiB    | 16MiB  | Raw            | -                | Contains bootloader component 2 |
 | -      | Bootloader slot 2 (Bank 2) | 20.5MiB   | 16MiB  | Raw            | -                | Unused |
 | -      | Bank/Update state          | 64MiB     | 128MiB | Raw            | -                | Unused |
-| 1      | boot1                      | 192MiB    | 128MiB | Primary        | vfat             | FIT image containing kernel, device tree and U-Boot script |
+| 1      | boot1                      | 192MiB    | 128MiB | Primary        | vfat             | Contains the kernel |
 | 2      | boot2                      | 320MiB    | 128MiB | Primary        | vfat             | Unused |
 | 3      | rootfs1                    | 448MiB    | 512MiB | Primary        | ext4             | - |
 | 4      | -                          | -         | -      | Extended       | -                | - |
@@ -132,11 +132,11 @@ Consider using/updating that script before making changes manually.
 -->
 | Number | Label/Name                 | Offset    | Size    | Partition type | File system type | Notes |
 | ------ | ----------                 | ------    | ----    | -------------- | ---------------- | ----- |
-| -      | Bootloader slot 1          | 1KiB      | 1023KiB | Raw            | -                | TF-A BL2 |
-| -      | Bootloader slot 2 (Bank 1) | 1MiB      | 1MiB    | Raw            | -                | FIP image containing TF-A BL3, OP-TEE and U-Boot |
+| -      | Bootloader slot 1          | 1KiB      | 1023KiB | Raw            | -                | Contains bootloader component 1 |
+| -      | Bootloader slot 2 (Bank 1) | 1MiB      | 1MiB    | Raw            | -                | Contains bootloader component 2 |
 | -      | Bootloader slot 2 (Bank 2) | 2MiB      | 1MiB    | Raw            | -                | Unused |
 | -      | Bank/Update state          | 64MiB     | 128MiB  | Raw            | -                | Unused |
-| 1      | boot1                      | 192MiB    | 128MiB  | Primary        | vfat             | FIT image containing kernel, device tree and U-Boot script |
+| 1      | boot1                      | 192MiB    | 128MiB  | Primary        | vfat             | Contains the kernel |
 | 2      | boot2                      | 320MiB    | 128MiB  | Primary        | vfat             | Unused |
 | 3      | rootfs1                    | 448MiB    | 512MiB  | Primary        | ext4             | - |
 | 4      | -                          | -         | -       | Extended       | -                | - |
@@ -156,11 +156,11 @@ Consider using/updating that script before making changes manually.
 -->
 | Number | Label/Name                 | Offset  | Size   | Partition type | File system type | Notes |
 | ------ | ----------                 | ------  | ----   | -------------- | ---------------- | ----- |
-| -      | Bootloader slot 1          | 33KiB   | 991KiB | Raw            | -                | TF-A BL2 |
-| -      | Bootloader slot 2 (Bank 1) | 16MiB   | 2MiB   | Raw            | -                | FIP image containing TF-A BL3, OP-TEE and U-Boot |
+| -      | Bootloader slot 1          | 33KiB   | 991KiB | Raw            | -                | Contains bootloader component 1 |
+| -      | Bootloader slot 2 (Bank 1) | 16MiB   | 2MiB   | Raw            | -                | Contains bootloader component 2 |
 | -      | Bootloader slot 2 (Bank 2) | 32MiB   | 2MiB   | Raw            | -                | Unused |
 | -      | Bank/Update state          | 64MiB   | 128MiB | Raw            | -                | Unused |
-| 1      | boot1                      | 192MiB  | 128MiB | Primary        | vfat             | FIT image containing kernel, device tree and U-Boot script |
+| 1      | boot1                      | 192MiB  | 128MiB | Primary        | vfat             | Contains the kernel |
 | 2      | boot2                      | 320MiB  | 128MiB | Primary        | vfat             | Unused |
 | 3      | rootfs1                    | 448MiB  | 512MiB | Primary        | ext4             | - |
 | 4      | -                          | -       | -      | Extended       | -                | - |
