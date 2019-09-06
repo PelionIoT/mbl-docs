@@ -1,3 +1,5 @@
+<!--- This page should go one level up -->
+
 # Using the build scripts
 
 The `run-me.sh` and `build.sh` scripts are called in a single command, with options that control what to build and how. The general form of a `run-me.sh` invocation is:
@@ -35,6 +37,9 @@ The following build options are not mandatory, but you may find that they improv
 | `--downloaddir` | run-me.sh | Cache downloaded artifacts between successive builds (do not use cacheing for parallel builds). <br>For example, if you create `mkdir /path/to/downloads`, the downloaddir will be `./mbl-tools/build/run-me.sh --downloaddir /path/to/downloads` |
 | `--manifest` | build.sh | By default, building uses the `default.xml` manifest, which uses release branches of all the Arm maintained repositories. To use pinned versions for all repositories, specify `release.xml` as the manifest. You can combine this with `--branch` to specify a particular release version. <br>Example: `./mbl-tools/build/run-me.sh -- --branch refs/tags/mbl-os-0.8.0 --manifest release.xml`|
 | `--external-manifest` | run-me.sh | You can build using a pinned manifest, which is an encapsulation created by a build and containing enough information to allow an exact rebuild. The manifest is created in your output directory (`outputdir`). <br>To use it to rebuild, run `./mbl-tools/build/run-me.sh --external-manifest /path/to/pinned-manifest.xml` |
+| `--distro` | build.sh | Chose which distribution to build. Supported values are: **`mbl-development`** (default) or **`mbl-production`** |
+| `--image` | build.sh | Chose which image to build. Supported values are: **`mbl-image-development`** (default when no `--distro` is passed or `--distro mbl-development` ) or **`mbl-image-production`** (default when `--distro mbl-production` ) |
+| `--root-passwd-file` | run-me.sh | The file containing the root user password in plain text (**mandatory** when `--distro mbl-production` ) |
 
 ## Build outputs
 
@@ -42,6 +47,6 @@ The build process creates the following files:
 
 | File | Path | File | Information |
 | --- | --- | --- | --- |
-| Full disk image  | `/path/to/artifacts/machine/<MACHINE>/images/mbl-image-development/images/` | `mbl-image-development-<MACHINE>.wic.gz` | This is a compressed image of the entire flash. Once decompressed, this image can be directly written to storage media, and initializes the device's storage with a full set of disk partitions and an initial version of firmware. |
-| Full disk image block map | `/path/to/artifacts/machine/<MACHINE>/images/mbl-image-development/images/` | `mbl-image-development-<MACHINE>.wic.bmap` | This is a file containing information about which blocks of the uncompressed full disk image actually need to be written to the device. Some blocks of the image represent unused storage space, which does not actually need to be written. |
-| Root file system archive  | `/path/to/artifacts/machine/<MACHINE>/images/mbl-image-development/images/` | `mbl-image-development-<MACHINE>.tar.xz` | This is a compressed `.tar` archive, which you need when you update the device firmware (this topic is covered [in the Updating MBL tutorial](../update/index.html)). |
+| Full disk image  | `/path/to/artifacts/machine/<MACHINE>/images/mbl-image-development/images/` or <br> `/path/to/artifacts/machine/<MACHINE>/images/mbl-image-production/images/`| `mbl-image-development-<MACHINE>.wic.gz` or <br> `mbl-image-production-<MACHINE>.wic.gz`| This is a compressed image of the entire flash. Once decompressed, this image can be directly written to storage media, and initializes the device's storage with a full set of disk partitions and an initial version of firmware. |
+| Full disk image block map | `/path/to/artifacts/machine/<MACHINE>/images/mbl-image-development/images/` or <br> `/path/to/artifacts/machine/<MACHINE>/images/mbl-image-production/images/` | `mbl-image-development-<MACHINE>.wic.bmap` or <br> `mbl-image-production-<MACHINE>.wic.bmap`| This is a file containing information about which blocks of the uncompressed full disk image actually need to be written to the device. Some blocks of the image represent unused storage space, which does not actually need to be written. |
+| Root file system archive  | `/path/to/artifacts/machine/<MACHINE>/images/mbl-image-development/images/` or <br> `/path/to/artifacts/machine/<MACHINE>/images/mbl-image-production/images/` | `mbl-image-development-<MACHINE>.tar.xz` or <br> `mbl-image-production-<MACHINE>.tar.xz` | This is a compressed `.tar` archive, which you need when you update the device firmware (this topic is covered [in the Updating MBL tutorial](../update/index.html)). |

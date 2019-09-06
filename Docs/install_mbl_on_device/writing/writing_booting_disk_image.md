@@ -1,3 +1,4 @@
+<!--- This page should go one level up -->
 # Writing and booting the disk image
 
 This section contains instructions for writing the full disk image to officially supported devices:

@@ -1,32 +1,42 @@
-# Building an MBL developer image
+# Developer image build examples
 
-<span class="tips">**Tip**: If you downloaded an evaluation image, you can skip the build stage [and go directly to writing](../first-image/writing-an-image-to-supported-boards.html).</span>
+The following examples assume:
 
-Please note that each release has its own branch. Throughout this guide, the release branch is assumed to be `mbl-os-0.8`.
+* You have an output directory for your machine, for example:
+    * `./artifacts-pico7`
+    * `./artifacts-nxpimx`
+    * `./artifacts-pico6`
+    * `./artifacts-warp7`
+    * `./artifacts-rpi3`
+* You have an [SSH agent](../first-image/development-environment.html). For usage, see [the GitHub SSH documentation](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).
 
-## Prerequisite: setting up the build scripts
 
-<span class="notes">**Note**: You need to use an SSH agent to build. For usage, see [the GitHub SSH documentation](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).</span>
-
-If you haven't already done so, check out the relevant branch from the `mbl-tools` repository (in this example, we use `mbl-os-0.8`):
-
-```
-$ git clone git@github.com:ARMmbed/mbl-tools.git --branch mbl-os-0.8
-```
-
-The repository includes the `run-me.sh` script, which:
-
-1. Creates and launches a Docker container that encapsulates the MBL build environment.
-1. Launches a build script (the **build-mbl** tool), `build.sh`, inside the container.
-
-To invoke the `run-me.sh` help menu, use:
+## PICO-PI with IMX7D
 
 ```
-./mbl-tools/build/run-me.sh -h
+./mbl-tools/build/run-me.sh --builddir ./build-pico7 --outputdir ./artifacts-pico7 -- --machine imx7d-pico-mbl --branch mbl-os-0.8
 ```
 
-To invoke the `build.sh` help menu, use:
+## PICO-PI with IMX6UL
 
 ```
-./mbl-tools/build/run-me.sh --builddir /path/to/builddir -- -h
+./mbl-tools/build/run-me.sh --builddir ./build-pico6 --outputdir ./artifacts-pico6 -- --machine imx6ul-pico-mbl --branch mbl-os-0.8
+```
+
+## NXP 8M Mini EVK
+
+```
+./mbl-tools/build/run-me.sh --builddir ./build-nxpimx --outputdir ./artifacts-nxpimx -- --machine imx8mmevk-mbl --branch mbl-os-0.8
+```
+
+## Warp7
+
+```
+./mbl-tools/build/run-me.sh --builddir ./build-warp7 --outputdir ./artifacts-warp7 -- --machine imx7s-warp-mbl --branch mbl-os-0.8
+```
+
+## Raspberry Pi 3
+
+```
+./mbl-tools/build/run-me.sh --builddir ./build-rpi3 --outputdir ./artifacts-rpi3 -- --machine raspberrypi3-mbl --branch mbl-os-0.8
 ```
