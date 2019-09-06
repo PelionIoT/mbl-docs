@@ -45,7 +45,7 @@ layout.
 |-------------------|-----------------|----------------|------------------|-------|
 | Bootloader slot 1 | 1               | Raw            | -                | Typically contains bootloader component 1, the first code that the board's boot ROM loads |
 | Bootloader slot 2 | 2               | Raw            | -                | Typically contains bootloader component 2 |
-| blfs              | 1               | Primary        | vfat             | Typically only used on boards where the boot ROM loads code from a file system rather than raw storage (e.g. Raspberry Pi 3). |
+| blfs              | 1               | Primary        | vfat             | Only used on boards where the boot ROM loads code from a file system rather than raw storage (e.g. Raspberry Pi 3). |
 
 
 ## Board specific information
