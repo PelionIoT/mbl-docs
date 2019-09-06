@@ -1,16 +1,75 @@
 # Updating an MBL image
 
-There are two ways to update an MBL image:
+There are two ways to update the updatable components in an MBL image:
 
 * [Using MBL CLI](#using-mbl-cli).
 * [Using the manifest tool](#using-the-manifest-tool).
 
-## Using MBL CLI
+First you will need to prepare the update payload for the updatable component.
+
+## Prepare the update payload
+
+You will need a [full build of Mbed Linux OS](../first-image/building-a-developer-image.html) as this contains the files for the updatable components.
+
+### Bootloader components and kernel
+
+1. Enter the [mbl-tools interactive mode](../develop-mbl/mbed-linux-os-distribution-development-with-mbl-tools.html#running-build-mbl-in-interactive-mode) for your build. For example for PICO-PI with IMX7D:
+
+    ```
+    ./mbl-tools/build-mbl/run-me.sh --builddir ./build-pico7 --outputdir ./artifacts-pico7 -- --machine imx7d-pico-mbl --branch mbl-os-0.8  interactive
+    ```
+
+    Please see the other [build examples](../install_mbl_on_device/building_an_image/build_examples.html).
+
+2. Use the `create-update-payload` tool to create a tar file containing the required update component.
+
+    These are the arguments that the tool accepts:
+
+    | Name | Value | Information |
+    | --- | --- | --- |
+    | `--bootloader-component` | `1` | Add the first bootloader component to the payload. Usually this contains the second stage boot of TF-A. |
+    | `--bootloader-component` | `2` | Add the second bootloader component to the payload. Usually this contains the third stage boot of TF-A. |
+    | `--kernel` |  | Add the kernel to the payload. Usually this also includes the device tree blob and boot scripts. |
+    | `--output-tar-path` | FILE_PATH | File name and path for the payload tar file to be created. |
+
+    <span class="notes">**Note:** The create-update-payload tool needs the bitbake environment to work.</span>
+
+    For example, to create an update payload file `/tmp/payload-boot2.tar` containing the bootloader component 2, run:
+    
+    ```
+    user01@dev-machine:~$ create-update-payload --bootloader-component 2 --output-tar-path /tmp/payload-boot2.tar
+    ```
+
+    Or, for example, to create an update payload file `/tmp/payload-kernel.tar` containing the kernel, run:
+
+    ```
+    user01@dev-machine:~$ create-update-payload --kernel --output-tar-path /tmp/payload-kernel.tar
+    ```
+
+### Root file system
+
+1. Make a `tar` file containing the root file system archive from the MBL build artefacts.
+
+    A symlink to the root file system archive can be found in the build environment at `/path/to/artifacts/machine/<MACHINE>/images/mbl-image-development/images/mbl-image-development-<MACHINE>.tar.xz`
+
+    Where:
+
+    * `/path/to/artifacts` is the output directory specified for all build artefacts. See the [build tutorial](../first-image/building-a-developer-image.html) for more information.
+    * `<MACHINE>` is the value that was given to the build script for the `--machine` option. See the [build tutorial](../first-image/building-a-developer-image.html) to determine which value is suitable for the device in use.
+
+    <span class="notes">**Note:** The file inside the update payload must be named `rootfs.tar.xz` and must be in the tar's root directory, not a subdirectory.</span>
+
+    For example, to create an update payload file `/tmp/payload-rootfs.tar` containing a Warp7 root file system image `tar` file `mbl-image-production-imx7s-warp-mbl.tar.xz`, run:
+
+    ```
+    user01@dev-machine:~$ tar -cf /tmp/payload-rootfs.tar -C /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-image-development/images '--transform=s/.*/rootfs.tar.xz/' --dereference mbl-image-development-imx7s-warp-mbl.tar.xz
+    ```
+
+    The `--transform` option renames all files added to the payload to `rootfs.tar.xz` and the `--dereference` option is used so that `tar` adds the actual root file system archive file rather than the symlink to it.
+
+## Using MBL CLI 
 
 <span class="tips">You can find installation and general usage instructions for MBL CLI [in the application development section](../develop-apps/the-mbl-command-line-interface.html).</span>
-
-
-1. Prepare a tar file containing `rootfs.tar.xz` as explained in the [manifest tool section above](#using-the-manifest-tool).
 
 1. Transfer the rootfs update tar file to the `/scratch` partition on the device:
 
@@ -36,7 +95,7 @@ There are two ways to update an MBL image:
    $ mbl-cli shell 169.254.111.222
    ```
 
-1. Inside the shell, run the `mbl-firmware-update-manager` script to install the rootfs:
+1. Inside the shell, run the `mbl-firmware-update-manager` script to install the update component:
 
    ```
    $ mbl-firmware-update-manager /absolute/path/to/payload.tar
@@ -48,33 +107,13 @@ There are two ways to update an MBL image:
    $ mbl-firmware-update-manager /scratch/payload.tar
    ```
 
-   The rootfs is installed.
+   The update component is installed.
 
-1. When prompted, press <kbd>Y</kbd>+<kbd>Enter</kbd> key to reboot the device and switch to the newly installed rootfs.
+1. When prompted, press <kbd>Y</kbd>+<kbd>Enter</kbd> key to reboot the device and use the newly installed component.
 
-   <span class="notes">**Note:** To keep the update package after a successful update, use the optional argument `--keep`. Use the optional argument `--assume-yes` to automatically reboot after the rootfs has been installed.</span>
+   <span class="notes">**Note:** To keep the update package after a successful update, use the optional argument `--keep`. Use the optional argument `--assume-yes` to automatically reboot after the update component has been installed.</span>
 
 ## Using the manifest tool
-
-1. Create an update payload file: Make a `tar` file containing the root file system archive from the MBL build artefacts.
-
-    A symlink to the root file system archive can be found in the build environment at `/path/to/artifacts/machine/<MACHINE>/images/mbl-image-development/images/mbl-image-development-<MACHINE>.tar.xz`
-
-    Where:
-
-    * `/path/to/artifacts` is the output directory specified for all build artefacts. See the [build tutorial](../first-image/building-development-and-production-images.html) for more information.
-    * `<MACHINE>` is the value that was given to the build script for the `--machine` option. See the [build tutorial](../first-image/building-development-and-production-images.html) to determine which value is suitable for the device in use.
-
-    <span class="notes">**Note:** The file inside the update payload must be named `rootfs.tar.xz` and must be in the tar's root directory, not a subdirectory.</span>
-
-    For example, to create an update payload file at `/tmp/payload.tar` containing a Warp7 root file system image `tar` file with the path `build-mbl-development/tmp/deploy/images/imx7s-warp-mbl/mbl-image-production-imx7s-warp-mbl.tar.xz`, run:
-
-    ```
-    user01@dev-machine:~$ tar -cf /tmp/payload.tar -C /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-image-development/images '--transform=s/.*/rootfs.tar.xz/' --dereference mbl-image-development-imx7s-warp-mbl.tar.xz
-    ```
-
-    The `--transform` option renames all files added to the payload to `rootfs.tar.xz` and the `--dereference` option is used so that `tar` adds the actual root file system archive file rather than the symlink to it.
-
 
 1. Find the device ID in the `mbl-cloud-client` log file at `/var/log/mbl-cloud-client.log`, using the following command on the device's console:
 
@@ -96,18 +135,27 @@ There are two ways to update an MBL image:
 
     Where:
 
-        * `<device-id>` is the device ID.
-        * `<payload-file>` is the update payload (`.tar` file).
-        * `<api-key>` is the Pelion API key you generated as a prerequisite.
+    * `<device-id>` is the device ID.
+    * `<payload-file>` is the update payload (`.tar` file).
+    * `<api-key>` is the Pelion API key you generated as a prerequisite.
 
     The process can take a long time, depending on your file size and network bandwidth.
 
-A reboot is automatically initiated to boot into the new firmware. Identify the currently active root file system and verify it was different pre-update. You can use the [`lsblk` command explained later](#identify-the-active-root-file-system-partition).
+A reboot is automatically initiated to use the new update component.
 
+## Verifying the update
 
-## Identifying the active root file system partition
+You can check the status of the update by looking at the [update logs](monitor.html).
 
-To verify that a root system update succeeded, you can check which root file system partition is active before and after the update. If the update succeeded, the active partition changes.
+If you are updating the root file system, you can verify the update by [identifying the currently active root file system](#identify-the-active-root-file-system-partition) and check it was different pre-update.
+
+For a kernel update, if you have changed the kernel version you can use `uname -srm` on the device to check the version number now matches the new version.
+
+For a boot component update, it will depend on the parts of the boot sequence you have changed, review the serial output from the device to check version numbers.
+
+### Identifying the active root file system partition
+
+To verify that a root file system update succeeded, you can check which root file system partition is active before and after the update. If the update succeeded, the active partition changes.
 
 To identify the active root file system partition:
 
