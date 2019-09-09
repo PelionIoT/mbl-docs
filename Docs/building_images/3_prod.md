@@ -18,7 +18,7 @@ Production Images are built by setting the Yocto DISTRO to mbl-production (`--di
     - **ATF_PRODUCTION_CFG** and **OPTEE_PRODUCTION_CFG**: Affects ATF and OPTEE-OS log level messages, respectively, with the following possible value:<br>
         - **silent** (default): Only warning and error messages are printed out to the console.
     - **UBOOT_PRODUCTION_CFG**: Affects both U-boot and Linux Kernel log level messages, with the possible values:<br>
-        - **silent** (default): disables both u-boot and kernel messages outuput<br>
+        - **silent** (default): disables both u-boot and kernel messages output<br>
         - **noconsole**: disables only u-boot messages outuput<br>
         - **minimal** (default): disables network booting, fastboot, usb mass storage and, device firmware upgrade(DFU)<br>
     
