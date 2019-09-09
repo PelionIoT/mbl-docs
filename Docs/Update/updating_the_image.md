@@ -27,23 +27,23 @@ You will need a [full build of Mbed Linux OS](../first-image/building-a-develope
 
     | Name | Value | Information |
     | --- | --- | --- |
-    | `--bootloader-component` | `1` | Add the first bootloader component to the payload. Usually this contains the second stage boot of TF-A. |
+    | `--bootloader-component` | `1` | Add the first bootloader component to the payload. Usually this contains the second stage boot of TF-A. Note: This component is not yet fully supported on NXP 8M Mini EVK. |
     | `--bootloader-component` | `2` | Add the second bootloader component to the payload. Usually this contains the third stage boot of TF-A. |
     | `--kernel` |  | Add the kernel to the payload. Usually this also includes the device tree blob and boot scripts. |
     | `--output-tar-path` | FILE_PATH | File name and path for the payload tar file to be created. |
 
-    <span class="notes">**Note:** The create-update-payload tool needs the bitbake environment to work.</span>
+    <span class="notes">**Note:** The create-update-payload tool needs the bitbake environment to work. When using the interactive mode only your build (`/path/to/build`) and artifacts (`/path/to/artifacts`) directories are mounted in the build environment.</span>
 
-    For example, to create an update payload file `/tmp/payload-boot2.tar` containing the bootloader component 2, run:
-    
-    ```
-    user01@dev-machine:~$ create-update-payload --bootloader-component 2 --output-tar-path /tmp/payload-boot2.tar
-    ```
-
-    Or, for example, to create an update payload file `/tmp/payload-kernel.tar` containing the kernel, run:
+    For example, to create an update payload file `/path/to/artifacts/payload-boot2.tar` containing the bootloader component 2, run:
 
     ```
-    user01@dev-machine:~$ create-update-payload --kernel --output-tar-path /tmp/payload-kernel.tar
+    user01@dev-machine:~$ create-update-payload --bootloader-component 2 --output-tar-path /path/to/artifacts/payload-boot2.tar
+    ```
+
+    Or, for example, to create an update payload file `/path/to/artifacts/payload-kernel.tar` containing the kernel, run:
+
+    ```
+    user01@dev-machine:~$ create-update-payload --kernel --output-tar-path /path/to/artifacts/payload-kernel.tar
     ```
 
 ### Root file system
@@ -59,25 +59,25 @@ You will need a [full build of Mbed Linux OS](../first-image/building-a-develope
 
     <span class="notes">**Note:** The file inside the update payload must be named `rootfs.tar.xz` and must be in the tar's root directory, not a subdirectory.</span>
 
-    For example, to create an update payload file `/tmp/payload-rootfs.tar` containing a Warp7 root file system image `tar` file `mbl-image-production-imx7s-warp-mbl.tar.xz`, run:
+    For example, to create an update payload file `/path/to/artifacts/payload-rootfs.tar` containing a Warp7 root file system image `tar` file `mbl-image-production-imx7s-warp-mbl.tar.xz`, run:
 
     ```
-    user01@dev-machine:~$ tar -cf /tmp/payload-rootfs.tar -C /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-image-development/images '--transform=s/.*/rootfs.tar.xz/' --dereference mbl-image-development-imx7s-warp-mbl.tar.xz
+    user01@dev-machine:~$ tar -cf /path/to/artifacts/payload-rootfs.tar -C /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-image-development/images '--transform=s/.*/rootfs.tar.xz/' --dereference mbl-image-development-imx7s-warp-mbl.tar.xz
     ```
 
     The `--transform` option renames all files added to the payload to `rootfs.tar.xz` and the `--dereference` option is used so that `tar` adds the actual root file system archive file rather than the symlink to it.
 
-## Using MBL CLI 
+## Using MBL CLI
 
 <span class="tips">You can find installation and general usage instructions for MBL CLI [in the application development section](../develop-apps/the-mbl-command-line-interface.html).</span>
 
-1. Transfer the rootfs update tar file to the `/scratch` partition on the device:
+1. Transfer the update payload file to the `/scratch` partition on the device:
 
    ```
-   $ mbl-cli put <rootfs update payload> <destination on device under the /scratch partition> [address]
+   $ mbl-cli put <update payload file> <destination on device under the /scratch partition> [address]
    ```
 
-   For example, if `payload.tar` is the name of the payload file for the rootfs update, and 169.254.111.222 is a link-local IPv4 address on the device:
+   For example, if `payload.tar` is the name of the update payload file, and 169.254.111.222 is a link-local IPv4 address on the device:
 
    ```
    $ mbl-cli put payload.tar /scratch 169.254.111.222
@@ -118,7 +118,7 @@ You will need a [full build of Mbed Linux OS](../first-image/building-a-develope
 1. Find the device ID in the `mbl-cloud-client` log file at `/var/log/mbl-cloud-client.log`, using the following command on the device's console:
 
     ```
-    root@mbed-linux-os-1234:~# grep -i 'device id' /var/log/mbl-cloud-client.log  
+    root@mbed-linux-os-1234:~# grep -i 'device id' /var/log/mbl-cloud-client.log
     ```
 
     If you only have one registered device, or if each devices has a been assigned a descriptive name in Portal, you can go to [Device Management Portal](https://portal.mbedcloud.com) > **Device Directory** to find the device ID.

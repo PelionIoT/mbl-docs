@@ -14,7 +14,7 @@ You can perform a **firmware over the air** (FOTA) update of the updatable compo
 <!-- Needs to be updated with new update components, seperated into 2 like now, apps on one side, everything else on another -->
 <img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/update_process.png" width="50%" align="right" />
 
-MBL uses Pelion Device Management to manage firmware updates. Before you start, upload a new version of your firmware (for one or more components) to your Device Management account. This is your payload, and it is a `.tar` file that can contain either:
+MBL uses Pelion Device Management to manage firmware updates. Before you start, upload a new version of your firmware to your Device Management account. This is your payload, and it is a `.tar` file that can contain either:
 
 * An application update: One or more OPKG packages (`.ipk` files).
 * A `rootfs` update: A compressed `tar` file called `rootfs.tar.xz` that contains root file system content.
