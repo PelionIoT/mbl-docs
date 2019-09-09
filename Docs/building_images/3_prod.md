@@ -19,7 +19,7 @@ Production Images are built by setting the Yocto DISTRO to mbl-production (`--di
         - **silent** (default): Only warning and error messages are printed out to the console.
     - **UBOOT_PRODUCTION_CFG**: Affects both U-boot and Linux Kernel log level messages, with the possible values:<br>
         - **silent** (default): disables both u-boot and kernel messages output<br>
-        - **noconsole**: disables only u-boot messages outuput<br>
+        - **noconsole**: disables only u-boot messages output<br>
         - **minimal** (default): disables network booting, fastboot, usb mass storage and, device firmware upgrade(DFU)<br>
     
     These variables can be customized by using the `--local-conf-data STRING` parameter passed to **build.sh**. For example: 
