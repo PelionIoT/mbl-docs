@@ -24,7 +24,7 @@ Production Images are built by setting the Yocto DISTRO to mbl-production (`--di
         - **noconsole**: disables only u-boot messages output<br>
         - **minimal** (default): disables network booting, fastboot, usb mass storage and device firmware upgrade (DFU)<br>
     
-    These variables can be customized in different ways like:
+    These variables can be set in various ways:
     
     - By editing manually the local.conf file inside the bitbake build directory, e.g.: `./build-pico7/machine-imx7d-pico-mbl/mbl-manifest/build-mbl-production/conf/local.conf`;
     - By setting these variables from your meta layer layer.conf file;
