@@ -4,7 +4,7 @@ The following examples assume:
 
 * You have an output directory for your machine, for example:
     * `./artifacts-pico7`
-    * `./artifacts-nxpimx`
+    * `./artifacts-nxpimx8`
     * `./artifacts-pico6`
     * `./artifacts-warp7`
     * `./artifacts-rpi3`
