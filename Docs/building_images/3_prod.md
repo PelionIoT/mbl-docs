@@ -14,7 +14,7 @@ Production Images are built by setting the Yocto DISTRO to mbl-production (`--di
 
 - Root user login with password: A file containing the plain text password (with a minimum of 12 characters) needs to be provided to the to **run-me.sh** using the parameter`--root-passwd-file PASSWD_FILE`.
 
-- System log level messages output and configuration: Following are listed the variables set in the mbl-production configuration file (`meta-mbl/meta-mbl-distro/conf/distro/include/mbl-distro-production.inc`): <br>
+- System log level messages output and configuration: The following variables are set in the mbl-production configuration file (`meta-mbl/meta-mbl-distro/conf/distro/include/mbl-distro-production.inc`): <br>
     - **ATF_PRODUCTION_CFG** and **OPTEE_PRODUCTION_CFG**: Affects ATF and OPTEE-OS log level messages, respectively, with the following possible value:<br>
         - **silent** (default): Only warning and error messages are printed out to the console.
     - **UBOOT_PRODUCTION_CFG**: Affects both U-boot and Linux Kernel log level messages, with the possible values:<br>
