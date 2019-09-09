@@ -1,4 +1,4 @@
-# Building a MBL images
+# Building an MBL image
 
 <span class="tips">**Tip**: If you downloaded an evaluation image, you can skip the build stage [and go directly to writing](../first-image/writing-an-image-to-supported-boards.html).</span>
 
