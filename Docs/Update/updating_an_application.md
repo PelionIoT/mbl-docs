@@ -5,14 +5,55 @@ There are two ways to update an MBL application:
 * [Using MBL CLI](#using-mbl-cli).
 * [Using the manifest tool](#using-the-manifest-tool).
 
-
 MBL provides a wrapper around the Device Management firmware update service and manifest tool. This means you can use the same file type (`tar`, containing the `ipk`) for both processes, allowing you to pick the update method independently of your packaging process. It also means that any file that MBL CLI manages to update, the manifest tool should also be able to update, so you can use MBL CLI as a proxy for testing on Device Management.
+
+First you will need to prepare the update payload for the application.
+
+## Prepare the update payload
+
+You will need a build enviroment of Mbed Linux OS as this contains the scripts needed to create the update payload for applications. You can either re-use a [full build of Mbed Linux OS](../first-image/building-a-developer-image.html) or create a new enviroment just for application update.
+
+1. If you are going to create a new build environment - [set up the build mbl tools](../install_mbl_on_device/Reqs_and_env/dev_env_for_distribution.html) and create an outputdir directory:
+
+    ```
+    git clone git@github.com:ARMmbed/mbl-tools.git --branch mbl-os-0.8
+    mkdir /path/to/artifacts
+    ```
+
+1. Copy your application `ipk` file into your build outputdir directory:
+
+    ```
+    cp /path/to/application/package.ipk /path/to/artifacts
+    ```
+
+1. Enter the [mbl-tools interactive mode](../develop-mbl/mbed-linux-os-distribution-development-with-mbl-tools.html#running-build-mbl-in-interactive-mode) for your build. For example for PICO-PI with IMX7D:
+
+    ```
+    ./mbl-tools/build-mbl/run-me.sh --builddir /path/to/build --outputdir /path/to/artifacts -- --machine imx7d-pico-mbl --branch mbl-os-0.8  interactive
+    ```
+
+    Please see the other [build examples](../install_mbl_on_device/building_an_image/build_examples.html).
+
+1. Use the `create-update-payload` tool to create a tar file containing the application package.
+
+    These are the arguments that the tool accepts:
+
+    | Name | Value | Information |
+    | --- | --- | --- |
+    | `--app` | APPLICATION_PATH | Specifies the application package name and path to add to the payload. |
+    | `--output-tar-path` | FILE_PATH | File name and path for the payload tar file to be created. |
+
+    <span class="notes">**Note:** The create-update-payload tool needs the bitbake environment to work. When using the interactive mode, only the builddir (`/path/to/build`) or outputdir (`/path/to/artifacts`) directories are available in the build environment, so they must be used as the paths for the APPLICATION_PATH and FILE_PATH arguments.</span>
+
+    For example, to create an update payload file `/path/to/artifacts/payload-app.tar` containing `package.ipk`, run:
+
+    ```
+    user01@dev-machine:~$ create-update-payload --app /path/to/artifacts/package.ipk --output-tar-path /path/to/artifacts/payload-boot2.tar
+    ```
 
 ## Using MBL CLI
 
 To install or update an application:
-
-1. Prepare a tar file containing an OPKG package (`.ipk` file), as explained in the [manifest tool section above](#using-the-manifest-tool)
 
 1. Transfer an application update tar file to the `/scratch` partition on the device:
 
@@ -52,20 +93,10 @@ To install or update an application:
 
 ## Using the manifest tool
 
-1. Create an update payload file: Make a `tar` file containing the `.ipk` files for the applications to update.
-
-    Note that the `.ipk` files must be in the `.tar`'s root directory, not a subdirectory (we use `-C` in the tar command to specify a directory where the package is).
-
-    For example, to create an update payload file at `/tmp/payload.tar` containing an `.ipk` file with the path `/home/user01/my_app.ipk`, run:
-
-    ```
-    user01@dev-machine:~$ tar -cf /tmp/payload.tar -C /home/user01  my_app.ipk
-    ```
-
 1. Find the device ID in the `mbl-cloud-client` log file at `/var/log/mbl-cloud-client.log`, using the following command on the device's console:
 
     ```
-    root@mbed-linux-os-1234:~# grep -i 'device id' /var/log/mbl-cloud-client.log  
+    root@mbed-linux-os-1234:~# grep -i 'device id' /var/log/mbl-cloud-client.log
     ```
 
     If you only have one registered device, or if each devices has a been assigned a descriptive name in Portal, you can go to [Device Management Portal](https://portal.mbedcloud.com) > **Device Directory** to find the device ID.
@@ -83,8 +114,6 @@ To install or update an application:
     * `<device-id>` is the device ID.
     * `<payload-file>` is the update payload (`.tar` file).
     * `<api-key>` is the Pelion API key you generated as a prerequisite.
-
-    For a root file system update, the process can take a long time, depending on your file size and network bandwidth.
 
 The system does not reboot after an application update.
 

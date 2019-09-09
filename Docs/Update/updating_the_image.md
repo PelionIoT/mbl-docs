@@ -11,12 +11,16 @@ First you will need to prepare the update payload for the updatable component.
 
 You will need a [full build of Mbed Linux OS](../first-image/building-a-developer-image.html) as this contains the files for the updatable components.
 
-### Bootloader components and kernel
+The bootloader and kernel update components are signed during the build, so you must use the same keys or keys derived from the same root of trust that you have used for the first image loaded on the device.
+
+<span class="notes">**Warning:** If you update a device with update components from a build that used different keys, the device will not boot anymore. For example if you are using an evaluation image and generate a new kernel or bootloader component, the keys will be different. You can recover the device by following the steps to flash a first image. In future there will be support for rollback to the last image using a bank switching mechanism for updates, apart from bootloader component one.</span>
+
+!!TODO: Add notes about how to specify the keys when building!!
 
 1. Enter the [mbl-tools interactive mode](../develop-mbl/mbed-linux-os-distribution-development-with-mbl-tools.html#running-build-mbl-in-interactive-mode) for your build. For example for PICO-PI with IMX7D:
 
     ```
-    ./mbl-tools/build-mbl/run-me.sh --builddir ./build-pico7 --outputdir ./artifacts-pico7 -- --machine imx7d-pico-mbl --branch mbl-os-0.8  interactive
+    ./mbl-tools/build-mbl/run-me.sh --builddir /path/to/build --outputdir /path/to/artifacts -- --machine imx7d-pico-mbl --branch mbl-os-0.8  interactive
     ```
 
     Please see the other [build examples](../install_mbl_on_device/building_an_image/build_examples.html).
@@ -30,9 +34,10 @@ You will need a [full build of Mbed Linux OS](../first-image/building-a-develope
     | `--bootloader-component` | `1` | Add the first bootloader component to the payload. Usually this contains the second stage boot of TF-A. Note: This component is not yet fully supported on NXP 8M Mini EVK. |
     | `--bootloader-component` | `2` | Add the second bootloader component to the payload. Usually this contains the third stage boot of TF-A. |
     | `--kernel` |  | Add the kernel to the payload. Usually this also includes the device tree blob and boot scripts. |
+    | `--rootfs` |  | Add the root file system to the payload. |
     | `--output-tar-path` | FILE_PATH | File name and path for the payload tar file to be created. |
 
-    <span class="notes">**Note:** The create-update-payload tool needs the bitbake environment to work. When using the interactive mode only your build (`/path/to/build`) and artifacts (`/path/to/artifacts`) directories are mounted in the build environment.</span>
+    <span class="notes">**Note:** The create-update-payload tool needs the bitbake environment to work. When using the interactive mode, only the builddir (`/path/to/build`) or outputdir (`/path/to/artifacts`) directories are available in the build environment, so one of them must be used as the path in the FILE_PATH argument.</span>
 
     For example, to create an update payload file `/path/to/artifacts/payload-boot2.tar` containing the bootloader component 2, run:
 
@@ -46,26 +51,11 @@ You will need a [full build of Mbed Linux OS](../first-image/building-a-develope
     user01@dev-machine:~$ create-update-payload --kernel --output-tar-path /path/to/artifacts/payload-kernel.tar
     ```
 
-### Root file system
-
-1. Make a `tar` file containing the root file system archive from the MBL build artefacts.
-
-    A symlink to the root file system archive can be found in the build environment at `/path/to/artifacts/machine/<MACHINE>/images/mbl-image-development/images/mbl-image-development-<MACHINE>.tar.xz`
-
-    Where:
-
-    * `/path/to/artifacts` is the output directory specified for all build artefacts. See the [build tutorial](../first-image/building-a-developer-image.html) for more information.
-    * `<MACHINE>` is the value that was given to the build script for the `--machine` option. See the [build tutorial](../first-image/building-a-developer-image.html) to determine which value is suitable for the device in use.
-
-    <span class="notes">**Note:** The file inside the update payload must be named `rootfs.tar.xz` and must be in the tar's root directory, not a subdirectory.</span>
-
-    For example, to create an update payload file `/path/to/artifacts/payload-rootfs.tar` containing a Warp7 root file system image `tar` file `mbl-image-production-imx7s-warp-mbl.tar.xz`, run:
+    Or, for example, to create an update payload file `/path/to/artifacts/payload-rootfs.tar` containing a root file system, run:
 
     ```
-    user01@dev-machine:~$ tar -cf /path/to/artifacts/payload-rootfs.tar -C /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-image-development/images '--transform=s/.*/rootfs.tar.xz/' --dereference mbl-image-development-imx7s-warp-mbl.tar.xz
+    user01@dev-machine:~$ create-update-payload --rootfs --output-tar-path /path/to/artifacts/payload-rootfs.tar
     ```
-
-    The `--transform` option renames all files added to the payload to `rootfs.tar.xz` and the `--dereference` option is used so that `tar` adds the actual root file system archive file rather than the symlink to it.
 
 ## Using MBL CLI
 
