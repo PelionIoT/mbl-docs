@@ -75,9 +75,6 @@
                             },
                             "sources": [{
                                     "path": "Docs/building_images/dev_image/build_scripts.md"
-                                },
-                                {
-                                    "path": "Docs/building_images/dev_image/build_examples.md"
                                 }
                             ]
                         },
