@@ -29,9 +29,9 @@ The partition layout for every board includes at least the following partitions:
 | boot2             | -     | vfat             | -                | 128MiB       | Unused at this time |
 | rootfs1           | rw    | ext4             | /                | 512MiB       | Root file system bank 1 |
 | rootfs2           | rw    | ext4             | /                | 512MiB       | Root file system bank 2 |
-| factory\_config   | rw    | ext4             | /config/factory  | 32MiB        | Factory configuration |
-| nfactory\_config1 | rw    | ext4             | /config/user     | 32MiB        | Nonfactory configuration 1; user data configuration |
-| nfactory\_config2 | -     | ext4             | -                | 32MiB        | Unused at this time |
+| factory_config    | rw    | ext4             | /config/factory  | 32MiB        | Factory configuration |
+| config1           | rw    | ext4             | /config/user     | 32MiB        | Configuration bank 1; user configuration data |
+| config2           | -     | ext4             | -                | 32MiB        | Unused at this time |
 | log               | rw    | ext4             | /var/log         | 128MiB       | Log files |
 | scratch           | rw    | ext4             | /scratch         | 640MiB       | Temporary files (such as downloaded firmware files) |
 | home              | rw    | ext4             | /home            | 512MiB       | User application storage |
@@ -68,8 +68,8 @@ Consider using/updating that script before making changes manually.
 | 5      | rootfs1                    | 512MiB  | 512MiB | Logical        | ext4             | - |
 | 6      | rootfs2                    | 1040MiB | 512MiB | Logical        | ext4             | - |
 | 7      | factory_config             | 1568MiB | 32MiB  | Logical        | ext4             | - |
-| 8      | nfactory_config1           | 1616MiB | 32MiB  | Logical        | ext4             | - |
-| 9      | nfactory_config2           | 1664MiB | 32MiB  | Logical        | ext4             | Unused |
+| 8      | confg1                     | 1616MiB | 32MiB  | Logical        | ext4             | - |
+| 9      | confg2                     | 1664MiB | 32MiB  | Logical        | ext4             | Unused |
 | 10     | log                        | 1712MiB | 128MiB | Logical        | ext4             | - |
 | 11     | scratch                    | 1856MiB | 640MiB | Logical        | ext4             | - |
 | 12     | home                       | 2512MiB | 512MiB | Logical        | ext4             | - |
@@ -93,8 +93,8 @@ Consider using/updating that script before making changes manually.
 | 4      | -                          | -       | -      | Extended       | -                | - |
 | 5      | rootfs2                    | 978MiB  | 512MiB | Logical        | ext4             | - |
 | 6      | factory_config             | 1500MiB | 32MiB  | Logical        | ext4             | - |
-| 7      | nfactory_config1           | 1542MiB | 32MiB  | Logical        | ext4             | - |
-| 8      | nfactory_config2           | 1584MiB | 32MiB  | Logical        | ext4             | Unused |
+| 7      | confg1                     | 1542MiB | 32MiB  | Logical        | ext4             | - |
+| 8      | confg2                     | 1584MiB | 32MiB  | Logical        | ext4             | Unused |
 | 9      | log                        | 1626MiB | 128MiB | Logical        | ext4             | - |
 | 10     | scratch                    | 1764MiB | 640MiB | Logical        | ext4             | - |
 | 11     | home                       | 2412MiB | 512MiB | Logical        | ext4             | - |
@@ -118,8 +118,8 @@ Consider using/updating that script before making changes manually.
 | 4      | -                          | -         | -      | Extended       | -                | - |
 | 5      | rootfs2                    | 960.5MiB  | 512MiB | Logical        | ext4             | - |
 | 6      | factory_config             | 1473MiB   | 32MiB  | Logical        | ext4             | - |
-| 7      | nfactory_config1           | 1505.5MiB | 32MiB  | Logical        | ext4             | - |
-| 8      | nfactory_config2           | 1538MiB   | 32MiB  | Logical        | ext4             | Unused |
+| 7      | confg1                     | 1505.5MiB | 32MiB  | Logical        | ext4             | - |
+| 8      | confg2                     | 1538MiB   | 32MiB  | Logical        | ext4             | Unused |
 | 9      | log                        | 1570.5MiB | 128MiB | Logical        | ext4             | - |
 | 10     | scratch                    | 1699MiB   | 640MiB | Logical        | ext4             | - |
 | 11     | home                       | 2339.5MiB | 512MiB | Logical        | ext4             | - |
@@ -142,8 +142,8 @@ Consider using/updating that script before making changes manually.
 | 4      | -                          | -         | -       | Extended       | -                | - |
 | 5      | rootfs2                    | 960.5MiB  | 512MiB  | Logical        | ext4             | - |
 | 6      | factory_config             | 1473MiB   | 32MiB   | Logical        | ext4             | - |
-| 7      | nfactory_config1           | 1505.5MiB | 32MiB   | Logical        | ext4             | - |
-| 8      | nfactory_config2           | 1538MiB   | 32MiB   | Logical        | ext4             | Unused |
+| 7      | confg1                     | 1505.5MiB | 32MiB   | Logical        | ext4             | - |
+| 8      | confg2                     | 1538MiB   | 32MiB   | Logical        | ext4             | Unused |
 | 9      | log                        | 1570.5MiB | 128MiB  | Logical        | ext4             | - |
 | 10     | scratch                    | 1699MiB   | 640MiB  | Logical        | ext4             | - |
 | 11     | home                       | 2339.5MiB | 512MiB  | Logical        | ext4             | - |
@@ -166,8 +166,8 @@ Consider using/updating that script before making changes manually.
 | 4      | -                          | -       | -      | Extended       | -                | - |
 | 5      | rootfs2                    | 976MiB  | 512MiB | Logical        | ext4             | - |
 | 6      | factory_config             | 1504MiB | 32MiB  | Logical        | ext4             | - |
-| 7      | nfactory_config1           | 1552MiB | 32MiB  | Logical        | ext4             | - |
-| 8      | nfactory_config2           | 1600MiB | 32MiB  | Logical        | ext4             | Unused |
+| 7      | confg1                     | 1552MiB | 32MiB  | Logical        | ext4             | - |
+| 8      | confg2                     | 1600MiB | 32MiB  | Logical        | ext4             | Unused |
 | 9      | log                        | 1648MiB | 128MiB | Logical        | ext4             | - |
 | 10     | scratch                    | 1792MiB | 640MiB | Logical        | ext4             | - |
 | 11     | home                       | 2448MiB | 512MiB | Logical        | ext4             | - |
@@ -182,8 +182,8 @@ supported boards are described in the following table:
 | --------------------------------- | --------------- | ----------- |
 | `MBL_BOOT_SIZE_MiB`               | `"128"`         | The size of each boot partition in MiB. |
 | `MBL_ROOT_SIZE_MiB`               | `"512"`         | The size of each root partition in MiB. |
-| `MBL_FACTORY_CONFIG_SIZE_MiB`     | `"32"`          | The size of the factory config partition size in MiB. |
-| `MBL_NON_FACTORY_CONFIG_SIZE_MiB` | `"32"`          | The size of each nonfactory (user) config partition in MiB. |
+| `MBL_FACTORY_CONFIG_SIZE_MiB`     | `"32"`          | The size of the factory configuration partition in MiB. |
+| `MBL_CONFIG_SIZE_MiB`             | `"32"`          | The size of each (user) configuration partition in MiB. |
 | `MBL_LOG_SIZE_MiB`                | `"128"`         | The size of the log partition in MiB. |
 | `MBL_SCRATCH_SIZE_MiB`            | `"640"`         | The size of the scratch partition in MiB. |
 | `MBL_HOME_SIZE_MiB`               | `"512"`         | The size of the home partition in MiB. |
@@ -260,7 +260,7 @@ In summary, requirements that influence the flash layout are:
 | A failure during the update process (such as a power loss) should not result in a bricked device. | The previous known good version of a booted component should be maintained in flash until an updated version has been verified to be complete, authentic and viable. This means all booted components should be banked to accommodate both the known good and the updated versions of a component. Writes to one bank of a component should not affect the other bank, and writes to any component should not affect any other components. Due to the nature of flash storage, this means components should not share flash erase blocks with other components or other banks of the same component.|
 | A multicomponent update should either be applied in its entirety or not at all. A device should never be left in a state where only a partial update was performed. | Nonvolatile state must be held that reflects the state that a multicomponent update is in progress but is not yet complete. |
 | A firmware update involving multiple components may extend across power failures. |	Nonvolatile state must be held reflecting the presence of a component update. Only when all components are installed can the entire update be viewed as complete. |
-| Data saved in flash memory that does not need to be modified in normal device operation should be write-protected. |	Some partitions should be created or modified to be read-only. Factory data written during the manufacturing process should be saved in a partition that is modified to read-only when a device boots after its lifecycle state has been modified to 'manufacture complete'. |
+| Data saved in flash memory that does not need to be modified in normal device operation should be write-protected. |	Some partitions should be created or modified to be read-only. Factory data written during the manufacturing process should be saved in a partition that is set to read-only when a device boots after its lifecycle state has been modified to 'manufacture complete'. |
 | A device should support the restore to factory use case. | To allow the user configuration to be deleted without deleting the factory configuration, the two types of data should be kept separate. |
 
 ### Partition alignment
