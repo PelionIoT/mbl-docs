@@ -15,7 +15,46 @@ The bootloader and kernel update components are signed during the build, so you 
 
 <span class="notes">**Warning:** If you update a device with update components from a build that used different keys, the device will not boot anymore. For example if you are using an evaluation image and generate a new kernel or bootloader component, the keys will be different. You can recover the device by following the steps to flash a first image. In future there will be support for rollback to the last image using a bank switching mechanism for updates, apart from bootloader component one.</span>
 
-!!TODO: Add notes about how to specify the keys when building!!
+### Handling secure boot keys in the build
+<!-- Discussion on where this section should be? -->
+
+To support secure boot in MBL the following signing keys and certificates are required:
+
+* Trusted world signing key stored in Bootloader update component 1 (BL2 FIP) for the Trusted Firmware secure boot - `rot_key.pem`.
+* Normal world signing key and certificate stored in Bootloader update component 2 (BL3 FIP) for the Kernel update component (FIT) - `mbl-fit-rot-key.key` and `mbl-fit-rot-key.crt`.
+
+<span class="notes">**Note:** These are private keys and should be kept securely.</span>
+
+More information about these keys and how they are used can be found in the [porting guide about FIP and FIT images](../develop-mbl/bsp-sys-arch.html#partitioning-software-components-into-fip-and-fit-images).
+
+If you do not supply these keys and certificates, they will be generated when you perform a build.
+
+The default build action is that these keys will be placed in your output directory and used for subsequent builds in the same build directory unless you turn this off by setting `MBL_PERSIST_SIGN_KEYS` to `0` in your `local.conf` configuration.
+
+If you do persist the keys, you can find the generated keys in your output directory: `/path/to/artifacts/machine/MACHINE/IMAGE/keys`, where `MACHINE` and `IMAGE` match the machine and image types you built - for example `imx7s-warp-mbl` and `mbl-image-developement`.
+
+You can supply these keys and certificates to a build by using the following build options:
+
+* `--boot-rot-key ROTKEY` - where `ROTKEY` is the path and filename of `rot_key.pem`.
+* `--kernel-rot-key FITROTKEY` - where `FITROTKEY` is the path and filename of `mbl-fit-rot-key.key`.
+* `--kernel-rot-crt FITROTCRT` - where `FITROTCRT` is the path and filename of `mbl-fit-rot-key.crt`.
+
+If you do not want the build to generate the keys, you can do so manually by using the following `openssl` commands:
+```
+mkdir boot-keys
+openssl genrsa 2048 > boot-keys/rot_key.pem
+openssl genrsa 2048 > boot-keys/mbl-fit-rot-key.key
+openssl req -batch -new -x509 -key boot-keys/mbl-fit-rot-key.key > boot-keys/mbl-fit-rot-key.crt
+```
+<span class="notes">**Note:** You may need to install the openssl tools using `sudo apt-get install openssl`.</span>
+
+Then for example perform a build:
+```
+./mbl-tools/build-mbl/run-me.sh --builddir ./build-nxpimx --outputdir ./artifacts-nxpimx --boot-rot-key boot-keys/rot_key.pem --kernel-rot-key boot-keys/mbl-fit-rot-key.key --kernel-rot-crt boot-keys/mbl-fit-rot-key.crt -- --machine imx8mmevk-mbl --branch mbl-os-0.8
+```
+<span class="notes">**Warning:** Changes to the keys and certificates with an existing build may not be picked up, please perform a clean first: `./mbl-tools/build-mbl/run-me.sh --builddir ./build-nxpimx -- clean`.</span>
+
+### Creating the payload
 
 1. Enter the [mbl-tools interactive mode](../develop-mbl/mbed-linux-os-distribution-development-with-mbl-tools.html#running-build-mbl-in-interactive-mode) for your build. For example for PICO-PI with IMX7D:
 
@@ -57,7 +96,7 @@ The bootloader and kernel update components are signed during the build, so you 
     user01@dev-machine:~$ create-update-payload --rootfs --output-tar-path /path/to/artifacts/payload-rootfs.tar
     ```
 
-## Using MBL CLI
+## Using MBL CLI to update
 
 <span class="tips">You can find installation and general usage instructions for MBL CLI [in the application development section](../develop-apps/the-mbl-command-line-interface.html).</span>
 
@@ -103,7 +142,7 @@ The bootloader and kernel update components are signed during the build, so you 
 
    <span class="notes">**Note:** To keep the update package after a successful update, use the optional argument `--keep`. Use the optional argument `--assume-yes` to automatically reboot after the update component has been installed.</span>
 
-## Using the manifest tool
+## Using the manifest tool to update
 
 1. Find the device ID in the `mbl-cloud-client` log file at `/var/log/mbl-cloud-client.log`, using the following command on the device's console:
 
