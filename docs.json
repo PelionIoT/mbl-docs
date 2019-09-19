@@ -57,58 +57,58 @@
                     ]
                 },
                 {
-                    "title": "Installing images",
+                    "title": "Downloading an evaluation image",
+                    "intro": {
+                        "path": "Docs/building_images/1_eval.md"
+                    },
+                    "sources": []
+                },
+                {
+                    "title": "Building images",
                     "intro": {
                         "path": "Docs/building_images/intro.md"
                     },
                     "sub_chapters": [{
-                            "title": "Downloading an evaluation image",
-                            "intro": {
-                                "path": "Docs/building_images/1_eval.md"
-                            },
-                            "sources": []
-                        },
-                        {
                             "title": "Building a development image",
                             "sources": [{
-                                "path": "Docs/building_images/developer_image.md"
-                            },
-                            {
-                                "path": "Docs/building_images/build_scripts.md"
-                            }
+                                    "path": "Docs/building_images/developer_image.md"
+                                },
+                                {
+                                    "path": "Docs/building_images/build_scripts.md"
+                                }
                             ]
                         },
                         {
                             "title": "Building a production image",
-                            "sources": [
-                              {
-                                  "path": "Docs/building_images/3_prod.md"
-                              },
-                              {
-                                  "path": "Docs/building_images/build_scripts.md"
-                              }
-                            ]
-                        },
-                        {
-                            "title": "Writing an image to supported boards",
-                            "intro": {
-                                "path": "Docs/install_mbl_on_device/writing/writing_booting_disk_image.md"
-                            },
                             "sources": [{
-                                    "path": "Docs/install_mbl_on_device/writing/pico.md"
+                                    "path": "Docs/building_images/3_prod.md"
                                 },
                                 {
-                                    "path": "Docs/install_mbl_on_device/writing/nxp_evk.md"
-                                },
-                                {
-                                    "path": "Docs/install_mbl_on_device/writing/warp7.md"
-                                },
-                                {
-                                    "path": "Docs/install_mbl_on_device/writing/rpi3.md"
+                                    "path": "Docs/building_images/build_scripts.md"
                                 }
                             ]
                         }
                     ]
+                },
+                {
+                    "title": "Writing an image to supported boards",
+                    "intro": {
+                        "path": "Docs/install_mbl_on_device/writing/writing_booting_disk_image.md"
+                    },
+                    "sources": [{
+                            "path": "Docs/install_mbl_on_device/writing/pico.md"
+                        },
+                        {
+                            "path": "Docs/install_mbl_on_device/writing/nxp_evk.md"
+                        },
+                        {
+                            "path": "Docs/install_mbl_on_device/writing/warp7.md"
+                        },
+                        {
+                            "path": "Docs/install_mbl_on_device/writing/rpi3.md"
+                        }
+                    ]
+
                 },
                 {
                     "title": "Provisioning for Pelion Device Management",
