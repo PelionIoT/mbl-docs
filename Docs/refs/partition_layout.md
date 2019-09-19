@@ -13,7 +13,7 @@ MBL images contain several types of partition:
 - Logical partitions. Logical partitions are partitions that have entries in
   EBRs instead of the MBR. In MBL, logical partitions always contain file
   systems.
-- "Raw" partitions. These partitions do not have entries in the MBR or an EBR
+- Raw partitions. These partitions do not have entries in the MBR or an EBR
   and, in MBL, don't have file systems. A raw partition is used when it
   contains data that needs to be accessible to an early bootloader that does
   not have file system drivers.
@@ -220,14 +220,13 @@ Notes:
 1. When a bootloader slot's `SKIP` variable is set to `"1"` it is not necessary
    to set the slot's other variables.
 2. The offset of the first code that the board's boot ROM loads is usually
-   fixed by the SoC or board vendor so there is no sensible default value for
+   fixed by the SoC or board vendor, so there is no default value for
    the offset of bootloader slot 1.
 3. A bootloader slot's size (per bank) can be set in either KiB or MiB. You
    only need to set one of the slot's `SIZE` variables - the other will be
    calculated automatically.
-4. The offsets of the second bootloader slot's banks are, by default,
-   calculated based on the size of the first bootloader slot and alignment
-   rules. The bootloader in the first bootloader slot may, however, have to
+4. By default, the offsets of the second bootloader slot's banks are calculated based on the size of the first bootloader slot and alignment
+   rules. However, the bootloader in the first bootloader slot may have to
    know what the offsets are. When the first bootloader slot contains TF-A BL2
    and the second bootloader slot contains TF-A BL3, MBL will configure TF-A
    with the correct offsets. If bootloader slots 1 and 2 are not TF-A then you
@@ -291,11 +290,11 @@ To support firmware updates, MBL has storage for two separate root file systems 
 A script inside the `initramfs` checks which root partition is currently active; by default, this is `rootfs1`, but the script changes to `rootfs2` if a flag file called `rootfs2` is present in the `bootflags` directory of the `log` partition. In the future, state about banks and firmware updates will be moved to the Bank/Update state partition.
 
 There are also two partitions for each of:
-* BL3;
-* the Linux kernel;
-* the user configuration.
+* BL3.
+* The Linux kernel.
+* The user configuration.
 
-This is to allow robust update of these components in the future.
+This allows robust update of these components in the future.
 
 [meta-mbl]: https://github.com/ARMmbed/meta-mbl/tree/mbl-os-0.9
 [deploy-dir-image]: https://www.yoctoproject.org/docs/latest/mega-manual/mega-manual.html#var-DEPLOY_DIR_IMAGE
