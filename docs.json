@@ -57,7 +57,7 @@
                     ]
                 },
                 {
-                    "title": "Building images",
+                    "title": "Installing images",
                     "intro": {
                         "path": "Docs/building_images/intro.md"
                     },
@@ -69,21 +69,25 @@
                             "sources": []
                         },
                         {
-                            "title": "Building a developer image",
-                            "intro": {
-                                "path": "Docs/building_images/dev_image/build_intro_setup.md"
-                            },
+                            "title": "Building a development image",
                             "sources": [{
-                                    "path": "Docs/building_images/dev_image/build_scripts.md"
-                                }
+                                "path": "Docs/building_images/developer_image.md"
+                            },
+                            {
+                                "path": "Docs/building_images/build_scripts.md"
+                            }
                             ]
                         },
                         {
                             "title": "Building a production image",
-                            "intro": {
-                                "path": "Docs/building_images/3_prod.md"
-                            },
-                            "sources": []
+                            "sources": [
+                              {
+                                  "path": "Docs/building_images/3_prod.md"
+                              },
+                              {
+                                  "path": "Docs/building_images/dev_image/build_scripts.md"
+                              }
+                            ]
                         },
                         {
                             "title": "Writing an image to supported boards",
