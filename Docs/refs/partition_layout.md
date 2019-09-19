@@ -206,12 +206,12 @@ variables are described in the following table:
 | `MBL_WKS_BOOTLOADER1_FILENAME`         | `"bl2.bin"`   | The name of the file in the [`DEPLOY_DIR_IMAGE`][deploy-dir-image] used to populate the first bootloader slot. |
 | `MBL_WKS_BOOTLOADER1_IS_BL2`           | `"0"`         | When set to `"1"` this indicates that the first bootloader slot contains TF-A BL2 (see note 4). |
 | `MBL_WKS_BOOTLOADER2_SKIP`             | `"0"`         | When set to `"1"` the partition layout will not contain bootloader slot 2 (see note 1). |
-| `MBL_WKS_BOOTLOADER2_OFFSET_BANK1_KiB` | Variable      | The offset of the first bank of bootloader slot 2 in KiB (see note 4). |
-| `MBL_WKS_BOOTLOADER2_OFFSET_BANK2_KiB` | Variable      | The offset of the second bank of bootloader slot 2 in KiB (see note 4). |
+| `MBL_WKS_BOOTLOADER2_OFFSET_BANK1_KiB` | Variable      | The offset of the first bank of bootloader slot 2 in KiB (see note 5). |
+| `MBL_WKS_BOOTLOADER2_OFFSET_BANK2_KiB` | Variable      | The offset of the second bank of bootloader slot 2 in KiB (see note 5). |
 | `MBL_WKS_BOOTLOADER2_SIZE_KiB`         | `"16384"`     | The size (per bank) of the second bootloader slot in KiB (see note 3). |
 | `MBL_WKS_BOOTLOADER2_SIZE_MiB`         | `"16"`        | The size (per bank) of the second bootloader slot in MiB (see note 3). |
 | `MBL_WKS_BOOTLOADER2_FILENAME`         | `"fip.bin"`   | The name of the file in the [`DEPLOY_DIR_IMAGE`][deploy-dir-image] used to populate the second bootloader slot. |
-| `MBL_WKS_BOOTLOADER2_IS_BL3`           | `"0"`         | When set to `"1"` this indicates that the second bootloader slot contains TF-A BL3 (see note 4). |
+| `MBL_WKS_BOOTLOADER2_IS_BL3`           | `"0"`         | When set to `"1"` this indicates that the second bootloader slot contains TF-A BL3 (see note 5). |
 | `MBL_WKS_BOOTLOADER_FS_SKIP`           | `"1"`         | When set to `"1"` (the default) the partition layout will not contain the blfs partition |
 | `MBL_WKS_STORAGE_SIZE_MiB`             | None          | The size of the device's main storage device in MiB. |
 | `MBL_FLASH_ERASE_BLOCK_SIZE_KiB`       | `"16384"`     | The erase block size used by the device's main flash storage. |
@@ -219,13 +219,13 @@ variables are described in the following table:
 Notes:
 1. When a bootloader slot's `SKIP` variable is set to `"1"` it is not necessary
    to set the slot's other variables.
-2. The offset of the first code that the board's boot ROM loads is usually
+1. The offset of the first code that the board's boot ROM loads is usually
    fixed by the SoC or board vendor, so there is no default value for
    the offset of bootloader slot 1.
-3. A bootloader slot's size (per bank) can be set in either KiB or MiB. You
-   only need to set one of the slot's `SIZE` variables - the other will be
+1. A bootloader slot's size (per bank) can be set in either KiB or MiB.
+1. You only need to set one of the slot's `SIZE` variables - the other will be
    calculated automatically.
-4. By default, the offsets of the second bootloader slot's banks are calculated based on the size of the first bootloader slot and alignment
+1. By default, the offsets of the second bootloader slot's banks are calculated based on the size of the first bootloader slot and alignment
    rules. However, the bootloader in the first bootloader slot may have to
    know what the offsets are. When the first bootloader slot contains TF-A BL2
    and the second bootloader slot contains TF-A BL3, MBL will configure TF-A
