@@ -1,6 +1,3 @@
-<!--- This page should go one level up -->
-<!-- I changed the chapter name instead; I think this is more comfortable to navigate-->
-
 # Downloading an evaluation image
 
 If you're only interested in developing applications (as opposed to contributing to MBL itself), you can download a prebuilt MBL evaluation image.

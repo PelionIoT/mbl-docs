@@ -1,4 +1,4 @@
-# Developer image build examples
+# Development image build examples
 
 <span class="tips">**Tip**: If you downloaded an evaluation image, you can skip the build stage [and go directly to writing](../first-image/writing-an-image-to-supported-boards.html).</span>
 

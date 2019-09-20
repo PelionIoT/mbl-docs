@@ -1,4 +1,4 @@
-# Production image configuration and build examples
+# Production image configuration
 
 <span class="tips">**Tip**: If you downloaded an evaluation image, you can skip the build stage [and go directly to writing](../first-image/writing-an-image-to-supported-boards.html).</span>
 
@@ -13,25 +13,29 @@ To build production images, set the Yocto DISTRO to `mbl-production` (pass the `
     - **UBOOT_PRODUCTION_CFG**: Affects both U-Boot and Linux Kernel log level messages. The possible values are:
         - **silent** (default): Disables both U-Boot and kernel message output.
         - **noconsole**: Disables only U-Boot message output.
-        - **minimal** (default): Disables network booting, fastboot, USB mass storage and device firmware upgrade (DFU) message output.<!--two defaults?--><!--is there a combination of values that gives me all error messages, or is that not something you'll ever do in production?-->
 
-You can set these variables by:<!--does this refer just to log levels, or all the parameters above? I saw the password thing in the example, but the --local-conf-data bit comes long after it, so I'm not sure what this text refers to, and what the example script refers to - the script certainly seems to cover everything-->
+        <span class="notes">Note that `silent` and `noconsole` are mutually exclusive.</span>
+        - **minimal** (default): Disables network booting, fastboot, USB mass storage and device firmware upgrade (DFU) message output.
 
-- Manually editing the `local.conf` file inside the BitBake build directory. For example: `./build-pico7/machine-imx7d-pico-mbl/mbl-manifest/build-mbl-production/conf/local.conf`.
-- Setting these variables in *one of* your repositories' configuration files:
-  - In your `layer.conf` file in your meta layer repository.
-  - In your `local.conf` file in your config repository.
+    You can set the log level variables by:
 
-  See the help on [creating an example project](../develop-mbl/example-project-based-on-mbed-linux-os.html) for more information on these repositories.
-- Passing the `--local-conf-data STRING` parameter to **build.sh**.
+        - Manually editing the `local.conf` file inside the BitBake build directory. For example: `./build-pico7/machine-imx7d-pico-mbl/mbl-manifest/build-mbl-production/conf/local.conf`.
+        - Setting these variables in *one of* your repositories' configuration files:
+        - In your `layer.conf` file in your meta layer repository.
+        - In your `local.conf` file in your config repository.
 
-    For example:
+          See the help on [creating an example project](../develop-mbl/example-project-based-on-mbed-linux-os.html) for more information on these repositories.
+        - Passing the `--local-conf-data STRING` parameter to **build.sh**.
 
-    ```
-    ./mbl-tools/build/run-me.sh --builddir ./build-pico7 --outputdir ./artifacts-pico7 --root-passwd-file PASSWD_FILE -- --machine imx7d-pico-mbl --branch mbl-os-0.8 --distro mbl-production --local-conf-data "UBOOT_PRODUCTION_CFG=\"noconsole\"\nATF_PRODUCTION_CFG=\"\""
-    ```
+            For example:
 
-    <span class="tips">Note that `--local-conf-data` needs to be passed every run.</span>
+            ```
+            ./mbl-tools/build/run-me.sh --builddir ./build-pico7 --outputdir ./artifacts-pico7 --root-passwd-file PASSWD_FILE -- --machine imx7d-pico-mbl --branch mbl-os-0.8 --distro mbl-production --local-conf-data "UBOOT_PRODUCTION_CFG=\"noconsole\"\nATF_PRODUCTION_CFG=\"\""
+            ```
+
+            <span class="tips">Note that `--local-conf-data` needs to be passed every run.</span>
+
+# Production image build examples
 
 The following are examples of build commands to produce development images for supported platforms.
 
