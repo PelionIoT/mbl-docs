@@ -8,7 +8,7 @@ To build production images, set the Yocto DISTRO to `mbl-production` (pass the `
 
 - System log level messages output and configuration: The following variables are set in the mbl-production configuration file (`meta-mbl/meta-mbl-distro/conf/distro/include/mbl-distro-production.inc`):
 
-    - **ATF_PRODUCTION_CFG: ** Affects ATF log level messages. The only possible value is **silent** (set by default) - only error messages are printed out to the console.
+    - **ATF_PRODUCTION_CFG**: Affects ATF log level messages. The only possible value is **silent** (set by default) - only error messages are printed out to the console.
     - **OPTEE_PRODUCTION_CFG**: Affects OPTEE-OS log level messages. The only possible value is **silent** (set by default) - only error messages are printed out to the console.
     - **UBOOT_PRODUCTION_CFG**: Affects both U-Boot and Linux Kernel log level messages. The possible values are:
         - **silent** (default): Disables both U-Boot and kernel message output.
