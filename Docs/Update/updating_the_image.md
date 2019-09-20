@@ -62,8 +62,8 @@ There are two ways to update an MBL image:
 
     Where:
 
-    * `/path/to/artifacts` is the output directory specified for all build artefacts. See the [build tutorial](../first-image/building-a-developer-image.html) for more information.
-    * `<MACHINE>` is the value that was given to the build script for the `--machine` option. See the [build tutorial](../first-image/building-a-developer-image.html) to determine which value is suitable for the device in use.
+    * `/path/to/artifacts` is the output directory specified for all build artefacts. See the [build tutorial](../first-image/building-development-and-production-images.html) for more information.
+    * `<MACHINE>` is the value that was given to the build script for the `--machine` option. See the [build tutorial](../first-image/building-development-and-production-images.html) to determine which value is suitable for the device in use.
 
     <span class="notes">**Note:** The file inside the update payload must be named `rootfs.tar.xz` and must be in the tar's root directory, not a subdirectory.</span>
 

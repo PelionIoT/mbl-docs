@@ -187,7 +187,7 @@ For more information, please refer to the [Trusted Board Boot Requirements CLIEN
 
 ## Flash partition layout
 
-See our [Partition Layout](../refs/partition-layout.html) document for information about partition layouts.
+See our [Partition Layout](../references/partition-layout.html) document for information about partition layouts.
 
 <h1 id="bsp-yocto">Overview of MBL Yocto layers</h1>
 
@@ -482,7 +482,7 @@ The `atf-${MACHINE}.bb` is the target specific ATF recipe that controls how the 
 
 <h1 id="bsp-machine-config">Machine configuration files</h1>
 
-This section describes the `${MACHINE}.conf`, `${machine}.conf` and `[soc-family].inc` entities in the BSP recipe relationship UML diagram ([Figure 4.0](../develop-mbl/bsp-recipe#figure-4-0)). The discussion is applicable to all targets.
+This section describes the `${MACHINE}.conf`, `${machine}.conf` and `[soc-family].inc` entities in the BSP recipe relationship UML diagram ([Figure 4.0](../develop-mbl/bsp-recipe.html#figure-4-0)). The discussion is applicable to all targets.
 
 ## ${MACHINE}.conf: the top level BSP control file
 
