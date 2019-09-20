@@ -1,100 +1,248 @@
 # Partition layout
 
-## General information
+## Partition types
 
-MBL images contain two types of "partition":
+MBL images contain several types of partition:
 
-- Normal file system partitions that have entries in the partition table.
-- "Raw" partitions that don't have file systems and don't have entries in the partition table. A raw partition is used when it needs to be accessible to an early bootloader that does not have file system drivers.
+- Primary partitions. These partitions have entries in the master boot record
+  (MBR), and, in MBL, always contain file systems.
+- The extended partition. Since the MBR can only contain entries for four
+  partitions, the fourth entry in MBL points to an extended partition that
+  holds the first extended boot record (EBR). Each EBR contains an entry for a
+  logical partition and, optionally, an entry pointing to another EBR.
+- Logical partitions. Logical partitions are partitions that have entries in
+  EBRs instead of the MBR. In MBL, logical partitions always contain file
+  systems.
+- Raw partitions. These partitions do not have entries in the MBR or an EBR
+  and, in MBL, don't have file systems. A raw partition is used when it
+  contains data that needs to be accessible to an early bootloader that does
+  not have file system drivers.
+
+## General layout
 
 The partition layout for every board includes at least the following partitions:
 
-| Label              | ro/rw | Type | Mount point      | Default size | Contains |
-|--------------------|-------|------|------------------|--------------|----------|
-| boot               | ro    | vfat | /boot            | 48MiB        | Kernel, device tree and U-Boot boot script |
-| bootflags          | rw    | ext4 | /mnt/flags       | 20MiB        | Flags to determine which rootfs is active |
-| rootfs1            | rw    | ext4 | /                | 500MiB       | Root file system bank 1 |
-| rootfs2            | rw    | ext4 | /                | 500MiB       | Root file system bank 2 |
-| factory\_config    | rw    | ext4 | /config/factory  | 20MiB        | Factory configuration |
-| nfactory\_config1  | rw    | ext4 | /config/user     | 20MiB        | Nonfactory configuration 1; user data configuration |
-| nfactory\_config2  | rw    | ext4 | /config/user     | 20MiB        | Unused at this time |
-| log                | rw    | ext4 | /var/log         | 128MiB       | Log files |
-| scratch            | rw    | ext4 | /scratch         | 500MiB       | Temporary files (such as downloaded firmware files) |
-| home               | rw    | ext4 | /home            | 450MiB       | User application storage |
+| Label/Name        | ro/rw | File system type | Mount point      | Default size | Contains |
+|-------------------|-------|------------------|------------------|--------------|----------|
+| Bank/Update state | -     | -                | -                | 128MiB       | Unused at this time |
+| boot1             | ro    | vfat             | /boot            | 128MiB       | Kernel, device tree and U-Boot boot script |
+| boot2             | -     | vfat             | -                | 128MiB       | Unused at this time |
+| rootfs1           | rw    | ext4             | /                | 512MiB       | Root file system bank 1 |
+| rootfs2           | rw    | ext4             | /                | 512MiB       | Root file system bank 2 |
+| factory_config    | rw    | ext4             | /config/factory  | 32MiB        | Factory configuration |
+| config1           | rw    | ext4             | /config/user     | 32MiB        | Configuration bank 1; user configuration data |
+| config2           | -     | ext4             | -                | 32MiB        | Unused at this time |
+| log               | rw    | ext4             | /var/log         | 128MiB       | Log files |
+| scratch           | rw    | ext4             | /scratch         | 640MiB       | Temporary files (such as downloaded firmware files) |
+| home              | rw    | ext4             | /home            | 512MiB       | User application storage |
 
-Images also contain partitions for bootloaders, but the details are board specific.
+Images also contain board dependent partitions for bootloaders. MBL's
+partitioning scheme supports up to three "slots" for bootloaders described in
+the following table. Each slot may or may not exist in a particular board's
+layout.
 
-<span class="notes">**Note:** This partition layout does not match our future plans and will be changed in a future release.</span>
+| Label/Name        | Number of banks | Partition type | File system type | Notes |
+|-------------------|-----------------|----------------|------------------|-------|
+| Bootloader slot 1 | 1               | Raw            | -                | Typically contains bootloader component 1, the first code that the board's boot ROM loads |
+| Bootloader slot 2 | 2               | Raw            | -                | Typically contains bootloader component 2 |
+| blfs              | 1               | Primary        | vfat             | Only used on boards where the boot ROM loads code from a file system rather than raw storage (e.g. Raspberry Pi 3). |
+
 
 ## Board specific information
 
 ### Raspberry Pi 3
-
 Full partition layout:
+<!--
+NOTE: This table was autogenerated using the create-partition-table-markdown script from meta-mbl.
+Consider using/updating that script before making changes manually.
+-->
+| Number | Label/Name                 | Offset  | Size   | Partition type | File system type | Notes |
+| ------ | ----------                 | ------  | ----   | -------------- | ---------------- | ----- |
+| -      | Bootloader slot 2 (Bank 1) | 16MiB   | 16MiB  | Raw            | -                | Contains bootloader component 2 |
+| -      | Bootloader slot 2 (Bank 2) | 32MiB   | 16MiB  | Raw            | -                | Unused |
+| -      | Bank/Update state          | 64MiB   | 128MiB | Raw            | -                | Unused |
+| 1      | blfs                       | 192MiB  | 48MiB  | Primary        | vfat             | Contains bootloader component 1 and the kernel |
+| 2      | boot1                      | 240MiB  | 128MiB | Primary        | vfat             | Unused |
+| 3      | boot2                      | 368MiB  | 128MiB | Primary        | vfat             | Unused |
+| 4      | -                          | -       | -      | Extended       | -                | - |
+| 5      | rootfs1                    | 512MiB  | 512MiB | Logical        | ext4             | - |
+| 6      | rootfs2                    | 1040MiB | 512MiB | Logical        | ext4             | - |
+| 7      | factory_config             | 1568MiB | 32MiB  | Logical        | ext4             | - |
+| 8      | confg1                     | 1616MiB | 32MiB  | Logical        | ext4             | - |
+| 9      | confg2                     | 1664MiB | 32MiB  | Logical        | ext4             | Unused |
+| 10     | log                        | 1712MiB | 128MiB | Logical        | ext4             | - |
+| 11     | scratch                    | 1856MiB | 640MiB | Logical        | ext4             | - |
+| 12     | home                       | 2512MiB | 512MiB | Logical        | ext4             | - |
 
-| Label/Name        | Size   | U-Boot iface dev:part | Linux device file | Notes    |
-|-------------------|--------|-----------------------|-------------------|----------|
-| BL3 FIP Image (1) | 4MiB   | -                     | -                 | Raw; FIP image containing TF-A BL3, OP-TEE and U-Boot |
-| BL3 FIP Image (2) | 4MiB   | -                     | -                 | Raw; unused at this time |
-| boot              | 48MiB  | mmc 0:1               | mmcblk0p1         | Primary  |
-| bootflags         | 20MiB  | mmc 0:2               | mmcblk0p2         | Primary  |
-| rootfs1           | 500MiB | mmc 0:3               | mmcblk0p3         | Primary  |
-| -                 | -      | mmc 0:4               | mmcblk0p4         | Extended |
-| rootfs2           | 500MiB | mmc 0:5               | mmcblk0p5         | Logical  |
-| factory\_config   | 20MiB  | mmc 0:6               | mmcblk0p6         | Logical  |
-| nfactory\_config1 | 20MiB  | mmc 0:7               | mmcblk0p7         | Logical  |
-| nfactory\_config2 | 20MiB  | mmc 0:8               | mmcblk0p8         | Logical  |
-| log               | 128MiB | mmc 0:9               | mmcblk0p9         | Logical  |
-| scratch           | 500MiB | mmc 0:10              | mmcblk0p10        | Logical  |
-| home              | 450MiB | mmc 0:11              | mmcblk0p11        | Logical  |
 
-### WaRP7 and PICO-PI with IMX7D
-
+### WaRP7
 Full partition layout:
+<!--
+NOTE: This table was autogenerated using the create-partition-table-markdown script from meta-mbl.
+Consider using/updating that script before making changes manually.
+-->
+| Number | Label/Name                 | Offset  | Size   | Partition type | File system type | Notes |
+| ------ | ----------                 | ------  | ----   | -------------- | ---------------- | ----- |
+| -      | Bootloader slot 1          | 1KiB    | 4MiB   | Raw            | -                | Contains bootloader component 1 |
+| -      | Bootloader slot 2 (Bank 1) | 6MiB    | 16MiB  | Raw            | -                | Contains bootloader component 2 |
+| -      | Bootloader slot 2 (Bank 2) | 24MiB   | 16MiB  | Raw            | -                | Unused |
+| -      | Bank/Update state          | 64MiB   | 128MiB | Raw            | -                | Unused |
+| 1      | boot1                      | 192MiB  | 128MiB | Primary        | vfat             | Contains the kernel |
+| 2      | boot2                      | 324MiB  | 128MiB | Primary        | vfat             | Unused |
+| 3      | rootfs1                    | 456MiB  | 512MiB | Primary        | ext4             | - |
+| 4      | -                          | -       | -      | Extended       | -                | - |
+| 5      | rootfs2                    | 978MiB  | 512MiB | Logical        | ext4             | - |
+| 6      | factory_config             | 1500MiB | 32MiB  | Logical        | ext4             | - |
+| 7      | confg1                     | 1542MiB | 32MiB  | Logical        | ext4             | - |
+| 8      | confg2                     | 1584MiB | 32MiB  | Logical        | ext4             | Unused |
+| 9      | log                        | 1626MiB | 128MiB | Logical        | ext4             | - |
+| 10     | scratch                    | 1764MiB | 640MiB | Logical        | ext4             | - |
+| 11     | home                       | 2412MiB | 512MiB | Logical        | ext4             | - |
 
-| Label/Name        | Size   | U-Boot iface dev:part | Linux device file | Notes       |
-|-------------------|--------|-----------------------|-------------------|-------------|
-| BL2               | 1023KiB| -                     | -                 | Raw; TF-A BL2 |
-| BL3 FIP Image (1) | 1024KiB| -                     | -                 | Raw; FIP image containing TF-A BL3, OP-TEE and U-Boot |
-| BL3 FIP Image (2) | 1024KiB| -                     | -                 | Raw; unused at this time |
-| boot              | 48MiB  | mmc 0:1               | mmcblk0p1         | Primary     |
-| bootflags         | 20MiB  | mmc 0:2               | mmcblk0p2         | Primary     |
-| rootfs1           | 500MiB | mmc 0:3               | mmcblk0p3         | Primary     |
-| -                 | -      | mmc 0:4               | mmcblk0p4         | Extended    |
-| rootfs2           | 500MiB | mmc 0:5               | mmcblk0p5         | Logical     |
-| factory\_config   | 20MiB  | mmc 0:6               | mmcblk0p6         | Logical     |
-| nfactory\_config1 | 20MiB  | mmc 0:7               | mmcblk0p7         | Logical     |
-| nfactory\_config2 | 20MiB  | mmc 0:8               | mmcblk0p8         | Logical     |
-| log               | 128MiB | mmc 0:9               | mmcblk0p9         | Logical     |
-| scratch           | 500MiB | mmc 0:10              | mmcblk0p10        | Logical     |
-| home              | 450MiB | mmc 0:11              | mmcblk0p11        | Logical     |
+
+### PICO-PI with IMX7D
+Full partition layout:
+<!--
+NOTE: This table was autogenerated using the create-partition-table-markdown script from meta-mbl.
+Consider using/updating that script before making changes manually.
+-->
+| Number | Label/Name                 | Offset    | Size   | Partition type | File system type | Notes |
+| ------ | ----------                 | ------    | ----   | -------------- | ---------------- | ----- |
+| -      | Bootloader slot 1          | 1KiB      | 4MiB   | Raw            | -                | Contains bootloader component 1 |
+| -      | Bootloader slot 2 (Bank 1) | 4.5MiB    | 16MiB  | Raw            | -                | Contains bootloader component 2 |
+| -      | Bootloader slot 2 (Bank 2) | 20.5MiB   | 16MiB  | Raw            | -                | Unused |
+| -      | Bank/Update state          | 64MiB     | 128MiB | Raw            | -                | Unused |
+| 1      | boot1                      | 192MiB    | 128MiB | Primary        | vfat             | Contains the kernel |
+| 2      | boot2                      | 320MiB    | 128MiB | Primary        | vfat             | Unused |
+| 3      | rootfs1                    | 448MiB    | 512MiB | Primary        | ext4             | - |
+| 4      | -                          | -         | -      | Extended       | -                | - |
+| 5      | rootfs2                    | 960.5MiB  | 512MiB | Logical        | ext4             | - |
+| 6      | factory_config             | 1473MiB   | 32MiB  | Logical        | ext4             | - |
+| 7      | confg1                     | 1505.5MiB | 32MiB  | Logical        | ext4             | - |
+| 8      | confg2                     | 1538MiB   | 32MiB  | Logical        | ext4             | Unused |
+| 9      | log                        | 1570.5MiB | 128MiB | Logical        | ext4             | - |
+| 10     | scratch                    | 1699MiB   | 640MiB | Logical        | ext4             | - |
+| 11     | home                       | 2339.5MiB | 512MiB | Logical        | ext4             | - |
+
+### PICO-PI with IMX6UL
+Full partition layout:
+<!--
+NOTE: This table was autogenerated using the create-partition-table-markdown script from meta-mbl.
+Consider using/updating that script before making changes manually.
+-->
+| Number | Label/Name                 | Offset    | Size    | Partition type | File system type | Notes |
+| ------ | ----------                 | ------    | ----    | -------------- | ---------------- | ----- |
+| -      | Bootloader slot 1          | 1KiB      | 1023KiB | Raw            | -                | Contains bootloader component 1 |
+| -      | Bootloader slot 2 (Bank 1) | 1MiB      | 1MiB    | Raw            | -                | Contains bootloader component 2 |
+| -      | Bootloader slot 2 (Bank 2) | 2MiB      | 1MiB    | Raw            | -                | Unused |
+| -      | Bank/Update state          | 64MiB     | 128MiB  | Raw            | -                | Unused |
+| 1      | boot1                      | 192MiB    | 128MiB  | Primary        | vfat             | Contains the kernel |
+| 2      | boot2                      | 320MiB    | 128MiB  | Primary        | vfat             | Unused |
+| 3      | rootfs1                    | 448MiB    | 512MiB  | Primary        | ext4             | - |
+| 4      | -                          | -         | -       | Extended       | -                | - |
+| 5      | rootfs2                    | 960.5MiB  | 512MiB  | Logical        | ext4             | - |
+| 6      | factory_config             | 1473MiB   | 32MiB   | Logical        | ext4             | - |
+| 7      | confg1                     | 1505.5MiB | 32MiB   | Logical        | ext4             | - |
+| 8      | confg2                     | 1538MiB   | 32MiB   | Logical        | ext4             | Unused |
+| 9      | log                        | 1570.5MiB | 128MiB  | Logical        | ext4             | - |
+| 10     | scratch                    | 1699MiB   | 640MiB  | Logical        | ext4             | - |
+| 11     | home                       | 2339.5MiB | 512MiB  | Logical        | ext4             | - |
 
 ### NXP 8M Mini EVK
-
 Full partition layout:
+<!--
+NOTE: This table was autogenerated using the create-partition-table-markdown script from meta-mbl.
+Consider using/updating that script before making changes manually.
+-->
+| Number | Label/Name                 | Offset  | Size   | Partition type | File system type | Notes |
+| ------ | ----------                 | ------  | ----   | -------------- | ---------------- | ----- |
+| -      | Bootloader slot 1          | 33KiB   | 991KiB | Raw            | -                | Contains bootloader component 1 |
+| -      | Bootloader slot 2 (Bank 1) | 16MiB   | 2MiB   | Raw            | -                | Contains bootloader component 2 |
+| -      | Bootloader slot 2 (Bank 2) | 32MiB   | 2MiB   | Raw            | -                | Unused |
+| -      | Bank/Update state          | 64MiB   | 128MiB | Raw            | -                | Unused |
+| 1      | boot1                      | 192MiB  | 128MiB | Primary        | vfat             | Contains the kernel |
+| 2      | boot2                      | 320MiB  | 128MiB | Primary        | vfat             | Unused |
+| 3      | rootfs1                    | 448MiB  | 512MiB | Primary        | ext4             | - |
+| 4      | -                          | -       | -      | Extended       | -                | - |
+| 5      | rootfs2                    | 976MiB  | 512MiB | Logical        | ext4             | - |
+| 6      | factory_config             | 1504MiB | 32MiB  | Logical        | ext4             | - |
+| 7      | confg1                     | 1552MiB | 32MiB  | Logical        | ext4             | - |
+| 8      | confg2                     | 1600MiB | 32MiB  | Logical        | ext4             | Unused |
+| 9      | log                        | 1648MiB | 128MiB | Logical        | ext4             | - |
+| 10     | scratch                    | 1792MiB | 640MiB | Logical        | ext4             | - |
+| 11     | home                       | 2448MiB | 512MiB | Logical        | ext4             | - |
 
-| Label/Name        | Size   | U-Boot iface dev:part | Linux device file | Notes       |
-|-------------------|--------|-----------------------|-------------------|-------------|
-| Bootloaders       | 1024KiB| -                     | -                 | Raw; TF-A BL2, TF-A BL3, OP-TEE and U-Boot |
-| boot              | 48MiB  | mmc 0:1               | mmcblk1p1         | Primary     |
-| bootflags         | 20MiB  | mmc 0:2               | mmcblk1p2         | Primary     |
-| rootfs1           | 500MiB | mmc 0:3               | mmcblk1p3         | Primary     |
-| -                 | -      | mmc 0:4               | mmcblk1p4         | Extended    |
-| rootfs2           | 500MiB | mmc 0:5               | mmcblk1p5         | Logical     |
-| factory\_config   | 20MiB  | mmc 0:6               | mmcblk1p6         | Logical     |
-| nfactory\_config1 | 20MiB  | mmc 0:7               | mmcblk1p7         | Logical     |
-| nfactory\_config2 | 20MiB  | mmc 0:8               | mmcblk1p8         | Logical     |
-| log               | 128MiB | mmc 0:9               | mmcblk1p9         | Logical     |
-| scratch           | 500MiB | mmc 0:10              | mmcblk1p10        | Logical     |
-| home              | 450MiB | mmc 0:11              | mmcblk1p11        | Logical     |
+## Customizing the partition layout
 
-## Notes on firmware update
+You can customize the partition layout by setting variables in your project's
+`local.conf`. The variables to customize the partition layouts of fully
+supported boards are described in the following table:
 
-To support firmware updates, MBL has storage for two separate root file systems and a mechanism to select which root file system to boot into after reboots.
+| Variable name                     | Default value   | Description |
+| --------------------------------- | --------------- | ----------- |
+| `MBL_BOOT_SIZE_MiB`               | `"128"`         | The size of each boot partition in MiB. |
+| `MBL_ROOT_SIZE_MiB`               | `"512"`         | The size of each root partition in MiB. |
+| `MBL_FACTORY_CONFIG_SIZE_MiB`     | `"32"`          | The size of the factory configuration partition in MiB. |
+| `MBL_CONFIG_SIZE_MiB`             | `"32"`          | The size of each (user) configuration partition in MiB. |
+| `MBL_LOG_SIZE_MiB`                | `"128"`         | The size of the log partition in MiB. |
+| `MBL_SCRATCH_SIZE_MiB`            | `"640"`         | The size of the scratch partition in MiB. |
+| `MBL_HOME_SIZE_MiB`               | `"512"`         | The size of the home partition in MiB. |
+| `MBL_HOME_FILL_STORAGE`           | `"0"`           | When set to `"1"`, the home partition is extended to fill the storage device. |
+| `MBL_WKS_STORAGE_SIZE_MiB`        | Board dependent | The size of the flash storage in MiB. For devices with removable storage (e.g. SD cards) you should set this to match the size of storage you use in your project. For devices with non-removable storage, the default value set in the machine config file should be correct. |
+| `MBL_FLASH_ERASE_BLOCK_SIZE_KiB`  | Board dependent | The flash erase block size of the storage in KiB. For devices with removable storage (e.g. SD cards) you should set this to match the flash erase block size of the storage you use in your project. For devices with non-removable storage, the default value set in the machine config file should be correct. This is used to ensure that partitions are aligned on flash erase block boundaries. |
 
-A script inside the `initramfs` checks which root partition is currently active; by default, this is `rootfs1`, but the script changes to `rootfs2` if a flag file called `rootfs2` is present in the `bootflags` partition.
+## Porting to new boards
 
-## Future plans
+When porting MBL's partition layout to new boards, the board's machine config
+file must set variables that indicate how the bootloader slots are used. The
+variables are described in the following table:
+
+| Variable name                          | Default value | Description |
+| -------------------------------------- | ------------- | ----------- |
+| `MBL_WKS_BOOTLOADER1_SKIP`             | `"0"`         | When set to `"1"` the partition layout will not contain bootloader slot 1. (see note 1) |
+| `MBL_WKS_BOOTLOADER1_OFFSET_BANK1_KiB` | None          | The offset of the first bootloader slot in KiB see note 2) ||
+| `MBL_WKS_BOOTLOADER1_SIZE_KiB`         | `"4096"`      | The size of the first bootloader slot in KiB (see note 3). |
+| `MBL_WKS_BOOTLOADER1_SIZE_MiB`         | `"4"`         | The size of the first bootloader slot in MiB (see note 3). |
+| `MBL_WKS_BOOTLOADER1_FILENAME`         | `"bl2.bin"`   | The name of the file in the [`DEPLOY_DIR_IMAGE`][deploy-dir-image] used to populate the first bootloader slot. |
+| `MBL_WKS_BOOTLOADER1_IS_BL2`           | `"0"`         | When set to `"1"` this indicates that the first bootloader slot contains TF-A BL2 (see note 4). |
+| `MBL_WKS_BOOTLOADER2_SKIP`             | `"0"`         | When set to `"1"` the partition layout will not contain bootloader slot 2 (see note 1). |
+| `MBL_WKS_BOOTLOADER2_OFFSET_BANK1_KiB` | Variable      | The offset of the first bank of bootloader slot 2 in KiB (see note 5). |
+| `MBL_WKS_BOOTLOADER2_OFFSET_BANK2_KiB` | Variable      | The offset of the second bank of bootloader slot 2 in KiB (see note 5). |
+| `MBL_WKS_BOOTLOADER2_SIZE_KiB`         | `"16384"`     | The size (per bank) of the second bootloader slot in KiB (see note 3). |
+| `MBL_WKS_BOOTLOADER2_SIZE_MiB`         | `"16"`        | The size (per bank) of the second bootloader slot in MiB (see note 3). |
+| `MBL_WKS_BOOTLOADER2_FILENAME`         | `"fip.bin"`   | The name of the file in the [`DEPLOY_DIR_IMAGE`][deploy-dir-image] used to populate the second bootloader slot. |
+| `MBL_WKS_BOOTLOADER2_IS_BL3`           | `"0"`         | When set to `"1"` this indicates that the second bootloader slot contains TF-A BL3 (see note 5). |
+| `MBL_WKS_BOOTLOADER_FS_SKIP`           | `"1"`         | When set to `"1"` (the default) the partition layout will not contain the blfs partition |
+| `MBL_WKS_STORAGE_SIZE_MiB`             | None          | The size of the device's main storage device in MiB. |
+| `MBL_FLASH_ERASE_BLOCK_SIZE_KiB`       | `"16384"`     | The erase block size used by the device's main flash storage. |
+
+Notes:
+1. When a bootloader slot's `SKIP` variable is set to `"1"` it is not necessary
+   to set the slot's other variables.
+1. The offset of the first code that the board's boot ROM loads is usually
+   fixed by the SoC or board vendor, so there is no default value for
+   the offset of bootloader slot 1.
+1. A bootloader slot's size (per bank) can be set in either KiB or MiB.
+1. You only need to set one of the slot's `SIZE` variables - the other will be
+   calculated automatically.
+1. By default, the offsets of the second bootloader slot's banks are calculated based on the size of the first bootloader slot and alignment
+   rules. However, the bootloader in the first bootloader slot may have to
+   know what the offsets are. When the first bootloader slot contains TF-A BL2
+   and the second bootloader slot contains TF-A BL3, MBL will configure TF-A
+   with the correct offsets. If bootloader slots 1 and 2 are not TF-A then you
+   can read the calculated values from the `OFFSET` variables to configure
+   different bootloaders, or you can manually set the values of the `OFFSET`
+   variables.
+
+For the full details, see
+[`meta-mbl-distro/classes/mbl-partitions.bbclass`][mbl-partitions-bbclass] in
+[meta-mbl][meta-mbl], making sure that you select the branch or tag on which
+your project is based.
+
+
+## Rationale
+
+### Requirements
 
 The following high-level requirements drive the plan for MBL's flash memory partition layout:
 
@@ -111,9 +259,43 @@ In summary, requirements that influence the flash layout are:
 | A failure during the update process (such as a power loss) should not result in a bricked device. | The previous known good version of a booted component should be maintained in flash until an updated version has been verified to be complete, authentic and viable. This means all booted components should be banked to accommodate both the known good and the updated versions of a component. Writes to one bank of a component should not affect the other bank, and writes to any component should not affect any other components. Due to the nature of flash storage, this means components should not share flash erase blocks with other components or other banks of the same component.|
 | A multicomponent update should either be applied in its entirety or not at all. A device should never be left in a state where only a partial update was performed. | Nonvolatile state must be held that reflects the state that a multicomponent update is in progress but is not yet complete. |
 | A firmware update involving multiple components may extend across power failures. |	Nonvolatile state must be held reflecting the presence of a component update. Only when all components are installed can the entire update be viewed as complete. |
-| Data saved in flash memory that does not need to be modified in normal device operation should be write-protected. |	Some partitions should be created or modified to be read-only. Factory data written during the manufacturing process should be saved in a partition that is modified to read-only when a device boots after its lifecycle state has been modified to 'manufacture complete'. |
+| Data saved in flash memory that does not need to be modified in normal device operation should be write-protected. |	Some partitions should be created or modified to be read-only. Factory data written during the manufacturing process should be saved in a partition that is set to read-only when a device boots after its lifecycle state has been modified to 'manufacture complete'. |
 | A device should support the restore to factory use case. | To allow the user configuration to be deleted without deleting the factory configuration, the two types of data should be kept separate. |
 
-The following diagram shows the planned layout:
+### Partition alignment
 
-<span class="images">![](../Figures/partition_layout.png)</span>
+In order to reduce the risk of writes to a single partition having an effect on other
+partitions, we aim to ensure that partitions do not share flash erase blocks
+(areas of flash that can only be erased in their entirety, not in part). We
+therefore, align partitions to flash erase block boundaries where possible.
+
+### MBRs and EBRs
+
+In addition to the actual partitions, the flash device will also contain a
+master boot record (MBR) and, for each logical partition, an extended boot
+record (EBR). We must take care to ensure that the MBR and EBRs are not
+corrupted during device operation, so they must not share flash erase blocks
+with data that might be modified. The MBR takes up the first 512B sector of the
+storage and it is acceptable for the MBR to share a flash erase block with e.g.
+TF-A BL2 because we will not support robust update of BL2. Each EBR takes up
+512B and is typically placed immediately before the logical partition it
+describes.  We must therefore allocate an extra flash erase block for an EBR
+before every logical partition.
+
+
+### Firmware update
+
+To support firmware updates, MBL has storage for two separate root file systems and a mechanism to select which root file system to boot into after reboots.
+
+A script inside the `initramfs` checks which root partition is currently active; by default, this is `rootfs1`, but the script changes to `rootfs2` if a flag file called `rootfs2` is present in the `bootflags` directory of the `log` partition. In the future, state about banks and firmware updates will be moved to the Bank/Update state partition.
+
+There are also two partitions for each of:
+* BL3.
+* The Linux kernel.
+* The user configuration.
+
+This allows robust update of these components in the future.
+
+[meta-mbl]: https://github.com/ARMmbed/meta-mbl/tree/mbl-os-0.9
+[deploy-dir-image]: https://www.yoctoproject.org/docs/latest/mega-manual/mega-manual.html#var-DEPLOY_DIR_IMAGE
+[mbl-partitions-bbclass]: https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.9/meta-mbl-distro/classes/mbl-partitions.bbclass
