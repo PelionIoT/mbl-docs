@@ -50,7 +50,7 @@ openssl req -batch -new -x509 -key boot-keys/mbl-fit-rot-key.key > boot-keys/mbl
 
 Then for example perform a build:
 ```
-./mbl-tools/build-mbl/run-me.sh --builddir ./build-nxpimx --outputdir ./artifacts-nxpimx --boot-rot-key boot-keys/rot_key.pem --kernel-rot-key boot-keys/mbl-fit-rot-key.key --kernel-rot-crt boot-keys/mbl-fit-rot-key.crt -- --machine imx8mmevk-mbl --branch mbl-os-0.8
+./mbl-tools/build/run-me.sh --builddir ./build-nxpimx --outputdir ./artifacts-nxpimx --boot-rot-key boot-keys/rot_key.pem --kernel-rot-key boot-keys/mbl-fit-rot-key.key --kernel-rot-crt boot-keys/mbl-fit-rot-key.crt -- --machine imx8mmevk-mbl --branch mbl-os-0.8
 ```
 <span class="notes">**Warning:** Changes to the keys and certificates with an existing build may not be picked up, please perform a clean first: `./mbl-tools/build-mbl/run-me.sh --builddir ./build-nxpimx -- clean`.</span>
 
@@ -109,7 +109,7 @@ Then for example perform a build:
    For example, if `payload.tar` is the name of the update payload file, and 169.254.111.222 is a link-local IPv4 address on the device:
 
    ```
-   $ mbl-cli put payload.tar /scratch 169.254.111.222
+   $ mbl-cli -a 169.254.111.222 put payload.tar /scratch 
    ```
 
 1. Use the MBL CLI `shell` command to get shell access on the device:
@@ -121,7 +121,7 @@ Then for example perform a build:
    For example:
 
    ```
-   $ mbl-cli shell 169.254.111.222
+   $ mbl-cli -a 169.254.111.222 shell 
    ```
 
 1. Inside the shell, run the `mbl-firmware-update-manager` script to install the update component:

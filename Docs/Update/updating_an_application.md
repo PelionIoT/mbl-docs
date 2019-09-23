@@ -11,7 +11,7 @@ First you will need to prepare the update payload for the application.
 
 ## Prepare the update payload
 
-You will need a build enviroment of Mbed Linux OS as this contains the scripts needed to create the update payload for applications. You can either re-use a [full build of Mbed Linux OS](../first-image/building-a-developer-image.html) or create a new enviroment just for application update.
+You will need a build environment of Mbed Linux OS as this contains the scripts needed to create the update payload for applications. You can either re-use a [full build of Mbed Linux OS](../first-image/building-a-developer-image.html) or create a new environment just for application update.
 
 1. If you are going to create a new build environment - [set up the build mbl tools](../install_mbl_on_device/Reqs_and_env/dev_env_for_distribution.html) and create an outputdir directory:
 
