@@ -70,7 +70,7 @@ Then for example perform a build:
 
     | Name | Value | Information |
     | --- | --- | --- |
-    | `--bootloader-component` | `1` | Add the first bootloader component to the payload. Usually this contains the second stage boot of TF-A. Note: This component is not yet fully supported on NXP 8M Mini EVK. |
+    | `--bootloader-component` | `1` | Add the first bootloader component to the payload. Usually this contains the second stage boot of TF-A. |
     | `--bootloader-component` | `2` | Add the second bootloader component to the payload. Usually this contains the third stage boot of TF-A. |
     | `--kernel` |  | Add the kernel to the payload. Usually this also includes the device tree blob and boot scripts. |
     | `--rootfs` | IMAGE_NAME | Add the root file system of the specified bitbake image to the payload. |
