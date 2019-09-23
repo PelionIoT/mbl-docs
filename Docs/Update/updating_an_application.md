@@ -51,14 +51,16 @@ You will need a build environment of Mbed Linux OS as this contains the scripts 
     user01@dev-machine:~$ create-update-payload --app /path/to/artifacts/package.ipk --output-tar-path /path/to/artifacts/payload-boot2.tar
     ```
 
-## Using MBL CLI
+## Using MBL CLI to update
+
+<span class="tips">You can find installation and general usage instructions for MBL CLI [in the application development section](../develop-apps/the-mbl-command-line-interface.html).</span>
 
 To install or update an application:
 
 1. Transfer an application update tar file to the `/scratch` partition on the device:
 
    ```
-   $ mbl-cli put <application update payload> <destination on device under the /scratch partition> [address]
+   $ mbl-cli [-a address] put <application update payload> <destination on device under the /scratch partition>
    ```
 
    For example, if `payload.tar` is the payload name for an application update, and 169.254.111.222 is a link-local IPv4 address on the device:
@@ -66,6 +68,8 @@ To install or update an application:
    ```
    $ mbl-cli -a 169.254.111.222 put payload.tar /scratch
    ```
+
+   <span class="tips">You can use `mbl-cli select` to choose your device, instead of using the `-a address` option.</span>
 
 1. Use the MBL CLI `shell` command to get shell access on the device:
 
@@ -91,7 +95,7 @@ To install or update an application:
 
 1. The application starts automatically, without a device reboot.
 
-## Using the manifest tool
+## Using the manifest tool to update
 
 1. Find the device ID in the `mbl-cloud-client` log file at `/var/log/mbl-cloud-client.log`, using the following command on the device's console:
 

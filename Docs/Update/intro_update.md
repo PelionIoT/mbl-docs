@@ -17,11 +17,13 @@ You can perform a **firmware over the air** (FOTA) update of the updatable compo
 MBL uses Pelion Device Management to manage firmware updates. Before you start, upload a new version of your firmware to your Device Management account. This is your payload, and it is a `.tar` file that can contain either:
 
 * An application update: One or more OPKG packages (`.ipk` files).
-* A `rootfs` update: A compressed `tar` file called `rootfs.tar.xz` that contains root file system content.
+* A `rootfs` update: A compressed `tar` file that contains the root file system content.
 * A boot component update: Either of the 2 boot component binaries. The first boot component usually contains the TF-A bootloader stage two (BL2). The second boot component usually contains the TF-A bootloader stage three (BL3), OP-TEE and U-boot.
 * A kernel update: A binary containing the Linux kernel, the associated device tree blob and any associated boot scripts.
 
-Start the process by initiating an update campaign; Device Management then sends the device an update request with a manifest detailing what needs to be updated. If the device accepts the request, Device Management sends your uploaded payload file to the device and monitors the update process.
+The payload is created by using the tool `create-update-payload` which is explained in updating an [MBL image](updating-an-mbl-image.html) or [application](updating_an_application.html).
+
+Start the update process by initiating an update campaign; Device Management then sends the device an update request with a manifest detailing what needs to be updated. If the device accepts the request, Device Management sends your uploaded payload file to the device and monitors the update process.
 
 **Tip:** Refer to the Pelion Device Management documentation for a [full review of the update process](https://cloud.mbed.com/docs/latest/updating-firmware/index.html).
 
@@ -47,7 +49,7 @@ To support `rootfs` updates, MBL devices have two root partitions:
 
 After receiving a payload file containing a `rootfs` update, MBL:
 
-1. Writes the contents of `rootfs.tar.xz` to the inactive partition.
+1. Writes the contents of root file system update payload to the inactive partition.
 1. Flips a flag indicating which root file system partition is active, so that after a reboot the previously inactive partition becomes the active one, and vice versa.
 1. Reboots the device.
 1. Mounts the root file system from the update payload.

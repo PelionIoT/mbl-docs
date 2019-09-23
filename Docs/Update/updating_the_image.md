@@ -20,10 +20,10 @@ The bootloader and kernel update components are signed during the build, so you 
 
 To support secure boot in MBL the following signing keys and certificates are required:
 
-* Trusted world signing key stored in Bootloader update component 1 (BL2 FIP) for the Trusted Firmware secure boot - `rot_key.pem`.
-* Normal world signing key and certificate stored in Bootloader update component 2 (BL3 FIP) for the Kernel update component (FIT) - `mbl-fit-rot-key.key` and `mbl-fit-rot-key.crt`.
+* Trusted world private signing key used in preparing the Bootloader update component 1 (BL2) for the Trusted Firmware secure boot - `rot_key.pem`.
+* Normal world private signing key and public certificate used in preparing the Bootloader update component 2 (BL3) for the Kernel update component (FIT) - `mbl-fit-rot-key.key` and `mbl-fit-rot-key.crt`.
 
-<span class="notes">**Note:** These are private keys and should be kept securely.</span>
+<span class="notes">**Note:** The private keys should be kept securely.</span>
 
 More information about these keys and how they are used can be found in the [porting guide about FIP and FIT images](../develop-mbl/bsp-sys-arch.html#partitioning-software-components-into-fip-and-fit-images).
 
@@ -73,7 +73,7 @@ Then for example perform a build:
     | `--bootloader-component` | `1` | Add the first bootloader component to the payload. Usually this contains the second stage boot of TF-A. Note: This component is not yet fully supported on NXP 8M Mini EVK. |
     | `--bootloader-component` | `2` | Add the second bootloader component to the payload. Usually this contains the third stage boot of TF-A. |
     | `--kernel` |  | Add the kernel to the payload. Usually this also includes the device tree blob and boot scripts. |
-    | `--rootfs` |  | Add the root file system to the payload. |
+    | `--rootfs` | IMAGE_NAME | Add the root file system of the specified bitbake image to the payload. |
     | `--output-tar-path` | FILE_PATH | File name and path for the payload tar file to be created. |
 
     <span class="notes">**Note:** The create-update-payload tool needs the bitbake environment to work. When using the interactive mode, only the builddir (`/path/to/build`) or outputdir (`/path/to/artifacts`) directories are available in the build environment, so one of them must be used as the path in the FILE_PATH argument.</span>
@@ -90,10 +90,10 @@ Then for example perform a build:
     user01@dev-machine:~$ create-update-payload --kernel --output-tar-path /path/to/artifacts/payload-kernel.tar
     ```
 
-    Or, for example, to create an update payload file `/path/to/artifacts/payload-rootfs.tar` containing a root file system, run:
+    Or, for example, to create an update payload file `/path/to/artifacts/payload-rootfs.tar` containing a root file system from the `mbl-image-development` image build, run:
 
     ```
-    user01@dev-machine:~$ create-update-payload --rootfs --output-tar-path /path/to/artifacts/payload-rootfs.tar
+    user01@dev-machine:~$ create-update-payload --rootfs mbl-image-development --output-tar-path /path/to/artifacts/payload-rootfs.tar
     ```
 
 ## Using MBL CLI to update
@@ -103,25 +103,27 @@ Then for example perform a build:
 1. Transfer the update payload file to the `/scratch` partition on the device:
 
    ```
-   $ mbl-cli put <update payload file> <destination on device under the /scratch partition> [address]
+   $ mbl-cli [-a address] put <update payload file> <destination on device under the /scratch partition>
    ```
 
    For example, if `payload.tar` is the name of the update payload file, and 169.254.111.222 is a link-local IPv4 address on the device:
 
    ```
-   $ mbl-cli -a 169.254.111.222 put payload.tar /scratch 
+   $ mbl-cli -a 169.254.111.222 put payload.tar /scratch
    ```
+
+   <span class="tips">You can use `mbl-cli select` to choose your device, instead of using the `-a address` option.</span>
 
 1. Use the MBL CLI `shell` command to get shell access on the device:
 
    ```
-   $ mbl-cli shell [address]
+   $ mbl-cli [-a address] shell
    ```
 
    For example:
 
    ```
-   $ mbl-cli -a 169.254.111.222 shell 
+   $ mbl-cli -a 169.254.111.222 shell
    ```
 
 1. Inside the shell, run the `mbl-firmware-update-manager` script to install the update component:
