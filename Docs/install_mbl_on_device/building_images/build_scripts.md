@@ -38,6 +38,9 @@ The following build options are not mandatory, but you may find that they improv
 | `--image` | build.sh | Choose which image to build. The supported values are: **`mbl-image-development`** (default when no `--distro` is passed or for `--distro mbl-development` ) or **`mbl-image-production`** (default for `--distro mbl-production` ). |
 | `--manifest` | build.sh | By default, building uses the `default.xml` manifest, which uses release branches of all the Arm maintained repositories. To use pinned versions for all repositories, specify `release.xml` as the manifest. You can combine this with `--branch` to specify a particular release version. <br>Example: `./mbl-tools/build/run-me.sh -- --branch refs/tags/mbl-os-0.8.0 --manifest release.xml`|
 | `--root-passwd-file` | run-me.sh | The file containing the root user password in plain text (**mandatory** when `--distro mbl-production` ). |
+| `--boot-rot-key` | run-me.sh | The private signing key used in preparing the bootloader update components |
+| `--kernel-rot-key` | run-me.sh | The private signing key used in preparing the bootloader & kernel update components |
+| `--kernel-rot-crt` | run-me.sh | The public certificate used in preparing the bootloader & kernel update components |
 
 <!--should root-passwd-file by in the mandatory table with "optional when `--distro mbl-development`"?-->
 
