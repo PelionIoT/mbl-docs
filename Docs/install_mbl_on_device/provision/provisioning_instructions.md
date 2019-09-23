@@ -24,6 +24,8 @@
 
 1. Create an `update_default_resources.c` file with your update authenticity certificate, created with the manifest tool:
 
+    <span class="notes">**Note**: This process is for development only. A production process will be documented when available based on the [factory provisioning process](https://www.pelion.com/docs/device-management/current/provisioning-process/factory-provisioning-process.html).</span>
+
     1. Create an update resources directory, such as `./update-resources`:
 
         ```
@@ -36,14 +38,16 @@
         cd ./update-resources
         ```
 
-     1. Initialize the manifest tool, and generate an `update_default_resources.c` file:
+     1. Use the [manifest tool](https://www.pelion.com/docs/device-management/current/updating-firmware/manifest-tool.html) to generate an `update_default_resources.c` file. The tool will prompt you to enter some details for a new developer authenticity certificate that it will use in this generation process:
 
-        `manifest-tool init -q -d <domain> -m <device class>`
+        `manifest-tool init -d <domain> -m <device class>`
 
         Where:
 
         * `<domain>` is your company's domain, like `arm.com`.
         * `<device class>` is a unique identifier for the device class. If you're in development (using developer credentials), you can use `dev-device`.
+
+        <span class="notes">**Warning**: The authenticity certificate generated will be a developer certificate valid for only 90 days (by default). After this time the device will not be updatable and will need to be reflashed with a new valid authenticity certificate.</span>
 
 #### Optional: persistent storage locations
 
