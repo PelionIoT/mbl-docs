@@ -6,7 +6,7 @@ To build production images, set the Yocto DISTRO to `mbl-production` (pass the `
 
 - Root user login with password: A file containing the plain text password (minimum 12 characters) needs to be provided to **run-me.sh** using the parameter`--root-passwd-file PASSWD_FILE`.
 
-- Only the ethernet debug interface accepting ssh connections, Link Local IPv6 Addressing and mDNS responder: This is controlled by the variable **MBL_PRODUCTION_ETH_DBG** set in the mbl-production configuration file (`meta-mbl/meta-mbl-distro/conf/distro/include/mbl-distro-production.inc`). For platforms that features the usbgadget (imx7d-pico-mbl, imx6ul-pico-mbl, imx8mmevk-mbl and imx7s-warp-mbl), the gadget ethernet will be used by default, otherwise an USB-to-Ethernet adapter has to be used.
+- Only the Ethernet debug interface accepts SSH connections, Link Local IPv6 addressing and mDNSResponder. This is controlled by the variable **MBL_PRODUCTION_ETH_DBG** set in the mbl-production configuration file (`meta-mbl/meta-mbl-distro/conf/distro/include/mbl-distro-production.inc`). The gadget Ethernet is used by default for platforms that include the usbgadget (imx7d-pico-mbl, imx6ul-pico-mbl, imx8mmevk-mbl and imx7s-warp-mbl). Otherwise, a USB-to-Ethernet adapter has to be used.
 
 - System log level messages output and configuration: The following variables are set in the mbl-production configuration file (`meta-mbl/meta-mbl-distro/conf/distro/include/mbl-distro-production.inc`):
 
