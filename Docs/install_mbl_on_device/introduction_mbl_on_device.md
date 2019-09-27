@@ -2,7 +2,7 @@
 
 MBL provides three types of images:
 
-- **Evaluation image:** A pre-compiled image ready to be flashed on the supported targets. It is almost the same as a development image.<!--how is it different?-->
+- **Evaluation image:** A pre-compiled image ready to be flashed on the supported targets. It is almost the same as a Development image, except that some firmware blobs may not be pre-installed on certain platforms (due to licensing restrictions when not distributed with hardware).
 
 - **Development image:** You need to build this image using the build-mbl tool. It contains packages, applications, and configurations suitable for the development of a product. To generate `mbl-image-development`, the DISTRO parameter is set to `mbl-development`.
 
