@@ -62,12 +62,12 @@ There are two ways to update an MBL image:
 
     Where:
 
-    * `/path/to/artifacts` is the output directory specified for all build artefacts. See the [build tutorial](../first-image/building-a-developer-image.html) for more information.
-    * `<MACHINE>` is the value that was given to the build script for the `--machine` option. See the [build tutorial](../first-image/building-a-developer-image.html) to determine which value is suitable for the device in use.
+    * `/path/to/artifacts` is the output directory specified for all build artefacts. See the [build tutorial](../first-image/building-development-and-production-images.html) for more information.
+    * `<MACHINE>` is the value that was given to the build script for the `--machine` option. See the [build tutorial](../first-image/building-development-and-production-images.html) to determine which value is suitable for the device in use.
 
     <span class="notes">**Note:** The file inside the update payload must be named `rootfs.tar.xz` and must be in the tar's root directory, not a subdirectory.</span>
 
-    For example, to create an update payload file at `/tmp/payload.tar` containing a Warp7 root file system image `tar` file with the path `build-mbl/tmp-mbl-glibc/deploy/images/imx7s-warp-mbl/mbl-image-production-imx7s-warp-mbl.tar.xz`, run:
+    For example, to create an update payload file at `/tmp/payload.tar` containing a Warp7 root file system image `tar` file with the path `build-mbl-development/tmp/deploy/images/imx7s-warp-mbl/mbl-image-production-imx7s-warp-mbl.tar.xz`, run:
 
     ```
     user01@dev-machine:~$ tar -cf /tmp/payload.tar -C /path/to/artifacts/machine/imx7s-warp-mbl/images/mbl-image-development/images '--transform=s/.*/rootfs.tar.xz/' --dereference mbl-image-development-imx7s-warp-mbl.tar.xz

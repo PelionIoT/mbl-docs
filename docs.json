@@ -59,20 +59,34 @@
                 {
                     "title": "Downloading an evaluation image",
                     "intro": {
-                        "path": "Docs/install_mbl_on_device/getting_image.md"
+                        "path": "Docs/install_mbl_on_device/building_images/1_eval.md"
                     },
                     "sources": []
                 },
                 {
-                    "title": "Building a developer image",
+                    "title": "Building development and production images",
                     "intro": {
-                        "path": "Docs/install_mbl_on_device/building_an_image/build_intro_setup.md"
+                        "path": "Docs/install_mbl_on_device/building_images/intro.md"
                     },
-                    "sources": [{
-                            "path": "Docs/install_mbl_on_device/building_an_image/build_scripts.md"
+                    "sub_chapters": [{
+                            "title": "Building a development image",
+                            "sources": [{
+                                    "path": "Docs/install_mbl_on_device/building_images/development_image.md"
+                                },
+                                {
+                                    "path": "Docs/install_mbl_on_device/building_images/build_scripts.md"
+                                }
+                            ]
                         },
                         {
-                            "path": "Docs/install_mbl_on_device/building_an_image/build_examples.md"
+                            "title": "Building a production image",
+                            "sources": [{
+                                    "path": "Docs/install_mbl_on_device/building_images/3_prod.md"
+                                },
+                                {
+                                    "path": "Docs/install_mbl_on_device/building_images/build_scripts.md"
+                                }
+                            ]
                         }
                     ]
                 },
@@ -94,12 +108,12 @@
                             "path": "Docs/install_mbl_on_device/writing/rpi3.md"
                         }
                     ]
+
                 },
                 {
                     "title": "Provisioning for Pelion Device Management",
-                    "sources": [
-                        {
-                              "path": "Docs/install_mbl_on_device/provision/provision_intro.md"
+                    "sources": [{
+                            "path": "Docs/install_mbl_on_device/provision/provision_intro.md"
                         },
                         {
                             "path": "Docs/install_mbl_on_device/provision/provisioning_instructions.md"

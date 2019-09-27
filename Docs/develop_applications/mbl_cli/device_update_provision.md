@@ -2,7 +2,7 @@
 
 ## Provisioning for Pelion Device Management
 
-MBL CLI can provision your device with all the certificates and keys it requires to connect to your Pelion Device Management account. For detailed instructions, please see [the image installation section](../first-image/provisioning-your-device.html).
+MBL CLI can provision your device with all the certificates and keys it requires to connect to your Pelion Device Management account. For detailed instructions, please see [the image installation section](../first-image/provisioning-for-pelion-device-management.html).
 
 Note that you do not need to provision each application on its own; provisioning is done for the device as a whole.
 

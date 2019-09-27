@@ -140,7 +140,7 @@ manifest repository (so that it doesn't use the default repo, [mbl-manifest][mbl
     For example:
 
     ```
-    mbl-tools/build-mbl/run-me.sh --builddir /path/to/build --outputdir /path/to/output -- --branch master --machine imx7s-warp-mbl --url ssh://git@github.com/your-github-user/mbl-project-manifest-example
+    mbl-tools/build/run-me.sh --builddir /path/to/build --outputdir /path/to/output -- --branch master --machine imx7s-warp-mbl --url ssh://git@github.com/your-github-user/mbl-project-manifest-example
     ```
 
     Replace:
@@ -187,7 +187,7 @@ standard MBL image into the new image.
 To build this image using [MBL's build tools][mbl-tools], use the `--image` option in `build.sh`:
 
 ```
-mbl-tools/build-mbl/run-me.sh --builddir /path/to/build --outputdir /path/to/output -- --branch master --machine imx7s-warp-mbl --url ssh://git@github.com/your-github-user/mbl-project-manifest-example --image mbl-image-example
+mbl-tools/build/run-me.sh --builddir /path/to/build --outputdir /path/to/output -- --branch master --machine imx7s-warp-mbl --url ssh://git@github.com/your-github-user/mbl-project-manifest-example --image mbl-image-example
 ```
 
 Replace:

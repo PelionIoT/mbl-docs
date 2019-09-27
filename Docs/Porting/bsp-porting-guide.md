@@ -187,7 +187,7 @@ For more information, please refer to the [Trusted Board Boot Requirements CLIEN
 
 ## Flash partition layout
 
-See our [Partition Layout](../refs/partition-layout.html) document for information about partition layouts.
+See our [Partition Layout](../references/partition-layout.html) document for information about partition layouts.
 
 <h1 id="bsp-yocto">Overview of MBL Yocto layers</h1>
 
@@ -482,7 +482,7 @@ The `atf-${MACHINE}.bb` is the target specific ATF recipe that controls how the 
 
 <h1 id="bsp-machine-config">Machine configuration files</h1>
 
-This section describes the `${MACHINE}.conf`, `${machine}.conf` and `[soc-family].inc` entities in the BSP recipe relationship UML diagram ([Figure 4.0](../develop-mbl/bsp-recipe#figure-4-0)). The discussion is applicable to all targets.
+This section describes the `${MACHINE}.conf`, `${machine}.conf` and `[soc-family].inc` entities in the BSP recipe relationship UML diagram ([Figure 4.0](../develop-mbl/bsp-recipe.html#figure-4-0)). The discussion is applicable to all targets.
 
 ## ${MACHINE}.conf: the top level BSP control file
 
@@ -656,7 +656,7 @@ do_compile[depends] += " virtual/kernel:do_deploy virtual/bootloader:do_deploy o
 
 This means the `virtual/bootloader` and `virtual/kernel` artifacts should be deployed before the `atf.inc do_compile()` method runs, so they are available for the ATF recipe to use.
 
-<span class="notes">**Note:** `atf.inc` expects the `virtual/bootloader`, `virtual/kernel` and `optee*` artifacts on which it depends to be deployed to the `DEPLOY_DIR_IMAGE-${DEPLOY_DIR}/images/${MACHINE}/` directory. For the `imx7s-warp-mbl` target, this directory is: `<workspace_root>/build-mbl/tmp-mbl-glibc/deploy/images/imx7s-warp-mbl`.</span>
+<span class="notes">**Note:** `atf.inc` expects the `virtual/bootloader`, `virtual/kernel` and `optee*` artifacts on which it depends to be deployed to the `DEPLOY_DIR_IMAGE-${DEPLOY_DIR}/images/${MACHINE}/` directory. For the `imx7s-warp-mbl` target, this directory is: `<workspace_root>/build-mbl-development/tmp/deploy/images/imx7s-warp-mbl`.</span>
 
 If required, ATF generates an ROT key pair used for signing artifacts. The ROT private key is also stored in the above directory. For more details about ATF ROT key generation and signing, see the [Mbed Linux OS Basic Signing Flow][basic-signing-flow].
 

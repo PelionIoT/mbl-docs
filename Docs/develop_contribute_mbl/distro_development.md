@@ -17,7 +17,7 @@ To point to a custom manifest, you need to pass at least the options `--branch` 
 For example (change parameters for `--builddir` and `--machine` as needed):
 
 ```
-./mbl-tools/build-mbl/run-me.sh --builddir ./build-warp7 -- --machine imx7s-warp-mbl --branch mbl-os-0.8 --url git@github.com:your-github-account/mbl-manifest.git
+./mbl-tools/build/run-me.sh --builddir ./build-warp7 -- --machine imx7s-warp-mbl --branch mbl-os-0.8 --url git@github.com:your-github-account/mbl-manifest.git
 ```
 
 <span class="notes">**Notes**: The `--url` must be in [the **Clone with SSH** format](https://git-scm.com/docs/git-clone#_git_urls_a_id_urls_a). We don't recommend using the `--outputdir` option with interactive mode, as any builds done during interactive mode will not update the output directory contents.</span>
@@ -25,7 +25,7 @@ For example (change parameters for `--builddir` and `--machine` as needed):
 
 ## Running build-mbl in interactive mode
 
-<span class="tips">This section only covers building a distribution; the Docker build environment was not designed for editing files (since it doesn't include a file editor such as `vim`). If you want to inspect or edit files, do so in your viewer/editor of choice before launching interactive mode. The BitBake layers are located at: `<builddir>/<mbl-machine-name>/mbl-manifest/layers` and the build directory at: `<builddir>/<mbl-machine-name>/mbl-manifest/build-mbl`.</span>
+<span class="tips">This section only covers building a distribution; the Docker build environment was not designed for editing files (since it doesn't include a file editor such as `vim`). If you want to inspect or edit files, do so in your viewer/editor of choice before launching interactive mode. The BitBake layers are located at: `<builddir>/<mbl-machine-name>/mbl-manifest/layers` and the build directory at: `<builddir>/<mbl-machine-name>/mbl-manifest/build-mbl-development`.</span>
 
 You need to run the **build-mbl tool** in interactive mode: an interactive shell inside the Docker build environment with the BitBake environment setup. This allows running commands for BitBake and its associated tools (such as bitbake-layers, devtool and receipetool).
 
@@ -33,7 +33,7 @@ You need to run the **build-mbl tool** in interactive mode: an interactive shell
 1. To run build-mbl in interactive mode (change parameters for `--builddir` and `--machine` as needed):
 
     ```
-    ./mbl-tools/build-mbl/run-me.sh --builddir ./build-warp7 -- --branch mbl-os-0.8 --machine imx7s-warp-mbl interactive
+    ./mbl-tools/build/run-me.sh --builddir ./build-warp7 -- --branch mbl-os-0.8 --machine imx7s-warp-mbl interactive
     ```
 
     <span class="tips">Unlike the build mode, the interactive mode only supports one `--machine` option at a time.</span>
@@ -41,7 +41,7 @@ You need to run the **build-mbl tool** in interactive mode: an interactive shell
 1. The interactive shell prompt should be similar to:
 
     ```
-    user@9c2c89bf20a6:<builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl$
+    user@9c2c89bf20a6:<builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl-development$
     ```
 
 To exit the interactive mode, press <kbd>Ctrl</kbd>+<kbd>D</kbd> or type `exit` and press <kbd>Enter</kbd>.
@@ -49,7 +49,7 @@ To exit the interactive mode, press <kbd>Ctrl</kbd>+<kbd>D</kbd> or type `exit` 
 <span class="notes">**Note**: To perform a full build after exiting interactive mode, you must provide the `build` stage as follows (change parameters for `--builddir` and `--machine` as needed):</span>
 
 ```
-./mbl-tools/build-mbl/run-me.sh --builddir ./build-warp7 -- --branch mbl-os-0.8 --machine imx7s-warp-mbl build
+./mbl-tools/build/run-me.sh --builddir ./build-warp7 -- --branch mbl-os-0.8 --machine imx7s-warp-mbl build
 ```
 
 ## Examples of interactive mode commands
@@ -59,14 +59,14 @@ To exit the interactive mode, press <kbd>Ctrl</kbd>+<kbd>D</kbd> or type `exit` 
 Using `$ bitbake-layers show-appends linux-fslc` to view the recipe appends for the linux-fslc metalayer:
 
 ```
-user@9c2c89bf20a6:<builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl$ bitbake-layers show-appends linux-fslc
+user@9c2c89bf20a6:<builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl-development$ bitbake-layers show-appends linux-fslc
 NOTE: Starting bitbake server...
 Loading cache: 100% |########################################################################################################################################################################| Time: 0:00:00
 Loaded 3438 entries from dependency cache.
 === Matched appended recipes ===
 linux-fslc_4.20.bb:
-  <builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl/conf/../../layers/meta-freescale-3rdparty/recipes-kernel/linux/linux-fslc_%.bbappend
-  <builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl/conf/../../layers/meta-mbl/recipes-kernel/linux/linux-fslc_%.bbappend
+  <builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl-development/conf/../../layers/meta-freescale-3rdparty/recipes-kernel/linux/linux-fslc_%.bbappend
+  <builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl-development/conf/../../layers/meta-mbl/recipes-kernel/linux/linux-fslc_%.bbappend
   ```
 
 ### Changing the kernel configuration
@@ -74,7 +74,7 @@ linux-fslc_4.20.bb:
 Using `$ bitbake virtual/kernel -c menuconfig` to launch the Linux kernel's menuconfig command:
 
 ```
-user@9c2c89bf20a6:<builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl$ bitbake virtual/kernel -c menuconfig
+user@9c2c89bf20a6:<builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl-development$ bitbake virtual/kernel -c menuconfig
 Loading cache: 100% |########################################################################################################################################################################| Time: 0:00:00
 Loaded 3438 entries from dependency cache.
 NOTE: Resolving any missing task queue dependencies
@@ -116,14 +116,14 @@ You should see something like:
 
 After exiting the kernel configuration screen, you can rebuild the Linux kernel with the `bitbake virtual/kernel` command:
 
-`user@9c2c89bf20a6:<builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl$ bitbake virtual/kernel`
+`user@9c2c89bf20a6:<builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl-development$ bitbake virtual/kernel`
 
 ### Rebuilding an image
 
 You can call `bitbake <image-recipe-name>` to generate the image:
 
 ```
-user@9c2c89bf20a6:<builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl$ bitbake mbl-image-development
+user@9c2c89bf20a6:<builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl-development$ bitbake mbl-image-development
 Loading cache: 100% |########################################################################################################################################################################| Time: 0:00:00
 Loaded 3438 entries from dependency cache.
 NOTE: Resolving any missing task queue dependencies
@@ -161,7 +161,7 @@ NOTE: Writing buildhistory
 The images are placed in:
 
 ```
-<builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl/tmp-mbl-glibc/deploy/images/imx7s-warp-mbl/
+<builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl-development/tmp/deploy/images/imx7s-warp-mbl/
 ```
 
 ### Modifying the source of an existing component
@@ -175,5 +175,5 @@ The **build-mbl tool** generates a pinned version of the specified manifest and 
 For example (change parameters for `--builddir` and `--machine` as needed):
 
 ```
-./mbl-tools/build-mbl/run-me.sh --builddir ./build-warp7 -- --branch mbl-os-0.8 --machine imx7s-warp-mbl sync
+./mbl-tools/build/run-me.sh --builddir ./build-warp7 -- --branch mbl-os-0.8 --machine imx7s-warp-mbl sync
 ```

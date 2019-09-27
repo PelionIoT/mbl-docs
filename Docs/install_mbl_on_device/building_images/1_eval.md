@@ -4,10 +4,10 @@ If you're only interested in developing applications (as opposed to contributing
 
 ## Prerequisites
 
-Using MBL requires the following:
+Using MBL requires:
 
 * A board from our [supported hardware list](../first-image/hardware.html).
-* <a href="https://os.mbed.com/account/login/" target="_blank">A Pelion Device Management Account</a>
+* <a href="https://os.mbed.com/account/login/" target="_blank">A Pelion Device Management Account</a>.
 
 ## Evaluation images
 
