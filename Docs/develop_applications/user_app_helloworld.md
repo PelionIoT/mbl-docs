@@ -70,7 +70,7 @@ To build, invoke the Make toolchain command: `build-<arch-arm> make release`.
                                                                                 
 The build produces an IPK file at `./release/ipk/user-sample-app-package_1.0_any.ipk`.
 
-To build a payload package to be used in a Pelion Device Management update follow the instructions in ***ADD LINK***
+To build a payload package to be used in a Pelion Device Management update follow the instructions in ***ADD LINK to update/updating-an-application.html#prepare-the-update-payload***
 
 <span class="tips">**Tip**: If you want to clean the build, run: `./tutorials/helloworld/build-<arm-arch> make clean`</span>
 
