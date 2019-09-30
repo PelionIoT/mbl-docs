@@ -34,11 +34,13 @@ For more information, please refer to the [reference about application container
     $ git clone git@github.com:ARMmbed/mbl-core.git --branch mbl-os-0.8
     ```
 
-1. Navigate to the `mbl-core` project.
-
-## Building the application with the cross-compiler
-
-[dockcross](https://github.com/dockcross/dockcross) is a Docker-based cross-compiling toolchain. We build a new Docker image with dockcross as the starting point, adding the `opkg` utilities. The image is defined in `./tutorials/helloworld/cc-env/<arm-arch>/Dockerfile`, where `<arm-arch>` is the architecture type of the microprocessor on the target device:
+1. Navigate to the `helloworld` folder in your clone:                           
+                                                                                
+    ```                                                                         
+    cd mbl-core/tutorials/helloworld                                            
+    ```                                                                         
+                                                                                
+1. [dockcross](https://github.com/dockcross/dockcross) is a Docker-based cross-compiling toolchain. We build a new Docker image with dockcross as the starting point, adding the `opkg` utilities. The image is defined in `./tutorials/helloworld/cc-env/<arm-arch>/Dockerfile`, where `<arm-arch>` is the architecture type of the microprocessor on the target device:
 
 | Target device | `<arm-arch>` value | `<device-name>` value |
 | --- | --- | --- |
@@ -46,18 +48,28 @@ For more information, please refer to the [reference about application container
 | PICO-PI with IMX7D | `armv7` | `imx7d-pico-mbl` |
 | Raspberry Pi 3 | `armv7` | `bcm2837-rpi-3-b-32 or bcm2837-rpi-3-b-plus-32` |
 | Warp7 | `armv7` | `imx7s-warp-mbl` |
+| PICO-PI with IMX6ul | `armv7` | `imx6ul-pico-mbl` |
+
+    ```                                                                         
+    docker build -t linux-<arch-arm>:latest ./cc-env/                                
+    ```  
+    
+1. The freshly built image can generate a script that makes it easy to work with. Run the image and capture the output to a file. Make the file
+                                                                                
+    ```                                                                         
+    docker run --rm linux-<arch-arm> > build-<arch-arm>                                   
+    chmod +x build-<arch-arm>                                                        
+    sudo mv build-<arch-arm> /usr/local/bin                                          
+    ```                                          
+
+## Building the application with the cross-compiler
 
 You can use the built image to generate a short-lived container to compile the application in. Do this by running the container and capturing the output as an executable file. The Make toolchain is then invoked along with the cross-compilation executable file to build a variant (release or debug) of the Hello World application.
 
-**To build the application with all of the steps explained above:**
+To build, invoke the Make toolchain command: `build-armv7 make release`.        
+                                                                                
+The build produces an IPK file at `./release/ipk/user-sample-app-package_1.0_any.ipk`.
 
-```
-$ ./ci/lava/tests/build-helloworld.sh <device-name>
-```
-
-The build produces:
-
-* An IPK file at `./tutorials/helloworld/release/ipk/user-sample-app-package_1.0_any.ipk`.
 * A Pelion Device Management update payload package at `/tmp/user-sample-app-package_1.0_any.ipk.tar`.
 
 <span class="tips">**Tip**: If you want to clean the build, run: `./tutorials/helloworld/build-<arm-arch> make clean`</span>
