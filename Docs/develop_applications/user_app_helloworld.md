@@ -39,7 +39,8 @@ For more information, please refer to the [reference about application container
     ```                                                                         
     cd mbl-core/tutorials/helloworld                                            
     ```                                                                         
-                                                                                
+## Building the application with the cross-compiler
+
 1. [dockcross](https://github.com/dockcross/dockcross) is a Docker-based cross-compiling toolchain. We build a new Docker image with dockcross as the starting point, adding the `opkg` utilities. The image is defined in `./tutorials/helloworld/cc-env/<arm-arch>/Dockerfile`, where `<arm-arch>` is the architecture type of the microprocessor on the target device:
 
     | Target device | `<arm-arch>` value | `<device-name>` value |
@@ -62,15 +63,14 @@ For more information, please refer to the [reference about application container
     sudo mv build-<arch-arm> /usr/local/bin                                          
     ```                                          
 
-## Building the application with the cross-compiler
 
 You can use the built image to generate a short-lived container to compile the application in. Do this by running the container and capturing the output as an executable file. The Make toolchain is then invoked along with the cross-compilation executable file to build a variant (release or debug) of the Hello World application.
 
-To build, invoke the Make toolchain command: `build-armv7 make release`.        
+To build, invoke the Make toolchain command: `build-<arch-arm> make release`.        
                                                                                 
 The build produces an IPK file at `./release/ipk/user-sample-app-package_1.0_any.ipk`.
 
-* A Pelion Device Management update payload package at `/tmp/user-sample-app-package_1.0_any.ipk.tar`.
+To build a payload package to be used in a Pelion Device Management update follow the instructions in ***ADD LINK***
 
 <span class="tips">**Tip**: If you want to clean the build, run: `./tutorials/helloworld/build-<arm-arch> make clean`</span>
 
