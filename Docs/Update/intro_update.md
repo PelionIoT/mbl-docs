@@ -3,7 +3,7 @@
 You can perform a **firmware over the air** (FOTA) update of the updatable components in MBL:
 
 * The MBL boot components - including Trusted Firmware, OP-TEE and Uboot.
-* The Linux kernel, device tree and boot scripts.
+* The Linux kernel image, Linux Device Tree, u-boot boot script and initramfs.
 * The MBL root file system.
 * Any application running on the MBL device.
 
@@ -19,7 +19,7 @@ MBL uses Pelion Device Management to manage firmware updates. Before you start, 
 * An application update: One or more OPKG packages (`.ipk` files).
 * A `rootfs` update: A compressed `tar` file that contains the root file system content.
 * A boot component update: Either of the 2 boot component binaries. The first boot component usually contains the TF-A bootloader stage two (BL2). The second boot component usually contains the TF-A bootloader stage three (BL3), OP-TEE and U-boot.
-* A kernel update: A binary containing the Linux kernel, the associated device tree blob and any associated boot scripts.
+* A kernel update: A binary containing the Linux kernel image, the associated device tree blob, u-boot boot script and initramfs.
 
 The payload is created by using the tool `create-update-payload` which is explained in updating an [MBL image](updating-an-mbl-image.html) or [application](updating_an_application.html).
 
@@ -56,7 +56,7 @@ After receiving a payload file containing a `rootfs` update, MBL:
 
 The previously active (now inactive) root file system partition is now ready to receive the next `rootfs` update.
 
-### Boot components and kernel updates
+### Boot and kernel components updates
 
 <span class="notes">**Note:** Currently these components are updated in place, so are not robust to power failures or file corruption. This will be addressed in future releases.</span>
 
