@@ -1,31 +1,33 @@
+<!-- assuming this happened?-->
 # Firmware updates in Mbed Linux OS
 
-You can perform a **firmware over the air** (FOTA) update of the updatable components in MBL:
-
-* The MBL boot components - including Trusted Firmware, OP-TEE and Uboot.
-* The Linux kernel image, Linux Device Tree, u-boot boot script and initramfs.
+MBL can perform a **firmware over the air** (FOTA) update of:
+<!--we call the process "updating the image", so I'm wondering whether this list should be split into image (with three sub-areas) and app-->
+* The MBL boot components - including Trusted Firmware, OP-TEE and U-Boot.
+* The Linux kernel image, Linux Device Tree, U-Boot boot script and initramfs.
 * The MBL root file system.
-* Any application running on the MBL device.
+* Any application running on the device.
 
-<span class="notes">**Note**: Currently, MBL does **not** support updating a combination of update components in a system in a single FOTA update.</span>
+<span class="notes">**Note**: Currently, MBL does **not** support updating multiple components in a single FOTA update. If you need to update multiple components, you will need to run multiple updates.</span>
 
 ## How software is updated
 
-<!-- Needs to be updated with new update components, seperated into 2 like now, apps on one side, everything else on another -->
+<!-- Needs to be updated with new update components, separated into 2 like now, apps on one side, everything else on another -->
+
 <img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/update_process.png" width="50%" align="right" />
 
-MBL uses Pelion Device Management to manage firmware updates. Before you start, upload a new version of your firmware to your Device Management account. This is your payload, and it is a `.tar` file that can contain either:
+MBL uses Pelion Device Management to manage firmware updates. Before you start, use the `create-update-paylod` tool to create a new version of your firmware to your Device Management account. This is your payload, and it is a `.tar` file that can contain either:
 
-* An application update: One or more OPKG packages (`.ipk` files).
-* A `rootfs` update: A compressed `tar` file that contains the root file system content.
-* A boot component update: Either of the 2 boot component binaries. The first boot component usually contains the TF-A bootloader stage two (BL2). The second boot component usually contains the TF-A bootloader stage three (BL3), OP-TEE and U-boot.
-* A kernel update: A binary containing the Linux kernel image, the associated device tree blob, u-boot boot script and initramfs.
-
-The payload is created by using the tool `create-update-payload` which is explained in updating an [MBL image](updating-an-mbl-image.html) or [application](updating_an_application.html).
-
+* An application update: One or more OPKG packages (`.ipk` files), as explained in [Updating an application](../update/updating_an_application.html).
+* An MBL image, as explained in [updating an MBL image](../update/updating-an-mbl-image.html), which can contain an updated version of one of:
+    * A `rootfs` update: A compressed `tar` file that contains the root file system content.
+    * A boot component update: Either of the two boot component binaries. The first boot component usually contains the TF-A bootloader stage two (BL2). The second boot component usually contains the TF-A bootloader stage three (BL3), OP-TEE and U-boot.
+    * A kernel update: A binary containing the Linux kernel image, the associated device tree blob, U-Boot boot script and initramfs.
+<!--this mostly repeats the opening paragraph; should find a way to merge-->
+<!--at what point did I upload my payload, and what tool did I use for that?-->
 Start the update process by initiating an update campaign; Device Management then sends the device an update request with a manifest detailing what needs to be updated. If the device accepts the request, Device Management sends your uploaded payload file to the device and monitors the update process.
 
-**Tip:** Refer to the Pelion Device Management documentation for a [full review of the update process](https://cloud.mbed.com/docs/latest/updating-firmware/index.html).
+**Tip:** Refer to the Pelion Device Management documentation for a [full review of the update process](https://www.pelion.com/docs/device-management/current/updating-firmware/index.html).
 
 <span class="notes">**Note:** MBL relies on Device Management to validate updates. For more information, [see the Security in firmware update section of the Device Management documentation](https://www.pelion.com/docs/device-management/latest/updating-firmware/security.html).</span>
 
