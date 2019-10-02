@@ -52,7 +52,7 @@ For more information, please refer to the [reference about application container
     | PICO-PI with IMX6ul | `armv7` | `imx6ul-pico-mbl` |
 
     ```                                                                         
-    docker build -t linux-<arch-arm>:latest ./cc-env/                                
+    docker build -t linux-<arch-arm>:latest ./cc-env/<arch-arm>                               
     ```  
     
 1. The freshly built image can generate a script that makes it easy to work with. Run the image and capture the output to a file. Make the file
