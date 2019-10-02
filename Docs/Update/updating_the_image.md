@@ -5,33 +5,33 @@ There are two ways to update the updatable components in an MBL image:
 * [Using MBL CLI](#using-mbl-cli).
 * [Using the manifest tool](#using-the-manifest-tool).
 
-First you will need to prepare the update payload for the updatable component.
+First, you need to prepare the update payload for the updatable component.
 
 ## Prepare the update payload
 
-You will need a [full build of Mbed Linux OS](../first-image/building-a-developer-image.html) as this contains the files for the updatable components.
+You need a [full build of MBL](../first-image/building-a-developer-image.html) because this contains the files for the updatable components.
 
-The bootloader and kernel update components are signed during the build, so you must use the same keys or keys derived from the same root of trust that you have used for the first image loaded on the device.
+The bootloader and kernel update components are signed during the build<!--By what or by whom?-->, so you must use the same keys or keys derived from the same root of trust that you have used for the first image loaded on the device.
 
-<span class="notes">**Warning:** If you update a device with update components from a build that used different keys, the device will not boot anymore. For example if you are using an evaluation image and generate a new kernel or bootloader component, the keys will be different. You can recover the device by following the steps to flash a first image. In future there will be support for rollback to the last image using a bank switching mechanism for updates, apart from bootloader component one.</span>
+<span class="notes">**Warning:** If you update a device with update components from a build that used different keys, the device won't boot anymore. For example, if you are using an evaluation image and generate a new kernel or bootloader component, the keys will be different. You can recover the device by following the steps to flash a first image. In the future, there will be support for rollback to the last image using a bank switching mechanism for updates, apart from the bootloader component one.</span>
 
 ### Handling secure boot keys in the build
 <!-- Discussion on where this section should be? -->
 
-To support secure boot in MBL the following signing keys and certificates are required:
+To support secure boot in MBL, the following signing keys and certificates are required:
 
 * Trusted world private signing key used in preparing the Bootloader update component 1 (BL2) for the Trusted Firmware secure boot - `rot_key.pem`.
 * Normal world private signing key and public certificate used in preparing the Bootloader update component 2 (BL3) for the Kernel update component (FIT) - `mbl-fit-rot-key.key` and `mbl-fit-rot-key.crt`.
 
 <span class="notes">**Note:** The private keys should be kept securely.</span>
 
-More information about these keys and how they are used can be found in the [porting guide about FIP and FIT images](../develop-mbl/bsp-sys-arch.html#partitioning-software-components-into-fip-and-fit-images).
+You can find more information about these keys and how to use them in the [porting guide about FIP and FIT images](../develop-mbl/bsp-sys-arch.html#partitioning-software-components-into-fip-and-fit-images).
 
 If you do not supply these keys and certificates, they will be generated when you perform a build.
 
 The default build action is that these keys will be placed in your output directory and used for subsequent builds in the same build directory unless you turn this off by setting `MBL_PERSIST_SIGN_KEYS` to `0` in your `local.conf` configuration.
 
-If you do persist the keys, you can find the generated keys in your output directory: `/path/to/artifacts/machine/MACHINE/IMAGE/keys`, where `MACHINE` and `IMAGE` match the machine and image types you built - for example `imx7s-warp-mbl` and `mbl-image-developement`.
+If you do persist the keys, you can find the generated keys in your output directory: `/path/to/artifacts/machine/MACHINE/IMAGE/keys`, where `MACHINE` and `IMAGE` match the machine and image types you built - for example, `imx7s-warp-mbl` and `mbl-image-developement`.
 
 You can supply these keys and certificates to a build by using the following build options:
 
@@ -39,24 +39,28 @@ You can supply these keys and certificates to a build by using the following bui
 * `--kernel-rot-key FITROTKEY` - where `FITROTKEY` is the path and filename of `mbl-fit-rot-key.key`.
 * `--kernel-rot-crt FITROTCRT` - where `FITROTCRT` is the path and filename of `mbl-fit-rot-key.crt`.
 
-If you do not want the build to generate the keys, you can do so manually by using the following `openssl` commands:
+If you don't want the build to generate the keys, you can do so manually by using the following `openssl` commands:
+
 ```
 mkdir boot-keys
 openssl genrsa 2048 > boot-keys/rot_key.pem
 openssl genrsa 2048 > boot-keys/mbl-fit-rot-key.key
 openssl req -batch -new -x509 -key boot-keys/mbl-fit-rot-key.key > boot-keys/mbl-fit-rot-key.crt
 ```
-<span class="notes">**Note:** You may need to install the openssl tools using `sudo apt-get install openssl`.</span>
 
-Then for example perform a build:
+<span class="notes">**Note:** You may need to install the OpenSSL tools using `sudo apt-get install openssl`.</span>
+
+Then, for example, perform a build:
+
 ```
 ./mbl-tools/build/run-me.sh --builddir ./build-nxpimx --outputdir ./artifacts-nxpimx --boot-rot-key boot-keys/rot_key.pem --kernel-rot-key boot-keys/mbl-fit-rot-key.key --kernel-rot-crt boot-keys/mbl-fit-rot-key.crt -- --machine imx8mmevk-mbl --branch mbl-os-0.8
 ```
-<span class="notes">**Warning:** Changes to the keys and certificates with an existing build may not be picked up, please perform a clean first: `./mbl-tools/build-mbl/run-me.sh --builddir ./build-nxpimx -- clean`.</span>
+
+<span class="notes">**Warning:** Changes to the keys and certificates with an existing build may not be picked up. Please perform a clean first: `./mbl-tools/build-mbl/run-me.sh --builddir ./build-nxpimx -- clean`.</span>
 
 ### Creating the payload
 
-1. Enter the [mbl-tools interactive mode](../develop-mbl/mbed-linux-os-distribution-development-with-mbl-tools.html#running-build-mbl-in-interactive-mode) for your build. For example for PICO-PI with IMX7D:
+1. Enter the [mbl-tools interactive mode](../develop-mbl/mbed-linux-os-distribution-development-with-mbl-tools.html#running-build-mbl-in-interactive-mode) for the build. For example, for PICO-PI with IMX7D:
 
     ```
     ./mbl-tools/build-mbl/run-me.sh --builddir /path/to/build --outputdir /path/to/artifacts -- --machine imx7d-pico-mbl --branch mbl-os-0.8  interactive
@@ -66,7 +70,7 @@ Then for example perform a build:
 
 2. Use the `create-update-payload` tool to create a tar file containing the required update component.
 
-    These are the arguments that the tool accepts:
+    These are the arguments the tool accepts:
 
     | Name | Value | Information |
     | --- | --- | --- |
@@ -98,7 +102,7 @@ Then for example perform a build:
 
 ## Using MBL CLI to update
 
-<span class="tips">You can find installation and general usage instructions for MBL CLI [in the application development section](../develop-apps/the-mbl-command-line-interface.html).</span>
+<span class="tips">You can find installation and use instructions for MBL CLI [in the application development section](../develop-apps/the-mbl-command-line-interface.html).</span>
 
 1. Transfer the update payload file to the `/scratch` partition on the device:
 
@@ -152,7 +156,7 @@ Then for example perform a build:
     root@mbed-linux-os-1234:~# grep -i 'device id' /var/log/mbl-cloud-client.log
     ```
 
-    If you only have one registered device, or if each devices has a been assigned a descriptive name in Portal, you can go to [Device Management Portal](https://portal.mbedcloud.com) > **Device Directory** to find the device ID.
+    If you only have one registered device, or if each device has been assigned a descriptive name in Portal, you can go to [Device Management Portal](https://portal.mbedcloud.com) > **Device Directory** to find the device ID.
 
 1. Identify which root file system partition is currently active to compare it to the active partition after the update. You can use the [`lsblk` command explained later](#identify-the-active-root-file-system-partition).
 
@@ -178,11 +182,11 @@ A reboot is automatically initiated to use the new update component.
 
 You can check the status of the update by looking at the [update logs](monitor.html).
 
-If you are updating the root file system, you can verify the update by [identifying the currently active root file system](#identify-the-active-root-file-system-partition) and check it was different pre-update.
+If you are updating the root file system, you can verify the update by [identifying the currently active root file system](#identify-the-active-root-file-system-partition) and checking it was different before the update.
 
-For a kernel update, if you have changed the kernel version you can use `uname -srm` on the device to check the version number now matches the new version.
+For a kernel update, if you have changed the kernel version, you can use `uname -srm` on the device to check the version number now matches the new version.
 
-For a boot component update, it will depend on the parts of the boot sequence you have changed, review the serial output from the device to check version numbers.
+A boot component update depends on the parts of the boot sequence you have changed. Review the serial output from the device to check version numbers.
 
 ### Identifying the active root file system partition
 
