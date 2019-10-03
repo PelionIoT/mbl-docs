@@ -1,7 +1,6 @@
-<!-- assuming this happened?-->
 # Firmware updates in Mbed Linux OS
 
-MBL uses Pelion Device Management to manage firmware updates, including **firmware over the air** (FOTA) update. MBL can perform a FOTA update of any application running on the device, as well as an MBL image.
+MBL uses Pelion Device Management to manage firmware updates, including **firmware over the air** (FOTA) update. MBL can perform a FOTA update of any application running on the device, as well as MBL OS components.
 
 <img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/update_process.png" width="50%" align="right" />
 
@@ -11,18 +10,16 @@ MBL uses Pelion Device Management to manage firmware updates, including **firmwa
    
    Or:
    
-   * An MBL image, as explained in [updating an MBL image](../update/updating-an-mbl-image.html), which can contain an updated version of one of:
+   * MBL OS components, as explained in [updating an MBL image](../update/updating-an-mbl-image.html), which can contain an updated version of one of:
       * A `rootfs` update: a compressed `tar` file that contains the root file system content.
       * A boot component update: either of the two boot component binaries. The first boot component usually contains the TF-A bootloader stage two (BL2). The second boot component usually contains the TF-A bootloader stage three (BL3), OP-TEE and U-boot.
       * A kernel update: a binary containing the Linux kernel image, the associated device tree blob, U-Boot boot script and initramfs.
-
-   <!--at what point did I upload my payload, and what tool did I use for that?-->
 
    <span class="notes">**Note**: Currently, MBL does **not** support updating multiple components in a single FOTA update. To update multiple components, you need to run multiple updates.</span>
 
 1. Start the update process by initiating an update campaign.
 1. Device Management then sends the device an update request with a manifest detailing what needs to be updated.
-1. If the device accepts the request, Device Management sends your uploaded payload file to the device and monitors the update process.
+1. If the device accepts the request, Device Management sends your payload file, which the manifest tool uploaded, to the device and monitors the update process.
 
 **Tip:** Refer to the Pelion Device Management documentation for a [full review of the update process](https://www.pelion.com/docs/device-management/current/updating-firmware/index.html).
 
@@ -62,5 +59,5 @@ The previously active (now inactive) root file system partition is now ready to 
 
 After receiving a payload file containing a boot component or kernel update binary, MBL:
 
-1. Overwrites the contents of the corresponding partition <!-- link to the partions docs--> containing the boot component or kernel.
+1. Overwrites the contents of the corresponding [partition](../references/partition-layout.html) containing the boot component or kernel.
 1. Reboots the device.
