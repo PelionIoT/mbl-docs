@@ -31,7 +31,7 @@ MBL is currently available as a public preview.
 The preview release provides:
 
 * An OpenEmbedded-based OS distribution, enabling extensibility and support for the latest updates and features.
-   * Production (added in 0.9) and Development distribution variants supported.
+   * Production (added in 0.9) and Development images supported.
 * Support for [four development boards](../first-image/hardware.html) with:
     * A Board Support Platform (BSP) porting guide for additional platforms.
     * A BSP organization that helps porting and reuse by having staging layers that match the upstream layers.
