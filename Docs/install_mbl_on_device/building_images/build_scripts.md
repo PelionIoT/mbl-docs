@@ -43,8 +43,6 @@ The following build options are not mandatory, but you may find that they improv
 | `--kernel-rot-key` | run-me.sh | The private signing key used in preparing the bootloader and kernel update components. |
 | `--kernel-rot-crt` | run-me.sh | The public certificate used in preparing the bootloader and kernel update components. |
 
-<!--should root-passwd-file by in the mandatory table with "optional when `--distro mbl-development`"?-->
-
 ## Build outputs
 
 The build process creates the following files:
