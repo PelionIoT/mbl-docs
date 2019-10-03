@@ -149,8 +149,10 @@ manifest repository (so that it doesn't use the default repo, [mbl-manifest][mbl
     * `/path/to/output` with a directory to contain build artifacts.
     * `imx7s-warp-mbl` with the name of your target machine.
     * `your-github-user` with your GitHub username or organization.
-    * `master` with the branch or tag of `mbl-project-manifest-example`
+    * `master` with the branch or tag of `mbl-project-manifest-example`note
       containing `default.xml`.
+
+    <span class="notes">If you need to access other source code repositories (apart from github.com) via SSH anytime during the build, you will have to specify them using the `--repo-host` build script option. For example: `mbl-tools/build/run-me.sh --builddir /path/to/build --outputdir /path/to/output -- --repo-host gitlab.com`.</span>
 
     If you want to initialize a work area for your project without doing a
     build you can use [Google's git-repo tool][google-git-repo] directly by
