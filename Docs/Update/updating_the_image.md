@@ -11,12 +11,11 @@ First, you need to prepare the update payload for the updatable component.
 
 You need a [full build of MBL](../first-image/building-a-developer-image.html) because this contains the files for the updatable components.
 
-The bootloader and kernel update components are signed during the build<!--By what or by whom?-->, so you must use the same keys or keys derived from the same root of trust that you have used for the first image loaded on the device.
+During the build, the build script signs the bootloader and kernel update components using either keys that were generated in the build, or by keys you supplied to the build, so you must use the same keys or keys derived from the same root of trust that you have used for the first image loaded on the device.
 
 <span class="notes">**Warning:** If you update a device with update components from a build that used different keys, the device won't boot anymore. For example, if you are using an evaluation image and generate a new kernel or bootloader component, the keys will be different. You can recover the device by following the steps to flash a first image. In the future, there will be support for rollback to the last image using a bank switching mechanism for updates, apart from the bootloader component one.</span>
 
 ### Handling secure boot keys in the build
-<!-- Discussion on where this section should be? -->
 
 To support secure boot in MBL, the following signing keys and certificates are required:
 
