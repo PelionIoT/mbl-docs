@@ -31,9 +31,10 @@ MBL is currently available as a public preview.
 The preview release provides:
 
 * An OpenEmbedded-based OS distribution, enabling extensibility and support for the latest updates and features.
+   * Production (added in 0.9) and Development distribution variants supported.
 * Support for [four development boards](../first-image/hardware.html) with:
     * A Board Support Platform (BSP) porting guide for additional platforms.
-    * A BSP organization that helps porting and reuse by having staging layers that match the upstream layers (added in 0.7).
+    * A BSP organization that helps porting and reuse by having staging layers that match the upstream layers.
 * Hardware and software-based isolation mechanisms for security:
     * Dedicated hardware within most Cortex-A devices enforces the most secure isolation boundary. This technology, called TrustZone, allows the most sensitive code and data to run within a so-called **Secure World**. MBL includes a trusted operating system for this Secure World called **Open Source Trusted Execution Environment** (OP-TEE) - an operating system within an operating system. It is loaded by the Trusted Firmware and typically used to protect cryptographic keys and other sensitive data assets.
     * Secure boot methodology based on Linaro's Trusted Firmware A for both the ARMv7-A and ARMv8-A platforms. Trusted Firmware is a minimal secure bootloader that runs when a Cortex-A microprocessor is executing in TrustZone's "secure world" mode.
@@ -49,7 +50,11 @@ The preview release provides:
     * Large-scale management of device groups.
     * Device management and status monitoring, including notifications of connection status.
     * Access control at the account level.
-    * Over-the-air, digitally signed and verified updates for applications and the root file system. MBL uses updates to send new features and security patches to deployed devices, fixing vulnerabilities before they're exploited.
+    * Over-the-air, digitally signed and verified updates to send new features and security patches to deployed devices, fixing vulnerabilities before they're exploited. Supporting the following updatable components:
+        * Bootloaders (added in 0.9)
+        * Kernel (added in 0.9)
+        * Root file system
+        * User applications
 
 <h2 id="design">Design diagram</h2>
 
@@ -96,6 +101,9 @@ There are two paths to working with MBL:
 
 <h2 id="doc-updates">Recently updated documentation</h2>
 
+* A guide on [building production images](../first-image/building-a-production-image.html).
+* Over the air [updates of kernel and bootloaders](../update/index.html).
+<!-- JIJ - Remove old stuff?-->
 * A new guide for [creating projects based on MBL](../develop-mbl/example-project-based-on-mbed-linux-os.html).
 * A porting guide for [board support packages](../develop-mbl/board-support-package-porting.html).
 * An FAQ for [application development](../develop-apps/frequently-asked-questions.html).
