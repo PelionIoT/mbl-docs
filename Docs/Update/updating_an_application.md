@@ -13,7 +13,7 @@ First, you need to prepare the update payload for the application.
 
 You need a build environment of MBL because this contains the scripts needed to create the update payload for applications. You can either reuse a [full build of MBL](../first-image/building-a-developer-image.html) or create a new environment just for the application update.
 
-1. If you are going to create a new build environment - [set up the build MBL tools](../install_mbl_on_device/Reqs_and_env/dev_env_for_distribution.html), and create an outputdir directory:
+1. If you are going to create a new build environment - [set up the `build-mbl` tools](../install_mbl_on_device/Reqs_and_env/dev_env_for_distribution.html), and create an outputdir directory:
 
     ```
     git clone git@github.com:ARMmbed/mbl-tools.git --branch mbl-os-0.8
