@@ -60,7 +60,7 @@ For more information, please refer to the [reference about application container
     ```                                                                         
     docker run --rm linux-<arch-arm> > build-<arch-arm>                                   
     chmod +x build-<arch-arm>                                                        
-    sudo mv build-<arch-arm> /usr/local/bin                                          
+    sudo install -m0755 build-<arch-arm> /usr/local/bin                                          
     ```                                          
 
 
