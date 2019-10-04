@@ -103,12 +103,5 @@ There are two paths to working with MBL:
 
 * A guide on [building production images](../first-image/building-a-production-image.html).
 * Over the air [updates of kernel and bootloaders](../update/index.html).
-<!-- JIJ - Remove old stuff?-->
-* A new guide for [creating projects based on MBL](../develop-mbl/example-project-based-on-mbed-linux-os.html).
-* A porting guide for [board support packages](../develop-mbl/board-support-package-porting.html).
-* An FAQ for [application development](../develop-apps/frequently-asked-questions.html).
-* A standalone guide [for writing images to devices](../first-image/index.html), including evaluation images, new board support and cellular connections for version 0.6 and newer.
-* A new [provisioning guide](../first-image/provisioning-for-pelion-device-management.html).
-* Instructions for [removing the old version of MBL CLI](../develop-apps/setting-up.html#setting-up-mbl-cli).
 
 The [full release note](https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.8/docs/release_note.md) is available on our public preview repository.
