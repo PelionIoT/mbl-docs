@@ -10,6 +10,9 @@ Supported boards:
 * [NXP i.MX 8M Mini LPDDR4 Evaluation Kit](https://www.nxp.com/support/developer-resources/software-development-tools/i.mx-developer-resources/evaluation-kit-for-the-i.mx-8m-mini-applications-processor:8MMINILPD4-EVK?tid=vanimx8mminievk). Referred to as the NXP 8M Mini EVK. This kit comes with power supply, micro-USB cable and USB-C cable, but you will need a micro-SD card (at least 8GB for the default build).
 
 * [NXP Warp7](https://www.nxp.com/support/developer-resources/nxp-designs/warp7-next-generation-iot-and-wearable-development-platform:WARP7). You also need two micro-USB cables.
+
+    * <span class="notes">**Warning:** Warp7 support is deprecated after Mbed Linux OS 0.9, due to availability and export control issues. We are not building or testing this machine in future release, but we will accept external contributions.</span>
+
 * [Raspberry Pi 3 models B or B+](https://www.raspberrypi.org/products/), with:
     * A micro-SD card (at least 8GB for the default build).
     * An C232HD-DDHSP-0 cable to connect the GPIO to a PC's USB (for debugging).
@@ -26,9 +29,9 @@ A basic comparison of features of the supported board:
 | Name | SoC | CPUs | Memory | Storage | Wi-Fi | Ethernet | Bluetooth | USB | Cellular | Security |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | PICO-PI with IMX7D | NXP i.MX7D | Arm 2x Cortex-A7, 1x M4 | 1GB | 8GB eMMC | 802.11 a/b/g/n/ac | gigabit | 5* | gadget, 1x USB-A | via USB module | High Assurance Boot, Trusted Firmware, OPTEE |
-| PICO-PI with IMX6UL | NXP i.MX6UL | Arm Cortex-A7 | 512MB | 4GB eMMC | 802.11 a/b/g/n/ac | gigabit | 5* | gadget, 1x USB-A | via USB module | High Assurance Boot*, Trusted Firmware*, OPTEE* |
+| PICO-PI with IMX6UL | NXP i.MX6UL | Arm Cortex-A7 | 512MB | 4GB eMMC | 802.11 a/b/g/n/ac | gigabit | 5* | gadget, 1x USB-A | via USB module | High Assurance Boot, Trusted Firmware, OPTEE |
 | NXP 8M Mini EVK | NXP i.MX8M mini | Arm 4x Cortex-A53, 1x M4 | 2GB | 16GB eMMC*, SD-card | 802.11 a/b/g/n/ac* | gigabit | 4.1* | gadget | - | High Assurance Boot, Trusted Firmware, OPTEE |
-| NXP Warp7 | NXP i.MX7S | Arm 1x Cortex-A7, 1x M4 | 4GB | 8GB eMMC | 802.11 b/g/n | - | 4.1* | gadget | - | High Assurance Boot, Trusted Firmware, OPTEE |
+| NXP Warp7 (deprecated after 0.9) | NXP i.MX7S | Arm 1x Cortex-A7, 1x M4 | 4GB | 8GB eMMC | 802.11 b/g/n | - | 4.1* | gadget | - | High Assurance Boot, Trusted Firmware, OPTEE |
 | Raspberry Pi 3B+ | Broadcom BCM2837B0 | Arm 1x Cortex-A53 | 1GB | SD-card | 802.11 b/g/n/ac | gigabit | 4.2* | 4x USB-A | via USB module | - |
 
 <span class="notes">**Note:** The entries marked with an asterisk (`*`) are not yet fully supported or tested in Mbed Linux OS.</span>
