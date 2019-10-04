@@ -201,6 +201,13 @@
                     ]
                 },
                 {
+                    "title": "Frequently asked questions",
+                    "intro": {
+                        "path": "Docs/develop_contribute_mbl/troubleshooting.md"
+                    },
+                    "sources": []
+                }
+                {
                     "title": "Contribution guidelines",
                     "sources": [{
                             "path": "Docs/develop_contribute_mbl/contribution/contribution_guidelines.md"
