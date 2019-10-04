@@ -36,7 +36,7 @@ Please make sure you have the correct access rights and the repository exists.
 ERROR: myrecipe do_fetch: Fetcher failure for URL: 'git://git@ssh.dev.azure.com:v3/myorg/myproject/myproject.git;protocol=ssh;nobranch=1'. Unable to fetch URL from any source.
 ```
 
-You can fix this by allowing access to the source code repository host in the build environment by using the build option `--repo-host HOSTNAME`. You can specify this option multiple times if you have multiple hosts.
+To fix this, use the build option `--repo-host HOSTNAME` to allow access to the source code repository host in the build environment. You can specify this option multiple times if you have multiple hosts.
 
 For example:
 
