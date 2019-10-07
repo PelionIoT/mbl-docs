@@ -152,6 +152,8 @@ manifest repository (so that it doesn't use the default repo, [mbl-manifest][mbl
     * `master` with the branch or tag of `mbl-project-manifest-example`
       containing `default.xml`.
 
+    <span class="notes">If you need to access other source code repositories (apart from github.com) via SSH anytime during the build, you will have to specify them using the `--repo-host` build script option. For example: `mbl-tools/build/run-me.sh --builddir /path/to/build --outputdir /path/to/output -- --repo-host gitlab.com`. For more information, [see Troubleshooting](../develop-mbl/troubleshooting.html)</span>
+
     If you want to initialize a work area for your project without doing a
     build you can use [Google's git-repo tool][google-git-repo] directly by
     running something like:

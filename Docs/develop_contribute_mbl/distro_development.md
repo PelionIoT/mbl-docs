@@ -22,7 +22,6 @@ For example (change parameters for `--builddir` and `--machine` as needed):
 
 <span class="notes">**Notes**: The `--url` must be in [the **Clone with SSH** format](https://git-scm.com/docs/git-clone#_git_urls_a_id_urls_a). We don't recommend using the `--outputdir` option with interactive mode, as any builds done during interactive mode will not update the output directory contents.</span>
 
-
 ## Running build-mbl in interactive mode
 
 <span class="tips">This section only covers building a distribution; the Docker build environment was not designed for editing files (since it doesn't include a file editor such as `vim`). If you want to inspect or edit files, do so in your viewer/editor of choice before launching interactive mode. The BitBake layers are located at: `<builddir>/<mbl-machine-name>/mbl-manifest/layers` and the build directory at: `<builddir>/<mbl-machine-name>/mbl-manifest/build-mbl-development`.</span>
