@@ -30,7 +30,7 @@ MBL uses Pelion Device Management to manage firmware updates, including **firmwa
 After receiving a payload file containing application updates, for each application update, MBL:
 
 1. Installs the version of the application contained in the update payload and checks that this is successful.
-1. Stops the version of the application already running on the system and checks that starts successfully.
+1. Stops the version of the application already running on the system.
 1. Runs the newly installed version of the application.
 1. Removes the previously installed version of the application.
 
