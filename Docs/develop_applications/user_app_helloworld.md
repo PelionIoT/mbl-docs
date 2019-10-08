@@ -34,11 +34,11 @@ For more information, please refer to the [reference about application container
     $ git clone git@github.com:ARMmbed/mbl-core.git --branch mbl-os-0.8
     ```
 
-1. Navigate to the `helloworld` folder in your clone:                           
-                                                                                
-    ```                                                                         
-    cd mbl-core/tutorials/helloworld                                            
-    ```                                                                         
+1. Navigate to the `helloworld` folder in your clone:
+
+    ```
+    cd mbl-core/tutorials/helloworld
+    ```
 ## Building the application with the cross-compiler
 
 1. [dockcross](https://github.com/dockcross/dockcross) is a Docker-based cross-compiling toolchain. We build a new Docker image with dockcross as the starting point, adding the `opkg` utilities. The image is defined in `./tutorials/helloworld/cc-env/<arm-arch>/Dockerfile`, where `<arm-arch>` is the architecture type of the microprocessor on the target device:
@@ -51,26 +51,26 @@ For more information, please refer to the [reference about application container
     | Warp7 | `armv7` |
     | PICO-PI with IMX6ul | `armv7` |
 
-    ```                                                                         
-    docker build -t linux-<arm-arch>:latest ./cc-env/<arm-arch>                               
-    ```  
-    
+    ```
+    docker build -t linux-<arm-arch>:latest ./cc-env/<arm-arch>
+    ```
+
 1. The freshly built image can generate a script that makes it easy to work with. Run the image and capture the output to a file. Make the file
-                                                                                
-    ```                                                                         
-    docker run --rm linux-<arm-arch> > build-<arm-arch>                                   
-    chmod +x build-<arm-arch>                                                        
-    sudo install -m0755 build-<arm-arch> /usr/local/bin                                          
-    ```                                          
+
+    ```
+    docker run --rm linux-<arm-arch> > build-<arm-arch>
+    chmod +x build-<arm-arch>
+    sudo install -m0755 build-<arm-arch> /usr/local/bin
+    ```
 
 
 You can use the built image to generate a short-lived container to compile the application in. Do this by running the container and capturing the output as an executable file. The Make toolchain is then invoked along with the cross-compilation executable file to build a variant (release or debug) of the Hello World application.
 
-To build, invoke the Make toolchain command: `build-<arm-arch> make release`.        
-                                                                                
+To build, invoke the Make toolchain command: `build-<arm-arch> make release`.
+
 The build produces an IPK file at `./release/ipk/user-sample-app-package_1.0_any.ipk`.
 
-To build a payload package to be deployed on the device, please follow the [application update tutorial](../update/update-tutorials.html).
+To build a payload to be deployed on the device, please follow the [application update tutorial](../update/updating-an-application.html).
 
 <span class="tips">**Tip**: If you want to clean the build, run: `./tutorials/helloworld/build-<arm-arch> make clean`</span>
 
@@ -78,8 +78,10 @@ To build a payload package to be deployed on the device, please follow the [appl
 
 There are two ways to install the application on the device:
 
-* [Send the application as an over-the-air firmware update with Pelion Device Management](../update/updating-an-application.html#using-the-manifest-tool).
-* [Flash the application over USB with MBL CLI](../update/updating-an-application.html#using-mbl-cli).
+* Send the application as an over-the-air firmware update with Pelion Device Management.
+* Flash the application over USB with MBL CLI.
+
+For either operation please make sure you meet the [pre-requisites](../update/update-tutorials.html) for update. Then follow the [application update tutorial](../update/updating-an-application.html). This tutorial tells you how to create the update payload package which can be used for either installation method.
 
 ## Using the application
 
