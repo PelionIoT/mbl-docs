@@ -43,13 +43,13 @@ For more information, please refer to the [reference about application container
 
 1. [dockcross](https://github.com/dockcross/dockcross) is a Docker-based cross-compiling toolchain. We build a new Docker image with dockcross as the starting point, adding the `opkg` utilities. The image is defined in `./tutorials/helloworld/cc-env/<arm-arch>/Dockerfile`, where `<arm-arch>` is the architecture type of the microprocessor on the target device:
 
-    | Target device | `<arm-arch>` value | `<device-name>` value |
-    | --- | --- | --- |
-    | NXP 8M Mini EVK | `arm64` | `imx8mmevk-mbl` |
-    | PICO-PI with IMX7D | `armv7` | `imx7d-pico-mbl` |
-    | Raspberry Pi 3 | `armv7` | `bcm2837-rpi-3-b-32 or bcm2837-rpi-3-b-plus-32` |
-    | Warp7 | `armv7` | `imx7s-warp-mbl` |
-    | PICO-PI with IMX6ul | `armv7` | `imx6ul-pico-mbl` |
+    | Target device | `<arm-arch>` value |
+    | --- | --- |
+    | NXP 8M Mini EVK | `arm64` |
+    | PICO-PI with IMX7D | `armv7` |
+    | Raspberry Pi 3 | `armv7` |
+    | Warp7 | `armv7` |
+    | PICO-PI with IMX6ul | `armv7` |
 
     ```                                                                         
     docker build -t linux-<arch-arm>:latest ./cc-env/<arch-arm>                               
