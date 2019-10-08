@@ -52,21 +52,21 @@ For more information, please refer to the [reference about application container
     | PICO-PI with IMX6ul | `armv7` |
 
     ```                                                                         
-    docker build -t linux-<arch-arm>:latest ./cc-env/<arch-arm>                               
+    docker build -t linux-<arm-arch>:latest ./cc-env/<arm-arch>                               
     ```  
     
 1. The freshly built image can generate a script that makes it easy to work with. Run the image and capture the output to a file. Make the file
                                                                                 
     ```                                                                         
-    docker run --rm linux-<arch-arm> > build-<arch-arm>                                   
-    chmod +x build-<arch-arm>                                                        
-    sudo install -m0755 build-<arch-arm> /usr/local/bin                                          
+    docker run --rm linux-<arm-arch> > build-<arm-arch>                                   
+    chmod +x build-<arm-arch>                                                        
+    sudo install -m0755 build-<arm-arch> /usr/local/bin                                          
     ```                                          
 
 
 You can use the built image to generate a short-lived container to compile the application in. Do this by running the container and capturing the output as an executable file. The Make toolchain is then invoked along with the cross-compilation executable file to build a variant (release or debug) of the Hello World application.
 
-To build, invoke the Make toolchain command: `build-<arch-arm> make release`.        
+To build, invoke the Make toolchain command: `build-<arm-arch> make release`.        
                                                                                 
 The build produces an IPK file at `./release/ipk/user-sample-app-package_1.0_any.ipk`.
 
