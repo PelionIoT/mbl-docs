@@ -24,6 +24,8 @@
 
 1. Create an `update_default_resources.c` file with your update authenticity certificate, created with the manifest tool:
 
+    <span class="notes">**Note**: This process is for development only. A production process will be documented when available based on the [factory provisioning process](https://www.pelion.com/docs/device-management/current/provisioning-process/factory-provisioning-process.html).</span>
+
     1. Create an update resources directory, such as `./update-resources`:
 
         ```
@@ -36,14 +38,40 @@
         cd ./update-resources
         ```
 
-     1. Initialize the manifest tool, and generate an `update_default_resources.c` file:
+     1. Use the [manifest tool](https://www.pelion.com/docs/device-management/current/updating-firmware/manifest-tool.html) to generate an `update_default_resources.c` file. The tool will prompt you to enter some details for a new developer authenticity certificate that it will use in this generation process:
 
-        `manifest-tool init -q -d <domain> -m <device class>`
+        `manifest-tool init -d <domain> -m <device class>`
 
         Where:
 
         * `<domain>` is your company's domain, like `arm.com`.
         * `<device class>` is a unique identifier for the device class. If you're in development (using developer credentials), you can use `dev-device`.
+
+        <span class="warnings">**Warning:** The authenticity certificate generated will be a developer certificate. The Manifest Tool will let you enter a manual expiration value, and will default to 90 if you don't enter one. When the certificate expires, the device will not be updatable. You will need to put a new authenticity certificate on the device, either by [reflashing the device](../first-image/writing-an-image-to-supported-boards.html) or [provisioning the device again](../first-image/provisioning-for-pelion-device-management.html).</span>
+        
+        For example:
+        
+        ```
+        $ manifest-tool init -d arm.com -m dev-device
+        A certificate has not been provided to init, and no certificate is provided in .update-certificates/default.der
+        Init will now guide you through the creation of a certificate.
+
+        This process will create a self-signed certificate, which is not suitable for production use.
+
+        In the terminology used by certificates, the "subject" means the holder of the private key that matches a certificate.
+        In which country is the subject located? UK
+        In which state or province is the subject located? Cambridgeshire
+        In which city or region is the subject located? Cambridge
+        What is the name of the subject organization? Arm
+        What is the common name of the subject organization? [arm.com]
+        How long (in days) should the certificate be valid? [90]
+        [WARNING]: Certificates generated with this tool are self-signed and for testing only
+        [WARNING]: This certificate is valid for 90 days. For production,use certificates with at least 10 years validity.
+        [INFO] 2019-09-30 10:56:04 - manifesttool.init - Certificate written to .update-certificates/default.der
+        [INFO] 2019-09-30 10:56:04 - manifesttool.init - Private key written to .update-certificates/default.key.pem
+        [INFO] 2019-09-30 10:56:04 - manifesttool.init - Default settings written to .manifest_tool.json
+        [INFO] 2019-09-30 10:56:04 - manifesttool.init - Wrote default resource values to update_default_resources.c
+        ```
 
 #### Optional: persistent storage locations
 

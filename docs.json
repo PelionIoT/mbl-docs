@@ -197,9 +197,13 @@
                         },
                         {
                             "path": "Docs/mbl_based_projects/mbl_based_projects.md"
+                        },
+                        {
+                            "path": "Docs/develop_contribute_mbl/troubleshooting.md"
                         }
                     ]
                 },
+              
                 {
                     "title": "Contribution guidelines",
                     "sources": [{
