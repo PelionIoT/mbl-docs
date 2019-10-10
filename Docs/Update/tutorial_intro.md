@@ -1,6 +1,6 @@
-# Updating MBL images or applications
+# Updating MBL
 
-This section explain how to update either your MBL image or any of your applications. For both updates, we provide two workflows: one using MBL CLI, the other using the manifest tool.
+This section explain how to update the updatable components of MBL, including your applications. For updates, we provide two workflows: one using MBL CLI, the other using the manifest tool.
 
 ## Prerequisites
 
