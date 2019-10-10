@@ -15,13 +15,13 @@ The application source file, `hello_world.c`, is in [the `mbl-core` repository](
 
 The build commands are defined in a Makefile with three sections:
 
-* Crosscompilation build.
+* Cross compilation build.
 * Create OCI bundle.
 * Create IPK.
 
 Each section is implemented for both release and debug variants.
 
-Use the existing dockcross Docker image (for the ARMv7 or ARM64 architecture) to crosscompile the application and create an OCI container.
+Use the existing dockcross Docker image (for the ARMv7 or ARM64 architecture) to cross compile the application and create an OCI container.
 
 To the standard dockcross image, add `opkg-utils` helper scripts that can package the compiled application as an IPK. You can find the Docker files to build the dockcross image for supported architectures at [the `mbl-core` repository](https://github.com/ARMmbed/mbl-core/blob/mbl-os-0.8/tutorials/helloworld/cc-env).
 
@@ -43,9 +43,9 @@ For more information, please refer to the [reference about application container
     cd mbl-core/tutorials/helloworld
     ```
     
-## Building the application with the crosscompiler
+## Building the application with the cross compiler
 
-1. [dockcross](https://github.com/dockcross/dockcross) is a Docker-based crosscompiling toolchain. Build a new Docker image with dockcross as the starting point, adding the `opkg` utilities. The image is defined in `./tutorials/helloworld/cc-env/<arm-arch>/Dockerfile`, where `<arm-arch>` is the architecture type of the microprocessor on the target device:
+1. [dockcross](https://github.com/dockcross/dockcross) is a Docker-based cross compiling toolchain. Build a new Docker image with dockcross as the starting point, adding the `opkg` utilities. The image is defined in `./tutorials/helloworld/cc-env/<arm-arch>/Dockerfile`, where `<arm-arch>` is the architecture type of the microprocessor on the target device:
 
     | Target device | `<arm-arch>` value |
     | --- | --- |
@@ -67,7 +67,7 @@ For more information, please refer to the [reference about application container
     sudo install -m0755 build-<arm-arch> /usr/local/bin
     ```
 
-You can use the built image to generate a short-lived container to compile the application. Do this by running the container and capturing the output as an executable file. The Make toolchain is then invoked, along with the crosscompilation executable file, to build a variant (release or debug) of the Hello World application.
+You can use the built image to generate a short-lived container to compile the application. Do this by running the container and capturing the output as an executable file. The Make toolchain is then invoked, along with the cross compilation executable file, to build a variant (release or debug) of the Hello World application.
 
 To build, invoke the Make toolchain command: `build-<arm-arch> make release`.
 
