@@ -2,11 +2,11 @@
 
 MBL uses Pelion Device Management to manage firmware updates, including **firmware over the air** (FOTA) update. MBL can perform a FOTA update of any application running on the device, as well as MBL OS components.
 
-<img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/update_process.png" width="50%" align="right" />
+<span class="images">![](../Figures/TheRealUpdateDiagram.png)<span>Update process</span></span>
 
 1. Use the `create-update-payload` tool to create a new version of your firmware with your Device Management account. This is your payload, and it is a `.tar` file that can contain either:
 
-   * An application update: one or more OPKG packages (`.ipk` files), as explained in [Updating an application](../update/updating_an_application.html).
+   * An application update: one or more OPKG packages (`.ipk` files), as explained in [Updating an application](../../update/updating_an_application.html).
    
    Or:
    
