@@ -1,6 +1,9 @@
 # Hello world
 
-This tutorial creates a user application that runs on your MBL device. It is a "Hello, World" in C, which prints to standard output (STDOUT). MBL redirects the output to the log file `/var/log/app/user-sample-app-package.log`. This application demonstrates the use of dockcross and MakeFile to build a self-contained application: it requires no access to device resources (not even the runtime library) and no dockerization. This is not the only way to work with applications; we chose it because it's simple - using dockcross means we didn't need to install anything - and creates a small container, because there are no libraries or support files needed.
+This tutorial creates a user application that runs on your MBL device. It is a "Hello, World" in C, which prints to standard output (STDOUT). MBL redirects the output to the log file `/var/log/app/user-sample-app-package.log`. This application demonstrates the use of dockcross and MakeFile to build a self-contained application: It requires no access to device resources (not even the runtime library) and no dockerization. This is not the only way to work with applications; we chose it because:
+
+- Using dockcross means you don't need to install anything.
+- It creates a small container because there are no libraries or support files needed.
 
 <span class="notes">**Note:** Your device must already be running an MBL image. Please [follow the instructions](../first-image/index.html) if you don't have an MBL image yet.</span>
 
@@ -8,19 +11,19 @@ This tutorial creates a user application that runs on your MBL device. It is a "
 
 <img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/hello_world.png" width="50%" align="right" />
 
-The application source file, `hello_world.c`, is in [https://github.com/ARMmbed/mbl-core/tree/mbl-os-0.8/tutorials/helloworld/src](https://github.com/ARMmbed/mbl-core/tree/mbl-os-0.8/tutorials/helloworld/src). On the device, the application runs on a target inside an OCI container.
+The application source file, `hello_world.c`, is in [the `mbl-core` repository](https://github.com/ARMmbed/mbl-core/tree/mbl-os-0.8/tutorials/helloworld/src). On the device, the application runs on a target inside an OCI container.
 
 The build commands are defined in a Makefile with three sections:
 
-* Cross-compilation build.
+* Crosscompilation build.
 * Create OCI bundle.
 * Create IPK.
 
 Each section is implemented for both release and debug variants.
 
-We use the existing dockcross Docker image (for the ARMv7 or ARM64 architecture) to cross-compile the application and create an OCI container.
+Use the existing dockcross Docker image (for the ARMv7 or ARM64 architecture) to crosscompile the application and create an OCI container.
 
-To the standard dockcross image we add `opkg-utils` helper scripts that can package the compiled application as an IPK. The Docker files to build the dockcross image for supported architectures are found at [https://github.com/ARMmbed/mbl-core/blob/mbl-os-0.8/tutorials/helloworld/cc-env](https://github.com/ARMmbed/mbl-core/blob/mbl-os-0.8/tutorials/helloworld/cc-env).
+To the standard dockcross image, add `opkg-utils` helper scripts that can package the compiled application as an IPK. You can find the Docker files to build the dockcross image for supported architectures at [the `mbl-core` repository](https://github.com/ARMmbed/mbl-core/blob/mbl-os-0.8/tutorials/helloworld/cc-env).
 
 For more information, please refer to the [reference about application containers and packages](../references/application-containers-and-packages.html) or the [dockcross documentation on GitHub](https://github.com/dockcross/dockcross).
 
@@ -39,9 +42,10 @@ For more information, please refer to the [reference about application container
     ```
     cd mbl-core/tutorials/helloworld
     ```
-## Building the application with the cross-compiler
+    
+## Building the application with the crosscompiler
 
-1. [dockcross](https://github.com/dockcross/dockcross) is a Docker-based cross-compiling toolchain. We build a new Docker image with dockcross as the starting point, adding the `opkg` utilities. The image is defined in `./tutorials/helloworld/cc-env/<arm-arch>/Dockerfile`, where `<arm-arch>` is the architecture type of the microprocessor on the target device:
+1. [dockcross](https://github.com/dockcross/dockcross) is a Docker-based crosscompiling toolchain. Build a new Docker image with dockcross as the starting point, adding the `opkg` utilities. The image is defined in `./tutorials/helloworld/cc-env/<arm-arch>/Dockerfile`, where `<arm-arch>` is the architecture type of the microprocessor on the target device:
 
     | Target device | `<arm-arch>` value |
     | --- | --- |
@@ -55,7 +59,7 @@ For more information, please refer to the [reference about application container
     docker build -t linux-<arm-arch>:latest ./cc-env/<arm-arch>
     ```
 
-1. The freshly built image can generate a script that makes it easy to work with. Run the image and capture the output to a file. Make the file
+1. The freshly built image can generate a script that makes it easy to work with. Run the image, and capture the output to a file. Make the file:
 
     ```
     docker run --rm linux-<arm-arch> > build-<arm-arch>
@@ -63,8 +67,7 @@ For more information, please refer to the [reference about application container
     sudo install -m0755 build-<arm-arch> /usr/local/bin
     ```
 
-
-You can use the built image to generate a short-lived container to compile the application in. Do this by running the container and capturing the output as an executable file. The Make toolchain is then invoked along with the cross-compilation executable file to build a variant (release or debug) of the Hello World application.
+You can use the built image to generate a short-lived container to compile the application. Do this by running the container and capturing the output as an executable file. The Make toolchain is then invoked, along with the crosscompilation executable file, to build a variant (release or debug) of the Hello World application.
 
 To build, invoke the Make toolchain command: `build-<arm-arch> make release`.
 
@@ -81,8 +84,8 @@ There are two ways to install the application on the device:
 * Send the application as an over-the-air firmware update with Pelion Device Management.
 * Flash the application over USB with MBL CLI.
 
-For either operation please make sure you meet the [pre-requisites](../update/update-tutorials.html) for update. Then follow the [application update tutorial](../update/updating-an-application.html). This tutorial tells you how to create the update payload package which can be used for either installation method.
+For either operation, please make sure you meet the [prerequisites](../update/update-tutorials.html) for update. Then, follow the [application update tutorial](../update/updating-an-application.html). This tutorial tells you how to create the update payload package, which you can use for either installation method.
 
 ## Using the application
 
-After installation, and after every reboot, the application runs once and writes `hello world` to the STDOUT. MBL redirects the output to the log file `/var/log/app/user-sample-app-package.log`.
+After installation and after every reboot, the application runs once and writes `hello world` to the STDOUT. MBL redirects the output to the log file `/var/log/app/user-sample-app-package.log`.
