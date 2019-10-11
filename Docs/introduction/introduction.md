@@ -104,4 +104,4 @@ There are two paths to working with MBL:
 * A guide on [building production images](../first-image/building-a-production-image.html).
 * Over the air [updates of kernel and bootloaders](../update/index.html).
 
-The [full release note](https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.8/docs/release_note.md) is available on our public preview repository.
+The [full release note](https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.9/docs/release_note.md) is available on our public preview repository.

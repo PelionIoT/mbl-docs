@@ -48,10 +48,10 @@ And the following software:
 
 * The `build-mbl` tool.
 
-    Check out the relevant branch from the repository (in this example, we use `mbl-os-0.8`):
+    Check out the relevant branch from the repository (in this example, we use `mbl-os-0.9`):
 
     ```
-    $ git clone git@github.com:ARMmbed/mbl-tools.git --branch mbl-os-0.8
+    $ git clone git@github.com:ARMmbed/mbl-tools.git --branch mbl-os-0.9
     ```
 
     <span class="tips">**Tip:** The [mbl-tools repository](https://github.com/ARMmbed/mbl-tools) provides a collection of tools and recipes for building and testing MBL.</span>

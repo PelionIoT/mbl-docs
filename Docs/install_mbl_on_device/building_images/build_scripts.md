@@ -15,7 +15,7 @@ The following build options are mandatory:
 
 | Name | Option Type | Information |
 | --- | --- | --- |
-| `--branch` | build.sh | Select the MBL branch to build. For example, to build the branch `mbl-os-0.8`: <br>`./mbl-tools/build/run-me.sh -- --branch mbl-os-0.8 --machine raspberrypi3-mbl` |
+| `--branch` | build.sh | Select the MBL branch to build. For example, to build the branch `mbl-os-0.9`: <br>`./mbl-tools/build/run-me.sh -- --branch mbl-os-0.9 --machine raspberrypi3-mbl` |
 | `--builddir` | run-me.sh | Create a build directory. This option is for `run-me.sh`. <br>You must use a different build directory for every device (machine), and we recommend including the device's name in the directory's name. <br>Note that this directory includes all other artifacts, such as build and error logs. For example, if you've created `mkdir /path/to/my-build-dir`, the builddir will be `./mbl-tools/build/run-me.sh --builddir /path/to/my-build-dir` |
 | `--machine` | build.sh | Select the target device. <br>The options are [**PICO-PI with IMX7D**, `imx7d-pico-mbl`], [**NXP 8M Mini EVK**, `imx8mmevk-mbl`], [**PICO-PI with IMX6UL**, `imx6ul-pico-mbl`], [**Warp7**, `imx7s-warp-mbl`] and [**Raspberry Pi 3**, `raspberrypi3-mbl`]. <br>Example: `./mbl-tools/build/run-me.sh -- --machine <MACHINE>` |
 | `--outputdir` | run-me.sh | Specify the output directory for all build artifacts (pinned manifest, target specific images etc). <br>For example, if you've created `mkdir /path/to/artifacts`, the outputdir will be `./mbl-tools/build/run-me.sh --outputdir /path/to/artifacts` |
@@ -24,7 +24,7 @@ The following build options are mandatory:
 An example using all mandatory options:
 
 ```
-./mbl-tools/build/run-me.sh --builddir /path/to/builddir --outputdir /path/to/artifacts -- --branch mbl-os-0.8 --machine <MACHINE>
+./mbl-tools/build/run-me.sh --builddir /path/to/builddir --outputdir /path/to/artifacts -- --branch mbl-os-0.9 --machine <MACHINE>
 ```
 
 ## Optional build flags
@@ -37,7 +37,7 @@ The following build options are not mandatory, but you may find that they improv
 | `--downloaddir` | run-me.sh | Cache downloaded artifacts between successive builds (do not use cacheing for parallel builds). <br>For example, if you create `mkdir /path/to/downloads`, the downloaddir will be `./mbl-tools/build/run-me.sh --downloaddir /path/to/downloads` |
 | `--external-manifest` | run-me.sh | You can build using a pinned manifest, which is an encapsulation created by a build and containing enough information to allow an exact rebuild. The manifest is created in your output directory (`outputdir`). <br>To use it to rebuild, run `./mbl-tools/build/run-me.sh --external-manifest /path/to/pinned-manifest.xml` |
 | `--image` | build.sh | Choose which image to build. The supported values are: **`mbl-image-development`** (default when no `--distro` is passed or for `--distro mbl-development` ) or **`mbl-image-production`** (default for `--distro mbl-production` ). |
-| `--manifest` | build.sh | By default, building uses the `default.xml` manifest, which uses release branches of all the Arm maintained repositories. To use pinned versions for all repositories, specify `release.xml` as the manifest. You can combine this with `--branch` to specify a particular release version. <br>Example: `./mbl-tools/build/run-me.sh -- --branch refs/tags/mbl-os-0.8.0 --manifest release.xml`|
+| `--manifest` | build.sh | By default, building uses the `default.xml` manifest, which uses release branches of all the Arm maintained repositories. To use pinned versions for all repositories, specify `release.xml` as the manifest. You can combine this with `--branch` to specify a particular release version. <br>Example: `./mbl-tools/build/run-me.sh -- --branch refs/tags/mbl-os-0.9.0 --manifest release.xml`|
 | `--root-passwd-file` | run-me.sh | The file containing the root user password in plain text (**optional** when `--distro mbl-development` ). |
 | `--boot-rot-key` | run-me.sh | The private signing key used in preparing the bootloader update components. |
 | `--kernel-rot-key` | run-me.sh | The private signing key used in preparing the bootloader and kernel update components. |
