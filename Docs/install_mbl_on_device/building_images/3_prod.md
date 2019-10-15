@@ -21,21 +21,21 @@ To build production images, set the Yocto DISTRO to `mbl-production` (pass the `
 
     You can set the log level variables by:
 
-        - Manually editing the `local.conf` file inside the BitBake build directory. For example: `./build-pico7/machine-imx7d-pico-mbl/mbl-manifest/build-mbl-production/conf/local.conf`.
-        - Setting these variables in *one of* your repositories' configuration files:
-        - In your `layer.conf` file in your meta layer repository.
-        - In your `local.conf` file in your config repository.
+    - Manually editing the `local.conf` file inside the BitBake build directory. For example: `./build-pico7/machine-imx7d-pico-mbl/mbl-manifest/build-mbl-production/conf/local.conf`.
+    - Setting these variables in *one of* your repositories' configuration files:
+    - In your `layer.conf` file in your meta layer repository.
+    - In your `local.conf` file in your config repository.
 
-          See the help on [creating an example project](../develop-mbl/example-project-based-on-mbed-linux-os.html) for more information on these repositories.
-        - Passing the `--local-conf-data STRING` parameter to **build.sh**.
+    See the help on [creating an example project](../develop-mbl/example-project-based-on-mbed-linux-os.html) for more information on these repositories.
+    - Passing the `--local-conf-data STRING` parameter to **build.sh**.
 
-            For example:
+        For example:
 
-            ```
-            ./mbl-tools/build/run-me.sh --builddir ./build-pico7 --outputdir ./artifacts-pico7 --root-passwd-file PASSWD_FILE -- --machine imx7d-pico-mbl --branch mbl-os-0.8 --distro mbl-production --local-conf-data "UBOOT_PRODUCTION_CFG=\"noconsole\"\nATF_PRODUCTION_CFG=\"\""
-            ```
+         ```
+        ./mbl-tools/build/run-me.sh --builddir ./build-pico7 --outputdir ./artifacts-pico7 --root-passwd-file PASSWD_FILE -- --machine imx7d-pico-mbl --branch mbl-os-0.8 --distro mbl-production --local-conf-data "UBOOT_PRODUCTION_CFG=\"noconsole\"\nATF_PRODUCTION_CFG=\"\""
+        ```
 
-            <span class="tips">Note that `--local-conf-data` needs to be passed every run.</span>
+        <span class="tips">Note that `--local-conf-data` needs to be passed every run.</span>
 
 # Production image build examples
 
