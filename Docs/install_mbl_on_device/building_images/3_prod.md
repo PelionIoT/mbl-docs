@@ -23,10 +23,10 @@ To build production images, set the Yocto DISTRO to `mbl-production` (pass the `
 
     - Manually editing the `local.conf` file inside the BitBake build directory. For example: `./build-pico7/machine-imx7d-pico-mbl/mbl-manifest/build-mbl-production/conf/local.conf`.
     - Setting these variables in *one of* your repositories' configuration files:
-    - In your `layer.conf` file in your meta layer repository.
-    - In your `local.conf` file in your config repository.
+        - In your `layer.conf` file in your meta layer repository.
+        - In your `local.conf` file in your config repository.
 
-    See the help on [creating an example project](../develop-mbl/example-project-based-on-mbed-linux-os.html) for more information on these repositories.
+        See the help on [creating an example project](../develop-mbl/example-project-based-on-mbed-linux-os.html) for more information on these repositories.
     - Passing the `--local-conf-data STRING` parameter to **build.sh**.
 
         For example:
