@@ -49,7 +49,7 @@ The following build options are not mandatory, but you may find that they improv
 
 The `[BUILD.SH STAGE]` can be optionally specified after all the build options. These are the main build stages that can be added to the build line.
 
-<span class="tips">Don't specify a build stage when you perform the invoke the first build.</span>
+<span class="tips">Don't specify a build stage when you perform the first build.</span>
 
 | Name | Information |
 | --- | --- |
