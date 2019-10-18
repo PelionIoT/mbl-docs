@@ -56,7 +56,7 @@ The `[BUILD.SH STAGE]` can be optionally specified after all the build options. 
 | `start` | Start from the beginning of the build process. This is the first stage for a new build by default. |
 | `sync` | [Update to the latest meta layer sources](../develop-mbl/mbed-linux-os-distribution-development-with-mbl-tools.html#examples-of-interactive-mode-commands) and then perform a build. |
 | `build` | Perform a build of the existing meta layer sources. Use this to switch back from `interactive` mode. |
-| `interactive` | Enter interactive mode which allows you to [invoke bitbake commands]((../develop-mbl/mbed-linux-os-distribution-development-with-mbl-tools.html#running-build-mbl-in-interactive-mode) and [create update payloads](../update/updating-an-mbl-image.html#prepare-the-update-payload). |
+| `interactive` | Enter interactive mode which allows you to [invoke bitbake commands](../develop-mbl/mbed-linux-os-distribution-development-with-mbl-tools.html#running-build-mbl-in-interactive-mode) and [create update payloads](../update/updating-an-mbl-image.html#prepare-the-update-payload). |
 | `clean` | Delete the working build tree and start the building process again. |
 
 ## Build outputs
