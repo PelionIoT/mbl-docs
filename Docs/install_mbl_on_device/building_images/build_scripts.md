@@ -3,7 +3,7 @@
 The `run-me.sh` and `build.sh` scripts are called in a single command, with options that control what to build and how. The general form of a `run-me.sh` invocation is:
 
 ```
-./mbl-tools/build/run-me.sh [RUN-ME.SH OPTIONS]... -- [BUILD.SH OPTIONS]...
+./mbl-tools/build/run-me.sh [RUN-ME.SH OPTIONS]... -- [BUILD.SH OPTIONS]... [BUILD.SH STAGE]
 ```
 
 <span class="tips">Note the use of `--`. It separates options for `run-me.sh` from options for `build.sh`.</span>
@@ -42,6 +42,20 @@ The following build options are not mandatory, but you may find that they improv
 | `--boot-rot-key` | run-me.sh | The private signing key used in preparing the bootloader update components. |
 | `--kernel-rot-key` | run-me.sh | The private signing key used in preparing the bootloader and kernel update components. |
 | `--kernel-rot-crt` | run-me.sh | The public certificate used in preparing the bootloader and kernel update components. |
+
+## Optional build stage
+
+The `[BUILD.SH STAGE]` can be optionally specified after all the build options. These are the main build stages that can be added to the build line.
+
+<span class="tips">Don't specify a build stage when you perform the invoke the first build.</span>
+
+| Name | Information |
+| --- | --- |
+| `start` | Start from the beginning of the build process. This is the first stage for a new build by default. |
+| `sync` | [Update to the latest meta layer sources](../develop-mbl/mbed-linux-os-distribution-development-with-mbl-tools.html#examples-of-interactive-mode-commands) and then perform a build. |
+| `build` | Perform a build of the existing meta layer sources. Use this to switch back from `interactive` mode. |
+| `interactive` | Enter interactive mode which allows you to [invoke bitbake commands]((../develop-mbl/mbed-linux-os-distribution-development-with-mbl-tools.html#running-build-mbl-in-interactive-mode) and [create update payloads](../update/updating-an-mbl-image.html#prepare-the-update-payload). |
+| `clean` | Delete the working build tree and start the building process again. |
 
 ## Build outputs
 
