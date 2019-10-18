@@ -42,6 +42,8 @@ The following build options are not mandatory, but you may find that they improv
 | `--boot-rot-key` | run-me.sh | The private signing key used in preparing the bootloader update components. |
 | `--kernel-rot-key` | run-me.sh | The private signing key used in preparing the bootloader and kernel update components. |
 | `--kernel-rot-crt` | run-me.sh | The public certificate used in preparing the bootloader and kernel update components. |
+| `--save-config` | run-me.sh | Saves the set of build options you have specified on the command line to a configuration file and exits. See [build configurations](#build-configurations) for more details. |
+| `--load-config` | run-me.sh | Loads a saved set of build options from a configuration file. See [build configurations](#build-configurations) for more details. |
 
 ## Optional build stage
 
@@ -66,3 +68,52 @@ The build process creates the following files:
 | Full disk image  | `/path/to/artifacts/machine/<MACHINE>/images/mbl-image-development/images/` or <br> `/path/to/artifacts/machine/<MACHINE>/images/mbl-image-production/images/`| `mbl-image-development-<MACHINE>.wic.gz` or <br> `mbl-image-production-<MACHINE>.wic.gz`| A compressed image of the entire flash. Once decompressed, this image can be directly written to storage media, and initializes the device's storage with a full set of disk partitions and an initial version of firmware. |
 | Full disk image block map | `/path/to/artifacts/machine/<MACHINE>/images/mbl-image-development/images/` or <br> `/path/to/artifacts/machine/<MACHINE>/images/mbl-image-production/images/` | `mbl-image-development-<MACHINE>.wic.bmap` or <br> `mbl-image-production-<MACHINE>.wic.bmap`| A file containing information about which blocks of the uncompressed full disk image actually need to be written to the device. Some blocks of the image represent unused storage space, which does not actually need to be written. |
 | Root file system archive  | `/path/to/artifacts/machine/<MACHINE>/images/mbl-image-development/images/` or <br> `/path/to/artifacts/machine/<MACHINE>/images/mbl-image-production/images/` | `mbl-image-development-<MACHINE>.tar.xz` or <br> `mbl-image-production-<MACHINE>.tar.xz` | A compressed `.tar` archive, which you need when you update the device firmware (this topic is covered [in the Updating MBL tutorial](../update/index.html)). |
+
+## Build configurations
+
+The build options that are supplied on the command line can be saved to make it easier to run them again in future. This is the process:
+
+* Perform a successful build invoking `run-me.sh` with the required options.
+* Invoke the same build again, but add `--save-config <CONFIG_FILE>` to the command line, this will save a list of all your build options into the `<CONFIG_FILE>`.
+* Now use `run-me.sh --load-config <CONFIG_FILE>` to invoke a build with exactly the same options specified in the first build.
+
+<span class="tips">It is best to use different configuration files when you need to perform builds for different machines or distro types and specify different build and output directories as well.</span>
+
+### Save a build configuration
+
+Set up your build options and invoke a build using `run-me.sh`. For example a production build on NXP 8M Mini EVK:
+
+```
+./mbl-tools/build/run-me.sh --distro mbl-production --builddir /path/to/builddir --outputdir /path/to/artifacts --root-passwd-file /path/to/root_passwd -- --branch mbl-os-0.8 --machine imx8mmevk-mbl
+```
+
+Once you have a successful build, save the configuration to a file `mbl-imx8-prod.cfg` using the option `--save-config` added to the build options, such as:
+
+```
+./mbl-tools/build/run-me.sh --distro mbl-production --builddir /path/to/builddir --outputdir /path/to/artifacts --root-passwd-file /path/to/root_passwd -- --branch mbl-os-0.8 --machine imx8mmevk-mbl --save-config mbl-imx8-prod.cfg
+```
+
+<span class="tips">It is best not to include a build stage (such as `interactive`) on your command line when you save it, otherwise it will always invoke that build stage first when you load the config.</span>
+
+### Load a build configuration
+
+To perform a build with the same options saved in a configuration file, continuing the example above:
+
+```
+./mbl-tools/build/run-me.sh --load-config mbl-imx8-prod.cfg
+```
+
+Other options can be included on the build line, for example to invoke [interactive mode](../develop-mbl/mbed-linux-os-distribution-development-with-mbl-tools.html#running-build-mbl-in-interactive-mode):
+
+```
+./mbl-tools/build/run-me.sh --load-config mbl-imx8-prod.cfg -- interactive
+```
+
+<span class="tips">Note the use of `--`. It separates options for `run-me.sh` from options for `build.sh`.</span>
+
+Extra options given on the command line will override those specified in the configuration file, except:
+
+* For options that can be specified more than once, for example `--machine`, these will be concatenated;
+* For build stages, the stages saved in the configuration file will happen before any stages specified on the command line.
+
+It is advisable to use different configuration files to overcome these situations.
