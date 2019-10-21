@@ -32,7 +32,7 @@ The preview release provides:
 
 * An OpenEmbedded-based OS distribution, enabling extensibility and support for the latest updates and features.
    * Support for production (added in 0.9) and development images.
-* Support for [four development boards](../first-image/hardware.html) with:
+* Support for [five development boards](../first-image/hardware.html) with:
     * A Board Support Platform (BSP) porting guide for additional platforms.
     * The BSP organization helps porting and reuse by having staging layers that match the upstream layers.
 * Hardware and software-based isolation mechanisms for security:
