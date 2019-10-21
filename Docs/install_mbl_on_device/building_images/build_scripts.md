@@ -47,7 +47,7 @@ The following build options are not mandatory, but you may find that they improv
 
 ## Optional build stage
 
-The `[BUILD.SH STAGE]` can be optionally specified after all the build options. These are the main build stages that can be added to the build line.
+Optionally, specify the `[BUILD.SH STAGE]` after all other build options. These are the main build stages that can be added to the build line.
 
 <span class="tips">Don't specify a build stage when you perform the first build.</span>
 
@@ -56,7 +56,7 @@ The `[BUILD.SH STAGE]` can be optionally specified after all the build options. 
 | `start` | Start from the beginning of the build process. This is the first stage for a new build by default. |
 | `sync` | [Update to the latest meta layer sources](../develop-mbl/mbed-linux-os-distribution-development-with-mbl-tools.html#examples-of-interactive-mode-commands) and then perform a build. |
 | `build` | Perform a build of the existing meta layer sources. Use this to switch back from `interactive` mode. |
-| `interactive` | Enter interactive mode which allows you to [invoke bitbake commands](../develop-mbl/mbed-linux-os-distribution-development-with-mbl-tools.html#running-build-mbl-in-interactive-mode) and [create update payloads](../update/updating-an-mbl-image.html#prepare-the-update-payload). |
+| `interactive` | Enter interactive mode, which allows you to [invoke BitBake commands](../develop-mbl/mbed-linux-os-distribution-development-with-mbl-tools.html#running-build-mbl-in-interactive-mode) and [create update payloads](../update/updating-an-mbl-image.html#prepare-the-update-payload). |
 | `clean` | Delete the working build tree and start the building process again. |
 
 ## Build outputs
@@ -71,49 +71,49 @@ The build process creates the following files:
 
 ## Build configurations
 
-The build options that are supplied on the command line can be saved to make it easier to run them again in future. This is the process:
+You can save the build options you supplied on the command line, so that it will be easier to run them again:
 
-* Perform a successful build invoking `run-me.sh` with the required options.
-* Invoke the same build again, but add `--save-config <CONFIG_FILE>` to the command line, this will save a list of all your build options into the `<CONFIG_FILE>`.
-* Now use `run-me.sh --load-config <CONFIG_FILE>` to invoke a build with exactly the same options specified in the first build.
+1. Perform a successful build invoking `run-me.sh` with the required options.
+1. Invoke the same build again, but add `--save-config <CONFIG_FILE>` to the command line. This saves a list of all your build options into the `<CONFIG_FILE>`.
+1. Use `run-me.sh --load-config <CONFIG_FILE>` to invoke a build with exactly the same options as the first build.
 
-<span class="tips">It is best to use different configuration files when you need to perform builds for different machines or distro types and specify different build and output directories as well.</span>
+<span class="tips">**Tip:** When you need to perform builds for different machines or distro types, we recommend using different configuration files and specifying different build and output directories.</span>
 
-### Save a build configuration
+### Saving a build configuration
 
-Set up your build options and invoke a build using `run-me.sh`. For example a production build on NXP 8M Mini EVK:
+Set up your build options and invoke a build using `run-me.sh`. For example, here's a production build on NXP 8M Mini EVK:
 
 ```
 ./mbl-tools/build/run-me.sh --distro mbl-production --builddir /path/to/builddir --outputdir /path/to/artifacts --root-passwd-file /path/to/root_passwd -- --branch mbl-os-0.8 --machine imx8mmevk-mbl
 ```
 
-Once you have a successful build, save the configuration to a file `mbl-imx8-prod.cfg` using the option `--save-config` added to the build options, such as:
+When you have a successful build, save the configuration to a file (`mbl-imx8-prod.cfg`), using the option `--save-config` added to the build options. For example:
 
 ```
 ./mbl-tools/build/run-me.sh --distro mbl-production --builddir /path/to/builddir --outputdir /path/to/artifacts --root-passwd-file /path/to/root_passwd -- --branch mbl-os-0.8 --machine imx8mmevk-mbl --save-config mbl-imx8-prod.cfg
 ```
 
-<span class="tips">It is best not to include a build stage (such as `interactive`) on your command line when you save it, otherwise it will always invoke that build stage first when you load the config.</span>
+<span class="tips">**Tip:** We recommend not including a build stage (such as `interactive`) on your command line when you save it. Instead, manually specify it for each build.</span>
 
-### Load a build configuration
+### Loading a build configuration
 
-To perform a build with the same options saved in a configuration file, continuing the example above:
+To perform a build with the saved configuration file, continuing the example above:
 
 ```
 ./mbl-tools/build/run-me.sh --load-config mbl-imx8-prod.cfg
 ```
 
-Other options can be included on the build line, for example to invoke [interactive mode](../develop-mbl/mbed-linux-os-distribution-development-with-mbl-tools.html#running-build-mbl-in-interactive-mode):
+You can include other options on the build line. For example, to invoke [interactive mode](../develop-mbl/mbed-linux-os-distribution-development-with-mbl-tools.html#running-build-mbl-in-interactive-mode):
 
 ```
 ./mbl-tools/build/run-me.sh --load-config mbl-imx8-prod.cfg -- interactive
 ```
 
-<span class="tips">Note the use of `--`. It separates options for `run-me.sh` from options for `build.sh`.</span>
+<span class="tips">**Tip:** Note the use of `--`. It separates options for `run-me.sh` from options for `build.sh`.</span>
 
 Extra options given on the command line will override those specified in the configuration file, except:
 
-* For options that can be specified more than once, for example `--machine`, these will be concatenated;
-* For build stages, the stages saved in the configuration file will happen before any stages specified on the command line.
+* Options that can be specified more than once (such as `--machine`) are concatenated.
+* Build stages saved in the configuration file will happen before any stages specified on the command line (which is why we recommend not saving build stages in the configuration file).
 
-It is advisable to use different configuration files to overcome these situations.
+We recommend using different configuration files to avoid these situations.
