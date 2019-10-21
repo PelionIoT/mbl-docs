@@ -1,6 +1,6 @@
 # Installing an MBL image
 
-Please note that each release has its own branch. Throughout this guide, the release branch is assumed to be `mbl-os-0.8`.
+Please note that each release has its own branch. Throughout this guide, the release branch is assumed to be `mbl-os-0.9`.
 
 ## Building prerequisites
 
@@ -8,10 +8,10 @@ Please note that each release has its own branch. Throughout this guide, the rel
 
 * An SSH agent to build. For usage, see [the GitHub SSH documentation](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).
 
-* If you haven't already done so, check out the relevant branch from the `mbl-tools` repository (in this example, we use `mbl-os-0.8`):
+* If you haven't already done so, check out the relevant branch from the `mbl-tools` repository (in this example, we use `mbl-os-0.9`):
 
     ```
-    $ git clone git@github.com:ARMmbed/mbl-tools.git --branch mbl-os-0.8
+    $ git clone git@github.com:ARMmbed/mbl-tools.git --branch mbl-os-0.9
     ```
 
     The repository includes the `run-me.sh` script, which:

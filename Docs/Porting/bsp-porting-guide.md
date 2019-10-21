@@ -951,10 +951,10 @@ This section provides a summary of the tasks required to integrate a pre-existin
 [atf-doc-plat-imx8-rst]:https://github.com/ARM-software/arm-trusted-firmware/blob/master/docs/plat/imx8.rst
 [atf-doc-plat-rpi3-rst]:https://github.com/ARM-software/arm-trusted-firmware/blob/master/docs/plat/rpi3.rst
 [atf-doc-plat-porting-guide]:https://github.com/ARM-software/arm-trusted-firmware/blob/master/docs/getting_started/porting-guide.rst
-[basic-signing-flow]:https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.8/docs/basic-signing-flow.md
+[basic-signing-flow]:https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.9/docs/basic-signing-flow.md
 [linaro-connect-las16-402-slides]:https://connect.linaro.org/resources/las16/las16-402/
 [meta-linaro]:https://git.linaro.org/openembedded/meta-linaro.git/tree/
-[meta-mbl]:https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.8
+[meta-mbl]:https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.9
 [meta-openembedded]:https://github.com/openembedded/meta-openembedded
 [meta-raspberrypi]:http://git.yoctoproject.org/cgit/cgit.cgi/meta-raspberrypi/
 [meta-virtualization]:http://git.yoctoproject.org/cgit/cgit.cgi/meta-virtualization/
