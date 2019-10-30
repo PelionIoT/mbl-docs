@@ -118,9 +118,10 @@ Extra options given on the command line will override those specified in the con
 
 We recommend using different configuration files to avoid these situations.
 
-You can also load a configuration, add some additional arguments on the command line and then save it to a new configuration file. For example to use a specific tagged release on the mbl-os-0.9 branch:
+You can also load a configuration, add some additional arguments on the command line and then save it to a new configuration file. For example, to use a specific tagged release on the mbl-os-0.9 branch:
+
 ```
 ./mbl-tools/build/run-me.sh --load-config mbl-imx8-prod.cfg -- --manifest release.xml --branch refs/tags/mbl-os-0.9.0 --save-config mbl-os-0.9.0-imx8-prod.cfg
 ```
 
-This will create a `mbl-os-0.9.0-imx8-prod.cfg` file that contains all the build options from `mbl-imx8-prod.cfg` and the `--manifest` option and a second `--branch` option. The branch option in this case will override the first branch option of `mbl-os-0.9`, for other options, the same exceptions stated above still apply.
+This will create a `mbl-os-0.9.0-imx8-prod.cfg` file that contains all the build options from `mbl-imx8-prod.cfg`, as well as the `--manifest` option and a second `--branch` option. The branch option in this case will override the first branch option of `mbl-os-0.9`; for other options, the same exceptions stated above still apply.
