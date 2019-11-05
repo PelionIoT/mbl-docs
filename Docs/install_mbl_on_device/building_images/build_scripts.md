@@ -47,7 +47,7 @@ The following build options are not mandatory, but you may find that they improv
 
 ## Optional build stage
 
-Optionally, specify the `[BUILD.SH STAGE]` after all other build options. These are the main build stages that can be added to the build line.
+Optionally, specify the `[BUILD.SH STAGE]` after all other build options. The following table shows the main build stages that can be added to the build line. Stages `start`, `sync` and `build` will occur in that order, whereas `interactive` and `clean` are optional stages that are only performed when you invoke them.
 
 <span class="tips">Don't specify a build stage when you perform the first build.</span>
 
@@ -73,7 +73,7 @@ The build process creates the following files:
 
 You can save the build options you supplied on the command line, so that it will be easier to run them again:
 
-1. Perform a successful build invoking `run-me.sh` with the required options.
+1. Perform a successful build invoking `run-me.sh` with your chosen options.
 1. Invoke the same build again, but add `--save-config <CONFIG_FILE>` to the command line. This saves a list of all your build options into the `<CONFIG_FILE>`.
 1. Use `run-me.sh --load-config <CONFIG_FILE>` to invoke a build with exactly the same options as the first build.
 
