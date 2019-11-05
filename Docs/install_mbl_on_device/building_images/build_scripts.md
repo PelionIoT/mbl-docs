@@ -84,13 +84,13 @@ You can save the build options you supplied on the command line, so that it will
 Set up your build options and invoke a build using `run-me.sh`. For example, here's a production build on NXP 8M Mini EVK:
 
 ```
-./mbl-tools/build/run-me.sh --distro mbl-production --builddir /path/to/builddir --outputdir /path/to/artifacts --root-passwd-file /path/to/root_passwd -- --branch mbl-os-0.9 --machine imx8mmevk-mbl
+./mbl-tools/build/run-me.sh --builddir /path/to/builddir --outputdir /path/to/artifacts --root-passwd-file /path/to/root_passwd -- --branch mbl-os-0.9 --machine imx8mmevk-mbl --distro mbl-production
 ```
 
 When you have a successful build, save the configuration to a file (`mbl-imx8-prod.cfg`), using the option `--save-config` added to the build options. For example:
 
 ```
-./mbl-tools/build/run-me.sh --distro mbl-production --builddir /path/to/builddir --outputdir /path/to/artifacts --root-passwd-file /path/to/root_passwd -- --branch mbl-os-0.9 --machine imx8mmevk-mbl --save-config mbl-imx8-prod.cfg
+./mbl-tools/build/run-me.sh --save-config mbl-imx8-prod.cfg --builddir /path/to/builddir --outputdir /path/to/artifacts --root-passwd-file /path/to/root_passwd -- --branch mbl-os-0.9 --machine imx8mmevk-mbl --distro mbl-production 
 ```
 
 <span class="tips">**Tip:** We recommend not including a build stage (such as `interactive`) on your command line when you save it. Instead, manually specify it for each build.</span>
@@ -121,7 +121,7 @@ We recommend using different configuration files to avoid these situations.
 You can also load a configuration, add some additional arguments on the command line and then save it to a new configuration file. For example, to use a specific tagged release on the mbl-os-0.9 branch:
 
 ```
-./mbl-tools/build/run-me.sh --load-config mbl-imx8-prod.cfg -- --manifest release.xml --branch refs/tags/mbl-os-0.9.0 --save-config mbl-os-0.9.0-imx8-prod.cfg
+./mbl-tools/build/run-me.sh --load-config mbl-imx8-prod.cfg --save-config mbl-os-0.9.0-imx8-prod.cfg -- --manifest release.xml --branch refs/tags/mbl-os-0.9.0
 ```
 
 This will create a `mbl-os-0.9.0-imx8-prod.cfg` file that contains all the build options from `mbl-imx8-prod.cfg`, as well as the `--manifest` option and a second `--branch` option. The branch option in this case will override the first branch option of `mbl-os-0.9`; for other options, the same exceptions stated above still apply.
