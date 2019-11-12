@@ -114,7 +114,7 @@ You can include other options on the build line. For example, to invoke [interac
 Extra options given on the command line will override those specified in the configuration file, except:
 
 * Options that can be specified more than once (such as `--machine`) are concatenated.
-* Build stages saved in the configuration file will happen before any stages specified on the command line (which is why we recommend not saving build stages in the configuration file).
+* Build stages saved in the configuration file will be excuted before any stages specified on the command line (which is why we recommend not saving build stages in the configuration file).
 
 We recommend using different configuration files to avoid these situations.
 
