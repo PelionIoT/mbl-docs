@@ -10,7 +10,7 @@ The following examples assume:
     * `./artifacts-pico6`
     * `./artifacts-warp7`
     * `./artifacts-rpi3`
-* You have an [SSH agent](../first-image/development-environment.html). For usage, see [the GitHub SSH documentation](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).
+* You have an [SSH agent](../first-image/development-environment.html) if you are accessing your own private repositories. For example, see [the GitHub SSH documentation](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).
 
 The following are examples of build commands to produce development images for supported platforms.
 
