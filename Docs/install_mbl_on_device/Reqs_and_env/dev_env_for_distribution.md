@@ -51,7 +51,7 @@ And the following software:
     Check out the relevant branch from the repository (in this example, we use `mbl-os-0.9`):
 
     ```
-    $ git clone git@github.com:ARMmbed/mbl-tools.git --branch mbl-os-0.9
+    $ git clone https://github.com/ARMmbed/mbl-tools.git --branch mbl-os-0.9
     ```
 
     <span class="tips">**Tip:** The [mbl-tools repository](https://github.com/ARMmbed/mbl-tools) provides a collection of tools and recipes for building and testing MBL.</span>
@@ -59,7 +59,7 @@ And the following software:
 * The Device Management manifest tool and SDK:
 
     ```
-    pip install --user -U git+ssh://git@github.com/ARMmbed/manifest-tool.git#egg=manifest-tool
+    pip install --user -U git+https://github.com/ARMmbed/manifest-tool.git#egg=manifest-tool
     pip install --user mbed-cloud-sdk
     ```
     Make sure your GitHub SSH key is valid.

@@ -16,7 +16,7 @@ You need a build environment of MBL because this contains the scripts needed to 
 1. If you are going to create a new build environment - [set up the `build-mbl` tools](../install_mbl_on_device/Reqs_and_env/dev_env_for_distribution.html), and create an outputdir directory:
 
     ```
-    git clone git@github.com:ARMmbed/mbl-tools.git --branch mbl-os-0.9
+    git clone https://github.com/ARMmbed/mbl-tools.git --branch mbl-os-0.9
     mkdir /path/to/artifacts
     ```
 

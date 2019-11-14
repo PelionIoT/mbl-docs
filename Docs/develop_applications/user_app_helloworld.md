@@ -34,7 +34,7 @@ For more information, please refer to the [reference about application container
 1. Clone the `mbl-core` repo:
 
     ```
-    $ git clone git@github.com:ARMmbed/mbl-core.git --branch mbl-os-0.9
+    $ git clone https://github.com/ARMmbed/mbl-core.git --branch mbl-os-0.9
     ```
 
 1. Navigate to the `helloworld` folder in your clone:

@@ -17,10 +17,12 @@ To point to a custom manifest, you need to pass at least the options `--branch` 
 For example (change parameters for `--builddir` and `--machine` as needed):
 
 ```
-./mbl-tools/build/run-me.sh --builddir ./build-warp7 -- --machine imx7s-warp-mbl --branch mbl-os-0.9 --url git@github.com:your-github-account/mbl-manifest.git
+./mbl-tools/build/run-me.sh --builddir ./build-warp7 -- --machine imx7s-warp-mbl --branch mbl-os-0.9 --url https://github.com/your-github-account/mbl-manifest.git
 ```
 
-<span class="notes">**Notes**: The `--url` must be in [the **Clone with SSH** format](https://git-scm.com/docs/git-clone#_git_urls_a_id_urls_a). We don't recommend using the `--outputdir` option with interactive mode, as any builds done during interactive mode will not update the output directory contents.</span>
+UPDATE?
+
+<span class="notes">**Notes**: The `--url` may also be in [the **Clone with SSH** format](https://git-scm.com/docs/git-clone#_git_urls_a_id_urls_a), for example `git@github.com:/your-github-account/mbl-manifest.git`. We don't recommend using the `--outputdir` option with interactive mode, as any builds done during interactive mode will not update the output directory contents.</span>
 
 ## Running build-mbl in interactive mode
 

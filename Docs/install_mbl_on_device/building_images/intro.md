@@ -11,7 +11,7 @@ Please note that each release has its own branch. Throughout this guide, the rel
 * If you haven't already done so, check out the relevant branch from the `mbl-tools` repository (in this example, we use `mbl-os-0.9`):
 
     ```
-    $ git clone git@github.com:ARMmbed/mbl-tools.git --branch mbl-os-0.9
+    $ git clone https://github.com/ARMmbed/mbl-tools.git --branch mbl-os-0.9
     ```
 
     The repository includes the `run-me.sh` script, which:
