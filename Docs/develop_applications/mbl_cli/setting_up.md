@@ -25,12 +25,23 @@ npm uninstall mbl-cli -g --save
 
 ### Installation
 
-1. Use pip to install MBL CLI. We recommend installing in a [Python virtual environment](https://www.python.org/dev/peps/pep-0405/).
-   If for any reason you must install MBL CLI using the 'system' Python, install with the `--user` flag.
+Use pip to install MBL CLI. We recommend installing MBL CLI in a [Python virtual environment](https://www.python.org/dev/peps/pep-0405/), to avoid clashes with existing Python applications.
 
-    ```bash
-    pip install --user git+ssh://git@github.com/armmbed/mbl-cli.git@mbl-os-0.9
-    ```
+```bash
+python3 -m venv mbl-cli-venv
+source ./mbl-cli-venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install git+ssh://git@github.com/armmbed/mbl-cli.git@mbl-os-0.9
+deactivate
+```
+   
+You can now run it by entering the virtual environment (`source ./mbl-cli-env/bin/activate`) and then performing the `mbl-cli` command, or you can call it directly using `mbl-cli-env/bin/mbl-cli`.
+
+If you must install MBL CLI using the 'system' Python, install it using the `--user` flag.
+
+```bash
+pip install --user git+ssh://git@github.com/armmbed/mbl-cli.git@mbl-os-0.9
+```
 
 ## Setting up a developer connection over USB
 
