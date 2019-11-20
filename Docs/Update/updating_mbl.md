@@ -269,6 +269,7 @@ Note that upgrades to Mbed Linux OS 0.10 from versions earlier than 0.9 is not
 supported.
 
 #### Upgrading from Mbed Linux OS 0.9
+
 Components changed since Mbed Linux OS 0.9:
 * Bootloader component 2.
 * The kernel component.
