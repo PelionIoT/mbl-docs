@@ -2,16 +2,16 @@
 
 <span class="tips">**Tip**: If you downloaded an evaluation image, you can skip the build stage [and go directly to writing](../first-image/writing-an-image-to-supported-boards.html).</span>
 
-The production image have a reduced set of packages and applications installed when compared to development image. Tools and configurations used to help development and debugging were removed.
+Compared to the development image, the production image has fewer packages and applications: it does not include tools and configurations used to help development and debugging.
 
 To build production images, set the Yocto DISTRO to `mbl-production` (pass the `--distro mbl-production` parameter to **build.sh**). Production images include the following extra security features (compared to the development image):
 
-- Root user login with password only enabled on the Kernel Linux serial console interface: A file containing the plain text password (minimum 12 characters) needs to be provided to **run-me.sh** using the parameter`--root-passwd-file PASSWD_FILE`.
+- Root user login with password only enabled on the Kernel Linux serial console interface: You must provide a file containing the plain text password (minimum 12 characters) to **run-me.sh**. Use the parameter `--root-passwd-file PASSWD_FILE`.
 
-- Only the Ethernet debug interface accepts the following: SSH connections (and only with key-pair authentication as password logins are disabled), Link Local IPv6 addressing and mDNS Responder traffic.
+- Only the Ethernet debug interface accepts the following: SSH connections (and only with key-pair authentication, because password logins are disabled), Link Local IPv6 addressing and mDNS Responder traffic.
 
-   - This feature is controlled by the variable **MBL_PRODUCTION_ETH_DBG** set in the mbl-production configuration file (`meta-mbl/meta-mbl-distro/conf/distro/include/mbl-distro-production.inc`). The gadget Ethernet is used by default for platforms that include the usbgadget (imx7d-pico-mbl, imx6ul-pico-mbl, imx8mmevk-mbl and imx7s-warp-mbl). Otherwise, a USB-to-Ethernet adapter has to be used.
-   - The per user SSH `authorized_keys` file needs to be passed to **run-me.sh**. The format of the SSH public key filename is `username_something`. The **_username_** is mandatory for the installing function to identify which user home directory the public key should be copied to. To generate the ssh key-pair for the root user, the `ssh-keygen -t rsa -f root_id_rsa -C''` command can be used and the `--ssh-auth-keys root_id_rsa.pub` parameter must be passed to **run-me.sh**.
+   - This feature is controlled by the variable `MBL_PRODUCTION_ETH_DBG` set in the mbl-production configuration file (`meta-mbl/meta-mbl-distro/conf/distro/include/mbl-distro-production.inc`). The gadget Ethernet is used by default for platforms that include the usbgadget (imx7d-pico-mbl, imx6ul-pico-mbl, imx8mmevk-mbl and imx7s-warp-mbl). Otherwise, you must use a USB-to-Ethernet adapter.
+   - Pass an SSH `authorized_keys` file for each user to **run-me.sh**. The format of the SSH public key filename is `username_something`. The **_username_** is mandatory; it allows the installing function to identify which user's home directory the public key should be copied to. To generate the SSH key-pair for the root user, you can use `ssh-keygen -t rsa -f root_id_rsa -C''` and pass the parameter `--ssh-auth-keys root_id_rsa.pub` to **run-me.sh**.
 
 - System log level messages output and configuration: The following variables are set in the mbl-production configuration file (`meta-mbl/meta-mbl-distro/conf/distro/include/mbl-distro-production.inc`):
 
