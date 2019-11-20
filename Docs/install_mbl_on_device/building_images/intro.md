@@ -6,7 +6,7 @@ Please note that each release has its own branch. Throughout this guide, the rel
 
 <span class="tips">**Tip**: This section is only relevant for development and production images. If you downloaded an evaluation image, you can skip the build stage [and go directly to writing](../first-image/writing-an-image-to-supported-boards.html).</span>
 
-* All MBL repositories are public, but you will need an SSH agent when you want to access your own private repositories during the build. For example, see [the GitHub SSH documentation](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).
+* All MBL repositories are public, but you will need an SSH agent to access your own private repositories during the build. For more information, see [the GitHub SSH documentation](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).
 
 * If you haven't already done so, check out the relevant branch from the `mbl-tools` repository (in this example, we use `mbl-os-0.9`):
 

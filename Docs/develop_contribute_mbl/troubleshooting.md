@@ -27,8 +27,8 @@ error: Cannot fetch Freescale/meta-freescale-3rdparty from ssh://git@github.com/
 
 To fix this:
 
-1. Make sure you have set up an SSH agent. For example, see [the GitHub SSH documentation](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).
-2. If the repository is not Github, use the build option `--repo-host HOSTNAME` to allow access to the source code repository host in the build environment. You can specify this option multiple times if you have multiple hosts.
+1. Make sure you have set up an SSH agent. For more information, see [the GitHub SSH documentation](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).
+2. If the repository is not on GitHub, use the build option `--repo-host HOSTNAME` to allow access to the source code repository host in the build environment. If you have multiple hosts, you can specify this option multiple times.
 
 For example:
 

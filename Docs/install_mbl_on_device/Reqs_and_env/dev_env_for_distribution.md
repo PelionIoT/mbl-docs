@@ -20,7 +20,7 @@ To build MBL, you need:
 * Full internet access (because the build process downloads packages from the
 internet).
 
-* You may need to set up an SSH agent, so you can clone private repositories noninteractively during the build process. MBL repositories are public, so this is only needed so that you can include your own private repositories in the build. For an example of setting up an SSH agent for Github, see the [GitHub documentation on connecting with SSH](https://help.github.com/articles/connecting-to-github-with-ssh/).
+* If you want to include your own (private) repositories in the build, you will need to set up an SSH agent. You don't need this for the MBL repositories, because they are public. For an example of setting up an SSH agent for GitHub, see the [GitHub documentation on connecting with SSH](https://help.github.com/articles/connecting-to-github-with-ssh/).
 
 And the following software:
 

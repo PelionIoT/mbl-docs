@@ -49,7 +49,7 @@ The examples assume:
     * `./artifacts-pico6`
     * `./artifacts-warp7`
     * `./artifacts-rpi3`
-* You have an [SSH agent](../first-image/development-environment.html) if you are accessing your own private repositories. For example, see [the GitHub SSH documentation](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).
+* You have an [SSH agent](../first-image/development-environment.html) to access your own private repositories. For more information, see [the GitHub SSH documentation](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).
 
 ## PICO-PI with IMX7D
 
