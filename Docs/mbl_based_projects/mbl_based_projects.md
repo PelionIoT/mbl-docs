@@ -140,7 +140,7 @@ manifest repository (so that it doesn't use the default repo, [mbl-manifest][mbl
     For example:
 
     ```
-    mbl-tools/build/run-me.sh --builddir /path/to/build --outputdir /path/to/output -- --branch master --machine imx7s-warp-mbl --url ssh://git@github.com/your-github-user/mbl-project-manifest-example
+    mbl-tools/build/run-me.sh --builddir /path/to/build --outputdir /path/to/output -- --branch master --machine imx7s-warp-mbl --url https://github.com/your-github-user/mbl-project-manifest-example
     ```
 
     Replace:
@@ -151,6 +151,7 @@ manifest repository (so that it doesn't use the default repo, [mbl-manifest][mbl
     * `your-github-user` with your GitHub username or organization.
     * `master` with the branch or tag of `mbl-project-manifest-example`
       containing `default.xml`.
+    * `https://github.com` with `git@github.com:` for download via SSH.
 
     <span class="notes">If you need to access other source code repositories (apart from github.com) via SSH anytime during the build, you will have to specify them using the `--repo-host` build script option. For example: `mbl-tools/build/run-me.sh --builddir /path/to/build --outputdir /path/to/output -- --repo-host gitlab.com`. For more information, [see Troubleshooting](../develop-mbl/troubleshooting.html)</span>
 
@@ -158,13 +159,14 @@ manifest repository (so that it doesn't use the default repo, [mbl-manifest][mbl
     build you can use [Google's git-repo tool][google-git-repo] directly by
     running something like:
     ```
-    repo init -u ssh://git@github.com/your-github-user/mbl-project-manifest-example -b master
+    repo init -u https://github.com/your-github-user/mbl-project-manifest-example -b master
     repo sync
     ```
     Replace:
     * `your-github-user` with your GitHub username or organization.
     * `master` with the branch or tag of `mbl-project-manifest-example`
       containing `default.xml`.
+    * `https://github.com` with `git@github.com:` for download via SSH.
 
 ## 4. Add an image recipe
 
@@ -189,7 +191,7 @@ standard MBL image into the new image.
 To build this image using [MBL's build tools][mbl-tools], use the `--image` option in `build.sh`:
 
 ```
-mbl-tools/build/run-me.sh --builddir /path/to/build --outputdir /path/to/output -- --branch master --machine imx7s-warp-mbl --url ssh://git@github.com/your-github-user/mbl-project-manifest-example --image mbl-image-example
+mbl-tools/build/run-me.sh --builddir /path/to/build --outputdir /path/to/output -- --branch master --machine imx7s-warp-mbl --url https://github.com/your-github-user/mbl-project-manifest-example --image mbl-image-example
 ```
 
 Replace:
@@ -200,6 +202,7 @@ Replace:
 * `your-github-user` with your GitHub username or organization.
 * `master` with the branch or tag of `mbl-project-manifest-example` containing
   `default.xml`.
+* `https://github.com` with `git@github.com:` for download via SSH.
 
 ## 5. Modify the distribution
 

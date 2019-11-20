@@ -31,7 +31,7 @@ Use pip to install MBL CLI. We recommend installing MBL CLI in a [Python virtual
 python3 -m venv mbl-cli-venv
 source ./mbl-cli-venv/bin/activate
 python -m pip install --upgrade pip
-python -m pip install git+ssh://git@github.com/armmbed/mbl-cli.git@mbl-os-0.9
+python -m pip install git+https://github.com/armmbed/mbl-cli.git@mbl-os-0.9
 deactivate
 ```
    
@@ -40,7 +40,7 @@ You can now run it by entering the virtual environment (`source ./mbl-cli-env/bi
 If you must install MBL CLI using the 'system' Python, install it using the `--user` flag.
 
 ```bash
-pip install --user git+ssh://git@github.com/armmbed/mbl-cli.git@mbl-os-0.9
+pip install --user git+https://github.com/armmbed/mbl-cli.git@mbl-os-0.9
 ```
 
 ## Setting up a developer connection over USB
