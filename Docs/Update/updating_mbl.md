@@ -73,7 +73,7 @@ Then, for example, perform a build:
 
     | Name                      | Value                      | Information |
     | ---                       | ---                        | --- |
-    | `--bootloader-components` | `N [N ...]`                | Add bootloader components to the payload. `N` can be `1` or `2` and you can list one or both of these values. Bootloader component 1 usually contains the second stage boot of TF-A and bootloader component 2 usually contains the third stage boot of TF-A. |
+    | `--bootloader-components` | `N [N ...]`                | Add bootloader components to the payload. `N` can be `1` or `2` and you can list one or both of these values. Bootloader component 1 usually contains the second stage boot of TF-A and bootloader component 2 usually contains TF-A bootloader stage three (BL3), OP-TEE and U-boot. |
     | `--kernel`                |                            | Add the kernel to the payload. Usually this also includes the device tree blob and boot scripts. |
     | `--rootfs`                | `IMAGE_NAME`               | Add the root file system of the specified BitBake image to the payload. |
     | `--apps`                  | `IPK_PATH [IPK_PATH ... ]` | Specifies the paths of application packages to add to the payload. |
