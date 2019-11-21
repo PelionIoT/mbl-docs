@@ -76,7 +76,7 @@ Then, for example, perform a build:
     | `--bootloader-components` | `N [N ...]`                | Add bootloader components to the payload. `N` can be `1` or `2` and you can list one or both of these values. Bootloader component 1 usually contains the second stage boot of TF-A and bootloader component 2 usually contains TF-A bootloader stage three (BL3), OP-TEE and U-boot. |
     | `--kernel`                |                            | Add the kernel to the payload. Usually this also includes the device tree blob and boot scripts. |
     | `--rootfs`                | `IMAGE_NAME`               | Add the root file system of the specified image to the payload. |
-    | `--apps`                  | `IPK_PATH [IPK_PATH ... ]` | Specifies the paths of application packages to add to the payload. |
+    | `--apps`                  | `IPK_PATH [IPK_PATH ... ]` | Specifies the paths of application packages (`.ipk` files) to add to the payload. |
     | `--output-path`           | `PATH`                     | File name and path for the payload file to be created. |
     | `--mbl-os-version`        | `MBL_OS_VERSION`           | Specify the version of Mbed Linux OS running on the device on which the payload will be installed. If not specified, `create-update-payload` will create a payload formatted for the Mbed Linux OS version that it came from itself. The earliest supported Mbed Linux OS version is 0.9.0. |
 
