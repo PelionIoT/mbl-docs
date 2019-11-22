@@ -20,6 +20,8 @@ The following build options are mandatory:
 | `--machine` | build.sh | Select the target device. <br>The options are [**PICO-PI with IMX7D**, `imx7d-pico-mbl`], [**NXP 8M Mini EVK**, `imx8mmevk-mbl`], [**PICO-PI with IMX6UL**, `imx6ul-pico-mbl`], [**Warp7**, `imx7s-warp-mbl`] and [**Raspberry Pi 3**, `raspberrypi3-mbl`]. <br>Example: `./mbl-tools/build/run-me.sh -- --machine <MACHINE>` |
 | `--outputdir` | run-me.sh | Specify the output directory for all build artifacts (pinned manifest, target specific images etc). <br>For example, if you've created `mkdir /path/to/artifacts`, the outputdir will be `./mbl-tools/build/run-me.sh --outputdir /path/to/artifacts` |
 | `--root-passwd-file` | run-me.sh | The file containing the root user password in plain text (**mandatory** when `--distro mbl-production` ). |
+| `--ssh-auth-keys` | run-me.sh | Path to the SSH Authorized Keys file to be installed in the target rootfs at `/home/${user}/.ssh/authorized_keys` (**mandatory** when `--distro mbl-production` ). The filename must be prefixed with "username_" (for example: `root_authorized_keys`). |
+
 
 An example using all mandatory options:
 
@@ -39,6 +41,7 @@ The following build options are not mandatory, but you may find that they improv
 | `--image` | build.sh | Choose which image to build. The supported values are: **`mbl-image-development`** (default when no `--distro` is passed or for `--distro mbl-development` ) or **`mbl-image-production`** (default for `--distro mbl-production` ). |
 | `--manifest` | build.sh | By default, building uses the `default.xml` manifest, which uses release branches of all the Arm maintained repositories. To use pinned versions for all repositories, specify `release.xml` as the manifest. You can combine this with `--branch` to specify a particular release version. <br>Example: `./mbl-tools/build/run-me.sh -- --branch refs/tags/mbl-os-0.9.0 --manifest release.xml`|
 | `--root-passwd-file` | run-me.sh | The file containing the root user password in plain text (**optional** when `--distro mbl-development` ). |
+| `--ssh-auth-keys` | run-me.sh | Path to the SSH Authorized Keys file to be installed in the target rootfs at `/home/${user}/.ssh/authorized_keys` (**optional** when `--distro mbl-development` ). The filename must be prefixed with "username_" (for example: root_authorized_keys). |
 | `--boot-rot-key` | run-me.sh | The private signing key used in preparing the bootloader update components. |
 | `--kernel-rot-key` | run-me.sh | The private signing key used in preparing the bootloader and kernel update components. |
 | `--kernel-rot-crt` | run-me.sh | The public certificate used in preparing the bootloader and kernel update components. |
@@ -84,13 +87,13 @@ You can save the build options you supplied on the command line, so that it will
 Set up your build options and invoke a build using `run-me.sh`. For example, here's a production build on NXP 8M Mini EVK:
 
 ```
-./mbl-tools/build/run-me.sh --builddir /path/to/builddir --outputdir /path/to/artifacts --root-passwd-file /path/to/root_passwd -- --branch mbl-os-0.9 --machine imx8mmevk-mbl --distro mbl-production
+./mbl-tools/build/run-me.sh --builddir /path/to/builddir --outputdir /path/to/artifacts --root-passwd-file /path/to/root_passwd --ssh-auth-keys /path/to/root_authorized_keys -- --branch mbl-os-0.9 --machine imx8mmevk-mbl --distro mbl-production
 ```
 
 When you have a successful build, save the configuration to a file (`mbl-imx8-prod.cfg`), using the option `--save-config` added to the build options. For example:
 
 ```
-./mbl-tools/build/run-me.sh --save-config mbl-imx8-prod.cfg --builddir /path/to/builddir --outputdir /path/to/artifacts --root-passwd-file /path/to/root_passwd -- --branch mbl-os-0.9 --machine imx8mmevk-mbl --distro mbl-production 
+./mbl-tools/build/run-me.sh --save-config mbl-imx8-prod.cfg --builddir /path/to/builddir --outputdir /path/to/artifacts --root-passwd-file /path/to/root_passwd --ssh-auth-keys /path/to/root_authorized_keys -- --branch mbl-os-0.9 --machine imx8mmevk-mbl --distro mbl-production 
 ```
 
 <span class="tips">**Tip:** We recommend not including a build stage (such as `interactive`) on your command line when you save it. Instead, manually specify it for each build.</span>
