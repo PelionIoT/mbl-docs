@@ -23,7 +23,7 @@ Please make sure the test is easy to understand and readable. Always provide Doc
 
 ## How do we run tests?
 
-We run tests on the target itself - WaRP7, Raspberry PI3 and so on - so the test code has to be present on the target, along with anything else we need: dependencies and libraries, for example.
+We run tests on the target itself - PICO-PI with IMX7D, Raspberry PI3 and so on - so the test code has to be present on the target, along with anything else we need: dependencies and libraries, for example.
 
 The invocation happens on the target, because tests might need access to local resources (which are present only on the target).
 

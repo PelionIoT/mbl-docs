@@ -102,9 +102,6 @@
                             "path": "Docs/install_mbl_on_device/writing/nxp_evk.md"
                         },
                         {
-                            "path": "Docs/install_mbl_on_device/writing/warp7.md"
-                        },
-                        {
                             "path": "Docs/install_mbl_on_device/writing/rpi3.md"
                         }
                     ]

@@ -19,7 +19,7 @@ This document's structure follows the work process:
 - [u-boot*](../develop-mbl/bsp-u-boot.html) discusses the `u-boot*.bb` base recipe and MBL `u-boot*.bbappend` customization.
 - [linux*](../develop-mbl/bsp-linux.html) discusses the `linux*.bb` base recipe and MBL `linux*.bbappend` customization.
 - [atf-${MACHINE}.bb](../develop-mbl/bsp-atf.html) discusses the `atf-${MACHINE}.bb` recipe for building Arm Trusted Firmware.
-- [Example: imx7s-warp-mbl BSP recipe/package relationships](../develop-mbl/bsp-example.html) provides a concrete example for the WaRP7 target of the `${MACHINE}.conf`, ATF, OP-TEE, U-Boot and `linux` recipe inter-relationships using a UML diagram.
+- [Example: imx7d-pico-mbl BSP recipe/package relationships](../develop-mbl/bsp-example.html) provides a concrete example for the PICO-PI with IMX7D target of the `${MACHINE}.conf`, ATF, OP-TEE, U-Boot and `linux` recipe inter-relationships using a UML diagram.
 - [Summary of BSP porting tasks](../develop-mbl/bsp-tasks.html) summarizes porting tasks.
 - [References](../develop-mbl/bsp-refs.html) links to supporting references to this document.
 
@@ -114,7 +114,7 @@ The image above shows the main entities in the secure bootchain sequence: Soc Bo
 
 <span class="images">![AArch32 secure boot process](assets/LAS16-402_slide_16.png)<span>Linaro Connect 2016 Presentation LAS16-402 [slide 16][linaro-connect-las16-402-slides] showing the AArch32 secure boot process.</span></span>
 
-The image above shows the Cortex-v7A AArch32 generic secure boot process, which is the starting point for discussing secure boot on the WaRP7.
+The image above shows the Cortex-v7A AArch32 generic secure boot process, which is the starting point for discussing secure boot on the PICO-PI with IMX7D.
 
 The diagram is divided into four columns, corresponding to the memory type and physical location from which the boot code runs:
 
@@ -201,7 +201,7 @@ MBL introduces the additional **staging layer**. The staging layer provides a lo
 
 To introduce the community and MBL layers used in MBL, the next section offers a concrete example of layers used in the `raspberrypi3-mbl` workspace. It briefly mentions the distribution and general purpose layers and describes the BSP layers in more detail.
 
-The subsequent sections describe the BSP layers used in the remaining target platforms: `imx7d-pico-mbl`, `imx7s-warp-mbl` and `imx8mmevk-mbl`. For all three platforms, the distribution and general purpose layers are the same as `raspberrypi3-mbl`.
+The subsequent sections describe the BSP layers used in the remaining target platforms: `imx7d-pico-mbl`, `imx6ul-pico-mbl` and `imx8mmevk-mbl`. For all three platforms, the distribution and general purpose layers are the same as `raspberrypi3-mbl`.
 
 ## Layers for raspberrypi3-mbl
 
@@ -298,8 +298,8 @@ For the community layer `meta-raspberrypi`, the `meta-mbl` repository contains t
 | meta-filesystems                          | General   | Community | File system subsystems layer. |
 | meta-freescale                            | BSP       | Community | Freescale NXP-maintained BSP layer for i.MX8 target containing `imx8mmevk.conf`. |
 | meta-freescale-mbl                        | BSP       | MBL       | MBL BSP staging layer containing `imx8mmevk-mbl.conf`, `u-boot*.bbappend` and `linux*.bbappend` recipe customizations. |
-| meta-freescale-3rdparty                   | BSP       | Community | The Freescale NXP community has established this low-friction alternative for upstreaming third party originated recipes. i.MX7 targets including `imx7s-warp.conf` and `imx7d-pico.conf` are hosted in this layer. |
-| meta-freescale-3rdparty-mbl               | BSP       | MBL       | MBL BSP staging layer containing `imx7*-mbl.conf`, `u-boot*.bbappend` and `linux*.bbappend` recipe customizations. |
+| meta-freescale-3rdparty                   | BSP       | Community | The Freescale NXP community has established this low-friction alternative for upstreaming third party originated recipes. i.MX7 targets including `imx6ul-pico.conf` and `imx7d-pico.conf` are hosted in this layer. |
+| meta-freescale-3rdparty-mbl               | BSP       | MBL       | MBL BSP staging layer containing `imx6ul-pico-mbl.conf`, imx7d-pico-mbl.conf`, `u-boot*.bbappend` and `linux*.bbappend` recipe customizations. |
 | meta-fsl-bsp-release-mbl/imx/meta-bsp     | BSP       | MBL       | MBL BSP staging layer containing Qualcomm qca9377 firmware installation script and imx8 firmware blobs recipe customization. |
 | meta-fsl-bsp-release/imx/meta-bsp         | BSP       | Community | BSP layer containing Qualcomm qca9377 firmware and kernel module recipes and imx8 firmware blobs used by some NXP targets and qcom qca9377 firmware and kernel modules. |
 | meta-linaro/meta-optee                    | BSP       | Community | Linaro-provided layer for OP-TEE |
@@ -341,9 +341,9 @@ Refer to [Layers for raspberrypi3-mbl](#layers-for-raspberrypi3-mbl) for details
 
 **Table 3.3.1:** The BSP layers output from `bitbake-layers show-layers` for `MACHINE=imx7d-pico-mbl` in table form.
 
-## BSP layers for imx7s-warp-mbl
+## BSP layers for imx7d-pico-mbl
 
-[Table 3.4.1](#Table-3-4-1) shows the BSP layers for `imx7s-warp-mbl` configured in `bblayers_imx7s-warp-mbl.conf`. The full set of layers used by `imx7s-warp-mbl` is the set of layers obtained by replacing the `meta-raspberrypi*` BSP layers in [Table 3.2.1](#Table-3-2-1) with the BSP layers in [Table 3.4.1](#Table-3-4-1) below.
+[Table 3.4.1](#Table-3-4-1) shows the BSP layers for `imx7d-pico-mbl` configured in `bblayers_imx7d-pico-mbl.conf`. The full set of layers used by `imx7d-pico-mbl` is the set of layers obtained by replacing the `meta-raspberrypi*` BSP layers in [Table 3.2.1](#Table-3-2-1) with the BSP layers in [Table 3.4.1](#Table-3-4-1) below.
 
 Refer to [Layers for raspberrypi3-mbl](#layers-for-raspberrypi3-mbl) for details of the layers.
 
@@ -356,7 +356,7 @@ Refer to [Layers for raspberrypi3-mbl](#layers-for-raspberrypi3-mbl) for details
 | meta-freescale-3rdparty-mbl | <ws>/layers/meta-mbl/meta-freescale-3rdparty-mbl | 11 |
 | meta-freescale-3rdparty | <ws>/layers/meta-freescale-3rdparty | 4 |
 
-**Table 3.4.1:** The BSP layers output from `bitbake-layers show-layers` for `MACHINE=imx7s-warp-mbl` in table form.
+**Table 3.4.1:** The BSP layers output from `bitbake-layers show-layers` for `MACHINE=imx7d-pico-mbl` in table form.
 
 ## BSP layers for imx8mmevk-mbl
 
@@ -398,10 +398,10 @@ In this document, BSP layers are often referred to as `meta-[soc-vendor]` and `m
 
 | MACHINE | `${MACHINE}.conf` | `${machine}.conf` | Layer(s) |
 | --- | --- | --- | --- |
-| `imx7s-warp-mbl` | `imx7s-warp-mbl.conf` | `imx7s-warp.conf` | `meta-freescale(-3rdparty)(-mbl)` |
+| `imx6ul-pico-mbl` | `imx6ul-pico-mbl.conf` | `imx6ul-pico.conf` | `meta-freescale(-3rdparty)(-mbl)` |
+| `imx7d-pico-mbl` | `imx7d-pico-mbl.conf` | `imx7d-pico.conf` | `meta-freescale(-3rdparty)(-mbl)` |
 | `imx8mmevk-mbl` | `imx8mmevk-mbl.conf` | `imx8mmevk.conf` | `meta-freescale(-mbl)` |
 | `raspberrypi3-mbl` | `raspberrypi3-mbl.conf` | `raspberrypi3.conf` | `meta-raspberrypi(-mbl)` |
-| `imx7d-pico-mbl` | `imx7d-pico-mbl.conf` | `imx7d-pico.conf` | `meta-freescale(-3rdparty)(-mbl)` |
 
 **Table 3.6:** `${MACHINE}.conf`, `${machine}.conf` and the associated layers.
 
@@ -500,11 +500,12 @@ The key symbols modified in `${MACHINE}.conf` are:
 - `UBOOT_ENTRYPOINT = "0xabcdefab"`. This symbol specifies the U-Boot entry point called by OP-TEE, for example.
 - `UBOOT_DTB_LOADADDRESS = "0xabcdefab"`. This symbol specifies the memory address where the U-Boot DTB is loaded into memory.
 - `UBOOT_SIGN_ENABLE = "1"`. This symbol enables FIT image signing of subcomponents by `u-boot-mkimage`.
-- `MBL_WKS_BOOTLOADERxxx = "xxx"`. These symbols are used to set the offsets, sizes and filenames of bootloaders used in `mbl.wks.in`. See `meta-mbl/meta-mbl-distro/classes/mbl-partitions.bbclass` for details.
+- `MBL_WKS_BOOTLOADERxxx = "xxx"`. These symbols are used to set the offsets, sizes, filenames and banked options of bootloaders used in `mbl.wks.in`. See `meta-mbl/meta-mbl-distro/classes/mbl-partitions.bbclass` for details.
+- `MBL_WATCHDOG_TIMEOUT_SECS`. This symbol is to set the max hardware watchdog timeout in seconds.
 
 [Partitioning software components into FIP/FIT image](../develop-mbl/bsp-sys-arch.html#2-3-partitioning-software-components-into-fip-fit-images) specifies that the Linux kernel image is packaged into a FIT image, so the kernel FIT image can be written to a [dedicated partition](../develop-mbl/bsp-sys-arch.html#2-4-flash-partition-layout) and independently updated. FIT image generation is achieved using the `linux*`, `kernel.bbclass`, `mbl-fitimage.bbclass` and `kernel-fitimage.bbclass` entities shown in [Figure 4.0](../develop-mbl/bsp-recipe.html), and by setting the symbols `KERNEL_CLASSES` and `KERNEL_IMAGETYPE`. See [linux*](../develop-mbl/bsp-linux.html#kernel-bbclass-openembedded-core-support) and [the `kernel-fitimage.bbclass` subsection](../develop-mbl/bsp-linux.html#kernel-fitimage-bbclass-and-mbl-fitimage-bbclass) for more details.
 
-See [Example: imx7s-warp-mbl BSP recipe/package relationships](../develop-mbl/bsp-example.html#example-imx7s-warp-mbl-recipe-package-uml-diagram) for details on the `${MACHINE}.conf` file for `imx7s-warp-mbl`.
+See [Example: imx7d-pico-mbl BSP recipe/package relationships](../develop-mbl/bsp-example.html#example-imx7d-pico-mbl-recipe-package-uml-diagram) for details on the `${MACHINE}.conf` file for `imx7d-pico-mbl`.
 
 ## ${machine}.conf: the community BSP control file
 
@@ -564,7 +565,7 @@ The nominated Linux recipe `linux-XXXX` (typically present in the `meta-[soc-ven
 
 - Setting `SRC_URI` and `SRCREV` to point to a forked and patched version of the Linux kernel with the required driver support and fixes.
 - Applying additional patches stored in `meta-[soc-vendor]-mbl`.
-- Specifying the default kernel configuration file to use using the `KBUILD_DEFCONFIG_<machine>` directive, for example, `KBUILD_DEFCONFIG_imx7s-warp-mbl ?= "warp7_mbl_defconfig"`.
+- Specifying the default kernel configuration file to use using the `KBUILD_DEFCONFIG_<machine>` directive, for example, `KBUILD_DEFCONFIG_imx7d-pico-mbl ?= "pico7d_mbl_defconfig"`.
 - Merging kernel configuration fragments into the Linux configuration file to enable MBL-required kernel configuration, for example, to enable verified boot.
 - Setting `INITRAMFS_IMAGE = "mbl-image-initramfs"`, to define the `meta-mbl` recipe for building `initramfs`.
 - Setting `KERNEL_EXTRA_ARGS` to specify extra arguments supplied to the kernel.
@@ -656,7 +657,7 @@ do_compile[depends] += " virtual/kernel:do_deploy virtual/bootloader:do_deploy o
 
 This means the `virtual/bootloader` and `virtual/kernel` artifacts should be deployed before the `atf.inc do_compile()` method runs, so they are available for the ATF recipe to use.
 
-<span class="notes">**Note:** `atf.inc` expects the `virtual/bootloader`, `virtual/kernel` and `optee*` artifacts on which it depends to be deployed to the `DEPLOY_DIR_IMAGE-${DEPLOY_DIR}/images/${MACHINE}/` directory. For the `imx7s-warp-mbl` target, this directory is: `<workspace_root>/build-mbl-development/tmp/deploy/images/imx7s-warp-mbl`.</span>
+<span class="notes">**Note:** `atf.inc` expects the `virtual/bootloader`, `virtual/kernel` and `optee*` artifacts on which it depends to be deployed to the `DEPLOY_DIR_IMAGE-${DEPLOY_DIR}/images/${MACHINE}/` directory. For the `imx7d-pico-mbl` target, this directory is: `<workspace_root>/build-mbl-development/tmp/deploy/images/imx7d-pico-mbl`.</span>
 
 If required, ATF generates an ROT key pair used for signing artifacts. The ROT private key is also stored in the above directory. For more details about ATF ROT key generation and signing, see the [Mbed Linux OS Basic Signing Flow][basic-signing-flow].
 
@@ -666,7 +667,6 @@ If required, ATF generates an ROT key pair used for signing artifacts. The ROT p
 
 | Platform name | ATF platform guide |
 | --- | --- |
-| NXP Warp7 | [warp7.rst][atf-doc-plat-warp7-rst] |
 | NXP IMX8 Mini | [imx8.rst][atf-doc-plat-imx8-rst] |
 | Raspberry Pi 3 | [rpi3.rst][atf-doc-plat-rpi3-rst] |
 | Technexion Pico Pi | Not available |
@@ -685,103 +685,107 @@ As an example, the ATF IMX platform support is available in the repository:
     ./plat/imx/imx8qx
     ./plat/imx/imx8qm
 
-One file of particular interest is `plat/imx/imx7/warp7/warp7_io_storage.c`, which defines the `plat_io_policy` descriptor for `imx7s-warp-mbl`:
+One file of particular interest is `plat/imx/imx7/picopi/picopi_io_storage.c` (this file is added as a part of the patch series included in `meta-mbl/meta-mbl-bsp-common/recipes-bsp/atf/atf.inc`), which defines the `plat_io_policy` descriptor for `imx7d-pico-mbl`:
 
 ```
-    static const struct plat_io_policy policies[] = {
-    #ifndef WARP7_FIP_MMAP
-        [FIP_IMAGE_ID] = {
-            &mmc_dev_handle,
-            (uintptr_t)&mmc_fip_spec,
-            open_mmc
-        },
-    #else
-        [FIP_IMAGE_ID] = {
-            &memmap_dev_handle,
-            (uintptr_t)&fip_block_spec,
-            open_memmap
-        },
-    #endif
-        [BL32_IMAGE_ID] = {
-            &fip_dev_handle,
-            (uintptr_t)&bl32_uuid_spec,
-            open_fip
-        },
-        [BL32_EXTRA1_IMAGE_ID] = {
-            &fip_dev_handle,
-            (uintptr_t)&bl32_extra1_uuid_spec,
-            open_fip
-        },
-        [BL32_EXTRA2_IMAGE_ID] = {
-            &fip_dev_handle,
-            (uintptr_t)&bl32_extra2_uuid_spec,
-            open_fip
-        },
-        [BL33_IMAGE_ID] = {
-            &fip_dev_handle,
-            (uintptr_t)&bl33_uuid_spec,
-            open_fip
-        },
-    #if TRUSTED_BOARD_BOOT
-        [TRUSTED_BOOT_FW_CERT_ID] = {
-            &fip_dev_handle,
-            (uintptr_t)&tb_fw_cert_uuid_spec,
-            open_fip
-        },
-        [TRUSTED_KEY_CERT_ID] = {
-            &fip_dev_handle,
-            (uintptr_t)&trusted_key_cert_uuid_spec,
-            open_fip
-        },
-        [TRUSTED_OS_FW_KEY_CERT_ID] = {
-            &fip_dev_handle,
-            (uintptr_t)&tos_fw_key_cert_uuid_spec,
-            open_fip
-        },
-        [NON_TRUSTED_FW_KEY_CERT_ID] = {
-            &fip_dev_handle,
-            (uintptr_t)&nt_fw_key_cert_uuid_spec,
-            open_fip
-        },
-        [TRUSTED_OS_FW_CONTENT_CERT_ID] = {
-            &fip_dev_handle,
-            (uintptr_t)&tos_fw_cert_uuid_spec,
-            open_fip
-        },
-        [NON_TRUSTED_FW_CONTENT_CERT_ID] = {
-            &fip_dev_handle,
-            (uintptr_t)&nt_fw_cert_uuid_spec,
-            open_fip
-        },
-    #endif /* TRUSTED_BOARD_BOOT */
-    };
+static const struct plat_io_policy policies[] = {
+#ifndef PICOPI_FIP_MMAP
+    [FIP_IMAGE_ID] = {
+        &mmc_dev_handle,
+        (uintptr_t)&mmc_fip_spec,
+        open_mmc
+    },
+#else
+    [FIP_IMAGE_ID] = {
+        &memmap_dev_handle,
+        (uintptr_t)&fip_block_spec,
+        open_memmap
+    },
+#endif
+    [BL32_IMAGE_ID] = {
+        &fip_dev_handle,
+        (uintptr_t)&bl32_uuid_spec,
+        open_fip
+    },
+    [BL32_EXTRA1_IMAGE_ID] = {
+        &fip_dev_handle,
+        (uintptr_t)&bl32_extra1_uuid_spec,
+        open_fip
+    },
+    [BL32_EXTRA2_IMAGE_ID] = {
+        &fip_dev_handle,
+        (uintptr_t)&bl32_extra2_uuid_spec,
+        open_fip
+    },
+    [HW_CONFIG_ID] = {
+        &fip_dev_handle,
+        (uintptr_t)&hw_config_uuid_spec,
+        open_fip
+    },
+    [BL33_IMAGE_ID] = {
+        &fip_dev_handle,
+        (uintptr_t)&bl33_uuid_spec,
+        open_fip
+    },
+#if TRUSTED_BOARD_BOOT
+    [TRUSTED_BOOT_FW_CERT_ID] = {
+        &fip_dev_handle,
+        (uintptr_t)&tb_fw_cert_uuid_spec,
+        open_fip
+    },
+    [TRUSTED_KEY_CERT_ID] = {
+        &fip_dev_handle,
+        (uintptr_t)&trusted_key_cert_uuid_spec,
+        open_fip
+    },
+    [TRUSTED_OS_FW_KEY_CERT_ID] = {
+        &fip_dev_handle,
+        (uintptr_t)&tos_fw_key_cert_uuid_spec,
+        open_fip
+    },
+    [NON_TRUSTED_FW_KEY_CERT_ID] = {
+        &fip_dev_handle,
+        (uintptr_t)&nt_fw_key_cert_uuid_spec,
+        open_fip
+    },
+    [TRUSTED_OS_FW_CONTENT_CERT_ID] = {
+        &fip_dev_handle,
+        (uintptr_t)&tos_fw_cert_uuid_spec,
+        open_fip
+    },
+    [NON_TRUSTED_FW_CONTENT_CERT_ID] = {
+        &fip_dev_handle,
+        (uintptr_t)&nt_fw_cert_uuid_spec,
+        open_fip
+    },
+#endif /* TRUSTED_BOARD_BOOT */
+};
 ```
 
 This is the starting point for porting ATF to a new platform.
 
-<h1 id="bsp-example">Example: imx7s-warp-mbl BSP recipe/package relationships</h1>
+<h1 id="bsp-example">Example: imx7d-pico-mbl BSP recipe/package relationships</h1>
 
-## Example: imx7s-warp-mbl recipe/package UML diagram
+## Example: imx7d-pico-mbl recipe/package UML diagram
 
-This section provides a concrete example of the UML diagram shown in [Figure 4.0](../develop-mbl/bsp-recipe.html#figure-4-0) for the i.MX7 Warp7 target `MACHINE=imx7s-warp-mbl`.
+This section provides a concrete example of the UML diagram shown in [Figure 4.0](../develop-mbl/bsp-recipe.html#figure-4-0) for the PICO-PI with IMX7D target `MACHINE=imx7d-pico-mbl`.
 
 <a name="figure-9-1"></a>
 
-![figure-9-1](assets/mbl_warp7_uml_details.png "Figure 9.1")
+![figure-9-1](assets/mbl_pico7_uml_details.png "Figure 9.1")
 
-**Figure 9.1: The UML diagram shows the relationships between the recipes and configuration files for the `imx7s-warp-mbl` target.**
+**Figure 9.1: The UML diagram shows the relationships between the recipes and configuration files for the `imx7d-pico-mbl` target.**
 
-[Figure 9.1](#figure-9-1) shows the `imx7s-warp-mbl` realization of recipes and configuration files shown in [Figure 4.0](../develop-mbl/bsp-recipe.html#figure-4-0).
+[Figure 9.1](#figure-9-1) shows the `imx7d-pico-mbl` realization of recipes and configuration files shown in [Figure 4.0](../develop-mbl/bsp-recipe.html#figure-4-0).
 
 This section discusses the `meta-freescale` and `meta-freescale-3rdparty` entities shown in green in the above figure:
 
-- **`imx7s-warp-mbl.conf`**: This is the `meta-[soc-vendor]-mbl=meta-freescale-3rdparty-mbl` machine configuration file for the target.
+- **`imx7d-pico-mbl.conf`**: This is the `meta-[soc-vendor]-mbl=meta-freescale-3rdparty-mbl` machine configuration file for the target.
    - `KERNEL_CLASSES  = "mbl-fitimage"`: The `mbl-fitimage.bbclass` is inherited into `kernel.bbclass` processing by defining this symbol to include `mbl-fitimage`.
    - `KERNEL_IMAGETYPE = "fitImage"`: The kernel is packaged in a FIT image by specifying `"fitImage"`.
-   - `# KERNEL_DEVICETREE="imx7s-warp.dtb"`: It's unnecessary to change this symbol here because the required `"imx7s-warp.dtb"` value is specified in `imx7s-warp.conf`.
+   - `KERNEL_DEVICETREE="imx7d-pico.dtb"`: This is the Linux kernel device tree blob (DTB).
    - `UBOOT_CONFIG = ""`.
-   - `UBOOT_MACHINE = "warp7_bl33_defconfig"`: This is the U-Boot default configuration file to use.
-   - `UBOOT_CONFIG[sd] = ""`.
+   - `UBOOT_MACHINE = "pico-pi-imx7d_defconfig"`: This is the U-Boot default configuration file to use.
    - `UBOOT_SUFFIX = "bin"`: This is used to enable U-Boot verified boot. See `uboot-sign.bbclass` for more information.
    - `UBOOT_BINARY = "u-boot.${UBOOT_SUFFIX}"`: This is the U-Boot binary name.
    - `UBOOT_ENTRYPOINT = "0x80800000"`: This is the U-Boot binary entry point.
@@ -790,12 +794,12 @@ This section discusses the `meta-freescale` and `meta-freescale-3rdparty` entiti
    - `UBOOT_SIGN_ENABLE = "1"`: This enables verified boot signing.
    - `MBL_WKS_BOOTLOADER1_FILENAME = "bl2.bin.imx"`: This sets the file that WIC uses to populate the BL2 section of the flash partition layout.
    - `MBL_WKS_BOOTLOADER1_OFFSET_BANK1_KiB = "1"`: This sets the offset of the BL2 section of the flash partition layout.
-   - `MBL_WKS_BOOTLOADER1_SIZE_KiB = "1023"`: This sets the size allocated for the BL2 section of the flash partition layout.
-   - `MBL_WKS_BOOTLOADER2_OFFSET_BANK1_KiB = "1024"`: This sets the offset of the first BL3 FIP bank in the flash partition layout.
-   - `MBL_WKS_BOOTLOADER2_ALIGN_KiB = "1024"`: This sets the alignment used for the BL3 FIP banks in the flash partition layout.
-   - `MBL_WKS_BOOTLOADER2_SIZE_KiB = "1024"`: This sets the size allocated for each BL3 FIP bank in the flash partition layout.
-   - `MBL_FLASH_ERASE_BLOCK_SIZE_KiB = "6144"`: This is used to determine the default alignment of partitions in the flash partition layout.
-- **`imx7s-warp.conf`**: This is the `meta-[soc-vendor]=meta-freescale-3rdparty` machine configuration file that provides the base BSP support for the NXP Warp7 target.
+   - `MBL_WKS_BOOTLOADER1_IS_BL2 = "1"`: Set the bootloader component 1 partition as a BL2 image.
+   - `MBL_WKS_BOOTLOADER2_IS_BL3 = "1"`: Set the bootloader component 2 partition as a BL3 image.
+   - `MBL_FLASH_ERASE_BLOCK_SIZE_KiB = "512"`: Determines the default alignment of partitions in the flash partition layout, as reported by `mmc extcsd read /dev/mmcblk1`.
+   - `MBL_WKS_STORAGE_SIZE_MiB = "7456"`: The total storage size as reported by `blockdev --getsize64 /dev/mmcblk1` (reports 7818182656B = 7456MiB).
+   - `MBL_WATCHDOG_TIMEOUT_SECS ?= "128"`: Set the max timeout. The imx series watchdog driver explicitly defines a max watchdog timeout of 128 seconds.
+- **`imx7d-pico.conf`**: This is the `meta-[soc-vendor]=meta-freescale-3rdparty` machine configuration file that provides the base BSP support for the PICO-PI with IMX7D target.
 - **`imx-base.inc`<a name="soc-family-inc-imxbase.inc"></a>**: This is an example of the `[soc-family].inc` file and gives the virtual provider definitions:
    - `PREFERRED_PROVIDER_virtual/bootloader="u-boot-fslc"`.
    - `PREFERRED_PROVIDER_virtual/kernel="linux-fslc"`.
@@ -804,15 +808,15 @@ This section discusses the `meta-freescale` and `meta-freescale-3rdparty` entiti
 - **`linux-imx.inc`**: This is the common include file for IMX SoCs that encapsulates the interface to the `openembedded-core .bbclasses`, including `kernel.bbclass`.
 - **`u-boot-fslc_${PV}.bb`**: This is the Freescale NXP community maintained mainline U-Boot BSP recipe with backported features and fixes. The package version symbol `${PV}` is periodically updated to the next U-Boot stable release version, for example, 2018.07, 2018.11.
 
-## imx7s-warp-mbl recipe dependency graph
+## imx7d-pico-mbl recipe dependency graph
 
-This section presents a recipe and machine configuration file dependency graph for the `imx7s-warp-mbl` target as an alternative way of visualizing the information shown in [Figure 9.1](#figure-9-1).
+This section presents a recipe and machine configuration file dependency graph for the `imx7d-pico-mbl` target as an alternative way of visualizing the information shown in [Figure 9.1](#figure-9-1).
 
 ```
-MACHINEOVERRIDES="armv7ve:imx:use-mainline-bsp:imx7s-warp:imx7s-warp-mbl:imx7s-warp-mbl"
-MACHINE=imx7s-warp-mbl
+MACHINEOVERRIDES="armv7ve:imx:use-mainline-bsp:imx7d-pico:imx7d-pico-mbl:imx7d-pico-mbl"
+MACHINE=imx7d-pico-mbl
 
-  imx7s-warp-mbl.conf                                                                                 (1)
+  imx7d-pico-mbl.conf                                                                                 (1)
       KERNEL_XXX config                                                                               (2)
       KERNEL_CLASSES  = "mbl-fitimage"                                                                (3)
       KERNEL_IMAGETYPE = "fitImage"
@@ -820,15 +824,15 @@ MACHINE=imx7s-warp-mbl
       MBL_WKS_BOOTLOADERxxx config                                                                   (5)
       IMAGE_BOOT_FILES config
       PREFERRED_PROVIDER_virtual/atf = "atf-${MACHINE}"                                               (6)
-      |   \-> atf-imx7s-warp-mbl.bb
+      |   \-> atf-imx7d-pico-mbl.bb
       |           DEPENDS = ""
       |           \-> aft.inc
       |               DEPENDS += " openssl-native coreutils-native optee-os u-boot virtual/kernel"
       |
       |
-      \-> imx7s-warp.conf                                                                             (7)
+      \-> imx7d-pico.conf                                                                             (7)
           MACHINEOVERRIDES =. "mx7:mx7d:use-mainline-bsp:"                                            (8)
-          KERNEL_DEVICETREE = "imx7s-warp.dtb"
+          KERNEL_DEVICETREE = "imx7d-pico.dtb"
           |
           \-> imx-base.inc                                                                            (9)
                 # boot loader  recipe config
@@ -860,17 +864,17 @@ MACHINE=imx7s-warp-mbl
                     \-> linux-fslc_%.bbappend                                                         (24)
 ```
 
-**The diagram show the recipes and configuration files dependency graph for the `imx7s-warp-mbl`.**
+**The diagram show the recipes and configuration files dependency graph for the `imx7d-pico-mbl`.**
 
-The figure above shows the recipes and machine configuration file dependency graph for the `imx7s-warp-mbl`:
+The figure above shows the recipes and machine configuration file dependency graph for the `imx7d-pico-mbl`:
 
-- **(1)** `meta-freescale-3rdparty-mbl/conf/machine/imx7s-warp-mbl.conf` is the `${MACHINE}.conf` configuration file for `imx7s-warp`. See [Figure 4.0](../develop-mbl/bsp-recipe.html#figure-4-0) and [Machine configuration files](../develop-mbl/bsp-machine-config.html#machine-conf-the-top-level-bsp-control-file).
+- **(1)** `meta-freescale-3rdparty-mbl/conf/machine/imx7d-pico-mbl.conf` is the `${MACHINE}.conf` configuration file for `imx7d-pico`. See [Figure 4.0](../develop-mbl/bsp-recipe.html#figure-4-0) and [Machine configuration files](../develop-mbl/bsp-machine-config.html#machine-conf-the-top-level-bsp-control-file).
 - **(2)** The KERNEL_XXX symbols control Linux kernel and for FIT image generation. See [linux*](../develop-mbl/bsp-linux.html#kernel-fitimage-bbclass-and-mbl-fitimage-bbclass) for more information.
 - **(3)** See (19).
 - **(4)** The UBOOT_XXX symbols control U-Boot image generation and the signing of FIT image components by the uboot-mkimage tool.
 - **(5)** This specifies bootloader offsets and sizes used to determine the flash partition geometry.
-- **(6)** This specifies `atf-imx7s-warp-mbl.bb` is to be used as the `virtual/atf` provider.
-- **(7)** `meta-freescale-3rdparty/conf/machine/imx7s-warp.conf` is the `meta-[soc-vendor] ${machine}.conf` configuration file for `imx7s-warp-mbl`.
+- **(6)** This specifies `atf-imx7d-pico-mbl.bb` is to be used as the `virtual/atf` provider.
+- **(7)** `meta-freescale-3rdparty/conf/machine/imx7d-pico.conf` is the `meta-[soc-vendor] ${machine}.conf` configuration file for `imx7d-pico-mbl`.
 - **(8)** `use-mainline-bsp` is used to configure `linux-fslc*`. See (15).
 - **(9)** `require meta-freescale/conf/machine/include/imx-base.inc`.
 - **(10)** This makes the ATF recipe work because of `DEPENDS += " u-boot "`.
@@ -882,7 +886,7 @@ The figure above shows the recipes and machine configuration file dependency gra
 - **(16)** `meta-freescale/recipes-kernel/linux/linux-fslc_4.18.bb`.
 - **(17)** `meta-freescale/recipes-kernel/linux/linux-fslc.inc`.
 - **(18)** `meta-freescale/recipes-kernel/linux/linux-imx.inc`.
-- **(19)** As kernel.bbclass includes the line `inherit ${KERNEL_CLASSES}` and imx7s-warp-mbl.conf includes the line `KERNEL_CLASSES  = "mbl-fitimage"`, then the mbl-fitimage.bbclass is inherited by the `kernel.bbclass`.
+- **(19)** As kernel.bbclass includes the line `inherit ${KERNEL_CLASSES}` and imx7d-pico-mbl.conf includes the line `KERNEL_CLASSES  = "mbl-fitimage"`, then the mbl-fitimage.bbclass is inherited by the `kernel.bbclass`.
 - **(20)** This generates the FIT image according to the MBL specification.
 - **(21)** This is how the dependency on `mbl-boot-scr` is introduced for the BSPs.
 - **(22)** This is used for FIT image signing.
@@ -947,7 +951,6 @@ This section provides a summary of the tasks required to integrate a pre-existin
 - [Yocto Mega Manual][yocto-mega-manual-latest].
 
 [android-verified-boot]:https://source.android.com/security/verifiedboot
-[atf-doc-plat-warp7-rst]:https://github.com/ARM-software/arm-trusted-firmware/blob/master/docs/plat/warp7.rst
 [atf-doc-plat-imx8-rst]:https://github.com/ARM-software/arm-trusted-firmware/blob/master/docs/plat/imx8.rst
 [atf-doc-plat-rpi3-rst]:https://github.com/ARM-software/arm-trusted-firmware/blob/master/docs/plat/rpi3.rst
 [atf-doc-plat-porting-guide]:https://github.com/ARM-software/arm-trusted-firmware/blob/master/docs/getting_started/porting-guide.rst

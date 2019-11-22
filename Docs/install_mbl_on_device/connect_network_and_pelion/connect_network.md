@@ -140,7 +140,7 @@ The last command lists **all** available services. As you can see in the example
 To more closely inspect a service after scanning, use `connmanctl services <service_id>`. For example, when you look at a local Wi-Fi network:
 
 ```
-root@imx7s-warp-mbl:~# connmanctl services wifi_a0a0a0a0a0a0_41699999999e47_managed_ieee8021x
+root@imx7d-pico-mbl:~# connmanctl services wifi_a0a0a0a0a0a0_41699999999e47_managed_ieee8021x
 /net/connman/service/wifi_a0a0a0a0a0a0_41699999999e47_managed_ieee8021x
   Type = wifi
   Security = [ ieee8021x ]
@@ -164,7 +164,7 @@ root@imx7s-warp-mbl:~# connmanctl services wifi_a0a0a0a0a0a0_41699999999e47_mana
   Proxy = [  ]
   Proxy.Configuration = [  ]
   Provider = [  ]
-root@imx7s-warp-mbl:~#
+root@imx7d-pico-mbl:~#
 ```
 
 ### Connecting to an open (public) Wi-Fi network
