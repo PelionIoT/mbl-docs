@@ -185,7 +185,7 @@ Then, for example, perform a build:
 
     The process can take a long time, depending on your file size and network bandwidth.
 
-If you are updating one or more components that require a reboot to take effect (any component except apps), a reboot is automatically initiated.
+If you are updating one or more components that require a reboot to take effect (any component except applications), a reboot is automatically initiated.
 
 ## Verifying the update
 
