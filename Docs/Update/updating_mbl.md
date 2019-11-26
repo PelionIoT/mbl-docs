@@ -78,7 +78,7 @@ Then, for example, perform a build:
     | `--rootfs`                | `IMAGE_NAME`               | Add the root file system of the specified image to the payload. |
     | `--apps`                  | `IPK_PATH [IPK_PATH ... ]` | Specifies the paths of application packages (`.ipk` files) to add to the payload. |
     | `--output-path`           | `PATH`                     | File name and path for the payload file to be created. |
-    | `--mbl-os-version`        | `MBL_OS_VERSION`           | Specify the version of Mbed Linux OS running on the device on which the payload will be installed. If not specified, `create-update-payload` will create a payload formatted for the Mbed Linux OS version that it came from itself. The earliest supported Mbed Linux OS version is 0.9.0. |
+    | `--mbl-os-version`        | `MBL_OS_VERSION`           | Specify the version of MBL running on the device on which the payload will be installed. If not specified, `create-update-payload` will create a payload formatted for the MBL version that it came from itself. The earliest supported MBL version is 0.9.0. |
 
     <span class="notes">**Note:** The create-update-payload tool needs the bitbake environment to work. When using the interactive mode, only the builddir (`/path/to/build`) or outputdir (`/path/to/artifacts`) directories are available in the build environment, so you must use them as the paths for the `--apps` and `--output-path` arguments.</span>
 
@@ -86,7 +86,7 @@ Then, for example, perform a build:
     formats. That means you may not be able to install payloads created for one
     version of MBL on a different version of MBL. See
     [Updating across releases of Mbed Linux
-    OS](#updating-across-releases-of-mbed-linux-os) for details about
+    OS](#updating-across-releases-of-mbl) for details about
     upgrading to a new release of MBL and using
     `create-update-payload`'s `--mbl-os-version` option.</span>
 
@@ -249,17 +249,17 @@ To list all the active applications and their status, use `runc list` .
 
     <span class="notes">**Note:** The [Hello World](../develop-apps/hello-world-application.html) application runs for about 20 seconds. When it finishes, it once again appears as stopped.</span>
 
-## Updating across releases of Mbed Linux OS
+## Updating across releases of MBL
 
-Between releases of Mbed Linux OS, the format of the update payloads accepted
+Between releases of MBL, the format of the update payloads accepted
 by the software may change. This means that an update payload created for one
-release of Mbed Linux OS may not be suitable for installation on a different
-release of Mbed Linux OS. Therefore, when creating update payloads to upgrade
-from an earlier release of Mbed Linux OS, you should always use
+release of MBL may not be suitable for installation on a different
+release of MBL. Therefore, when creating update payloads to upgrade
+from an earlier release of MBL, you should always use
 `create-update-payload`'s `--mbl-os-version` option to specify the version of
-Mbed Linux OS that will recieve the update.
+MBL that will recieve the update.
 
-Between releases of Mbed Linux OS, some components may change, while others
+Between releases of MBL, some components may change, while others
 remain the same. The set of components that change across releases of Mbed
 Linux OS is documented in the [Version specific upgrade
 notes](#version-specific-upgrade-notes) section below, along with any other
@@ -267,34 +267,34 @@ version specific notes or restrictions relating to updates.
 
 ### Version specific upgrade notes
 
-Note that upgrades to Mbed Linux OS 0.10 from versions earlier than 0.9 is not
+Note that upgrades to MBL 0.10 from versions earlier than 0.9 is not
 supported.
 
-#### Upgrading from Mbed Linux OS 0.9
+#### Upgrading from MBL 0.9
 
-Components changed since Mbed Linux OS 0.9:
+Components changed since MBL 0.9:
 * Bootloader component 2.
 * The kernel component.
 * The rootfs component.
 
-Mbed Linux OS 0.9 does not support multi-component updates, so it is not
-possible to upgrade all components to Mbed Linux OS 0.10 at once. The upgrade
+MBL 0.9 does not support multi-component updates, so it is not
+possible to upgrade all components to MBL 0.10 at once. The upgrade
 must be done in two parts:
 1. Update the rootfs component to MBL 0.10's version. To do
    this, follow the instructions above to create and install a payload
-   containing only the rootfs component from your Mbed Linux OS 0.10 workarea.
+   containing only the rootfs component from your MBL 0.10 workarea.
    When invoking `create-update-payload`, make sure you specify
    `--mbl-os-version 0.9` to create a payload that can be installed on Mbed
    Linux OS 0.9. For example:
    ```
     user01@dev-machine:~$ create-update-payload --rootfs mbl-image-development --output-path /path/to/artifacts/rootfs_payload.swu --mbl-os-version 0.9
    ```
-1. Once the rootfs component from Mbed Linux OS 0.10 has been installed on a
+1. Once the rootfs component from MBL 0.10 has been installed on a
    device, it will be able to install multi-component update payloads in the
-   format used by Mbed Linux OS 0.10, so you can update the rest of the
+   format used by MBL 0.10, so you can update the rest of the
    components using a single update payload. To do this, follow the
    instructions above to create and install a payload containing bootloader
-   component 2 and the kernel component from your Mbed Linux OS 0.10 workarea.
+   component 2 and the kernel component from your MBL 0.10 workarea.
    When invoking `create-update-payload`, you may omit the `--mbl-os-version`
    argument, or explicitly specify the version `0.10`. For example:
    ```
@@ -302,7 +302,7 @@ must be done in two parts:
    ```
 
 <span class="warnings">**Warning:** Do not attempt to update the kernel component from version 0.9 to
-version 0.10 before updating the rootfs. In Mbed Linux OS 0.10, the kernel
+version 0.10 before updating the rootfs. In MBL 0.10, the kernel
 component enables a hardware watchdog that will reset the board if a service
 from the rootfs component does not regularly stroke it. The 0.9 version of the
 rootfs component does not contain the service that strokes the watchdog so
