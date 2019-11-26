@@ -88,7 +88,7 @@ Then, for example, perform a build:
     [Updating between releases of Mbed Linux
     OS](#updating-between-releases-of-mbed-linux-os) for details about
     upgrading to a new release of MBL and using
-    `create-update-payload`'s `--mbl-os-version` option.
+    `create-update-payload`'s `--mbl-os-version` option.</span>
 
 
     For example, to create an update payload file `/path/to/artifacts/payload.swu` containing bootloader components 1 and 2, the kernel component and the rootfs component for mbl-image-development, run:
