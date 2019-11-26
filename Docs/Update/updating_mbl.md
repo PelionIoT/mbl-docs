@@ -221,7 +221,7 @@ root@mbed-linux-os-1234:~#
 
 ### Identifying the running applications
 
-You can use `runc list` to list all the active applications and their status.
+To list all the active applications and their status, use `runc list` .
 
 1. The first steps of an application update include stopping and terminating a running instance of the application (if one exists).
 
