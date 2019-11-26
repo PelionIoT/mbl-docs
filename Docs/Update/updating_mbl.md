@@ -84,7 +84,7 @@ Then, for example, perform a build:
 
     <span class="warnings">**Warning:** Different releases of MBL may use different payload
     formats. That means you may not be able to install payloads created for one
-    release of Mbed Linux OS on a different version of Mbed Linux OS. See
+    version of MBL on a different version of MBL. See
     [Updating between releases of Mbed Linux
     OS](#updating-between-releases-of-mbed-linux-os) for details about
     upgrading to a new release of Mbed Linux OS and using
