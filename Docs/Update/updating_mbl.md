@@ -299,7 +299,7 @@ must be done in two parts:
    user01@dev-machine:~$ create-update-payload --bootloader-components 2 --kernel --output-path /path/to/artifacts/b2_and_kernel_payload.swu --mbl-os-version 0.10
    ```
 
-**Warning:** Do not attempt to update the kernel component from version 0.9 to
+<span class="warnings">**Warning:** Do not attempt to update the kernel component from version 0.9 to
 version 0.10 before updating the rootfs. In Mbed Linux OS 0.10, the kernel
 component enables a hardware watchdog that will reset the board if a service
 from the rootfs component does not regularly stroke it. The 0.9 version of the
