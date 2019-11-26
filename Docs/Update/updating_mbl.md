@@ -91,23 +91,25 @@ Then, for example, perform a build:
     `create-update-payload`'s `--mbl-os-version` option.</span>
 
 
-    For example, to create an update payload file `/path/to/artifacts/payload.swu` containing bootloader components 1 and 2, the kernel component and the rootfs component for mbl-image-development, run:
+    For example:
 
-    ```
-    user01@dev-machine:~$ create-update-payload --bootloader-components 1 2 --kernel --rootfs mbl-image-development --output-path /path/to/artifacts/payload.swu
-    ```
+    * To create an update payload file `/path/to/artifacts/payload.swu` containing bootloader components 1 and 2, the kernel component and the rootfs component for mbl-image-development, run:
 
-    Or, for example, to create an update payload file `/path/to/artifacts/payload-kernel.swu` containing the kernel, run:
+      ```
+      user01@dev-machine:~$ create-update-payload --bootloader-components 1 2 --kernel --rootfs mbl-image-development --output-path /path/to/artifacts/payload.swu
+      ```
 
-    ```
-    user01@dev-machine:~$ create-update-payload --kernel --output-path /path/to/artifacts/payload-kernel.swu
-    ```
+    * To create an update payload file `/path/to/artifacts/payload-kernel.swu` containing the kernel, run:
 
-    Or, for example, to create an update payload file `/path/to/artifacts/payload-app.swu` containing an app `package.ipk`, run:
+      ```
+      user01@dev-machine:~$ create-update-payload --kernel --output-path /path/to/artifacts/payload-kernel.swu
+      ```
 
-    ```
-    user01@dev-machine:~$ create-update-payload --apps /path/to/artifacts/package.ipk --output-path /path/to/artifacts/payload-apps.swu
-    ```
+    * To create an update payload file `/path/to/artifacts/payload-app.swu` containing an app `package.ipk`, run:
+
+      ```
+      user01@dev-machine:~$ create-update-payload --apps /path/to/artifacts/package.ipk --output-path /path/to/artifacts/payload-apps.swu
+      ```
 
 ## Using MBL CLI to update
 
