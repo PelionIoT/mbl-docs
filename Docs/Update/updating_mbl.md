@@ -197,7 +197,7 @@ For a kernel update, if you have changed the kernel version, you can use `uname 
 
 A boot component update depends on the parts of the boot sequence you have changed. Review the serial output from the device to check version numbers.
 
-If you have update apps, you can check on their status by using the `runc list` command. See [Identifying the running applications](#identifying-the-running-applications) for more information.
+If you have updated applications, you can check on their status by using the `runc list` command. See [Identifying the running applications](#identifying-the-running-applications) for more information.
 
 ### Identifying the active root file system partition
 
