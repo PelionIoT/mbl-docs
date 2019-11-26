@@ -87,7 +87,7 @@ Then, for example, perform a build:
     version of MBL on a different version of MBL. See
     [Updating between releases of Mbed Linux
     OS](#updating-between-releases-of-mbed-linux-os) for details about
-    upgrading to a new release of Mbed Linux OS and using
+    upgrading to a new release of MBL and using
     `create-update-payload`'s `--mbl-os-version` option.
 
 
