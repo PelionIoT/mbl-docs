@@ -85,8 +85,8 @@ Then, for example, perform a build:
     <span class="warnings">**Warning:** Different releases of MBL may use different payload
     formats. That means you may not be able to install payloads created for one
     version of MBL on a different version of MBL. See
-    [Updating between releases of Mbed Linux
-    OS](#updating-between-releases-of-mbed-linux-os) for details about
+    [Updating across releases of Mbed Linux
+    OS](#updating-across-releases-of-mbed-linux-os) for details about
     upgrading to a new release of MBL and using
     `create-update-payload`'s `--mbl-os-version` option.</span>
 
@@ -249,7 +249,7 @@ To list all the active applications and their status, use `runc list` .
 
     <span class="notes">**Note:** The [Hello World](../develop-apps/hello-world-application.html) application runs for about 20 seconds. When it finishes, it once again appears as stopped.</span>
 
-## Updating between releases of Mbed Linux OS
+## Updating across releases of Mbed Linux OS
 
 Between releases of Mbed Linux OS, the format of the update payloads accepted
 by the software may change. This means that an update payload created for one
@@ -260,7 +260,7 @@ from an earlier release of Mbed Linux OS, you should always use
 Mbed Linux OS that will recieve the update.
 
 Between releases of Mbed Linux OS, some components may change, while others
-remain the same. The set of components that change between releases of Mbed
+remain the same. The set of components that change across releases of Mbed
 Linux OS is documented in the [Version specific upgrade
 notes](#version-specific-upgrade-notes) section below, along with any other
 version specific notes or restrictions relating to updates.
