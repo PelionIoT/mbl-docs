@@ -85,9 +85,8 @@ Then, for example, perform a build:
     <span class="warnings">**Warning:** Different releases of MBL may use different payload
     formats. That means you may not be able to install payloads created for one
     version of MBL on a different version of MBL. See
-    [Updating across releases of Mbed Linux
-    OS](#updating-across-releases-of-mbl) for details about
-    upgrading to a new release of MBL and using
+    [Updating across releases of MBL](#updating-across-releases-of-mbl) for
+    details about upgrading to a new release of MBL and using
     `create-update-payload`'s `--mbl-os-version` option.</span>
 
 
@@ -259,11 +258,11 @@ from an earlier release of MBL, you should always use
 `create-update-payload`'s `--mbl-os-version` option to specify the version of
 MBL that will recieve the update.
 
-Between releases of MBL, some components may change, while others
-remain the same. The set of components that change across releases of Mbed
-Linux OS is documented in the [Version specific upgrade
-notes](#version-specific-upgrade-notes) section below, along with any other
-version specific notes or restrictions relating to updates.
+Between releases of MBL, some components may change, while others remain the
+same. The set of components that change across releases of MBL is documented in
+the [Version specific upgrade notes](#version-specific-upgrade-notes) section
+below, along with any other version specific notes or restrictions relating to
+updates.
 
 ### Version specific upgrade notes
 
@@ -284,8 +283,8 @@ must be done in two parts:
    this, follow the instructions above to create and install a payload
    containing only the rootfs component from your MBL 0.10 workarea.
    When invoking `create-update-payload`, make sure you specify
-   `--mbl-os-version 0.9` to create a payload that can be installed on Mbed
-   Linux OS 0.9. For example:
+   `--mbl-os-version 0.9` to create a payload that can be installed on MBL 0.9.
+   For example:
    ```
     user01@dev-machine:~$ create-update-payload --rootfs mbl-image-development --output-path /path/to/artifacts/rootfs_payload.swu --mbl-os-version 0.9
    ```
