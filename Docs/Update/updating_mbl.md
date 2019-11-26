@@ -153,7 +153,7 @@ Then, for example, perform a build:
 
    The update component is installed.
 
-1. If prompted, press <kbd>Y</kbd>+<kbd>Enter</kbd> key to reboot the device and use the newly installed component.
+1. If prompted, press <kbd>Y</kbd>+<kbd>Enter</kbd> to reboot the device and use the newly installed component.
 
    <span class="notes">**Note:** To keep the update package after a successful update, use the optional argument `--keep`. Use the optional argument `--assume-yes` to automatically reboot after the update component has been installed.</span>
 
