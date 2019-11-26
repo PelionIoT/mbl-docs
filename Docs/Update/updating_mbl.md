@@ -278,7 +278,7 @@ Components changed since Mbed Linux OS 0.9:
 Mbed Linux OS 0.9 does not support multi-component updates, so it is not
 possible to upgrade all components to Mbed Linux OS 0.10 at once. The upgrade
 must be done in two parts:
-1. Update the rootfs component to the version from Mbed Linux OS 0.10. To do
+1. Update the rootfs component to MBL 0.10's version. To do
    this, follow the instructions above to create and install a payload
    containing only the rootfs component from your Mbed Linux OS 0.10 workarea.
    When invoking `create-update-payload`, make sure you specify
