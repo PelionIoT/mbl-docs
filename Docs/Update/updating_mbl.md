@@ -83,7 +83,7 @@ Then, for example, perform a build:
     <span class="notes">**Note:** The create-update-payload tool needs the bitbake environment to work. When using the interactive mode, only the builddir (`/path/to/build`) or outputdir (`/path/to/artifacts`) directories are available in the build environment, so you must use them as the paths for the `--apps` and `--output-path` arguments.</span>
 
     <span class="warnings">**Warning:** Different releases of MBL may use different payload
-    formats. I.e. you may not be able to install payloads created for one
+    formats. That means you may not be able to install payloads created for one
     release of Mbed Linux OS on a different version of Mbed Linux OS. See
     [Updating between releases of Mbed Linux
     OS](#updating-between-releases-of-mbed-linux-os) for details about
