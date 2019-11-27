@@ -1,13 +1,14 @@
 # Updating an MBL image
 
-There are two ways to update the updatable components in an MBL image:
+The steps to update the software on an MBL device are:
+1. [Do a full build of the version of MBL that you wish to install on your device.](#building-mbl)
+1. [Create the update payload file that contains the components that you wish to install.](#creating-the-payload)
+1. [Apply the update to your device.](#applying-the-payload)
+1. [Verify that the update has applied correctly.](#verifying-the-update)
 
-* [Using MBL CLI](#using-mbl-cli-to-update).
-* [Using the manifest tool](#using-the-manifest-tool-to-update).
+These steps are detailed below.
 
-First, you need to prepare the update payload for the updatable component.
-
-## Prepare the update payload
+## Building MBL
 
 You need a [full build of MBL](../first-image/building-a-developer-image.html) because this contains the files for the updatable components.
 
@@ -57,7 +58,9 @@ Then, for example, perform a build:
 
 <span class="notes">**Warning:** Changes to the keys and certificates with an existing build may not be picked up. Please perform a clean first: `./mbl-tools/build-mbl/run-me.sh --builddir ./build-nxpimx -- clean`.</span>
 
-### Creating the payload
+## Creating the payload
+
+To create the update payload:
 
 1. Enter the [mbl-tools interactive mode](../develop-mbl/mbed-linux-os-distribution-development-with-mbl-tools.html#running-build-mbl-in-interactive-mode) for the build. For example, for PICO-PI with IMX7D:
 
@@ -110,7 +113,14 @@ Then, for example, perform a build:
       user01@dev-machine:~$ create-update-payload --apps /path/to/artifacts/package.ipk --output-path /path/to/artifacts/payload-apps.swu
       ```
 
-## Using MBL CLI to update
+## Applying the payload
+
+There are two ways to apply the update payload to your device:
+
+* [Using MBL CLI](#using-mbl-cli-to-update).
+* [Using the manifest tool](#using-the-manifest-tool-to-update).
+
+### Using MBL CLI to update
 
 <span class="tips">You can find installation and use instructions for MBL CLI [in the application development section](../develop-apps/the-mbl-command-line-interface.html).</span>
 
@@ -158,7 +168,7 @@ Then, for example, perform a build:
 
    <span class="notes">**Note:** To keep the update package after a successful update, use the optional argument `--keep`. Use the optional argument `--assume-yes` to automatically reboot after the update component has been installed.</span>
 
-## Using the manifest tool to update
+### Using the manifest tool to update
 
 1. Find the device ID in the `mbl-cloud-client` log file at `/var/log/mbl-cloud-client.log`, using the following command on the device's console:
 
