@@ -178,7 +178,7 @@ There are two ways to apply the update payload to your device:
 
     If you only have one registered device, or if each device has been assigned a descriptive name in Portal, you can go to [Device Management Portal](https://portal.mbedcloud.com) > **Device Directory** to find the device ID.
 
-1. If you are doing a `rootfs` component update, identify which root file system partition is currently active to compare it to the active partition after the update. You can use the [`lsblk` command explained later](#identify-the-active-root-file-system-partition).
+1. If you are doing a `rootfs` component update, identify which root file system partition is currently active to compare it to the active partition after the update. You can use the [`lsblk` command explained later](#identifying-the-active-root-file-system-partition).
 
 1. Change the current working directory to the directory where the manifest tool was initialized. You initialized the manifest tool [when you created the `update_default_resources.c` file](../first-image/provisioning-for-pelion-device-management.html#creating-an-update-resources-file).
 
@@ -202,7 +202,7 @@ If you are updating one or more components that require a reboot to take effect 
 
 You can check the status of the update by looking at the [update logs](monitor.html).
 
-If you are updating the root file system, you can verify the update by [identifying the currently active root file system](#identify-the-active-root-file-system-partition) and checking it was different before the update.
+If you are updating the root file system, you can verify the update by [identifying the currently active root file system](#identifying-the-active-root-file-system-partition) and checking it was different before the update.
 
 For a kernel update, if you have changed the kernel version, you can use `uname -srm` on the device to check the version number now matches the new version.
 
