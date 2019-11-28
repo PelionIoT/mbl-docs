@@ -8,7 +8,6 @@ The following examples assume:
     * `./artifacts-pico7`
     * `./artifacts-nxpimx`
     * `./artifacts-pico6`
-    * `./artifacts-warp7`
     * `./artifacts-rpi3`
 * You have an [SSH agent](../first-image/development-environment.html) to access your own private repositories. For more information, see [the GitHub SSH documentation](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).
 
@@ -30,12 +29,6 @@ The following are examples of build commands to produce development images for s
 
 ```
 ./mbl-tools/build/run-me.sh --builddir ./build-nxpimx --outputdir ./artifacts-nxpimx -- --machine imx8mmevk-mbl --branch mbl-os-0.9
-```
-
-## Warp7
-
-```
-./mbl-tools/build/run-me.sh --builddir ./build-warp7 --outputdir ./artifacts-warp7 -- --machine imx7s-warp-mbl --branch mbl-os-0.9
 ```
 
 ## Raspberry Pi 3

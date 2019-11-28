@@ -34,6 +34,6 @@ mbl-cli supports the following commands:
     get-pelion-status   Check if the device is correctly configured for Pelion Device Management.
 ```
 
-Where `address` is the address of the debug interface on the device. For example, the address of the `usb0` interface on WaRP7 IoT devices or the address of the `eth1` interface on Raspberry Pi 3 devices.
+Where `address` is the address of the debug interface on the device. For example, the address of the `usb0` interface on PICO-PI with IMX7D IoT devices or the address of the `eth1` interface on Raspberry Pi 3 devices.
 
 If the device is [already selected](#device-discovery-and-selection), you can omit the `address` parameter.

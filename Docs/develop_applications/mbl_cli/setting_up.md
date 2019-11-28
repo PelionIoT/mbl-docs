@@ -51,7 +51,7 @@ Before setting up, run `ifconfig` (or the equivalent command on your OS) and not
 
 ### Connecting a device with a USB gadget network interface
 
-If the device can use the kernel's USB gadget driver (for example, Warp 7), connect the device to the PC using a USB cable. A new network interface is created on the development PC (for example `enp0s2222222a`).
+If the device can use the kernel's USB gadget driver (for example, PICO-PI with IMX7D), connect the device to the PC using a USB cable. A new network interface is created on the development PC (for example `enp0s2222222a`).
 
 ```bash
 $ ifconfig
@@ -137,7 +137,7 @@ veth93e055c Link encap:Ethernet  HWaddr be:9e:84:59:53:ac
 
     where `<interface-name-on-pc>` is the name of the network interface on the PC that connects to the device. You found this name in the connection setup.
 
-    * For example, for WaRP7 and the interface `enp0s2222222a`:
+    * For example, for PICO-PI with IMX7D and the interface `enp0s2222222a`:
 
       ```
       $ sudo nmcli connection add ifname enp0s2222222a con-name mbl-ipv4ll type ethernet -- ipv4.method link-local
@@ -171,7 +171,7 @@ veth93e055c Link encap:Ethernet  HWaddr be:9e:84:59:53:ac
 
 3. Inspect the NetworkManager connection using the `nmcli connection show` command.
 
-    * For example, for a WaRP7 device using a USB-gadget interface:
+    * For example, for a PICO-PI with IMX7D device using a USB-gadget interface:
 
       ```
       $ nmcli connection show
@@ -191,7 +191,7 @@ veth93e055c Link encap:Ethernet  HWaddr be:9e:84:59:53:ac
 
 4. The PC's network interface now has an allocated link-local address.  
 
-    For example, for a WaRP7 device using a USB-gadget interface:
+    For example, for a PICO-PI with IMX7D device using a USB-gadget interface:
 
     ```
     $ ifconfig enp0s2222222a

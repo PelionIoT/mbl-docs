@@ -31,7 +31,7 @@ If you do not supply these keys and certificates, they will be generated when yo
 
 The default build action is that these keys will be placed in your output directory and used for subsequent builds in the same build directory unless you turn this off by setting `MBL_PERSIST_SIGN_KEYS` to `0` in your `local.conf` configuration.
 
-If you do persist the keys, you can find the generated keys in your output directory: `/path/to/artifacts/machine/MACHINE/IMAGE/keys`, where `MACHINE` and `IMAGE` match the machine and image types you built - for example, `imx7s-warp-mbl` and `mbl-image-developement`.
+If you do persist the keys, you can find the generated keys in your output directory: `/path/to/artifacts/machine/MACHINE/IMAGE/keys`, where `MACHINE` and `IMAGE` match the machine and image types you built - for example, `imx7d-pico-mbl` and `mbl-image-developement`.
 
 You can supply these keys and certificates to a build by using the following build options:
 

@@ -17,7 +17,7 @@ To point to a custom manifest, you need to pass at least the options `--branch` 
 For example (change parameters for `--builddir` and `--machine` as needed):
 
 ```
-./mbl-tools/build/run-me.sh --builddir ./build-warp7 -- --machine imx7s-warp-mbl --branch mbl-os-0.9 --url https://github.com/your-github-account/mbl-manifest.git
+./mbl-tools/build/run-me.sh --builddir ./build-pico7 -- --machine imx7d-pico-mbl --branch mbl-os-0.9 --url https://github.com/your-github-account/mbl-manifest.git
 ```
 
 <span class="notes">**Notes**: The `--url` may also be in [the **Clone with SSH** format](https://git-scm.com/docs/git-clone#_git_urls_a_id_urls_a), for example `git@github.com:/your-github-account/mbl-manifest.git`. We don't recommend using the `--outputdir` option with interactive mode, as any builds done during interactive mode will not update the output directory contents.</span>
@@ -32,7 +32,7 @@ You need to run the **build-mbl tool** in interactive mode: an interactive shell
 1. To run build-mbl in interactive mode (change parameters for `--builddir` and `--machine` as needed):
 
     ```
-    ./mbl-tools/build/run-me.sh --builddir ./build-warp7 -- --branch mbl-os-0.9 --machine imx7s-warp-mbl interactive
+    ./mbl-tools/build/run-me.sh --builddir ./build-pico7 -- --branch mbl-os-0.9 --machine imx7d-pico-mbl interactive
     ```
 
     <span class="tips">Unlike the build mode, the interactive mode only supports one `--machine` option at a time.</span>
@@ -40,7 +40,7 @@ You need to run the **build-mbl tool** in interactive mode: an interactive shell
 1. The interactive shell prompt should be similar to:
 
     ```
-    user@9c2c89bf20a6:<builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl-development$
+    user@9c2c89bf20a6:<builddir>/machine-imx7d-pico-mbl/mbl-manifest/build-mbl-development$
     ```
 
 To exit the interactive mode, press <kbd>Ctrl</kbd>+<kbd>D</kbd> or type `exit` and press <kbd>Enter</kbd>.
@@ -48,7 +48,7 @@ To exit the interactive mode, press <kbd>Ctrl</kbd>+<kbd>D</kbd> or type `exit` 
 <span class="notes">**Note**: To perform a full build after exiting interactive mode, you must provide the `build` stage as follows (change parameters for `--builddir` and `--machine` as needed):</span>
 
 ```
-./mbl-tools/build/run-me.sh --builddir ./build-warp7 -- --branch mbl-os-0.9 --machine imx7s-warp-mbl build
+./mbl-tools/build/run-me.sh --builddir ./build-pico7 -- --branch mbl-os-0.9 --machine imx7d-pico-mbl build
 ```
 
 ## Examples of interactive mode commands
@@ -58,14 +58,14 @@ To exit the interactive mode, press <kbd>Ctrl</kbd>+<kbd>D</kbd> or type `exit` 
 Using `$ bitbake-layers show-appends linux-fslc` to view the recipe appends for the linux-fslc metalayer:
 
 ```
-user@9c2c89bf20a6:<builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl-development$ bitbake-layers show-appends linux-fslc
+user@9c2c89bf20a6:<builddir>/machine-imx7d-pico-mbl/mbl-manifest/build-mbl-development$ bitbake-layers show-appends linux-fslc
 NOTE: Starting bitbake server...
 Loading cache: 100% |########################################################################################################################################################################| Time: 0:00:00
 Loaded 3438 entries from dependency cache.
 === Matched appended recipes ===
 linux-fslc_4.20.bb:
-  <builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl-development/conf/../../layers/meta-freescale-3rdparty/recipes-kernel/linux/linux-fslc_%.bbappend
-  <builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl-development/conf/../../layers/meta-mbl/recipes-kernel/linux/linux-fslc_%.bbappend
+  <builddir>/machine-imx7d-pico-mbl/mbl-manifest/build-mbl-development/conf/../../layers/meta-freescale-3rdparty/recipes-kernel/linux/linux-fslc_%.bbappend
+  <builddir>/machine-imx7d-pico-mbl/mbl-manifest/build-mbl-development/conf/../../layers/meta-mbl/recipes-kernel/linux/linux-fslc_%.bbappend
   ```
 
 ### Changing the kernel configuration
@@ -73,7 +73,7 @@ linux-fslc_4.20.bb:
 Using `$ bitbake virtual/kernel -c menuconfig` to launch the Linux kernel's menuconfig command:
 
 ```
-user@9c2c89bf20a6:<builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl-development$ bitbake virtual/kernel -c menuconfig
+user@9c2c89bf20a6:<builddir>/machine-imx7d-pico-mbl/mbl-manifest/build-mbl-development$ bitbake virtual/kernel -c menuconfig
 Loading cache: 100% |########################################################################################################################################################################| Time: 0:00:00
 Loaded 3438 entries from dependency cache.
 NOTE: Resolving any missing task queue dependencies
@@ -83,7 +83,7 @@ BB_VERSION           = "1.40.0"
 BUILD_SYS            = "x86_64-linux"
 NATIVELSBSTRING      = "ubuntu-16.04"
 TARGET_SYS           = "arm-oe-linux-gnueabi"
-MACHINE              = "imx7s-warp-mbl"
+MACHINE              = "imx7d-pico-mbl"
 DISTRO               = "mbl"
 DISTRO_VERSION       = "0.0"
 TUNE_FEATURES        = "arm armv7ve vfp thumb neon callconvention-hard"
@@ -115,14 +115,14 @@ You should see something like:
 
 After exiting the kernel configuration screen, you can rebuild the Linux kernel with the `bitbake virtual/kernel` command:
 
-`user@9c2c89bf20a6:<builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl-development$ bitbake virtual/kernel`
+`user@9c2c89bf20a6:<builddir>/machine-imx7d-pico-mbl/mbl-manifest/build-mbl-development$ bitbake virtual/kernel`
 
 ### Rebuilding an image
 
 You can call `bitbake <image-recipe-name>` to generate the image:
 
 ```
-user@9c2c89bf20a6:<builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl-development$ bitbake mbl-image-development
+user@9c2c89bf20a6:<builddir>/machine-imx7d-pico-mbl/mbl-manifest/build-mbl-development$ bitbake mbl-image-development
 Loading cache: 100% |########################################################################################################################################################################| Time: 0:00:00
 Loaded 3438 entries from dependency cache.
 NOTE: Resolving any missing task queue dependencies
@@ -132,7 +132,7 @@ BB_VERSION           = "1.40.0"
 BUILD_SYS            = "x86_64-linux"
 NATIVELSBSTRING      = "ubuntu-16.04"
 TARGET_SYS           = "arm-oe-linux-gnueabi"
-MACHINE              = "imx7s-warp-mbl"
+MACHINE              = "imx7d-pico-mbl"
 DISTRO               = "mbl"
 DISTRO_VERSION       = "0.0"
 TUNE_FEATURES        = "arm armv7ve vfp thumb neon callconvention-hard"
@@ -160,7 +160,7 @@ NOTE: Writing buildhistory
 The images are placed in:
 
 ```
-<builddir>/machine-imx7s-warp-mbl/mbl-manifest/build-mbl-development/tmp/deploy/images/imx7s-warp-mbl/
+<builddir>/machine-imx7d-pico-mbl/mbl-manifest/build-mbl-development/tmp/deploy/images/imx7d-pico-mbl/
 ```
 
 ### Modifying the source of an existing component
@@ -174,5 +174,5 @@ The **build-mbl tool** generates a pinned version of the specified manifest and 
 For example (change parameters for `--builddir` and `--machine` as needed):
 
 ```
-./mbl-tools/build/run-me.sh --builddir ./build-warp7 -- --branch mbl-os-0.9 --machine imx7s-warp-mbl sync
+./mbl-tools/build/run-me.sh --builddir ./build-pico7 -- --branch mbl-os-0.9 --machine imx7d-pico-mbl sync
 ```

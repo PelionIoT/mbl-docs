@@ -12,7 +12,7 @@ Production images include the following extra security features (compared to the
 
 - Only the Ethernet debug interface accepts the following: SSH connections (and only with key-pair authentication, because password logins are disabled), Link Local IPv6 addressing and mDNS Responder traffic.
 
-   - This feature is controlled by the variable `MBL_PRODUCTION_ETH_DBG` set in the mbl-production configuration file (`meta-mbl/meta-mbl-distro/conf/distro/include/mbl-distro-production.inc`). The gadget Ethernet is used by default for platforms that include the usbgadget (imx7d-pico-mbl, imx6ul-pico-mbl, imx8mmevk-mbl and imx7s-warp-mbl). Otherwise, you must use a USB-to-Ethernet adapter.
+   - This feature is controlled by the variable `MBL_PRODUCTION_ETH_DBG` set in the mbl-production configuration file (`meta-mbl/meta-mbl-distro/conf/distro/include/mbl-distro-production.inc`). The gadget Ethernet is used by default for platforms that include the usbgadget (imx7d-pico-mbl, imx6ul-pico-mbl and imx8mmevk-mbl). Otherwise, you must use a USB-to-Ethernet adapter.
    - Pass an SSH `authorized_keys` file for each user to **run-me.sh**. The format of the SSH public key filename is `username_something`. The **_username_** is mandatory; it allows the installing function to identify which user's home directory the public key should be copied to. To generate the SSH key-pair for the root user, you can use `ssh-keygen -t rsa -f root_id_rsa -C''` and pass the parameter `--ssh-auth-keys root_id_rsa.pub` to **run-me.sh**.
 
 - System log level messages output and configuration: The following variables are set in the mbl-production configuration file (`meta-mbl/meta-mbl-distro/conf/distro/include/mbl-distro-production.inc`):
@@ -58,7 +58,6 @@ The examples assume:
     * `./artifacts-pico7`
     * `./artifacts-nxpimx8`
     * `./artifacts-pico6`
-    * `./artifacts-warp7`
     * `./artifacts-rpi3`
 * You have an [SSH agent](../first-image/development-environment.html) to access your own private repositories. For more information, see [the GitHub SSH documentation](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).
 
@@ -78,12 +77,6 @@ The examples assume:
 
 ```
 ./mbl-tools/build/run-me.sh --builddir ./build-nxpimx --outputdir ./artifacts-nxpimx --root-passwd-file PASSWD_FILE --ssh-auth-keys root_id_rsa.pub -- --machine imx8mmevk-mbl --branch mbl-os-0.9 --distro mbl-production
-```
-
-### Warp7
-
-```
-./mbl-tools/build/run-me.sh --builddir ./build-warp7 --outputdir ./artifacts-warp7 --root-passwd-file PASSWD_FILE --ssh-auth-keys root_id_rsa.pub -- --machine imx7s-warp-mbl --branch mbl-os-0.9 --distro mbl-production
 ```
 
 ### Raspberry Pi 3

@@ -92,11 +92,11 @@ For our own builds, we use:
 
 There can be USB pass-through issues from host to the virtual machine.
 
-For example, on **VirtualBox**, the WaRP7 did not come up as a mass storage device after running the u-boot command to sync the USB bridge (detailed below) - it needed an additional reset. The full process to see the mass storage device is:
+For example, on **VirtualBox**, the PICO-PI with IMX7D did not come up as a mass storage device after running the u-boot command to sync the USB bridge (detailed below) - it needed an additional reset. The full process to see the mass storage device is:
 
-1. On the WaRP7's console, perform the USB mass storage u-boot command: `ums 0 mmc 0`.
+1. On the PICO-PI with IMX7D console, perform the USB mass storage u-boot command: `ums 0 mmc 0`.
 1. In the virtual machine's settings, under **Ports** > **USB**, click the **Add new USB filter** button and select the **FSL USB download gadget**.
-1. Reset the WaRP7.
+1. Reset the PICO-PI with IMX7D.
 1. Perform the `ums` command again.
 
 <h3 id="update-process-group-membership">Updating your shell process's group memberships</h3>
