@@ -65,7 +65,7 @@ To create the update payload:
 1. Enter the [mbl-tools interactive mode](../develop-mbl/mbed-linux-os-distribution-development-with-mbl-tools.html#running-build-mbl-in-interactive-mode) for the build. For example, for PICO-PI with IMX7D:
 
     ```
-    ./mbl-tools/build-mbl/run-me.sh --builddir /path/to/build --outputdir /path/to/artifacts -- --machine imx7d-pico-mbl --branch mbl-os-0.9  interactive
+    ./mbl-tools/build-mbl/run-me.sh --builddir /path/to/build --outputdir /path/to/artifacts -- --machine imx7d-pico-mbl --branch mbl-os-0.10  interactive
     ```
 
     Please see the other [build examples](../install_mbl_on_device/building_an_image/build_examples.html).
@@ -81,7 +81,7 @@ To create the update payload:
     | `--rootfs`                | `IMAGE_NAME`               | Add the root file system of the specified image to the payload. |
     | `--apps`                  | `IPK_PATH [IPK_PATH ... ]` | Specifies the paths of application packages (`.ipk` files) to add to the payload. |
     | `--output-path`           | `PATH`                     | File name and path for the payload file to be created. |
-    | `--mbl-os-version`        | `MBL_OS_VERSION`           | Specify the version of MBL running on the device on which the payload will be installed. If not specified, `create-update-payload` will create a payload formatted for the MBL version that it came from itself. The earliest supported MBL version is 0.9.0. |
+    | `--mbl-os-version`        | `MBL_OS_VERSION`           | Specify the version of MBL running on the device on which the payload will be installed. If not specified, `create-update-payload` will create a payload formatted for the MBL version that it came from itself. The earliest supported MBL version is 0.10.0. |
 
     <span class="notes">**Note:** The create-update-payload tool needs the bitbake environment to work. When using the interactive mode, only the builddir (`/path/to/build`) or outputdir (`/path/to/artifacts`) directories are available in the build environment, so you must use them as the paths for the `--apps` and `--output-path` arguments.</span>
 

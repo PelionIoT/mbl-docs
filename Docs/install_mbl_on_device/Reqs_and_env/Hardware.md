@@ -9,6 +9,10 @@ Supported boards:
 
 * [NXP i.MX 8M Mini LPDDR4 Evaluation Kit](https://www.nxp.com/support/developer-resources/software-development-tools/i.mx-developer-resources/evaluation-kit-for-the-i.mx-8m-mini-applications-processor:8MMINILPD4-EVK?tid=vanimx8mminievk). Referred to as the NXP 8M Mini EVK. This kit comes with power supply, micro-USB cable and USB-C cable, but you will need a micro-SD card (at least 8GB for the default build).
 
+* [NXP Warp7](https://www.nxp.com/support/developer-resources/nxp-designs/warp7-next-generation-iot-and-wearable-development-platform:WARP7).
+
+    * <span class="notes">**Warning:** Warp7 support is now deprecated due to availability and export control issues. We are not building or testing this machine in future release, but we will accept external contributions. The Mbed Linux OS 0.9 is the last release version supporting this platform.</span>
+
 * [Raspberry Pi 3 models B or B+](https://www.raspberrypi.org/products/), with:
     * A micro-SD card (at least 8GB for the default build).
     * An C232HD-DDHSP-0 cable to connect the GPIO to a PC's USB (for debugging).
