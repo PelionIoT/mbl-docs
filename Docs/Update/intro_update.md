@@ -4,18 +4,12 @@ MBL uses Pelion Device Management to manage firmware updates, including **firmwa
 
 <span class="images">![](../Figures/TheRealUpdateDiagram.png)<span>Update process</span></span>
 
-1. Use the `create-update-payload` tool to create a new version of your firmware with your Device Management account. This is your payload, and it is a `.tar` file that can contain either:
+1. Use the `create-update-payload` tool to create an update payload. The payload is an archive file that can contain any combination of the following components:
 
-   * An application update: one or more OPKG packages (`.ipk` files), as explained in [Updating an application](../../update/updating_an_application.html).
-   
-   Or:
-   
-   * MBL OS components, as explained in [updating an MBL image](../update/updating-an-mbl-image.html), which can contain an updated version of one of:
-      * A `rootfs` update: a compressed `tar` file that contains the root file system content.
-      * A boot component update: either of the two boot component binaries. The first boot component usually contains the TF-A bootloader stage two (BL2). The second boot component usually contains the TF-A bootloader stage three (BL3), OP-TEE and U-boot.
-      * A kernel update: a binary containing the Linux kernel image, the associated device tree blob, U-Boot boot script and initramfs.
-
-   <span class="notes">**Note**: Currently, MBL does **not** support updating multiple components in a single FOTA update. To update multiple components, you need to run multiple updates.</span>
+   * An application update: one or more OPKG packages (`.ipk` files).
+   * A `rootfs` update: a compressed `tar` file that contains the root file system content.
+   * A kernel update: a binary containing the Linux kernel image, the associated device tree blob, U-Boot boot script and initramfs.
+   * A boot component update: either of the two boot component binaries. The first boot component usually contains the TF-A bootloader stage two (BL2). The second boot component usually contains the TF-A bootloader stage three (BL3), OP-TEE and U-boot.
 
 1. Start the update process by initiating an update campaign.
 1. Device Management then sends the device an update request with a manifest detailing what needs to be updated.
