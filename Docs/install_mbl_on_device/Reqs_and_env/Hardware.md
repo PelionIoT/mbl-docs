@@ -11,7 +11,7 @@ Supported boards:
 
 * [NXP Warp7](https://www.nxp.com/support/developer-resources/nxp-designs/warp7-next-generation-iot-and-wearable-development-platform:WARP7).
 
-    * <span class="notes">**Warning:** Warp7 support is now deprecated due to availability and export control issues. We are not building or testing this machine in future release, but we will accept external contributions. The Mbed Linux OS 0.9 is the last release version supporting this platform.</span>
+    * <span class="notes">**Warning:** Warp7 support is now deprecated due to availability and export control issues. We are not building or testing this machine, but we will accept external contributions. The Mbed Linux OS 0.9 is the last release version supporting this platform.</span>
 
 * [Raspberry Pi 3 models B or B+](https://www.raspberrypi.org/products/), with:
     * A micro-SD card (at least 8GB for the default build).
