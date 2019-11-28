@@ -4,7 +4,7 @@ The steps to update the software on an MBL device are:
 1. [Do a full build of the version of MBL that you wish to install on your device.](#building-mbl)
 1. [Create the update payload file that contains the components that you wish to install.](#creating-the-payload)
 1. [Apply the update to your device.](#applying-the-payload)
-1. [Verify that the update has applied correctly.](#verifying-the-update)
+1. [Verify that the update was applied correctly.](#verifying-the-update)
 
 These steps are detailed below.
 
