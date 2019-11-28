@@ -31,8 +31,8 @@ MBL is currently available as a public preview.
 The preview release provides:
 
 * An OpenEmbedded-based OS distribution, enabling extensibility and support for the latest updates and features.
-   * Support for production (added in 0.9) and development images.
-* Support for [five development boards](../first-image/hardware.html) with:
+   * Support for production and development images.
+* Support for [four development boards](../first-image/hardware.html) with:
     * A Board Support Platform (BSP) porting guide for additional platforms.
     * The BSP organization helps porting and reuse by having staging layers that match the upstream layers.
 * Hardware and software-based isolation mechanisms for security:
@@ -50,9 +50,9 @@ The preview release provides:
     * Large-scale management of device groups.
     * Device management and status monitoring, including notifications of connection status.
     * Access control at the account level.
-    * Over-the-air, digitally signed and verified updates to send new features and security patches to deployed devices, fixing vulnerabilities before they're exploited. The updatable components are:
-        * Bootloaders (added in 0.9)
-        * Kernel (added in 0.9)
+    * Over-the-air, digitally signed and verified updates to send new features and security patches to deployed devices, fixing vulnerabilities before they're exploited. Any combinations of the following updatable components can be included in the update payload:
+        * Bootloaders
+        * Kernel
         * Root file system
         * User applications
 
@@ -104,4 +104,4 @@ There are two paths to working with MBL:
 * A guide on [building production images](../first-image/building-a-production-image.html).
 * Over the air [updates of kernel and bootloaders](../update/index.html).
 
-The [full release note](https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.9/docs/release_note.md) is available on our public preview repository.
+The [full release note](https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.10/docs/release_note.md) is available on our public preview repository.

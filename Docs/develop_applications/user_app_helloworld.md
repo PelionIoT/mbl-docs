@@ -11,7 +11,7 @@ This tutorial creates a user application that runs on your MBL device. It is a "
 
 <img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/hello_world.png" width="50%" align="right" />
 
-The application source file, `hello_world.c`, is in [the `mbl-core` repository](https://github.com/ARMmbed/mbl-core/tree/mbl-os-0.9/tutorials/helloworld/src). On the device, the application runs on a target inside an OCI container.
+The application source file, `hello_world.c`, is in [the `mbl-core` repository](https://github.com/ARMmbed/mbl-core/tree/mbl-os-0.10/tutorials/helloworld/src). On the device, the application runs on a target inside an OCI container.
 
 The build commands are defined in a Makefile with three sections:
 
@@ -23,7 +23,7 @@ Each section is implemented for both release and debug variants.
 
 Use the existing dockcross Docker image (for the ARMv7 or ARM64 architecture) to cross compile the application and create an OCI container.
 
-To the standard dockcross image, add `opkg-utils` helper scripts that can package the compiled application as an IPK. You can find the Docker files to build the dockcross image for supported architectures at [the `mbl-core` repository](https://github.com/ARMmbed/mbl-core/blob/mbl-os-0.9/tutorials/helloworld/cc-env).
+To the standard dockcross image, add `opkg-utils` helper scripts that can package the compiled application as an IPK. You can find the Docker files to build the dockcross image for supported architectures at [the `mbl-core` repository](https://github.com/ARMmbed/mbl-core/blob/mbl-os-0.10/tutorials/helloworld/cc-env).
 
 For more information, please refer to the [reference about application containers and packages](../references/application-containers-and-packages.html) or the [dockcross documentation on GitHub](https://github.com/dockcross/dockcross).
 
@@ -34,7 +34,7 @@ For more information, please refer to the [reference about application container
 1. Clone the `mbl-core` repo:
 
     ```
-    $ git clone https://github.com/ARMmbed/mbl-core.git --branch mbl-os-0.9
+    $ git clone https://github.com/ARMmbed/mbl-core.git --branch mbl-os-0.10
     ```
 
 1. Navigate to the `helloworld` folder in your clone:

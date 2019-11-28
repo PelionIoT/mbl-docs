@@ -49,4 +49,4 @@ Be consistent with your changes. Some of the main principles are:
 * OpenEmbedded layers and recipes: [https://www.openembedded.org/wiki/Styleguide](https://www.openembedded.org/wiki/Styleguide).
 * Python code:
   * Mandatory PEPs (Python Enhancement Proposals): PEP20, PEP8, PEP257.
-  * Automated check scripts in our `mbl-tools` repository: [https://github.com/ARMmbed/mbl-tools/tree/mbl-os-0.9/ci/sanity-check](https://github.com/ARMmbed/mbl-tools/tree/mbl-os-0.9/ci/sanity-check).
+  * Automated check scripts in our `mbl-tools` repository: [https://github.com/ARMmbed/mbl-tools/tree/mbl-os-0.10/ci/sanity-check](https://github.com/ARMmbed/mbl-tools/tree/mbl-os-0.10/ci/sanity-check).

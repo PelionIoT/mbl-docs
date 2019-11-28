@@ -101,7 +101,7 @@ MBL's build tools use [Google's git-repo tool][google-git-repo] to initialize wo
     1. The manifest will contain a line for the config repo that looks something like:
 
        ```
-       <project name="armmbed/mbl-config" path="conf" remote="github" revision="mbl-os-0.9">
+       <project name="armmbed/mbl-config" path="conf" remote="github" revision="mbl-os-0.10">
        ```
 
        Change this line to refer to a branch of your new config repo instead of `armmbed/mbl-config`. For example:
