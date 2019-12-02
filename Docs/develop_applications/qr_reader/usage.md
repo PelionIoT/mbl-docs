@@ -52,7 +52,7 @@ To install the application on the device:
 1. Choose an installation option and follow its tutorial:
 
     * [Send the application payload as an over-the-air firmware update with Device Management](../update/index.html).
-    * [Flash the application payload over USB with MBL CLI](../update/updating-an-application.html).
+    * [Flash the application payload over USB with MBL CLI](../update/updating-an-mbl-image.html).
 
 After installation, and after every reboot, the application turns on the video camera and waits for QR codes to be presented. It captures one or more QR codes, decodes them to UTF-8, and adds them to the log, in a file named `scanned_qrcodes.log`.
 

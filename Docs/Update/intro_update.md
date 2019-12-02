@@ -19,7 +19,7 @@ MBL uses Pelion Device Management to manage firmware updates, including **firmwa
 
 <span class="notes">**Note:** MBL relies on Device Management to validate updates. For more information, [see the Security in firmware update section of the Device Management documentation](https://www.pelion.com/docs/device-management/latest/updating-firmware/security.html).</span>
 
-### Application updates
+## Application updates
 
 After receiving a payload file containing application updates, for each application update, MBL:
 
@@ -30,7 +30,7 @@ After receiving a payload file containing application updates, for each applicat
 
 <span class="notes">**Note:** If the update payload contains multiple applications, MBL removes the previously installed versions only if *all* applications successfully installed and ran. If any application in the update payload fails to install or run, MBL removes all newly installed application versions and restarts the previously installed versions.</span>
 
-### Root file system updates
+## Root file system updates
 
 To support `rootfs` updates, MBL devices have two root partitions:
 
@@ -46,7 +46,7 @@ After receiving a payload file containing a `rootfs` update, MBL:
 
 The previously active (now inactive) root file system partition is now ready to receive the next `rootfs` update.
 
-### Boot and kernel components updates
+## Boot and kernel components updates
 
 <span class="notes">**Note:** Currently, these components are updated in place, so they are not robust to power failures or file corruption. Future releases will address this.</span>
 
