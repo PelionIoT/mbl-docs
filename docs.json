@@ -238,15 +238,12 @@
                     "sources": []
                 },
                 {
-                    "title": "Update tutorials",
-                    "intro": {
-                        "path": "Docs/Update/tutorial_intro.md"
-                    },
+                    "title": "Update tutorial",
                     "sources": [{
-                            "path": "Docs/Update/updating_mbl.md"
+                            "path": "Docs/Update/tutorial_intro.md"
                         },
                         {
-                            "path": "Docs/Update/monitor.md"
+                            "path": "Docs/Update/updating_mbl.md"
                         },
                         {
                             "path": "Docs/Update/monitor.md"
