@@ -2,5 +2,6 @@
   "first-image/building-a-developer-image.html" : "first-image/building-development-and-production-images.html",
   "update/updating-an-application.html" : "update/updating-an-mbl-image.html",
   "first-image/building-a-developer-image.html" : "first-image/building-development-and-production-images.html",
-  "install_mbl_on_device/building_an_image/build_examples.html" : "first-image/building-development-and-production-images.html"
+  "install_mbl_on_device/building_an_image/build_examples.html" : "first-image/building-development-and-production-images.html",
+  "update/update-tutorials.html" : "update/update-tutorial.html"
 }
