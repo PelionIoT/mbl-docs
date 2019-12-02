@@ -8,6 +8,6 @@ Note that you do not need to provision each application on its own; provisioning
 
 ## Device application update
 
-You can use [MBL CLI](../update/updating-an-application.html#using-mbl-cli) to install or update an existing application over a USB connection.
+You can use [MBL CLI](../update/updating-an-mbl-image.html) to install or update an existing application over a USB connection.
 
 MBL uses `mbl-firmware-update-manager` to manage updates. To see all arguments, use `mbl-firmware-update-manager -h`. For detailed instructions, as well as reference information about device update, please see the [Updating devices section](../update/index.html)

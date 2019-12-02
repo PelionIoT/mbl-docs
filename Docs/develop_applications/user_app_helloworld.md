@@ -42,7 +42,7 @@ For more information, please refer to the [reference about application container
     ```
     cd mbl-core/tutorials/helloworld
     ```
-    
+
 ## Building the application with the cross compiler
 
 1. [dockcross](https://github.com/dockcross/dockcross) is a Docker-based cross compiling toolchain. Build a new Docker image with dockcross as the starting point, adding the `opkg` utilities. The image is defined in `./tutorials/helloworld/cc-env/<arm-arch>/Dockerfile`, where `<arm-arch>` is the architecture type of the microprocessor on the target device:
@@ -72,7 +72,7 @@ To build, invoke the Make toolchain command: `build-<arm-arch> make release`.
 
 The build produces an IPK file at `./release/ipk/user-sample-app-package_1.0_any.ipk`.
 
-To build a payload to be deployed on the device, please follow the [application update tutorial](../update/updating-an-application.html).
+To build a payload to be deployed on the device, please follow the [application update tutorial](../update/updating-an-mbl-image.html).
 
 <span class="tips">**Tip**: If you want to clean the build, run: `./tutorials/helloworld/build-<arm-arch> make clean`</span>
 
@@ -83,7 +83,7 @@ There are two ways to install the application on the device:
 * Send the application as an over-the-air firmware update with Pelion Device Management.
 * Flash the application over USB with MBL CLI.
 
-For either operation, please make sure you meet the [prerequisites](../update/update-tutorials.html) for update. Then, follow the [application update tutorial](../update/updating-an-application.html). This tutorial tells you how to create the update payload package, which you can use for either installation method.
+For either operation, please make sure you meet the [prerequisites](../update/update-tutorial.html) for update. Then, follow the [application update tutorial](../update/updating-an-mbl-image.html). This tutorial tells you how to create the update payload package, which you can use for either installation method.
 
 ## Using the application
 

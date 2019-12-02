@@ -10,7 +10,7 @@ These steps are detailed below.
 
 ## Building MBL
 
-You need a [full build of MBL](../first-image/building-a-developer-image.html) because this contains the files for the updatable components.
+You need a [full build of MBL](../first-image/building-development-and-production-images.html) because this contains the files for the updatable components.
 
 During the build, the build script signs the bootloader and kernel update components using either keys that were generated in the build, or by keys you supplied to the build, so you must use the same keys or keys derived from the same root of trust that you have used for the first image loaded on the device.
 
@@ -68,7 +68,7 @@ To create the update payload:
     ./mbl-tools/build-mbl/run-me.sh --builddir /path/to/build --outputdir /path/to/artifacts -- --machine imx7d-pico-mbl --branch mbl-os-0.10  interactive
     ```
 
-    Please see the other [build examples](../install_mbl_on_device/building_an_image/build_examples.html).
+    Please see the other [build examples](../first-image/building-development-and-production-images.html).
 
 1. Use the `create-update-payload` tool to create an update payload file containing the required update components.
 
@@ -200,7 +200,7 @@ If you are updating one or more components that require a reboot to take effect 
 
 ## Verifying the update
 
-You can check the status of the update by looking at the [update logs](monitor.html).
+You can check the status of the update by looking at the [update logs](../update/updating-an-mbl-image.html#monitoring-progress).
 
 If you are updating the root file system, you can verify the update by [identifying the currently active root file system](#identifying-the-active-root-file-system-partition) and checking it was different before the update.
 
