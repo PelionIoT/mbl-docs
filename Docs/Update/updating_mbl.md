@@ -217,18 +217,27 @@ To verify that a root file system update succeeded, you can check which root fil
 To identify the active root file system partition:
 
 ```
-root@mbed-linux-os-1234:~# lsblk --noheadings --output "MOUNTPOINT,LABEL" | awk '$1=="/" {print $2}'
+root@mbed-linux-os-1234:~# lsblk --noheadings --output "MOUNTPOINT,KNAME" | awk '$1=="/" {print $2}'
 ```
 
-This command prints the label of the block device currently mounted at `/`, which is `rootfs1` if the first root file system partition is active, or `rootfs2` if the second root file system partition is active.
+This command prints the name of the block device currently mounted at `/` (e.g. "mmcblk1p3").
 
-For example, when the first root file system partition is active, you see:
+For example, when the first root file system partition is active, you might see:
 
 ```
-root@mbed-linux-os-1234:~# lsblk --noheadings --output "MOUNTPOINT,LABEL" | awk '$1=="/" {print $2}'
-rootfs1
+root@mbed-linux-os-1234:~# lsblk --noheadings --output "MOUNTPOINT,KNAME" | awk '$1=="/" {print $2}'
+mmcblk1p3
 root@mbed-linux-os-1234:~#
 ```
+
+And when the second root file system partition is active, you might see:
+```
+root@mbed-linux-os-1234:~# lsblk --noheadings --output "MOUNTPOINT,KNAME" | awk '$1=="/" {print $2}'
+mmcblk1p5
+root@mbed-linux-os-1234:~#
+```
+
+The partition numbers at the end of the block device names may vary between boards, but, on any particular board the output of the `lsblk` command above should be different before and after a root file system update.
 
 ### Identifying the running applications
 
@@ -276,44 +285,32 @@ updates.
 
 ### Version specific upgrade notes
 
-Note that upgrades to MBL 0.10 from versions earlier than 0.9 is not
+Note that upgrades to MBL 0.11 from versions earlier than 0.9 is not
 supported.
 
-#### Upgrading from MBL 0.9
-
-Components changed since MBL 0.9:
+#### Upgrading from MBL 0.10
+<!-- TODO: make sure this list and the `create-update-payload` command below
+include the correct set of components before we release 0.11. -->
+Components changed since MBL 0.10:
 * Bootloader component 2.
 * The kernel component.
 * The rootfs component.
 
-MBL 0.9 does not support multi-component updates, so it is not
-possible to upgrade all components to MBL 0.10 at once. The upgrade
-must be done in two parts:
-1. Update the rootfs component to MBL 0.10's version. To do
-   this, follow the instructions above to create and install a payload
-   containing only the rootfs component from your MBL 0.10 workarea.
-   When invoking `create-update-payload`, make sure you specify
-   `--mbl-os-version 0.9` to create a payload that can be installed on MBL 0.9.
-   For example:
-   ```
-    user01@dev-machine:~$ create-update-payload --rootfs mbl-image-development --output-path /path/to/artifacts/rootfs_payload.swu --mbl-os-version 0.9
-   ```
-1. Once the rootfs component from MBL 0.10 has been installed on a
-   device, it will be able to install multi-component update payloads in the
-   format used by MBL 0.10, so you can update the rest of the
-   components using a single update payload. To do this, follow the
-   instructions above to create and install a payload containing bootloader
-   component 2 and the kernel component from your MBL 0.10 workarea.
-   When invoking `create-update-payload`, you may omit the `--mbl-os-version`
-   argument, or explicitly specify the version `0.10`. For example:
-   ```
-   user01@dev-machine:~$ create-update-payload --bootloader-components 2 --kernel --output-path /path/to/artifacts/b2_and_kernel_payload.swu --mbl-os-version 0.10
-   ```
+To create a payload to upgrade to MBL 0.11 from MBL 0.10, run
+`create-update-payload` from an MBL 0.11 work area and specify
+`--mbl-os-version 0.10`:
+```
+user01@dev-machine:~$ create-update-payload --bootloader-components 2 --kernel --rootfs mbl-image-development --output-path /path/to/artifacts/payload.swu --mbl-os-version 0.10
+```
+The payload can then be installed on devices running MBL 0.10 using the methods described earlier in this document.
 
-<span class="warnings">**Warning:** Do not attempt to update the kernel component from version 0.9 to
-version 0.10 before updating the rootfs. In MBL 0.10, the kernel
-component enables a hardware watchdog that will reset the board if a service
-from the rootfs component does not regularly stroke it. The 0.9 version of the
-rootfs component does not contain the service that strokes the watchdog so
-using a 0.10 kernel component with a 0.9 rootfs component will result in a boot
-loop.</span>
+#### Upgrading from MBL 0.9
+Upgrading directly from MBL 0.9 to MBL 0.11 is not supported, but you can
+upgrade from MBL 0.9 to MBL 0.10 by following the instructions in the
+[MBL 0.10 documentation](https://os.mbed.com/docs/mbed-linux-os/v0.10/update/updating-an-mbl-image.html#updating-across-releases-of-mbl)
+and then upgrade from MBL 0.10 to MBL 0.11 using the
+[instructions above](#upgrading-from-mbl-0.10).
+
+### Downgrading
+
+Downgrades from MBL 0.11 to earlier releases is not supported.
