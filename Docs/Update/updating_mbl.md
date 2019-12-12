@@ -220,7 +220,7 @@ To identify the active root file system partition:
 root@mbed-linux-os-1234:~# lsblk --noheadings --output "MOUNTPOINT,KNAME" | awk '$1=="/" {print $2}'
 ```
 
-This command prints the name of the block device currently mounted at `/` (e.g. "mmcblk1p3").
+This command prints the name of the block device currently mounted at `/` (for example, "mmcblk1p3").
 
 For example, when the first root file system partition is active, you might see:
 
@@ -230,18 +230,19 @@ mmcblk1p3
 root@mbed-linux-os-1234:~#
 ```
 
-And when the second root file system partition is active, you might see:
+When the second root file system partition is active, you might see:
+
 ```
 root@mbed-linux-os-1234:~# lsblk --noheadings --output "MOUNTPOINT,KNAME" | awk '$1=="/" {print $2}'
 mmcblk1p5
 root@mbed-linux-os-1234:~#
 ```
 
-The partition numbers at the end of the block device names may vary between boards, but, on any particular board the output of the `lsblk` command above should be different before and after a root file system update.
+The partition numbers at the end of the block device names may vary between boards, but on any particular board, the output of the `lsblk` command above is different before and after a root file system update.
 
 ### Identifying the running applications
 
-To list all the active applications and their status, use `runc list` .
+To list all the active applications and their statuses, use `runc list` .
 
 1. The first steps of an application update include stopping and terminating a running instance of the application (if one exists).
 
@@ -265,51 +266,39 @@ To list all the active applications and their status, use `runc list` .
     user-sample-app-package   3654        running     /home/app/user-sample-app-package/0   2018-12-07T08:23:36.742467741Z   root
     ```
 
-    <span class="notes">**Note:** The [Hello World](../develop-apps/hello-world-application.html) application runs for about 20 seconds. When it finishes, it once again appears as stopped.</span>
+    <span class="notes">**Note:** The [Hello World](../develop-apps/hello-world-application.html) application runs for about 20 seconds. When it finishes, it again appears as stopped.</span>
 
 ## Updating across releases of MBL
 
-Between releases of MBL, the format of the update payloads accepted
-by the software may change. This means that an update payload created for one
-release of MBL may not be suitable for installation on a different
-release of MBL. Therefore, when creating update payloads to upgrade
-from an earlier release of MBL, you should always use
-`create-update-payload`'s `--mbl-os-version` option to specify the version of
-MBL that will recieve the update.
+Between releases of MBL, the format of the update payloads accepted by the software may change. This means an update payload created for one release of MBL may not be suitable for installation on a different release of MBL. Therefore, when creating update payloads to upgrade from an earlier release of MBL, always use `create-update-payload`'s `--mbl-os-version` option to specify the version of MBL that will recieve the update.
 
-Between releases of MBL, some components may change, while others remain the
-same. The set of components that change across releases of MBL is documented in
-the [Version specific upgrade notes](#version-specific-upgrade-notes) section
-below, along with any other version specific notes or restrictions relating to
-updates.
+Between releases of MBL, some components may change, and others remain the same. The [version specific upgrade notes](#version-specific-upgrade-notes) section below documents the set of components that change across releases of MBL, along with any other version specific notes or restrictions relating to updates.
 
 ### Version specific upgrade notes
 
-Note that upgrades to MBL 0.11 from versions earlier than 0.9 is not
-supported.
+Note that upgrades to MBL 0.11 from versions earlier than 0.9 is not supported.
 
 #### Upgrading from MBL 0.10
 <!-- TODO: make sure this list and the `create-update-payload` command below
 include the correct set of components before we release 0.11. -->
+
 Components changed since MBL 0.10:
+
 * Bootloader component 2.
 * The kernel component.
 * The rootfs component.
 
-To create a payload to upgrade to MBL 0.11 from MBL 0.10, run
-`create-update-payload` from an MBL 0.11 work area and specify
-`--mbl-os-version 0.10`:
+To create a payload to upgrade to MBL 0.11 from MBL 0.10, run `create-update-payload` from an MBL 0.11 work area, and specify `--mbl-os-version 0.10`:
+
 ```
 user01@dev-machine:~$ create-update-payload --bootloader-components 2 --kernel --rootfs mbl-image-development --output-path /path/to/artifacts/payload.swu --mbl-os-version 0.10
 ```
-The payload can then be installed on devices running MBL 0.10 using the methods described earlier in this document.
+
+You can then install the payload on devices running MBL 0.10 using the methods described earlier in this document.
 
 #### Upgrading from MBL 0.9
-Upgrading directly from MBL 0.9 to MBL 0.11 is not supported, but you can
-upgrade from MBL 0.9 to MBL 0.10 by following the instructions in the
-[MBL 0.10 documentation](https://os.mbed.com/docs/mbed-linux-os/v0.10/update/updating-an-mbl-image.html#updating-across-releases-of-mbl)
-and then upgrade from MBL 0.10 to MBL 0.11 using the
-[instructions above](#upgrading-from-mbl-0.10).
+
+Upgrading directly from MBL 0.9 to MBL 0.11 is not supported, but you can upgrade from MBL 0.9 to MBL 0.10 by following the instructions in the [MBL 0.10 documentation](https://os.mbed.com/docs/mbed-linux-os/v0.10/update/updating-an-mbl-image.html#updating-across-releases-of-mbl) and then upgrade from MBL 0.10 to MBL 0.11 using the [instructions above](#upgrading-from-mbl-0.10).
 
 ### Downgrading
 
