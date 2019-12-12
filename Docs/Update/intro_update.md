@@ -7,7 +7,7 @@ MBL uses Pelion Device Management to manage firmware updates, including **firmwa
 1. Use the `create-update-payload` tool to create an update payload. The payload is an archive file that can contain any combination of the following components:
 
    * An application update: one or more OPKG packages (`.ipk` files).
-   * A `rootfs` update: an ext4 image that contains the root file system content.
+   * A `rootfs` update: an `ext4` image that contains the root file system content.
    * A kernel update: a binary containing the Linux kernel image, the associated device tree blob, U-Boot boot script and initramfs.
    * A boot component update: either of the two boot component binaries. The first boot component usually contains the TF-A bootloader stage two (BL2). The second boot component usually contains the TF-A bootloader stage three (BL3), OP-TEE and U-boot.
 
