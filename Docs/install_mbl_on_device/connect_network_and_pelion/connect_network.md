@@ -309,7 +309,7 @@ When connecting, the network name you use in the command must match the real net
 
 ## Setting up a cellular connection
 
-<span class="notes">**Note**: cellular support was tested on the Raspberry Pi3 B/B+.</span>
+<span class="notes">**Note**: cellular support was tested on the Raspberry Pi3 B+.</span>
 
 ### Hardware configuration
 
@@ -321,7 +321,7 @@ You must disable the SIM pin enquiry before inserting the SIM card.
 
 ### Software configuration
 
-To establish a cellular connection, use the Ethernet Control Model (ECM) mode to connect to the device over USB. ECM is activated using AT commands (detailed below). For the Raspberry Pi 3B/B+, the modem interface appears on `ifconfig` as `usb0`.
+To establish a cellular connection, use the Ethernet Control Model (ECM) mode to connect to the device over USB. ECM is activated using AT commands (detailed below). For the Raspberry Pi 3B+, the modem interface appears on `ifconfig` as `usb0`.
 
 ### Activating ECM with AT commands
 
