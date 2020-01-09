@@ -19,7 +19,7 @@ This document's structure follows the work process:
 - [u-boot*](../develop-mbl/bsp-u-boot.html) discusses the `u-boot*.bb` base recipe and MBL `u-boot*.bbappend` customization.
 - [linux*](../develop-mbl/bsp-linux.html) discusses the `linux*.bb` base recipe and MBL `linux*.bbappend` customization.
 - [atf-${MACHINE}.bb](../develop-mbl/bsp-atf.html) discusses the `atf-${MACHINE}.bb` recipe for building Arm Trusted Firmware.
-- [Example: imx7d-pico-mbl BSP recipe/package relationships](../develop-mbl/bsp-example.html) provides a concrete example for the PICO-PI with IMX7D target of the `${MACHINE}.conf`, ATF, OP-TEE, U-Boot and `linux` recipe inter-relationships using a UML diagram.
+- [Example: imx7d-pico-mbl BSP recipe/package relationships](../develop-mbl/bsp-example.html) provides a concrete example for the PICO-PI with i.MX7D target of the `${MACHINE}.conf`, ATF, OP-TEE, U-Boot and `linux` recipe inter-relationships using a UML diagram.
 - [Summary of BSP porting tasks](../develop-mbl/bsp-tasks.html) summarizes porting tasks.
 - [References](../develop-mbl/bsp-refs.html) links to supporting references to this document.
 
@@ -114,7 +114,7 @@ The image above shows the main entities in the secure bootchain sequence: Soc Bo
 
 <span class="images">![AArch32 secure boot process](assets/LAS16-402_slide_16.png)<span>Linaro Connect 2016 Presentation LAS16-402 [slide 16][linaro-connect-las16-402-slides] showing the AArch32 secure boot process.</span></span>
 
-The image above shows the Cortex-v7A AArch32 generic secure boot process, which is the starting point for discussing secure boot on the PICO-PI with IMX7D.
+The image above shows the Cortex-v7A AArch32 generic secure boot process, which is the starting point for discussing secure boot on the PICO-PI with i.MX7D.
 
 The diagram is divided into four columns, corresponding to the memory type and physical location from which the boot code runs:
 
@@ -768,7 +768,7 @@ This is the starting point for porting ATF to a new platform.
 
 ## Example: imx7d-pico-mbl recipe/package UML diagram
 
-This section provides a concrete example of the UML diagram shown in [Figure 4.0](../develop-mbl/bsp-recipe.html#figure-4-0) for the PICO-PI with IMX7D target `MACHINE=imx7d-pico-mbl`.
+This section provides a concrete example of the UML diagram shown in [Figure 4.0](../develop-mbl/bsp-recipe.html#figure-4-0) for the PICO-PI with i.MX7D target `MACHINE=imx7d-pico-mbl`.
 
 <a name="figure-9-1"></a>
 
@@ -799,7 +799,7 @@ This section discusses the `meta-freescale` and `meta-freescale-3rdparty` entiti
    - `MBL_FLASH_ERASE_BLOCK_SIZE_KiB = "512"`: Determines the default alignment of partitions in the flash partition layout, as reported by `mmc extcsd read /dev/mmcblk1`.
    - `MBL_WKS_STORAGE_SIZE_MiB = "7456"`: The total storage size as reported by `blockdev --getsize64 /dev/mmcblk1` (reports 7818182656B = 7456MiB).
    - `MBL_WATCHDOG_TIMEOUT_SECS ?= "128"`: Set the max timeout. The imx series watchdog driver explicitly defines a max watchdog timeout of 128 seconds.
-- **`imx7d-pico.conf`**: This is the `meta-[soc-vendor]=meta-freescale-3rdparty` machine configuration file that provides the base BSP support for the PICO-PI with IMX7D target.
+- **`imx7d-pico.conf`**: This is the `meta-[soc-vendor]=meta-freescale-3rdparty` machine configuration file that provides the base BSP support for the PICO-PI with i.MX7D target.
 - **`imx-base.inc`<a name="soc-family-inc-imxbase.inc"></a>**: This is an example of the `[soc-family].inc` file and gives the virtual provider definitions:
    - `PREFERRED_PROVIDER_virtual/bootloader="u-boot-fslc"`.
    - `PREFERRED_PROVIDER_virtual/kernel="linux-fslc"`.
