@@ -13,7 +13,7 @@ Supported boards:
 
     * <span class="notes">**Warning:** Warp7 support is now deprecated due to availability and export control issues. We are not building or testing this machine, but we will accept external contributions. The Mbed Linux OS 0.9 is the last release version supporting this platform.</span>
 
-* [Raspberry Pi 3 models B or B+](https://www.raspberrypi.org/products/), with:
+* [Raspberry Pi 3 model B+](https://www.raspberrypi.org/products/), with:
     * A micro-SD card (at least 8GB for the default build).
     * An C232HD-DDHSP-0 cable to connect the GPIO to a PC's USB (for debugging).
     * If you want to use MBL CLI: a USB to network adaptor and an RJ45 network cable (to convert from RPi3 USB host port to network). We've tested with the TP-Link UE300.
@@ -21,6 +21,7 @@ Supported boards:
          An optional second USB network adaptor if you want to convert back to USB (to connect to your PC over USB rather than network).
 
     <span class="notes">**Note:** We advise you use Raspberry Pi 3 for development only. It is not suitable for production as it does not provide a secure boot flow or security features required for a Trusted Execution Environment (TEE).</span>
+    * <span class="notes">**Warning:** Rapberry Pi 3 model B support is now deprecated due to availability and export control issues. We are not testing this machine, but we will accept external contributions. The Mbed Linux OS 0.10 is the last release version supporting this platform.</span>
 
 ## Hardware features
 
