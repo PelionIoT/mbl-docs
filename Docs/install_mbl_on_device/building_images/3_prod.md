@@ -61,19 +61,19 @@ The examples assume:
     * `./artifacts-rpi3`
 * You have an [SSH agent](../first-image/development-environment.html) to access your own private repositories. For more information, see [the GitHub SSH documentation](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).
 
-### PICO-PI with IMX7D
+### PICO-PI with i.MX7D
 
 ```
 ./mbl-tools/build/run-me.sh --builddir ./build-pico7 --outputdir ./artifacts-pico7 --root-passwd-file PASSWD_FILE --ssh-auth-keys root_id_rsa.pub -- --machine imx7d-pico-mbl --branch mbl-os-0.10 --distro mbl-production
 ```
 
-### PICO-PI with IMX6UL
+### PICO-PI with i.MX6UL
 
 ```
 ./mbl-tools/build/run-me.sh --builddir ./build-pico6 --outputdir ./artifacts-pico6 --root-passwd-file PASSWD_FILE --ssh-auth-keys root_id_rsa.pub -- --machine imx6ul-pico-mbl --branch mbl-os-0.10 --distro mbl-production
 ```
 
-### NXP 8M Mini EVK
+### NXP i.MX8M Mini EVK
 
 ```
 ./mbl-tools/build/run-me.sh --builddir ./build-nxpimx --outputdir ./artifacts-nxpimx --root-passwd-file PASSWD_FILE --ssh-auth-keys root_id_rsa.pub -- --machine imx8mmevk-mbl --branch mbl-os-0.10 --distro mbl-production

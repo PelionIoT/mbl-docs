@@ -49,10 +49,10 @@ For more information, please refer to the [reference about application container
 
     | Target device | `<arm-arch>` value |
     | --- | --- |
-    | NXP 8M Mini EVK | `arm64` |
-    | PICO-PI with IMX7D | `armv7` |
+    | NXP i.MX8M Mini EVK | `arm64` |
+    | PICO-PI with i.MX7D | `armv7` |
     | Raspberry Pi 3 | `armv7` |
-    | PICO-PI with IMX6ul | `armv7` |
+    | PICO-PI with i.MX6UL | `armv7` |
 
     ```
     docker build -t linux-<arm-arch>:latest ./cc-env/<arm-arch>

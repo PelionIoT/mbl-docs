@@ -17,7 +17,7 @@ The following build options are mandatory:
 | --- | --- | --- |
 | `--branch` | build.sh | Select the MBL branch to build. For example, to build the branch `mbl-os-0.10`: <br>`./mbl-tools/build/run-me.sh -- --branch mbl-os-0.10 --machine raspberrypi3-mbl` |
 | `--builddir` | run-me.sh | Create a build directory. This option is for `run-me.sh`. <br>You must use a different build directory for every device (machine), and we recommend including the device's name in the directory's name. <br>Note that this directory includes all other artifacts, such as build and error logs. For example, if you've created `mkdir /path/to/my-build-dir`, the builddir will be `./mbl-tools/build/run-me.sh --builddir /path/to/my-build-dir` |
-| `--machine` | build.sh | Select the target device. <br>The options are [**PICO-PI with IMX7D**, `imx7d-pico-mbl`], [**NXP 8M Mini EVK**, `imx8mmevk-mbl`], [**PICO-PI with IMX6UL**, `imx6ul-pico-mbl`] and [**Raspberry Pi 3**, `raspberrypi3-mbl`]. <br>Example: `./mbl-tools/build/run-me.sh -- --machine <MACHINE>` |
+| `--machine` | build.sh | Select the target device. <br>The options are [**PICO-PI with i.MX7D**, `imx7d-pico-mbl`], [**NXP i.MX8M Mini EVK**, `imx8mmevk-mbl`], [**PICO-PI with i.MX6UL**, `imx6ul-pico-mbl`] and [**Raspberry Pi 3**, `raspberrypi3-mbl`]. <br>Example: `./mbl-tools/build/run-me.sh -- --machine <MACHINE>` |
 | `--outputdir` | run-me.sh | Specify the output directory for all build artifacts (pinned manifest, target specific images etc). <br>For example, if you've created `mkdir /path/to/artifacts`, the outputdir will be `./mbl-tools/build/run-me.sh --outputdir /path/to/artifacts` |
 | `--root-passwd-file` | run-me.sh | The file containing the root user password in plain text (**mandatory** when `--distro mbl-production` ). |
 | `--ssh-auth-keys` | run-me.sh | Path to the SSH Authorized Keys file to be installed in the target rootfs at `/home/${user}/.ssh/authorized_keys` (**mandatory** when `--distro mbl-production` ). The filename must be prefixed with "username_" (for example: `root_authorized_keys`). |
@@ -84,7 +84,7 @@ You can save the build options you supplied on the command line, so that it will
 
 ### Saving a build configuration
 
-Set up your build options and invoke a build using `run-me.sh`. For example, here's a production build on NXP 8M Mini EVK:
+Set up your build options and invoke a build using `run-me.sh`. For example, here's a production build on NXP i.MX8M Mini EVK:
 
 ```
 ./mbl-tools/build/run-me.sh --builddir /path/to/builddir --outputdir /path/to/artifacts --root-passwd-file /path/to/root_passwd --ssh-auth-keys /path/to/root_authorized_keys -- --branch mbl-os-0.10 --machine imx8mmevk-mbl --distro mbl-production
