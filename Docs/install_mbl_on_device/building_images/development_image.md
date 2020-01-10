@@ -13,19 +13,19 @@ The following examples assume:
 
 The following are examples of build commands to produce development images for supported platforms.
 
-## PICO-PI with IMX7D
+## PICO-PI with i.MX7D
 
 ```
 ./mbl-tools/build/run-me.sh --builddir ./build-pico7 --outputdir ./artifacts-pico7 -- --machine imx7d-pico-mbl --branch mbl-os-0.10
 ```
 
-## PICO-PI with IMX6UL
+## PICO-PI with i.MX6UL
 
 ```
 ./mbl-tools/build/run-me.sh --builddir ./build-pico6 --outputdir ./artifacts-pico6 -- --machine imx6ul-pico-mbl --branch mbl-os-0.10
 ```
 
-## NXP 8M Mini EVK
+## NXP i.MX8M Mini EVK
 
 ```
 ./mbl-tools/build/run-me.sh --builddir ./build-nxpimx --outputdir ./artifacts-nxpimx -- --machine imx8mmevk-mbl --branch mbl-os-0.10

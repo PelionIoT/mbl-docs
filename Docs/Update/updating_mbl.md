@@ -62,7 +62,7 @@ Then, for example, perform a build:
 
 To create the update payload:
 
-1. Enter the [mbl-tools interactive mode](../develop-mbl/mbed-linux-os-distribution-development-with-mbl-tools.html#running-build-mbl-in-interactive-mode) for the build. For example, for PICO-PI with IMX7D:
+1. Enter the [mbl-tools interactive mode](../develop-mbl/mbed-linux-os-distribution-development-with-mbl-tools.html#running-build-mbl-in-interactive-mode) for the build. For example, for PICO-PI with i.MX7D:
 
     ```
     ./mbl-tools/build-mbl/run-me.sh --builddir /path/to/build --outputdir /path/to/artifacts -- --machine imx7d-pico-mbl --branch mbl-os-0.10  interactive
