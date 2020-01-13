@@ -21,7 +21,7 @@ Supported boards:
          An optional second USB network adaptor if you want to convert back to USB (to connect to your PC over USB rather than network).
 
     <span class="notes">**Note:** We advise you use Raspberry Pi 3 for development only. It is not suitable for production as it does not provide a secure boot flow or security features required for a Trusted Execution Environment (TEE).</span>
-    * <span class="notes">**Warning:** Rapberry Pi 3 model B support is now deprecated due to availability and we are not testing this machine anymore. The Mbed Linux OS 0.10 is the last release version supporting this platform. Note that Rapberry Pi 3 model B+ is still supported by Mbed Linux OS project.</span>
+    * <span class="notes">**Warning:** Raspberry Pi 3 model B support is deprecated due to availability and we are not testing this machine anymore. The Mbed Linux OS 0.10 was the last version supporting this platform. Note that we still support Raspberry Pi 3 model B+.</span>
 
 ## Hardware features
 
