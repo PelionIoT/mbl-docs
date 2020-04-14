@@ -1,107 +1,50 @@
 # Arm Mbed Linux OS
 
-<img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/OS_v_MBL.png" width="25%" align="right" />
+Mbed Linux OS has been deprecated as a product in the Pelion portfolio. [The code is still available on GitHub](https://github.com/ARMmbed/meta-mbl), but will remain frozen at version 0.10.
 
-Arm Mbed Linux OS (MBL) is a free, open-source IoT operating system based on the embedded Linux Yocto Project. It is designed for [Cortex-A](https://www.arm.com/products/silicon-ip-cpu) devices, which can run multiple, complex applications and perform edge computing. MBL provides the common services these applications rely on, such as access to hardware peripherals, security and connectivity protocols and access to the [Pelion IoT Platform](https://cloud.mbed.com/docs).
+[The documentation is on GitHub](https://github.com/ARMmbed/mbl-docs/tree/v0.10). Recommended reading order:
 
-Arm Mbed now supports all IoT device classes with a duo of operating systems: Mbed OS for Cortex-M microprocessors and Mbed Linux OS for Cortex-A microprocessors.
+- [Introduction](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/introduction/introduction.md)
+- [Licensing](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/introduction/licensing.md)
+- [Installing MBL on a device](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/install_mbl_on_device/introduction_mbl_on_device.md):
+    - [Supported hardware](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/install_mbl_on_device/Reqs_and_env/Hardware.md)
+    - [Preparing a development environment for the distribution](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/install_mbl_on_device/Reqs_and_env/dev_env_for_distribution.md)
+- [Downloading an evaluation image](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/install_mbl_on_device/building_images/1_eval.md)
+- [Building development and production images - building prerequisites](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/install_mbl_on_device/building_images/intro.md)
+    - [Development image build examples](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/install_mbl_on_device/building_images/development_image.md)
+    - [Production images](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/install_mbl_on_device/building_images/3_prod.md)
+    - [Build scripts](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/install_mbl_on_device/building_images/build_scripts.md)
+- [Writing an image to supported boards]:
+    - [PICO-PI baseboard with the PICO-IMX7D or PICO-IMX6UL SoM](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/install_mbl_on_device/writing/pico.md)
+    - [NXP 8M Mini EVK devices](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/install_mbl_on_device/writing/nxp_evk.md)
+    - [Raspberry Pi 3 devices](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/install_mbl_on_device/writing/rpi3.md)
+- [Provisioning for Pelion Device Management](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/install_mbl_on_device/provision/provision_intro.md)
+    - [Instructions](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/install_mbl_on_device/provision/provisioning_instructions.md)
+- [Connecting to a network and Pelion Device Management](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/install_mbl_on_device/connect_network_and_pelion/connect_network.md)
+    - [Verifying the device is connected](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/install_mbl_on_device/connect_network_and_pelion/verify_device_connected.md)
+- [Developing applications](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/develop_applications/develop_applications_intro.md)
+    - [Design and development workflow](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/develop_applications/develop_applications_workflow.md)
+- [The MBL command line interface](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/develop_applications/mbl_cli/mbl_cli.md)
+    - [Setting up](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/develop_applications/mbl_cli/setting_up.md)
+    - [Command syntax](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/develop_applications/mbl_cli/command_syntax.md)
+    - [Usage](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/develop_applications/mbl_cli/usage.md)
+    - [Provisioning and updating](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/develop_applications/mbl_cli/device_update_provision.md)
+- [Hello World application](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/develop_applications/user_app_helloworld.md)
+- [Frequently asked questions](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/develop_applications/troubleshooting.md)
+- [Developing MBL](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/develop_contribute_mbl/develop_contribute_mbl_intro.md)
+    - [Mbed Linux OS distribution development with mbl-tools](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/develop_contribute_mbl/distro_development.md)
+    - [Example project based on Mbed Linux OS](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/mbl_based_projects/mbl_based_projects.md)
+    - [Troubleshooting](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/develop_contribute_mbl/troubleshooting.md)
+- [Contribution guidelines](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/develop_contribute_mbl/contribution/contribution_guidelines.md)
+- [C++ coding style guide](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/develop_contribute_mbl/contribution/coding_style_guide_cpp.md)
+- [Python coding style guide](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/develop_contribute_mbl/contribution/coding_style_guide_python.md)
+- [pytest in MBL](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/develop_contribute_mbl/contribution/coding_style_guide_pytest.md)
+- [Board support package porting](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/Porting/bsp-porting-guide.md)
+- [Firmware updates in MBL](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/Update/intro_update.md)
+- [Updating MBL - intro](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/Update/tutorial_intro.md)
+    - [Updating an MBL image](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/Update/updating_mbl.md)
+    - [Monitoring progress](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/Update/monitor.md)
+- [Reference: application containers and packages](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/refs/containers_packages.md)
+- [Reference: Partition layout](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/refs/partition_layout.md)
 
-Because MBL is aimed specifically at IoT devices, it places a major emphasis on platform security. At the core of device security is Trusted Firmware (TF-A) and OP-TEE, an open source trusted execution environment that conforms to the Global Platform TEE specification. MBL also conforms to [Platform Security Architecture (PSA)](https://developer.arm.com/products/architecture/security-architectures/platform-security-architecture) for secure boot and other security measures, and relies on the Linux kernel's isolation mechanisms to protect device integrity and sensitive data: each application runs in its own OCI-compliant container, so a compromised application cannot damage other applications or the device.
-
-You can develop and build applications in using a variety of standard tools such as C cross-compilation, Python or Node.js. Applications are then packaged and deployed to MBL in an application container.
-
-<section class="row">
-<div class="columns large-6 medium-6 small-12">
-  <h3>On this page</h3>
-  <ul class="guides-list">
-          <ul data-tab-content>
-                <li><a href="#preview">Public preview features</a></li>
-                <li><a href="#design">Design diagram</a></li>
-                <li><a href="#getting-started">Getting started</a></li>
-                <li><a href="#doc-updates">Recently updated documentation</a></li>
-            </ul>
-    </ul>
-</div>
-</section>
-
-<h2 id="preview">Public preview features</h2>
-
-MBL is currently available as a public preview.
-
-The preview release provides:
-
-* An OpenEmbedded-based OS distribution, enabling extensibility and support for the latest updates and features.
-   * Support for production and development images.
-* Support for [four development boards](../first-image/hardware.html) with:
-    * A Board Support Platform (BSP) porting guide for additional platforms.
-    * The BSP organization helps porting and reuse by having staging layers that match the upstream layers.
-* Hardware and software-based isolation mechanisms for security:
-    * Dedicated hardware within most Cortex-A devices enforces the most secure isolation boundary. This technology, called TrustZone, allows the most sensitive code and data to run within a so-called **Secure World**. MBL includes a trusted operating system for this Secure World called **Open Source Trusted Execution Environment** (OP-TEE) - an operating system within an operating system. It is loaded by the Trusted Firmware and typically used to protect cryptographic keys and other sensitive data assets.
-    * Secure boot methodology based on Linaro's Trusted Firmware A for both the ARMv7-A and ARMv8-A platforms. Trusted Firmware is a minimal secure bootloader that runs when a Cortex-A microprocessor is executing in TrustZone's "secure world" mode.
-    * Open Container Initiative (OCI)-compliant containers for applications, protecting against compromised applications and facilitating a modern development workflow. Based on the RUNC container runtime, this Docker-like system allows OEMs to package services or applications as independent container images that run entirely within a sandbox. This provides two benefits. First, if an attacker compromises a single application, it's far harder for the attack to spread beyond the infected container. This will help to reduce the impact of an attack and ensure a device can easily be restored to a secure state. Second, applications can be developed independently of the underlying IoT platform. For example, it's easier for a developer to build and test on their desktop workstation or laptop.
-* Support for a developer connection to the IoT device (over USB), to develop without disrupting the production networking options.
-* A developer command-line tool - MBL CLI - to facilitate:
-    * Discovery, setup and local update of development devices.
-    * First-time provisioning of device credentials and update credentials to the IoT device.
-* A lightweight, feature rich connection manager for Ethernet and Wi-Fi connections.
-* The integration with Pelion Device Management services offers:
-    * Support for the Device Management Client for in-field provisioning and over-the-air device configuration.
-    * Device discovery and secure identity in the Device Management device directory, to protect against impersonation or cloning.
-    * Large-scale management of device groups.
-    * Device management and status monitoring, including notifications of connection status.
-    * Access control at the account level.
-    * Over-the-air, digitally signed and verified updates to send new features and security patches to deployed devices, fixing vulnerabilities before they're exploited. Any combinations of the following updatable components can be included in the update payload:
-        * Bootloaders
-        * Kernel
-        * Root file system
-        * User applications
-
-<h2 id="design">Design diagram</h2>
-
-The following diagram illustrates the components and services that MBL provides:
-
-<span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/Application_containers.png)<span>When used in conjunction with Device Management, MBL provides a secure platform for developing, operating and managing IoT applications</span></span>
-
-The **application management framework** manages installing and running separate applications:
-
-* **Core application configuration**: configures the set of core applications that are run automatically when a device boots.
-* **Life-cycle management**: runs instances of an application.
-* **Package management**: installs and updates application packages.
-
-The **platform services** handle the common requirements of IoT applications:
-
-* **Network manager**: uses ConnMan to manage network connections. Future releases will include **BLE** for local connections and a **modem manager** for cellular connections.
-* **Logging framework**: tags and forwards logged events.
-* **Secure services**: protect assets using secrets storage and cryptographic operations with access control.
-
-The **Device Management Services** are integrated user-space agents that connect to the Pelion Device Management services. They provide secure remote ownership, update and monitoring for devices using the Device Management Client, and will provide a data client to manage application data. Together, the management agents extend the way in which a device is managed by providing:
-
-* Additional device configuration access:
-
-    * Over BLE (in a future release).
-    * Cloud-based, using the Pelion Device Management Connect service.
-    * Over USB (during manufacturing).
-
-* Trusted Execution Environment and OP-TEE run security-sensitive applications within the isolated environment provided by Arm TrustZone.
-
-<h2 id="getting-started">Getting started</h2>
-
-There are two paths to working with MBL:
-
-1. If you are a **Linux developer** interested in contributing to MBL or porting it to a new device:
-    1. Please [build MBL locally so you can test](../first-image/index.html).
-    1. Review our [contribution guide](../develop-mbl/index.html).
-    1. Use [our update tutorial](../update/index.html) to send image firmware updates over the air.
-    1. [Have a look at the example project to create your own distro based on MBL](../develop-mbl/example-project-based-on-mbed-linux-os.html).
-
-1. If you are an **application developer** interested in building applications for devices that run MBL:
-    1. We recommend [using an evaluation image](../first-image/downloading-an-evaluation-image.html).
-    1. Review our [development guide](../develop-apps/index.html), our [command-line interface MBL CLI](../develop-apps/the-mbl-command-line-interface.html) and our [Hello World application](../develop-apps/hello-world-application.html). If you have questions, try [our new FAQ](../develop-apps/frequently-asked-questions.html).
-    1. [Use our update tutorial](../update/index.html) to send application firmware updates over the air.
-
-<h2 id="doc-updates">Recently updated documentation</h2>
-
-* A guide on [building production images](../first-image/building-a-production-image.html).
-* Over the air [updates of kernel and bootloaders](../update/index.html).
-
-The [full release note](https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.10/docs/release_note.md) is available on our public preview repository.
+For all on-going gateway opportunities please look at [Arm Pelion Edge](https://www.arm.com/products/iot/pelion-iot-platform/device-management/edge).
