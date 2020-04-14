@@ -2,6 +2,8 @@
 
 Mbed Linux OS has been deprecated as a product in the Pelion portfolio. [The code is still available on GitHub](https://github.com/ARMmbed/meta-mbl), but will remain frozen at version 0.10.
 
+For all on-going gateway opportunities please look at [Arm Pelion Edge](https://www.arm.com/products/iot/pelion-iot-platform/device-management/edge).
+
 [The documentation is on GitHub](https://github.com/ARMmbed/mbl-docs/tree/v0.10). Recommended reading order:
 
 - [Introduction](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/introduction/introduction.md)
@@ -46,5 +48,3 @@ Mbed Linux OS has been deprecated as a product in the Pelion portfolio. [The cod
     - [Monitoring progress](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/Update/monitor.md)
 - [Reference: application containers and packages](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/refs/containers_packages.md)
 - [Reference: Partition layout](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/refs/partition_layout.md)
-
-For all on-going gateway opportunities please look at [Arm Pelion Edge](https://www.arm.com/products/iot/pelion-iot-platform/device-management/edge).
