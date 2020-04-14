@@ -76,11 +76,11 @@ The folder contains:
 
 * For advanced connection configurations, you may manually generate service files and place them under `/config/user/connman` (see section [Connecting to a network using service configuration (provisioning) files](#service-configuration-files)). These are also known as *provisioning files*, and their file extensions must be `.config`.
 
-### Install Wi-Fi firmware on PICO-PI with PICO-IMX7D, PICO-IMX6UL SoM, and NXP 8M Mini EVK devices
+### Install Wi-Fi firmware on PICO-PI with PICO-IMX7D, PICO-IMX6UL SoM, and NXP i.MX8M Mini EVK devices
 
 <span class="notes">**Note:** This step is only needed when using the evaluation images. If you have built your own version of Mbed Linux OS, then the Wi-Fi firmware is included by default.</span>
 
-If you are using an evaluation image for PICO-PI with PICO-IMX7D, PICO-IMX6UL SoM, or NXP 8M Mini EVK devices, they require you to install the Wi-Fi firmware separately. Use [MBL CLI](../develop-apps/setting-up.html) and [a shell](../develop-apps/usage.html#get-shell-access-ssh) to run the install script:
+If you are using an evaluation image for PICO-PI with PICO-IMX7D, PICO-IMX6UL SoM, or NXP i.MX8M Mini EVK devices, they require you to install the Wi-Fi firmware separately. Use [MBL CLI](../develop-apps/setting-up.html) and [a shell](../develop-apps/usage.html#get-shell-access-ssh) to run the install script:
 
 ```
 mbl-cli [-a address] shell
@@ -309,7 +309,7 @@ When connecting, the network name you use in the command must match the real net
 
 ## Setting up a cellular connection
 
-<span class="notes">**Note**: cellular support was tested on the Raspberry Pi3 B/B+.</span>
+<span class="notes">**Note**: cellular support was tested on the Raspberry Pi3 B+.</span>
 
 ### Hardware configuration
 
@@ -321,7 +321,7 @@ You must disable the SIM pin enquiry before inserting the SIM card.
 
 ### Software configuration
 
-To establish a cellular connection, use the Ethernet Control Model (ECM) mode to connect to the device over USB. ECM is activated using AT commands (detailed below). For the Raspberry Pi 3B/B+, the modem interface appears on `ifconfig` as `usb0`.
+To establish a cellular connection, use the Ethernet Control Model (ECM) mode to connect to the device over USB. ECM is activated using AT commands (detailed below). For the Raspberry Pi 3B+, the modem interface appears on `ifconfig` as `usb0`.
 
 ### Activating ECM with AT commands
 

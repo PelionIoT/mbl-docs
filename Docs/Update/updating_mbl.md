@@ -62,7 +62,7 @@ Then, for example, perform a build:
 
 To create the update payload:
 
-1. Enter the [mbl-tools interactive mode](../develop-mbl/mbed-linux-os-distribution-development-with-mbl-tools.html#running-build-mbl-in-interactive-mode) for the build. For example, for PICO-PI with IMX7D:
+1. Enter the [mbl-tools interactive mode](../develop-mbl/mbed-linux-os-distribution-development-with-mbl-tools.html#running-build-mbl-in-interactive-mode) for the build. For example, for PICO-PI with i.MX7D:
 
     ```
     ./mbl-tools/build-mbl/run-me.sh --builddir /path/to/build --outputdir /path/to/artifacts -- --machine imx7d-pico-mbl --branch mbl-os-0.10  interactive
@@ -217,22 +217,32 @@ To verify that a root file system update succeeded, you can check which root fil
 To identify the active root file system partition:
 
 ```
-root@mbed-linux-os-1234:~# lsblk --noheadings --output "MOUNTPOINT,LABEL" | awk '$1=="/" {print $2}'
+root@mbed-linux-os-1234:~# lsblk --noheadings --output "MOUNTPOINT,KNAME" | awk '$1=="/" {print $2}'
 ```
 
-This command prints the label of the block device currently mounted at `/`, which is `rootfs1` if the first root file system partition is active, or `rootfs2` if the second root file system partition is active.
+This command prints the name of the block device currently mounted at `/` (for example, "mmcblk1p3").
 
-For example, when the first root file system partition is active, you see:
+For example, when the first root file system partition is active, you might see:
 
 ```
-root@mbed-linux-os-1234:~# lsblk --noheadings --output "MOUNTPOINT,LABEL" | awk '$1=="/" {print $2}'
-rootfs1
+root@mbed-linux-os-1234:~# lsblk --noheadings --output "MOUNTPOINT,KNAME" | awk '$1=="/" {print $2}'
+mmcblk1p3
 root@mbed-linux-os-1234:~#
 ```
 
+When the second root file system partition is active, you might see:
+
+```
+root@mbed-linux-os-1234:~# lsblk --noheadings --output "MOUNTPOINT,KNAME" | awk '$1=="/" {print $2}'
+mmcblk1p5
+root@mbed-linux-os-1234:~#
+```
+
+The partition numbers at the end of the block device names may vary between boards, but on any particular board, the output of the `lsblk` command above is different before and after a root file system update.
+
 ### Identifying the running applications
 
-To list all the active applications and their status, use `runc list` .
+To list all the active applications and their statuses, use `runc list` .
 
 1. The first steps of an application update include stopping and terminating a running instance of the application (if one exists).
 
@@ -256,64 +266,40 @@ To list all the active applications and their status, use `runc list` .
     user-sample-app-package   3654        running     /home/app/user-sample-app-package/0   2018-12-07T08:23:36.742467741Z   root
     ```
 
-    <span class="notes">**Note:** The [Hello World](../develop-apps/hello-world-application.html) application runs for about 20 seconds. When it finishes, it once again appears as stopped.</span>
+    <span class="notes">**Note:** The [Hello World](../develop-apps/hello-world-application.html) application runs for about 20 seconds. When it finishes, it again appears as stopped.</span>
 
 ## Updating across releases of MBL
 
-Between releases of MBL, the format of the update payloads accepted
-by the software may change. This means that an update payload created for one
-release of MBL may not be suitable for installation on a different
-release of MBL. Therefore, when creating update payloads to upgrade
-from an earlier release of MBL, you should always use
-`create-update-payload`'s `--mbl-os-version` option to specify the version of
-MBL that will recieve the update.
+Between releases of MBL, the format of the update payloads accepted by the software may change. This means an update payload created for one release of MBL may not be suitable for installation on a different release of MBL. Therefore, when creating update payloads to upgrade from an earlier release of MBL, always use `create-update-payload`'s `--mbl-os-version` option to specify the version of MBL that will recieve the update.
 
-Between releases of MBL, some components may change, while others remain the
-same. The set of components that change across releases of MBL is documented in
-the [Version specific upgrade notes](#version-specific-upgrade-notes) section
-below, along with any other version specific notes or restrictions relating to
-updates.
+Between releases of MBL, some components may change, and others remain the same. The [version specific upgrade notes](#version-specific-upgrade-notes) section below documents the set of components that change across releases of MBL, along with any other version specific notes or restrictions relating to updates.
 
 ### Version specific upgrade notes
 
-Note that upgrades to MBL 0.10 from versions earlier than 0.9 is not
-supported.
+Note that upgrades to MBL 0.11 from versions earlier than 0.9 is not supported.
 
-#### Upgrading from MBL 0.9
+#### Upgrading from MBL 0.10
+<!-- TODO: make sure this list and the `create-update-payload` command below
+include the correct set of components before we release 0.11. -->
 
-Components changed since MBL 0.9:
+Components changed since MBL 0.10:
+
 * Bootloader component 2.
 * The kernel component.
 * The rootfs component.
 
-MBL 0.9 does not support multi-component updates, so it is not
-possible to upgrade all components to MBL 0.10 at once. The upgrade
-must be done in two parts:
-1. Update the rootfs component to MBL 0.10's version. To do
-   this, follow the instructions above to create and install a payload
-   containing only the rootfs component from your MBL 0.10 workarea.
-   When invoking `create-update-payload`, make sure you specify
-   `--mbl-os-version 0.9` to create a payload that can be installed on MBL 0.9.
-   For example:
-   ```
-    user01@dev-machine:~$ create-update-payload --rootfs mbl-image-development --output-path /path/to/artifacts/rootfs_payload.swu --mbl-os-version 0.9
-   ```
-1. Once the rootfs component from MBL 0.10 has been installed on a
-   device, it will be able to install multi-component update payloads in the
-   format used by MBL 0.10, so you can update the rest of the
-   components using a single update payload. To do this, follow the
-   instructions above to create and install a payload containing bootloader
-   component 2 and the kernel component from your MBL 0.10 workarea.
-   When invoking `create-update-payload`, you may omit the `--mbl-os-version`
-   argument, or explicitly specify the version `0.10`. For example:
-   ```
-   user01@dev-machine:~$ create-update-payload --bootloader-components 2 --kernel --output-path /path/to/artifacts/b2_and_kernel_payload.swu --mbl-os-version 0.10
-   ```
+To create a payload to upgrade to MBL 0.11 from MBL 0.10, run `create-update-payload` from an MBL 0.11 work area, and specify `--mbl-os-version 0.10`:
 
-<span class="warnings">**Warning:** Do not attempt to update the kernel component from version 0.9 to
-version 0.10 before updating the rootfs. In MBL 0.10, the kernel
-component enables a hardware watchdog that will reset the board if a service
-from the rootfs component does not regularly stroke it. The 0.9 version of the
-rootfs component does not contain the service that strokes the watchdog so
-using a 0.10 kernel component with a 0.9 rootfs component will result in a boot
-loop.</span>
+```
+user01@dev-machine:~$ create-update-payload --bootloader-components 2 --kernel --rootfs mbl-image-development --output-path /path/to/artifacts/payload.swu --mbl-os-version 0.10
+```
+
+You can then install the payload on devices running MBL 0.10 using the methods described earlier in this document.
+
+#### Upgrading from MBL 0.9
+
+Upgrading directly from MBL 0.9 to MBL 0.11 is not supported, but you can upgrade from MBL 0.9 to MBL 0.10 by following the instructions in the [MBL 0.10 documentation](https://os.mbed.com/docs/mbed-linux-os/v0.10/update/updating-an-mbl-image.html#updating-across-releases-of-mbl) and then upgrade from MBL 0.10 to MBL 0.11 using the [instructions above](#upgrading-from-mbl-0.10).
+
+### Downgrading
+
+Downgrades from MBL 0.11 to earlier releases is not supported.

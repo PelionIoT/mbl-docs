@@ -1,4 +1,4 @@
-# NXP 8M Mini EVK devices
+# NXP i.MX8M Mini EVK devices
 
 <span class="tips">This process currently uses a micro-SD card. A future release will use the on-board EMMC.</span>
 
@@ -76,7 +76,7 @@
 
     <img src="https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/IMX8-DIP.jpg" width="25%" align="middle" />
 
-1. Detach the micro-SD card from your PC, and plug it into the NXP 8M Mini EVK.
+1. Detach the micro-SD card from your PC, and plug it into the NXP i.MX8M Mini EVK.
 
 1. Connect the board's micro-USB port to a regular USB port on your PC.
 
@@ -88,7 +88,7 @@
     minicom -D /dev/ttyUSB1
     ```
 
-    <span class="notes">**Note**: There will be two `ttyUSB` connections when you plug in the NXP 8M Mini EVK. You need to use the second connection to get the serial console output.</span>
+    <span class="notes">**Note**: There will be two `ttyUSB` connections when you plug in the NXP i.MX8M Mini EVK. You need to use the second connection to get the serial console output.</span>
 
     Use the following settings:
 
@@ -96,7 +96,7 @@
     * Encoding: [8N1](https://en.wikipedia.org/wiki/8-N-1).
     * No hardware flow control (enabled by default).
 
-1. Connect the NXP 8M Mini EVK USB-C **power** socket to the kit's power supply.
+1. Connect the NXP i.MX8M Mini EVK USB-C **power** socket to the kit's power supply.
 
 1. Connect the kit's power supply to a wall plug.
 
