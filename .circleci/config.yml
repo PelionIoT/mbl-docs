@@ -1,8 +1,7 @@
 version: 2.1
 
 references:
-  workspace_root: &workspace_root
-    /tmp/workspace
+  workspace_root: &workspace_root /tmp/workspace
   attach_workspace: &attach_workspace
     attach_workspace:
       at: *workspace_root
@@ -10,10 +9,10 @@ references:
 executors:
   doc_builder:
     docker:
-      - image: mbed/doc_builder:latest
-        auth:
-          username: $DOCKER_USER
-          password: $DOCKER_PASS
+      - image: $AWS_QA_ACCOUNT_ID.dkr.ecr.us-west-2.amazonaws.com/otg/doc-builder:latest
+        aws_auth:
+          aws_access_key_id: $AWS_QA_ACCESS_KEY_ID
+          aws_secret_access_key: $AWS_QA_SECRET_KEY
 
 commands:
   setup_aws_credentials:
@@ -30,7 +29,7 @@ commands:
       - run:
           command: |
             echo "export CIRCLE_BRANCH_NO_SLASH=$(echo $CIRCLE_BRANCH|sed 's/\//-/')" >> /tmp/env
-
+            echo "export BUILD_DIRECTORY=$CIRCLE_SHA1-$CIRCLE_WORKFLOW_ID" >> /tmp/env
 jobs:
   build:
     executor: doc_builder
@@ -39,33 +38,20 @@ jobs:
       - setup_aws_credentials
       - write_env_variables
       - run:
+          name: Validate redirects
+          command: |
+            if [ -f "$HOME/project/redirects.json" ]; then
+            python -mjson.tool "$HOME/project/redirects.json" > /dev/null
+            fi
+      - run:
           name: Validate and build documentation
           command: |
             source /tmp/env
-            docbuilder build $CIRCLE_BRANCH_NO_SLASH /tmp/artifacts --path ~/project/docs.json --github_token "$GITHUB_TOKEN" --base_href /s3_docs
-      - run:
-          name: Persist built documentation
-          command: |
-            mkdir -p /tmp/workspace
-            mv /tmp/artifacts /tmp/workspace/
+            docbuilder build $CIRCLE_BRANCH_NO_SLASH /tmp/workspace/artifacts --path ~/project/docs.json --github_token "$GITHUB_TOKEN"
       - persist_to_workspace:
           root: *workspace_root
           paths:
             - artifacts
-
-  zip_documentation:
-    machine: true
-    steps:
-      - *attach_workspace
-      - run:
-          name: Zip built documentation
-          command: |
-            cd /tmp/workspace/artifacts
-            zip -r /tmp/workspace/mbed-linux-docs.zip .
-      - persist_to_workspace:
-          root: *workspace_root
-          paths:
-            - mbed-linux-docs.zip
 
   publish_to_s3:
     executor: doc_builder
@@ -77,7 +63,44 @@ jobs:
           name: Upload documentation to s3
           command: |
             source /tmp/env
-            docbuilder publish /tmp/workspace/artifacts/$CIRCLE_BRANCH_NO_SLASH iot-doc-builds $CIRCLE_PROJECT_REPONAME/$CIRCLE_BRANCH_NO_SLASH/$CIRCLE_SHA1
+            docbuilder publish /tmp/workspace/artifacts/$CIRCLE_BRANCH_NO_SLASH iot-doc-builds $CIRCLE_PROJECT_REPONAME/$CIRCLE_BRANCH_NO_SLASH/$BUILD_DIRECTORY
+  push_redirects_to_s3:
+    executor: doc_builder
+    steps:
+      - checkout
+      - setup_aws_credentials
+      - write_env_variables
+      - *attach_workspace
+      - run:
+          name: Upload redirects.json to s3
+          command: |
+            source /tmp/env
+            docbuilder upload_file ~/project/redirects.json iot-doc-builds $CIRCLE_PROJECT_REPONAME/$CIRCLE_BRANCH_NO_SLASH/redirects.json
+  zip_documentation:
+    machine: true
+    steps:
+      - *attach_workspace
+      - run:
+          name: Zip built documentation
+          command: |
+            cd /tmp/workspace/artifacts
+            zip -r /tmp/workspace/docs.zip .
+      - store_artifacts:
+          path: /tmp/workspace/docs.zip
+
+  list_pages:
+    machine: true
+    steps:
+      - write_env_variables
+      - *attach_workspace
+      - run:
+          name: List all built docs pages
+          command: |
+            source /tmp/env
+            cd /tmp/workspace/artifacts/$CIRCLE_BRANCH_NO_SLASH
+            find -maxdepth 2 -type f -name '*.html' -not -path "*-doxy/*" -printf '%P\n' > /tmp/workspace/page_list.txt
+      - store_artifacts:
+          path: /tmp/workspace/page_list.txt
 
   make_live:
     executor: doc_builder
@@ -88,35 +111,24 @@ jobs:
           name: Update live version on s3
           command: |
             source /tmp/env
-            docbuilder set_live_version iot-doc-builds $CIRCLE_PROJECT_REPONAME/$CIRCLE_BRANCH_NO_SLASH/$CIRCLE_SHA1
-
-  store_artifacts:
-    machine: true
-    steps:
-      - *attach_workspace
-      - store_artifacts:
-          path: /tmp/workspace
-          destination: docs/
-
+            docbuilder set_live_version iot-doc-builds $CIRCLE_PROJECT_REPONAME/$CIRCLE_BRANCH_NO_SLASH/$BUILD_DIRECTORY
 workflows:
   version: 2
-  build-publish-approve-deploy:
+  build-publish-zip-deploy:
     jobs:
       - build
-      - zip_documentation:
-          requires:
-            - build
       - publish_to_s3:
           requires:
             - build
-      - store_artifacts:
+      - push_redirects_to_s3:
           requires:
-            - zip_documentation
-      # - await_approval:
-      #     type: approval
-      #     requires:
-      #       - publish_to_s3
+            - build
+      - zip_documentation:
+          requires:
+            - build
+      - list_pages:
+          requires:
+            - build
       - make_live:
           requires:
-            # - await_approval
             - publish_to_s3
