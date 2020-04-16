@@ -24,3 +24,8 @@ If your device hasn't automatically connected to Device Management, it could be 
      ```
      systemctl restart mbl-cloud-client
      ```
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

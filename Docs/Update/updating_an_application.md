@@ -115,3 +115,8 @@ You can use `runc list` to list all the active applications and their status.
     ```
 
     <span class="notes">**Note:** The [Hello World](../develop-apps/hello-world-application.html) application runs for about 20 seconds. When it finishes, it once again appears as stopped.</span>
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

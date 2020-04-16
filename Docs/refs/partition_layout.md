@@ -117,3 +117,8 @@ In summary, requirements that influence the flash layout are:
 The following diagram shows the planned layout:
 
 <span class="images">![](../Figures/partition_layout.png)</span>
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

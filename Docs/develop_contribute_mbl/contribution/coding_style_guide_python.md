@@ -494,3 +494,8 @@ There is a good discussion on [stackoverflow](https://stackoverflow.com/question
 ### Type hints (PEP484)
 
 Type hints are defined in PEP484. Although not mandatory, their usage is encouraged.
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

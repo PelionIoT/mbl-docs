@@ -30,3 +30,8 @@ To invoke the `build.sh` help menu, use:
 ```
 ./mbl-tools/build-mbl/run-me.sh --builddir /path/to/builddir -- -h
 ```
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

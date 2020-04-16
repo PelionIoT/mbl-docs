@@ -6,3 +6,8 @@ This section contains instructions for writing the full disk image to officially
 * [NXP 8M Mini EVK](../first-image/nxp-8m-mini-evk-devices.html).
 * [Warp7](../first-image/warp7-devices.html).
 * [Raspberry Pi 3B or 3B+](../first-image/raspberry-pi-3-devices.html).
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

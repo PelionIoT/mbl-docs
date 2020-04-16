@@ -49,3 +49,8 @@ After receiving a payload file containing a `rootfs` update, MBL:
 The previously active (now inactive) root file system partition is now ready to receive the next `rootfs` update.
 
 <span class="notes">**Note:** MBL relies on Device Management to validate updates. For more information, [see the Security in firmware update section of the Device Management documentation](https://www.pelion.com/docs/device-management/latest/updating-firmware/security.html).
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)
