@@ -30,3 +30,8 @@ A basic comparison of features of the supported board:
 | Raspberry Pi 3B+ | Broadcom BCM2837B0 | Arm 1x Cortex-A53 | 1GB | SD-card | 802.11 b/g/n/ac | gigabit | 4.2* | 4x USB-A | via USB module | - |
 
 <span class="notes">**Note:** The entries marked with an asterisk (`*`) are not yet fully supported or tested in Mbed Linux OS.</span>
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

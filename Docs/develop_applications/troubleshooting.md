@@ -113,3 +113,8 @@ If you experience issues running your containerized application on your MBL devi
     `mbl-app-lifecycle-manager -v run user-sample-app-package`
 
 - Review the application logs in `/var/log/app/user-sample-app-package.log`, where `user-sample-app-package` is the name of your app.
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

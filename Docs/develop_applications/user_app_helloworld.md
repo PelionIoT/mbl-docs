@@ -72,3 +72,8 @@ There are two ways to install the application on the device:
 ## Using the application
 
 After installation, and after every reboot, the application runs once and writes "hello world" to the STDOUT. MBL redirects the output to the log file `/var/log/app/user-sample-app-package.log`.
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

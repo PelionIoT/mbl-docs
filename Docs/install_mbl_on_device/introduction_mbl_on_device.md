@@ -9,3 +9,8 @@ To install Mbed Linux OS on a new device:
 1. [Set up your network connection](../first-image/connecting-to-a-network-and-pelion-device-management.html) and [test your Device Management connectivity](../first-image/verifying-that-the-device-is-connected-to-device-management.html).
 
 <span class="images">![](https://s3-us-west-2.amazonaws.com/mbed-linux-os-docs-images/install_process.png)</span>
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

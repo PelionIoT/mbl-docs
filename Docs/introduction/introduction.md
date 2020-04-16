@@ -103,3 +103,8 @@ There are two paths to working with MBL:
 * A new [reference about partition layout](../references/partition-layout.html).
 
 The [full release note](https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.6/docs/release_note.md) is available on our public preview repository.
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

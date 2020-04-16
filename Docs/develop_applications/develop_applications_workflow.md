@@ -42,3 +42,8 @@ The **Hello World C** application is entirely self contained. It has just one fi
 
     This application is Dockerized (built in a Docker container) - because it's a Python application that (by choice) includes the Python runtime environment with it, as well as the OpenCV library to capture camera frames, it cannot be built and converted to an OCI individually (the way the Hello World C application is built). Instead, it's built and then bundled with all its Python dependencies.
 -->
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

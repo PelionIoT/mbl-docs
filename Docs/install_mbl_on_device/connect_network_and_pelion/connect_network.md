@@ -522,3 +522,9 @@ If you need to deactivate the ECM mode, you can use AT commands as detailed belo
     [    357.767804] qmi_wwan 1-1.3:1.4: cdc-wdm0: USB WDM device
     [    357.774595] qmi_wwan 1-1.3:1.4 wwan0: register 'qmi_wwan' at usb-3f980000.usb-1.3, WWAN/QMI device, da:b3:ca:ab:e7:30
     ```
+
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

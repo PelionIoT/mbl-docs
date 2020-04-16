@@ -124,3 +124,8 @@ root@mbed-linux-os-1234:~# lsblk --noheadings --output "MOUNTPOINT,LABEL" | awk 
 rootfs1
 root@mbed-linux-os-1234:~#
 ```
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

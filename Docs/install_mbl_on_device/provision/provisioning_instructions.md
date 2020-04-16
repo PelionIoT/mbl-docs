@@ -6,12 +6,12 @@
 
     <span class="notes">**Note:** If you are running an earlier version (1.x) of MBL CLI, please remove it (and install 2.0).</span>
 
-* We have used [manifest tool](https://github.com/ARMmbed/manifest-tool) 1.4.8 in our testing. You should install the manifest tool in the same virtual environment you created for MBL CLI. 
-    Install the manifest tool: 
+* We have used [manifest tool](https://github.com/ARMmbed/manifest-tool) 1.4.8 in our testing. You should install the manifest tool in the same virtual environment you created for MBL CLI.
+    Install the manifest tool:
     ```
     pip install manifest-tool==1.4.8
     ```
- 
+
   See the Device Management documentation [for more information on installing the manifest-tool](https://cloud.mbed.com/docs/latest/cloud-requirements/manifest-tutorial.html).
 
 <a href="https://os.mbed.com/account/login/" target="_blank">A Pelion Device Management Account</a>.
@@ -115,3 +115,8 @@ To provision your device:
     |`-p`| Tells MBL CLI to parse an existing `update_default_resources.c` file and save it in the Team Store. For example, if your `update_default_resources.c` is located in `path/to/resources/update_default_resources.c` the form of the invocation would be: `-p path/to/resources/update_default_resources.c` |
 
     MBL CLI injects the certificates into your selected device's secure storage. MBL CLI also saves the certificates, under the given names, in your Team Store for use with other devices.
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)
