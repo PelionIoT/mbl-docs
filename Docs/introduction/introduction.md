@@ -105,3 +105,8 @@ There are two paths to working with MBL:
 * Over the air [updates of kernel and bootloaders](../update/index.html).
 
 The [full release note](https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.9/docs/release_note.md) is available on our public preview repository.
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

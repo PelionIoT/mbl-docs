@@ -42,7 +42,7 @@ For more information, please refer to the [reference about application container
     ```
     cd mbl-core/tutorials/helloworld
     ```
-    
+
 ## Building the application with the cross compiler
 
 1. [dockcross](https://github.com/dockcross/dockcross) is a Docker-based cross compiling toolchain. Build a new Docker image with dockcross as the starting point, adding the `opkg` utilities. The image is defined in `./tutorials/helloworld/cc-env/<arm-arch>/Dockerfile`, where `<arm-arch>` is the architecture type of the microprocessor on the target device:
@@ -89,3 +89,8 @@ For either operation, please make sure you meet the [prerequisites](../update/up
 ## Using the application
 
 After installation and after every reboot, the application runs once and writes `hello world` to the STDOUT. MBL redirects the output to the log file `/var/log/app/user-sample-app-package.log`.
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

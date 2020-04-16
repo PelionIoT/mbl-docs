@@ -4,7 +4,7 @@ Mbed Linux OS (MBL) uses [pytest](https://docs.pytest.org/en/latest/) as its tes
 
 ## Test environment
 
-We recommend using [a virtual environment](https://docs.pytest.org/en/latest/goodpractices.html) for testing. 
+We recommend using [a virtual environment](https://docs.pytest.org/en/latest/goodpractices.html) for testing.
 
 ## Where are our tests?
 
@@ -56,3 +56,9 @@ Exit code 3:	Internal error happened while executing tests
 Exit code 4:	pytest command line usage error
 
 Exit code 5:	No tests were collected
+
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

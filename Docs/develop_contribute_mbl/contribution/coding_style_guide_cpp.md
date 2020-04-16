@@ -231,3 +231,9 @@ The list of C++ Core Guidelines below is not the complete list of the C++ Core G
     * [NL.20: Don't place two statements on the same line](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#nl20-dont-place-two-statements-on-the-same-line)
     * [NL.25: Don't use `void` as an argument type](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#nl25-dont-use-void-as-an-argument-type)
     * [NL.26: Use conventional `const` notation](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#nl26-use-conventional-const-notation)
+
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

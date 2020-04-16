@@ -14,3 +14,8 @@ An MBL device can only be updated if the following are available:
     <span class="notes">This *must* be the directory from which the `update_default_resources.c` file was obtained when you provisioned your device.</span>
 
 * A Pelion API key, to use the manifest tool from the command line. Follow the instructions in the [requirements section](../first-image/provisioning-for-pelion-device-management.html) to obtain an API key (when prompted to select a group to set the API key access level, select **Developers**). Make a note of the API key to use it later; for security reasons, the portal will not display it again.
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

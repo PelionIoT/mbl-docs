@@ -7,9 +7,9 @@ MBL uses Pelion Device Management to manage firmware updates, including **firmwa
 1. Use the `create-update-payload` tool to create a new version of your firmware with your Device Management account. This is your payload, and it is a `.tar` file that can contain either:
 
    * An application update: one or more OPKG packages (`.ipk` files), as explained in [Updating an application](../../update/updating_an_application.html).
-   
+
    Or:
-   
+
    * MBL OS components, as explained in [updating an MBL image](../update/updating-an-mbl-image.html), which can contain an updated version of one of:
       * A `rootfs` update: a compressed `tar` file that contains the root file system content.
       * A boot component update: either of the two boot component binaries. The first boot component usually contains the TF-A bootloader stage two (BL2). The second boot component usually contains the TF-A bootloader stage three (BL3), OP-TEE and U-boot.
@@ -60,3 +60,8 @@ After receiving a payload file containing a boot component or kernel update bina
 
 1. Overwrites the contents of the corresponding [partition](../references/partition-layout.html) containing the boot component or kernel.
 1. Reboots the device.
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

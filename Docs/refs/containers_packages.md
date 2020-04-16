@@ -89,3 +89,9 @@ When MBL receives an application update:
 1. MBL starts the updated version of the application.
 1. The application posts a confirmation message over the D-Bus update API to indicate that it is running successfully.
 1. MBL deletes the old application image.
+
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

@@ -176,3 +176,8 @@ For example (change parameters for `--builddir` and `--machine` as needed):
 ```
 ./mbl-tools/build/run-me.sh --builddir ./build-warp7 -- --branch mbl-os-0.9 --machine imx7s-warp-mbl sync
 ```
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

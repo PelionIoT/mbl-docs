@@ -21,3 +21,8 @@ For example:
 ```
 mbl-tools/build/run-me.sh --builddir /path/to/build --outputdir /path/to/output -- --branch master --machine imx7s-warp-mbl --repo-host ssh.dev.azure.com --repo-host gitlab.com
 ```
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

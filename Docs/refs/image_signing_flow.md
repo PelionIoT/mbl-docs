@@ -1066,3 +1066,9 @@ The reprogrammed SDCard should now show the following boot trace:
            scanning usb for storage devices... 0 Storage Device(s) found
     Hit any key to stop autoboot:  0
     U-Boot>
+
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

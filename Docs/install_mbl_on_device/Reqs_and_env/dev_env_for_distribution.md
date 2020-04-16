@@ -106,3 +106,8 @@ When you add your user to a new group with the `usermod` command, your current s
 ```
 exec sudo login
 ```
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

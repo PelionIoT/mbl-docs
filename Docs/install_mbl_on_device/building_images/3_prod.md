@@ -80,3 +80,8 @@ The examples assume:
 ```
 ./mbl-tools/build/run-me.sh --builddir ./build-rpi3 --outputdir ./artifacts-rpi3 --root-passwd-file PASSWD_FILE -- --machine raspberrypi3-mbl --branch mbl-os-0.9 --distro mbl-production
 ```
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)
