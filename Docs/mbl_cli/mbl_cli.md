@@ -10,3 +10,8 @@ the following operations on MBL devices:
  * Run a command on a device.
 
 <span class="notes">**Note**: MBL CLI can only be used with devices running the MBL test image `mbl-console-image-test`, rather than the production image `mbl-console-image`.</span>
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

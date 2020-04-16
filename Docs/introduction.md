@@ -74,3 +74,8 @@ There are two paths to working with MBL:
 ## Licensing
 
 Both MBL and our test suites will be open source, helping you automate product testing in a modern continuous integration pipeline. For more information, please see the [Contributing section in the MBL source](https://github.com/ARMmbed/meta-mbl/blob/master/CONTRIBUTING.md).
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

@@ -15,3 +15,8 @@ You should then continue to the next tutorial, where you will:
 
 * [Set up a network connection](../getting-started/tutorial-connecting-to-a-network-and-pelion-device-management.html) over Ethernet or Wi-Fi.
 * [Verify that the device is connected to Device Management](../getting-started/verifying-that-the-device-is-connected-to-device-management.html).
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

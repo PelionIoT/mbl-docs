@@ -261,3 +261,8 @@ If you experience any issues, restart both ConnMan and `wpa_supplicant` daemons.
 When connecting, the network name you use in the command must match the real network name exactly, including capitalisation and without trailing characters. Otherwise, you may get the following error:
 
 `Error /net/connman/service/WIFI_NAME: Method "Connect" with signature "" on interface "net.connman.Service" doesn't exist`
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

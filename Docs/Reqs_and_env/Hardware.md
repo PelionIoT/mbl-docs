@@ -12,3 +12,8 @@ Supported boards:
          An optional second USB network adaptor if you want to convert back to USB (to connect to your PC over USB rather than network).
 
     <span class="warnings">**Warning:** The Raspberry Pi 3 is suitable for development only. Do not use it for production.</span>
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

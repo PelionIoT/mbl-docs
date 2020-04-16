@@ -51,3 +51,8 @@ If so, you can request to become an organization member. Please ensure your GitH
 - All users must have 2 Factor Authentication enabled.
 - Arm staff must have their Name, Company (Arm), Location and Arm email address publicly visible.
 - All others should have their Name and Company visible. Location enables us to know your region and interpret response times accordingly.
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

@@ -23,3 +23,8 @@ For more information about Mbed Linux OS, please visit http://mbed.com
 Where `address` is the address of the debug interface on the device or the device's hostname. For example, the address of the `usb0` interface on WaRP7 IoT devices or the address of the `eth1` interface on Raspberry Pi 3 devices.
 
 If the device is [already selected](#device-discovery-and-selection), you can omit the `address` parameter.
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

@@ -4,3 +4,8 @@ The Mbed Linux OS references review concepts, designs and other background infor
 
 * [Application containers and packages](../references/application-containers-and-packages.html).
 * [Guidelines for MBL contributions](../references/contribution-guidelines.html)
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

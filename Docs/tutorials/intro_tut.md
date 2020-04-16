@@ -13,3 +13,8 @@ To get started with MBL, follow these tutorials in sequence:
 Before starting the tutorials, please make sure you have [everything you need to build images and connect to Device Management](../getting-started/setting-up-and-supported-hardware.html).
 
 <span class="notes">**Note**: MBL is currently in limited preview. If you would like access to the code repositories, [please request to join the preview](https://os.mbed.com/linux-os/).</span>
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

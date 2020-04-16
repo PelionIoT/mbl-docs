@@ -88,3 +88,8 @@ root@mbed-linux-os-3006:~#
 ```
 
 After obtaining shell access, you can set up Wi-Fi on the device (see [Setting up a network connection](../getting-started/tutorial-connecting-to-a-network-and-pelion-device-management.html)).
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

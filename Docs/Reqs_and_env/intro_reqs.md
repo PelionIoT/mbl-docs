@@ -7,3 +7,8 @@ Working with Mbed Linux OS requires the following:
 * A Pelion [Device Management account](../getting-started/pelion-accounts-and-certificates.html). Once you have the account, you can get:
     * [An API key to your Device Management account](../getting-started/api-keys.html), so you can access the Device Management services.
     * A [developer certificate](../getting-started/provisioning-development.html). It allows your device to connect to your Device Management account, so you can monitor, manage and update your devices.
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

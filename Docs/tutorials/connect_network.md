@@ -11,3 +11,8 @@ This tutorial covers:
 ## Setting up an Ethernet connection
 
 If your device is physically connected to an Ethernet network (that must have a DHCP server), then it automatically uses that network.
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

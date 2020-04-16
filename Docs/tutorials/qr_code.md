@@ -258,3 +258,8 @@ Please see the [Contributing][mbl-contributing] document for more information.
 [mbl-license]: LICENSE
 [mbl-contributing]: CONTRIBUTING.md
 [meta-mbl-walkthrough]: https://github.com/ARMmbed/meta-mbl/blob/master/docs/walkthrough.md
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

@@ -207,3 +207,7 @@ interface with the `link-local` IPv4 addressing method. Use the NetworkManager's
           RX bytes:3176233 (3.1 MB)  TX bytes:915351 (915.3 KB)
           Memory:fb100000-fb17ffff
       ```
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

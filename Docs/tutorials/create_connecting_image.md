@@ -333,3 +333,8 @@ To write your disk image to the Warp7's flash device, you must first access the 
 ## Logging in to MBL
 
 To log in to MBL, wait for a login prompt, and then enter the username `root`. You will not be prompted for a password.
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)
