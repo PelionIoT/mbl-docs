@@ -34,7 +34,7 @@ python -m pip install --upgrade pip
 python -m pip install git+https://github.com/armmbed/mbl-cli.git@mbl-os-0.10
 deactivate
 ```
-   
+
 You can now run it by entering the virtual environment (`source ./mbl-cli-env/bin/activate`) and then performing the `mbl-cli` command, or you can call it directly using `mbl-cli-env/bin/mbl-cli`.
 
 If you must install MBL CLI using the 'system' Python, install it using the `--user` flag.
@@ -218,3 +218,8 @@ veth93e055c Link encap:Ethernet  HWaddr be:9e:84:59:53:ac
         collisions:0 txqueuelen:1000
         RX bytes:3176233 (3.1 MB)  TX bytes:915351 (915.3 KB)
     ```
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

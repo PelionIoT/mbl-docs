@@ -317,3 +317,8 @@ from the rootfs component does not regularly stroke it. The 0.9 version of the
 rootfs component does not contain the service that strokes the watchdog so
 using a 0.10 kernel component with a 0.9 rootfs component will result in a boot
 loop.</span>
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

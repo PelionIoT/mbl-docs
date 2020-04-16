@@ -37,3 +37,8 @@ Mbed Linux OS includes OpenSSL and the following acknowledgements are applicable
 
     This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit.  (http://www.openssl.org/)
     This product includes cryptographic software written by Eric Young (eay@cryptsoft.com)
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

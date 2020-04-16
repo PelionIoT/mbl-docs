@@ -54,3 +54,8 @@ After receiving a payload file containing a boot component or kernel update bina
 
 1. Overwrites the contents of the corresponding [partition](../references/partition-layout.html) containing the boot component or kernel.
 1. Reboots the device.
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

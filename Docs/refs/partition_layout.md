@@ -273,3 +273,8 @@ This allows robust update of these components in the future.
 [meta-mbl]: https://github.com/ARMmbed/meta-mbl/tree/mbl-os-0.10
 [deploy-dir-image]: https://www.yoctoproject.org/docs/latest/mega-manual/mega-manual.html#var-DEPLOY_DIR_IMAGE
 [mbl-partitions-bbclass]: https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.10/meta-mbl-distro/classes/mbl-partitions.bbclass
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)
