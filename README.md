@@ -4,7 +4,7 @@ Mbed Linux OS has been deprecated as a product in the Pelion portfolio. [The cod
 
 For all on-going gateway opportunities please look at [Arm Pelion Edge](https://www.arm.com/products/iot/pelion-iot-platform/device-management/edge).
 
-[The documentation is on GitHub](https://github.com/ARMmbed/mbl-docs/tree/v0.10). Recommended reading order:
+Recommended reading order:
 
 Introduction:
 
