@@ -4,7 +4,7 @@
 
 Compared to the development image, the production image has fewer packages and applications: it does not include tools and configurations used to help development and debugging.
 
-## Configuring production images 
+## Configuring production images
 
 Production images include the following extra security features (compared to the development image):
 
@@ -84,3 +84,8 @@ The examples assume:
 ```
 ./mbl-tools/build/run-me.sh --builddir ./build-rpi3 --outputdir ./artifacts-rpi3 --root-passwd-file PASSWD_FILE --ssh-auth-keys root_id_rsa.pub -- --machine raspberrypi3-mbl --branch mbl-os-0.10 --distro mbl-production
 ```
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

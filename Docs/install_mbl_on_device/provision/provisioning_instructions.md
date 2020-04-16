@@ -48,9 +48,9 @@
         * `<device class>` is a unique identifier for the device class. If you're in development (using developer credentials), you can use `dev-device`.
 
         <span class="warnings">**Warning:** The authenticity certificate generated will be a developer certificate. The Manifest Tool will let you enter a manual expiration value, and will default to 90 if you don't enter one. When the certificate expires, the device will not be updatable. You will need to put a new authenticity certificate on the device, either by [reflashing the device](../first-image/writing-an-image-to-supported-boards.html) or [provisioning the device again](../first-image/provisioning-for-pelion-device-management.html).</span>
-        
+
         For example:
-        
+
         ```
         $ manifest-tool init -d arm.com -m dev-device
         A certificate has not been provided to init, and no certificate is provided in .update-certificates/default.der
@@ -143,3 +143,8 @@ To provision your device:
     |`-p`| Tells MBL CLI to parse an existing `update_default_resources.c` file and save it in the Team Store. For example, if your `update_default_resources.c` is located in `path/to/resources/update_default_resources.c` the form of the invocation would be: `-p path/to/resources/update_default_resources.c` |
 
     MBL CLI injects the certificates into your selected device's secure storage. MBL CLI also saves the certificates, under the given names, in your Team Store for use with other devices.
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

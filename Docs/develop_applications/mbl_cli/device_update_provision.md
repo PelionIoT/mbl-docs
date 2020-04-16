@@ -11,3 +11,8 @@ Note that you do not need to provision each application on its own; provisioning
 You can use [MBL CLI](../update/updating-an-mbl-image.html) to install or update an existing application over a USB connection.
 
 MBL uses `mbl-firmware-update-manager` to manage updates. To see all arguments, use `mbl-firmware-update-manager -h`. For detailed instructions, as well as reference information about device update, please see the [Updating devices section](../update/index.html)
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

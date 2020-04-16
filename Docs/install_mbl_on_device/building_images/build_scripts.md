@@ -93,7 +93,7 @@ Set up your build options and invoke a build using `run-me.sh`. For example, her
 When you have a successful build, save the configuration to a file (`mbl-imx8-prod.cfg`), using the option `--save-config` added to the build options. For example:
 
 ```
-./mbl-tools/build/run-me.sh --save-config mbl-imx8-prod.cfg --builddir /path/to/builddir --outputdir /path/to/artifacts --root-passwd-file /path/to/root_passwd --ssh-auth-keys /path/to/root_authorized_keys -- --branch mbl-os-0.10 --machine imx8mmevk-mbl --distro mbl-production 
+./mbl-tools/build/run-me.sh --save-config mbl-imx8-prod.cfg --builddir /path/to/builddir --outputdir /path/to/artifacts --root-passwd-file /path/to/root_passwd --ssh-auth-keys /path/to/root_authorized_keys -- --branch mbl-os-0.10 --machine imx8mmevk-mbl --distro mbl-production
 ```
 
 <span class="tips">**Tip:** We recommend not including a build stage (such as `interactive`) on your command line when you save it. Instead, manually specify it for each build.</span>
@@ -128,3 +128,8 @@ You can also load a configuration, add some additional arguments on the command 
 ```
 
 This will create a `mbl-os-0.10.0-imx8-prod.cfg` file that contains all the build options from `mbl-imx8-prod.cfg`, as well as the `--manifest` option and a second `--branch` option. The branch option in this case will override the first branch option of `mbl-os-0.10`; for other options, the same exceptions stated above still apply.
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

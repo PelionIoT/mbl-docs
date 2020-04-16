@@ -303,3 +303,8 @@ Upgrading directly from MBL 0.9 to MBL 0.11 is not supported, but you can upgrad
 ### Downgrading
 
 Downgrades from MBL 0.11 to earlier releases is not supported.
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

@@ -176,3 +176,8 @@ For example (change parameters for `--builddir` and `--machine` as needed):
 ```
 ./mbl-tools/build/run-me.sh --builddir ./build-pico7 -- --branch mbl-os-0.10 --machine imx7d-pico-mbl sync
 ```
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

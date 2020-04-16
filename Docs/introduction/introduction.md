@@ -67,3 +67,8 @@ References:
 
 - [Application containers and packages](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/refs/containers_packages.md)
 - [Partition layout](https://github.com/ARMmbed/mbl-docs/blob/v0.10/Docs/refs/partition_layout.md)
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

@@ -50,3 +50,8 @@ Be consistent with your changes. Some of the main principles are:
 * Python code:
   * Mandatory PEPs (Python Enhancement Proposals): PEP20, PEP8, PEP257.
   * Automated check scripts in our `mbl-tools` repository: [https://github.com/ARMmbed/mbl-tools/tree/mbl-os-0.10/ci/sanity-check](https://github.com/ARMmbed/mbl-tools/tree/mbl-os-0.10/ci/sanity-check).
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

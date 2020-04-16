@@ -275,3 +275,8 @@ There are two processes for writing to the PICO-PI:
     The device now boots into MBL.
 
 1. To log in to MBL, wait for a login prompt, and then enter the username `root`. You will not be prompted for a password.
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)
