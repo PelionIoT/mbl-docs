@@ -263,3 +263,9 @@ Extensible Software Development Kit (eSDK)][yocto-sdk] for more information.
 [oe-layer-index]:https://layers.openembedded.org
 
 [google-git-repo]: https://gerrit.googlesource.com/git-repo/
+
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

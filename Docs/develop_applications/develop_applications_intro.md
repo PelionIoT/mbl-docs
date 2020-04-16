@@ -43,3 +43,8 @@ Applications can communicate with Device Management Client over MBL's D-Bus API.
 Installer devices configure deployed IoT devices that cannot be fully preconfigured. For example, so far you've been using your own Device Management account, but when you start producing devices for a market, you may not want to associate those devices with your own account. Instead, a company that bought a group of devices may want to associate them with its own account. To do that, they must be able to access the device's platform services, which handle common functions on behalf of applications, including the network manager and secure storage (to store keys and credentials). They do this with an installer device, which can be on their phone or PC, and can access the IoT device over BLE, USB cable and other local connections.
 
 You don't need an installer device while developing your IoT application, but you do need to think about what your application may later require from the installer device.
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

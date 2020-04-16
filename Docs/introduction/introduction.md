@@ -104,3 +104,8 @@ There are two paths to working with MBL:
 * Instructions for [removing the old version of MBL CLI](../develop-apps/setting-up.html#setting-up-mbl-cli).
 
 The [full release note](https://github.com/ARMmbed/meta-mbl/blob/mbl-os-0.7/docs/release_note.md) is available on our public preview repository.
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

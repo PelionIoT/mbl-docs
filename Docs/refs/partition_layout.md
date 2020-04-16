@@ -106,3 +106,8 @@ Additionally, there is the `scratch` partition for temporary storage of firmware
 * The `rootfs_ver_hash` partitions should include meta-data for the dm-verity tool for the corresponding root filesystem.  
 * The `rootfs_ver_hash`, `factory_config` and `rootfs` partitions should be switched to read-only mode (currently they are read-write).
 * The new `BL3 FIP Image` and the existing `boot`, `rootfs1_ver_hash` and `nfactory_config1` partitions should be banked.
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

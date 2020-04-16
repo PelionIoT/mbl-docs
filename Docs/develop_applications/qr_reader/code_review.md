@@ -45,3 +45,8 @@ The config file also maps the container's memory to the device's persistent memo
 ```
 
 You can also modify the build process. The Docker image requires an installation of OpenCV for capturing frames from the camera. OpenCV needs to be built from the source, because it is not available from the package manager of the base image OS. Building OpenCV requires adding multiple build tools to the Docker image, which increases its size. To reduce the size, the Dockerfile uses a multi-stage build, and copies only the built OpenCV and its dependencies to the final image. You can build on this functionality to reduce your image build time: create a Docker base image in Docker Hub, which you can then use to combine the the source code of the nested project (`example-qr`) with a built OpenCV to create a new image, and install only that image.
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

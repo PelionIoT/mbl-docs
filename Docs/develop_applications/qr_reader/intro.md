@@ -18,3 +18,8 @@ Please see the [License](https://github.com/ARMmbed/mbl-example-qr/blob/master/L
 ## Contributing
 
 If you want to contribute additional functionality or fixes to this application, please see the [Contribution guidelines](../references/contribution-guidelines.html).
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

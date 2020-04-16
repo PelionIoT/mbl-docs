@@ -33,3 +33,8 @@ The following examples assume:
 ```
 ./mbl-tools/build-mbl/run-me.sh --builddir ./build-rpi3 --outputdir ./artifacts-rpi3 -- --machine raspberrypi3-mbl --branch mbl-os-0.7
 ```
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

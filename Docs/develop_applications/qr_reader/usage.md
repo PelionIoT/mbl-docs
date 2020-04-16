@@ -92,3 +92,8 @@ To clean the content of the [`release`](release/) directory, run:
 ```
 user01@dev-machine:mbl-example-qr$ make clean
 ```
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)

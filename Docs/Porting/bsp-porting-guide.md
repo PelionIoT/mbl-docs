@@ -1056,3 +1056,9 @@ This section provides a summary of the tasks required to integrate a pre-existin
 [u-boot]:https://www.denx.de/wiki/view/DULG/UBootCmdGroupExec#Section_5.9.4.2.
 [yocto-mega-manual-latest]:https://www.yoctoproject.org/docs/latest/mega-manual/mega-manual.html
 [yocto-project-board-support-package-bsp-developer-guide-latest]:https://www.yoctoproject.org/docs/latest/bsp-guide/bsp-guide.html
+
+
+
+***
+
+Copyright © 2020 Arm Limited (or its affiliates)
